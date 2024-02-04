@@ -1,66 +1,45 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="#" target="_blank"><img src="https://github.com/mluciani/SquareOne/blob/master/public/squareone-light-logo.svg" width="400" alt="SquareOne Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Vision
+At Square One, our mission is to revolutionize the way entrepreneurs and businesses approach the journey of company formation and management. We believe in empowering aspirations, simplifying complexities, and fostering growth in the entrepreneurial landscape.
 
-## About Laravel
+This codebase serves as the foundation for Square One's portal, a platform designed to make the process of starting and managing businesses as effortless and intuitive as possible. It's more than just a tool for incorporation; it's a gateway to turning business dreams into reality.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+#### Key Features
+- **Effortless Company Formation**: Simplify the incorporation process with intuitive interfaces.
+- **Centralized Management**: A comprehensive dashboard for managing multiple companies, overseeing yearly filings, stock registries, and more.
+- **Profile Template System**: Simplify repeat formations with saved profile templates, allowing for quick and efficient new company setups.
+- **Real-Time Updates and Notifications**: Stay informed with real-time updates on company status, filings, and important deadlines.
+- **Digital Corporate Binder**: A single, secure location for all your company's important documents and information.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+#### Goals:
+- To provide an unparalleled user experience in company formation and management.
+- To continuously evolve with the needs of modern entrepreneurs and business owners.
+- To ensure security, reliability, and efficiency in every aspect of the platform.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## About This Project
+The SquareOne portal is a SPA built using Laravel Jetstream with Inertia and Vue.
 
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+#### Tech Stack
+- **[Laravel](https://laravel.com/docs)** / **[Jetstream](https://jetstream.laravel.com)**: For scaffolding, authentication, and API support.
+- **[Inertia.js](https://inertiajs.com/)**: Integrates Laravel with Vue.js for a seamless SPA experience.
+- **[Vue.js](https://vuejs.org/)**: For building interactive UIs.
+- **[Laravel Sail](https://laravel.com/docs/10.x/installation#docker-installation-using-sail)**: Simplifies Docker-based local development.
 
 ## Contributing
+As this project evolves, we invite developers to contribute their expertise. Whether it's improving the codebase, refining the user experience, or enhancing documentation, your input is valuable.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+For those new to the project, here are some guidelines:
+- Please familiarize yourself with our tech stack and project structure.
+- Check out our [issue tracker](#) for pending tasks or suggest new features.
+- Ensure code consistency and follow our coding standards (detailed in our contribution guide).
+- Submit detailed pull requests with concise descriptions of changes and motivations.
 
-## Code of Conduct
+#### Getting Started
+1. Clone the repository.
+2. Install dependencies using Laravel Sail (`./vendor/bin/sail up`).
+3. Set up your local development environment.
+4. Create new branch from the Github issue you are working on.
+5. Start contributing!
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+We appreciate your dedication to making company formation a breeze with Square One.
