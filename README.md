@@ -26,6 +26,9 @@ The SquareOne portal is a SPA built using Laravel Jetstream with Inertia and Vue
 - **[Vue.js](https://vuejs.org/)**: For building interactive UIs.
 - **[Laravel Sail](https://laravel.com/docs/10.x/installation#docker-installation-using-sail)**: Simplifies Docker-based local development.
 
+#### Resources
+- **[Design Framer](https://framer.com/projects/Untitled--o9JhMTkoCaKOaHk7uBB8-fBDgC)**
+
 ## Contributing
 As this project evolves, we invite developers to contribute their expertise. Whether it's improving the codebase, refining the user experience, or enhancing documentation, your input is valuable.
 
