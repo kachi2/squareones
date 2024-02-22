@@ -16,7 +16,7 @@
         
         
         <!-- Additional informational text (right-most column) -->
-        <RightContextSidebar />
+        <!-- <RightContextSidebar @updateSection="handleUpdateSection" /> -->
     </div>
 </template>
 
