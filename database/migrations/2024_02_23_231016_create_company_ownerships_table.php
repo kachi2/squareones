@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('company_ownerships', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->string('profile_photo_path', 2048)->nullable();
+            $table->foreignId('founder_id')->constrained()->index();
+            $table->foreignId('company_ownership_share_id')->unsigned()->index();
+            $table->string('share_percentage')->nullable();
+            $table->string('total_amount')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('company_ownerships');
     }
 };
