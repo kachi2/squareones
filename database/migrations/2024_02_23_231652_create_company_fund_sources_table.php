@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('company_fund_sources', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->constrained()->unsigned()->index();
+            $table->foreignId('company_id')->constrained()->unsigned();
             $table->string('income_expected_source')->nullable();
             $table->string('origin_funds')->nullable();
             $table->string('wealth_initial_source')->nullable();
             $table->string('income_outgoing_source')->nullable();
             $table->timestamps();
+
+            $table->index('company_id');
         });
     }
 

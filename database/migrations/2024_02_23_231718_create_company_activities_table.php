@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('company_activities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->constrained()->unsigned()->index();
+            $table->foreignId('company_id')->constrained()->unsigned();
             $table->text('description')->nullable();
             $table->string('activity_level')->nullable();
             $table->string('activity_nature')->nullable();
             $table->string('customer_location_operation')->nullable();
             $table->string('country_list')->nullable();
             $table->timestamps();
+
+
+            $table->index('company_id');
         });
     }
 

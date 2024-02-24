@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('founder_individuals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->constrained()->unsigned()->index();
+            $table->foreignId('founder_type_id')->constrained()->unsigned();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('chn_first_name')->nullable();
@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('occupation')->nullable();
             $table->timestamps();
+
+            $table->index('founder_type_id');
         });
     }
 

@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('founder_corperates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->constrained()->unsigned()->index();
+            $table->foreignId('founder_type_id')->constrained()->unsigned();
             $table->string('capacity')->nullable();
             $table->string('company_name')->nullable();
             $table->string('chn_company_name')->nullable();
             $table->string('date_incorporated')->nullable();
             $table->string('company_registered')->nullable();
-            $table->foreignId('business_nature_id')->references('id')->on('business_nature')->unsigned()->index();
+            $table->foreignId('business_nature_id')->constrained()->unsigned();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('phone')->nullable();
@@ -31,6 +31,8 @@ return new class extends Migration
             $table->string('postal_code')->nullable();
             $table->string('country')->nullable();
             $table->timestamps();
+
+            $table->index('founder_type_id');
         });
     }
 

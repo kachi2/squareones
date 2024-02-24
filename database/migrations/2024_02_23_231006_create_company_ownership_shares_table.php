@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('company_ownership_shares', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->constrained()->unsigned()->index();
+            $table->foreignId('company_id')->constrained()->unsigned();
             $table->string('share_type')->nullable();
             $table->string('no_of_share')->nullable();
             $table->string('total_amount_paid')->nullable();
             $table->timestamps();
 
+            $table->index('company_id');
         });
     }
 

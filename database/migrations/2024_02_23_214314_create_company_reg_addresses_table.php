@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('company_reg_addresses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->constrained()->unsigned()->index();
+            $table->foreignId('company_id')->constrained()->unsigned();
             $table->string('address')->nullable();
             $table->string('street_no')->nullable();
             $table->string('city')->nullable();
@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('postal_code')->nullable();
             $table->string('country')->nullable();
             $table->timestamps();
+
+            $table->index('company_id');
         });
     }
 

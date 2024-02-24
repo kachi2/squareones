@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('billings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users')->constrained()->index();
-            $table->foreignId('company_id')->references('id')->on('company')->constrained()->index();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('company_id')->constrained();
             $table->string('payment_ref')->nullable();
             $table->string('status')->nullable();
             $table->double('amount')->nullable();
             $table->timestamps();
+
+            $table->index('company_id');
         });
     }
 

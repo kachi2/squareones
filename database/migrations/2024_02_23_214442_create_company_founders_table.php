@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('company_founders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('founder_type_id')->references('id')->on('founder_types')->unsigned()->index();
+            $table->foreignId('founder_type_id')->constrained()->unsigned();
             $table->string('capacity')->nullable();
             $table->timestamps();
+
+            $table->index('founder_type_id');
         });
     }
 

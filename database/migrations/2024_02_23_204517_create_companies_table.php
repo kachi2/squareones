@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('in')->on('users')->constrained()->index();
-            $table->foreignId('business_nature_id')->references('in')->on('business_nature')->unsigned()->index();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('business_nature_id')->constrained();
             $table->text('description')->nullable();
             $table->string('website')->nullable();
             $table->timestamps();
+
+            $table->index('user_id');
         });
     }
 

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('company_secretaries', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->constrained()->unsigned()->index();
-            $table->foreignId('business_nature_id')->unsigned()->index();
+            $table->foreignId('company_id')->constrained()->unsigned();
+            $table->foreignId('business_nature_id')->unsigned();
             $table->string('name')->nullable();
             $table->string('chn_name')->nullable();
             $table->string('company_reg_no')->nullable();
@@ -27,6 +27,8 @@ return new class extends Migration
             $table->string('postal_code')->nullable();
             $table->string('country')->nullable();
             $table->timestamps();
+
+            $table->index('company_id');
         });
     }
 

@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->constrained()->unsigned()->index();
-            $table->foreignId('document_type_id')->unsigned()->index();
+            $table->foreignId('company_id')->constrained()->unsigned();
+            $table->foreignId('document_type_id')->unsigned();
             $table->string('document')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
+
+
+            $table->index('company_id');
         });
     }
 
