@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('founder_cor_addresses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('company_id')->constrained()->unsigned();
             $table->foreignId('founder_type_id')->constrained()->unsigned();
             $table->string('address')->nullable();
             $table->string('street_no')->nullable();
