@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class CompanySecretary extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['company_id', 'business_nature_id', 'name', 'chn_name', 'company_reg_no', 'country_registered', 'licence_no', 'email', 'address', 'city', 'state', 'postal_code', 'country'];
 }

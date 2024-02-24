@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('document_type_id')->unsigned();
             $table->string('document')->nullable();
             $table->string('status')->nullable();
+            $table->string('facial_verified')->nullable();
             $table->timestamps();
 
 

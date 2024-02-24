@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class AdminActivity extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['admin_id', 'login_ip', 'login_date', 'activity'];
 }

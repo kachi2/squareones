@@ -20,16 +20,16 @@ return new class extends Migration
             $table->string('date_incorporated')->nullable();
             $table->string('company_registered')->nullable();
             $table->foreignId('business_nature_id')->constrained()->unsigned();
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('email')->nullable();
-            $table->string('address')->nullable();
-            $table->string('street_no')->nullable();
-            $table->string('city')->nullable();
-            $table->string('state')->nullable();
-            $table->string('postal_code')->nullable();
-            $table->string('country')->nullable();
+            // $table->string('first_name')->nullable();
+            // $table->string('last_name')->nullable();
+            // $table->string('phone')->nullable();
+            // $table->string('email')->nullable();
+            // $table->string('address')->nullable();
+            // $table->string('street_no')->nullable();
+            // $table->string('city')->nullable();
+            // $table->string('state')->nullable();
+            // $table->string('postal_code')->nullable();
+            // $table->string('country')->nullable();
             $table->timestamps();
 
             $table->index('founder_type_id');

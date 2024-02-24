@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class IdTypeField extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['name'];
 }
