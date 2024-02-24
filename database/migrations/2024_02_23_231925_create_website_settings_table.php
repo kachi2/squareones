@@ -11,10 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::create('website_settings', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->timestamps();
-        // });
+        Schema::create('website_settings', function (Blueprint $table) {
+            $table->id();
+            $table->string('website_nmae')->nullable();
+            $table->string('website_title')->nullable();
+            $table->string('website_logo')->nullable();
+            $table->string('website_fav')->nullable();
+            $table->string('sidebar_color')->nullable();
+            $table->string('website_email')->nullable();
+            $table->string('website_phone')->nullable();
+            $table->string('navbar_color')->nullable();
+            $table->string('footer')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**

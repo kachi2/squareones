@@ -11,10 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::create('user_accounts', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->timestamps();
-        // });
+        Schema::create('user_accounts', function (Blueprint $table) {
+            $table->id();
+            $table->string('last_login')->nullable();
+            $table->string('login_ip')->nullable();
+            $table->string('account_status')->nullable();
+            $table->integer('identity_verified')->nullable();
+            $table->integer('is_image_verified')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**

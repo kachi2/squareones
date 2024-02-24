@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::create('admin_activities', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->timestamps();
-        // });
+        Schema::create('admin_activities', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('admin_id')->constrained();
+            $table->string('login_ip')->nullable();
+            $table->string('login_date')->nullable();
+            $table->tinyText('activity')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
