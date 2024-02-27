@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('company_id')->constrained()->unsigned();
             $table->foreignId('founder_type_id')->constrained()->unsigned();
+            $table->foreignId('business_nature_id')->constrained()->unsigned();
             $table->string('capacity')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();

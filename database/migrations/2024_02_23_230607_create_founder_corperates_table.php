@@ -21,9 +21,6 @@ return new class extends Migration
             $table->string('date_incorporated')->nullable();
             $table->string('company_registered')->nullable();
             $table->foreignId('business_nature_id')->constrained()->unsigned();
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('phone')->nullable();
             $table->timestamps();
 
             $table->index('founder_type_id');

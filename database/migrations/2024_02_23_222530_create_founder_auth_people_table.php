@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('founder_auth_people', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('company_id')->constrained()->unsigned();
+            $table->foreignId('founder_type_id')->constrained()->unsigned();
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }
