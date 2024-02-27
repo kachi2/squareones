@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('document')->nullable();
             $table->string('status')->nullable();
             $table->string('facial_verified')->nullable();
+            $table->string('is_signed')->nullable();
             $table->timestamps();
-
 
             $table->index('company_id');
         });

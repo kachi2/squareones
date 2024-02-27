@@ -9,10 +9,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Billing extends Model
 {
 
-    CONST STATUS_PAID = 'success'; 
-    CONST STATUS_PENDING = "pending";
-    CONST STATUS_FAILED = "failed";
-
     use HasFactory;
     protected $fillable = ['user_id', 'company_id', 'payment_ref', 'status', 'amount'];
 

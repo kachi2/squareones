@@ -17,6 +17,13 @@ return new class extends Migration
             $table->foreignId('business_nature_id')->constrained();
             $table->text('description')->nullable();
             $table->string('website')->nullable();
+            $table->string('address')->nullable();
+            $table->string('street_no')->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->string('country')->nullable();
+            $table->integer('is_complete')->nullable();
             $table->timestamps();
 
             $table->index('user_id');
