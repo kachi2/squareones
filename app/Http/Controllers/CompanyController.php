@@ -23,7 +23,6 @@ class CompanyController extends Controller
 
         try{
         DB::beginTransaction();
-        $req['user_id'] = 1;
     $companyDto = CompanyDto::fromRequest($req->validated());
         if($companyDto)
         {

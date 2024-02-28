@@ -12,8 +12,8 @@ class FounderCorAddress extends Model
 
     protected $fillable = ['company_id', 'founder_type_id', 'address', 'street_no', 'city', 'state', 'postal_code', 'country'];
 
-    public function company():BelongsTo
+    public function FounderIndividual():BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(FounderIndividual::class);
     }
 }

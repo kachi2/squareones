@@ -13,7 +13,7 @@ class CompanyServices  implements CompanyFormationInterface
     {
 
         $data = Company::create([
-            'user_id' => $companyDto->user_id,
+            'user_id' => 1, //auth()->user()->id
              'business_nature_id' => $companyDto->business_nature_id,
               'description'=> $companyDto->description,
               'website'=> $companyDto->website,
