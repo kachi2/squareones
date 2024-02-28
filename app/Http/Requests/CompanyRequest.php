@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CompanyRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class CompanyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +24,25 @@ class CompanyRequest extends FormRequest
     {
         return [
             //
+            'business_nature_id' => 'required',
+            'description' => 'required',
+            'website' => 'required',
+            'state' => 'required',
+            'postal_code' => 'required',
+            'address' => 'required',
+            'street_no' => 'required',
+            'city' => 'required',
+            'country' => 'required',
+            'user_id' => 'nullable'
         ];
     }
+
+    // public function messages():array
+    // {
+    //     return [
+    //         'business_nature_id.required' => 'Select Nature of Business', 
+    //         // 'postal_code.required' => 'Provide Business Address postal Code'
+
+    //     ];
+    // }
 }
