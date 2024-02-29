@@ -32,6 +32,7 @@ class CompanyController extends Controller
         {
            $company = $this->companyServices->SaveBaseCompanyInfo($companyDto);
            if(isset($company)){
+         
              $this->companyServices->SaveBusinessName($req->names, $company->id);
             }
         }

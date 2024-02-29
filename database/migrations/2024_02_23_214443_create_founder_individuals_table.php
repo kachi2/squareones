@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('occupation')->nullable();
             $table->timestamps();
 
-            $table->index('founder_type_id');
+            $table->index('company_founder_id');
         });
     }
 

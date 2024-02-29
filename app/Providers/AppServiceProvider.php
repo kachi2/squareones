@@ -3,8 +3,11 @@
 namespace App\Providers;
 
 use App\Interfaces\CompanyFormationInterface;
+use App\Interfaces\FounderInterface;
 use Illuminate\Support\ServiceProvider;
 use App\Services\CompanyServices;
+use App\Services\FounderService;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -14,6 +17,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         app()->bind(CompanyFormationInterface::class, CompanyServices::class);
+        app()->bind(FounderInterface::class, FounderService::class);
     }
 
     /**

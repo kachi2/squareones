@@ -17,8 +17,16 @@ return new class extends Migration
             $table->string('company_name')->nullable();
             $table->string('chn_company_name')->nullable();
             $table->string('date_incorporated')->nullable();
-            $table->string('company_registered')->nullable();
-            $table->foreignId('business_nature_id')->constrained()->unsigned();
+            $table->string('country_registered')->nullable();
+            $table->string('registeration_no')->nullable();
+            $table->string('business_nature_id')->nullable();
+            $table->string('address')->nullable();
+            $table->string('street_no')->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->string('country')->nullable();
+
             $table->timestamps();
             $table->index('company_founder_id');
         });

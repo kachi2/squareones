@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-            BusinessNatureSeeder::class
+            // BusinessNatureSeeder::class,
+            FounderSeeder::class
         ]);
     }
 }

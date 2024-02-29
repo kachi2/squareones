@@ -11,7 +11,9 @@ class FounderCorperate extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['company_id', 'founder_type_id', 'capacity', 'company_name', 'chn_company_name', 'date_incorporated', 'company_registered', 'business_nature_id'];
+    protected $fillable = [
+        'company_founder_id', 'company_name', 'chn_company_name', 'date_incorporated', 'address', 'street_no', 'city', 'state', 'postal_code', 'country', 'created_at', 'updated_at', 'country_registered', 'registeration_no'
+    ];
 
     public function CompanyFounder():BelongsTo
     {
