@@ -15,6 +15,8 @@ public readonly ?string $city,
 public readonly ?string $state, 
 public readonly ?string $postal_code,
 public readonly ?string $country,
+public readonly array $names,
+
 
     )
     {

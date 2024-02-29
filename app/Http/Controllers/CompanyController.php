@@ -21,19 +21,27 @@ class CompanyController extends Controller
 
     public function SaveFromRequest(CompanyRequest $req){
 
+        $check = $this->companyServices->CheckNameExist($req->names);
+        if($check){
+        return  response()->json(['error' => "Names already exist on our database, please choose another name"]);
+        }
         try{
         DB::beginTransaction();
-    $companyDto = CompanyDto::fromRequest($req->validated());
+       $companyDto = CompanyDto::fromRequest($req->validated());
         if($companyDto)
         {
-           $created = $this->companyServices->SaveBaseCompanyInfo($companyDto);
+           $company = $this->companyServices->SaveBaseCompanyInfo($companyDto);
+           if(isset($company)){
+             $this->companyServices->SaveBusinessName($req->names, $company->id);
+            }
         }
         DB::commit();
-        return response($created);
     }catch(\Exception $e){
-    
         DB::rollBack();
-    return $e;
+    return redirect()->back()->with('errors', $e->getMessage());
     }
+    
+ return response()->json(['company_info' => $company]);
+    // return redirect()->back()->with('data', $names);
     }
 }

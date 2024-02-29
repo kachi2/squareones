@@ -1,7 +1,7 @@
 <?php 
 namespace App\Dtos;
 
-class FounderCoDto extends BaseDto 
+class FounderDto extends BaseDto 
 {
 
     public function __construct( 
@@ -12,8 +12,12 @@ class FounderCoDto extends BaseDto
     public readonly string $company_name,
     public readonly string $chn_company_name,
     public readonly string $date_incorporated,
-    public readonly string $company_registered,
-    public readonly NamesDto $authorized_user
+    public readonly string $company_registered, 
+    public readonly ?string $first_name,
+    public readonly ?string $last_name,
+    public readonly ?string $chn_first_name,
+    public readonly ?string $chn_last_name,
+
     )
     {
         

@@ -33,7 +33,8 @@ class CompanyRequest extends FormRequest
             'street_no' => 'required',
             'city' => 'required',
             'country' => 'required',
-            'user_id' => 'nullable'
+            'user_id' => 'nullable',
+            'names' => 'array'
         ];
     }
 

@@ -11,6 +11,7 @@ interface CompanyFormationInterface
 {
 
     public function SaveBaseCompanyInfo(CompanyDto $companyDto): ?Company;
-    public function SaveBusinessName(NamesDto $company) : ?CompanyName;
+    public function SaveBusinessName(array $companyNames, string $company_id);
+    public function CheckNameExist(array $names):bool;
 
 }

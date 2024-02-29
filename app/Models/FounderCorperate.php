@@ -23,5 +23,4 @@ class FounderCorperate extends Model
         return $this->hasOne(FounderAuthPerson::class);
     }
 
-
 }
