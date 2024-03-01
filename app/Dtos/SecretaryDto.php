@@ -2,11 +2,10 @@
 
 namespace App\Dtos;
 
-class SecretatyDto extends BaseDto
+class SecretaryDto extends BaseDto
 {
     public function __construct(
         public readonly string $company_id, 
-        public readonly string $business_nature_id,
         public readonly string $name,
         public readonly string $chn_name,
         public readonly string $company_reg_no,
@@ -16,7 +15,9 @@ class SecretatyDto extends BaseDto
         public readonly string $address, 
         public readonly string $city,
         public readonly string $state,
-        public readonly string $postal_code
+        public readonly string $postal_code,
+        public readonly string $country
+
     )
     {
         

@@ -10,7 +10,7 @@ class CompanyOwnershipShare extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['company_id', 'share_type', 'no_of_share', 'total_amount_paid'];
+    protected $fillable = ['company_id', 'share_type', 'no_of_share', 'total_amount_paid', 'currency'];
 
 
     public function company():BelongsTo

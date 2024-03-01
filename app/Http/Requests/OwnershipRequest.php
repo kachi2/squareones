@@ -25,7 +25,9 @@ class OwnershipRequest extends FormRequest
             'company_id' => 'required',
             'share_type' => 'required',
             'no_of_share' => 'required',
-            'total_amount_paid' => 'required'
+            'total_amount_paid' => 'required',
+            'currency' => 'required',
+            'founders' => 'required'
         ];
     }
 }

@@ -10,27 +10,36 @@ class OwnershipService implements OwnershipInterface
 
     public function  SaveFromData($request){
 
-        $create = CompanyOwnershipShare::create([
+        $owner = CompanyOwnershipShare::create([
             'company_id' => $request->company_id,
             'share_type' => $request->share_type,
             'no_of_share' => $request->no_of_share,
-            'total_amount_paid' => $request->total_amount_paid
+            'total_amount_paid' => $request->total_amount_paid,
+            'currency' => $request->currency
         ]);
-        if($create){
-            $this->SharesToFounders($request);
+
+        if($owner){
+          $founders =  $this->SharesToFounders($request, $owner);
         }
-        return $create;
+        $data  = [
+            'CompanyOwnershipShare' => $owner,
+            'founderShare' => $founders
+        ];
+        return $data;
     }
     
-    public function SharesToFounders($request){
-        foreach($request->founders as $request){
+    public function SharesToFounders($requests, $owner){
+
+        foreach($requests->founders as $request){
+            // dd($owner->id);
         $data = CompanyOwnership::create([
-           'company_id' => $request['company_id'],
-           'company_ownership_share_id' => $request['company_ownership_share_id'],
+           'company_id' => $requests->company_id,
+           'company_ownership_share_id' => $owner->id,
            'company_founder_id' => $request['company_founder_id'],
            'share_percentage' => $request['share_percentage'],
            'total_amount' => $request['total_amount']
         ]);
     }
+    return $data;
     }
 }

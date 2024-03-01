@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SecretaryRequest extends FormRequest
+class CompanyActivity extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,19 +22,16 @@ class SecretaryRequest extends FormRequest
     public function rules(): array
     {
         return [
-
             'company_id' => 'required',
-            'name'=> 'required',
-            'chn_name'=> 'required',
-            'company_reg_no'=> 'required',
-            'country_registered'=> 'required',
-            'licence_no'=> 'required',
-            'email'=> 'required',
-            'address'=> 'required',
-            'city'=> 'required',
-            'state'=> 'required',
-            'postal_code'=> 'required',
-            'country'=> 'required',
+            'income_expected_source' => 'required',
+            'origin_funds' => 'required',
+            'wealth_initial_source' => 'required',
+            'income_outgoing_source' => 'required',
+            'description' => 'required',
+            'activity_level' => 'required',
+            'activity_nature' => 'required',
+            'customer_location_operation' => 'required',
+            'country' => 'required',
         ];
     }
 }

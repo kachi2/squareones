@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('country_registered')->nullable();
             $table->string('registeration_no')->nullable();
             $table->string('business_nature_id')->nullable();
+            $table->string('registeration_no')->nullable();
+            $table->string('business_nature_id')->nullable();
             $table->string('address')->nullable();
             $table->string('street_no')->nullable();
             $table->string('city')->nullable();
