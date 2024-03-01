@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CompanyActivityController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\FounderController;
 use App\Http\Controllers\OwnershipController;
 use App\Http\Controllers\SecretaryController;
@@ -28,3 +29,4 @@ Route::post('/founders/create', [FounderController::class, 'StoreFounders']);
 Route::post('owners/create', [OwnershipController::class, 'StoreOwnership']);
 Route::post('/secretary/create', [SecretaryController::class, 'StoreSecretary']);
 Route::post('activities/create', [CompanyActivityController::class, 'ActivityFundSource']);
+Route::post('upload/docs', [FileUploadController::class, 'ProcessDocuments']);

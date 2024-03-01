@@ -1,14 +1,14 @@
 <?php 
 namespace App\Dtos;
 
+use Illuminate\Http\UploadedFile;
+
 class FileUploadDto extends BaseDto
 {
     public function __construct(
         public readonly string $company_id, 
-        public readonly string $document_type_id, 
-        public readonly string $document, 
+        public readonly UploadedFile|array $document, 
     )
     {
-        
     }
 }

@@ -1,30 +1,26 @@
 <?php 
 namespace App\Services;
+
+use App\Interfaces\FileUploadInterface;
+use App\Models\Document;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
-class FileUploadServices {
+class FileUploadServices  implements FileUploadInterface{
 
-    public function upload(UploadedFile $file, string $rootDirectory, string $fileName = null): array
+    public function upload($request)
     {
-        $fileName = $fileName ?? null;
-
-        $uploadedFile = cloudinary()->upload($file->getRealPath(), [
-            'folder' => '' . $rootDirectory,
-            'display_name' => $fileName
-        ]);
-
-        $filePath = $uploadedFile->getSecurePath();
-        $fileName = $uploadedFile->getOriginalFileName();
-
-        return [$fileName, $filePath];
-    }
-
-    public function delete(string $publicId): bool
-    {
-        if (cloudinary()->destroy($publicId)) {
-            return true;
+       
+        foreach($request->document as $files){
+            if($files['docs'] instanceof UploadedFile){
+                $base64Image = base64_encode(file_get_contents($files['docs']->getRealPath()));
+            }
+            Document::create([
+                'company_id' => $request->company_id,
+                'document' => encrypt($base64Image),
+                'document_type_id' => $files['document_type_id']
+            ]);
         }
-        return false;
+        return $base64Image;
     }
 }
