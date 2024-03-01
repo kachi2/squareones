@@ -20,7 +20,6 @@ class OwnershipController extends Controller
     }
 
     public function StoreOwnership(OwnershipRequest $req){
-
         try {
         DB::beginTransaction();
         $ownerDto = OwnerDto::fromRequest($req->validated());
