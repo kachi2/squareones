@@ -38,8 +38,12 @@ class FounderService implements FounderInterface
             'occupation' => $request->occupation,
         ]);
 
-        $this->processResidentialAddress($request, $individual);
-        return $individual;
+      $res =  $this->processResidentialAddress($request, $individual);
+      return [
+        'FounderIndividual' => $individual,
+        'address' => $res,
+      ];
+     
     }
     public function SaveParentFounders($request)
     {
@@ -50,7 +54,7 @@ class FounderService implements FounderInterface
     public function processResidentialAddress($request, $individual){
 
             $address = $request->addresses[0];
-                FounderResAddress::create([
+               $datas = FounderResAddress::create([
                 'founder_individual_id' => $individual->id ,
                 'address' => $address['address'],
                 'street_no'  => $address['street_no'],
@@ -63,7 +67,7 @@ class FounderService implements FounderInterface
 
             if($address['is_corAddress'] != 1){
                 $address = $request->addresses[1];
-                  FounderCorAddress::create([
+                 $data = FounderCorAddress::create([
                     'founder_individual_id' => $individual->id??null,
                     'address' => $address['address']??null,
                     'street_no'  => $address['street_no']??null,
@@ -73,15 +77,16 @@ class FounderService implements FounderInterface
                     'country' => $address['country']??null
                 ]);
             }
-       
-
-        return $address;
+            return [
+                'res_address' => $datas,
+                'correspondence_address' => $data??null
+            ];
     }
 
     public function ProcessCorperateFounders(FounderCorDto $request, $founder)
     {
 
-        $ss = FounderCorperate::create([
+        return FounderCorperate::create([
             'company_founder_id' => $founder->id,
             'company_name' =>  $request->company_name,
             'chn_company_name'=>  $request->chn_company_name,
@@ -96,7 +101,5 @@ class FounderService implements FounderInterface
             'registeration_no' =>   $request->registeration_no,
             'business_nature_id'=>  $request->business_nature_id,
         ]);
-
-      return $ss;
     }
 }

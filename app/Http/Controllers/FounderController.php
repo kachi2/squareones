@@ -16,34 +16,33 @@ class FounderController extends Controller
 
     public function __construct(
         public readonly FounderInterface $founderInterface
-    )
-    {
-        
+    ) {
     }
 
-    public function StoreFounders(Request $request){
-        try{
-        DB::beginTransaction();
-       $founders = $this->founderInterface->SaveParentFounders($this->BasefounderRequest($request));
-       if($founders){
-        if($request->founder_type_id == 1){
-            $validateRequest = $this->IndividualFoundersData($request);
-            if($validateRequest){
-                $founderDto = FoundersIndDto::fromRequest($validateRequest->validated());
-               $ss = $this->founderInterface->ProcessIndividualFounders($founderDto, $founders);
-               return $ss;
+    public function StoreFounders(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $founders = $this->founderInterface->SaveParentFounders($this->BasefounderRequest($request));
+            if ($founders) {
+                if ($request->founder_type_id == 1) {
+                    $validateRequest = $this->IndividualFoundersData($request);
+                    if ($validateRequest) {
+                        $founderDto = FoundersIndDto::fromRequest($validateRequest->validated());
+                        return $this->founderInterface->ProcessIndividualFounders($founderDto, $founders);
+                        
+                    }
+                } elseif ($request->founder_type_id == 2) {
+                    $validateRequest = $this->CorporateFoundersData($request);
+                    $founderCoDto = FounderCorDto::fromRequest($validateRequest->validated());
+                    return $this->founderInterface->ProcessCorperateFounders($founderCoDto, $founders);
+                    
+                }
             }
-        }elseif($request->founder_type_id == 2){
-            $validateRequest = $this->CorporateFoundersData($request);
-            $founderCoDto = FounderCorDto::fromRequest($validateRequest->validated());
-           $ss = $this->founderInterface->ProcessCorperateFounders($founderCoDto, $founders);
-           return $ss;
-        }
-       }
-        
-        DB::commit();
-        }catch(\Exception $e){
-        DB::rollBack();
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
             return $e;
         }
     }

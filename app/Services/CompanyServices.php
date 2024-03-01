@@ -11,7 +11,7 @@ class CompanyServices  implements CompanyFormationInterface
 
     public function SaveBaseCompanyInfo(CompanyDto $companyDto): ?Company
     {
-        $data = Company::create([
+      return Company::create([
             'user_id' => 1, //auth()->user()->id
              'business_nature_id' => $companyDto->business_nature_id,
               'description'=> $companyDto->description,
@@ -22,25 +22,23 @@ class CompanyServices  implements CompanyFormationInterface
                'state'=> $companyDto->state,
                'postal_code'=> $companyDto->postal_code,
                'country'=> $companyDto->country,
-
             ]);
-
-        return $data;
     }
 
     public function SaveBusinessName( array $companyNames, string $company_id)
     {
        $company = Company::where(['user_id' => auth_user(), 'id' => $company_id])->first();
        if($company){
-        // dd($companyNames);
+        $names = [];
         foreach($companyNames as $names){
-            CompanyName::create([
+          $names =  CompanyName::create([
                 'eng_name' => $names['eng_name'],
                 'chn_name' => $names['chn_name'],
                 'choice_level' => $names['choice_level'],
                 'company_id' => $company_id
             ]);
         }
+        return $names;
        }
      
     }
