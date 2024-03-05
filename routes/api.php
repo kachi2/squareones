@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\CompanyActivityController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\FounderController;
+use App\Http\Controllers\OwnershipController;
+use App\Http\Controllers\SecretaryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +22,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('company/create', [CompanyController::class, 'SaveFromRequest']);
+Route::post('/founders/create', [FounderController::class, 'StoreFounders']);
+Route::post('owners/create', [OwnershipController::class, 'StoreOwnership']);
+Route::post('/secretary/create', [SecretaryController::class, 'StoreSecretary']);
+Route::post('activities/create', [CompanyActivityController::class, 'ActivityFundSource']);

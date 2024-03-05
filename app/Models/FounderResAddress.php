@@ -10,10 +10,10 @@ class FounderResAddress extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['company_id', 'founder_type_id', 'address', 'street_no', 'city', 'state', 'postal_code', 'country', 'is_corAddress'];
+    protected $fillable = ['founder_individual_id', 'address', 'street_no', 'city', 'state', 'postal_code', 'country', 'is_corAddress'];
 
-    public function company():BelongsTo
+    public function FounderCorperate():BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(FounderCorperate::class);
     }
 }

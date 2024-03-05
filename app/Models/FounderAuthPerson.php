@@ -10,11 +10,11 @@ class FounderAuthPerson extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['company_id','founder_type_id', 'capacity', 'company_name', 'chn_company_name', 'date_incorporated', 'company_registered', 'business_nature_id'];
+    protected $fillable = [''];
 
-    public function company():BelongsTo
+    public function founderCorperate():BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(FounderCorperate::class);
     }
 
 }

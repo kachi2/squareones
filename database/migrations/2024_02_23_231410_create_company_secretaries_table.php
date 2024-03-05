@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('company_secretaries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained()->unsigned();
-            $table->foreignId('business_nature_id')->unsigned();
             $table->string('name')->nullable();
             $table->string('chn_name')->nullable();
             $table->string('company_reg_no')->nullable();

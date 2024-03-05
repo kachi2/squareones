@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('share_type')->nullable();
             $table->string('no_of_share')->nullable();
             $table->string('total_amount_paid')->nullable();
+            $table->string('currency')->nullable();
             $table->timestamps();
 
             $table->index('company_id');

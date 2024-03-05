@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('activity_level')->nullable();
             $table->string('activity_nature')->nullable();
             $table->string('customer_location_operation')->nullable();
-            $table->string('country_list')->nullable();
+            $table->string('country')->nullable();
             $table->timestamps();
 
 

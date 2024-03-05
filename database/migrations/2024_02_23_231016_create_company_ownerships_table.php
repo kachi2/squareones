@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('company_ownerships', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained()->unsigned();
+            $table->foreignId('company_founder_id')->nullable();
             $table->foreignId('company_ownership_share_id')->unsigned();
             $table->string('share_percentage')->nullable();
             $table->string('total_amount')->nullable();
             $table->timestamps();
-
             $table->index('company_id');
         });
     }

@@ -9,7 +9,7 @@ class BaseDto {
         
     }
 
-    public function fromRequest(array $array)
+    public  static function fromRequest(array $array)
     {
         return new static(...$array);
     }
