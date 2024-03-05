@@ -11,7 +11,6 @@ class OwnerDto extends BaseDto
         public readonly string $total_amount_paid,
         public readonly string $currency,
         public readonly array $founders
-
     )
     {
         

@@ -10,13 +10,10 @@ use Illuminate\Support\Facades\DB;
 
 class CompanyActivityController extends Controller
 {
-    //
-
     public function __construct(
         public readonly ActivitiesInterface $activitiesInterface
     )
     {
-        
     }
 
     public function ActivityFundSource(CompanyActivityRequest $request){
@@ -25,11 +22,9 @@ class CompanyActivityController extends Controller
         $requestDto = ActivityDto::fromRequest($request->validated());
         $store = $this->activitiesInterface->SaveActivtiesRequest($requestDto);
         return $store;
-
         DB::commit();
        }catch(\Exception $e){
         DB::rollback();
-
         return $e->getMessage();
        }
     }

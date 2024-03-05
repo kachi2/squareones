@@ -1,58 +1,99 @@
-<?php 
+<?php
+
 namespace App\Services;
 
+use App\Dtos\AddressDto;
 use App\Dtos\CompanyDto;
+use App\Dtos\NamesDto;
 use App\Interfaces\CompanyFormationInterface;
 use App\Models\Company;
+use App\Models\CompanyAddress;
 use App\Models\CompanyName;
+use Illuminate\Support\Facades\DB;
 
 class CompanyServices  implements CompanyFormationInterface
 {
 
-    public function SaveBaseCompanyInfo(CompanyDto $companyDto): ?Company
+    public function SaveBaseCompanyInfo(CompanyDto $companyDto, $company_id): ?Company
     {
-      return Company::create([
-            'user_id' => 1, //auth()->user()->id
-             'business_nature_id' => $companyDto->business_nature_id,
-              'description'=> $companyDto->description,
-              'website'=> $companyDto->website,
-               'address'=> $companyDto->address, 
-               'street_no'=> $companyDto->street_no,
-               'city'=> $companyDto->city,
-               'state'=> $companyDto->state,
-               'postal_code'=> $companyDto->postal_code,
-               'country'=> $companyDto->country,
-            ]);
+        $company = Company::whereId($company_id)->first();
+        $company->update([
+            'business_nature_id' => $companyDto->business_nature_id,
+            'description' => $companyDto->description,
+            'website' => $companyDto->website,
+        ]);
+        return $company;
     }
 
-    public function SaveBusinessName( array $companyNames, string $company_id)
-    {
-       $company = Company::where(['user_id' => auth_user(), 'id' => $company_id])->first();
-       if($company){
-        $names = [];
-        foreach($companyNames as $names){
-          $names =  CompanyName::create([
-                'eng_name' => $names['eng_name'],
-                'chn_name' => $names['chn_name'],
-                'choice_level' => $names['choice_level'],
-                'company_id' => $company_id
-            ]);
-        }
-        return $names;
-       }
-     
-    }
+    // public function SaveBusinessName( array $companyNames, string $company_id)
+    // {
+    //    $company = Company::where(['user_id' => auth_user(), 'id' => $company_id])->first();
+    //    if($company){
+    //     $names = [];
+    //     foreach($companyNames as $names){
+    //       $names =  CompanyName::create([
+    //             'eng_name' => $names['eng_name'],
+    //             'chn_name' => $names['chn_name'],
+    //             'choice_level' => $names['choice_level'],
+    //             'company_id' => $company_id
+    //         ]);
+    //     }
+    //     return $names;
+    //    }
 
-    public function CheckNameExist($names):bool{
-        foreach($names as $name){
+    // }
+
+    public function CheckNameExist($names): bool
+    {
+        foreach ($names as $name) {
             $chk = $name['eng_name'];
-        $check = CompanyName::where('eng_name','LIKE', "%$chk%")->first();
-        if(isset($check)){
-         return true;
+            $check = CompanyName::where('eng_name', 'LIKE', "%$chk%")->first();
+            if (isset($check)) {
+                return true;
+            }
+            return false;
         }
-        return false;
-       }
     }
 
+    public function InitiateCompany(NamesDto $namesDto)
+    {
 
+        try {
+            DB::beginTransaction();
+            $initiateCompany = Company::create([
+                // 'user_id' => auth_user(),
+                'user_id' => 1,
+            ]);
+
+            if ($initiateCompany) {
+                $names = [];
+                foreach ($namesDto as $names) {
+                    $names =  CompanyName::create([
+                        'eng_name' => $names['eng_name'].' '.$names['prefix']??'Limited',
+                        'chn_name' => $names['chn_name'].' '.$names['prefix']??'有限公司',
+                        'choice_level' => $names['choice_level'],
+                        'company_id' => $initiateCompany->id
+                    ]);
+                }
+                DB::commit();
+                return $names;
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $e->getMessage();
+        }
+    }
+
+    public function StoreCompanyAddress(AddressDto $addressDto, $company_id)
+    {
+        $company = Company::whereId($company_id)->first();
+        $company->update([
+            'address' =>  $addressDto->address,
+            'street_no' => $addressDto->street_no,
+            'city' => $addressDto->city,
+            'state' => $addressDto->state,
+            'postal_code' => $addressDto->postal_code,
+            'country' => $addressDto->country,
+        ]);
+    }
 }

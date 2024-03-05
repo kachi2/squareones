@@ -18,11 +18,10 @@ class FileUploadController extends Controller
     }
 
     public function ProcessDocuments( Request $request){
-
             $data = FileUploadDto::fromRequest($request->all());
             if($data){
                $processDoc = $this->fileUpload->upload($request);
-               dd($processDoc);
+          return $processDoc;
             }
     }
 }

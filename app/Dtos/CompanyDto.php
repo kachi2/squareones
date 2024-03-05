@@ -6,18 +6,9 @@ class CompanyDto extends BaseDto
 {
 
     public function __construct(
- public readonly int $business_nature_id,
+public readonly ?string $business_nature_id,
  public readonly ?string $website = null,
  public readonly ?string $description = null,
-public readonly ?string $address,
-public readonly ?string $street_no,
-public readonly ?string $city,
-public readonly ?string $state, 
-public readonly ?string $postal_code,
-public readonly ?string $country,
-public readonly array $names,
-
-
     )
     {
         

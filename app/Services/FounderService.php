@@ -47,14 +47,18 @@ class FounderService implements FounderInterface
     }
     public function SaveParentFounders($request)
     {
-        $create = CompanyFounder::create($request);
-        return $create;
+        $founders = CompanyFounder::createorUpdate([
+            'founder_type_id' => $request->founder_type_id,
+             'capacity' => $request->capacity, 
+             'company_id' => $request->company_id
+        ]);
+        return $founders;
     }
 
     public function processResidentialAddress($request, $individual){
 
             $address = $request->addresses[0];
-               $datas = FounderResAddress::create([
+               $datas = FounderResAddress::createorUpdate([
                 'founder_individual_id' => $individual->id ,
                 'address' => $address['address'],
                 'street_no'  => $address['street_no'],
@@ -67,7 +71,7 @@ class FounderService implements FounderInterface
 
             if($address['is_corAddress'] != 1){
                 $address = $request->addresses[1];
-                 $data = FounderCorAddress::create([
+                 $data = FounderCorAddress::createorUpdate([
                     'founder_individual_id' => $individual->id??null,
                     'address' => $address['address']??null,
                     'street_no'  => $address['street_no']??null,
@@ -86,7 +90,7 @@ class FounderService implements FounderInterface
     public function ProcessCorperateFounders(FounderCorDto $request, $founder)
     {
 
-        return FounderCorperate::create([
+        return FounderCorperate::createorUpdate([
             'company_founder_id' => $founder->id,
             'company_name' =>  $request->company_name,
             'chn_company_name'=>  $request->chn_company_name,

@@ -53,7 +53,7 @@ trait FoundersData
             'first_name' => 'required',
             'last_name' => 'required',
             'phone' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
             'country_registered' => 'required',
             'registeration_no' => 'required',
             'business_nature_id' => 'required'

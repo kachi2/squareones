@@ -31,7 +31,6 @@ class OwnershipService implements OwnershipInterface
     public function SharesToFounders($requests, $owner){
 
         foreach($requests->founders as $request){
-            // dd($owner->id);
         $data = CompanyOwnership::create([
            'company_id' => $requests->company_id,
            'company_ownership_share_id' => $owner->id,
