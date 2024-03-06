@@ -5,7 +5,7 @@
                 <!-- Sidebar content with alignment for the divider -->
                 <div class="space-y-1">
                     <ul>
-                        <li class="border-l pl-5 cursor-pointer hover:bg-blue-100 p-2" :class="{'border-l border-blue-600 text-blue-600': activeItem === item.id }" v-for="item in data" :key="item.id" @click="navigateTo(item.id)">
+                        <li class="border-l pl-5 cursor-pointer hover:bg-blue-100 p-2" :class="{'border-l border-blue-500 text-blue-500': activeItem === item.id }" v-for="item in data" :key="item.id" @click="navigateTo(item.id)">
                             {{ item.label }}
                         </li>
                     </ul>
