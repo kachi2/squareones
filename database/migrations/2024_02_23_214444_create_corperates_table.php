@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('corperates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_founder_id')->constrained()->unsigned();
+            $table->foreignId('entity_id')->constrained()->unsigned();
             $table->string('company_name')->nullable();
             $table->string('chn_company_name')->nullable();
             $table->string('date_incorporated')->nullable();

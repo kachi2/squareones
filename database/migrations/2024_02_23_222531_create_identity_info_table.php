@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('identity_info', function (Blueprint $table) {
             $table->id();
+            $table->string('identity_type_id')->unsigned();
+            $table->string('passport_no')->nullable();
+            $table->string('issueing_country')->nullable();
+            $table->string('identity_no')->nullable();
+            $table->string('dob')->nullable();
+            $table->string('card_name')->nullable();
             $table->timestamps();
         });
     }

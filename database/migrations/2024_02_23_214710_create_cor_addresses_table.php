@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->timestamps();
 
-            $table->index('founder_individual_id');
+            $table->index('individual_id');
         });
     }
 

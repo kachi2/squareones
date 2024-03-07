@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('entity', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained()->unsigned();
-            $table->foreignId('founder_type_id')->constrained()->unsigned();
+            $table->foreignId('role_type_id')->constrained()->unsigned();
             $table->string('capacity')->nullable();
             $table->timestamps();
 

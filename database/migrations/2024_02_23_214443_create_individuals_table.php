@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('individuals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_founder_id')->constrained()->unsigned();
+            $table->foreignId('entity_id')->constrained()->unsigned();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('chn_first_name')->nullable();
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('occupation')->nullable();
             $table->timestamps();
 
-            $table->index('company_founder_id');
+            $table->index('entity_id');
         });
     }
 
