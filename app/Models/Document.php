@@ -10,6 +10,7 @@ class Document extends Model
 {
     use HasFactory;
 
+    
     protected $fillable = ['company_id', 'document_type_id', 'document', 'status', 'facial_verified'];
 
     public function company():BelongsTo

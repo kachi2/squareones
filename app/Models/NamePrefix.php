@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class NamePrefix extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['name', 'value'];
 }

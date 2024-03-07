@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class CompanyAddress extends Model
+class FundSource extends Model
 {
     use HasFactory;
-    protected $fillable = ['company_id', 'address', 'street_no', 'city', 'state', 'postal_code', 'country'];
+    protected $fillable = ['company_id', 'income_expected_source', 'origin_funds', 'wealth_initial_source', 'income_outgoing_source'];
 
     public function company():BelongsTo
     {

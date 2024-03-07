@@ -12,7 +12,7 @@ class AdminActivity extends Model
 
     protected $fillable = ['admin_id', 'login_ip', 'login_date', 'activity'];
 
-    public function Admin():BelongsTo
+    public function admin():BelongsTo
     {
         return $this->belongsTo(Admin::class);
     }

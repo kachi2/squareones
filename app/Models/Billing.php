@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Billing extends Model
 {
-
     use HasFactory;
     protected $fillable = ['user_id', 'company_id', 'payment_ref', 'status', 'amount'];
 
@@ -21,6 +20,4 @@ class Billing extends Model
     {
         return $this->belongsTo(Company::class);
     }
-
-
 }

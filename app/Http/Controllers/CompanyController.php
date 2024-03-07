@@ -39,7 +39,7 @@ class CompanyController extends Controller
             if ($companyDto) {
                 $company = $this->companyServices->StoreCompanyInfo($companyDto, '');
                 if (isset($company)) {
-                    $names = $this->companyServices->SaveBusinessName($req->names, $company->id);
+                    // $names = $this->companyServices->SaveBusinessName($req->names, $company->id);
                 }
             }
             DB::commit();
