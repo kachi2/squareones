@@ -22,7 +22,8 @@ class NamesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'array|required',
+            'names' => 'array|required',
+            // 'business_nature_id' => 'required'
         ];
     }
 }

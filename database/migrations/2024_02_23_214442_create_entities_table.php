@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('entity', function (Blueprint $table) {
+        Schema::create('entities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->constrained()->unsigned();
-            $table->foreignId('role_type_id')->constrained()->unsigned();
-            $table->string('capacity')->nullable();
-            $table->timestamps();
-
+            $table->foreignId('company_id')->constrained();
+            $table->integer('is_founder')->nullable();
             $table->index('company_id');
+            $table->timestamps();
+        
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('company_founders');
+        Schema::dropIfExists('entities');
     }
 };

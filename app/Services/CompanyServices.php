@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 class CompanyServices  implements CompanyFormationInterface
 {
 
-    public function SaveBaseCompanyInfo(CompanyDto $companyDto, $company_id): ?Company
+    public function StoreCompanyInfo(CompanyDto $companyDto, $company_id): ?Company
     {
         $company = Company::whereId($company_id)->first();
         $company->update([
@@ -57,7 +57,6 @@ class CompanyServices  implements CompanyFormationInterface
 
     public function InitiateCompany(NamesDto $namesDto)
     {
-
         try {
             DB::beginTransaction();
             $initiateCompany = Company::create([
@@ -66,7 +65,7 @@ class CompanyServices  implements CompanyFormationInterface
             ]);
 
             if ($initiateCompany) {
-                $names = [];
+                $name = [];
                 foreach ($namesDto as $names) {
                     $names =  CompanyName::create([
                         'eng_name' => $names['eng_name'].' '.$names['prefix']??'Limited',
@@ -74,9 +73,13 @@ class CompanyServices  implements CompanyFormationInterface
                         'choice_level' => $names['choice_level'],
                         'company_id' => $initiateCompany->id
                     ]);
+                    $name[$names] = $names;
                 }
                 DB::commit();
-                return $names;
+                return [
+                    'company' => $initiateCompany,
+                    'name' => $name
+                ];
             }
         } catch (\Exception $e) {
             DB::rollBack();

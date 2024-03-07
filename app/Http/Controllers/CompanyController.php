@@ -26,6 +26,7 @@ class CompanyController extends Controller
             return  response()->json(['error' => "Names already exist on our database, please choose another name"]);
         }
             $namesDto = NamesDto::fromRequest($req->validated());
+            // dd($namesDto);
             $initiateCompany = $this->companyServices->InitiateCompany($namesDto);
             return $initiateCompany;
     }
@@ -36,7 +37,7 @@ class CompanyController extends Controller
             DB::beginTransaction();
             $companyDto = CompanyDto::fromRequest($req->validated());
             if ($companyDto) {
-                $company = $this->companyServices->SaveBaseCompanyInfo($companyDto);
+                $company = $this->companyServices->StoreCompanyInfo($companyDto, '');
                 if (isset($company)) {
                     $names = $this->companyServices->SaveBusinessName($req->names, $company->id);
                 }

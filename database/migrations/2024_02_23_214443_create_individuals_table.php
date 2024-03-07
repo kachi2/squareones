@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('individuals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('entity_id')->constrained()->unsigned();
+            $table->foreignId('entity_id')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('chn_first_name')->nullable();
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('founder_individuals');
+        Schema::dropIfExists('individuals');
     }
 };

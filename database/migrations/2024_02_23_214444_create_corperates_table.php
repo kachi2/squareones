@@ -13,15 +13,13 @@ return new class extends Migration
     {
         Schema::create('corperates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('entity_id')->constrained()->unsigned();
+            $table->foreignId('entity_id')->nullable();
             $table->string('company_name')->nullable();
             $table->string('chn_company_name')->nullable();
             $table->string('date_incorporated')->nullable();
             $table->string('country_registered')->nullable();
-            $table->string('registeration_no')->nullable();
             $table->string('business_nature_id')->nullable();
             $table->string('registeration_no')->nullable();
-            $table->string('business_nature_id')->nullable();
             $table->string('address')->nullable();
             $table->string('street_no')->nullable();
             $table->string('city')->nullable();
@@ -30,7 +28,7 @@ return new class extends Migration
             $table->string('country')->nullable();
 
             $table->timestamps();
-            $table->index('company_founder_id');
+            $table->index('entity_id');
         });
     }
 
@@ -39,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('founder_corperates');
+        Schema::dropIfExists('corperates');
     }
 };

@@ -13,15 +13,4 @@ public readonly ?string $business_nature_id,
     {
         
     }
-
-    // public function fromRequest(array $data)
-    // {
-    //     return new static (
-    //         $data['business_nature_id'],
-    //         $data['description'],
-    //         $data['user_id'] = auth()->user()->id??null, 
-    //         $data['website'],
-    //         ...$data
-    //     );
-    // }
 }
