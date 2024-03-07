@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('company_fund_sources', function (Blueprint $table) {
+        Schema::create('entity', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained()->unsigned();
-            $table->string('income_expected_source')->nullable();
-            $table->string('origin_funds')->nullable();
-            $table->string('wealth_initial_source')->nullable();
-            $table->string('income_outgoing_source')->nullable();
+            $table->foreignId('founder_type_id')->constrained()->unsigned();
+            $table->string('capacity')->nullable();
             $table->timestamps();
 
             $table->index('company_id');
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('company_fund_sources');
+        Schema::dropIfExists('company_founders');
     }
 };

@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('founder_auth_people', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('founder_corperate_id')->constrained()->unsigned();
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('email')->nullable();
+            $table->string('name')->nullable()->comment('roles can be shareholders, directors or multiple');
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('founder_auth_people');
+        Schema::dropIfExists('roles');
     }
 };

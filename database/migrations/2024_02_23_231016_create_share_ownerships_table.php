@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('company_ownership_shares', function (Blueprint $table) {
+        Schema::create('share_ownerships', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained()->unsigned();
-            $table->string('share_type')->nullable();
-            $table->string('no_of_share')->nullable();
-            $table->string('total_amount_paid')->nullable();
-            $table->string('currency')->nullable();
+            $table->foreignId('entity_id')->nullable();
+            $table->foreignId('share_ownership_id')->unsigned();
+            $table->string('total_amount')->nullable();
             $table->timestamps();
-
             $table->index('company_id');
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('company_ownership_shares');
+        Schema::dropIfExists('company_ownerships');
     }
 };

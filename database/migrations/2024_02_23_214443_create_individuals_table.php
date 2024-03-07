@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('founder_individuals', function (Blueprint $table) {
+        Schema::create('individuals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_founder_id')->constrained()->unsigned();
             $table->string('first_name')->nullable();

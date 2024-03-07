@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('founder_res_addresses', function (Blueprint $table) {
+        Schema::create('cor_addresses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('founder_individual_id')->constrained()->unsigned();
+            $table->foreignId('individual_id')->constrained()->unsigned();
             $table->string('address')->nullable();
             $table->string('street_no')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->string('postal_code')->nullable();
             $table->string('country')->nullable();
-            $table->integer('is_corAddress')->nullable();
             $table->timestamps();
+
             $table->index('founder_individual_id');
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('founder_res_addresses');
+        Schema::dropIfExists('founder_cor_addresses');
     }
 };
