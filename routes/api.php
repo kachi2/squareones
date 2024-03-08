@@ -25,7 +25,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('company/create', [CompanyController::class, 'InitiateCompanyCreation']);
-Route::post('/founders/create', [FounderController::class, 'StoreFounders']);
+Route::post('/company/description/store', [CompanyController::class, 'StoreCompanyDescription']);
+Route::post('company/address/store', [CompanyController::class, 'StoreCompanyAddress']);
 Route::post('owners/create', [OwnershipController::class, 'StoreOwnership']);
 Route::post('/secretary/create', [SecretaryController::class, 'StoreSecretary']);
 Route::post('activities/create', [CompanyActivityController::class, 'ActivityFundSource']);

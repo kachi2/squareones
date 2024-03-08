@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Dtos\AddressDto;
+use App\Dtos\CompanyDescription;
+use App\Dtos\CompanyDescriptionDto;
 use App\Dtos\CompanyDto;
 use App\Dtos\NamesDto;
 use App\Interfaces\CompanyFormationInterface;
@@ -10,6 +12,7 @@ use App\Models\Company;
 use App\Models\CompanyAddress;
 use App\Models\CompanyName;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Expr\Cast\Object_;
 
 class CompanyServices  implements CompanyFormationInterface
 {
@@ -64,21 +67,23 @@ class CompanyServices  implements CompanyFormationInterface
                 'user_id' => 1,
             ]);
 
+            // dd(json_encode($namesDto, true));
+
             if ($initiateCompany) {
-                $name = [];
-                foreach ($namesDto as $names) {
-                    $names =  CompanyName::create([
-                        'eng_name' => $names['eng_name'].' '.$names['prefix']??'Limited',
-                        'chn_name' => $names['chn_name'].' '.$names['prefix']??'有限公司',
-                        'choice_level' => $names['choice_level'],
+                $names = [];
+                foreach ($namesDto->names as $name) {  
+                    $store =  CompanyName::create([
+                        'eng_name' => $name['eng_name'].' '.$name['prefix']??'Limited',
+                        'chn_name' => $name['chn_name'].' '.$name['chn_prefix']??'有限公司',
+                        'choice_level' => $name['choice_level'],
                         'company_id' => $initiateCompany->id
                     ]);
-                    $name[$names] = $names;
-                }
+                    $names[] = $store;     
+            }
                 DB::commit();
                 return [
                     'company' => $initiateCompany,
-                    'name' => $name
+                    'name' => $names
                 ];
             }
         } catch (\Exception $e) {
@@ -87,9 +92,10 @@ class CompanyServices  implements CompanyFormationInterface
         }
     }
 
-    public function StoreCompanyAddress(AddressDto $addressDto, $company_id)
+    public function StoreCompanyAddress(AddressDto $addressDto)
     {
-        $company = Company::whereId($company_id)->first();
+        $company = Company::whereId($addressDto->company_id)->first();
+        if($company){
         $company->update([
             'address' =>  $addressDto->address,
             'street_no' => $addressDto->street_no,
@@ -97,6 +103,26 @@ class CompanyServices  implements CompanyFormationInterface
             'state' => $addressDto->state,
             'postal_code' => $addressDto->postal_code,
             'country' => $addressDto->country,
+            
         ]);
+        return $company;
+    }else{
+        return false;
     }
+
+    }
+
+    public function StoreDescription(CompanyDescriptionDto $companyDto){
+      $company = Company::whereId($companyDto->company_id)->first();
+      if($company){
+        $company->update([
+            'description' => $companyDto->description??$company->description,
+            'website' => $companyDto->website??$company->website,
+            'business_nature_id' => $companyDto->business_nature_id??$company->business_nature_id,
+        ]);
+        return $company;
+      }
+      return [];
+    }
+
 }

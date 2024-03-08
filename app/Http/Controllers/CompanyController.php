@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Dtos\AddressDto;
+use App\Dtos\CompanyDescription;
+use App\Dtos\CompanyDescriptionDto;
 use App\Dtos\CompanyDto;
 use App\Dtos\NamesDto;
+use App\Http\Requests\CompanyAddressRequest;
+use App\Http\Requests\CompanyDescription as RequestsCompanyDescription;
+use App\Http\Requests\CompanyDescriptionReq;
 use App\Http\Requests\CompanyRequest;
 use App\Http\Requests\NamesRequest;
 use Illuminate\Support\Facades\DB;
@@ -26,27 +32,43 @@ class CompanyController extends Controller
             return  response()->json(['error' => "Names already exist on our database, please choose another name"]);
         }
             $namesDto = NamesDto::fromRequest($req->validated());
-            // dd($namesDto);
             $initiateCompany = $this->companyServices->InitiateCompany($namesDto);
             return $initiateCompany;
     }
 
-    public function SaveFromRequest(CompanyRequest $req)
+    public function StoreCompanyDescription(CompanyDescriptionReq $req)
     {
         try {
             DB::beginTransaction();
-            $companyDto = CompanyDto::fromRequest($req->validated());
+            $companyDto = CompanyDescriptionDto::fromRequest($req->validated());
             if ($companyDto) {
-                $company = $this->companyServices->StoreCompanyInfo($companyDto, '');
-                if (isset($company)) {
-                    // $names = $this->companyServices->SaveBusinessName($req->names, $company->id);
-                }
+                $company = $this->companyServices->StoreDescription($companyDto);
             }
             DB::commit();
+            return response()->json(['company_details' =>$company]);
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with('errors', $e->getMessage());
+            return response()->json(['errors', $e->getMessage()]);
+            // return redirect()->back()->with('errors', $e->getMessage());
         }
-        return response()->json(['company_info' => $company, 'names' => $names]);
+    }
+
+    public function StoreCompanyAddress(CompanyAddressRequest $req){
+
+        try{
+            DB::beginTransaction();
+            $addressDto = AddressDto::fromRequest($req->validated());
+            if($addressDto){
+                $address = $this->companyServices->StoreCompanyAddress($addressDto);
+            }
+            DB::commit();
+         return response()->json(['company_details' =>$address]);
+        }catch(\Exception $e)
+        {
+            DB::rollBack();
+            return response()->json(['error' =>$e->getMessage()]);
+        }
+
+
     }
 }
