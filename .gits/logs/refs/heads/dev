@@ -1,0 +1,19 @@
+0000000000000000000000000000000000000000 e7d867420d849962cc539b5a42421372ca4d9afa Michael Ozoudeh <jesmikky@gmail.com> 1709262628 +0100	branch: Created from HEAD
+e7d867420d849962cc539b5a42421372ca4d9afa e1ecae425f58de0a6be397a91c2fce6394172ae8 Michael Ozoudeh <jesmikky@gmail.com> 1709311209 +0100	commit: document uploaded completed
+e1ecae425f58de0a6be397a91c2fce6394172ae8 1ae22c521e658ea255cabff769b6ba4a56900047 Michael Ozoudeh <jesmikky@gmail.com> 1709675736 +0100	commit: issue #7 seperated company details from company name
+1ae22c521e658ea255cabff769b6ba4a56900047 172feb6bb609eb8fe88e63768ae7956db43f084c Michael Ozoudeh <jesmikky@gmail.com> 1709676859 +0100	commit (merge): update the endpoint for company name
+172feb6bb609eb8fe88e63768ae7956db43f084c 71182cea1ad6979e66b59af2b289901dee14db49 Michael Ozoudeh <jesmikky@gmail.com> 1709730189 +0100	commit (merge): design the company owners table
+71182cea1ad6979e66b59af2b289901dee14db49 3196880399ed227576507dfa597a2388edefcdb7 Michael Ozoudeh <jesmikky@gmail.com> 1709809646 +0100	commit (merge): #13 Redesign the Database Schema
+3196880399ed227576507dfa597a2388edefcdb7 3196880399ed227576507dfa597a2388edefcdb7 Michael Ozoudeh <jesmikky@gmail.com> 1709809915 +0100	Branch: renamed refs/heads/devs to refs/heads/staging
+3196880399ed227576507dfa597a2388edefcdb7 48a632ca662c597874a83d9e4ae5500a6e45736d Michael Ozoudeh <jesmikky@gmail.com> 1709810826 +0100	commit: #13 Redesign the Database Schema
+48a632ca662c597874a83d9e4ae5500a6e45736d 48a632ca662c597874a83d9e4ae5500a6e45736d Michael Ozoudeh <jesmikky@gmail.com> 1709810897 +0100	Branch: renamed refs/heads/staging to refs/heads/staging
+48a632ca662c597874a83d9e4ae5500a6e45736d 48a632ca662c597874a83d9e4ae5500a6e45736d Michael Ozoudeh <jesmikky@gmail.com> 1709814216 +0100	Branch: renamed refs/heads/staging to refs/heads/dev
+48a632ca662c597874a83d9e4ae5500a6e45736d 48a632ca662c597874a83d9e4ae5500a6e45736d Michael Ozoudeh <jesmikky@gmail.com> 1709814506 +0100	Branch: renamed refs/heads/dev to refs/heads/master
+48a632ca662c597874a83d9e4ae5500a6e45736d 72725a53b5e8cf3eab5dd321a76427721161b6ba Michael Ozoudeh <jesmikky@gmail.com> 1709817004 +0100	commit: #13 Add entities and roles in place of company owners
+72725a53b5e8cf3eab5dd321a76427721161b6ba 72725a53b5e8cf3eab5dd321a76427721161b6ba Michael Ozoudeh <jesmikky@gmail.com> 1709817157 +0100	Branch: renamed refs/heads/master to refs/heads/dev
+72725a53b5e8cf3eab5dd321a76427721161b6ba 39971890060be13fea3b9f62e074099e452a5627 Michael Ozoudeh <jesmikky@gmail.com> 1709820160 +0100	commit: Issues #13 fixed all migrations issues on the new shema design
+39971890060be13fea3b9f62e074099e452a5627 460d2dcdd70cda08e40b100f73364e4f389ff085 Michael Ozoudeh <jesmikky@gmail.com> 1709852397 +0100	commit: #13 rebuild the entire migrations files
+460d2dcdd70cda08e40b100f73364e4f389ff085 460d2dcdd70cda08e40b100f73364e4f389ff085 Michael Ozoudeh <jesmikky@gmail.com> 1709852528 +0100	Branch: renamed refs/heads/dev to refs/heads/master
+460d2dcdd70cda08e40b100f73364e4f389ff085 f92f92c72532979dd92c43df39492459b387a03a Michael Ozoudeh <jesmikky@gmail.com> 1709852688 +0100	commit: #13 rebuild the entire migrations files
+f92f92c72532979dd92c43df39492459b387a03a 4be25bd4b2907e9a6262029d9924a3b0adedd5e6 Michael Ozoudeh <jesmikky@gmail.com> 1709861414 +0100	pull prod dev: Fast-forward
+4be25bd4b2907e9a6262029d9924a3b0adedd5e6 4be25bd4b2907e9a6262029d9924a3b0adedd5e6 Michael Ozoudeh <jesmikky@gmail.com> 1709885608 +0100	Branch: renamed refs/heads/master to refs/heads/dev

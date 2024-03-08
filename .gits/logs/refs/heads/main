@@ -1,0 +1,16 @@
+0000000000000000000000000000000000000000 cee4c1800f77551dbf912282448dd02f089b7505 Michael Ozoudeh <jesmikky@gmail.com> 1708677822 +0100	clone: from https://github.com/mluciani/SquareOne.git
+cee4c1800f77551dbf912282448dd02f089b7505 cee4c1800f77551dbf912282448dd02f089b7505 Michael Ozoudeh <jesmikky@gmail.com> 1708694772 +0100	Branch: renamed refs/heads/Staging to refs/heads/main
+cee4c1800f77551dbf912282448dd02f089b7505 6f33a1c4c0245ab0ad6cebdb7c7eacf00f6e0a1f Michael Ozoudeh <jesmikky@gmail.com> 1708694924 +0100	commit: remv ur
+6f33a1c4c0245ab0ad6cebdb7c7eacf00f6e0a1f 4c415acf04658f7436807944d3b35b981fa983d5 Michael Ozoudeh <jesmikky@gmail.com> 1708737839 +0100	commit: model completed
+4c415acf04658f7436807944d3b35b981fa983d5 15d56260234d1a9bf82d4a26e6592df9d19d558d Michael Ozoudeh <jesmikky@gmail.com> 1708740806 +0100	commit: model design
+15d56260234d1a9bf82d4a26e6592df9d19d558d c11929e458fb4d797cd661303625af3024fd7c94 Michael Ozoudeh <jesmikky@gmail.com> 1708741545 +0100	commit: model design
+c11929e458fb4d797cd661303625af3024fd7c94 098c419e640191d1f4bf142bb9d3b88875d9a5f3 Michael Ozoudeh <jesmikky@gmail.com> 1708809856 +0100	commit: updated filllable
+098c419e640191d1f4bf142bb9d3b88875d9a5f3 21b0eeb794821aaa7d26fe065529d5dc14bb7f2e Michael Ozoudeh <jesmikky@gmail.com> 1708812627 +0100	commit: completed model relationship
+21b0eeb794821aaa7d26fe065529d5dc14bb7f2e 17d4a7156b9457ed69bef0d8242df5a07027d678 Michael Ozoudeh <jesmikky@gmail.com> 1709044484 +0100	commit: dtos completed
+17d4a7156b9457ed69bef0d8242df5a07027d678 61438e2e0ec3dfd09018e7f9f57edabd3ad44185 Michael Ozoudeh <jesmikky@gmail.com> 1709069604 +0100	commit: project structure done
+61438e2e0ec3dfd09018e7f9f57edabd3ad44185 68b2d7025b918a614c53a040465148c913ea4532 Michael Ozoudeh <jesmikky@gmail.com> 1709090703 +0100	commit: company reg completed
+68b2d7025b918a614c53a040465148c913ea4532 3210876acdf0ab77adcb47a2f713e039945e7fb0 Michael Ozoudeh <jesmikky@gmail.com> 1709147747 +0100	commit: updated migrations
+3210876acdf0ab77adcb47a2f713e039945e7fb0 66374b2de89652a0fd0fce6d7cbb63396a44ac21 Michael Ozoudeh <jesmikky@gmail.com> 1709171058 +0100	commit: completed compnay name
+66374b2de89652a0fd0fce6d7cbb63396a44ac21 d97a9dfbf7ae56650aa075959294e487d3aca1f0 Michael Ozoudeh <jesmikky@gmail.com> 1709247482 +0100	commit: onwership dtos added
+d97a9dfbf7ae56650aa075959294e487d3aca1f0 bac35933987e339910f3a1a5fa972496a82c9bfc Michael Ozoudeh <jesmikky@gmail.com> 1709257232 +0100	commit: activities added
+bac35933987e339910f3a1a5fa972496a82c9bfc e7d867420d849962cc539b5a42421372ca4d9afa Michael Ozoudeh <jesmikky@gmail.com> 1709261925 +0100	commit: completed activie

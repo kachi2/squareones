@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\CompanyActivityController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\FounderController;
+use App\Http\Controllers\OwnershipController;
+use App\Http\Controllers\SecretaryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +23,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('company/create', [CompanyController::class, 'InitiateCompanyCreation']);
+Route::post('/company/description/store', [CompanyController::class, 'StoreCompanyDescription']);
+Route::post('company/address/store', [CompanyController::class, 'StoreCompanyAddress']);
+Route::post('owners/create', [OwnershipController::class, 'StoreOwnership']);
+Route::post('/secretary/create', [SecretaryController::class, 'StoreSecretary']);
+Route::post('activities/create', [CompanyActivityController::class, 'ActivityFundSource']);
+Route::post('upload/docs', [FileUploadController::class, 'ProcessDocuments']);
