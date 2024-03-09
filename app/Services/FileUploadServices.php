@@ -19,7 +19,6 @@ class FileUploadServices  implements FileUploadInterface{
                 'document' => $base64Image,
                 'document_type_id' => $files['document_type_id']
             ]);
-
             $docs[] =  $documents;
         }
         return  $docs;
