@@ -14,7 +14,7 @@ class CompanySharesController extends Controller
 
     
     public function __construct(
-        public readonly SharesInterface $OwnershipInterface
+        public readonly SharesInterface $shareInterface
     )
     {
     }
@@ -22,8 +22,8 @@ class CompanySharesController extends Controller
     public function StoreShares(CompanySharesRequest  $req){
         try {
         DB::beginTransaction();
-        $ownerDto = SharesDto::fromRequest($req->validated());
-        $service = $this->OwnershipInterface->SaveFromData($ownerDto);
+        $shareDto = SharesDto::fromRequest($req->validated());
+        $service = $this->shareInterface->SaveFromData($shareDto);
         DB::commit();
         return $service;
     }catch(\Exception $e){

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CompanyActivityRequest extends FormRequest
+class FundSourceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +23,11 @@ class CompanyActivityRequest extends FormRequest
     {
         return [
             'company_id' => 'required',
-            'description' => 'required',
-            'activity_level' => 'required',
-            'activity_nature' => 'required',
-            'customer_location_operation' => 'required',
-            'country' => 'required',
+            'income_expected_source' => 'required',
+            'origin_funds' => 'required',
+            'wealth_initial_source' => 'required',
+            'income_outgoing_source' => 'required',
+            //
         ];
     }
 }

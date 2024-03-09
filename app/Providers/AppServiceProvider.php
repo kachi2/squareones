@@ -28,7 +28,6 @@ class AppServiceProvider extends ServiceProvider
         app()->bind(CompanyEnityInterface::class, CompanyEntityService::class);
         app()->bind(SharesInterface::class, SharesService::class);
         app()->bind(SecretaryInterface::class, SecretaryService::class);
-        app()->bind(ActivitiesInterface::class, ActivitiesService::class);
         app()->bind(FileUploadInterface::class, FileUploadServices::class);
     }
 

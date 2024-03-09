@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('company_entities', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained();
-            $table->integer('is_founder')->default(0);
             $table->string('entity_type_id')->nullable();
             $table->string('entity_capacity_id')->nullable();
+            $table->integer('is_founder')->default(0);
             $table->timestamps();
         });
     }

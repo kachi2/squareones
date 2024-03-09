@@ -20,21 +20,21 @@ class SharesService implements SharesInterface
         ]);
 
         if($owner){
-          $founders =  $this->SharesToCompanyEntities($request, $owner);
+          $entity =  $this->SharesToCompanyEntities($request, $owner);
         }
         $data  = [
-            'CompanyOwnershipShare' => $owner,
-            'founderShare' => $founders
+            'CompanyShare' => $owner,
+            'Owners_Share' => $entity
         ];
         return $data;
     }
     
-    public function SharesToCompanyEntities($requests, $owner)
+    public function SharesToCompanyEntities($requestsDto, $owner)
     {
-        foreach($requests->founders as $request){
+        foreach($requestsDto->company_entity as $request){
         $data = OwnershipShare::create([
-           'company_id' => $requests->company_id,
-           'company_ownership_share_id' => $owner->id,
+           'company_id' => $requestsDto->company_id,
+           'company_share_id' => $owner->id,
            'company_entity_id' => $request['company_entity_id'],
            'share_percentage' => $request['share_percentage'],
            'total_amount' => $request['total_amount']

@@ -13,8 +13,17 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('company_id')->constrained()->unsigned();
+            $table->foreignId('document_type_id')->unsigned();
+            $table->longText('document')->nullable();
+            $table->string('status')->nullable();
+            $table->string('is_verified')->nullable();
+            $table->string('is_signed')->nullable();
             $table->timestamps();
+
+            $table->index('company_id');
         });
+
     }
 
     /**

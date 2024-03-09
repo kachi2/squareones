@@ -10,11 +10,7 @@ class ActivityDto extends BaseDto
         public readonly string   $activity_level,
         public readonly string   $activity_nature, 
         public readonly string   $customer_location_operation,
-        public readonly string   $income_expected_source,
-        public readonly string   $origin_funds,
-        public readonly string   $wealth_initial_source, 
-        public readonly string   $income_outgoing_source,
-        public readonly string   $country
+        public readonly string   $country,
     )
     {
         
