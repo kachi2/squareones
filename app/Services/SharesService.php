@@ -1,25 +1,26 @@
 <?php
 namespace App\Services;
 
-use App\Interfaces\OwnershipInterface;
+use App\Interfaces\SharesInterface;
 use App\Models\CompanyOwnership;
-use App\Models\CompanyOwnershipShare;
+use App\Models\CompanyShare;
+use App\Models\OwnershipShare;
 
-class OwnershipService implements OwnershipInterface 
+class SharesService implements SharesInterface 
 {
 
     public function  SaveFromData($request){
 
-        $owner = CompanyOwnershipShare::create([
+        $owner = CompanyShare::create([
             'company_id' => $request->company_id,
-            'share_type' => $request->share_type,
+            'share_type_id' => $request->share_type_id,
             'no_of_share' => $request->no_of_share,
             'total_amount_paid' => $request->total_amount_paid,
             'currency' => $request->currency
         ]);
 
         if($owner){
-          $founders =  $this->SharesToFounders($request, $owner);
+          $founders =  $this->SharesToCompanyEntities($request, $owner);
         }
         $data  = [
             'CompanyOwnershipShare' => $owner,
@@ -28,13 +29,13 @@ class OwnershipService implements OwnershipInterface
         return $data;
     }
     
-    public function SharesToFounders($requests, $owner){
-
+    public function SharesToCompanyEntities($requests, $owner)
+    {
         foreach($requests->founders as $request){
-        $data = CompanyOwnership::create([
+        $data = OwnershipShare::create([
            'company_id' => $requests->company_id,
            'company_ownership_share_id' => $owner->id,
-           'company_founder_id' => $request['company_founder_id'],
+           'company_entity_id' => $request['company_entity_id'],
            'share_percentage' => $request['share_percentage'],
            'total_amount' => $request['total_amount']
         ]);

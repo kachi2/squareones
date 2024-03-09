@@ -5,7 +5,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyEntityController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\FounderController;
-use App\Http\Controllers\OwnershipController;
+use App\Http\Controllers\CompanySharesController;
 use App\Http\Controllers\SecretaryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -36,7 +36,7 @@ Route::post('entity/store', 'StoreEntity');
 });
 
 
-Route::post('owners/create', [OwnershipController::class, 'StoreOwnership']);
+Route::post('shares/store', [CompanySharesController::class, 'StoreShares']);
 Route::post('/secretary/create', [SecretaryController::class, 'StoreSecretary']);
 Route::post('activities/create', [CompanyActivityController::class, 'ActivityFundSource']);
 Route::post('upload/docs', [FileUploadController::class, 'ProcessDocuments']);

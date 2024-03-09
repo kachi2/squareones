@@ -2,27 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Dtos\OwnerDto;
-use App\Http\Requests\OwnershipRequest;
-use App\Interfaces\OwnershipInterface;
+use App\Dtos\SharesDto;
+use App\Http\Requests\CompanySharesRequest;
+use App\Interfaces\SharesInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class OwnershipController extends Controller
+class CompanySharesController extends Controller
 {
     //
 
     
     public function __construct(
-        public readonly OwnershipInterface $OwnershipInterface
+        public readonly SharesInterface $OwnershipInterface
     )
     {
     }
 
-    public function StoreOwnership(OwnershipRequest $req){
+    public function StoreShares(CompanySharesRequest  $req){
         try {
         DB::beginTransaction();
-        $ownerDto = OwnerDto::fromRequest($req->validated());
+        $ownerDto = SharesDto::fromRequest($req->validated());
         $service = $this->OwnershipInterface->SaveFromData($ownerDto);
         DB::commit();
         return $service;
