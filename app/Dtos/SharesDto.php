@@ -2,7 +2,7 @@
 
 namespace App\Dtos;
 
-class OwnerDto extends BaseDto
+class SharesDto extends BaseDto
 {
     public function __construct(
         public readonly string $company_id, 
