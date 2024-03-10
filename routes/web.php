@@ -31,9 +31,6 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
-    Route::get('/welcome', function() {
-        return Inertia::render('Test/form');
-    })->name('welcome');
     Route::get('/companyformation', function() {
         return Inertia::render('CompanyFormation/FormationPage');
     })->name('companyformation');
