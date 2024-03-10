@@ -2,6 +2,7 @@
     <AppLayout title="CompanyFormation">
 
         <div class="py-12">
+            <!-- dark:bg-gray-800 -->
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden border border-sidebar-100 shadow-xl sm:rounded-sm">
                     <FormLayout :currentSection="currentSection" :navigationData="navigationData" @updateSection="setCurrentSection">
