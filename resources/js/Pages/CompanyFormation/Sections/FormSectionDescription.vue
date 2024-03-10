@@ -1,94 +1,44 @@
-<script setup>
-import TextArea from "@/Components/TextArea.vue";
-import TextInput from "@/Components/TextInput.vue";
-import SecondaryButton from "@/Components/SecondaryButton.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-import { ArrowLeftIcon } from "@placetopay/iconsax-vue/twotone";
-import { ArrowRightIcon } from "@placetopay/iconsax-vue/twotone";
-import FormContainer from "@/Components/Form/FormContainer.vue";
-import ComboMenu from "@/Components/ComboMenu.vue";
-
-const categories = [
-    { id: 1, name: "ICT" },
-    { id: 2, name: "Marketing" },
-];
-</script>
-
 <template>
-    <FormContainer>
-        <div class="mb-6">
-            <h1 class="mb-2 text-2xl font-bold text-gray-700">Description</h1>
-            <p class="mb-4 text-gray-600">
-                This information facilitates a faster review process by our team
-                and remains strictly confidential.
-            </p>
+	<div class="w-3/5 p-5 bg-gray-100">
+        <div class="bg-white p-8 rounded-md shadow-md">
+            <div class="container mx-auto">
+				<div class="mx-auto w-full max-w-2xl bg-white p-8">
+					<div class="mb-6">
+						<h1 class="mb-2 text-2xl font-bold text-gray-700">Description</h1>
+						<p class="mb-4 text-gray-600">This information facilitates a faster review process by our team and remains strictly confidential.</p>
 
-            <div class="my-5">
-                <label
-                    class="mb-2 block text-sm font-bold text-gray-700"
-                    for="product-description"
-                >
-                    Describe your product or service
-                </label>
-                <p class="mb-2 text-gray-600">
-                    Please briefly describe the product or service you are
-                    developing. Aim for a concise overview in one or two
-                    sentences.
-                </p>
-                <TextArea
-                    minlength="150"
-                    placeholder="Minimum 150 characters needed"
-                    rows="5"
-                />
-            </div>
+						<label class="mb-2 block text-sm font-bold text-gray-700" for="product-description"> Describe your product or service </label>
+						<p class="mb-2 text-gray-600">Please briefly describe the product or service you are developing. Aim for a concise overview in one or two sentences.</p>
+						<textarea class="focus:shadow-outline mb-3 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none" id="product-description" placeholder="Minimum 150 characters needed." minlength="150"></textarea>
 
-            <div class="my-5">
-                <label
-                    class="mb-2 block text-sm font-bold text-gray-700"
-                    for="nature-of-business"
-                >
-                    Nature of business
-                </label>
-                <span class="text-sm text-gray-500"
-                    >Choose the primary category that best represents the
-                    business nature of your company.</span
-                >
-                <br />
+						<label class="mb-2 block text-sm font-bold text-gray-700" for="nature-of-business"> Nature of business </label>
+						<div class="relative">
+							<span class="text-sm text-gray-500">Choose the primary category that best represents the business nature of your company.</span>
+							<select class="focus:shadow-outline block w-full appearance-none rounded border border-gray-400 bg-white px-4 py-2 pr-8 leading-tight shadow hover:border-gray-500 focus:outline-none" id="nature-of-business">
+								<option></option>
+								<!-- Additional options here -->
+							</select>
+						</div>
 
-                <ComboMenu :options="categories" />
-            </div>
+						<label class="mb-2 mt-4 block text-sm font-bold text-gray-700" for="website-social"> Website or social media </label>
+						<input class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none" id="website-social" type="text" placeholder="" />
+					</div>
 
-            <div class="my-5">
-                <label
-                    class="mb-2 mt-4 block text-sm font-bold text-gray-700"
-                    for="website-social"
-                >
-                    Website or social media
-                </label>
-                <TextInput
-                    id="website-social"
-                    type="text"
-                    placeholder="https://example.com"
-                />
-            </div>
+					<div class="flex items-center justify-between">
+						<button class="inline-flex items-center rounded bg-gray-300 px-4 py-2 font-bold text-gray-800 hover:bg-gray-400">
+						<span>Back</span>
+						</button>
+						<button class="inline-flex items-center rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700">
+							<span>Continue</span>
+						</button>
+					</div>
+				</div>
+			</div>
         </div>
-
-        <div class="flex space-x-3">
-            <SecondaryButton>
-                <div class="flex space-x-2">
-                    <ArrowLeftIcon class="text-black h-5 w-5 my-auto" />
-                    <div>Back</div>
-                </div>
-            </SecondaryButton>
-            <PrimaryButton>
-                <div class="flex space-x-2">
-                    <div>Continue</div>
-                    <ArrowRightIcon class="text-white h-5 w-5 my-auto" />
-                </div>
-            </PrimaryButton>
-        </div>
-    </FormContainer>
-    <div class="w-2/5 p-5 text-sm" style="background: #f6f9fb">
-        <div class="h-full p-5"></div>
+    </div>
+	<div class="w-2/5 p-5 text-sm" style="background: #F6F9FB">
+        <div class="h-full p-5">
+            
+        </div> 
     </div>
 </template>
