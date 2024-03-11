@@ -2,6 +2,7 @@
 
 namespace App\Interfaces;
 
+use App\Dtos\ActivityDto;
 use App\Dtos\AddressDto;
 use App\Dtos\CompanyDescriptionDto;
 use App\Dtos\CompanyDto;
@@ -18,5 +19,7 @@ interface CompanyFormationInterface
     public function InitiateCompany(NamesDto $namesDto);
     public function StoreDescription(CompanyDescriptionDto $companyDescription);
     public function StoreCompanyAddress(AddressDto $addressDto);
+    public function StoreActivties(ActivityDto $request);
+    public function StoreFundSource($request);
 
 }

@@ -10,6 +10,8 @@ use App\Dtos\NamesDto;
 use App\Interfaces\CompanyFormationInterface;
 use App\Models\Company;
 use App\Models\CompanyAddress;
+use App\Models\CompanyActivity;
+use App\Models\FundSource;
 use App\Models\CompanyName;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Expr\Cast\Object_;
@@ -123,6 +125,46 @@ class CompanyServices  implements CompanyFormationInterface
         return $company;
       }
       return [];
+    }
+
+    public function StoreActivties($request)
+    {
+        $activity = CompanyActivity::whereCompanyId($request->company_id)->first();
+        if(!$activity){
+            $store = CompanyActivity::create([
+                'company_id' => $request->company_id,
+                'description' => $request->description,
+                'activity_level' => $request->activity_level,
+                'activity_nature' => $request->activity_nature,
+                'customer_location_operation' => $request->customer_location_operation,
+                'country' => $request->country
+            ]);
+            return $store;
+        }else{
+            $activity->update([
+                'company_id' => $request->company_id,
+                'description' => $request->description,
+                'activity_level' => $request->activity_level,
+                'activity_nature' => $request->activity_nature,
+                'customer_location_operation' => $request->customer_location_operation,
+                'country' => $request->country
+            ]);
+            return $activity;
+        }
+       
+      
+       
+    }
+
+    public function StoreFundSource($request)
+    {
+        return FundSource::create([
+            'company_id' => $request->company_id,
+            'income_expected_source' => $request->income_expected_source,
+            'origin_funds' => $request->origin_funds,
+            'wealth_initial_source' => $request->wealth_initial_source,
+            'income_outgoing_source' => $request->income_outgoing_source,
+        ]);
     }
 
 }

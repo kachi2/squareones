@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('company_shares', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained()->unsigned();
-            $table->string('share_type')->nullable();
+            $table->string('share_type_id')->nullable();
             $table->string('no_of_share')->nullable();
             $table->string('total_amount_paid')->nullable();
             $table->string('currency')->nullable();

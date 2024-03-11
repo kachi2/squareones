@@ -11,7 +11,7 @@ class SecretaryService implements SecretaryInterface
 
     public function SaveFromData($request)
     {
-      $record =   CompanySecretary::createorUpdate([
+      $record =   CompanySecretary::updateOrCreate([
             'company_id' => $request->company_id,
             'name' => $request->name,
             'chn_name' => $request->chn_name,
@@ -25,7 +25,6 @@ class SecretaryService implements SecretaryInterface
             'postal_code' => $request->postal_code,
             'country' => $request->country
         ]);
-
         return $record;
 
     }

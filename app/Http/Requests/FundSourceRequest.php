@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OwnershipRequest extends FormRequest
+class FundSourceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +23,11 @@ class OwnershipRequest extends FormRequest
     {
         return [
             'company_id' => 'required',
-            'share_type' => 'required',
-            'no_of_share' => 'required',
-            'total_amount_paid' => 'required',
-            'currency' => 'required',
-            'founders' => 'required'
+            'income_expected_source' => 'required',
+            'origin_funds' => 'required',
+            'wealth_initial_source' => 'required',
+            'income_outgoing_source' => 'required',
+            //
         ];
     }
 }

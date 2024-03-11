@@ -4,42 +4,43 @@ namespace App\Traits;
 
 use Illuminate\Support\Facades\Validator;
 
-trait FoundersData
+trait CompanyEntityData
 {
 
-    public function IndividualFoundersData($request)
+    public function IndividualEntityData($request)
     { 
         $valid = Validator::make($request->all(), [
             'company_id' => 'nullable',
-            'founder_type_id' => 'nullable',
-            'capacity' => 'required',
+            'entity_type_id' => 'nullable',
+            'entity_capacity_id' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
             'chn_first_name' => 'required',
             'chn_last_name' => 'required',
             'dob' => 'required',
             'nationality' => 'required',
-            'hkid_no' => 'required',
-            'passport_no' => 'required',
-            'issuing_country' => 'required',
+            'identity_no' => 'nullable',
+            'passport_no' => 'nullable',
+            'issuing_country' => 'nullable',
             'nationality' => 'required',
-            'id_type' => 'required',
+            'identity_type_id' => 'required',
             'phone' => 'required',
-            'email' => 'required',
+            'email' => 'required', 
             'occupation' => 'required',
             'addresses' => 'required',
-            'is_corAddress' => 'required'
+            'is_corAddress' => 'required',
+            'card_name' => 'nullable',
         ]);
         return $valid;
     }
 
 
-    public function CorporateFoundersData($request)
+    public function CorporateEntitysData($request)
     {
         $valid = Validator::make($request->all(), [
             'company_id' => 'nullable',
-            'founder_type_id' => 'nullable',
-            'capacity' => 'required',
+            'entity_type_id' => 'nullable',
+            'entity_capacity_id' => 'required',
             'company_name' => 'required',
             'chn_company_name' => 'required',
             'date_incorporated' => 'required',
@@ -61,12 +62,5 @@ trait FoundersData
         return $valid;
     }
 
-    public function BasefounderRequest($request){
-        return [
-            'company_id' => $request->company_id,
-            'founder_type_id' => $request->founder_type_id,
-            'capacity' => $request->capacity
-        ];
-
-    }
+  
 }

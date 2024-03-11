@@ -8,7 +8,6 @@ use App\Dtos\CompanyDescriptionDto;
 use App\Dtos\CompanyDto;
 use App\Dtos\NamesDto;
 use App\Http\Requests\CompanyAddressRequest;
-use App\Http\Requests\CompanyDescription as RequestsCompanyDescription;
 use App\Http\Requests\CompanyDescriptionReq;
 use App\Http\Requests\CompanyRequest;
 use App\Http\Requests\NamesRequest;
@@ -18,8 +17,6 @@ use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    //
-
     public function __construct(
         public readonly CompanyServices $companyServices
     ) {
