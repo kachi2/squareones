@@ -26,20 +26,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::controller(CompanyController::class)->group(function(){
-    Route::post('company/create',  'InitiateCompanyCreation');
-    Route::post('/company/description/store', 'StoreCompanyDescription');
-    Route::post('company/address/store', 'StoreCompanyAddress');
-});
 
-Route::controller(CompanyEntityController::class)->group(function(){
-Route::post('entity/store', 'StoreEntity');
-});
+require __DIR__.'/jetstream.php';
+require __DIR__.'/auth.php';
+require __DIR__.'/companyFormation.php';
 
-
-Route::post('shares/store', [CompanySharesController::class, 'StoreShares']);
-
-Route::post('/secretary/store', [SecretaryController::class, 'StoreSecretary']);
-Route::post('activities/store', [CompanyActivityController::class, 'CompanyActivities']);
-Route::post('fundsource/store', [FundSourceController::class, 'FundSource']);
-Route::post('upload/docs', [FileUploadController::class, 'ProcessDocuments']);
