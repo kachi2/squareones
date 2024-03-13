@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 
 
 
-
-
-
-
 Route::controller(CompanyController::class)->group(function(){
     Route::post('company/create',  'InitiateCompanyCreation');
     Route::post('/company/description/store', 'StoreCompanyDescription');

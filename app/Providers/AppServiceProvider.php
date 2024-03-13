@@ -3,12 +3,14 @@
 namespace App\Providers;
 
 use App\Interfaces\ActivitiesInterface;
+use App\Interfaces\AuthInterface;
 use App\Interfaces\CompanyFormationInterface;
 use App\Interfaces\FileUploadInterface;
 use App\Interfaces\SecretaryInterface;
 use App\Interfaces\CompanyEnityInterface;
 use App\Interfaces\SharesInterface;
 use App\Services\ActivitiesService;
+use App\Services\AuthService;
 use Illuminate\Support\ServiceProvider;
 use App\Services\CompanyServices;
 use App\Services\FileUploadServices;
@@ -23,12 +25,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
         app()->bind(CompanyFormationInterface::class, CompanyServices::class);
         app()->bind(CompanyEnityInterface::class, CompanyEntityService::class);
         app()->bind(SharesInterface::class, SharesService::class);
         app()->bind(SecretaryInterface::class, SecretaryService::class);
         app()->bind(FileUploadInterface::class, FileUploadServices::class);
+        app()->bind(AuthInterface::class, AuthService::class);
     }
 
     /**
