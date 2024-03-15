@@ -48,6 +48,14 @@
 
 @include('pdf.first_directors')
 
+
+@include('pdf.founder_statement')
+
+@include('pdf.pi-ncc_secretary')
+
+@include('pdf.notice_to_business')
+
+@include('pdf.company_ordinance')
 </section>
 </div>
 </html>

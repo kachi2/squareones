@@ -215,42 +215,109 @@
         style=" color: #FFF; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 7pt;"></span>
 </p>
 <table style="border-collapse:collapse" cellspacing="0">
-    <tr style="height:12pt">
-        <td style="width:479pt" colspan="4">
-            <p class="s28" style="padding-left: 2pt;text-indent: 0pt;line-height: 11pt;text-align: left;">
-                信託或公司服務提供者牌照 <span class="s2">Trust or Company Service Provider Licence</span></p>
-        </td>
-    </tr>
-    <tr style="height:19pt">
-        <td style="width:479pt" colspan="4">
-            <p class="s40" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">請填報牌照編號或在適用的空格內加上<span
-                    class="s48"></span><span class="s49"> </span>號 <span class="s39">Please provide the licence no.
-                    or tick the relevant box</span></p>
-        </td>
-    </tr>
-    <tr style="height:66pt">
-        <td style="width:54pt;border-right-style:solid;border-right-width:1pt; ">
-            <p class="s8" style="padding-left: 2pt;text-indent: 0pt;line-height: 11pt;text-align: left;">牌 照編 號</p>
-            <p class="s29" style="padding-left: 2pt;text-indent: 0pt;line-height: 9pt;text-align: left;">Licence No.
-            </p>
-        </td>
+    <tr style="height:37pt">
         <td
-            style="width:78pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt; border-bottom-style:solid;border-bottom-width:1pt">
+            style="width:73pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
             <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            <p class="s8"
+                style="padding-left: 8pt;padding-right: 7pt;text-indent: 0pt;line-height: 11pt;text-align: center;">
+                提示 </p>
+            <p class="s9"
+                style="padding-left: 8pt;padding-right: 7pt;text-indent: 0pt;line-height: 9pt;text-align: center;">
+                Advisory Note</p>
         </td>
         <td
-            style="width:114pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s8" style="padding-left: 43pt;padding-right: 8pt;text-indent: 0pt;text-align: left;">
-                <input type="checkbox">  無 須領 有牌照
-               <span class="s29">Not required to obtain a licence</span></p>
-        </td>
-        <td
-            style="width:233pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s50" style="padding-left: 1pt;text-indent: 0pt;line-height: 11pt;text-align: left;">原因 <span
-                    class="s39">Reason:</span> </p>
+            style="width:413pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s8" style="padding-top: 3pt;padding-left: 1pt;text-indent: 0pt;text-align: justify;">
+                所有公司董事均應閱讀公司註冊處編製的《 董事責任指引》， 並熟悉該指引所概述的董事一般責任。 <span class="s9">All directors of the company
+                    are advised to read ‘A Guide on Directors’ Duties’ published by the Companies Registry
+                    and acquaint themselves with the general duties of directors outlined in the
+                    Guide.</span></p>
         </td>
     </tr>
 </table>
+
+<table style="border-collapse:collapse; margin-top:30px; margin-left:20px" cellspacing="0">
+    <tr style="height:23pt">
+        <td style="width:487pt" colspan="3">
+            <p class="s28" style="padding-left: 30pt;text-indent: 0pt;line-height: 11pt;text-align: left;">出任董事職位同意書
+                <span class="s2">Consent to Act as Director</span></p>
+            <p class="s40" style="padding-left: 30pt;text-indent: 0pt;line-height: 10pt;text-align: left;">請在適用的空格內加上
+                <span class="s48"></span><span class="s49"> </span>號 <span class="s39">Please tick the relevant
+                    box</span></p>
+        </td>
+    </tr>
+    <tr style="height:42pt">
+        <td style="width:487pt" colspan="3">
+            <p class="s28" style="padding-left: 30pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                本人獲上述法人團體授權確認上述法人團體同意在公司成立為法團時擔任其董事。 </p>
+            <p class="s9" style="padding-left: 28pt;text-indent: 0pt;line-height: 9pt;text-align: left;">
+                <input type="checkbox" style="width: 30px; height:20px" checked > 
+                I, being authorized by the above body corporate, confirm that the body corporate consents to be a director of this
+                company on its incorporation..</p>
+        </td>
+    </tr>
+    <tr style="height:3pt">
+        <td style="width:82pt">
+            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            <p class="s8" style="padding-left: 28pt;text-indent: 0pt;text-align: left;">簽署 <span
+                    class="s29">Signed</span></p>
+        </td>
+        <td style="width:350pt">
+            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            <p class="s33" style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;">:
+               </p>
+        </td>
+        <td style="width:55pt">
+            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+        </td>
+    </tr>
+    <tr style="height:3pt">
+        <td style="width:82pt">
+            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            <p class="s8" style="padding-left: 28pt;text-indent: 0pt;text-align: left;">姓 名<span
+                    class="s29">Name</span></p>
+        </td>
+        <td style="width:350pt">
+            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            <p class="s33" style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;">:
+               </p>
+        </td>
+        <td style="width:55pt">
+            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+        </td>
+    </tr>
+    <tr style="height:44pt">
+        <td style="width:82pt">
+            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            <p class="s8" style="padding-left: 28pt;text-indent: 0pt;text-align: left;">身 分  <span
+                    class="s29">Capacity</span></p>
+        </td>
+        <td style="width:350pt">
+            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            <p class="s33" style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;">:
+               </p>
+        </td>
+        <td style="width:55pt">
+            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+        </td>
+    </tr>
+    <tr style="height:46pt; padding-top:30px">
+
+        <td style="width:432pt" colspan="2">
+            <input type="checkbox" style="width: 20px; height:20px; margin-left:30px"  readonly>    
+            <p class="s28"
+                style="padding-top: 3pt; display:inline; padding-left: pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                出任董事職位同意書會 於公司成立 為法團的日期 後 15 日 內 交 付 登記。 </p>
+                   <p class="s9" style="padding-left: 28pt;  text-indent: 0pt;text-align: left;">
+                    
+                    The Consent to Act as Director will be delivered for registration not later than 15 days after the date of incorporation of
+                    the company.</p>
+        </td>
+  
+    </tr>
+</table>
+
 
 <div style="padding-top:30px">
 </div>
