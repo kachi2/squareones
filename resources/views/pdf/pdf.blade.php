@@ -46,7 +46,7 @@
 
 {{-- beginning of  E Continuation Sheet E --}}
 
-{{-- @include('pdf.first_directors') --}}
+@include('pdf.first_directors')
 
 </section>
 </div>
