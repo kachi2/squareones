@@ -1,12 +1,12 @@
 <?php 
 namespace App\Services;
 
-use App\Interfaces\FileUploadInterface;
+use App\Interfaces\DocumentInterface;
 use App\Models\Document;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
-class FileUploadServices  implements FileUploadInterface{
+class DocumentServices  implements DocumentInterface{
 
     public function upload($request)
     {
@@ -14,7 +14,7 @@ class FileUploadServices  implements FileUploadInterface{
             if($files['docs'] instanceof UploadedFile){
                 $base64Image = base64_encode(file_get_contents($files['docs']->getRealPath()));
             }
-        $documents =  Document::create([
+              $documents =  Document::create([
                 'company_id' => $request->company_id,
                 'document' => $base64Image,
                 'document_type_id' => $files['document_type_id']
@@ -23,5 +23,14 @@ class FileUploadServices  implements FileUploadInterface{
         }
         
         return  $docs;
+    }
+
+    public function DocumentToPDF($document){
+
+        
+
+    }
+    public function SignDocument($request){
+
     }
 }

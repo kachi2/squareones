@@ -58,4 +58,7 @@ Route::get('/', [HomeController::class, '__invoke'])->name('companyformation');
 Route::get('/companyformation', [HomeController::class, '__invoke'])->name('companyformation');
 
 
+Route::get('/pdf',[HomeController::class, 'PDF']);
+
+
 

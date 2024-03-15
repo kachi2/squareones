@@ -14,4 +14,9 @@ class HomeController extends Controller
     {
         views::render('/CompanyFormation/FormationPage.vue');
     }
+
+
+    public function PDF(){
+        return view('pdf.pdf');
+    }
 }
