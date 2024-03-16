@@ -14,10 +14,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-            BusinessNatureSeeder::class,
-            EntityTypeSeeder::class,
-            UserSeeder::class
-        ]);
+        try{
+            $this->call([
+                BusinessNatureSeeder::class,
+                EntityTypeSeeder::class,
+                UserSeeder::class
+            ]);
+
+        }catch(\Exception $e){
+
+        }
     }
 }

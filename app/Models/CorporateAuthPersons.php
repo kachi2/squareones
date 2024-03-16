@@ -10,7 +10,7 @@ class CorporateAuthPersons extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['corperate_id', 'first_name', 'last_name', 'phone', 'email'];
+    protected $fillable = ['corporate_id', 'first_name', 'last_name', 'phone', 'email'];
 
     public function corporate():BelongsTo
     {

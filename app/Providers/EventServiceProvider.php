@@ -2,7 +2,8 @@
 
 namespace App\Providers;
 
-use Generator;
+use App\Events\GeneratePDF;
+use App\Listeners\GeneratePDFListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -20,9 +21,9 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
 
-        GeneratePDF::class => [
-            GeneratePDFLister::class
-        ],
+     GeneratePDF::class => [
+        GeneratePDFListener::class
+     ],
         
     ];
 

@@ -7,6 +7,7 @@ class IndividualDto extends BaseDto
     public function __construct(
         public readonly int $entity_type_id, 
         public readonly array $entity_capacity_id, 
+        public readonly ?string $is_founder = null,
         public readonly ?string $company_id, 
         public readonly string $first_name,
         public readonly ?string $last_name, 

@@ -13,7 +13,7 @@ class Individual extends Model
 
     use HasFactory;
 
-    protected $fillable = ['company_entity_id', 'first_name', 'last_name', 'chn_first_name', 'chn_last_name', 'dob', 'nationality', 'id_info', 'phone', 'email', 'occupation'];
+    protected $fillable = ['company_entity_id','is_founder', 'entity_type_id', 'entity_capacity_id', 'first_name', 'last_name', 'chn_first_name', 'chn_last_name', 'dob', 'nationality', 'id_info', 'phone', 'email', 'occupation'];
 
     public function companyFounder():BelongsTo
     {

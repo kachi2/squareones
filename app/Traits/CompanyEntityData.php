@@ -30,6 +30,7 @@ trait CompanyEntityData
             'addresses' => 'required',
             'is_corAddress' => 'required',
             'card_name' => 'nullable',
+            'is_founder' => 'nullable'
         ]);
         return $valid;
     }
@@ -57,7 +58,8 @@ trait CompanyEntityData
             'email' => 'required|email',
             'country_registered' => 'required',
             'registeration_no' => 'required',
-            'business_nature_id' => 'required'
+            'business_nature_id' => 'required',
+            'is_founder' => 'nullable' 
         ]);
         return $valid;
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\FounderController;
 use App\Http\Controllers\CompanySharesController;
 use App\Http\Controllers\FundSourceController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SecretaryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,3 +33,5 @@ Route::post('activities/store', [CompanyActivityController::class, 'CompanyActiv
 Route::post('fundsource/store', [FundSourceController::class, 'FundSource']);
 Route::post('upload/docs', [FileUploadController::class, 'ProcessDocuments']);
 
+
+Route::post('/company/formation/{company_id}', [HomeController::class, 'CompleteCompanyFormation']);

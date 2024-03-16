@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('corporates', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_entity_id')->nullable();
+            $table->string('entity_type_id')->nullable();
+            $table->string('entity_capacity_id')->nullable();
+            $table->integer('is_founder')->default(0);
             $table->string('company_name')->nullable();
             $table->string('chn_company_name')->nullable();
             $table->string('date_incorporated')->nullable();

@@ -4,7 +4,6 @@ namespace App\Services;
 use App\Interfaces\DocumentInterface;
 use App\Models\Document;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 
 class DocumentServices  implements DocumentInterface{
 
@@ -21,7 +20,6 @@ class DocumentServices  implements DocumentInterface{
             ]);
             $docs[] =  $documents;
         }
-        
         return  $docs;
     }
 

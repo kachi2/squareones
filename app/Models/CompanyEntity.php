@@ -11,7 +11,7 @@ class CompanyEntity extends Model
     use HasFactory;
 
 
-    protected $fillable = ['is_founder', 'company_id', 'entity_type_id', 'entity_capacity_id'];
+    protected $fillable = [ 'company_id'];
 
     public function company():BelongsTo
     {

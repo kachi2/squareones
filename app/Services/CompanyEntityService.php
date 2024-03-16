@@ -7,6 +7,7 @@ use App\Interfaces\CompanyEnityInterface;
 use App\Models\CompanyEntity;
 use App\Dtos\IndividualDto;
 use App\Models\Corporate;
+use App\Models\CorporateAuthPersons;
 use App\Models\Individual;
 use App\Models\IndividualCorAddress;
 use App\Models\IndividualResAddress;
@@ -19,17 +20,15 @@ class CompanyEntityService implements CompanyEnityInterface
     {
             $entity = CompanyEntity::updateOrCreate([
                 'company_id' => $request->company_id,
-                'entity_type_id' => $request->entity_type_id,
-                'entity_capacity_id' => json_encode($request->entity_capacity_id),
-                'is_founder' => $request->is_founder
            ]);
            return $entity;
     }
 
     public function ProcessIndividualEntity(IndividualDto $IndividualDto, $company_entity)
     {
-
         $individualData = Individual::updateOrcreate([
+            'entity_type_id' => $IndividualDto->entity_type_id,
+            'entity_capacity_id' => json_encode($IndividualDto->entity_capacity_id),
             'company_entity_id' =>  $company_entity->id,
             'first_name' => $IndividualDto->first_name,
             'last_name' => $IndividualDto->last_name,
@@ -40,6 +39,7 @@ class CompanyEntityService implements CompanyEnityInterface
             'phone' => $IndividualDto->phone,
             'email' => $IndividualDto->email,
             'occupation' => $IndividualDto->occupation,
+            'is_founder' => $IndividualDto->is_founder,
         ]);
 
       $res =  $this->processResidentialAddress($IndividualDto, $individualData);
@@ -66,9 +66,8 @@ class CompanyEntityService implements CompanyEnityInterface
                 'is_corAddress' => $address['is_corAddress']
             ]);
        }else{
-        $datas = $ind->fill($address)->save();
+        $ind->fill($address)->save();
        }
-
             if($address['is_corAddress'] != 1){
                 $address = $request->addresses[1];
                  $data = IndividualCorAddress::updateOrCreate([
@@ -82,15 +81,16 @@ class CompanyEntityService implements CompanyEnityInterface
                 ]);
             }
             return [
-                'res_address' => $datas,
+                'residential_address' => $datas,
                 'correspondence_address' => $data??null
             ];
     }
 
     public function ProcessCorporateEntity(CorporateDto $request, $founder)
     {
-
-        return Corporate::updateOrCreate([
+       $corporate = Corporate::updateOrCreate([
+            'entity_type_id' => $request->entity_type_id,
+            'entity_capacity_id' => json_encode($request->entity_capacity_id),
             'company_entity_id' => $founder->id,
             'company_name' =>  $request->company_name,
             'chn_company_name'=>  $request->chn_company_name,
@@ -104,6 +104,19 @@ class CompanyEntityService implements CompanyEnityInterface
             'country'=>  $request->country,
             'registeration_no' =>   $request->registeration_no,
             'business_nature_id'=>  $request->business_nature_id,
+            'is_founder' => $request->is_founder,
         ]);
+
+        if($corporate){
+         $authorized_person =   CorporateAuthPersons::updateOrcreate([
+                'corporate_id' => $corporate->id,
+                'first_name' => $request->first_name,
+                 'last_name' =>$request->last_name, 
+                 'phone' => $request->phone, 
+                 'email' => $request->email
+            ]);
+        }
+
+        return [$authorized_person,$corporate ];
     }
 }

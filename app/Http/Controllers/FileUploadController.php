@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Dtos\FileUploadDto;
-use App\Interfaces\FileUploadInterface;
+use App\Interfaces\DocumentInterface;
 use Illuminate\Http\Request;
 
 class FileUploadController extends Controller
@@ -11,7 +11,7 @@ class FileUploadController extends Controller
     //
 
     public function __construct(
-        public readonly FileUploadInterface $fileUpload
+        public readonly DocumentInterface $fileUpload
     )
     {
         
