@@ -56,6 +56,10 @@
 @include('pdf.notice_to_business')
 
 @include('pdf.company_ordinance')
+
+@include('pdf.class_of_shares')
+
+@include('pdf.founder_sign')
 </section>
 </div>
 </html>

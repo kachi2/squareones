@@ -39,9 +39,10 @@
             <p style="padding-top: 11pt;text-indent: 0pt;text-align: left;"><br /></p>
             <table style="border-collapse:collapse;margin-left:3pt" cellspacing="0">
                 <tr style="height:36pt">
-                    <td>
+                    <td style=" width:400px;" >
                         The total number of
                         shares that the company proposes to issue
+                        
 
                     </td>
                     <td
@@ -61,9 +62,11 @@
                     </td>
                 </tr>
                 <tr style="height:37pt">
-                    <td>
+                    <td style=" width:400px;" >
+                        <p style="padding-left:20px"> (I) 
                         The amount to
                         be paid up or to be regarded as paid up
+                        </p>
 
                     </td>
                     <td
@@ -73,9 +76,11 @@
                     </td>
                 </tr>
                 <tr style="height:36pt" >
-                    <td>
+                    <td style=" width:400px;" >
+                        <p style="padding-left:20px"> (I) 
 
-                        The amount to  remain unpaid or to be  <br>regarded as remaining unpaid
+                        The amount to  remain unpaid or to be  regarded as remaining unpaid
+                        </p>
                     </td>
                     <td
                         style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
