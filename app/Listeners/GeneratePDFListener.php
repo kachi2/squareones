@@ -29,25 +29,29 @@ class GeneratePDFListener
         $company = Company::whereId($events->company_id)->first();
 
         $companyDetails =  [
-            'company' => $company->load([
-            'names' ,
-            'secretary',
-            'shares',
-            'documents',
-            'fundSource',
-            'ownerShare',
-            'CompanyEntity' 
+            'company' => $company->Load([
+            'names' ,'secretary','shares','documents','fundSource','ownerShare','CompanyEntity' 
             ])
     ];
 
-    $options = PDF::getDomPDF()->getOptions();
-     $options->set('isFontSubsettingEnabled', true);
-     $pdf = PDF::setPaper('a4', 'portraite');
-     $pdf->getDomPDF()->setOptions($options);
-      $pdf->loadView('pdf/pdf', ['companyDetails' =>  $company])
-        ->save('documents/test.pdf');
-    
-        
+    //  PDF::loadView('pdf/pdf', ['company' =>  $companyDetails])
+    //     ->save('documents/test.pdf');
         
     }
+
+
+    public function founders($company_id){
+        $company =CompanyEntity::where('company_id', $company_id)->first()
+        ->with(['Individual' => function ($query) {
+            // Add condition to fetch specific children
+            $query->where('is_founder', 1);
+        }])->get();    
+
+        return $company;
+        // $query = CompanyEntity::where('company_id', $company_id)->first();
+        // $query->individual = Individual::where(['company_entity_id' => $query->id, 'is_founder' => 0])->get();
+        // $query->corporate = Corporate::where(['company_entity_id' => $query->id, 'is_founder' => 0])->get();
+        // return $query;
+    }
+
 }

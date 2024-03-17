@@ -1,3 +1,8 @@
+
+
+<div style="padding-top:40px">
+</div>
+<hr>
 <p style="text-indent: 0pt;text-align: left;"><br /></p>
 
 
@@ -42,6 +47,8 @@
 <p style="text-indent: 0pt;text-align: left;" />
 <p class="s18" style="padding-left: 63pt;text-indent: 0pt;text-align: left;">(<span class="s15">如超過一名創辦成員，請用續頁
     </span>A <span class="s15">填報 </span>Use Continuation Sheet A if more than 1 founder member)</p>
+
+
 <table style="border-collapse:collapse;margin-left:60.884pt" cellspacing="0">
     <tr style="height:33pt">
         <td style="width:80pt">

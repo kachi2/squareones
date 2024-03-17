@@ -12,11 +12,10 @@
 </head>
 
 <body>
-
-    {{dd($companyDetails)}}
     <div class="main">
     <section> 
-   @include('pdf.company')
+        
+@include('pdf.company')
 
  @include('pdf.company_info')
 
@@ -24,8 +23,13 @@
 <p style="text-indent: 0pt;text-align: left; padding:20px"  ><br /></p>
 <hr>
 
-@include('pdf.founders')
+@foreach ($company->founders['individual'] as $individual )
+@include('pdf.founders_individual')
+@endforeach
 
+@foreach ($company->founders['corporate'] as $corporate )
+@include('pdf.founders_corporate')
+@endforeach
 
 @include('pdf.company_secretary')
 

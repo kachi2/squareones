@@ -66,20 +66,20 @@
     <tr style="height:51pt">
         <td style="width:100%;border-style:solid;border-width:1pt; border-bottom-width:1pt" colspan="3">
             <p style="text-indent: 0px;text-align: left; padding-left:40px"><br />
-            Name fo the company
+                {{json_decode($company->names->where('choice_level', 1))[0]->eng_name}}
             </p>
         </td>
     </tr>
     <tr style="height:17px; ">
         <td style="width:100%" colspan="2">
             <p class="s1" style="padding-top: 3pt;padding-left: 50px;text-indent: 0px;line-height: 13pt;text-align: left;">
-                建議採用的公司英文名稱 <span class="s6">Proposed English Company Name</span></p>
+                建議採用的公司英文名稱 <span class="s6">Proposed Chinese Company Name</span></p>
         </td>
     </tr>
     <tr style="height:51pt">
         <td style="width:100%;border-style:solid;border-width:1pt; border-bottom-width:1pt" colspan="3">
             <p style="text-indent: 0px;text-align: left; padding-left:40px"><br />
-            Name fo the company
+            {{json_decode($company->names->where('choice_level', 1))[0]->chn_name}}
             </p>
         </td>
     </tr>
@@ -106,7 +106,7 @@
 
 <li data-list-text="2">
     <p class="s19" style="padding-top: 10px;padding-bottom: 10px;padding-left: 20px;text-indent: 0px;">
-        <textarea cols="10" rows="5"> </textarea> <textarea cols="60" rows="5"> </textarea>
+        <textarea cols="10" rows="5"> </textarea> <textarea cols="60" rows="5"> {{$company->businessNature->name}} </textarea>
     </p>
         <p class="s21" style="padding-left: 68px;text-indent: 0pt;line-height: 9px;text-align: left;">
             <span class="s22"> 編碼 Code </span><span class="s22" style="padding-left:40px"> 描述  Description</span>
@@ -126,32 +126,32 @@
                 <tr style="height:25px">
                     <td
                         style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                        <p style="text-indent: 0px;text-align: left;"><br /> jalsklasdklakdnsad</p>
+                        <p style="text-indent: 0px;text-align: left;"><br /> {{$company->address}}</p>
                     </td>
                 </tr>
                 <tr style="height:26pt">
                     <td
                         style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                        <p style="text-indent: 0px;text-align: left;"><br />asjksdksdajksdad</p>
+                        <p style="text-indent: 0px;text-align: left;"><br />{{$company->street_no}}</p>
                     </td>
                 </tr>
                 <tr style="height:26pt">
                     <td
                         style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                        <p style="text-indent: 0px;text-align: left;"><br />adsjkkdada</p>
+                        <p style="text-indent: 0px;text-align: left;"><br />{{$company->city.' '.$company->state}}</p>
                     </td>
                 </tr>
                 <tr style="height:26pt">
                     <td
                         style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                        <p style="text-indent: 0px;text-align: left;"><br />asdkjasdkjadsa</p>
+                        <p style="text-indent: 0px;text-align: left;"><br />{{$company->postal_code}}</p>
                     </td>
                 </tr>
                 <tr style="height:23pt">
                     <td
                         style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                         <p class="s23" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0px;text-align: left;">
-                            香港<span class="s24">／ </span><span class="s25">HONG KONG</span></p>
+                            <span class="s24"> </span><span class="s25">{{$company->country}}</span></p>
                     </td>
                 </tr>
             </table>
@@ -185,9 +185,6 @@
     <p style="padding-top: 2pt;text-indent: 0px;text-align: center;"><span
             style=" color: #FFF; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 7pt;">4</span>
     </p>
-
- 
-  
 
 <li data-list-text="4">
     <table style="border-collapse:collapse" cellspacing="0">

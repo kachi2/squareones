@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Events\GeneratePDF;
 use Inertia\Inertia as views;
 use App\Models\Company;
+use App\Models\Corporate;
+use App\Models\Individual;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,7 +15,16 @@ class HomeController extends Controller
 
     public function __invoke()
     {
-        return view('pdf/pdf');
+        $company = Company::whereId(1)->first() 
+        ->Load([
+            'names' ,'secretary','shares','documents','fundSource','ownerShare','CompanyEntity' 
+        ]);
+        $data['individual'] = Individual::where(['company_entity_id' => $company->companyEntity->id, 'is_founder' => 0])->get();
+        $data['corporate'] = Corporate::where(['company_entity_id' => $company->companyEntity->id, 'is_founder' => 0])->get();
+        $company->founders =  $data;
+
+            //  dd($company);
+        return view('pdf/pdf')->with('company', $company);
     }
 
 

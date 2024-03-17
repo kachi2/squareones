@@ -22,7 +22,7 @@ class Company extends Model
 
 
     public function CompanyEntity(){
-        return $this->hasMany(CompanyEntity::class);
+        return $this->hasOne(CompanyEntity::class);
     }
 
     public function Secretary(){
@@ -45,4 +45,26 @@ class Company extends Model
         return $this->hasMany(OwnershipShare::class);
     }
 
+    public function businessNature(){
+        return $this->belongsTo(BusinessNature::class);
+    }
+
+
+    public function founders($company_id){
+
+        $company =CompanyEntity::where('company_id', $company_id)->with(['Individual', 'Corporate']);
+     $test =   filter($company, 'Individual', "0", 'is_founder');
+   
+     return $test;
+
+        $company->with(['Individual' => function ($query) {
+            $query->where('is_founder', 1);
+        }])->get();    
+
+        $company->with(['Corporate' => function($query){
+            $query->where('is_founder', 1);
+        }])->get();
+        return $company;
+
+    }
 }

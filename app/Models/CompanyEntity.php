@@ -21,4 +21,16 @@ class CompanyEntity extends Model
     public function entityType(){
         return $this->belongsTo(EntityType::class);
     }
+
+    public function Individual(){
+        return $this->belongsTo(CompanyEntity::class);
+    }
+
+    public function Corporate(){
+        return $this->belongsTo(CompanyEntity::class);
+    }
+
+    public function individualFounder(){
+        return $this->hasMany(Individual::class, 'company_entity_id', 'id');
+    }
 }

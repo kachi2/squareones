@@ -17,4 +17,8 @@ class CompanyShare extends Model
     {
         return $this->belongsTo(Company::class);
     }
+
+    public function shareType(){
+        return $this->belongsTo(ShareType::class);
+    }
 }

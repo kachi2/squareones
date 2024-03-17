@@ -19,14 +19,14 @@
         style="padding-top: 5px;padding-left: 30px;text-indent: 0pt;line-height: 14pt;text-align: left;">電郵地址
     </p>
     <p style="padding-left: 30px;text-indent: 0px;line-height: 11pt;text-align: left; display:inline">Email Address</p>
-    <input style="width:60%; height:40px; float: right;" readonly> 
+    <input style="width:60%; height:40px; float: right;" {{$company?->email??'No email'}} readonly> 
     <p style="text-indent: 0pt;text-align: left;" />
     <p class="s19"
         style="padding-top: 7px;padding-left: 30px;text-indent: 0pt;line-height: 14pt;text-align: left; padding-top:30px">
         香港聯絡電話號碼</p>
     <p style="padding-left: 30px;text-indent: 0pt;line-height: 11pt;text-align: left; ">Hong Kong Contact
         Telephone Number
-        <input style="width:60%; height:40px; float: right;" readonly> </p>
+        <input style="width:60%; height:40px; float: right;"  {{$company?->phone??'No Phone number available'}} readonly> </p>
     <p style="text-indent: 0px;text-align: left;"><br /></p>
  
 </li>
@@ -39,7 +39,7 @@
 <h4 style="padding-bottom: 1pt;padding-left: 63pt;text-indent: 0pt;line-height: 12pt;text-align: left;">Share
 Capital and Initial Shareholdings on the Company’s Formation</h4>
 <table style="border-collapse:collapse;margin-left:43.484pt" cellspacing="0">
-<tr style="height:17pt">
+<tr style="height:17pt">  
     <td
         style="width:102pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
         <p style="text-indent: 0pt;text-align: left;"><br /></p>
@@ -191,32 +191,34 @@ Capital and Initial Shareholdings on the Company’s Formation</h4>
             a) – ( b)</p>
     </td>
 </tr>
+@foreach ($company->shares as  $share)
 <tr style="height:28pt">
     <td
         style="width:102px;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p style="text-indent: 0pt;text-align: left;"><br /> ORDINARY</p>
+        <p style="text-indent: 0pt;text-align: left;"><br /> {{$share->shareType->name}}</p>
     </td>
     <td
         style="width:78px;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p style="text-indent: 0pt;text-align: left;"><br /> 1000 </p>
+        <p style="text-indent: 0pt;text-align: left;"><br /> {{$share->no_of_share}} </p>
     </td>
     <td
         style="width:42px;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p style="text-indent: 0pt;text-align: left;"><br />Currency</p>
+        <p style="text-indent: 0pt;text-align: left;"><br />{{$share->currency}}</p>
     </td>
     <td
         style="width:96px;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p style="text-indent: 0pt;text-align: left;"><br />Total Amount of</p>
+        <p style="text-indent: 0pt;text-align: left;"><br />{{$share->no_of_share}}</p>
     </td>
     <td
         style="width:96px;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p style="text-indent: 0pt;text-align: left;"><br />Amount to be Paid </p>
+        <p style="text-indent: 0pt;text-align: left;"><br />{{$share->total_amount_paid}} </p>
     </td>
     <td
         style="width:94px;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p style="text-indent: 0pt;text-align: left;"><br />Unpaid on the Shares</p>
+        <p style="text-indent: 0pt;text-align: left;"><br />0</p>
     </td>
 </tr>
+@endforeach
 <tr style="height:28pt">
     <td
         style="width:102px;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -251,23 +253,23 @@ Capital and Initial Shareholdings on the Company’s Formation</h4>
     </td>
     <td style="width:78pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
         rowspan="2">
-        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+        <p style="text-indent: 0pt;text-align: left;"><br /> {{$company->shares->sum('no_of_share')}} </p>
     </td>
     <td
         style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+        <p style="text-indent: 0pt;text-align: left;"><br />{{$company->shares[0]->currency}}</p>
     </td>
     <td
         style="width:96pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+        <p style="text-indent: 0pt;text-align: left;"><br />{{$company->shares->sum('no_of_share')}} </p>
     </td>
     <td
         style="width:96pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+        <p style="text-indent: 0pt;text-align: left;"><br />{{$company->shares->sum('total_amount_paid')}} </p>
     </td>
     <td
         style="width:94pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+        <p style="text-indent: 0pt;text-align: left;"><br />0</p>
     </td>
 </tr>
 <tr style="height:28pt">
