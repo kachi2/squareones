@@ -22,6 +22,7 @@
     "dependencies": {
         "@headlessui/vue": "^1.7.19",
         "@heroicons/vue": "^2.1.1",
+        "@marcoschulte/vue3-progress": "github:marcoschulte/vue3-progress",
         "@placetopay/iconsax-vue": "^0.0.7",
         "vue-iconsax": "^1.6.0"
     }

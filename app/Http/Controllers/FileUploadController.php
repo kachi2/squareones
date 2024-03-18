@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 
 class FileUploadController extends Controller
 {
-    //
-
     public function __construct(
         public readonly DocumentInterface $fileUpload
     )
@@ -24,4 +22,5 @@ class FileUploadController extends Controller
                return response()->json(['data' =>$processDoc]);
             }
     }
+
 }

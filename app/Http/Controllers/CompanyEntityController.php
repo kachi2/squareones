@@ -13,7 +13,6 @@ use Cloudinary\Api\HttpStatusCode;
 
 class CompanyEntityController extends Controller
 {
-    //
     use CompanyEntityData;
 
     public function __construct(
