@@ -18,3 +18,4 @@ yarn-error.log
 /.idea
 /.vscode
 /.gits
+/resources/js/node_modules
