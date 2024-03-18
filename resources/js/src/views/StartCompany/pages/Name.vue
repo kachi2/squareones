@@ -221,6 +221,8 @@ function removeForm() {
     }
 }
 
+
+
 // function get
 
 function switchStage(command: string) {
