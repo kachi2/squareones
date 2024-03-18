@@ -33,10 +33,11 @@ class GeneratePDFListener
             'names' ,'secretary','shares','documents','fundSource','ownerShare','CompanyEntity' 
             ])
     ];
+    $data['individual'] = Individual::where(['company_entity_id' => $company->companyEntity->id, 'is_founder' => 0])->get();
 
-    //  PDF::loadView('pdf/pdf', ['company' =>  $companyDetails])
-    //     ->save('documents/test.pdf');
-        
+    $company->founders = $data;
+     PDF::loadView('pdf/pdf', ['company' =>  $company])
+        ->save('documents/test.pdf');
     }
 
 
@@ -48,10 +49,6 @@ class GeneratePDFListener
         }])->get();    
 
         return $company;
-        // $query = CompanyEntity::where('company_id', $company_id)->first();
-        // $query->individual = Individual::where(['company_entity_id' => $query->id, 'is_founder' => 0])->get();
-        // $query->corporate = Corporate::where(['company_entity_id' => $query->id, 'is_founder' => 0])->get();
-        // return $query;
     }
 
 }

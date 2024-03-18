@@ -11,6 +11,7 @@ use App\Http\Requests\CompanyAddressRequest;
 use App\Http\Requests\CompanyDescriptionReq;
 use App\Http\Requests\CompanyRequest;
 use App\Http\Requests\NamesRequest;
+use App\Models\BusinessNature;
 use Illuminate\Support\Facades\DB;
 use App\Services\CompanyServices;
 use Illuminate\Http\Request;
@@ -20,6 +21,16 @@ class CompanyController extends Controller
     public function __construct(
         public readonly CompanyServices $companyServices
     ) {
+    }
+
+    public function getBusinessNature(){
+        return response()->json(
+            [
+                'data' => [
+                    'business_natiure' => BusinessNature::get()->orderBy('name', 'DESC')
+                ],
+            ],200
+            );
     }
 
     public function InitiateCompanyCreation(NamesRequest $req){

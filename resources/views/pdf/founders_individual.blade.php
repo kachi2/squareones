@@ -48,39 +48,28 @@
     </span>A <span class="s15">填報 </span>Use Continuation Sheet A if more than 1 founder member)</p>
 
 
-<table style="border-collapse:collapse;margin-left:60.884pt" cellspacing="0">
+<table style="border-collapse:collapse;margin-left:60.884pt; margin-bottom:10px" cellspacing="0">
     <tr style="height:33pt">
-        <td style="width:80pt">
+        <td style="width:20%">
             <p class="s8" style="padding-left: 2pt;text-indent: 0pt;line-height: 10pt;text-align: left;">中 文姓 名／ 名稱
             </p>
             <p class="s9" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">Name in Chinese</p>
         </td>
         <td style="width:49pt;border-right-style:solid;border-right-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            <p class="s8" style="padding-left: 27pt;text-indent: 0pt;line-height: 10pt;text-align: left;">姓氏 </p>
+            <p class="s29" style="padding-left: 14pt;text-indent: 0pt;line-height: 9pt;text-align: left;">Surname First
+            </p>
         </td>
         <td
-            style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br />{{$individual->chn_first_name}}</p>
-        </td>
-        <td
-            style="width:87pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br />{{$individual->chn_last_name}}</p>
-        </td>
-        <td
-            style="width:57pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
-        <td
-            style="width:96pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            style="width:80%;border:1px solid #000">
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->chn_first_name}} {{$individual->chn_last_name}}</p>
         </td>
     </tr>
-    <tr style="height:10pt; border:10px solid #">
-    
-    </tr>
+</table>
 
+<table style="border-collapse:collapse;margin-left:60.884pt" cellspacing="0">
     <tr style="height:33pt; padding-top:5px">
-        <td style="width:80pt">
+        <td style="width:20%">
             <p class="s8" style="padding-left: 2pt;text-indent: 0pt;line-height: 10pt;text-align: left;">英 文姓 名</p>
             <p class="s9" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">Name in English</p>
         </td>
@@ -90,27 +79,16 @@
             </p>
         </td>
         <td
-            style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br />{{$individual->first_name}}</p>
-        </td>
-        <td
-            style="width:87pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
-        <td
-            style="width:57pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
-        <td
-            style="width:96pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            style="width:80%;border:1px solid #000">
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->first_name}}</p>
         </td>
     </tr>
     <tr style="height:10pt">
   
     </tr>
+
     <tr style="height:34pt">
-        <td style="width:80pt">
+        <td style="width:20%">
             <p style="text-indent: 0pt;text-align: left;"><br /></p>
         </td>
         <td style="width:49pt;border-right-style:solid;border-right-width:1pt">
@@ -118,20 +96,8 @@
             <p class="s29" style="text-indent: 0pt;text-align: left;">Other Names</p>
         </td>
         <td
-            style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /> {{$individual->last_name}}</p>
-        </td>
-        <td
-            style="width:87pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
-        <td
-            style="width:57pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
-        <td
-            style="width:96pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            style="width:80%; border:1px solid #000">
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->last_name}}</p>
         </td>
     </tr>
     <tr style="height:17pt">
@@ -144,205 +110,96 @@
 </table>
 <table style="border-collapse:collapse;margin-left:60.884pt" cellspacing="0">
     <tr style="height:33pt">
-        <td style="width:80pt">
+        <td style="width:20%">
             <p class="s8" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">英文名稱 </p>
             <p class="s9" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">Name in English</p>
         </td>
-        <td style="width:49pt;border-right-style:solid;border-right-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+        <td style="width:80%; border:1px solid #000">
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->first_name}} {{$individual->last_name}}</p>
         </td>
-        <td
-            style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br />{{$individual->first_name}}</p>
-        </td>
-        <td
-            style="width:87pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br />{{$individual->last_name}}</p>
-        </td>
-        <td
-            style="width:57pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
-        <td
-            style="width:96pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+        <td >
         </td>
     </tr>
 </table>
-<table style="border-collapse:collapse;margin-left:60.884pt;" cellspacing="0">
+<table style="border-collapse:collapse;margin-left:60.884pt; margin-top:10px" cellspacing="">
     <tr style="height:22pt; " >
-        <td style="width:80pt">
-            <p class="s28" style="padding-top: 3pt;padding-left: 2pt;text-indent: 0pt;text-align: left;">地址 <span
-                    class="s2">Address</span></p>
-                    <p class="s8"
-                    style="padding-top: 5pt;padding-left: 2pt;text-indent: 0pt;line-height: 11pt;text-align: left;">
+        <td style="width:20%">
+            <p class="s28" style="padding-top: 3pt;padding-left: 2pt;text-indent: 0pt;text-align: left;">地址 
+                <span class="s2">Address</span></p>
+                    <p class="s8" style="padding-top: 5pt;padding-left: 2pt;text-indent: 0pt;line-height: 11pt;text-align: left;">
                     室／樓／座等 </p>
-                <p class="s29" style="padding-left: 2pt;text-indent: 0pt;line-height: 11pt;text-align: left;">Flat<span
-                        class="s36">／</span>Floor<span class="s36">／</span>Block etc.</p>
+                <p class="s29" style="padding-left: 2pt;text-indent: 0pt;line-height: 11pt;text-align: left;">Flat
+                    <span class="s36">／</span>Floor<span class="s36">／</span>Block etc.</p>
         </td>
-        <td style="width:49pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+        <td style="border:1px solid #000; width:80%">
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress->address}}</p>
         </td>
-        <td
-            style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br />{{$individual->resAddress->address}}</p>
-        </td>
-        <td
-            style="width:87pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
-        <td
-            style="width:57pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
-        <td
-            style="width:96pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
+        <td></td>
     </tr>
-   
-    <tr style="height:6pt">
-        <td style="width:490pt" colspan="6">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
-    </tr>
+</table>
+<table style="border-collapse:collapse;margin-left:60.884pt; margin-top:10px" cellspacing="0">
     <tr style="height:34pt">
-        <td style="width:80pt">
+        <td style="width:20%">
             <p class="s8"
                 style="padding-top: 5pt;padding-left: 3pt;text-indent: 0pt;line-height: 11pt;text-align: left;">大廈
             </p>
             <p class="s29" style="padding-left: 3pt;text-indent: 0pt;line-height: 9pt;text-align: left;">Building
             </p>
         </td>
-        <td style="width:49pt;border-right-style:solid;border-right-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br />{{$individual->resAddress->street}}</p>
+        <td style="width:80%;border:1px solid #000">
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress->street_no}}</p>
         </td>
-        <td
-            style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /> j</p>
-        </td>
-        <td
-            style="width:87pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
-        <td
-            style="width:57pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
-        <td
-            style="width:96pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+        <td>
         </td>
     </tr>
-    <tr style="height:5pt">
-        <td style="width:80pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
-        <td style="width:49pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
-        <td
-            style="width:121pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-           
-        </td>
-        <td
-            style="width:87pt;border-top-style:solid;border-top-width:1px;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /> </p>
-        </td>
-        <td
-            style="width:57pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /> </p>
-        </td>
-        <td
-            style="width:96pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
-    </tr>
+</table>
+    <table style="border-collapse:collapse;margin-left:60.884pt; margin-top:10px" cellspacing="0">
     <tr style="height:34pt">
-        <td style="width:490pt;border-right-style:solid;border-right-width:1pt" colspan="6">
-            <p class="s8"
-                style="padding-top: 5pt;padding-left: 2pt;text-indent: 0pt;line-height: 11pt;text-align: left;">
+        <td style="width:20%;" colspan="0">
+            <p class="s8" style="padding-top: 5pt;padding-left: 2pt;text-indent: 0pt;line-height: 11pt;text-align: left;">
                 街道／屋苑／地段／村等</p>
             <p class="s29" style="padding-left: 2pt;text-indent: 0pt;line-height: 11pt;text-align: left;">
-                Street<span class="s36">／</span>Estate<span class="s36">／</span>Lot<span class="s36">／</span>Village
-                etc.</p>
+                Street<span class="s36">／</span>Estate<span class="s36">／</span>
+                Lot<span class="s36">／</span>Village etc.</p>
         </td>
-    </tr>
-    <tr style="height:6pt">
-        <td style="width:40pt" colspan="">
-            <p style="text-indent: 0pt;text-align: left; border:1px solid #000; margin-top:-100px"><br /></p>
+
+        <td style="width:80%;border:1px solid #000">
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress->street_no}}</p>
         </td>
+        <td></td>
     </tr>
+    </table>
+    <table style="border-collapse:collapse;margin-left:60.884pt; margin-top:10px" cellspacing="0">
     <tr style="height:34pt">
-        <td style="width:490pt;border-right-style:solid;border-right-width:1pt" colspan="6">
-            <p class="s29"
-                style="padding-top: 1pt;padding-left: 2pt;padding-right: 366pt;text-indent: 0pt;line-height: 93%;text-align: left;">
+        <td style="width:20%;border-right-style:solid;border-right-width:1pt">
+            <p class="s29" style="padding-top: 1pt;padding-left: 2pt;text-indent: 0pt;line-height: 93%;text-align: left;">
                 <span class="s8">區／ 市／ 省／ 州／ 郵遞 區號 等 </span>District<span class="s37">／</span>City<span
                     class="s37">／ </span>Province<span class="s37">／ </span>State<span class="s36">／ </span>Postal
                 Code etc.</p>
         </td>
-    </tr>
-    <tr style="height:6pt">
-        <td style="width:490pt" colspan="6">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-            
+        <td style="width:80%;border:1px solid #000">
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress->state.','.$individual->resAddress->city }}</p>
         </td>
+        <td></td>
     </tr>
+    </table>
+    <table style="border-collapse:collapse;margin-left:60.884pt; margin-top:10px" cellspacing="0">
     <tr style="height:33pt">
-        <td style="width:80pt">
+        <td style="width:20%">
             <p class="s8"
                 style="padding-top: 5pt;padding-left: 3pt;text-indent: 0pt;line-height: 11pt;text-align: left;">國家／
                 地區 </p>
             <p class="s29" style="padding-left: 3pt;text-indent: 0pt;line-height: 11pt;text-align: left;">
                 Country<span class="s36">／</span>Region</p>
         </td>
-        <td style="width:49pt;border-right-style:solid;border-right-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /> </p>
+        <td style="width:80%;border:1px solid #000">
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress->country}}</p>
         </td>
-        <td
-            style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br />
-            </p>
-        </td>
-        <td
-            style="width:87pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br />df</p>
-        </td>
-        <td
-            style="width:57pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
-        <td
-            style="width:96pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
+        <td></td>
     </tr>
-    <tr style="height:5pt">
-        <td style="width:80pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
-        <td style="width:49pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
-        <td
-            style="width:121pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
-        <td
-            style="width:87pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
-        <td
-            style="width:57pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
-        <td
-            style="width:96pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
-        </td>
-    </tr>
-    <tr style="height:29pt">
+    </table>
+    <table style="border-collapse:collapse;margin-left:53.884pt; margin-top:10px" cellspacing="0">
+    <tr style="height:29pt; margin-top:10px">
         <td style="width:129pt;border-right-style:solid;border-right-width:1pt" colspan="2">
             <p class="s8" style="padding-left: 2pt;text-indent: 0pt;line-height: 10pt;text-align: left;">認 購的 股本</p>
             <p class="s9" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">Share Capital to be

@@ -24,6 +24,7 @@ class HomeController extends Controller
         $company->founders =  $data;
 
             //  dd($company);
+        // return view('pdf/articles')->with('company', $company);
         return view('pdf/pdf')->with('company', $company);
     }
 

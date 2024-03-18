@@ -169,7 +169,7 @@
                     <td
                         style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                         <p class="s23" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0px;text-align: left;">
-                            香港<span class="s24">／ </span><span class="s25">HONG KONG</span></p>
+                            <span class="s24"></span><span class="s25">test@gmail.com</span></p>
                     </td>
                     
                 </tr>

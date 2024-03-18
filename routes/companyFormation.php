@@ -35,3 +35,5 @@ Route::post('upload/docs', [FileUploadController::class, 'ProcessDocuments']);
 
 
 Route::post('/company/formation/{company_id}', [HomeController::class, 'CompleteCompanyFormation']);
+
+Route::get('/get/business/nature', [CompanyController::class, 'getBusinessNature']);

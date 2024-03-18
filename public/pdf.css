@@ -138,6 +138,15 @@ body{
     font-size: 11pt;
 }
 
+.s133 {
+    color: black;
+    font-family: Arial, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: none;
+    font-size: 10pt;
+}
+
 .s14 {
     color: black;
     font-family: MingLiU, monospace;
@@ -145,6 +154,15 @@ body{
     font-weight: bold;
     text-decoration: none;
     font-size: 11pt;
+}
+
+.s144 {
+    color: black;
+    font-family: "Times New Roman", serif;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: none;
+    font-size: 10pt;
 }
 
 .h4,
