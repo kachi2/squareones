@@ -14,6 +14,7 @@ use App\Http\Requests\NamesRequest;
 use App\Models\BusinessNature;
 use Illuminate\Support\Facades\DB;
 use App\Services\CompanyServices;
+use Cloudinary\Api\HttpStatusCode;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -41,7 +42,7 @@ class CompanyController extends Controller
         }
             $namesDto = NamesDto::fromRequest($req->validated());
             $initiateCompany = $this->companyServices->InitiateCompany($namesDto);
-            return $initiateCompany;
+            return response()->json(['data' => $initiateCompany], HttpStatusCode::OK);
     }
 
     public function StoreCompanyDescription(CompanyDescriptionReq $req)
@@ -53,11 +54,10 @@ class CompanyController extends Controller
                 $company = $this->companyServices->StoreDescription($companyDto);
             }
             DB::commit();
-            return response()->json(['company_details' =>$company]);
+            return response()->json(['data' =>$company], HttpStatusCode::OK);
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['errors', $e->getMessage()]);
-            // return redirect()->back()->with('errors', $e->getMessage());
+            return response()->json(['errors', $e->getMessage()], HttpStatusCode::BAD_REQUEST);
         }
     }
 
@@ -70,11 +70,11 @@ class CompanyController extends Controller
                 $address = $this->companyServices->StoreCompanyAddress($addressDto);
             }
             DB::commit();
-         return response()->json(['company_details' =>$address]);
+         return response()->json(['data' =>$address], HttpStatusCode::OK);
         }catch(\Exception $e)
         {
             DB::rollBack();
-            return response()->json(['error' =>$e->getMessage()]);
+            return response()->json(['error' =>$e->getMessage()], HttpStatusCode::BAD_REQUEST);
         }
 
 

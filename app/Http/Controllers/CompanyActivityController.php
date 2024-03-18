@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CompanyActivityRequest;
 use App\Interfaces\ActivitiesInterface;
 use App\Interfaces\CompanyFormationInterface;
+use Cloudinary\Api\HttpStatusCode;
 use Illuminate\Support\Facades\DB;
 
 class CompanyActivityController extends Controller
@@ -23,10 +24,10 @@ class CompanyActivityController extends Controller
         $requestDto = ActivityDto::fromRequest($request->validated());
         $store = $this->activitiesInterface->StoreActivties($requestDto);
         DB::commit();
-        return $store;
+        return response()->json(['data', $store], HttpStatusCode::OK);
        }catch(\Exception $e){
         DB::rollback();
-        return $e->getMessage();
+        return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
        }
     }
 }

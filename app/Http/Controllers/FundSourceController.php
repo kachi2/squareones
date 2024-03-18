@@ -10,6 +10,7 @@ use App\Dtos\ActivityDto;
 use App\Dtos\FundSourceDto;
 use App\Http\Requests\FundSourceRequest;
 use App\Interfaces\CompanyFormationInterface;
+use Cloudinary\Api\HttpStatusCode;
 
 class FundSourceController extends Controller
 {
@@ -27,10 +28,10 @@ class FundSourceController extends Controller
         $requestDto = FundSourceDto::fromRequest($request->validated());
         $store = $this->fundsource->StoreFundSource($requestDto);
         DB::commit();
-        return $store;
+        return response()->json(['data' => $store], HttpStatusCode::OK);
        }catch(\Exception $e){
         DB::rollback();
-        return $e->getMessage();
+        return response()->json(['error' => $e->getMessage()], HttpStatusCode::INTERNAL_SERVER_ERROR);
        }
     }
 }

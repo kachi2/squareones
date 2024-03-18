@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Dtos\SharesDto;
 use App\Http\Requests\CompanySharesRequest;
 use App\Interfaces\SharesInterface;
+use Cloudinary\Api\HttpStatusCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -25,10 +26,10 @@ class CompanySharesController extends Controller
         $shareDto = SharesDto::fromRequest($req->validated());
         $service = $this->shareInterface->SaveFromData($shareDto);
         DB::commit();
-        return $service;
+        return response()->json(['data' => $service], HttpStatusCode::OK);
     }catch(\Exception $e){
         DB::rollBack();
-        return $e->getMessage();
+        return response()->json(['error' => $e->getMessage()], HttpStatusCode::INTERNAL_SERVER_ERROR);
     }
     }
 }

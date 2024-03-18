@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Dtos\SecretaryDto;
 use App\Http\Requests\SecretaryRequest;
 use App\Interfaces\SecretaryInterface;
+use Cloudinary\Api\HttpStatusCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -24,10 +25,10 @@ class SecretaryController extends Controller
         $ownerDto = SecretaryDto::fromRequest($req->validated());
         $service = $this->SecretaryInterface->SaveFromData($ownerDto);
         DB::commit();
-        return $service;
+        return response()->json(['data' => $service], HttpStatusCode::OK);
     }catch(\Exception $e){
         DB::rollBack();
-        return $e->getMessage();
+        return response()->json(['error' => $e->getMessage()], HttpStatusCode::INTERNAL_SERVER_ERROR);
     }
     }
 }
