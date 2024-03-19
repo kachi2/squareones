@@ -14,7 +14,6 @@ use Cloudinary\Api\HttpStatusCode;
 
 class FundSourceController extends Controller
 {
-    //
 
     public function __construct(
         public readonly CompanyFormationInterface $fundsource

@@ -48,32 +48,30 @@
         <template #info>
             <section>
                 <div class="fw-bold">
-                    What are the basic requirements to be a founder?
-                </div>
-                <div>
+                    Why do I need to disclose the source of 
 
-                    A founder must be at least 18 years old.
-                    There is no residency requirement to be
-                    a founder, and our form allows for up to
-                    6 founders to be registered.
+funds and wealth?
+                </div>
+                <div>
+                    Disclosure of the source of funds and wealth is a regulatory requirement to comply with anti-money laundering laws. It helps maintain financial transparency and accountability.
                 </div>
             </section>
             <section>
                 <div class="fw-bold">
-                    Is it possible to change founder details after the company has been incorporated?
+                    What qualifies as a source of funds?
                 </div>
                 <div>
-                    Yes, amendments to founder details can
-                    be made post-incorporation.
+                    The source of funds refers to the origin of the capital you will invest in the company, such as personal savings, loan or credit, investment income, or any other legitimate source.
                 </div>
             </section>
             <section>
                 <div class="fw-bold">
-                    Is it possible to change founder details after the company has been incorporated?
+                    Can the source of wealth and source of 
+
+funds be the same?
                 </div>
                 <div>
-                    No, you must provide a physical
-                    residential address as it is mandatory.
+                    Yes, they can be the same if your initial wealth, which is funding the company, comes from a consistent ongoing source, such as a business or employment income.
                 </div>
             </section>
         </template>

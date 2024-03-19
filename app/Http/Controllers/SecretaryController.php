@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 
 class SecretaryController extends Controller
 {
-    //
     public function __construct(
         public readonly SecretaryInterface $SecretaryInterface
     )

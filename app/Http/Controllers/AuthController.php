@@ -13,10 +13,8 @@ class AuthController extends Controller
     public function __construct(
         public readonly AuthInterface $authInterface
     )
-    {
-        
+    {   
     }
-    //
 
     public function Register(UserRequest $user)
     {
@@ -24,7 +22,6 @@ class AuthController extends Controller
         if($userDto){
          return $this->authInterface->StoreUser($userDto);
         }
-        
     }
 
     public function LoginUser(Request $request){

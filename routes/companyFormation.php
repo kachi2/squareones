@@ -25,7 +25,6 @@ Route::controller(CompanyEntityController::class)->group(function(){
 Route::post('entity/store', 'StoreEntity');
 });
 
-
 Route::post('shares/store', [CompanySharesController::class, 'StoreShares']);
 
 Route::post('/secretary/store', [SecretaryController::class, 'StoreSecretary']);
@@ -33,7 +32,7 @@ Route::post('activities/store', [CompanyActivityController::class, 'CompanyActiv
 Route::post('fundsource/store', [FundSourceController::class, 'FundSource']);
 Route::post('upload/docs', [FileUploadController::class, 'ProcessDocuments']);
 
-
 Route::post('/company/formation/{company_id}', [HomeController::class, 'CompleteCompanyFormation']);
-
 Route::get('/get/business/nature', [CompanyController::class, 'getBusinessNature']);
+
+Route::get('/get/names/prefix', [CompanyController::class, 'getNamePrefix']);

@@ -10,25 +10,27 @@
                     <div class="col-md-6 col-lg-3">
                         <label class="form-label fw-bold small">Class of shares</label>
                         <div class="col-md-12">
-                            <select class="form-select"> </select>
+                            <select class="form-select"> ORDINARY</select>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-3">
                         <label class="form-label fw-bold small">Total no of shares</label>
                         <div class="col-md-12">
-                            <input class="form-control" type="text">
+                            <input class="form-control" type="text" placeholder="Total no of shares">
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-3">
                         <label class="form-label fw-bold small">Currency</label>
                         <div class="col-md-12">
-                            <select class="form-select"> </select>
+                            <select class="form-select">
+                            <option> HK </option>    
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-3">
                         <label class="form-label fw-bold small">Total amount paid-off</label>
                         <div class="col-md-12">
-                            <input class="form-control" type="text">
+                            <input class="form-control" type="text" placeholder="Total amount paid-off">
                         </div>
                     </div>
                 </div>
@@ -119,33 +121,23 @@
         <template #info>
             <section>
                 <div class="fw-bold">
-                    What are the basic requirements to be a founder?
+                    What are 'Class of Shares', and how do 
+
+                  I choose the right one?
                 </div>
                 <div>
-                    A founder must be at least 18 years old.
-                    There is no residency requirement to be
-                    a founder, and our form allows for up to
-                    6 founders to be registered.
+                    'Class of Shares' refers to the category of stock you are allocating. 'Ordinary' shares are common stock with no special rights or restrictions. This is the most common and most straight forward to begin with.
                 </div>
             </section>
             <section>
                 <div class="fw-bold">
-                    Is it possible to change founder details after the company has been incorporated?
+                    What if the ownership percentages among founders don’t add up to 100%?
                 </div>
                 <div>
-                    Yes, amendments to founder details can
-                    be made post-incorporation.
+                    The total ownership must equal 100%. If your allocations don’t sum up to 100%, you'll need to adjust the percentages until they do. The form will indicate any discrepancies with a visual cue.
                 </div>
             </section>
-            <section>
-                <div class="fw-bold">
-                    Is it possible to change founder details after the company has been incorporated?
-                </div>
-                <div>
-                    No, you must provide a physical
-                    residential address as it is mandatory.
-                </div>
-            </section>
+           
         </template>
     </StartCompany_template>
 </template>

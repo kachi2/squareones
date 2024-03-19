@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { RouterLink } from 'vue-router';
 </script>
-
 <template>
     <ul class="list-group list-group-flush">
         <li class="list-group-item">
@@ -9,7 +8,6 @@ import { RouterLink } from 'vue-router';
                 <!-- <img class="side-icon" src="/icons/sidebar/grid-four.png" alt=""> -->
                 <i class="bi bi-grid me-2"></i>Dashboard
             </router-link>
-
         </li>
         <li class="list-group-item">
             <div class="accordion" id="accordionMenuCaompany">
@@ -32,22 +30,18 @@ import { RouterLink } from 'vue-router';
                                         </router-link>
                                     </a>
                                 </li>
-
                                 <li class="nav-item"><a class="nav-link" href="#">
                                         <!-- <router-link to="/account/company/company_info"> -->
                                         <i class="bi bi-dot"></i> CD Limited
                                         <!-- </router-link> -->
-
                                     </a>
                                 </li>
-
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </li>
-
         <li class="list-group-item">
             <div class="accordion" id="accordionMenuADocument">
                 <div class="accordion-item">

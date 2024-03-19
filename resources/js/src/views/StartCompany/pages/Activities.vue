@@ -76,7 +76,7 @@
 
         </template>
 
-        <template #info>
+        <!-- <template #info>
             <section>
                 <div class="fw-bold">
                     What are the basic requirements to be a founder?
@@ -107,8 +107,10 @@
                     residential address as it is mandatory.
                 </div>
             </section>
-        </template>
-    </StartCompany_template>
+        </template> -->
+   
+   
+   </StartCompany_template>
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue';

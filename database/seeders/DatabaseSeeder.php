@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             $this->call([
                 BusinessNatureSeeder::class,
                 EntityTypeSeeder::class,
-                UserSeeder::class
+                UserSeeder::class,
+                NamePrefixSeeder::class,
             ]);
 
         }catch(\Exception $e){

@@ -17,7 +17,8 @@ class FileUploadController extends Controller
 
     public function ProcessDocuments( Request $request){
             $data = FileUploadDto::fromRequest($request->all());
-            if($data){
+            if($data)
+            {
                $processDoc = $this->fileUpload->upload($request);
                return response()->json(['data' =>$processDoc]);
             }

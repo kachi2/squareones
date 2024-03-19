@@ -11,9 +11,6 @@ use Illuminate\Support\Facades\DB;
 
 class CompanySharesController extends Controller
 {
-    //
-
-    
     public function __construct(
         public readonly SharesInterface $shareInterface
     )

@@ -14,19 +14,20 @@
                 </div>
                 <div class="col-md-8">
                     <label class=" fw-bolder">Name in English</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" placeholder="Name in English">
                 </div>
                 <div class="col-md-8">
                     <label class=" fw-bolder">Name in Chinese</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" placeholder="Name in Chinese">
                 </div>
                 <div class="col-md-8">
                     <label class=" fw-bolder">Company registration no</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" placeholder="Company registration no">
                 </div>
                 <div class="col-md-8">
                     <label class=" fw-bolder">Country registered in</label>
                     <select class="form-select">
+                        <option> HKG</option>
                     </select>
                 </div>
             </section>
@@ -36,18 +37,20 @@
                 <div class="fw-bolder">Address </div>
                 <div class="row g-2 mt-1">
                     <div class="col-12">
-                        <input type="text" class="form-control">
+                        <input class="form-control" type="text" placeholder="Flat／Floor／Block">
                     </div>
                     <div class="col-12">
-                        <input type="text" class="form-control">
+                        <input class="form-control" type="text" placeholder=" Building">
                     </div>
                     <div class="col-12">
-                        <input type="text" class="form-control">
+                        <input class="form-control" type="text" placeholder="Street／Estate／Lot／Village etc">
                     </div>
-
                     <div class="col-12">
+                        <input class="form-control" type="text" placeholder="District／City／ Province／ State／ Postal Code">
+                    </div>
+                    <div class="col-md-12">
                         <select class="form-select">
-                            <option selected>Country</option>
+                            <option selected>Country／Region</option>
                         </select>
                     </div>
                 </div>

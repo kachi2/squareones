@@ -27,13 +27,18 @@
 @include('pdf.founders_individual')
 @endforeach
 
-{{-- @foreach ($company->founders['corporate'] as $corporate )
+@foreach ($company->founders['corporate'] as $corporate )
 @include('pdf.founders_corporate')
-@endforeach --}}
+@endforeach
 
+@foreach ($company->Secretary as $secretary )
 @include('pdf.company_secretary')
+@endforeach
 
+@foreach ($company->Secretary as $secretary )
 @include('pdf.directors')
+@endforeach
+
 
 @include('pdf.first_directors')
 

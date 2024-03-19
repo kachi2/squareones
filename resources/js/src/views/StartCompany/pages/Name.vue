@@ -32,7 +32,7 @@
                 </div>
             </section>
 
-            <section>
+            <section v-if="isSecond">
                 <div class="fw-bolder">Secondary Choice</div>
                 <div>These are alternative names you would consider should your primary choice be unavailable. List
                     them in descending order of preference.</div>
@@ -135,7 +135,7 @@
             </section>
 
             <div>
-                <button v-if="isThird || isForth || isFifth" @click="removeForm" class="btn btn-outline-danger me-3">
+                <button v-if="isSecond || isThird || isForth || isFifth" @click="removeForm" class="btn btn-outline-danger me-3">
                     <i class="bi bi-x-circle"></i> Remove
                 </button>
                 <button :disabled="isThird && isForth && isFifth" @click="addForm" class="btn btn-outline-secondary">
@@ -195,12 +195,13 @@ import { ref } from 'vue';
 import StartCompany_template from '../StartCompany_template.vue';
 import { useStartCompanyStore } from '../StartCompany_store';
 
+const isSecond = ref(false)
 const isThird = ref(false)
 const isForth = ref(false)
 const isFifth = ref(false)
 
 function addForm() {
-    const fields = [isThird, isForth, isFifth];
+    const fields = [isSecond, isThird, isForth, isFifth];
 
     for (const field of fields) {
         if (!field.value) {
@@ -211,7 +212,7 @@ function addForm() {
 }
 
 function removeForm() {
-    const fields = [isFifth, isForth, isThird];
+    const fields = [isFifth, isForth, isThird, isSecond];
 
     for (const field of fields) {
         if (field.value) {

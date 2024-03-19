@@ -12,6 +12,7 @@ use App\Http\Requests\CompanyDescriptionReq;
 use App\Http\Requests\CompanyRequest;
 use App\Http\Requests\NamesRequest;
 use App\Models\BusinessNature;
+use App\Models\NamePrefix;
 use Illuminate\Support\Facades\DB;
 use App\Services\CompanyServices;
 use Cloudinary\Api\HttpStatusCode;
@@ -32,6 +33,12 @@ class CompanyController extends Controller
                 ],
             ],200
             );
+    }
+
+    public function getNamePrefix(){
+        return response()->json([
+            'data' => NamePrefix::get()
+        ], HttpStatusCode::OK);
     }
 
     public function InitiateCompanyCreation(NamesRequest $req){
