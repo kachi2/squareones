@@ -12,6 +12,7 @@ use App\Http\Requests\CompanyDescriptionReq;
 use App\Http\Requests\CompanyRequest;
 use App\Http\Requests\NamesRequest;
 use App\Models\BusinessNature;
+use App\Models\Company;
 use App\Models\NamePrefix;
 use Illuminate\Support\Facades\DB;
 use App\Services\CompanyServices;
@@ -29,11 +30,18 @@ class CompanyController extends Controller
         return response()->json(
             [
                 'data' => [
-                    'business_natiure' => BusinessNature::get()->orderBy('name', 'DESC')
+                    'business_natiure' => BusinessNature::orderBy('name', 'DESC')->get()
                 ],
             ],200
             );
     }
+public function getActiveCompany(){
+
+    $company = Company::where([ 'is_complete' =>  0])->first();
+    return response()->json([
+              'company' =>  $company->Load(['names', 'activity', 'CompanyEntity', 'Secretary', 'Shares', 'fundSource', 'ownerShare', 'businessNature']),
+    ]);
+}
 
     public function getNamePrefix(){
         return response()->json([

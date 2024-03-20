@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ownership_shares', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained()->unsigned();
-            $table->foreignId('entity_id')->nullable();
+            $table->foreignId('company_entity_id')->nullable();
             $table->foreignId('company_share_id')->unsigned();
             $table->string('total_amount')->nullable();
             $table->timestamps();
