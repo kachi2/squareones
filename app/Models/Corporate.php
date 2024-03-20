@@ -24,4 +24,6 @@ class Corporate extends Model
     {
         return $this->hasOne(CorporateAuthPersons::class);
     }
+
+    
 }

@@ -14,7 +14,7 @@
 <body>
     <div class="main">
     <section> 
-        
+         
 @include('pdf.company')
 
  @include('pdf.company_info')
@@ -54,7 +54,7 @@
 
 @include('pdf.founder_sign')
 
-@include('pdf.articles')
+{{-- @include('pdf.articles') --}}
 </section>
 </div>
 </html>

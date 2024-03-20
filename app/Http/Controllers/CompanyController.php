@@ -29,7 +29,7 @@ class CompanyController extends Controller
         return response()->json(
             [
                 'data' => [
-                    'business_natiure' => BusinessNature::get()->orderBy('name', 'DESC')
+                    'business_natiure' => BusinessNature::orderBy('name', 'DESC')->get()
                 ],
             ],200
             );
