@@ -81,7 +81,7 @@ class CompanyEntityService implements CompanyEnityInterface
                 ]);
             }
             return [
-                'residential_address' => $datas,
+                'residential_address' => $datas??null,
                 'correspondence_address' => $data??null
             ];
     }
