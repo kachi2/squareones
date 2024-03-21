@@ -37,7 +37,7 @@ class CompanyController extends Controller
     }
 public function getActiveCompany(){
 
-    $company = Company::where([ 'is_complete' =>  0])->first();
+    $company = Company::where([ 'is_complete' => 0, 'user_id' => auth_user()])->orWhere(['is_complete' => null])->first();
     return response()->json([
               'company' =>  $company->Load(['names', 'activity', 'CompanyEntity', 'Secretary', 'Shares', 'fundSource', 'ownerShare', 'businessNature']),
     ]);
@@ -91,7 +91,5 @@ public function getActiveCompany(){
             DB::rollBack();
             return response()->json(['error' =>$e->getMessage()], HttpStatusCode::BAD_REQUEST);
         }
-
-
     }
 }
