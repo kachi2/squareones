@@ -38,9 +38,11 @@ class CompanyController extends Controller
 public function getActiveCompany(){
     try{
     $company = Company::where([ 'is_complete' => 0, 'user_id' => auth_user()])->orWhere(['is_complete' => null])->first();
+    if($company){
     return response()->json([
       'company' =>  $company->Load(['names', 'activity', 'CompanyEntity', 'Secretary', 'Shares', 'fundSource', 'ownerShare', 'businessNature']),
     ], HttpStatusCode::OK);
+}
 }catch(\Exception $e){
     return response()->json([
         'error' =>  $e->getMessage(),
