@@ -28,7 +28,7 @@ const $instanceForm = axios.create({
 // create interceptor for renewing token ##########################################3
 const setAuthorization = (config: any) => {
     // const token = Cookies.get('_tokn');
-    const token = '1|tpqrFc7dTkg8IoB7IpYutRjBqgvjI9wypkAh4ful23fc99b6'
+    const token = '2|kKgh0wMszIjMucyYtU9jmHaJUp61u4ytW8PsZm5b05f305fb'
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }

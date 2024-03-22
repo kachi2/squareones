@@ -57,7 +57,7 @@ public function getActiveCompany(){
     }
 
     public function InitiateCompanyCreation(NamesRequest $req){
-
+        try{ 
         $check = $this->companyServices->CheckNameExist($req->names);
         if ($check) {
             return  response()->json(['error' => "Names already exist on our database, please choose another name"]);
@@ -65,7 +65,10 @@ public function getActiveCompany(){
             $namesDto = NamesDto::fromRequest($req->validated());
             $initiateCompany = $this->companyServices->InitiateCompany($namesDto);
             return response()->json(['data' => $initiateCompany], HttpStatusCode::OK);
+    }catch(\Exception $e){
+        return response()->json(['error' => $e->getMessage()], HttpStatusCode::INTERNAL_SERVER_ERROR); 
     }
+}
 
     public function StoreCompanyDescription(CompanyDescriptionReq $req)
     {

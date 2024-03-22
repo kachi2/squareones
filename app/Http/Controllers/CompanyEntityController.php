@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Dtos\CorporateDto;
 use App\Dtos\IndividualDto;
 use App\Interfaces\FounderInterface;
+use App\Models\IdentityType;
 use App\Services\CompanyEntityService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,6 +21,12 @@ class CompanyEntityController extends Controller
     ) {
     }
 
+
+    public function getIdType(){
+        return response()->json([
+            'identity_type' => IdentityType::get()
+        ]);
+    }
     public function StoreEntity(Request $request)
     {
         try {

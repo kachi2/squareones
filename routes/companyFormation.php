@@ -37,3 +37,5 @@ Route::get('/get/business/nature', [CompanyController::class, 'getBusinessNature
 
 Route::get('/get/names/prefix', [CompanyController::class, 'getNamePrefix']);
 Route::get('/company/progress', [CompanyController::class, 'getActiveCompany']);
+
+Route::get('id/types', [CompanyEntityController::class, 'getIdType']);
