@@ -65,11 +65,8 @@ class CompanyServices  implements CompanyFormationInterface
         try {
             DB::beginTransaction();
             $initiateCompany = Company::create([
-                // 'user_id' => auth_user(),
-                'user_id' => 1,
+                'user_id' => auth_user(),
             ]);
-
-            // dd(json_encode($namesDto, true));
 
             if ($initiateCompany) {
                 $names = [];
