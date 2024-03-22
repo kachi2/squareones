@@ -38,22 +38,22 @@
             <div class="fw-bolder">Address </div>
             <div class="row g-2 mt-1">
                 <div class="col-12">
-                        <input class="form-control" type="text" placeholder="Flat／Floor／Block">
-                    </div>
-                    <div class="col-12">
-                        <input class="form-control" type="text" placeholder=" Building">
-                    </div>
-                    <div class="col-12">
-                        <input class="form-control" type="text" placeholder="Street／Estate／Lot／Village etc">
-                    </div>
-                    <div class="col-12">
-                        <input class="form-control" type="text" placeholder="District／City／ Province／ State／ Postal Code">
-                    </div>
-                    <div class="col-md-12">
-                        <select class="form-select">
-                            <option selected>Country／Region</option>
-                        </select>
-                    </div>
+                    <input class="form-control" type="text" placeholder="Flat／Floor／Block">
+                </div>
+                <div class="col-12">
+                    <input class="form-control" type="text" placeholder=" Building">
+                </div>
+                <div class="col-12">
+                    <input class="form-control" type="text" placeholder="Street／Estate／Lot／Village etc">
+                </div>
+                <div class="col-12">
+                    <input class="form-control" type="text" placeholder="District／City／ Province／ State／ Postal Code">
+                </div>
+                <div class="col-md-12">
+                    <select class="form-select">
+                        <option selected>Country／Region</option>
+                    </select>
+                </div>
             </div>
         </section>
 
@@ -97,7 +97,6 @@
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue';
-import StartCompany_template from '../StartCompany_template.vue';
 import { useStartCompanyStore } from '../StartCompany_store';
 
 const founderType = ref<'individual' | 'corporate'>('individual')

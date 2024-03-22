@@ -5,6 +5,3 @@ export const useTemplateStore = defineStore('templateStore', () => {
   const sidebarWidth = ref('250px')
   return { sidebarWidth }
 })
-
-
-

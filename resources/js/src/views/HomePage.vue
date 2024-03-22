@@ -1,7 +1,3 @@
-<script setup lang="ts">
-import { RouterLink } from 'vue-router';
-</script>
-
 <template>
   <div class="bg-white pb-5">
     <div class="container">
@@ -150,6 +146,10 @@ import { RouterLink } from 'vue-router';
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { RouterLink } from 'vue-router';
+</script>
 
 <style lang="css" scoped>
 .main-name {

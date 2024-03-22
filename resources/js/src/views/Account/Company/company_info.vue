@@ -66,35 +66,25 @@
                         <hr>
 
                         <div class="container mt-5">
-                            <div class="row">
-                                <div class="col-10">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-9">
                                     <div class="progress-container">
                                         <div class="progress-line"></div>
-                                        <i class="bi  bi-check-circle-fill text-warning phase phase-1 fs-4"></i>
-                                        <i class="bi bi-check-circle-fill text-warning phase phase-2 fs-4"></i>
-                                        <i class="bi bi-check-circle-fill text-warning phase phase-3 fs-4"></i>
-                                        <i class="bi bi-record-circle text-warning phase phase-4 fs-4"></i>
-                                        <i class="bi bi-circle text-warning phase phase-5 fs-4"></i>
+                                        <i class="bi  bi-check-circle-fill text-warning phase phase-1"></i>
+                                        <i class="bi bi-check-circle-fill text-warning phase phase-2"></i>
+                                        <i class="bi bi-check-circle-fill text-warning phase phase-3"></i>
+                                        <i class="bi bi-record-circle text-warning phase phase-4"></i>
+                                        <i class="bi bi-circle text-warning phase phase-5"></i>
+                                        <div class="phase-label phase-1">Set up <br> company</div>
+                                        <div class="phase-label phase-2">Preparing <br> Incorporation</div>
+                                        <div class="phase-label phase-3">Filling<br>Documents</div>
+                                        <div class="phase-label phase-4">Company<br>Incorporated</div>
+                                        <div class="phase-label phase-5">Tax ID<br>Ready</div>
                                     </div>
                                 </div>
 
                             </div>
                         </div>
-                        <div class="col-12">
-                            <div class="row small">
-                                <div class="col-2">Set up
-                                    company</div>
-                                <div class="col-2">Preparing
-                                    Incorporation</div>
-                                <div class="col-2">Filling
-                                    Documents</div>
-                                <div class="col-3">Company
-                                    Incorporated</div>
-                                <div class="col-2">Tax ID
-                                    Ready</div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -167,7 +157,6 @@
                                 Annual Return Date
                                 <span class="float-end">12 Jan, 2025</span>
                             </li>
-
                         </ul>
                     </div>
                 </div>
@@ -213,7 +202,6 @@ th {
 .progress-container {
     position: relative;
     height: 50px;
-    /* Adjust height as needed */
 }
 
 .progress-line {
@@ -229,8 +217,17 @@ th {
 .phase {
     position: absolute;
     top: 50%;
-    font-size: 0.8rem;
+    font-size: 1.2rem;
     white-space: nowrap;
+    transform: translate(-50%, -50%);
+    fill: aqua !important;
+}
+
+.phase-label {
+    position: absolute;
+    top: calc(50% + 50px);
+    font-size: 0.8rem;
+    text-align: center;
     transform: translate(-50%, -50%);
 }
 
@@ -252,7 +249,7 @@ th {
 }
 
 .phase-5 {
-    right: 0%;
+    /* right: 0%; */
     left: 100%;
 }
 </style>
