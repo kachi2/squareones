@@ -8,6 +8,7 @@ use App\Models\CompanyEntity;
 use App\Dtos\IndividualDto;
 use App\Models\Corporate;
 use App\Models\CorporateAuthPersons;
+use App\Models\IdentityInfo;
 use App\Models\Individual;
 use App\Models\IndividualCorAddress;
 use App\Models\IndividualResAddress;
@@ -42,10 +43,18 @@ class CompanyEntityService implements CompanyEnityInterface
             'is_founder' => $IndividualDto->is_founder,
         ]);
 
+        $id_info = IdentityInfo::create([
+            'identity_type_id' =>  $IndividualDto->identity_type_id, 
+            'passport_no' =>$IndividualDto->passport_no, 
+            'issueing_country' => $IndividualDto->issuing_country, 
+            'identity_no' => $IndividualDto->identity_no
+        ]);
+
       $res =  $this->processResidentialAddress($IndividualDto, $individualData);
       return [
         'Entity_individual' => $individualData,
         'address' => $res,
+        'identify_info' => $id_info
       ];
     }
 
