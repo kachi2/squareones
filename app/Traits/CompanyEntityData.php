@@ -10,25 +10,24 @@ trait CompanyEntityData
     public function IndividualEntityData($request)
     { 
         $valid = Validator::make($request->all(), [
-            'company_id' => 'nullable',
-            'entity_type_id' => 'nullable',
+            'company_id' => 'required',
+            'entity_type_id' => 'required',
             'entity_capacity_id' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
-            'chn_first_name' => 'required',
-            'chn_last_name' => 'required',
+            'chn_first_name' => 'nullable',
+            'chn_last_name' => 'nullable',
             'dob' => 'required',
             'nationality' => 'required',
             'identity_no' => 'nullable',
             'passport_no' => 'nullable',
             'issuing_country' => 'nullable',
-            'nationality' => 'required',
             'identity_type_id' => 'required',
             'phone' => 'required',
             'email' => 'required', 
             'occupation' => 'required',
             'addresses' => 'required',
-            'is_corAddress' => 'required',
+            'is_corAddress' => 'nullable',
             'card_name' => 'nullable',
             'is_founder' => 'nullable'
         ]);
@@ -39,8 +38,8 @@ trait CompanyEntityData
     public function CorporateEntitysData($request)
     {
         $valid = Validator::make($request->all(), [
-            'company_id' => 'nullable',
-            'entity_type_id' => 'nullable',
+            'company_id' => 'required',
+            'entity_type_id' => 'required',
             'entity_capacity_id' => 'required',
             'company_name' => 'required',
             'chn_company_name' => 'required',
@@ -50,7 +49,7 @@ trait CompanyEntityData
             'street_no' => 'required',
             'city' => 'required',
             'state' => 'required',
-            'postal_code' => 'required',
+            'postal_code' => 'nullable',
             'country' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
