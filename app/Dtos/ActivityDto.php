@@ -10,7 +10,7 @@ class ActivityDto extends BaseDto
         public readonly string   $activity_level,
         public readonly string   $activity_nature, 
         public readonly string   $customer_location_operation,
-        public readonly string   $country,
+        public readonly ?string   $country,
     )
     {
         

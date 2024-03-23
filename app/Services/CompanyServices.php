@@ -144,7 +144,7 @@ class CompanyServices  implements CompanyFormationInterface
                 'activity_level' => $request->activity_level,
                 'activity_nature' => $request->activity_nature,
                 'customer_location_operation' => $request->customer_location_operation,
-                'country' => $request->country
+                'country' => json_encode($request->country)
             ]);
             return $activity;
         }

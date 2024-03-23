@@ -11,8 +11,6 @@ use App\Http\Requests\NamesRequest;
 use App\Models\BusinessNature;
 use App\Models\Company;
 use App\Models\NamePrefix;
-use App\Models\Individual;
-use App\Models\Corporate;
 use Illuminate\Support\Facades\DB;
 use App\Services\CompanyServices;
 use Cloudinary\Api\HttpStatusCode;
