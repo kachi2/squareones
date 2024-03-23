@@ -44,13 +44,19 @@ class CompanyEntityController extends Controller
                     $CorporateEntity = CorporateDto::fromRequest($validateRequest->validated());
                     $data = $this->EntityInterface->ProcessCorporateEntity($CorporateEntity,  $company_entity);
                 }
-                return response()->json(['data' => $data], HttpStatusCode::OK);
             }
 
             DB::commit();
+            return response()->json([ 'data' => $data], HttpStatusCode::OK);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['error' => $e->getMessage()], HttpStatusCode::INTERNAL_SERVER_ERROR);
         }
     }
+
+    public function removeEntity($entity_id){
+        return $this->EntityInterface->RemoveEntity($entity_id);
+    }
+
+    
 }

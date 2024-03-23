@@ -39,3 +39,5 @@ Route::get('/get/names/prefix', [CompanyController::class, 'getNamePrefix']);
 Route::get('/company/progress', [CompanyController::class, 'getActiveCompany']);
 
 Route::get('id/types', [CompanyEntityController::class, 'getIdType']);
+Route::post('/entities/remove/{entity_id}', [CompanyEntityController::class, 'removeEntity']);
+Route::post('/retrieve/shareholders/{company_id}', [CompanySharesController::class, 'RetrieveShareholders']);

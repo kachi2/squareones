@@ -21,6 +21,8 @@ class CompanyEntityService implements CompanyEnityInterface
     {
             $entity = CompanyEntity::updateOrCreate([
                 'company_id' => $request->company_id,
+                'entity_type_id' => $request->entity_type_id,
+                'entity_capacity_id' => json_encode($request->entity_capacity_id),
            ]);
            return $entity;
     }
@@ -28,8 +30,6 @@ class CompanyEntityService implements CompanyEnityInterface
     public function ProcessIndividualEntity(IndividualDto $IndividualDto, $company_entity)
     {
         $individualData = Individual::updateOrcreate([
-            'entity_type_id' => $IndividualDto->entity_type_id,
-            'entity_capacity_id' => json_encode($IndividualDto->entity_capacity_id),
             'company_entity_id' =>  $company_entity->id,
             'first_name' => $IndividualDto->first_name,
             'last_name' => $IndividualDto->last_name,
@@ -52,7 +52,8 @@ class CompanyEntityService implements CompanyEnityInterface
 
       $res =  $this->processResidentialAddress($IndividualDto, $individualData);
       return [
-        'Entity_individual' => $individualData,
+        'company_entity' => $company_entity,
+        'entity_individual' => $individualData,
         'address' => $res,
         'identify_info' => $id_info
       ];
@@ -61,7 +62,6 @@ class CompanyEntityService implements CompanyEnityInterface
     public function processResidentialAddress($request, $individual)
     {
        $ind =  IndividualResAddress::whereIndividualId($individual->id)->first();
-   
        $address = $request->addresses[0];
        if(!$ind){
                $datas = IndividualResAddress::updateOrCreate([
@@ -95,12 +95,10 @@ class CompanyEntityService implements CompanyEnityInterface
             ];
     }
 
-    public function ProcessCorporateEntity(CorporateDto $request, $founder)
+    public function ProcessCorporateEntity(CorporateDto $request, $entity)
     {
        $corporate = Corporate::updateOrCreate([
-            'entity_type_id' => $request->entity_type_id,
-            'entity_capacity_id' => json_encode($request->entity_capacity_id),
-            'company_entity_id' => $founder->id,
+            'company_entity_id' => $entity->id,
             'company_name' =>  $request->company_name,
             'chn_company_name'=>  $request->chn_company_name,
             'date_incorporated'=>  $request->date_incorporated,
@@ -126,6 +124,33 @@ class CompanyEntityService implements CompanyEnityInterface
             ]);
         }
 
-        return [$authorized_person,$corporate ];
+        return ['company_entity' => $entity, 'entity_corporate' => $corporate, 'authorized_person' => $authorized_person];
     }
+
+    public function RemoveEntity($entity_id){
+        $entity = CompanyEntity::whereId($entity_id)->first();
+        //  return response()->json(['data' => $entity->load('Individual','Corporate' )]);
+        if($entity){
+        if($entity->has('Individual') && $entity->Individual != null ){
+            $data = [
+                'company_entity' =>$entity->load('Individual')
+            ];
+            $entity->Individual->corAddress?->delete();
+            $entity->Individual?->resAddress?->delete();
+            $entity->Individual?->delete();
+            $entity->delete();
+            return response()->json(['data' => $data]);
+        }elseif($entity->has('Corporate') && $entity->Corporate != null ){
+            $data = [
+                'company_entity' =>$entity->load('Corporate')
+            ];
+            $entity->Corporate->authorizedPersons?->delete();
+            $entity->Corporate?->delete();
+            $entity->delete();
+            return response()->json(['data' => $data]);
+        }
+    }
+
+    return response()->json(['error' => 'The requested resources does not exist']);
+}
 }

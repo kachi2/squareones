@@ -4,6 +4,8 @@ namespace App\Services;
 use App\Interfaces\SharesInterface;
 use App\Models\CompanyOwnership;
 use App\Models\CompanyShare;
+use App\Models\Company;
+use App\Models\CompanyEntity;
 use App\Models\OwnershipShare;
 
 class SharesService implements SharesInterface 
@@ -42,4 +44,22 @@ class SharesService implements SharesInterface
     }
     return $data;
     }
+
+
+    //send only user that are shareholders or that are both shareholders and directors 
+
+
+    public function ListShareHolders($company_id){
+        $shareholders = CompanyEntity::where('company_id',$company_id)->get();
+        if($shareholders){
+
+            return  $shareholders;
+        }
+
+        // dd($entity );
+    }
+
+
+
+
 }

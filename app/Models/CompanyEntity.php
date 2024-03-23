@@ -11,7 +11,8 @@ class CompanyEntity extends Model
     use HasFactory;
 
 
-    protected $fillable = [ 'company_id'];
+
+    protected $fillable = [ 'company_id', 'entity_type_id', 'entity_capacity_id'];
 
     public function company():BelongsTo
     {
@@ -23,11 +24,11 @@ class CompanyEntity extends Model
     }
 
     public function Individual(){
-        return $this->belongsTo(CompanyEntity::class);
+        return $this->hasOne(Individual::class);
     }
 
     public function Corporate(){
-        return $this->belongsTo(CompanyEntity::class);
+        return $this->hasOne(Corporate::class);
     }
 
     public function individualFounder(){

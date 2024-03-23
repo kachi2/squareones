@@ -10,4 +10,5 @@ interface CompanyEnityInterface {
  public function ProcessCorporateEntity( CorporateDto $request, $founders);
  public function SaveParentEntity($request);
  public function processResidentialAddress($request, $individual);
+ public function RemoveEntity($entity_id);
 }

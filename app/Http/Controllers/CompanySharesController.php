@@ -29,4 +29,8 @@ class CompanySharesController extends Controller
         return response()->json(['error' => $e->getMessage()], HttpStatusCode::INTERNAL_SERVER_ERROR);
     }
     }
+
+    public function RetrieveShareholders($company_id){
+        return $this->shareInterface->ListShareHolders($company_id);
+    }
 }
