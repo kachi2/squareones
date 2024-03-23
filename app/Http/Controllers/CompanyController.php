@@ -40,7 +40,8 @@ public function getActiveCompany(){
     $company = Company::where([ 'is_complete' => 0, 'user_id' => auth_user()])->orWhere(['is_complete' => null])->first();
     if($company){
     return response()->json([
-      'company' =>  $company->Load(['names', 'activity', 'CompanyEntity', 'Secretary', 'Shares', 'fundSource', 'ownerShare', 'businessNature']),
+      'company' =>  $company->Load(['names', 'activity', 'Secretary', 'Shares', 'fundSource', 'ownerShare', 'businessNature']),
+       $company->CompanyEntity->load('Individual', 'Corporate')
     ], HttpStatusCode::OK);
 }
 }catch(\Exception $e){
