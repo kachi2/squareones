@@ -39,12 +39,8 @@ public function getActiveCompany(){
     if($company){
        $company->Load(['names', 'activity', 'Secretary', 'Shares','fundSource', 'ownerShare', 'businessNature']);
        $company->CompanyEntity->load('Individual', 'Corporate');
-    // $data['individual'] = Individual::where(['company_entity_id' => $company->companyEntity->id])->get();
-    //  $data['corporate'] = Corporate::where(['company_entity_id' => $company->companyEntity->id])->get();
-
     return response()->json([
-        $company
-      
+        'company' => $company
     ], HttpStatusCode::OK);
 }
 }catch(\Exception $e){
