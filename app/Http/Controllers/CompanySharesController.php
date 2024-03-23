@@ -6,7 +6,6 @@ use App\Dtos\SharesDto;
 use App\Http\Requests\CompanySharesRequest;
 use App\Interfaces\SharesInterface;
 use Cloudinary\Api\HttpStatusCode;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class CompanySharesController extends Controller

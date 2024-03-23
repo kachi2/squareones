@@ -3,21 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Dtos\AddressDto;
-use App\Dtos\CompanyDescription;
 use App\Dtos\CompanyDescriptionDto;
-use App\Dtos\CompanyDto;
 use App\Dtos\NamesDto;
 use App\Http\Requests\CompanyAddressRequest;
 use App\Http\Requests\CompanyDescriptionReq;
-use App\Http\Requests\CompanyRequest;
 use App\Http\Requests\NamesRequest;
 use App\Models\BusinessNature;
 use App\Models\Company;
 use App\Models\NamePrefix;
+use App\Models\Individual;
+use App\Models\Corporate;
 use Illuminate\Support\Facades\DB;
 use App\Services\CompanyServices;
 use Cloudinary\Api\HttpStatusCode;
-use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
@@ -39,9 +37,14 @@ public function getActiveCompany(){
     try{
     $company = Company::where([ 'is_complete' => 0, 'user_id' => auth_user()])->orWhere(['is_complete' => null])->first();
     if($company){
+       $company->Load(['names', 'activity', 'Secretary', 'Shares','fundSource', 'ownerShare', 'businessNature']);
+       $company->CompanyEntity->load('Individual', 'Corporate');
+    // $data['individual'] = Individual::where(['company_entity_id' => $company->companyEntity->id])->get();
+    //  $data['corporate'] = Corporate::where(['company_entity_id' => $company->companyEntity->id])->get();
+
     return response()->json([
-      'company' =>  $company->Load(['names', 'activity', 'Secretary', 'Shares', 'fundSource', 'ownerShare', 'businessNature']),
-       $company->CompanyEntity->load('Individual', 'Corporate')
+        $company
+      
     ], HttpStatusCode::OK);
 }
 }catch(\Exception $e){
@@ -50,7 +53,6 @@ public function getActiveCompany(){
       ], HttpStatusCode::NOT_FOUND);
 }
 }
-
     public function getNamePrefix(){
         return response()->json([
             'data' => NamePrefix::get()
@@ -88,7 +90,6 @@ public function getActiveCompany(){
     }
 
     public function StoreCompanyAddress(CompanyAddressRequest $req){
-
         try{
             DB::beginTransaction();
             $addressDto = AddressDto::fromRequest($req->validated());

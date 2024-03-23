@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Interfaces\ActivitiesInterface;
-use App\Http\Requests\CompanyActivityRequest;
+
 use Illuminate\Support\Facades\DB;
-use App\Dtos\ActivityDto;
 use App\Dtos\FundSourceDto;
 use App\Http\Requests\FundSourceRequest;
 use App\Interfaces\CompanyFormationInterface;

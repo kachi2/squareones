@@ -6,7 +6,6 @@ use App\Dtos\SecretaryDto;
 use App\Http\Requests\SecretaryRequest;
 use App\Interfaces\SecretaryInterface;
 use Cloudinary\Api\HttpStatusCode;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class SecretaryController extends Controller
@@ -18,7 +17,6 @@ class SecretaryController extends Controller
     }
 
     public function StoreSecretary(SecretaryRequest $req){
-
         try {
         DB::beginTransaction();
         $ownerDto = SecretaryDto::fromRequest($req->validated());

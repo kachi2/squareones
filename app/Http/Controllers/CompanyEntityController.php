@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Dtos\CorporateDto;
 use App\Dtos\IndividualDto;
-use App\Interfaces\FounderInterface;
 use App\Models\IdentityType;
 use App\Services\CompanyEntityService;
 use Illuminate\Http\Request;

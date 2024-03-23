@@ -22,7 +22,7 @@ class Company extends Model
 
 
     public function CompanyEntity(){
-        return $this->hasOne(CompanyEntity::class);
+        return $this->hasMany(CompanyEntity::class);
     }
 
     public function Secretary(){

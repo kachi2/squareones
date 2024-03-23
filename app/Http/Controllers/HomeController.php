@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Events\GeneratePDF;
-use Inertia\Inertia as views;
 use App\Models\Company;
 use App\Models\Corporate;
 use App\Models\Individual;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -22,9 +20,6 @@ class HomeController extends Controller
         $data['individual'] = Individual::where(['company_entity_id' => $company->companyEntity->id, 'is_founder' => 0])->get();
         $data['corporate'] = Corporate::where(['company_entity_id' => $company->companyEntity->id, 'is_founder' => 0])->get();
         $company->founders =  $data;
-
-            //  dd($company);
-        // return view('pdf/articles')->with('company', $company);
         return view('pdf/pdf')->with('company', $company);
     }
 
