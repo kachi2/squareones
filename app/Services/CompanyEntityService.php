@@ -22,7 +22,7 @@ class CompanyEntityService implements CompanyEnityInterface
             $entity = CompanyEntity::updateOrCreate([
                 'company_id' => $request->company_id,
                 'entity_type_id' => $request->entity_type_id,
-                'entity_capacity_id' => json_encode($request->entity_capacity_id),
+                'entity_capacity_id' => $request->entity_capacity_id,
            ]);
            return $entity;
     }

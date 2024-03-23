@@ -10,6 +10,8 @@ class CompanyEntity extends Model
 {
     use HasFactory;
 
+    CONST SHAREHOLDER = 1;
+    CONST DIRECTOR = 2;
 
 
     protected $fillable = [ 'company_id', 'entity_type_id', 'entity_capacity_id'];

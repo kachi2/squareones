@@ -30,24 +30,6 @@ class CompanyServices  implements CompanyFormationInterface
         return $company;
     }
 
-    // public function SaveBusinessName( array $companyNames, string $company_id)
-    // {
-    //    $company = Company::where(['user_id' => auth_user(), 'id' => $company_id])->first();
-    //    if($company){
-    //     $names = [];
-    //     foreach($companyNames as $names){
-    //       $names =  CompanyName::create([
-    //             'eng_name' => $names['eng_name'],
-    //             'chn_name' => $names['chn_name'],
-    //             'choice_level' => $names['choice_level'],
-    //             'company_id' => $company_id
-    //         ]);
-    //     }
-    //     return $names;
-    //    }
-
-    // }
-
     public function CheckNameExist($names): bool
     {
         foreach ($names as $name) {
@@ -144,7 +126,7 @@ class CompanyServices  implements CompanyFormationInterface
                 'activity_level' => $request->activity_level,
                 'activity_nature' => $request->activity_nature,
                 'customer_location_operation' => $request->customer_location_operation,
-                'country' => json_encode($request->country)
+                'country' => $request->country
             ]);
             return $activity;
         }
