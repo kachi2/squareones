@@ -24,7 +24,6 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->string('occupation')->nullable();
-            $table->integer('is_founder')->default(0);
             $table->timestamps();
 
             $table->index('company_entity_id');

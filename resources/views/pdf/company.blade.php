@@ -1,3 +1,4 @@
+
 <p style="text-indent: 0px;text-align: left;"><br /></p>
 <table style="border-collapse:collapse;margin-left:5.78pt" cellspacing="0">
     <tr style="height:79pt">
@@ -66,7 +67,7 @@
     <tr style="height:51pt">
         <td style="width:100%;border-style:solid;border-width:1pt; border-bottom-width:1pt" colspan="3">
             <p style="text-indent: 0px;text-align: left; padding-left:40px"><br />
-                {{json_decode($company->names->where('choice_level', 1))[0]->eng_name}}
+                {{$company->names->where('choice_level', 1)[0]->eng_name}}
             </p>
         </td>
     </tr>
@@ -79,7 +80,7 @@
     <tr style="height:51pt">
         <td style="width:100%;border-style:solid;border-width:1pt; border-bottom-width:1pt" colspan="3">
             <p style="text-indent: 0px;text-align: left; padding-left:40px"><br />
-            {{json_decode($company->names->where('choice_level', 1))[0]->chn_name}}
+            {{$company->names->where('choice_level', 1)[0]->chn_name}}
             </p>
         </td>
     </tr>

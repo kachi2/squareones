@@ -4,7 +4,6 @@ namespace App\Services;
 use App\Interfaces\SharesInterface;
 use App\Models\CompanyOwnership;
 use App\Models\CompanyShare;
-use App\Enums\CapacityEnum;
 use App\Models\Company;
 use App\Models\CompanyEntity;
 use App\Models\OwnershipShare;
@@ -63,10 +62,5 @@ class SharesService implements SharesInterface
         };
         return $shares;
         }
-
     }
-
-
-
-
 }

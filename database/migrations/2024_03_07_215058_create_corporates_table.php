@@ -26,7 +26,6 @@ return new class extends Migration
             $table->string('state')->nullable();
             $table->string('postal_code')->nullable();
             $table->string('country')->nullable();
-            $table->integer('is_founder')->default(0);
             $table->timestamps();
             $table->index('company_entity_id');
         });

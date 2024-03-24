@@ -4,9 +4,14 @@ namespace App\Services;
 use App\Interfaces\DocumentInterface;
 use App\Models\Document;
 use Illuminate\Http\UploadedFile;
+use GuzzleHttp\Client;
 
 class DocumentServices  implements DocumentInterface{
 
+    public function __construct(public $method, public $ApiKey, public $url,  public $body = null)
+    {
+        $this->method = $method; $this->ApiKey = $ApiKey; $this->url; $this->body = $body;
+    }
     public function upload($request)
     {
         foreach($request->document as $files){
@@ -23,6 +28,20 @@ class DocumentServices  implements DocumentInterface{
         return  $docs;
     }
 
+    public function HttpClients()
+    {
+        $client = new Client();
+        $req = $client->request($this->method, $this->url, [
+            'headers' => 
+            [
+                'Authorization' => 'Bearer '.$this->ApiKey,
+                'Content-Type' => 'application/json',
+            ],
+            'json' => $this->body
+        ]);
+        return $req;
+    }
+
     public function DocumentToPDF($document){
 
         
@@ -31,4 +50,6 @@ class DocumentServices  implements DocumentInterface{
     public function SignDocument($request){
 
     }
+
+
 }

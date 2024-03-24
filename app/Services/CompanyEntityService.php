@@ -23,6 +23,7 @@ class CompanyEntityService implements CompanyEnityInterface
                 'company_id' => $request->company_id,
                 'entity_type_id' => $request->entity_type_id,
                 'entity_capacity_id' => $request->entity_capacity_id,
+                  'is_founder' => $request->is_founder,
            ]);
            return $entity;
     }
@@ -40,7 +41,6 @@ class CompanyEntityService implements CompanyEnityInterface
             'phone' => $IndividualDto->phone,
             'email' => $IndividualDto->email,
             'occupation' => $IndividualDto->occupation,
-            'is_founder' => $IndividualDto->is_founder,
         ]);
 
         $id_info = IdentityInfo::create([
@@ -111,7 +111,6 @@ class CompanyEntityService implements CompanyEnityInterface
             'country'=>  $request->country,
             'registeration_no' =>   $request->registeration_no,
             'business_nature_id'=>  $request->business_nature_id,
-            'is_founder' => $request->is_founder,
         ]);
 
         if($corporate){

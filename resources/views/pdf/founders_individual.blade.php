@@ -1,5 +1,5 @@
 
-
+{{dd($individual)}}
 <div style="padding-top:40px">
 </div>
 <p style="text-indent: 0pt;text-align: left;"><br /></p>

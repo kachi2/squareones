@@ -26,11 +26,11 @@ class CompanyEntity extends Model
     }
 
     public function Individual(){
-        return $this->hasMany(Individual::class, 'company_entity_id', 'id');
+        return $this->hasOne(Individual::class, 'company_entity_id', 'id');
     }
 
     public function Corporate(){
-        return $this->hasMany(Corporate::class, 'company_entity_id', 'id');
+        return $this->hasOne(Corporate::class, 'company_entity_id', 'id');
     }
 
     // public function individualFounder(){

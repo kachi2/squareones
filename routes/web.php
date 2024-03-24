@@ -5,6 +5,7 @@ use App\Http\Controllers\CompanyEntityController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\FounderController;
 use App\Http\Controllers\CompanySharesController;
+use App\Http\Controllers\DocumentSignController;
 use App\Http\Controllers\FundSourceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SecretaryController;
@@ -58,7 +59,7 @@ Route::get('/', [HomeController::class, '__invoke'])->name('companyformation');
 Route::get('/companyformation', [HomeController::class, '__invoke'])->name('companyformation');
 
 
-Route::get('/pdf',[HomeController::class, '__invoke']);
+Route::get('/pdf/{id}',[DocumentSignController::class, 'BuildPDF']);
 
 
 
