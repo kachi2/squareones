@@ -14,7 +14,7 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-8">
-                        <textarea class="form-control" rows="5"></textarea>
+                        <textarea v-model="form.description" class="form-control" rows="5"></textarea>
                         <small class="float-end">No minimum character required</small>
                     </div>
                 </div>
@@ -27,8 +27,24 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-8">
-                        <select class="form-select">
-                        </select>
+                        <v-select v-model="form.activity_level" :clearable="false"
+                            :options="startCompanyStore.levelOfActivity" />
+
+                    </div>
+
+                </div>
+            </section>
+
+            <section>
+                <div class="fw-bold">Nature of activity</div>
+                <div>Choose the main industry or sector that best represents your business operations.
+                </div>
+
+                <div class="row g-2 mt-1">
+                    <div class="col-md-8">
+                        <v-select v-model="form.activity_nature" :clearable="false"
+                            :options="startCompanyStore.natureOfActivity" />
+
                     </div>
 
                 </div>
@@ -42,8 +58,8 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-8">
-                        <select class="form-select">
-                        </select>
+                        <v-select :multiple="true" v-model="form.customer_location_operation" :clearable="false"
+                            :options="startCompanyStore.countries" />
                     </div>
 
                 </div>
@@ -57,8 +73,9 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-8">
-                        <select class="form-select">
-                        </select>
+                        <v-select :multiple="true" v-model="form.country" :clearable="false"
+                            :options="startCompanyStore.countries" />
+
                     </div>
 
                 </div>
@@ -66,13 +83,18 @@
 
 
             <div class="movement-buttons my-5">
-                <button @click="switchStage('-')" class="btn btn-outline-dark me-3">
+                <button @click="moveBack" class="btn btn-outline-dark me-3">
                     <i class="bi bi-arrow-left"></i> Back
                 </button>
-                <button @click="switchStage('+')" class="btn btn-primary">
+                <button v-if="!form.isSaving" @click="saveAndContinue" class="btn btn-primary">
                     Save & Continue <i class="bi bi-arrow-right"></i>
                 </button>
+                <button v-else class="btn btn-primary" type="button" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Saving, Please wait
+                </button>
             </div>
+
 
         </template>
 
@@ -108,23 +130,79 @@
                 </div>
             </section>
         </template> -->
-   
-   
-   </StartCompany_template>
+
+
+    </StartCompany_template>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 import StartCompany_template from '../StartCompany_template.vue';
 import { useStartCompanyStore } from '../StartCompany_store';
 
+import api from '@/stores/Helpers/axios'
+import { useToast } from 'vue-toast-notification';
 
-function switchStage(command: string) {
-    startCompanyStore.switchStage(command)
+const toast = useToast()
+const startCompanyStore = useStartCompanyStore()
+
+const form = reactive({
+    description: '',
+    activity_level: '',
+    activity_nature: '',
+    customer_location_operation: '',
+    country: '',
+    isSaving: false
+})
+
+
+function moveBack() {
+    // 
 }
 
-const startCompanyStore = useStartCompanyStore()
+function saveAndContinue() {
+
+    if (!startCompanyStore.companyInProgress?.id) {
+        toast.default('You have not registered any company name', { position: 'top-right' })
+        startCompanyStore.switchStage('-', 1)
+        return;
+    }
+
+    if (!form.description || !form.activity_level || !form.activity_nature || !form.customer_location_operation
+        || !form.country) {
+        toast.default('Please complete fields', { position: 'top-right' })
+        return;
+    }
+
+    const formData = new FormData;
+    formData.append('company_id', startCompanyStore.companyInProgress.id)
+    formData.append('description', form.description)
+    formData.append('activity_level', form.activity_level)
+    formData.append('activity_nature', form.activity_nature)
+    formData.append('customer_location_operation', form.customer_location_operation.toString())
+    formData.append('country', form.country.toString())
+
+    form.isSaving = true
+    saveFromToApi(formData)
+}
+
+async function saveFromToApi(formData: FormData) {
+    try {
+        await api.companyActivity(formData)
+
+        toast.success('Data Saved Successfully', { position: 'top-right' });
+        form.isSaving = false
+        startCompanyStore.switchStage('+')
+        startCompanyStore.getCompanyInProgress()
+
+    } catch (error) {
+        toast.error('Sorry, Something went wrong', { position: 'top-right' });
+        form.isSaving = false
+        console.log(error);
+
+    }
+}
+
+
+
 </script>
 <style lang="css" scoped></style>
-
-
-

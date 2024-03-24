@@ -8,10 +8,10 @@
     <Secretary v-if="startCompanyStore.currentStage == 7" />
     <Source v-if="startCompanyStore.currentStage == 8" />
     <Activities v-if="startCompanyStore.currentStage == 9" />
-    <Uploads v-if="startCompanyStore.currentStage == 10" />
-    <Summary v-if="startCompanyStore.currentStage == 11" />
-    <Sign v-if="startCompanyStore.currentStage == 12" />
-    <Pay v-if="startCompanyStore.currentStage == 13" />
+    <!-- <Uploads v-if="startCompanyStore.currentStage == 10" /> -->
+    <Summary v-if="startCompanyStore.currentStage == 10" />
+    <Sign v-if="startCompanyStore.currentStage == 11" />
+    <Pay v-if="startCompanyStore.currentStage == 12" />
 </template>
 
 <script lang="ts" setup>
@@ -39,8 +39,8 @@ onMounted(async () => {
     await startCompanyStore.getCompanyInProgress()
     startCompanyStore.getBusinessNatures()
     startCompanyStore.getCountries()
-
 })
+
 
 </script>
 

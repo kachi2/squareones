@@ -19,7 +19,8 @@
                     </div>
                     <div class="col-md-6">
                         <select v-model="choice_level1.prefix" class="form-select">
-                            <option selected :value="choice_level1.prefix">{{ choice_level1.prefix }}</option>
+                            <option selected :value="'Limited'">Limited</option>
+                            <option :value="'LIMITED'">LIMITED</option>
                         </select>
                     </div>
                     <div class="col-md-6">
@@ -28,7 +29,7 @@
                     </div>
                     <div class="col-md-6">
                         <select v-model="choice_level1.chn_prefix" class="form-select">
-                            <option selected :value="choice_level1.chn_name">{{ choice_level1.chn_name }}</option>
+                            <option selected :value="'有限公司'">有限公司</option>
                         </select>
                     </div>
                 </div>
@@ -45,7 +46,8 @@
                     </div>
                     <div class="col-md-6">
                         <select v-model="choice_level2.prefix" class="form-select">
-                            <option selected :value="choice_level2.prefix">{{ choice_level2.prefix }}</option>
+                            <option selected :value="'Limited'">Limited</option>
+                            <option :value="'LIMITED'">LIMITED</option>
                         </select>
                     </div>
                     <div class="col-md-6">
@@ -54,7 +56,7 @@
                     </div>
                     <div class="col-md-6">
                         <select v-model="choice_level2.chn_prefix" class="form-select">
-                            <option selected :value="choice_level2.chn_name">{{ choice_level2.chn_name }}</option>
+                            <option selected :value="'有限公司'">有限公司</option>
                         </select>
                     </div>
                 </div>
@@ -74,7 +76,8 @@
                     </div>
                     <div class="col-md-6">
                         <select v-model="choice_level3.prefix" class="form-select">
-                            <option selected :value="choice_level3.prefix">{{ choice_level3.prefix }}</option>
+                            <option selected :value="'Limited'">Limited</option>
+                            <option :value="'LIMITED'">LIMITED</option>
                         </select>
                     </div>
                     <div class="col-md-6">
@@ -83,7 +86,7 @@
                     </div>
                     <div class="col-md-6">
                         <select v-model="choice_level3.chn_prefix" class="form-select">
-                            <option selected :value="choice_level3.chn_name">{{ choice_level3.chn_name }}</option>
+                            <option selected :value="'有限公司'">有限公司</option>
                         </select>
                     </div>
                 </div>
@@ -102,7 +105,8 @@
                     </div>
                     <div class="col-md-6">
                         <select v-model="choice_level4.prefix" class="form-select">
-                            <option selected :value="choice_level4.prefix">{{ choice_level4.prefix }}</option>
+                            <option selected :value="'Limited'">Limited</option>
+                            <option :value="'LIMITED'">LIMITED</option>
                         </select>
                     </div>
                     <div class="col-md-6">
@@ -111,7 +115,7 @@
                     </div>
                     <div class="col-md-6">
                         <select v-model="choice_level4.chn_prefix" class="form-select">
-                            <option selected :value="choice_level4.chn_name">{{ choice_level4.chn_name }}</option>
+                            <option selected :value="'有限公司'">有限公司</option>
                         </select>
                     </div>
                 </div>
@@ -129,7 +133,8 @@
                     </div>
                     <div class="col-md-6">
                         <select v-model="choice_level5.prefix" class="form-select">
-                            <option selected :value="choice_level5.prefix">{{ choice_level5.prefix }}</option>
+                            <option selected :value="'Limited'">Limited</option>
+                            <option :value="'LIMITED'">LIMITED</option>
                         </select>
                     </div>
                     <div class="col-md-6">
@@ -138,7 +143,7 @@
                     </div>
                     <div class="col-md-6">
                         <select v-model="choice_level5.chn_prefix" class="form-select">
-                            <option selected :value="choice_level5.chn_name">{{ choice_level5.chn_name }}</option>
+                            <option selected :value="'有限公司'">有限公司</option>
                         </select>
                     </div>
                 </div>
@@ -341,6 +346,7 @@ async function saveFromToApi(formData: FormData) {
 
     } catch (error) {
         toast.error('Sorry, Something went wrong', { position: 'top-right' });
+        isSaving.value = false
     }
 }
 

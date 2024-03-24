@@ -45,7 +45,8 @@ Route::post('/retrieve/shareholders/{company_id}', [CompanySharesController::cla
 
 
 Route::controller(DocumentSignController::class)->group( function() {
-
 Route::get('/build/pdf', 'BuildPDF');
+
+Route::post('get/pdf/template', 'CreateTemplate');
 
 });

@@ -22,7 +22,7 @@ export default {
     },
 
     companyEntity(formData: FormData) {
-        return $instanceForm.post(`entity//store`, formData)
+        return $instanceForm.post(`entity/store`, formData)
     },
 
     companyShares(formData: FormData) {

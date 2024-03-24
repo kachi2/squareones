@@ -71,7 +71,7 @@
     </StartCompany_template>
 </template>
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
+import { reactive } from 'vue';
 import StartCompany_template from '../StartCompany_template.vue';
 import { useStartCompanyStore } from '../StartCompany_store';
 import api from '@/stores/Helpers/axios'
@@ -131,6 +131,7 @@ async function saveFromToApi(formData: FormData) {
 
     } catch (error) {
         toast.error('Sorry, Something went wrong', { position: 'top-right' });
+        form.isSaving = false
     }
 }
 

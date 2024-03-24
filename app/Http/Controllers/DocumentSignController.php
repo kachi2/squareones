@@ -9,6 +9,7 @@ use App\Models\Individual;
 use App\Models\CompanyEntity;
 use App\Events\GeneratePDF;
 use App\Models\Corporate;
+use App\Services\BaseClient;
 
 class DocumentSignController extends Controller
 {
@@ -62,22 +63,21 @@ class DocumentSignController extends Controller
     return view('pdf/pdf', [
         'company' => $company,
     ]);
-
         // event(new GeneratePDF(''));
 }
 
-    public function LoadPDF(){
-        $company = Company::whereId(1)->first() 
-        ->Load([
-            'names' ,'secretary','shares','documents','fundSource','ownerShare','CompanyEntity' 
-        ]);
-        $data['individual'] = Individual::where(['company_entity_id' => $company->companyEntity->id])->get();
-        $data['corporate'] = Corporate::where(['company_entity_id' => $company->companyEntity->id])->get();
-        $company->founders =  $data;
-        return view('pdf/pdf')->with('company', $company);
+    public function CreateTemplate(){
+      
+        $body = [
+        "html" => '/Applications/XAMPP/xamppfiles/htdocs/squareone/resources/views/pdf/test.html',
+        "folder_name" => "<string>",
+        "name" => "<string>",
+        "size" => "Letter",
+        "application_key" => "<string>"
+        ];
+        $client = new BaseClient('post','templates/html', $body);
+        $req = $client->HttpClients();
+        dd($req);
     }
-    
-
-
 
 }

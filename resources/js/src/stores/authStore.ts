@@ -8,7 +8,6 @@ export const useAuthStore = defineStore('authStore', () => {
   const profileData = ref<any>('')
 
   const isLoggedIn = computed(() => token.value || Cookies.get('_tokn'));
-  
 
   const emailVerified = computed(() => {
     return profileData.value?.email_verified_at

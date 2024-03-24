@@ -49,6 +49,9 @@
                         <i class="bi bi-justify fs-3"></i>
                     </button>
                     Start your Company
+                    <span class="small fw-bold" v-if="activeCompanyName">
+                        ({{ activeCompanyName }})
+                    </span>
                 </div>
                 <div class="col-2 d-none d-md-block min-vh-100 sub-menu-panel">
                     <StartCompany_menulist />
@@ -71,10 +74,21 @@
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue';
 import { useStartCompanyStore } from './StartCompany_store';
 import StartCompany_menulist from './StartCompany_menulist.vue';
 import StartCompany_mobilemenu from './StartCompany_mobilemenu.vue';
 const startCompanyStore = useStartCompanyStore()
+
+const activeCompanyName = computed(() => {
+    let coyName = ''
+    const choiceNames = startCompanyStore.companyInProgress?.names ?? []
+    if (choiceNames.length) {
+        const coy = choiceNames.find((x: any) => x.choice_level == 1);
+        coyName = coy.eng_name
+    }
+    return coyName
+})
 </script>
 
 <style lang="css" scoped>

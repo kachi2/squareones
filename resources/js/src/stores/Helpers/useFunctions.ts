@@ -60,13 +60,32 @@ export default {
             // title: `${title}`,
             text: `${text}`,
             icon: 'question',
-            iconColor: '#873A70',
+            // iconColor: '#873A70',
             showCancelButton: true,
             confirmButtonText: `${btnText}`,
             cancelButtonText: 'cancel',
-            confirmButtonColor: '#873A70',
+            confirmButtonColor: '##0d6efd',
             reverseButtons: true,
             width: '300px',
+        })
+    },
+
+    confirmTwoOptions: (text: string, confirmText: string, denyText: string) => {
+        return Swal.fire({
+            // title: `${title}`,
+            text: `${text}`,
+            icon: 'question',
+            // iconColor: '#873A70',
+            showCancelButton: false,
+            showDenyButton: true,
+            confirmButtonText: `${confirmText}`,
+            denyButtonText: `${denyText}`,
+            confirmButtonColor: '#0d6efd',
+            denyButtonColor: '#111111',
+            // reverseButtons: true,
+            width: '300px',
+
+
         })
     },
 
@@ -132,6 +151,22 @@ export default {
         }
         const dd = useDateFormat(date, 'MMM D, YYYY')
         return dd.value
+    },
+
+    ageInYears: (dateOfBirth: Date) => {
+        // Get today's date in milliseconds
+        const today = Date.now();
+
+        // Convert the date of birth to milliseconds
+        const dobInMilliseconds = new Date(dateOfBirth).getTime();
+
+        // Calculate the difference in milliseconds
+        const timeElapsed = today - dobInMilliseconds;
+
+        // Convert the difference to years (ignoring leap years and days for simplicity)
+        const ageInYears = Math.floor(timeElapsed / (1000 * 60 * 60 * 24 * 365));
+
+        return ageInYears;
     },
 
     timeAgo: (date: Date) => {

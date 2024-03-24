@@ -7,27 +7,29 @@
 
             <section>
                 <div class="row g-1 mt-1">
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-4">
                         <label class="form-label fw-bold small">Class of shares</label>
                         <div class="col-md-12">
-                            <select class="form-select"> ORDINARY</select>
+                            <select class="form-select">
+                                <option selected value="1">Ordinary</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-4">
                         <label class="form-label fw-bold small">Total no of shares</label>
                         <div class="col-md-12">
                             <input class="form-control" type="text" placeholder="Total no of shares">
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-4">
                         <label class="form-label fw-bold small">Currency</label>
                         <div class="col-md-12">
                             <select class="form-select">
-                            <option> HK </option>    
+                                <option> HK </option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-4">
                         <label class="form-label fw-bold small">Total amount paid-off</label>
                         <div class="col-md-12">
                             <input class="form-control" type="text" placeholder="Total amount paid-off">
@@ -121,12 +123,14 @@
         <template #info>
             <section>
                 <div class="fw-bold">
-                    What are 'Class of Shares', and how do 
+                    What are 'Class of Shares', and how do
 
-                  I choose the right one?
+                    I choose the right one?
                 </div>
                 <div>
-                    'Class of Shares' refers to the category of stock you are allocating. 'Ordinary' shares are common stock with no special rights or restrictions. This is the most common and most straight forward to begin with.
+                    'Class of Shares' refers to the category of stock you are allocating. 'Ordinary' shares are common
+                    stock with no special rights or restrictions. This is the most common and most straight forward to
+                    begin with.
                 </div>
             </section>
             <section>
@@ -134,24 +138,35 @@
                     What if the ownership percentages among founders don’t add up to 100%?
                 </div>
                 <div>
-                    The total ownership must equal 100%. If your allocations don’t sum up to 100%, you'll need to adjust the percentages until they do. The form will indicate any discrepancies with a visual cue.
+                    The total ownership must equal 100%. If your allocations don’t sum up to 100%, you'll need to adjust
+                    the percentages until they do. The form will indicate any discrepancies with a visual cue.
                 </div>
             </section>
-           
+
         </template>
     </StartCompany_template>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { reactive } from 'vue';
 import StartCompany_template from '../StartCompany_template.vue';
 import { useStartCompanyStore } from '../StartCompany_store';
+import api from '@/stores/Helpers/axios'
+import { useToast } from 'vue-toast-notification';
+
+import useFxn from '@/stores/Helpers/useFunctions';
+
+const toast = useToast()
+const startCompanyStore = useStartCompanyStore()
+
+// const form = reactive({
+//     classOf
+// })
 
 
 function switchStage(command: string) {
     startCompanyStore.switchStage(command)
 }
 
-const startCompanyStore = useStartCompanyStore()
 </script>
 <style lang="css" scoped>
 td,

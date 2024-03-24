@@ -14,7 +14,16 @@ const contentHeaders = (type: 'form' | 'json') => {
     }
 }
 
-// create instances #######################################################
+const setAuthorization = (config: any) => {
+    // const token = Cookies.get('_tokn');
+    const token = '2|d2LrAnlU8LwLKBP1IM1m6IG6ng24dFbZC1Zbl6X0ed07f413'
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
+};
+
 const $instance = axios.create({
     baseURL: apiURL,
     headers: contentHeaders('json')
@@ -24,17 +33,6 @@ const $instanceForm = axios.create({
     baseURL: apiURL,
     headers: contentHeaders('form'),
 })
-
-// create interceptor for renewing token ##########################################3
-const setAuthorization = (config: any) => {
-    // const token = Cookies.get('_tokn');
-    const token = '2|kKgh0wMszIjMucyYtU9jmHaJUp61u4ytW8PsZm5b05f305fb'
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-    }
-
-    return config;
-};
 
 // Set interceptors
 $instance.interceptors.request.use(setAuthorization);
