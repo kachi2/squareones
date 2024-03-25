@@ -63,7 +63,7 @@ class SharesService implements SharesInterface
             $shares[] = CompanyEntity::where('id', $shareholders)->first()->load('Individual', 'Corporate');
         };
         return [
-           'data' =>  count($shares) <= 0?'No results found':$shares
+           'data' => $shares
         ];
         }
     }
