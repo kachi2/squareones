@@ -22,7 +22,7 @@ class BaseClient {
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json'
             ],
-            'json' => json_encode($this->body)
+            'json' => $this->body
         ]);
         return $req;
     }

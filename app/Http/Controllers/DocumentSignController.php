@@ -67,17 +67,17 @@ class DocumentSignController extends Controller
 }
 
     public function CreateTemplate(){
-      
-        $body = [
-        "html" => '/Applications/XAMPP/xamppfiles/htdocs/squareone/resources/views/pdf/test.html',
-        "folder_name" => "<string>",
-        "name" => "<string>",
-        "size" => "Letter",
-        "application_key" => "<string>"
-        ];
+    $body = "html":
+        \"<p>Lorem Ipsum is simply dummy text of the\\n
+        <text-field\\n  name=\\\"Industry\\\"\\n  
+        role=\\\"First Party\\\"\\n  
+        required=\\\"false\\\"\\n  
+        style=\\\"width: 80px; height: 16px; 
+        display: inline-block; margin-bottom: -4px\\\">\\n</text-field>\\nand 
+        typesetting industry</p>\\n\",\"name\":\"Test Template\"";
+                      
         $client = new BaseClient('post','templates/html', $body);
         $req = $client->HttpClients();
         dd($req);
     }
-
 }
