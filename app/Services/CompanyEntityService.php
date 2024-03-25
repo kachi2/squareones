@@ -30,7 +30,8 @@ class CompanyEntityService implements CompanyEnityInterface
 
     public function ProcessIndividualEntity(IndividualDto $IndividualDto, $company_entity)
     {
-        $individualData = Individual::updateOrcreate([
+        
+        $individualData = Individual::create([
             'company_entity_id' =>  $company_entity->id,
             'first_name' => $IndividualDto->first_name,
             'last_name' => $IndividualDto->last_name,

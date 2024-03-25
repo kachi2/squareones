@@ -45,9 +45,11 @@ class SharesService implements SharesInterface
     return $data;
     }
 
-
+ 
     public function ListShareHolders($company_id){
         $company = CompanyEntity::where(['company_id' => $company_id])->get();
+        $shareholder = [];
+        $shares = [];
         if($company){
         foreach($company as $com){
             $entity = json_decode($com->entity_capacity_id, true);
@@ -60,7 +62,9 @@ class SharesService implements SharesInterface
         foreach($shareholder as $shareholders){
             $shares[] = CompanyEntity::where('id', $shareholders)->first()->load('Individual', 'Corporate');
         };
-        return $shares;
+        return [
+           'data' =>  count($shares) <= 0?'No results found':$shares
+        ];
         }
     }
 }
