@@ -62,7 +62,7 @@
         </td>
         <td
             style="width:80%;border:1px solid #000">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->chn_first_name}} {{$individual->chn_last_name}}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$corporate->chn_first_name}} {{$corporate->chn_last_name}}</p>
         </td>
     </tr>
 </table>
@@ -80,7 +80,7 @@
         </td>
         <td
             style="width:80%;border:1px solid #000">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->first_name}}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$corporate->first_name}}</p>
         </td>
     </tr>
     <tr style="height:10pt">
@@ -97,7 +97,7 @@
         </td>
         <td
             style="width:80%; border:1px solid #000">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->last_name}}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$corporate->last_name}}</p>
         </td>
     </tr>
     <tr style="height:17pt">
@@ -115,7 +115,7 @@
             <p class="s9" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">Name in English</p>
         </td>
         <td style="width:80%; border:1px solid #000">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->first_name}} {{$individual->last_name}}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$corporate->first_name}} {{$corporate->last_name}}</p>
         </td>
         <td >
         </td>
@@ -132,7 +132,7 @@
                     <span class="s36">／</span>Floor<span class="s36">／</span>Block etc.</p>
         </td>
         <td style="border:1px solid #000; width:80%">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress->address}}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$corporate->resAddress?->address}}</p>
         </td>
         <td></td>
     </tr>
@@ -147,7 +147,7 @@
             </p>
         </td>
         <td style="width:80%;border:1px solid #000">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress->street_no}}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$corporate->resAddress?->street_no}}</p>
         </td>
         <td>
         </td>
@@ -164,7 +164,7 @@
         </td>
 
         <td style="width:80%;border:1px solid #000">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress->street_no}}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$corporate->resAddress?->street_no}}</p>
         </td>
         <td></td>
     </tr>
@@ -178,7 +178,7 @@
                 Code etc.</p>
         </td>
         <td style="width:80%;border:1px solid #000">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress->state.','.$individual->resAddress->city }}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$corporate->resAddress?->state.','.$corporate->resAddress?->city }}</p>
         </td>
         <td></td>
     </tr>
@@ -193,7 +193,7 @@
                 Country<span class="s36">／</span>Region</p>
         </td>
         <td style="width:80%;border:1px solid #000">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress->country}}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$corporate->resAddress?->country}}</p>
         </td>
         <td></td>
     </tr>

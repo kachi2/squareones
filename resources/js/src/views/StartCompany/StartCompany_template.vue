@@ -52,6 +52,11 @@
                     <span class="small fw-bold" v-if="activeCompanyName">
                         ({{ activeCompanyName }})
                     </span>
+                    <span class="float-end">
+                        <button @click="logout" class="btn btn-link btn-sm p-0 text-decoration-none">
+                            Logout <i class="bi bi-box-arrow-right"></i>
+                        </button>
+                    </span>
                 </div>
                 <div class="col-2 d-none d-md-block min-vh-100 sub-menu-panel">
                     <StartCompany_menulist />
@@ -78,6 +83,13 @@ import { computed } from 'vue';
 import { useStartCompanyStore } from './StartCompany_store';
 import StartCompany_menulist from './StartCompany_menulist.vue';
 import StartCompany_mobilemenu from './StartCompany_mobilemenu.vue';
+import { useAuthStore } from '@/stores/authStore';
+import { useRouter } from 'vue-router';
+
+
+const authStore = useAuthStore()
+const router = useRouter()
+
 const startCompanyStore = useStartCompanyStore()
 
 const activeCompanyName = computed(() => {
@@ -89,6 +101,12 @@ const activeCompanyName = computed(() => {
     }
     return coyName
 })
+
+
+async function logout() {
+    authStore.logout()
+    router.replace({ name: 'Login' })
+}
 </script>
 
 <style lang="css" scoped>

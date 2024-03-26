@@ -17,52 +17,66 @@ class DocumentSignController extends Controller
     //
 
     public function __construct(
-        // public readonly DocumentInterface $documentInterface
+        public readonly DocumentInterface $documentInterface
     )
     {
         
     }
 
     public function BuildPDF($company_id){
+        
+        $company = Company::whereId($company_id)->first()
+        ->Load([
+            'names' ,'secretary','shares','fundSource','ownerShare'
+        ]);
+       $data['Individual'] =  $company->CompanyEntity->load('Individual');
+       $data['Corporate'] =  $company->CompanyEntity->load('Corporate');
+       $company->founders = $data;
+       $CompanyEntity = CompanyEntity::where(['company_id' => $company_id])->get();
+        if($CompanyEntity){
+        foreach($CompanyEntity as $com){
+            $entity = json_decode($com->entity_capacity_id, true);
+            if($entity != null){
+            if(in_array(CompanyEntity::SHAREHOLDER, $entity)){
+                $shareholders[] = $com->id;
+            }
+            if(in_array(CompanyEntity::DIRECTOR, $entity)){
+                $directors[] = $com->id;
+            }
+        }
+       }
+        foreach($shareholders as $shareho){
+            $shareholder[] = CompanyEntity::where('id', $shareho)->first()->load('Individual', 'Corporate');
+        };
+        foreach($directors as $direc){
+            $director[] = CompanyEntity::where('id', $direc)->first()->load('Individual', 'Corporate');
+        };
+    }
+        // $company->shares = $shareholder;
+        $company->directors = $director;
+        $company->shareholder = $shareholder;
+
+        // dd()
+
+        return view('pdf.pdf', ['company' =>$company]);
+        // $company->founders = $company->CompanyEntity->where('is_founder', 0)->load('Individual', 'Corporate');
+        
+
+
+
+
+
+
+
+
+
 //when a user clicks on submit documents// this generates PDF and stores on the database and displays to the user
 //the user then clicks on sign document
 //the user redirecte to docsign api to sign documents, after siging, the user redirected back to the page
 //and proceed to make payment 
 //once the payment is completed, the user is redirected to the dashboard
 
-    $company = Company::whereId($company_id)->first()
-    ->Load([
-        'names' ,'secretary','shares','fundSource','ownerShare'
-    ]);
-   $data['individual'] =  $company->CompanyEntity->load('Individual');
-   $data['corporate'] =  $company->CompanyEntity->load('Corporate');
-   $company->founders = $data;
-   $CompanyEntity = CompanyEntity::where(['company_id' => $company_id])->get();
-    if($CompanyEntity){
-    foreach($CompanyEntity as $com){
-        $entity = json_decode($com->entity_capacity_id, true);
-        if($entity != null){
-        if(in_array(CompanyEntity::SHAREHOLDER, $entity)){
-            $shareholders[] = $com->id;
-        }
-        if(in_array(CompanyEntity::DIRECTOR, $entity)){
-            $directors[] = $com->id;
-        }
-    }
-   }
-    foreach($shareholders as $shareho){
-        $shareholder[] = CompanyEntity::where('id', $shareho)->first()->load('Individual', 'Corporate');
-    };
-    foreach($directors as $direc){
-        $director[] = CompanyEntity::where('id', $direc)->first()->load('Individual', 'Corporate');
-    };
-}
-    // $company->shares = $shareholder;
-    $company->directos = $director;
-    // return $data['company'];
-    return view('pdf/pdf', [
-        'company' => $company,
-    ]);
+   
         // event(new GeneratePDF(''));
 }
 
@@ -83,6 +97,8 @@ class DocumentSignController extends Controller
         dd($req->all());
 
     }
+
+
 
 
 

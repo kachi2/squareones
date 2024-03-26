@@ -119,37 +119,13 @@ import { reactive } from 'vue';
 import { useStartCompanyStore } from '../StartCompany_store';
 import api from '@/stores/Helpers/axios'
 import { useToast } from 'vue-toast-notification';
-
 import useFxn from '@/stores/Helpers/useFunctions';
+import { foundersCorporateForm } from './formsStore/Founders_corporate'
 
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
 
-const form = reactive({
-    entity_type_id: '2',
-
-    company_name: '',
-    chn_company_name: '',
-    date_incorporated: new Date(),
-    address: '',
-    street_no: '',
-    state: '',
-    city: '',
-    country: 'Hong Kong',
-
-    postal_code: '',
-    registeration_no: '',
-    is_founder: false,
-    country_registered: 'Hong Kong',
-
-    business_nature_id: '',
-    phone: '',
-    email: '',
-    confirm_email: '',
-    first_name: '',
-    last_name: '',
-    isSaving: false
-})
+const form = foundersCorporateForm()
 
 function resetForm() {
     form.company_name = ''
@@ -172,16 +148,18 @@ function resetForm() {
     form.confirm_email = ''
     form.first_name = ''
     form.last_name = ''
+
+    startCompanyStore.checkedEntityCapacity = []
 }
 
 function moveBack() {
-    // 
+    startCompanyStore.switchStage('-')
 }
 
 function saveAndContinue() {
     if (!startCompanyStore.companyInProgress?.id) {
         toast.default('You have not registered any company name', { position: 'top-right' })
-        startCompanyStore.switchStage('-', 1)
+        startCompanyStore.switchStage('-', 2)
         return;
     }
 
@@ -244,8 +222,9 @@ async function saveFromToApi(formData: FormData) {
         await api.companyEntity(formData)
         toast.success('Data Saved Successfully', { position: 'top-right' });
         form.isSaving = false
-        startCompanyStore.getCompanyInProgress()
+        startCompanyStore.getCompanyInProgress('founder')
         queryNewAction()
+        resetForm()
 
     } catch (error) {
         toast.error('Sorry, Something went wrong', { position: 'top-right' });
@@ -259,7 +238,6 @@ function queryNewAction() {
     useFxn.confirmTwoOptions('Do you want to add a new founder?', 'Add New', 'Go to next phase')
         .then((resp) => {
             if (resp.isConfirmed) {
-                resetForm()
                 window.scrollTo(0, 0)
             }
             else if (resp.isDenied) {

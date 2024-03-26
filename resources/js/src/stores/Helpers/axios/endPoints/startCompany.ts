@@ -44,4 +44,12 @@ export default {
     companyDocuments(formData: FormData) {
         return $instanceForm.post(`upload/docs`, formData)
     },
+
+    retrieveShaheolders() {
+        return $instance.post(`retrieve/shareholders/1`)
+    },
+
+    deleteEntity(id: string | number) {
+        return $instance.post(`entities/remove/${id}`)
+    },
 }

@@ -1,5 +1,5 @@
 <template>
-    <Structure v-if="startCompanyStore.currentStage == 1" />
+    <!-- <Structure v-if="startCompanyStore.currentStage == 1" /> -->
     <Name v-if="startCompanyStore.currentStage == 2" />
     <Description v-if="startCompanyStore.currentStage == 3" />
     <Address v-if="startCompanyStore.currentStage == 4" />

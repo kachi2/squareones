@@ -66,31 +66,34 @@
     </StartCompany_template>
 </template>
 <script lang="ts" setup>
-import { ref, reactive } from 'vue';
+import { onMounted } from 'vue';
 import StartCompany_template from '../StartCompany_template.vue';
 import { useStartCompanyStore } from '../StartCompany_store';
 import api from '@/stores/Helpers/axios'
 import { useToast } from 'vue-toast-notification';
+import { descriptionForm } from './formsStore/Description'
 
 
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
 
-const form = reactive({
-    description: '',
-    business_nature_id: '',
-    website: '',
-    isSaving: false
-})
+const form = descriptionForm()
 
 function moveBack() {
-    // 
+    startCompanyStore.switchStage('-')
 }
+
+onMounted(() => {
+    form.description = startCompanyStore.companyInProgress?.description ?? ''
+    form.website = startCompanyStore.companyInProgress?.website ?? ''
+    form.business_nature_id = startCompanyStore.companyInProgress?.business_nature_id ?? ''
+})
+
 
 function saveAndContinue() {
     if (!startCompanyStore.companyInProgress?.id) {
         toast.default('You have not registered any company name', { position: 'top-right' })
-        startCompanyStore.switchStage('-', 1)
+        startCompanyStore.switchStage('-', 2)
         return;
     }
 
@@ -115,7 +118,7 @@ async function saveFromToApi(formData: FormData) {
 
         toast.success('Data Saved Successfully', { position: 'top-right' });
         form.isSaving = false
-        startCompanyStore.switchStage('+')
+        // startCompanyStore.switchStage('+')
         startCompanyStore.getCompanyInProgress()
 
     } catch (error) {

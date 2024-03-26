@@ -64,7 +64,7 @@ export default {
             showCancelButton: true,
             confirmButtonText: `${btnText}`,
             cancelButtonText: 'cancel',
-            confirmButtonColor: '##0d6efd',
+            confirmButtonColor: '#0d6efd',
             reverseButtons: true,
             width: '300px',
         })

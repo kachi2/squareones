@@ -132,7 +132,7 @@
                     <span class="s36">／</span>Floor<span class="s36">／</span>Block etc.</p>
         </td>
         <td style="border:1px solid #000; width:80%">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress->address}}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress?->address}}</p>
         </td>
         <td></td>
     </tr>
@@ -147,7 +147,7 @@
             </p>
         </td>
         <td style="width:80%;border:1px solid #000">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress->street_no}}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress?->street_no}}</p>
         </td>
         <td>
         </td>
@@ -164,7 +164,7 @@
         </td>
 
         <td style="width:80%;border:1px solid #000">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress->street_no}}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress?->street_no}}</p>
         </td>
         <td></td>
     </tr>
@@ -178,7 +178,7 @@
                 Code etc.</p>
         </td>
         <td style="width:80%;border:1px solid #000">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress->state.','.$individual->resAddress->city }}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress?->state.','.$individual->resAddress?->city }}</p>
         </td>
         <td></td>
     </tr>
@@ -193,7 +193,7 @@
                 Country<span class="s36">／</span>Region</p>
         </td>
         <td style="width:80%;border:1px solid #000">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress->country}}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress?->country}}</p>
         </td>
         <td></td>
     </tr>

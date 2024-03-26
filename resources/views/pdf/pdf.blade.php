@@ -23,17 +23,16 @@
 <p style="text-indent: 0pt;text-align: left; padding:20px"  ><br /></p>
 <hr>
 
-@foreach ($company->founders['individual'] as $individual ) 
+@foreach ($company->founders['Individual'] as $individual ) 
 @include('pdf.founders_individual')
 @endforeach
 
-@foreach ($company->founders['corporate'] as $corporate )
+@foreach ($company->founders['Corporate'] as $corporate )
 @include('pdf.founders_corporate')
 @endforeach
 
-@foreach ($company->Secretary as $secretary )
 @include('pdf.company_secretary')
-@endforeach
+
 
 @foreach ($company->Secretary as $secretary )
 @include('pdf.directors')

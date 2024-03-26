@@ -138,7 +138,7 @@
         <div class="col-12"></div>
 
         <div class="col-md-4 col-lg-3">
-          <router-link to="/start_company" class="btn btn-primary w-100">
+          <router-link to="/login" class="btn btn-primary w-100">
             Start <i class="bi bi-arrow-right"></i>
           </router-link>
         </div>

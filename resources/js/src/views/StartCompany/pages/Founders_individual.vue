@@ -14,15 +14,14 @@
 
             <div class="col-12 ">
                 <div class="form-check ">
-                    <input class="form-check-input" v-model="instances.hasChineseName" type="checkbox"
-                        id="chinese_name" />
+                    <input class="form-check-input" v-model="form.hasChineseName" type="checkbox" id="chinese_name" />
                     <label class="form-check-label" for="chinese_name">Do you have a Chinese Name?</label>
                 </div>
             </div>
         </div>
     </section>
 
-    <section v-if="instances.hasChineseName">
+    <section v-if="form.hasChineseName">
         <div class="fw-bolder">Your name in Chinese </div>
         <span>Enter your first and last name as they appear on a government ID</span>
         <div class="row mt-1 g-2">
@@ -83,11 +82,11 @@
         <span>
             <div class="form-check ">
                 <input class="form-check-input" type="checkbox" id="same_address"
-                    v-model="instances.correspondingAddressIsSame" />
+                    v-model="form.correspondingAddressIsSame" />
                 <label class="form-check-label" for="same_address">Same as residential address</label>
             </div>
         </span>
-        <div v-if="!instances.correspondingAddressIsSame" class="row g-2 mt-1">
+        <div v-if="!form.correspondingAddressIsSame" class="row g-2 mt-1">
             <div class="col-12">
                 <input v-model="form.address2" class="form-control" type="text" placeholder="Flat／Floor／Block">
             </div>
@@ -175,51 +174,15 @@ import { reactive } from 'vue';
 import { useStartCompanyStore } from '../StartCompany_store';
 import api from '@/stores/Helpers/axios'
 import { useToast } from 'vue-toast-notification';
-
 import useFxn from '@/stores/Helpers/useFunctions';
+import { foundersIdividualForm } from './formsStore/Founders_individual'
 
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
 
-
-const form = reactive({
-    entity_type_id: '1',
-
-    address: '',
-    street_no: '',
-    city: '',
-    state: '',
-    postal_code: '',
-    country: 'Hong Kong',
-
-    address2: '',
-    street_no2: '',
-    city2: '',
-    state2: '',
-    postal_code2: '',
-    country2: 'Hong Kong',
-
-    first_name: '',
-    last_name: '',
-    chn_first_name: '',
-    chn_last_name: '',
-    dob: '',
-    nationality: 'Hong Kong',
-    phone: '',
-    email: '',
-    confirm_email: '',
-    occupation: '',
-    is_founder: false,
-    identity_type_id: '1',
-    identity_no: '',
-    passport_no: '',
-    issuing_country: 'Hong Kong',
-    isSaving: false
-})
+const form = foundersIdividualForm()
 
 function resetForm() {
-    form.entity_type_id = '1'
-
     form.address = ''
     form.street_no = ''
     form.city = ''
@@ -249,24 +212,19 @@ function resetForm() {
     form.identity_no = ''
     form.passport_no = ''
     form.issuing_country = 'Hong Kong'
-    form.isSaving = false
+    startCompanyStore.checkedEntityCapacity = []
 }
-
-const instances = reactive({
-    correspondingAddressIsSame: false,
-    hasChineseName: false
-})
 
 
 function moveBack() {
-    // 
+    startCompanyStore.switchStage('-')
 }
 
 function saveAndContinue() {
 
     if (!startCompanyStore.companyInProgress?.id) {
         toast.default('You have not registered any company name', { position: 'top-right' })
-        startCompanyStore.switchStage('-', 1)
+        startCompanyStore.switchStage('-', 2)
         return;
     }
 
@@ -275,7 +233,7 @@ function saveAndContinue() {
         return;
     }
 
-    if (instances.hasChineseName) {
+    if (form.hasChineseName) {
         if (!form.chn_first_name || !form.chn_last_name) {
             toast.default('Please complete Chinese names', { position: 'top-right' })
             return;
@@ -287,7 +245,7 @@ function saveAndContinue() {
         return;
     }
 
-    if (!instances.correspondingAddressIsSame) {
+    if (!form.correspondingAddressIsSame) {
         if (!form.address2 || !form.street_no2 || !form.city2 || !form.state2 || !form.postal_code2) {
             toast.default('Please complete Secondary address', { position: 'top-right' })
             return;
@@ -331,7 +289,7 @@ function saveAndContinue() {
     formData.append('first_name', form.first_name)
     formData.append('last_name', form.last_name)
 
-    if (instances.hasChineseName) {
+    if (form.hasChineseName) {
         formData.append('chn_first_name', form.chn_first_name)
         formData.append('chn_last_name', form.chn_last_name)
     }
@@ -354,9 +312,9 @@ function saveAndContinue() {
     formData.append('addresses[0][state]', form.state)
     formData.append('addresses[0][postal_code]', form.postal_code)
     formData.append('addresses[0][country]', form.country)
-    formData.append('addresses[0][is_corAddress]', instances.correspondingAddressIsSame ? '1' : '0')
+    formData.append('addresses[0][is_corAddress]', form.correspondingAddressIsSame ? '1' : '0')
 
-    if (!instances.correspondingAddressIsSame) {
+    if (!form.correspondingAddressIsSame) {
         formData.append('addresses[1][address]', form.address2)
         formData.append('addresses[1][street_no]', form.street_no2)
         formData.append('addresses[1][city]', form.city2)
@@ -374,8 +332,9 @@ async function saveFromToApi(formData: FormData) {
         await api.companyEntity(formData)
         toast.success('Data Saved Successfully', { position: 'top-right' });
         form.isSaving = false
-        startCompanyStore.getCompanyInProgress()
+        startCompanyStore.getCompanyInProgress('founder')
         queryNewAction()
+        resetForm()
 
     } catch (error) {
         toast.error('Sorry, Something went wrong', { position: 'top-right' });
@@ -389,7 +348,6 @@ function queryNewAction() {
     useFxn.confirmTwoOptions('Do you want to add a new founder?', 'Add New', 'Go to next phase')
         .then((resp) => {
             if (resp.isConfirmed) {
-                resetForm()
                 window.scrollTo(0, 0)
             }
             else if (resp.isDenied) {

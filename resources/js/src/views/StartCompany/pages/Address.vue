@@ -25,7 +25,8 @@
                         <input v-model="form.postal_code" class="form-control" type="text" placeholder="Postal Code">
                     </div>
                     <div class="col-md-12">
-                        <v-select v-model="form.country" :clearable="false" :options="startCompanyStore.countries" />
+                        <v-select placeholder="select country.." v-model="form.country" :clearable="false"
+                            :options="startCompanyStore.countries" />
                     </div>
                 </div>
             </section>
@@ -71,34 +72,38 @@
     </StartCompany_template>
 </template>
 <script lang="ts" setup>
-import { reactive } from 'vue';
+import { onMounted } from 'vue';
 import StartCompany_template from '../StartCompany_template.vue';
 import { useStartCompanyStore } from '../StartCompany_store';
 import api from '@/stores/Helpers/axios'
 import { useToast } from 'vue-toast-notification';
+import { addressForm } from './formsStore/Address'
 
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
 
-const form = reactive({
-    address: '',
-    street_no: '',
-    city: '',
-    state: '',
-    postal_code: '',
-    country: '',
-    isSaving: false
+const form = addressForm()
+
+
+onMounted(() => {
+    form.address = startCompanyStore.companyInProgress?.address ?? ''
+    form.street_no = startCompanyStore.companyInProgress?.street_no ?? ''
+    form.city = startCompanyStore.companyInProgress?.city ?? ''
+    form.state = startCompanyStore.companyInProgress?.state ?? ''
+    form.postal_code = startCompanyStore.companyInProgress?.postal_code ?? ''
+    form.country = startCompanyStore.companyInProgress?.country ?? ''
 })
 
 
+
 function moveBack() {
-    // 
+    startCompanyStore.switchStage('-')
 }
 
 function saveAndContinue() {
     if (!startCompanyStore.companyInProgress?.id) {
         toast.default('You have not registered any company name', { position: 'top-right' })
-        startCompanyStore.switchStage('-', 1)
+        startCompanyStore.switchStage('-', 2)
         return;
     }
 
@@ -126,7 +131,7 @@ async function saveFromToApi(formData: FormData) {
 
         toast.success('Data Saved Successfully', { position: 'top-right' });
         form.isSaving = false
-        startCompanyStore.switchStage('+')
+        // startCompanyStore.switchStage('+')
         startCompanyStore.getCompanyInProgress()
 
     } catch (error) {

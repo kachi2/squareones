@@ -195,7 +195,8 @@ Capital and Initial Shareholdings on the Company’s Formation</h4>
 <tr style="height:28pt">
     <td
         style="width:102px;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p style="text-indent: 0pt;text-align: left;"><br /> {{$share->shareType->name}}</p>
+        <p style="text-indent: 0pt;text-align: left;"><br /> ORDINARY</p>
+        {{-- {{$share->shareType->name}} --}}
     </td>
     <td
         style="width:78px;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">

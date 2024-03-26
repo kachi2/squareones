@@ -14,7 +14,7 @@
                         <i class="bi bi-bell "></i>
                         <span
                             class="position-absolute top-0 start-100 translate-middle p-1 mt-2 bg-danger border border-light rounded-circle">
-                         <span class="visually-hidden"></span>
+                            <span class="visually-hidden"></span>
                         </span>
 
                         <div class="dropdown-menu dropdown-menu-end">

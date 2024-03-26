@@ -19,6 +19,10 @@ button:focus,
     border: 0px !important;
 }
 
+.v-select, .v-select * {
+    line-height: 1.7rem !important;
+}
+
 .vs--single {
     &:not(.vs--open) .vs__selected+.vs__search {
         width: 0;
@@ -66,4 +70,11 @@ section {
 th {
     font-weight: bold;
     background-color: var(--bs-gray-200) !important;
+}
+
+.everything-center {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

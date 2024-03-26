@@ -58,19 +58,19 @@
         </td>
         <td
             style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br />sdksdjkskkdjssd</p>
+            <p style="text-indent: 0pt;text-align: left;"><br />{{$company->Secretary->chn_name}}</p>
         </td>
         <td
             style="width:87pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br />sdssdsd</p>
+            <p style="text-indent: 0pt;text-align: left;"><br /></p>
         </td>
         <td
             style="width:57pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br />sdssdsd</p>
+            <p style="text-indent: 0pt;text-align: left;"><br /></p>
         </td>
         <td
             style="width:96pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br />sdssd</p>
+            <p style="text-indent: 0pt;text-align: left;"><br /></p>
         </td>
     </tr>
     <tr style="height:10pt; border:10px solid #">

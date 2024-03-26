@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Dtos\ActivityDto;
+use App\Events\GeneratePDF;
 use Illuminate\Http\Request;
 use App\Http\Requests\CompanyActivityRequest;
 use App\Interfaces\ActivitiesInterface;
@@ -25,8 +26,7 @@ class CompanyActivityController extends Controller
         $store = $this->activitiesInterface->StoreActivties($requestDto);
         DB::commit();
         //run the generate PDF script here
-
-        
+        event(new GeneratePDF($requestDto->company_id));
         return response()->json(['data', $store], HttpStatusCode::OK);
        }catch(\Exception $e){
         DB::rollback();

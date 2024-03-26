@@ -213,56 +213,27 @@
     </StartCompany_template>
 </template>
 <script lang="ts" setup>
-import { ref, reactive } from 'vue';
 import StartCompany_template from '../StartCompany_template.vue';
 import { useStartCompanyStore } from '../StartCompany_store';
 import { useToast } from 'vue-toast-notification';
 import api from '@/stores/Helpers/axios'
+import { nameForm } from './formsStore/Name';
+import { storeToRefs } from 'pinia';
 
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
 
-const isSecond = ref(false)
-const isThird = ref(false)
-const isForth = ref(false)
-const isFifth = ref(false)
-
-const isSaving = ref(false)
-
-const choice_level1 = reactive({
-    eng_name: '',
-    chn_name: '',
-    prefix: 'Limited',
-    chn_prefix: '',
-})
-
-const choice_level2 = reactive({
-    eng_name: '',
-    chn_name: '',
-    prefix: 'Limited',
-    chn_prefix: '',
-})
-
-const choice_level3 = reactive({
-    eng_name: '',
-    chn_name: '',
-    prefix: 'Limited',
-    chn_prefix: '',
-})
-
-const choice_level4 = reactive({
-    eng_name: '',
-    chn_name: '',
-    prefix: 'Limited',
-    chn_prefix: '',
-})
-
-const choice_level5 = reactive({
-    eng_name: '',
-    chn_name: '',
-    prefix: 'Limited',
-    chn_prefix: '',
-})
+const form = nameForm()
+const { choice_level1,
+    choice_level2,
+    choice_level3,
+    choice_level4,
+    choice_level5,
+    isSecond,
+    isThird,
+    isForth,
+    isFifth,
+    isSaving, } = storeToRefs(form)
 
 function addForm() {
     for (const field of [isSecond, isThird, isForth, isFifth]) {
@@ -283,23 +254,23 @@ function removeForm() {
 }
 
 function moveBack() {
-    // 
+    startCompanyStore.switchStage('-')
 }
 
 function saveAndContinue() {
 
-    if (checkFields(choice_level1, 'choice_level1')) return;
-    if (isSecond.value && checkFields(choice_level2)) return;
-    if (isThird.value && checkFields(choice_level3)) return;
-    if (isForth.value && checkFields(choice_level4)) return;
-    if (isFifth.value && checkFields(choice_level5)) return;
+    if (checkFields(choice_level1.value, 'choice_level1')) return;
+    if (isSecond.value && checkFields(choice_level2.value)) return;
+    if (isThird.value && checkFields(choice_level3.value)) return;
+    if (isForth.value && checkFields(choice_level4.value)) return;
+    if (isFifth.value && checkFields(choice_level5.value)) return;
 
     const formData = new FormData()
 
-    formData.append('names[0][eng_name]', choice_level1.eng_name)
-    formData.append('names[0][prefix]', choice_level1.prefix)
-    formData.append('names[0][chn_name]', choice_level1.chn_name)
-    formData.append('names[0][chn_prefix]', choice_level1.chn_prefix)
+    formData.append('names[0][eng_name]', choice_level1.value.eng_name)
+    formData.append('names[0][prefix]', choice_level1.value.prefix)
+    formData.append('names[0][chn_name]', choice_level1.value.chn_name)
+    formData.append('names[0][chn_prefix]', choice_level1.value.chn_prefix)
     formData.append('names[0][choice_level]', '1')
 
     const levels = [
@@ -311,10 +282,10 @@ function saveAndContinue() {
 
     for (const { level, index } of levels) {
         if (isSecond.value && index === 1 || isThird.value && index === 2 || isForth.value && index === 3 || isFifth.value && index === 4) {
-            formData.append(`names[${index}][eng_name]`, level.eng_name);
-            formData.append(`names[${index}][prefix]`, level.prefix);
-            formData.append(`names[${index}][chn_name]`, level.chn_name);
-            formData.append(`names[${index}][chn_prefix]`, level.chn_prefix);
+            formData.append(`names[${index}][eng_name]`, level.value.eng_name);
+            formData.append(`names[${index}][prefix]`, level.value.prefix);
+            formData.append(`names[${index}][chn_name]`, level.value.chn_name);
+            formData.append(`names[${index}][chn_prefix]`, level.value.chn_prefix);
             formData.append(`names[${index}][choice_level]`, `${(index + 1)}`);
         }
     }
@@ -341,7 +312,7 @@ async function saveFromToApi(formData: FormData) {
         await api.registerCompany(formData)
         toast.success('Data Saved Successfully', { position: 'top-right' });
         isSaving.value = false
-        startCompanyStore.switchStage('+')
+        // startCompanyStore.switchStage('+')
         startCompanyStore.getCompanyInProgress()
 
     } catch (error) {

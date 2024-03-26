@@ -10,7 +10,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\{Company, CompanyActivity, CompanyEntity, CompanySecretary, CompanyName, CompanyAddress, CompanyShare, CorporateAuthPersons, Corporate, 
     EntityCapacity, EntityType, EntityTypeCapacity, FundSource, Individual, IndividualCorAddress, IdentityInfo, IdentityType, NamePrefix, User, Document, DocumentType, BusinessNature};
 
-class GeneratePDFListener implements ShouldQueue, InteractsWithQueue
+class GeneratePDFListener implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -26,32 +26,45 @@ class GeneratePDFListener implements ShouldQueue, InteractsWithQueue
     public function handle(GeneratePDF  $events)
     {
        
-        $company = Company::whereId($events->company_id)->first();
-
- $companyDetails =  [
-            'company' => $company->Load([
-            'names' ,'secretary','shares','documents','fundSource','ownerShare','CompanyEntity' 
-            ])
-    ];
-
-    $data['individual'] = Individual::where(['company_entity_id' => $company->companyEntity->id, 'is_founder' => 0])->get();
-
-    $company->founders = $data;
+        $company = Company::whereId($events->company_id)->first()
+        ->Load([
+            'names' ,'secretary','shares','fundSource','ownerShare'
+        ]);
+       $data['Individual'] =  $company->CompanyEntity->load('Individual');
+       $data['Corporate'] =  $company->CompanyEntity->load('Corporate');
+       $company->founders = $data;
+       $CompanyEntity = CompanyEntity::where(['company_id' => $events->company_id])->get();
+        if($CompanyEntity){
+        foreach($CompanyEntity as $com){
+            $entity = json_decode($com->entity_capacity_id, true);
+            if($entity != null){
+            if(in_array(CompanyEntity::SHAREHOLDER, $entity)){
+                $shareholders[] = $com->id;
+            }
+            if(in_array(CompanyEntity::DIRECTOR, $entity)){
+                $directors[] = $com->id;
+            }
+        }
+       }
+        foreach($shareholders as $shareho){
+            $shareholder[] = CompanyEntity::where('id', $shareho)->first()->load('Individual', 'Corporate');
+        };
+        foreach($directors as $direc){
+            $director[] = CompanyEntity::where('id', $direc)->first()->load('Individual', 'Corporate');
+        };
+    }
+        // $company->shares = $shareholder;
+        $company->directors = $director;
+        $company->shareholder = $shareholder;
+        // $company->founders = $company->CompanyEntity->where('is_founder', 0)->load('Individual', 'Corporate');
+        
+        // dd($company->founders['Individual']);
+        // return $data['company'];
+        
+        return $company;
      PDF::loadView('pdf/pdf', ['company' =>  $company])
-        ->save('documents/test.pdf');
+        ->save('documents/test2.pdf');
     }
 
-    
-
-
-    // public function founders($company_id){
-    //     $company =CompanyEntity::where('company_id', $company_id)->first()
-    //     ->with(['Individual' => function ($query) {
-    //         // Add condition to fetch specific children
-    //         $query->where('is_founder', 1);
-    //     }])->get();    
-
-    //     return $company;
-    // }
 
 }

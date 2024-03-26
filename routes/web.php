@@ -61,6 +61,6 @@ Route::get('/companyformation', [HomeController::class, '__invoke'])->name('comp
 
 Route::get('/pdf/signature',[DocumentSignController::class, 'CreateTemplate']);
 Route::post('signature/store', [DocumentSignController::class, 'ProcessSignature'])->name('signaturepad.upload');
-
+Route::get('/pdf/pdf/{id}',[DocumentSignController::class, 'BuildPDF']);
 
 
