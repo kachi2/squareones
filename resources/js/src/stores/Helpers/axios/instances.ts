@@ -3,7 +3,7 @@ import axios from 'axios'
 // @ts-ignore
 import Cookies from 'js-cookie';
 
-const hostURL = 'https://squareone.portrec.ng/';
+const hostURL = '';
 const apiURL = `${hostURL}/api/`;
 
 const contentHeaders = (type: 'form' | 'json') => {
