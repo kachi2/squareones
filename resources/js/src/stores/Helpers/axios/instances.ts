@@ -19,7 +19,6 @@ const setAuthorization = (config: any) => {
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
-
     return config;
 };
 
