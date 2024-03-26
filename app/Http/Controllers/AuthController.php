@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Dtos\UserDto;
 use App\Http\Requests\UserRequest;
 use App\Interfaces\AuthInterface;
+use Cloudinary\Api\HttpStatusCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -35,9 +36,9 @@ class AuthController extends Controller
         }
             $user = $this->authInterface->LoginUser($request);
             if($user){
-               return response()->json(['data' =>  $user], 200);
+               return response()->json(['data' =>  $user], HttpStatusCode::OK);
             }
-        return response()->json(['error' => 'Email or password is incoreect']);
+        return response()->json(['error' => 'Email or password is incoreect'], HttpStatusCode::UNAUTHORIZED);
     }
 
     

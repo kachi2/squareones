@@ -25,8 +25,9 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->integer('is_complete')->nullable();
             $table->string('pdf_doc')->nullable();
+            $table->longText('signature')->nullable();
+            $table->dateTime('date_signed')->nullable();
             $table->timestamps();
-
             $table->index('user_id');
         });
     }

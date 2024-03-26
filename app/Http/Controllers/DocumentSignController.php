@@ -9,6 +9,7 @@ use App\Models\Individual;
 use App\Models\CompanyEntity;
 use App\Events\GeneratePDF;
 use App\Models\Corporate;
+use App\Models\SignDocument;
 use App\Services\BaseClient;
 
 class DocumentSignController extends Controller
@@ -35,7 +36,6 @@ class DocumentSignController extends Controller
     ]);
    $data['individual'] =  $company->CompanyEntity->load('Individual');
    $data['corporate'] =  $company->CompanyEntity->load('Corporate');
-   dd($data['corporate'] );
    $company->founders = $data;
    $CompanyEntity = CompanyEntity::where(['company_id' => $company_id])->get();
     if($CompanyEntity){
@@ -66,18 +66,24 @@ class DocumentSignController extends Controller
         // event(new GeneratePDF(''));
 }
 
-    public function CreateTemplate(){
-    $body = "html":
-        \"<p>Lorem Ipsum is simply dummy text of the\\n
-        <text-field\\n  name=\\\"Industry\\\"\\n  
-        role=\\\"First Party\\\"\\n  
-        required=\\\"false\\\"\\n  
-        style=\\\"width: 80px; height: 16px; 
-        display: inline-block; margin-bottom: -4px\\\">\\n</text-field>\\nand 
-        typesetting industry</p>\\n\",\"name\":\"Test Template\"";
-                      
-        $client = new BaseClient('post','templates/html', $body);
-        $req = $client->HttpClients();
-        dd($req);
+    public function GetPDFDoc(){
+      $pdf = SignDocument::where('user_id', auth_user())->first();
+      if($pdf){
+      return response()->json([
+        'data' => $pdf
+      ]);
+    }else{
+        return response()->json([
+            'error' => []
+        ]);
     }
+    }
+
+    public function ProcessSignature(Request $req){
+        dd($req->all());
+
+    }
+
+
+
 }
