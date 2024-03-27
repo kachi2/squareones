@@ -12,7 +12,7 @@ class IdentityInfo extends Model
 
 
     public function IdType(){
-        return $this->belongsTo(IdentityType::class)->withDefault();
+        return $this->belongsTo(IdentityType::class);
     }
 
 }

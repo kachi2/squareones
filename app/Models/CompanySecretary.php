@@ -13,6 +13,6 @@ class CompanySecretary extends Model
 
     public function company():BelongsTo
     {
-        return $this->belongsTo(Company::class)->withDefault();
+        return $this->belongsTo(Company::class);
     }
 }

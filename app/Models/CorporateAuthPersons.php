@@ -14,6 +14,6 @@ class CorporateAuthPersons extends Model
 
     public function corporate():BelongsTo
     {
-        return $this->belongsTo(Corporate::class)->withDefault();
+        return $this->belongsTo(Corporate::class);
     }
 }

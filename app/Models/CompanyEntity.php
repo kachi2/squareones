@@ -18,19 +18,19 @@ class CompanyEntity extends Model
 
     public function company():BelongsTo
     {
-        return $this->belongsTo(Company::class)->withDefault();
+        return $this->belongsTo(Company::class);
     }
 
     public function entityType(){
-        return $this->belongsTo(EntityType::class)->withDefault();
+        return $this->belongsTo(EntityType::class);
     }
 
     public function Individual(){
-        return $this->hasOne(Individual::class, 'company_entity_id', 'id')->withDefault();
+        return $this->hasOne(Individual::class, 'company_entity_id', 'id');
     }
 
     public function Corporate(){
-        return $this->hasOne(Corporate::class, 'company_entity_id', 'id')->withDefault();
+        return $this->hasOne(Corporate::class, 'company_entity_id', 'id');
     }
 
     // public function individualFounder(){

@@ -19,10 +19,10 @@ class CompanyShare extends Model
     }
 
     public function shareType(){
-        return $this->belongsTo(ShareType::class)->withDefault();
+        return $this->belongsTo(ShareType::class);
     }
 
     public function Ownershares(){
-        return $this->hasMany(OwnershipShare::class)->withDefault();
+        return $this->hasMany(OwnershipShare::class);
     }
 }

@@ -17,10 +17,10 @@ class SignDocument extends Model implements CanBeSigned
 
 
     public function company(){
-        return $this->belongsTo(Company::class)->withDefault();
+        return $this->belongsTo(Company::class);
     }
 
     public function User(){
-        return $this->belongsTo(User::class)->withDefault();
+        return $this->belongsTo(User::class);
     }
 }

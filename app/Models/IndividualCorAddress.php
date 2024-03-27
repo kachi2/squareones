@@ -14,6 +14,6 @@ class IndividualCorAddress extends Model
 
     public function individual():BelongsTo
     {
-        return $this->belongsTo(Individual::class)->withDefault();
+        return $this->belongsTo(Individual::class);
     }
 }

@@ -17,15 +17,15 @@ class Individual extends Model
 
     public function companyFounder():BelongsTo
     {
-        return $this->belongsTo(CompanyEntity::class)->withDefault();
+        return $this->belongsTo(CompanyEntity::class);
     }
 
     public function corAddress(): HasOne{
-        return $this->hasOne(IndividualCorAddress::class)->withDefault();
+        return $this->hasOne(IndividualCorAddress::class);
     }
 
     public function resAddress():HasOne
     {
-        return $this->hasOne(IndividualResAddress::class)->withDefault();
+        return $this->hasOne(IndividualResAddress::class);
     }
 }
