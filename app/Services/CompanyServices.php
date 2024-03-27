@@ -46,25 +46,34 @@ class CompanyServices  implements CompanyFormationInterface
     public function InitiateCompany(NamesDto $namesDto)
     {
         $company = Company::where('id', $namesDto->company_id)->first();
-        $nameCheck =  CompanyName::where('company_id',$namesDto->company_id)->get();
-        // return $nameCheck;
-        if($nameCheck){
+        $nameChange =  CompanyName::where('company_id',$company->id)->get();
+        if(count($nameChange) > 0){
             $names = [];
+            $store = [];
             $x = 0;
-            foreach ($namesDto->names as $name) {  
-                $store =  $nameCheck[$x]->update([
+            foreach ($namesDto->names as $key => $name) {  
+                // if($x > $namesDto->names)
+                if(array_key_exists($key, $nameChange->toArray())){
+                $store =  $nameChange[$key]->update([
                     'eng_name' => $name['eng_name'].' '.$name['prefix']??'Limited',
                     'chn_name' => $name['chn_name'].' '.$name['chn_prefix']??'有限公司',
                     'choice_level' => $name['choice_level'],
                     'company_id' => $namesDto->company_id
                 ]);
-                $names[] = $store;
-                $x++;
+            }else{
+                  CompanyName::create([
+                    'eng_name' => $name['eng_name'].' '.$name['prefix']??'Limited',
+                    'chn_name' => $name['chn_name'].' '.$name['chn_prefix']??'有限公司',
+                    'choice_level' => $name['choice_level'],
+                    'company_id' => $namesDto->company_id
+                ]);
+            }
+               
             }
 
               return [
                 'company' => $company,
-                'name' => $nameCheck
+                'name' =>   CompanyName::where('company_id',$company->id)->get()
             ];
         }
         try {
@@ -72,6 +81,7 @@ class CompanyServices  implements CompanyFormationInterface
             $initiateCompany = Company::create([
                 'user_id' => auth_user(),
             ]);
+
 
             if ($initiateCompany) {
                 $names = [];

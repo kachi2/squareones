@@ -23,15 +23,16 @@ class CompanyEntityService implements CompanyEnityInterface
                 'company_id' => $request->company_id,
                 'entity_type_id' => $request->entity_type_id,
                 'entity_capacity_id' => $request->entity_capacity_id,
-                  'is_founder' => $request->is_founder,
+                'is_founder' => $request->is_founder,
            ]);
            return $entity;
     }
 
     public function ProcessIndividualEntity(IndividualDto $IndividualDto, $company_entity)
     {
-        
-        $individualData = Individual::create([
+        $individualData = Individual::updateOrcreate([
+            'company_entity_id' =>  $company_entity->id
+        ],[
             'company_entity_id' =>  $company_entity->id,
             'first_name' => $IndividualDto->first_name,
             'last_name' => $IndividualDto->last_name,
@@ -44,7 +45,9 @@ class CompanyEntityService implements CompanyEnityInterface
             'occupation' => $IndividualDto->occupation,
         ]);
 
-        $id_info = IdentityInfo::create([
+        $id_info = IdentityInfo::updateOrcreate([
+            'identity_type_id' =>  $IndividualDto->identity_type_id,
+        ],[
             'identity_type_id' =>  $IndividualDto->identity_type_id, 
             'passport_no' =>$IndividualDto->passport_no, 
             'issueing_country' => $IndividualDto->issuing_country, 
@@ -62,44 +65,32 @@ class CompanyEntityService implements CompanyEnityInterface
 
     public function processResidentialAddress($request, $individual)
     {
-       $ind =  IndividualResAddress::whereIndividualId($individual->id)->first();
        $address = $request->addresses[0];
-       if(!$ind){
-               $datas = IndividualResAddress::updateOrCreate([
-                'individual_id' => $individual->id ,
-                'address' => $address['address'],
-                'street_no'  => $address['street_no'],
-                'city'  => $address['city'],
-                'state' => $address['state'],
-                'postal_code'  => $address['postal_code'],
-                'country' => $address['country'],
-                'is_corAddress' => $address['is_corAddress']
-            ]);
-       }else{
-        $ind->fill($address)->save();
-       }
             if($address['is_corAddress'] != 1){
-                $address = $request->addresses[1];
-                 $data = IndividualCorAddress::updateOrCreate([
-                    'individual_id' => $individual->id??null,
-                    'address' => $address['address']??null,
-                    'street_no'  => $address['street_no']??null,
-                    'city'  => $address['city']??null,
-                    'state' => $address['state']??null,
-                    'postal_code'  => $address['postal_code']??null,
-                    'country' => $address['country']??null
+                $addressCor = $request->addresses[1];
+                IndividualCorAddress::updateOrCreate([
+                    'individual_id' => $individual->id
+                ],[
+                    'individual_id' => $individual->id,
+                    'address' => $addressCor['address']??null,
+                    'street_no'  => $addressCor['street_no']??null,
+                    'city'  => $addressCor['city']??null,
+                    'state' => $addressCor['state']??null,
+                    'postal_code'  => $addressCor['postal_code']??null,
+                    'country' => $addressCor['country']??null
                 ]);
             }
             return [
-                'residential_address' => $datas??null,
-                'correspondence_address' => $data??null
+                'residential_address' => $ind??null,
+                'correspondence_address' =>  $cor??null
             ];
     }
 
     public function ProcessCorporateEntity(CorporateDto $request, $entity)
     {
-       $corporate = Corporate::updateOrCreate([
-            'company_entity_id' => $entity->id,
+       $corporate = Corporate::updateOrcreate([
+        'company_entity_id' => $entity->id,
+       ],[
             'company_name' =>  $request->company_name,
             'chn_company_name'=>  $request->chn_company_name,
             'date_incorporated'=>  $request->date_incorporated,
@@ -116,6 +107,8 @@ class CompanyEntityService implements CompanyEnityInterface
 
         if($corporate){
          $authorized_person =   CorporateAuthPersons::updateOrcreate([
+            'corporate_id' => $corporate->id,
+         ],[
                 'corporate_id' => $corporate->id,
                 'first_name' => $request->first_name,
                  'last_name' =>$request->last_name, 
