@@ -23,6 +23,7 @@ class NamesRequest extends FormRequest
     {
         return [
             'names' => 'array|required',
+            'company_id' => 'nullable'
             // 'business_nature_id' => 'required'
         ];
     }

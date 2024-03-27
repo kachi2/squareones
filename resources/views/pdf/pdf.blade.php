@@ -34,7 +34,7 @@
 @include('pdf.company_secretary')
 
 
-@foreach ($company->Secretary as $secretary )
+@foreach ($company-> as $secretary )
 @include('pdf.directors')
 @endforeach
 

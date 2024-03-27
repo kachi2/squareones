@@ -10,6 +10,7 @@ use App\Http\Requests\CompanyDescriptionReq;
 use App\Http\Requests\NamesRequest;
 use App\Models\BusinessNature;
 use App\Models\Company;
+use App\Models\CompanyName;
 use App\Models\NamePrefix;
 use Illuminate\Support\Facades\DB;
 use App\Services\CompanyServices;
@@ -55,9 +56,13 @@ public function getActiveCompany(){
 
     public function InitiateCompanyCreation(NamesRequest $req){
         try{ 
-        $check = $this->companyServices->CheckNameExist($req->names);
-        if ($check) {
-            return  response()->json(['error' => "Names already exist on our database, please choose another name"]);
+        //check if the company is same befor checking for names similarities
+        $comp = CompanyName::where('id', $req->company_id)->first();
+        if(!$comp){
+            $check = $this->companyServices->CheckNameExist($req->names);
+            if ($check) {
+                return  response()->json(['error' => "Names already exist on our database, please choose another name"]);
+            }
         }
             $namesDto = NamesDto::fromRequest($req->validated());
             $initiateCompany = $this->companyServices->InitiateCompany($namesDto);

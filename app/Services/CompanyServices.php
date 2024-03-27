@@ -32,6 +32,7 @@ class CompanyServices  implements CompanyFormationInterface
 
     public function CheckNameExist($names): bool
     {
+
         foreach ($names as $name) {
             $chk = $name['eng_name'];
             $check = CompanyName::where('eng_name', 'LIKE', "%$chk%")->first();
@@ -44,6 +45,28 @@ class CompanyServices  implements CompanyFormationInterface
 
     public function InitiateCompany(NamesDto $namesDto)
     {
+        $company = Company::where('id', $namesDto->company_id)->first();
+        $nameCheck =  CompanyName::where('company_id',$namesDto->company_id)->get();
+        // return $nameCheck;
+        if($nameCheck){
+            $names = [];
+            $x = 0;
+            foreach ($namesDto->names as $name) {  
+                $store =  $nameCheck[$x]->update([
+                    'eng_name' => $name['eng_name'].' '.$name['prefix']??'Limited',
+                    'chn_name' => $name['chn_name'].' '.$name['chn_prefix']??'有限公司',
+                    'choice_level' => $name['choice_level'],
+                    'company_id' => $namesDto->company_id
+                ]);
+                $names[] = $store;
+                $x++;
+            }
+
+              return [
+                'company' => $company,
+                'name' => $nameCheck
+            ];
+        }
         try {
             DB::beginTransaction();
             $initiateCompany = Company::create([
