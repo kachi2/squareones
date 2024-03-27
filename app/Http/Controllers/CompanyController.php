@@ -34,14 +34,19 @@ class CompanyController extends Controller
     }
 public function getActiveCompany(){
     try{
-    $company = Company::where([ 'is_complete' => 0, 'user_id' => auth_user()])->orWhere(['is_complete' => null])->first();
+    $company = Company::where([ 'is_complete' => 0, 'user_id' => auth_user()])->where(['is_complete' => 0])->first();
     if($company){
-       $company->Load(['names', 'activity', 'Secretary', 'Shares','fundSource', 'ownerShare', 'businessNature']);
+       $company->Load(['names', 'activity', 'Secretary',  'fundSource', 'businessNature']);
        $company->CompanyEntity->load('Individual', 'Corporate');
+       $company->shares->load('Ownershares');
     return response()->json([
         'company' => $company
     ], HttpStatusCode::OK);
 }
+return response()->json([
+    'company' => null
+], HttpStatusCode::NOT_FOUND);
+
 }catch(\Exception $e){
     return response()->json([
         'error' =>  $e->getMessage(),
@@ -57,8 +62,8 @@ public function getActiveCompany(){
     public function InitiateCompanyCreation(NamesRequest $req){
         try{ 
         //check if the company is same befor checking for names similarities
-        $comp = CompanyName::where('id', $req->company_id)->first();
-        if(!$comp){
+        $comp = CompanyName::where('company_id', $req?->company_id)->first();
+        if(isset($comp)){
             $check = $this->companyServices->CheckNameExist($req->names);
             if ($check) {
                 return  response()->json(['error' => "Names already exist on our database, please choose another name"]);

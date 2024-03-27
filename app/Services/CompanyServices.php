@@ -19,20 +19,8 @@ use PhpParser\Node\Expr\Cast\Object_;
 class CompanyServices  implements CompanyFormationInterface
 {
 
-    public function StoreCompanyInfo(CompanyDto $companyDto, $company_id): ?Company
-    {
-        $company = Company::whereId($company_id)->first();
-        $company->update([
-            'business_nature_id' => $companyDto->business_nature_id,
-            'description' => $companyDto->description,
-            'website' => $companyDto->website,
-        ]);
-        return $company;
-    }
-
     public function CheckNameExist($names): bool
     {
-
         foreach ($names as $name) {
             $chk = $name['eng_name'];
             $check = CompanyName::where('eng_name', 'LIKE', "%$chk%")->first();
@@ -41,12 +29,12 @@ class CompanyServices  implements CompanyFormationInterface
             }
             return false;
         }
-    }
+    } 
 
     public function InitiateCompany(NamesDto $namesDto)
     {
-        $company = Company::where('id', $namesDto->company_id)->first();
-        $nameChange =  CompanyName::where('company_id',$company->id)->get();
+        $company = Company::where('id', $namesDto?->company_id)->first();
+        $nameChange =  CompanyName::where('company_id',$namesDto?->company_id)->get();
         if(count($nameChange) > 0){
             $names = [];
             $store = [];
@@ -102,10 +90,20 @@ class CompanyServices  implements CompanyFormationInterface
             }
         } catch (\Exception $e) {
             DB::rollBack();
-            return $e->getMessage();
+            return ['error' => $e->getMessage()];
         }
     }
 
+    public function StoreCompanyInfo(CompanyDto $companyDto, $company_id): ?Company
+    {
+        $company = Company::whereId($company_id)->first();
+        $company->update([
+            'business_nature_id' => $companyDto->business_nature_id,
+            'description' => $companyDto->description,
+            'website' => $companyDto->website,
+        ]);
+        return $company;
+    }
     public function StoreCompanyAddress(AddressDto $addressDto)
     {
         $company = Company::whereId($addressDto->company_id)->first();

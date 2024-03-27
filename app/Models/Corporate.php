@@ -17,12 +17,12 @@ class Corporate extends Model
 
     public function companyentity():BelongsTo
     {
-        return $this->belongsTo(CompanyEntity::class);
+        return $this->belongsTo(CompanyEntity::class)->withDefault();
     }
 
     public function authorizedPersons():HasOne
     {
-        return $this->hasOne(CorporateAuthPersons::class);
+        return $this->hasOne(CorporateAuthPersons::class)->withDefault();
     }
 
     

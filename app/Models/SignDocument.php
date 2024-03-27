@@ -21,6 +21,6 @@ class SignDocument extends Model implements CanBeSigned
     }
 
     public function User(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withDefault();
     }
 }

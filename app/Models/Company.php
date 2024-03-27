@@ -13,39 +13,39 @@ class Company extends Model
 
 
     public function names(){
-        return $this->hasMany(CompanyName::class);
+        return $this->hasMany(CompanyName::class)->withDefault();
     }
 
     public function activity(){
-        return $this->hasOne(CompanyActivity::class);
+        return $this->hasOne(CompanyActivity::class)->withDefault();
     }
 
 
     public function CompanyEntity(){
-        return $this->hasMany(CompanyEntity::class);
+        return $this->hasMany(CompanyEntity::class)->withDefault();
     }
 
     public function Secretary(){
-        return $this->hasOne(CompanySecretary::class);
+        return $this->hasOne(CompanySecretary::class)->withDefault();
     }
 
     public function Shares(){
-        return $this->hasMany(CompanyShare::class);
+        return $this->hasMany(CompanyShare::class)->withDefault();
     }
 
     public function documents(){
-        return $this->hasMany(Document::class);
+        return $this->hasMany(Document::class)->withDefault();
     }
 
     public function fundSource(){
-        return $this->hasMany(FundSource::class);
+        return $this->hasMany(FundSource::class)->withDefault();
     }
 
     public function ownerShare(){
-        return $this->hasMany(OwnershipShare::class);
+        return $this->hasMany(OwnershipShare::class)->withDefault();
     }
 
     public function businessNature(){
-        return $this->belongsTo(BusinessNature::class);
+        return $this->belongsTo(BusinessNature::class)->withDefault();
     }
 }

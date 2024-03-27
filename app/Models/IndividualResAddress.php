@@ -14,6 +14,6 @@ class IndividualResAddress extends Model
 
     public function corporate():BelongsTo
     {
-        return $this->belongsTo(Corporate::class);
+        return $this->belongsTo(Corporate::class)->withDefault();
     }
 }
