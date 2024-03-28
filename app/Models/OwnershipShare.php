@@ -21,4 +21,8 @@ class OwnershipShare extends Model
         return $this->belongsTo(CompanyEntity::class);
     }
 
+    public function companyShares(){
+        return $this->belongsTo(CompanyShare::class);
+    }
+
 }

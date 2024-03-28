@@ -62,7 +62,7 @@
         </td>
         <td
             style="width:80%;border:1px solid #000">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->chn_first_name}} {{$individual->chn_last_name}}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$entity->individual->chn_first_name}} {{$entity->individual->chn_last_name}}</p>
         </td>
     </tr>
 </table>
@@ -80,7 +80,7 @@
         </td>
         <td
             style="width:80%;border:1px solid #000">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->first_name}}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$entity->individual->first_name}}</p>
         </td>
     </tr>
     <tr style="height:10pt">
@@ -97,7 +97,7 @@
         </td>
         <td
             style="width:80%; border:1px solid #000">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->last_name}}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$entity->individual->last_name}}</p>
         </td>
     </tr>
     <tr style="height:17pt">
@@ -115,7 +115,7 @@
             <p class="s9" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">Name in English</p>
         </td>
         <td style="width:80%; border:1px solid #000">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->first_name}} {{$individual->last_name}}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$entity->individual->first_name}} {{$entity->individual->last_name}}</p>
         </td>
         <td >
         </td>
@@ -132,7 +132,7 @@
                     <span class="s36">／</span>Floor<span class="s36">／</span>Block etc.</p>
         </td>
         <td style="border:1px solid #000; width:80%">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress?->address}}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$entity->individual->resAddress?->address}}</p>
         </td>
         <td></td>
     </tr>
@@ -147,7 +147,7 @@
             </p>
         </td>
         <td style="width:80%;border:1px solid #000">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress?->street_no}}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$entity->individual->resAddress?->street_no}}</p>
         </td>
         <td>
         </td>
@@ -164,7 +164,7 @@
         </td>
 
         <td style="width:80%;border:1px solid #000">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress?->street_no}}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$entity->individual->resAddress?->street_no}}</p>
         </td>
         <td></td>
     </tr>
@@ -178,7 +178,7 @@
                 Code etc.</p>
         </td>
         <td style="width:80%;border:1px solid #000">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress?->state.','.$individual->resAddress?->city }}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$entity->individual->resAddress?->state.','.$entity->individual->resAddress?->city }}</p>
         </td>
         <td></td>
     </tr>
@@ -193,7 +193,7 @@
                 Country<span class="s36">／</span>Region</p>
         </td>
         <td style="width:80%;border:1px solid #000">
-            <p style="text-indent: 0pt;text-align: center;"><br />{{$individual->resAddress?->country}}</p>
+            <p style="text-indent: 0pt;text-align: center;"><br />{{$entity->individual->resAddress?->country}}</p>
         </td>
         <td></td>
     </tr>
@@ -232,7 +232,7 @@
     </tr>
     <tr style="height:29pt">
         <td style="width:129pt;border-right-style:solid;border-right-width:1pt" colspan="2">
-            <p style="text-indent: 0pt;text-align: left;"><br />asasasada</p>
+            <p style="text-indent: 0pt;text-align: left;"><br />ORDINARY</p>
         </td>
         <td
             style="width:87pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">

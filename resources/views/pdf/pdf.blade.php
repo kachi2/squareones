@@ -23,20 +23,23 @@
 <p style="text-indent: 0pt;text-align: left; padding:20px"  ><br /></p>
 <hr>
 
-@foreach ($company->founders['Individual'] as $individual ) 
+@foreach ($company->shareholder as $entity) 
 @include('pdf.founders_individual')
+{{dd('ddd')}}
 @endforeach
 
-@foreach ($company->founders['Corporate'] as $corporate )
+
+{{dd('stop')}}
+@foreach ( $company->directors as $corporate )
 @include('pdf.founders_corporate')
 @endforeach
+
 
 @include('pdf.company_secretary')
 
 
-@foreach ($company-> as $secretary )
 @include('pdf.directors')
-@endforeach
+
 
 
 @include('pdf.first_directors')
@@ -56,4 +59,4 @@
 {{-- @include('pdf.articles') --}}
 </section>
 </div>
-</html>
+</html>  

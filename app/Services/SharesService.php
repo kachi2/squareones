@@ -38,7 +38,6 @@ class SharesService implements SharesInterface
            'company_id' => $requestsDto->company_id,
            'company_share_id' => $owner->id,
            'company_entity_id' => $request['company_entity_id'],
-           'share_percentage' => $request['share_percentage'],
            'total_amount' => $request['total_amount']
         ]);
     }

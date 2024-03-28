@@ -89,7 +89,7 @@
         </td>
         <td
             style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            <p style="text-indent: 0pt;text-align: left;"><br />{{$company->Secretary->name}}</p>
         </td>
         <td
             style="width:87pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
@@ -121,7 +121,7 @@
                 <tr style="height:25px; ">
                     <td
                         style="width:355pt; padding-top:10px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                        <p style="text-indent: 0px;text-align: left;"><br /> jalsklasdklakdnsad</p>
+                        <p style="text-indent: 0px;text-align: left;"><br /> {{$company->Secretary->address}}</p>
                     </td>
                     
                 </tr>
@@ -130,7 +130,7 @@
                 <tr style="height:26pt">
                     <td
                         style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                        <p style="text-indent: 0px;text-align: left;"><br />asjksdksdajksdad</p>
+                        <p style="text-indent: 0px;text-align: left;"><br />{{$company->Secretary->city}}</p>
                     </td>
                 </tr>
 
@@ -139,7 +139,7 @@
                 <tr style="height:26pt">
                     <td
                         style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                        <p style="text-indent: 0px;text-align: left;"><br />adsjkkdada</p>
+                        <p style="text-indent: 0px;text-align: left;"><br />{{$company->Secretary->state}}</p>
                     </td>
                 </tr>
 
@@ -148,7 +148,7 @@
                 <tr style="height:26pt">
                     <td
                         style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                        <p style="text-indent: 0px;text-align: left;"><br />asdkjasdkjadsa</p>
+                        <p style="text-indent: 0px;text-align: left;"><br />{{$company->Secretary->postal_code}}</p>
                     </td>
                 </tr>
 
@@ -158,7 +158,7 @@
                     <td
                         style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                         <p class="s23" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0px;text-align: left;">
-                            香港<span class="s24">／ </span><span class="s25">HONG KONG</span></p>
+                        <span class="s24"> </span><span class="s25">{{$company->Secretary->country}}</span></p>
                     </td>
                     
                 </tr>
@@ -169,7 +169,7 @@
                     <td
                         style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                         <p class="s23" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0px;text-align: left;">
-                            <span class="s24"></span><span class="s25">test@gmail.com</span></p>
+                            <span class="s24"></span><span class="s25"></span></p>
                     </td>
                     
                 </tr>
@@ -207,7 +207,7 @@
 <p class="s41" style="padding-left: 7pt;text-indent: 0pt;text-align: left; padding-top:40px">商業登記號碼 <span class="s42">Business
         Registration Number</span> 
 <span style="text-indent: 0pt; float:right">
-    <input style="width: 200px; height:30px"> 
+    <input style="width: 200px; height:30px" value="{{$company->Secretary->company_reg_no}}" readonly> 
     <br /></span>
 </p>
 
@@ -236,7 +236,7 @@
         </td>
         <td
             style="width:78pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt; border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            <p style="text-indent: 0pt;text-align: left;"><br /> {{$company->Secretary->licence_no}}</p>
         </td>
         <td
             style="width:114pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
