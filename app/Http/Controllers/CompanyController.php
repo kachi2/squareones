@@ -42,6 +42,10 @@ public function getActiveCompany(){
     return response()->json([
         'company' => $company
     ], HttpStatusCode::OK);
+}else{
+    return response()->json([
+        'company' => null
+    ], HttpStatusCode::NOT_FOUND);
 }
 
 }catch(\Exception $e){
