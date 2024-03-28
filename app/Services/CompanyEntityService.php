@@ -65,7 +65,17 @@ class CompanyEntityService implements CompanyEnityInterface
 
     public function processResidentialAddress($request, $individual)
     {
-       $address = $request->addresses[0];
+            $address = $request->addresses[0];
+            $datas = IndividualResAddress::updateOrCreate([
+                'individual_id' => $individual->id ,
+                'address' => $address['address'],
+                'street_no'  => $address['street_no'],
+                'city'  => $address['city'],
+                'state' => $address['state'],
+                'postal_code'  => $address['postal_code'],
+                'country' => $address['country'],
+                'is_corAddress' => $address['is_corAddress']
+            ]);
             if($address['is_corAddress'] != 1){
                 $addressCor = $request->addresses[1];
                 IndividualCorAddress::updateOrCreate([
@@ -81,7 +91,7 @@ class CompanyEntityService implements CompanyEnityInterface
                 ]);
             }
             return [
-                'residential_address' => $ind??null,
+                'residential_address' => $datas??null,
                 'correspondence_address' =>  $cor??null
             ];
     }
