@@ -29,8 +29,8 @@ class Individual extends Model
         return $this->hasOne(IndividualResAddress::class);
     }
 
-    public function ownerShare(){
-        return $this->hasOneThrough(OwnershipShare::class, )
-    }
+    // public function ownerShare(){
+    //     return $this->hasOneThrough(OwnershipShare::class, )
+    // }
 
 }
