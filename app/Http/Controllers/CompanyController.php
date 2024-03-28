@@ -51,7 +51,7 @@ public function getActiveCompany(){
 }catch(\Exception $e){
     return response()->json([
         'error' =>  $e->getMessage(),
-      ], HttpStatusCode::NOT_FOUND);
+      ], HttpStatusCode::OK);
 }
 }
     public function getNamePrefix(){
