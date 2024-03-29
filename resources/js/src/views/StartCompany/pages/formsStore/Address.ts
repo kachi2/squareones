@@ -1,15 +1,29 @@
-import { ref } from 'vue'
 import { defineStore } from 'pinia'
-
+import { useForm } from 'vee-validate';
+// @ts-ignore
+import * as yup from 'yup';
 
 export const addressForm = defineStore('address', () => {
 
-    const address = ref('')
-    const street_no = ref('')
-    const city = ref('')
-    const state = ref('')
-    const postal_code = ref('')
-    const country = ref('')
+    const rules = {
+        address: yup.string().required('This field is required'),
+        street_no: yup.string().required('This field is required'),
+        city: yup.string().required('This field is required'),
+        state: yup.string().required('This field is required'),
+        postal_code: yup.string().required('This field is required'),
+        country: yup.string().required('This field is required'),
+    };
+
+    const { errors, handleSubmit, defineField, setFieldValue } = useForm({
+        validationSchema: yup.object(rules),
+    });
+
+    const [address] = defineField('address');
+    const [street_no] = defineField('street_no');
+    const [city] = defineField('city');
+    const [state] = defineField('state');
+    const [postal_code] = defineField('postal_code');
+    const [country] = defineField('country');
     const isSaving = false
 
     return {
@@ -20,5 +34,9 @@ export const addressForm = defineStore('address', () => {
         postal_code,
         country,
         isSaving,
+
+        errors,
+        handleSubmit,
+        setFieldValue
     }
 })

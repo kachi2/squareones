@@ -57,7 +57,7 @@
             <p style="text-indent: 0pt;text-align: left;"><br /></p>
         </td>
         <td
-            style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
+            style="width:121pt;padding-left:30px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
             <p style="text-indent: 0pt;text-align: left;"><br />{{$company->Secretary->chn_name}}</p>
         </td>
         <td
@@ -88,7 +88,7 @@
             </p>
         </td>
         <td
-            style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
+            style="width:121pt; padding-left:30px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
             <p style="text-indent: 0pt;text-align: left;"><br />{{$company->Secretary->name}}</p>
         </td>
         <td
@@ -120,7 +120,7 @@
             <table style="border-collapse:collapse" cellspacing="0">
                 <tr style="height:25px; ">
                     <td
-                        style="width:355pt; padding-top:10px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        style="width:355pt; padding-left:30px;  padding-top:10px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                         <p style="text-indent: 0px;text-align: left;"><br /> {{$company->Secretary->address}}</p>
                     </td>
                     
@@ -129,7 +129,7 @@
                 </tr>
                 <tr style="height:26pt">
                     <td
-                        style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        style="width:355pt; padding-left:30px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                         <p style="text-indent: 0px;text-align: left;"><br />{{$company->Secretary->city}}</p>
                     </td>
                 </tr>
@@ -138,7 +138,7 @@
                 </tr>
                 <tr style="height:26pt">
                     <td
-                        style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        style="width:355pt;padding-left:30px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                         <p style="text-indent: 0px;text-align: left;"><br />{{$company->Secretary->state}}</p>
                     </td>
                 </tr>
@@ -147,7 +147,7 @@
                 </tr>
                 <tr style="height:26pt">
                     <td
-                        style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        style="width:355pt;padding-left:30px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                         <p style="text-indent: 0px;text-align: left;"><br />{{$company->Secretary->postal_code}}</p>
                     </td>
                 </tr>
@@ -156,7 +156,7 @@
                 </tr>
                 <tr style="height:23pt">
                     <td
-                        style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        style="width:355pt;padding-left:30px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                         <p class="s23" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0px;text-align: left;">
                         <span class="s24"> </span><span class="s25">{{$company->Secretary->country}}</span></p>
                     </td>
@@ -167,7 +167,7 @@
                 </tr>
                 <tr style="height:23pt">
                     <td
-                        style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        style="width:355pt;padding-left:30px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                         <p class="s23" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0px;text-align: left;">
                             <span class="s24"></span><span class="s25"></span></p>
                     </td>
@@ -207,7 +207,7 @@
 <p class="s41" style="padding-left: 7pt;text-indent: 0pt;text-align: left; padding-top:40px">商業登記號碼 <span class="s42">Business
         Registration Number</span> 
 <span style="text-indent: 0pt; float:right">
-    <input style="width: 200px; height:30px" value="{{$company->Secretary->company_reg_no}}" readonly> 
+    <input style="width: 200px; height:30px;padding-left:30px; " value="{{$company->Secretary->company_reg_no}}" readonly> 
     <br /></span>
 </p>
 

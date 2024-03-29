@@ -44,10 +44,10 @@ class CompanyEntityService implements CompanyEnityInterface
             'email' => $IndividualDto->email,
             'occupation' => $IndividualDto->occupation,
         ]);
-
         $id_info = IdentityInfo::updateOrcreate([
-            'identity_type_id' =>  $IndividualDto->identity_type_id,
+            'individual_id' =>  $individualData->id,
         ],[
+            'individual_id' =>  $individualData->id,
             'identity_type_id' =>  $IndividualDto->identity_type_id, 
             'passport_no' =>$IndividualDto->passport_no, 
             'issueing_country' => $IndividualDto->issuing_country, 

@@ -1,7 +1,7 @@
 <template>
     <StartCompany_template>
         <template #main>
-            <section>
+            <section class="section">
                 <div class="fw-bolder fs-5">Company Secretary</div>
                 <span>Company secretary details</span>
             </section>
@@ -41,7 +41,7 @@
             </section>
 
 
-            <section>
+            <section class="section">
                 <div class="fw-bolder">Address </div>
                 <div class="row g-2 mt-1">
                     <div class="col-12">

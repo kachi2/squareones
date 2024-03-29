@@ -1,15 +1,19 @@
 <template>
-    <section>
+    <section class="section">
         <div class="fw-bold fs-5">About you </div>
         <div class="fw-bolder">Your name in English </div>
         <span>Enter your first and last name as they appear on a government ID</span>
         <div class="row mt-1 g-2">
             <div class="col-12 ">
-                <input v-model="form.first_name" type="text" class="form-control" placeholder="First Name..">
+                <input v-maska data-maska="A a" data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
+                    v-model="form.first_name" type="text" class="form-control" placeholder="First Name..">
+                <small class=" text-danger">{{ form.errors.first_name }}</small>
             </div>
 
             <div class="col-12 ">
-                <input v-model="form.last_name" type="text" class="form-control" placeholder="Last Name..">
+                <input v-maska data-maska="A a" data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
+                    v-model="form.last_name" type="text" class="form-control" placeholder="Last Name..">
+                <small class=" text-danger">{{ form.errors.last_name }}</small>
             </div>
 
             <div class="col-12 ">
@@ -21,27 +25,28 @@
         </div>
     </section>
 
-    <section v-if="form.hasChineseName">
+    <section class="section" v-if="form.hasChineseName">
         <div class="fw-bolder">Your name in Chinese </div>
         <span>Enter your first and last name as they appear on a government ID</span>
         <div class="row mt-1 g-2">
             <div class="col-12 ">
                 <input v-model="form.chn_first_name" type="text" class="form-control" placeholder="First Name..">
+                <small class=" text-danger">{{ form.errors.chn_first_name }}</small>
             </div>
 
             <div class="col-12 ">
                 <input v-model="form.chn_last_name" type="text" class="form-control" placeholder="Last Name..">
+                <small class=" text-danger">{{ form.errors.chn_last_name }}</small>
             </div>
         </div>
     </section>
 
-    <section class="row g-2">
+    <section class="row g-2 section">
         <div class="col-md-6">
             <label class="form-label fw-bold">Date of Birth</label>
             <VueDatePicker :format="useFxn.dateDisplay" input-class-name="dob-settings-input" hide-input-icon
                 :clearable="false" :max-date="new Date()" :enable-time-picker="false" auto-apply v-model="form.dob">
             </VueDatePicker>
-
         </div>
 
         <div class="col-md-6">
@@ -52,23 +57,30 @@
         </div>
     </section>
 
-    <section>
+    <section class="section">
         <div class="fw-bolder">Your residential address </div>
         <div class="row g-2 mt-1">
             <div class="col-12">
                 <input v-model="form.address" class="form-control" type="text" placeholder="Flat／Floor／Block">
+                <small class=" text-danger">{{ form.errors.address }}</small>
+
             </div>
             <div class="col-12">
                 <input v-model="form.street_no" class="form-control" type="text" placeholder="Street number">
+                <small class=" text-danger">{{ form.errors.street_no }}</small>
+
             </div>
             <div class="col-12">
                 <input v-model="form.city" class="form-control" type="text" placeholder="City">
+                <small class=" text-danger">{{ form.errors.city }}</small>
             </div>
             <div class="col-12">
                 <input v-model="form.state" class="form-control" type="text" placeholder="State">
+                <small class=" text-danger">{{ form.errors.state }}</small>
             </div>
             <div class="col-12">
                 <input v-model="form.postal_code" class="form-control" type="text" placeholder="Postal Code">
+                <small class=" text-danger">{{ form.errors.postal_code }}</small>
             </div>
             <div class="col-md-12">
                 <select class="form-select" v-model="form.country">
@@ -77,7 +89,7 @@
             </div>
         </div>
     </section>
-    <section>
+    <section class="section">
         <div class="fw-bolder">Your corresponding address </div>
         <span>
             <div class="form-check ">
@@ -89,18 +101,23 @@
         <div v-if="!form.correspondingAddressIsSame" class="row g-2 mt-1">
             <div class="col-12">
                 <input v-model="form.address2" class="form-control" type="text" placeholder="Flat／Floor／Block">
+                <small class=" text-danger">{{ form.errors.address2 }}</small>
             </div>
             <div class="col-12">
                 <input v-model="form.street_no2" class="form-control" type="text" placeholder="Street number">
+                <small class=" text-danger">{{ form.errors.street_no2 }}</small>
             </div>
             <div class="col-12">
                 <input v-model="form.city2" class="form-control" type="text" placeholder="City">
+                <small class=" text-danger">{{ form.errors.city2 }}</small>
             </div>
             <div class="col-12">
                 <input v-model="form.state2" class="form-control" type="text" placeholder="State">
+                <small class=" text-danger">{{ form.errors.state2 }}</small>
             </div>
             <div class="col-12">
                 <input v-model="form.postal_code2" class="form-control" type="text" placeholder="Postal Code">
+                <small class=" text-danger">{{ form.errors.postal_code2 }}</small>
             </div>
             <div class="col-md-12">
                 <select class="form-select" v-model="form.country2">
@@ -110,7 +127,7 @@
         </div>
     </section>
 
-    <section class="row g-2">
+    <section class="row g-2 section">
         <div class="col-md-8">
             <label class=" fw-bolder">ID type</label>
             <select class="form-select" v-model="form.identity_type_id">
@@ -120,39 +137,48 @@
         </div>
         <div v-if="form.identity_type_id == '2'" class="col-md-8">
             <label class=" fw-bolder">HKID No.</label>
-            <input v-model="form.identity_no" ype="text" class="form-control" placeholder="HKID No.">
+            <input v-maska data-maska="#### #### ####" data-maska-tokens="#:[0-9a-zA-Z]" v-model="form.identity_no"
+                ype="text" class="form-control" placeholder="HKID No.">
+            <small class=" text-danger">{{ form.errors.identity_no }}</small>
         </div>
         <div v-if="form.identity_type_id == '1'" class="col-md-8">
             <label class=" fw-bolder">Passport No.</label>
-            <input v-model="form.passport_no" type="text" class="form-control" placeholder="Passport No">
+            <input v-maska data-maska="!HEEEEEEEE" data-maska-tokens="E:[0-9a-zA-Z]" v-model="form.passport_no"
+                type="text" class="form-control" placeholder="Passport No">
+            <small class=" text-danger">{{ form.errors.passport_no }}</small>
         </div>
         <div v-if="form.identity_type_id == '1'" class="col-md-8">
             <label class=" fw-bolder">Passport issuing Country/Region</label>
             <v-select v-model="form.issuing_country" :clearable="false" :options="startCompanyStore.countries" />
+            <small class=" text-danger">{{ form.errors.issuing_country }}</small>
         </div>
         <div class="col-md-8">
             <label class=" fw-bolder">Phone number</label>
-            <input v-model="form.phone" type="text" class="form-control" placeholder="phone number">
+            <input v-maska data-maska="99#" data-maska-tokens="9:[0-9]:repeated" data-maska-reversed
+                v-model="form.phone" type="text" class="form-control" placeholder="phone number">
+            <small class=" text-danger">{{ form.errors.phone }}</small>
         </div>
         <div class="col-md-8">
             <label class=" fw-bolder">Email</label>
             <input v-model="form.email" type="text" class="form-control" placeholder="email">
+            <small class=" text-danger">{{ form.errors.email }}</small>
         </div>
         <div class="col-md-8">
             <label class=" fw-bolder">Confirm email</label>
             <input v-model="form.confirm_email" type="text" class="form-control" placeholder="confirm email">
+            <small class=" text-danger">{{ form.errors.confirm_email }}</small>
         </div>
         <div class="col-md-8">
             <label class="form-labe fw-bolder">Occupation/Employment</label>
             <v-select v-model="form.occupation" :clearable="false" :options="startCompanyStore.employmentStatusList" />
         </div>
 
-        <div class="col-md-8 mt-4">
+        <!-- <div class="col-md-8 mt-4">
             <div class="form-check">
                 <input v-model="form.is_founder" class="form-check-input" type="checkbox" value="" id="is_founder" />
                 <label class="form-check-label" for="is_founder"> This person is a Founder? </label>
             </div>
-        </div>
+        </div> -->
     </section>
 
     <div class="movement-buttons mt-5 mb-4">
@@ -170,17 +196,17 @@
 
 </template>
 <script lang="ts" setup>
-import { reactive } from 'vue';
 import { useStartCompanyStore } from '../StartCompany_store';
 import api from '@/stores/Helpers/axios'
 import { useToast } from 'vue-toast-notification';
 import useFxn from '@/stores/Helpers/useFunctions';
 import { foundersIdividualForm } from './formsStore/Founders_individual'
+import { vMaska } from "maska"
 
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
 
-const form = foundersIdividualForm()
+const form: any = foundersIdividualForm()
 
 function resetForm() {
     form.address = ''
@@ -228,10 +254,10 @@ function saveAndContinue() {
         return;
     }
 
-    if (!form.first_name || !form.last_name || !form.dob || !form.phone || !form.email || !form.occupation) {
-        toast.default('Please complete fields', { position: 'top-right' })
-        return;
-    }
+    // if (!form.first_name || !form.last_name || !form.dob || !form.phone || !form.email || !form.occupation) {
+    //     toast.default('Please complete fields', { position: 'top-right' })
+    //     return;
+    // }
 
     if (form.hasChineseName) {
         if (!form.chn_first_name || !form.chn_last_name) {
@@ -240,10 +266,10 @@ function saveAndContinue() {
         }
     }
 
-    if (!form.address || !form.street_no || !form.city || !form.state || !form.postal_code) {
-        toast.default('Please complete fields', { position: 'top-right' })
-        return;
-    }
+    // if (!form.address || !form.street_no || !form.city || !form.state || !form.postal_code) {
+    //     toast.default('Please complete fields', { position: 'top-right' })
+    //     return;
+    // }
 
     if (!form.correspondingAddressIsSame) {
         if (!form.address2 || !form.street_no2 || !form.city2 || !form.state2 || !form.postal_code2) {

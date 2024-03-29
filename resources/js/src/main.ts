@@ -22,6 +22,11 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 
 // https://www.npmjs.com/package/vue-toast-notification
 import 'vue-toast-notification/dist/theme-sugar.css';
+import VueSignaturePad from 'vue-signature-pad';
+
+// https://www.npmjs.com/package/vue3-loading-skeleton
+import { SkeletonLoader } from "vue3-loading-skeleton";
+import "vue3-loading-skeleton/dist/style.css";
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -33,8 +38,10 @@ const app = createApp(App)
 
 app.component('VueDatePicker', VueDatePicker);
 app.component('vSelect', vSelect);
+app.component("SkeletonLoader", SkeletonLoader);
 
 app.use(createPinia())
 app.use(router)
+app.use(VueSignaturePad);
 
 app.mount('#app')

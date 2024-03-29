@@ -25,7 +25,7 @@ Secretary<span class="s72">／</span>Director (Natural Person) –</h2>
 <h2 style="padding-left: 56pt;text-indent: 0pt;line-height: 18pt;text-align: left;">Protected Information
 </h2>
 <p style="padding-top: 2pt;padding-left: 2pt;text-indent: 0pt;text-align: left;"><span
-    style=" color: #FFF; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 7pt;">33</span>
+    style=" color: #FFF; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 7pt;"></span>
 </p>
 <table style="border-collapse:collapse; margin-left:70px" cellspacing="0">
 <tr style="height:24pt">
@@ -134,19 +134,19 @@ Secretary<span class="s72">／</span>Director (Natural Person) –</h2>
                 </td>
                 <td
                     style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br />sdksdjkskkdjssd</p>
+                    <p style="text-indent: 0pt;text-align: left;"><br /></p>
                 </td>
                 <td
                     style="width:87pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br />sdssdsd</p>
+                    <p style="text-indent: 0pt;text-align: left;"><br />{{$individualDirector->Individual->chn_first_name}}</p>
                 </td>
                 <td
                     style="width:57pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br />sdssdsd</p>
+                    <p style="text-indent: 0pt;text-align: left;"><br /> </p>
                 </td>
                 <td
                     style="width:96pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br />sdssd</p>
+                    <p style="text-indent: 0pt;text-align: left;"><br />{{$individualDirector->Individual->chn_last_name}}</p>
                 </td>
             </tr>
             <tr style="height:10pt; border:10px solid #">
@@ -171,7 +171,7 @@ Secretary<span class="s72">／</span>Director (Natural Person) –</h2>
                 </td>
                 <td
                     style="width:87pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    <p style="text-indent: 0pt;text-align: left;"><br />{{$individualDirector->Individual->last_name}}</p>
                 </td>
                 <td
                     style="width:57pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
@@ -205,7 +205,7 @@ Secretary<span class="s72">／</span>Director (Natural Person) –</h2>
                 
                 <td
                     style="width:87pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    <p style="text-indent: 0pt;text-align: left;"><br />{{$individualDirector->Individual->first_name}}</p>
                 </td>
                 <td
                     style="width:57pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
@@ -235,11 +235,12 @@ Secretary<span class="s72">／</span>Director (Natural Person) –</h2>
                 (a) <span class="s8">  香 港 身 分 證 </span><span class="s34">(完 整 號 碼 )</span></p>
             <p class="s35" style="padding-left: 19pt;text-indent: 0pt;line-height: 9pt;text-align: left;">
                
-Hong Kong Identity Card <span class="s9"> </span><span class="s29">(Full Number)</span>
+               Hong Kong Identity Card <span class="s9"> </span><span class="s29">(Full Number)</span>
             </p>
         </td>
         <td style="width:258pt;border:1px solid #000;  border:1px solid #000; border-right-style:solid;border-right-width:1pt">
-            <p class="s46" style="padding-top: 8pt;padding-right: 10pt;text-indent: 0pt;text-align: right;">
+            <p class="s46" style="padding-left:20px; padding-top: 8pt;padding-right: 10pt;text-indent: 0pt;text-align: left;">
+                {{$individualDirector->Individual->getIdentity->identity_no}}
             </p>
         </td> 
     </tr>
@@ -258,7 +259,8 @@ Hong Kong Identity Card <span class="s9"> </span><span class="s29">(Full Number)
                 Issuing Country<span class="s36">／</span>Region</p>
         </td>
         <td style="width:258pt;border:1px solid #000;  border:1px solid #000; border-right-style:solid;border-right-width:1pt">
-            <p class="s46" style="padding-top: 8pt;padding-right: 10pt;text-indent: 0pt;text-align: right;">
+            <p class="s46" style="padding-top: 8pt; padding-left:20px; padding-right: 10pt;text-indent: 0pt;text-align: left;">
+              <span style="text-align: right; color:rgb(3, 27, 27); font-weight:bolder"> {{$individualDirector->Individual->getIdentity->issueing_country}}</span> 
             </p>
         </td> 
     </tr>
@@ -276,7 +278,8 @@ Hong Kong Identity Card <span class="s9"> </span><span class="s29">(Full Number)
 
         {{-- use this for forms  --}}
         <td style="width:258pt;border:1px solid #000;  border:1px solid #000; border-right-style:solid;border-right-width:1pt">
-            <p class="s46" style="padding-top: 8pt;padding-right: 10pt;text-indent: 0pt;text-align: right;">
+            <p class="s46" style="padding-top: 8pt; padding-left:20px; padding-right: 10pt;text-indent: 0pt;text-align: left;">
+                {{$individualDirector->Individual->getIdentity->passport_no}} 
             </p>
         </td> 
          
@@ -296,8 +299,8 @@ Hong Kong Identity Card <span class="s9"> </span><span class="s29">(Full Number)
             <table style="border-collapse:collapse" cellspacing="0">
                 <tr style="height:25px; ">
                     <td
-                        style="width:355pt; padding-top:10px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                        <p style="text-indent: 0px;text-align: left;"><br /> jalsklasdklakdnsad</p>
+                        style="width:355pt; padding-left:20px; padding-top:10px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0px;text-align: left;"><br /> {{$individualDirector->Individual->resAddress->street_no}}  </p>
                     </td>
                     
                 </tr>
@@ -305,8 +308,8 @@ Hong Kong Identity Card <span class="s9"> </span><span class="s29">(Full Number)
                 </tr>
                 <tr style="height:26pt">
                     <td
-                        style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                        <p style="text-indent: 0px;text-align: left;"><br />asjksdksdajksdad</p>
+                        style="width:355pt;padding-left:20px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0px;text-align: left;"><br /> {{$individualDirector->Individual->resAddress->address}} </p>
                     </td>
                 </tr>
 
@@ -314,8 +317,8 @@ Hong Kong Identity Card <span class="s9"> </span><span class="s29">(Full Number)
                 </tr>
                 <tr style="height:26pt">
                     <td
-                        style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                        <p style="text-indent: 0px;text-align: left;"><br />adsjkkdada</p>
+                        style="width:355pt;padding-left:20px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0px;text-align: left;"><br />{{$individualDirector->Individual->resAddress->city}} </p>
                     </td>
                 </tr>
 
@@ -323,8 +326,8 @@ Hong Kong Identity Card <span class="s9"> </span><span class="s29">(Full Number)
                 </tr>
                 <tr style="height:26pt">
                     <td
-                        style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                        <p style="text-indent: 0px;text-align: left;"><br />asdkjasdkjadsa</p>
+                        style="width:355pt;padding-left:20px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0px;text-align: left;"><br />{{$individualDirector->Individual->resAddress->state}} </p>
                     </td>
                 </tr>
 
@@ -332,9 +335,9 @@ Hong Kong Identity Card <span class="s9"> </span><span class="s29">(Full Number)
                 </tr>
                 <tr style="height:23pt">
                     <td
-                        style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        style="width:355pt;padding-left:20px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                         <p class="s23" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0px;text-align: left;">
-                            香港<span class="s24">／ </span><span class="s25">HONG KONG</span></p>
+                          <span class="s25">{{$individualDirector->Individual->resAddress->country}} </span></p>
                     </td>
                     
                 </tr>
@@ -343,9 +346,9 @@ Hong Kong Identity Card <span class="s9"> </span><span class="s29">(Full Number)
                 </tr>
                 <tr style="height:23pt">
                     <td
-                        style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        style="width:355pt;padding-left:20px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                         <p class="s23" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0px;text-align: left;">
-                            香港<span class="s24">／ </span><span class="s25">HONG KONG</span></p>
+                        <span class="s25">{{$individualDirector->Individual->email}} </span></p>
                     </td>
                     
                 </tr>

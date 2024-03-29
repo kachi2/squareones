@@ -1,11 +1,11 @@
 <template>
     <StartCompany_template>
         <template #main>
-            <section>
+            <section class="section">
                 <div class="fw-bolder fs-5">Ownership</div>
             </section>
 
-            <section>
+            <section class="section">
                 <div class="row g-3 mt-1">
                     <div class="col-md-6 col-lg-4">
                         <label class="form-labe fw-bold small">Class of shares:</label>
@@ -80,7 +80,7 @@
             </div>
 
 
-            <section v-if="form.total_amount_paid && sumEqualToTotal">
+            <section class="section" v-if="form.no_of_share && sumEqualToTotal">
                 <div class="fw-bolder fs-6">Ownership Summary</div>
                 <span>Here is how much founders own</span>
                 <div class="card mt-1 rounded-0 border-0 bg-light">
@@ -133,7 +133,7 @@
         </template>
 
         <template #info>
-            <section>
+            <section class="section">
                 <div class="fw-bold">
                     What are 'Class of Shares', and how do
 
@@ -145,7 +145,7 @@
                     begin with.
                 </div>
             </section>
-            <section>
+            <section class="section">
                 <div class="fw-bold">
                     What if the ownership percentages among founders don’t add up to 100%?
                 </div>
@@ -166,8 +166,6 @@ import api from '@/stores/Helpers/axios'
 import { useToast } from 'vue-toast-notification';
 import { vMaska } from "maska"
 import { ownershipForm } from './formsStore/Ownership'
-
-import useFxn from '@/stores/Helpers/useFunctions';
 
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
@@ -237,7 +235,7 @@ const sumEqualToTotal = computed(() => {
         }
     }
 
-    const totalInputed = form.total_amount_paid ? dissolveMaska(form.total_amount_paid) : 0
+    const totalInputed = form.no_of_share ? dissolveMaska(form.no_of_share) : 0
 
     return total == totalInputed ? true : false
 })
@@ -250,7 +248,7 @@ const summaryArray = computed(() => {
                 name: x.entity_name,
                 own_share: x.own_share,
                 company_entity_id: x.company_entity_id,
-                share_percentage: ((dissolveMaska(x.own_share) / dissolveMaska(form.total_amount_paid)) * 100).toFixed(2)
+                share_percentage: ((dissolveMaska(x.own_share) / dissolveMaska(form.no_of_share)) * 100).toFixed(2)
             }
             array.push(obj)
         })

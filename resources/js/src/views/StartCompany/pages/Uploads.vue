@@ -1,7 +1,7 @@
 <template>
     <StartCompany_template>
         <template #main>
-            <section>
+            <section class="section">
                 <div class="fw-bolder fs-5">Document Upload</div>
                 <span>Complete your company registration</span>
             </section>

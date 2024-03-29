@@ -9,7 +9,7 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
     const isActiveMenu = (stage: number) => currentStage.value == stage
 
     const businessNatures = ref<any[]>([])
-    const companyInProgress = ref<any>()
+    const companyInProgress = ref<any>(null)
     const countries = ref<any[]>([])
     const checkedEntityCapacity = ref<any[]>([])
 
@@ -47,11 +47,10 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
     const getCompanyInProgress = async (isFromFounder?: string) => {
         try {
             const { data } = await api.companyProgress();
-            companyInProgress.value = data?.company ?? ''
-            console.log(companyInProgress.value);
+            console.log(data);
 
-            if (!isFromFounder)
-                decideStageToShow()
+            companyInProgress.value = data.company
+            if (!isFromFounder) decideStageToShow()
         } catch (error) {
             console.log(error);
         }
@@ -62,12 +61,11 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
         if (!data) currentStage.value = 2
         else if (!data.description) currentStage.value = 3
         else if (!data.address) currentStage.value = 4
-        else if (!data.company_entity || !data.company_entity.length) currentStage.value = 5
-        else if (!data.owner_share.length || data.owner_share == null) currentStage.value = 6
-        else if (!data.fund_source.length || data.fund_source == null) currentStage.value = 8
+        else if (!data.company_entity.length) currentStage.value = 5
+        else if (!data.owner_share.length || !data.shares.length) currentStage.value = 6
+        else if (!data.fund_source.length) currentStage.value = 8
         else if (!data.activity) currentStage.value = 9
         else currentStage.value = 10
-
     }
 
     const getCountries = async () => {

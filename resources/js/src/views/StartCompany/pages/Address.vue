@@ -1,32 +1,38 @@
 <template>
     <StartCompany_template>
         <template #main>
-            <section>
+            <section class="section">
                 <div class="fw-bolder fs-5">Registered Address</div>
             </section>
 
-            <section>
+            <section class="section">
                 <div class="fw-bold">Registered Office Address</div>
 
                 <div class="row g-2 mt-1">
                     <div class="col-12">
                         <input v-model="form.address" class="form-control" type="text" placeholder="Flat／Floor／Block">
+                        <small class=" text-danger">{{ form.errors.address }}</small>
                     </div>
                     <div class="col-12">
                         <input v-model="form.street_no" class="form-control" type="text" placeholder="Street number">
+                        <small class=" text-danger">{{ form.errors.street_no }}</small>
                     </div>
                     <div class="col-12">
                         <input v-model="form.city" class="form-control" type="text" placeholder="City">
+                        <small class=" text-danger">{{ form.errors.city }}</small>
                     </div>
                     <div class="col-12">
                         <input v-model="form.state" class="form-control" type="text" placeholder="State">
+                        <small class=" text-danger">{{ form.errors.state }}</small>
                     </div>
                     <div class="col-12">
                         <input v-model="form.postal_code" class="form-control" type="text" placeholder="Postal Code">
+                        <small class=" text-danger">{{ form.errors.postal_code }}</small>
                     </div>
                     <div class="col-md-12">
                         <v-select placeholder="select country.." v-model="form.country" :clearable="false"
                             :options="startCompanyStore.countries" />
+                        <small class=" text-danger">{{ form.errors.country }}</small>
                     </div>
                 </div>
             </section>
@@ -49,7 +55,7 @@
         </template>
 
         <template #info>
-            <section>
+            <section class="section">
                 <div class="fw-bold">
                     What is registered office address?
                 </div>
@@ -59,7 +65,7 @@
                     and notices are sent.
                 </div>
             </section>
-            <section>
+            <section class="section">
                 <div class="fw-bold">
                     Why can’t I change the registered office address?
                 </div>
@@ -84,7 +90,6 @@ const startCompanyStore = useStartCompanyStore()
 
 const form = addressForm()
 
-
 onMounted(() => {
     form.address = startCompanyStore.companyInProgress?.address ?? ''
     form.street_no = startCompanyStore.companyInProgress?.street_no ?? ''
@@ -94,36 +99,29 @@ onMounted(() => {
     form.country = startCompanyStore.companyInProgress?.country ?? ''
 })
 
-
-
 function moveBack() {
     startCompanyStore.switchStage('-')
 }
 
-function saveAndContinue() {
+const saveAndContinue = form.handleSubmit(async (values) => {
     if (!startCompanyStore.companyInProgress?.id) {
         toast.default('You have not registered any company name', { position: 'top-right' })
         startCompanyStore.switchStage('-', 2)
         return;
     }
 
-    if (!form.address || !form.street_no || !form.city || !form.state || !form.postal_code || !form.country) {
-        toast.default('Please complete fields', { position: 'top-right' })
-        return;
-    }
-
     const formData = new FormData;
-    formData.append('address', form.address)
-    formData.append('street_no', form.street_no)
-    formData.append('city', form.city)
-    formData.append('state', form.state)
-    formData.append('postal_code', form.postal_code)
-    formData.append('country', form.country)
+    formData.append('address', values.address)
+    formData.append('street_no', values.street_no)
+    formData.append('city', values.city)
+    formData.append('state', values.state)
+    formData.append('postal_code', values.postal_code)
+    formData.append('country', values.country)
     formData.append('company_id', startCompanyStore.companyInProgress.id)
 
     form.isSaving = true
     saveFromToApi(formData)
-}
+})
 
 async function saveFromToApi(formData: FormData) {
     try {

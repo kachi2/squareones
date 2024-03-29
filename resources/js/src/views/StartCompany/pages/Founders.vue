@@ -1,12 +1,12 @@
 <template>
     <StartCompany_template>
         <template #main>
-            <section>
+            <section class="section">
                 <div class="fw-bolder fs-5">Founders/Directors</div>
                 <span>Tell us the details about the founder and director.</span>
             </section>
 
-            <section>
+            <section class="section">
                 <div class="fw-bold">What is the type of founder/director? </div>
 
                 <div class="row justify-content- mt-1">
@@ -24,7 +24,7 @@
                 </div>
             </section>
 
-            <section>
+            <section class="section">
                 <div class="fw-bold">What is the Capacity of this individual? shareholder </div>
                 <div class="row justify-content- mt-1">
                     <div class="col-4 ">
@@ -51,7 +51,7 @@
         </template>
 
         <template #info>
-            <section v-if="foundersAdded.length">
+            <section class="section" v-if="foundersAdded.length">
                 <div class="card small">
                     <div class="card-header border-0">FOUNDERS ADDED
 
@@ -97,7 +97,7 @@
             </section>
 
 
-            <section>
+            <section class="section">
                 <div class="fw-bold">
                     What are the basic requirements to be a founder?
                 </div>
@@ -109,7 +109,7 @@
                     6 founders to be registered.
                 </div>
             </section>
-            <section>
+            <section class="section">
                 <div class="fw-bold">
                     Is it possible to change founder details after the company has been incorporated?
                 </div>
@@ -118,7 +118,7 @@
                     be made post-incorporation.
                 </div>
             </section>
-            <section>
+            <section class="section">
                 <div class="fw-bold">
                     Is it possible to change founder details after the company has been incorporated?
                 </div>

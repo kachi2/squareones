@@ -47,12 +47,14 @@
 
 @include('pdf.founder_statement') <!--done -->
 
+@foreach ( $company->individualDirector as $individualDirector )
+@if ($individualDirector->Individual !== null)
+@include('pdf.pi-ncc_secretary') <!-- static-->
+@endif
+@endforeach
+@include('pdf.notice_to_business') <!-- done -->
 
-@include('pdf.pi-ncc_secretary') 
-
-@include('pdf.notice_to_business')
-
-@include('pdf.company_ordinance')
+@include('pdf.company_ordinance') 
 
 @include('pdf.class_of_shares')
 

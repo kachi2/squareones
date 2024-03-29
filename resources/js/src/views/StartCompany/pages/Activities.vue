@@ -1,12 +1,12 @@
 <template>
     <StartCompany_template>
         <template #main>
-            <section>
+            <section class="section">
                 <div class="fw-bolder fs-5">Activities</div>
                 <span>Detail your company's primary business operations below.</span>
             </section>
 
-            <section>
+            <section class="section">
                 <div class="fw-bold">Describe your expected business activities</div>
                 <div>Provide a brief but clear description of your anticipated business activities.
                     Be as specific as possible to ensure accurate representation in your business
@@ -15,12 +15,12 @@
                 <div class="row g-2 mt-1">
                     <div class="col-md-8">
                         <textarea v-model="form.description" class="form-control" rows="5"></textarea>
-                        <small class="float-end">No minimum character required</small>
+                        <small class=" text-danger">{{ form.errors.description }}</small>
                     </div>
                 </div>
             </section>
 
-            <section>
+            <section class="section">
                 <div class="fw-bold">Level of activity</div>
                 <div>Select the volume and frequency of transactions your business expects to handle.
                 </div>
@@ -29,13 +29,13 @@
                     <div class="col-md-8">
                         <v-select v-model="form.activity_level" :clearable="false"
                             :options="startCompanyStore.levelOfActivity" />
-
+                        <small class=" text-danger">{{ form.errors.activity_level }}</small>
                     </div>
 
                 </div>
             </section>
 
-            <section>
+            <section class="section">
                 <div class="fw-bold">Nature of activity</div>
                 <div>Choose the main industry or sector that best represents your business operations.
                 </div>
@@ -44,13 +44,13 @@
                     <div class="col-md-8">
                         <v-select v-model="form.activity_nature" :clearable="false"
                             :options="startCompanyStore.natureOfActivity" />
-
+                        <small class=" text-danger">{{ form.errors.activity_nature }}</small>
                     </div>
 
                 </div>
             </section>
 
-            <section>
+            <section class="section">
                 <div class="fw-bold">Customer location and operation</div>
                 <div>Indicate the primary countries where your company will actively conduct business or serve
                     customers.
@@ -60,12 +60,13 @@
                     <div class="col-md-8">
                         <v-select :multiple="true" v-model="form.customer_location_operation" :clearable="false"
                             :options="startCompanyStore.countries" />
+                        <small class=" text-danger">{{ form.errors.customer_location_operation }}</small>
                     </div>
 
                 </div>
             </section>
 
-            <section>
+            <section class="section">
                 <div class="fw-bold">List of countries</div>
                 <div>List all additional countries where your company will have business activities or customer
                     interactions.
@@ -75,7 +76,7 @@
                     <div class="col-md-8">
                         <v-select :multiple="true" v-model="form.country" :clearable="false"
                             :options="startCompanyStore.countries" />
-
+                        <small class=" text-danger">{{ form.errors.country }}</small>
                     </div>
 
                 </div>
@@ -99,7 +100,7 @@
         </template>
 
         <!-- <template #info>
-            <section>
+            <section class="section">
                 <div class="fw-bold">
                     What are the basic requirements to be a founder?
                 </div>
@@ -111,7 +112,7 @@
                     6 founders to be registered.
                 </div>
             </section>
-            <section>
+            <section class="section">
                 <div class="fw-bold">
                     Is it possible to change founder details after the company has been incorporated?
                 </div>
@@ -120,7 +121,7 @@
                     be made post-incorporation.
                 </div>
             </section>
-            <section>
+            <section class="section">
                 <div class="fw-bold">
                     Is it possible to change founder details after the company has been incorporated?
                 </div>
@@ -160,12 +161,11 @@ onMounted(() => {
     form.country = countries !== '' ? countries.split(',') : ''
 })
 
-
 function moveBack() {
     startCompanyStore.switchStage('-')
 }
 
-function saveAndContinue() {
+const saveAndContinue = form.handleSubmit(async (values) => {
 
     if (!startCompanyStore.companyInProgress?.id) {
         toast.default('You have not registered any company name', { position: 'top-right' })
@@ -173,23 +173,22 @@ function saveAndContinue() {
         return;
     }
 
-    if (!form.description || !form.activity_level || !form.activity_nature || !form.customer_location_operation
-        || !form.country) {
-        toast.default('Please complete fields', { position: 'top-right' })
+    if (!form.customer_location_operation || !form.country) {
+        toast.default('Please complete all fields', { position: 'top-right' })
         return;
     }
 
     const formData = new FormData;
     formData.append('company_id', startCompanyStore.companyInProgress.id)
-    formData.append('description', form.description)
-    formData.append('activity_level', form.activity_level)
-    formData.append('activity_nature', form.activity_nature)
-    formData.append('customer_location_operation', form.customer_location_operation.toString())
-    formData.append('country', form.country.toString())
+    formData.append('description', values.description)
+    formData.append('activity_level', values.activity_level)
+    formData.append('activity_nature', values.activity_nature)
+    formData.append('customer_location_operation', values.customer_location_operation.toString())
+    formData.append('country', values.country.toString())
 
     form.isSaving = true
     saveFromToApi(formData)
-}
+})
 
 async function saveFromToApi(formData: FormData) {
     try {

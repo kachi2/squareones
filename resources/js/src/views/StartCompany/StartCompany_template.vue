@@ -44,7 +44,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 p-lg-3 p-2 shadow-sm head-panel">
-                    <button class="btn btn-lg p-1 py-0 d-md-none" data-bs-toggle="offcanvas"
+                    <button class="btn btn-lg p-1 py-0 d-md-none border-0" data-bs-toggle="offcanvas"
                         data-bs-target="#startMobileOffcanvas" aria-controls="startMobileOffcanvas">
                         <i class="bi bi-justify fs-3"></i>
                     </button>
@@ -53,7 +53,7 @@
                         ({{ activeCompanyName }})
                     </span>
                     <span class="float-end">
-                        <button @click="logout" class="btn btn-link btn-sm p-0 text-decoration-none">
+                        <button @click="logout" class="btn btn-link btn-sm p-0 text-decoration-none border-0">
                             Logout <i class="bi bi-box-arrow-right"></i>
                         </button>
                     </span>
@@ -86,7 +86,6 @@ import StartCompany_mobilemenu from './StartCompany_mobilemenu.vue';
 import { useAuthStore } from '@/stores/authStore';
 import { useRouter } from 'vue-router';
 
-
 const authStore = useAuthStore()
 const router = useRouter()
 
@@ -104,7 +103,7 @@ const activeCompanyName = computed(() => {
 
 
 async function logout() {
-    authStore.logout()
+    await authStore.logout()
     router.replace({ name: 'Login' })
 }
 </script>

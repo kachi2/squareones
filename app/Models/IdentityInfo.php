@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class IdentityInfo extends Model
 {
     use HasFactory;
-    protected $fillable = ['identity_type_id', 'passport_no', 'issueing_country', 'identity_no', 'dob', 'card_name'];
+    protected $fillable = ['identity_type_id', 'individual_id', 'passport_no', 'issueing_country', 'identity_no', 'dob', 'card_name'];
 
 
     public function IdType(){

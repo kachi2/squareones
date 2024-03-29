@@ -6,6 +6,7 @@ use App\Interfaces\DocumentInterface;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Models\Individual;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\CompanyEntity;
 use App\Events\GeneratePDF;
 use App\Models\Corporate;
@@ -27,7 +28,7 @@ class DocumentSignController extends Controller
         
         $company = Company::whereId($company_id)->first()
         ->Load([
-            'names' ,'secretary','shares','fundSource','ownerShare'
+            'names' ,'Secretary','shares','fundSource','ownerShare'
         ]);
        $data['Individual'] =  $company->CompanyEntity->load('Individual');
        $data['Corporate'] =  $company->CompanyEntity->load('Corporate');
@@ -61,6 +62,8 @@ class DocumentSignController extends Controller
         $company->individualDirector = $individualDirector;
 
         // dd()
+        PDF::loadView('pdf/pdf', ['company' =>  $company])
+           ->save('documents/test2.pdf');
 
         return view('pdf.pdf', ['company' =>$company]);
         // $company->founders = $company->CompanyEntity->where('is_founder', 0)->load('Individual', 'Corporate');

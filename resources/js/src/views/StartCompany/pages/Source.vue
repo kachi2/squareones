@@ -1,7 +1,7 @@
 <template>
     <StartCompany_template>
         <template #main>
-            <section>
+            <section class="section">
                 <div class="fw-bolder fs-5">Source of funds</div>
                 <span>Source of funds</span>
             </section>
@@ -11,13 +11,14 @@
                     <label class=" fw-bolder">Expected source of funds</label>
                     <v-select v-model="form.income_expected_source" :clearable="false"
                         :options="startCompanyStore.sourceOfFunds" />
+                    <small class="text-danger">{{ form.errors.income_expected_source }}</small>
 
                 </div>
 
                 <div class="col-md-8">
                     <label class=" fw-bolder">Origin source of funds</label>
                     <v-select v-model="form.origin_funds" :clearable="false" :options="startCompanyStore.countries" />
-
+                    <small class="text-danger">{{ form.errors.origin_funds }}</small>
                 </div>
 
                 <div class="fw-bolder fs-5">Source of Wealth</div>
@@ -26,6 +27,7 @@
                     <label class=" fw-bolder">Initial source of wealth</label>
                     <v-select v-model="form.wealth_initial_source" :clearable="false"
                         :options="startCompanyStore.initialSourceOfWealth" />
+                    <small class="text-danger">{{ form.errors.wealth_initial_source }}</small>
 
                 </div>
 
@@ -33,6 +35,7 @@
                     <label class="fw-bolder">Ongoing source of wealth</label>
                     <v-select v-model="form.income_outgoing_source" :clearable="false"
                         :options="startCompanyStore.ongoingSourceOfIncome" />
+                    <small class="text-danger">{{ form.errors.income_outgoing_source }}</small>
                 </div>
 
             </section>
@@ -53,7 +56,7 @@
         </template>
 
         <template #info>
-            <section>
+            <section class="section">
                 <div class="fw-bold">
                     Why do I need to disclose the source of
 
@@ -64,7 +67,7 @@
                     laundering laws. It helps maintain financial transparency and accountability.
                 </div>
             </section>
-            <section>
+            <section class="section">
                 <div class="fw-bold">
                     What qualifies as a source of funds?
                 </div>
@@ -73,7 +76,7 @@
                     personal savings, loan or credit, investment income, or any other legitimate source.
                 </div>
             </section>
-            <section>
+            <section class="section">
                 <div class="fw-bold">
                     Can the source of wealth and source of
 
@@ -100,12 +103,11 @@ const startCompanyStore = useStartCompanyStore()
 const form = sourceForm()
 
 
-
 onMounted(() => {
-    form.income_expected_source = startCompanyStore.companyInProgress?.fund_source[0]?.income_expected_source ?? ''
-    form.income_outgoing_source = startCompanyStore.companyInProgress?.fund_source[0]?.income_outgoing_source ?? ''
-    form.origin_funds = startCompanyStore.companyInProgress?.fund_source[0]?.origin_funds ?? ''
-    form.wealth_initial_source = startCompanyStore.companyInProgress?.fund_source[0]?.wealth_initial_source ?? ''
+    form.income_expected_source = startCompanyStore.companyInProgress?.fund_source?.[0]?.income_expected_source ?? ''
+    form.income_outgoing_source = startCompanyStore.companyInProgress?.fund_source?.[0]?.income_outgoing_source ?? ''
+    form.origin_funds = startCompanyStore.companyInProgress?.fund_source?.[0]?.origin_funds ?? ''
+    form.wealth_initial_source = startCompanyStore.companyInProgress?.fund_source?.[0]?.wealth_initial_source ?? ''
 })
 
 
@@ -113,28 +115,23 @@ function moveBack() {
     startCompanyStore.switchStage('-')
 }
 
-function saveAndContinue() {
+const saveAndContinue = form.handleSubmit(async (values) => {
     if (!startCompanyStore.companyInProgress?.id) {
         toast.default('You have not registered any company name', { position: 'top-right' })
         startCompanyStore.switchStage('-', 2)
         return;
     }
 
-    if (!form.income_expected_source || !form.origin_funds || !form.wealth_initial_source || !form.income_outgoing_source) {
-        toast.default('Please complete fields', { position: 'top-right' })
-        return;
-    }
-
     const formData = new FormData;
     formData.append('company_id', startCompanyStore.companyInProgress.id)
-    formData.append('income_expected_source', form.income_expected_source)
-    formData.append('origin_funds', form.origin_funds)
-    formData.append('wealth_initial_source', form.wealth_initial_source)
-    formData.append('income_outgoing_source', form.income_outgoing_source)
+    formData.append('income_expected_source', values.income_expected_source)
+    formData.append('origin_funds', values.origin_funds)
+    formData.append('wealth_initial_source', values.wealth_initial_source)
+    formData.append('income_outgoing_source', values.income_outgoing_source)
 
     form.isSaving = true
     saveFromToApi(formData)
-}
+})
 
 async function saveFromToApi(formData: FormData) {
     try {
