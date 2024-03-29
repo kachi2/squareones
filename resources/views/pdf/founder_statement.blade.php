@@ -185,7 +185,8 @@
         <td style="width:350pt">
             <p style="text-indent: 0pt;text-align: left;"><br /></p>
             <p class="s33" style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;">:
-               </p>
+             {{-- {{auth()->user()->name}} --}}
+            </p>
         </td>
         <td style="width:55pt">
             <p style="text-indent: 0pt;text-align: left;"><br /></p>
@@ -200,10 +201,10 @@
         <td style="width:350pt">
             <p style="text-indent: 0pt;text-align: left;"><br /></p>
             <p class="s33" style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;">:
-               </p>
+                創辦成員 Founder Member   </p>
         </td>
         <td style="width:55pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            <p style="text-indent: 0pt;text-align: left;"><br /> </p>
         </td>
     </tr>
     <tr style="height:44pt">

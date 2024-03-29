@@ -198,7 +198,6 @@
         <td></td>
     </tr>
     </table>
-    {{dd($entity->individual->Entity())}}
     <table style="border-collapse:collapse;margin-left:53.884pt; margin-top:10px" cellspacing="0">
     <tr style="height:29pt; margin-top:10px">
         <td style="width:129pt;border-right-style:solid;border-right-width:1pt" colspan="2">

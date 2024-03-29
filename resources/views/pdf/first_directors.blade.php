@@ -57,19 +57,19 @@
         </td>
         <td
             style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br />sdksdjkskkdjssd</p>
+            <p style="text-indent: 0pt;text-align: left;"><br /></p>
         </td>
         <td
             style="width:87pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br />sdssdsd</p>
+            <p style="text-indent: 0pt;text-align: left;"><br />{{$corporate->Corporate->chn_company_name}}</p>
         </td>
         <td
             style="width:57pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br />sdssdsd</p>
+            <p style="text-indent: 0pt;text-align: left;"><br /></p>
         </td>
         <td
             style="width:96pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br />sdssd</p>
+            <p style="text-indent: 0pt;text-align: left;"><br /></p>
         </td>
     </tr>
     <tr style="height:10pt; border:10px solid #">
@@ -82,17 +82,17 @@
             <p class="s9" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">Name in English</p>
         </td>
         <td style="width:49pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s8" style="padding-left: 27pt;text-indent: 0pt;line-height: 10pt;text-align: left;">姓氏 </p>
-            <p class="s29" style="padding-left: 14pt;text-indent: 0pt;line-height: 9pt;text-align: left;">Surname
+            {{-- <p class="s8" style="padding-left: 27pt;text-indent: 0pt;line-height: 10pt;text-align: left;">姓氏 </p>
+            <p class="s29" style="padding-left: 14pt;text-indent: 0pt;line-height: 9pt;text-align: left;">Surname --}}
             </p>
         </td>
         <td
             style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            <p style="text-indent: 0pt;text-align: left;"><br /> </p>
         </td>
         <td
             style="width:87pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            <p style="text-indent: 0pt;text-align: left;"><br />{{$corporate->Corporate->company_name}}</p>
         </td>
         <td
             style="width:57pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
@@ -120,8 +120,8 @@
             <table style="border-collapse:collapse" cellspacing="0">
                 <tr style="height:25px; ">
                     <td
-                        style="width:355pt; padding-top:10px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                        <p style="text-indent: 0px;text-align: left;"><br /> jalsklasdklakdnsad</p>
+                        style="width:355pt; padding-left: 30px; padding-top:10px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0px;text-align: left;"><br /> - </p>
                     </td>
                     
                 </tr>
@@ -129,8 +129,8 @@
                 </tr>
                 <tr style="height:26pt">
                     <td
-                        style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                        <p style="text-indent: 0px;text-align: left;"><br />asjksdksdajksdad</p>
+                        style="width:355pt;padding-left: 30px;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0px;text-align: left;"><br /> {{$corporate->Corporate->street_no}}</p>
                     </td>
                 </tr>
 
@@ -138,8 +138,8 @@
                 </tr>
                 <tr style="height:26pt">
                     <td
-                        style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                        <p style="text-indent: 0px;text-align: left;"><br />adsjkkdada</p>
+                        style="width:355pt;padding-left: 30px;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0px;text-align: left;"><br /> {{$corporate->Corporate->address}}</p>
                     </td>
                 </tr>
 
@@ -147,8 +147,8 @@
                 </tr>
                 <tr style="height:26pt">
                     <td
-                        style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                        <p style="text-indent: 0px;text-align: left;"><br />asdkjasdkjadsa</p>
+                        style="width:355pt;padding-left: 30px;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0px;text-align: left;"><br /> {{$corporate->Corporate->city}}</p>
                     </td>
                 </tr>
 
@@ -156,20 +156,19 @@
                 </tr>
                 <tr style="height:23pt">
                     <td
-                        style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        style="width:355pt;padding-left: 30px;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                         <p class="s23" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0px;text-align: left;">
-                            香港<span class="s24">／ </span><span class="s25">HONG KONG</span></p>
+                            <span class="s25"> {{$corporate->Corporate->state}}</span></p>
                     </td>
                     
                 </tr>
-
                 <tr style="height:16px; ">
                 </tr>
                 <tr style="height:23pt">
                     <td
-                        style="width:355pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        style="width:355pt;padding-left: 30px;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                         <p class="s23" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0px;text-align: left;">
-                            香港<span class="s24">／ </span><span class="s25">HONG KONG</span></p>
+                           <span class="s25"> {{$corporate->Corporate->country}}</span></p>
                     </td>
                     
                 </tr>
@@ -207,7 +206,7 @@
 <p class="s41" style="padding-left: 7pt;text-indent: 0pt;text-align: left; padding-top:40px">商業登記號碼 Business Registration Number 
      <span class="s42"> <br>  <span style="font-size:10px">(只適用於在香港註冊的法人團體 Only applicable to body corporate registered in Hong Kong)</span> </span>
 <span style="text-indent: 0pt; float:right">
-    <input style="width: 200px; height:30px"> 
+    <input style="width: 200px; height:30px" readonly value="{{$corporate->Corporate->registeration_no}}"> 
     <br /></span>
 </p>
 
@@ -266,7 +265,9 @@
         <td style="width:350pt">
             <p style="text-indent: 0pt;text-align: left;"><br /></p>
             <p class="s33" style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;">:
-               </p>
+              
+            INSERT SIGNATURE HERE
+            </p>
         </td>
         <td style="width:55pt">
             <p style="text-indent: 0pt;text-align: left;"><br /></p>
@@ -281,7 +282,8 @@
         <td style="width:350pt">
             <p style="text-indent: 0pt;text-align: left;"><br /></p>
             <p class="s33" style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;">:
-               </p>
+                {{$corporate->Corporate->authorizedPersons->first_name.' '.$corporate->Corporate->authorizedPersons->last_name}}
+            </p>
         </td>
         <td style="width:55pt">
             <p style="text-indent: 0pt;text-align: left;"><br /></p>
@@ -296,7 +298,8 @@
         <td style="width:350pt">
             <p style="text-indent: 0pt;text-align: left;"><br /></p>
             <p class="s33" style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;">:
-               </p>
+               DIRECTOR
+            </p>
         </td>
         <td style="width:55pt">
             <p style="text-indent: 0pt;text-align: left;"><br /></p>
@@ -305,7 +308,7 @@
     <tr style="height:46pt; padding-top:30px">
 
         <td style="width:432pt" colspan="2">
-            <input type="checkbox" style="width: 20px; height:20px; margin-left:30px"  readonly>    
+            <input type="checkbox" checked style="width: 20px; height:20px; margin-left:30px"  readonly>    
             <p class="s28"
                 style="padding-top: 3pt; display:inline; padding-left: pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                 出任董事職位同意書會 於公司成立 為法團的日期 後 15 日 內 交 付 登記。 </p>

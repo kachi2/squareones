@@ -24,29 +24,31 @@
 <hr>
 
 @foreach ($company->shareholder as $entity) 
+@if ($entity->Individual !== null) 
 @include('pdf.founders_individual')
-{{dd('ddd')}}
+@endif
 @endforeach
 
-
-{{dd('stop')}}
-@foreach ( $company->directors as $corporate )
-@include('pdf.founders_corporate')
-@endforeach
-
+ 
+{{-- @include('pdf.founders_corporate') --}}
 
 @include('pdf.company_secretary')
 
 
-@include('pdf.directors')
+{{-- @include('pdf.directors') --}}
 
 
 
+@foreach ( $company->directors as $corporate )
+@if ($corporate->Corporate !== null)
 @include('pdf.first_directors')
+@endif
+@endforeach
 
-@include('pdf.founder_statement')
+@include('pdf.founder_statement') <!--done -->
 
-@include('pdf.pi-ncc_secretary')
+
+@include('pdf.pi-ncc_secretary') 
 
 @include('pdf.notice_to_business')
 

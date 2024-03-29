@@ -46,15 +46,19 @@ class DocumentSignController extends Controller
         }
        }
         foreach($shareholders as $shareho){
-            $shareholder[] = CompanyEntity::where('id', $shareho)->first()->load('Individual', 'Corporate');
+            $shareholder[] = CompanyEntity::where('id', $shareho)->first()->load('Individual');
+            $corporateShareHolder[] = CompanyEntity::where('id', $shareho)->first()->load('Corporate');
         };
         foreach($directors as $direc){
-            $director[] = CompanyEntity::where('id', $direc)->first()->load('Individual', 'Corporate');
+            $individualDirector[] = CompanyEntity::where('id', $direc)->first()->load('Individual');
+            $director[] = CompanyEntity::where('id', $direc)->first()->load('Corporate');
         };
     }
         // $company->shares = $shareholder;
         $company->directors = $director;
         $company->shareholder = $shareholder;
+        $company->corporateShareHolder = $corporateShareHolder;
+        $company->individualDirector = $individualDirector;
 
         // dd()
 

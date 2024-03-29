@@ -10,8 +10,8 @@
 <table style="border-collapse:collapse;margin-left:55.964pt" cellspacing="0">
 <tr style="height:42pt">
     <td
-        style="width:489pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+        style="width:489pt; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p style=" padding-left:20px; text-indent: 0pt;text-align: left;"><br /> {{$company->names[0]->eng_name .' OR '. $company->names[0]->chn_name}}</p>
     </td>
 </tr>
 </table>
@@ -109,7 +109,7 @@ Secretary<span class="s72">／</span>Director (Natural Person) –</h2>
                    <p style="font-size:10px">Company Secretary </p> 
                 </td>
                 <td>
-                    <input type="checkbox">
+                    <input type="checkbox" checked>
                     <span style="font-size:10px">公 司 秘 書</span>   
                     <p style="font-size:10px">Company Director </p> 
                  
