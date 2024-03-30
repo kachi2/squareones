@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('identity_infos', function (Blueprint $table) {
             $table->id();
             $table->string('identity_type')->unsigned();
-            $table->foreignId('individual_id')->constrained()->unsigned();
+            $table->foreignId('individual_id')->unsigned();
             $table->string('passport_no')->nullable();
             $table->string('issueing_country')->nullable();
             $table->string('identity_no')->nullable();
