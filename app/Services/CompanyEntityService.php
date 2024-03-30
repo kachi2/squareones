@@ -19,12 +19,17 @@ class CompanyEntityService implements CompanyEnityInterface
 
     public function SaveParentEntity($request)
     {
-            $entity = CompanyEntity::updateOrCreate([
+            $entity = CompanyEntity::updateOrCreate(
+                [
+                'id' => $request->company_entity,
+                ],
+                [
                 'company_id' => $request->company_id,
                 'entity_type_id' => $request->entity_type_id,
                 'entity_capacity_id' => $request->entity_capacity_id,
                 'is_founder' => $request->is_founder,
            ]);
+
            return $entity;
     }
 
