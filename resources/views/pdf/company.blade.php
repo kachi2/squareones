@@ -7,7 +7,7 @@
             
             </p>
             <p class="s1" style="padding-left: 39pt;text-indent: 0px;line-height: 14pt;text-align: left;">
-                <img src="{{asset('logo.png')}}" style="width: 100px"> <br>
+                <img src="{{asset('/logo.png')}}" style="width: 100px"> <br>
                 公 司 註 冊 處
             </p>
             <p class="s2" style="padding-left: 39pt;text-indent: 0px;line-height: 10px;text-align: left;">Companies
