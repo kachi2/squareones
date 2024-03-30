@@ -24,14 +24,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('{path}', function () {
-  return view('index');
-})->where('path', '^(.+)?$');
+// Route::get('{path}', function () {
+//   return view('index');
+// })->where('path', '^(.+)?$');
 
 
-Route::fallback(function () {
-    return view('index');
-});
+// Route::fallback(function () {
+//     return view('index');
+// });
 
 
 
@@ -45,34 +45,34 @@ Route::fallback(function () {
 // });
 
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
-// Route::controller(CompanyController::class)->group(function(){
-//     Route::post('company/create',  'InitiateCompanyCreation');
-//     Route::post('/company/description/store', 'StoreCompanyDescription');
-//     Route::post('company/address/store', 'StoreCompanyAddress');
-// });
+Route::controller(CompanyController::class)->group(function(){
+    Route::post('company/create',  'InitiateCompanyCreation');
+    Route::post('/company/description/store', 'StoreCompanyDescription');
+    Route::post('company/address/store', 'StoreCompanyAddress');
+});
 
-// Route::controller(CompanyEntityController::class)->group(function(){
-// Route::post('entity/store', 'StoreEntity');
-// });
-
-
-// Route::post('shares/store', [CompanySharesController::class, 'StoreShares']);
-
-// Route::post('/secretary/store', [SecretaryController::class, 'StoreSecretary']);
-// Route::post('activities/store', [CompanyActivityController::class, 'CompanyActivities']);
-// Route::post('fundsource/store', [FundSourceController::class, 'FundSource']);
-// Route::post('upload/docs', [FileUploadController::class, 'ProcessDocuments']);
-
-// Route::get('/', [HomeController::class, '__invoke'])->name('companyformation');
-// Route::get('/companyformation', [HomeController::class, '__invoke'])->name('companyformation');
+Route::controller(CompanyEntityController::class)->group(function(){
+Route::post('entity/store', 'StoreEntity');
+});
 
 
-// Route::get('/pdf/signature',[DocumentSignController::class, 'CreateTemplate']);
-// Route::post('signature/store', [DocumentSignController::class, 'ProcessSignature'])->name('signaturepad.upload');
-// Route::get('/pdf/pdf/{id}',[DocumentSignController::class, 'BuildPDF']);
+Route::post('shares/store', [CompanySharesController::class, 'StoreShares']);
+
+Route::post('/secretary/store', [SecretaryController::class, 'StoreSecretary']);
+Route::post('activities/store', [CompanyActivityController::class, 'CompanyActivities']);
+Route::post('fundsource/store', [FundSourceController::class, 'FundSource']);
+Route::post('upload/docs', [FileUploadController::class, 'ProcessDocuments']);
+
+Route::get('/', [HomeController::class, '__invoke'])->name('companyformation');
+Route::get('/companyformation', [HomeController::class, '__invoke'])->name('companyformation');
+
+
+Route::get('/pdf/signature',[DocumentSignController::class, 'CreateTemplate']);
+Route::post('signature/store', [DocumentSignController::class, 'ProcessSignature'])->name('signaturepad.upload');
+Route::get('/pdf/pdf/{id}',[DocumentSignController::class, 'BuildPDF']);
 
 
