@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('identity_infos', function (Blueprint $table) {
             $table->id();
-            $table->string('identity_type')->unsigned();
-            $table->integer('individual_id')->unsigned();
+            $table->integer('identity_type_id')->unsigned();
+            $table->integer('individual_id')->nullable();
             $table->string('passport_no')->nullable();
             $table->string('issueing_country')->nullable();
             $table->string('identity_no')->nullable();
