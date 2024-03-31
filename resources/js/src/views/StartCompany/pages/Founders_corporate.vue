@@ -9,7 +9,8 @@
             <span>Enter your legal company name</span>
             <div class="row mt-1 g-2">
                 <div class="col-12 ">
-                    <input v-model="form.company_name" type="text" class="form-control" placeholder="English Name..">
+                    <input v-maska data-maska="A a" data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
+                        v-model="form.company_name" type="text" class="form-control" placeholder="English Name..">
                     <small class=" text-danger">{{ form.errors.company_name }}</small>
                 </div>
 
@@ -67,9 +68,11 @@
                     <small class=" text-danger">{{ form.errors.postal_code }}</small>
                 </div>
                 <div class="col-md-12">
-                    <select class="form-select" v-model="form.country">
-                        <option selected value="Hong Kong">Hong Kong</option>
-                    </select>
+                    <!-- <select class="form-select" v-model="form.country"> -->
+                    <v-select placeholder="select country.." v-model="form.country" :clearable="false"
+                        :options="startCompanyStore.countries" />
+                    <!-- <option selected value="Hong Kong">Hong Kong</option> -->
+                    <!-- </select> -->
                 </div>
             </div>
         </section>

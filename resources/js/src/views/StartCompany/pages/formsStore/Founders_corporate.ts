@@ -13,26 +13,26 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
     }
 
     const rules = {
-        chn_company_name: yup.string().required('This field is required').test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
+        chn_company_name: yup.string().required('').test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
 
-        company_name: yup.string().required('This field is required'),
-        address: yup.string().required('This field is required'),
-        street_no: yup.string().required('This field is required'),
-        date_incorporated: yup.string().required('This field is required'),
-        is_founder: yup.string().required('This field is required'),
-        country_registered: yup.string().required('This field is required'),
-        state: yup.string().required('This field is required'),
-        city: yup.string().required('This field is required'),
-        country: yup.string().required('This field is required'),
-        postal_code: yup.string().required('This field is required'),
-        registeration_no: yup.string().required('This field is required'),
+        company_name: yup.string().required(''),
+        address: yup.string().required(''),
+        street_no: yup.string().required(''),
+        date_incorporated: yup.string().required(''),
+        is_founder: yup.string().required(''),
+        country_registered: yup.string().required(''),
+        state: yup.string().required(''),
+        city: yup.string().required(''),
+        country: yup.string().required(''),
+        postal_code: yup.string().required(''),
+        registeration_no: yup.string().required(''),
 
-        business_nature_id: yup.string().required('This field is required'),
-        phone: yup.string().required('This field is required'),
-        email: yup.string().required('This field is required'),
-        confirm_email: yup.string().required('This field is required'),
-        first_name: yup.string().required('This field is required'),
-        last_name: yup.string().required('This field is required'),
+        business_nature_id: yup.string().required(''),
+        phone: yup.string().required(''),
+        email: yup.string().required(''),
+        confirm_email: yup.string().required(''),
+        first_name: yup.string().required(''),
+        last_name: yup.string().required(''),
     };
 
     const { errors, handleSubmit, defineField, setFieldValue } = useForm({

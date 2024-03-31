@@ -6,12 +6,12 @@ import * as yup from 'yup';
 export const addressForm = defineStore('address', () => {
 
     const rules = {
-        address: yup.string().required('This field is required'),
-        street_no: yup.string().required('This field is required'),
-        city: yup.string().required('This field is required'),
-        state: yup.string().required('This field is required'),
-        postal_code: yup.string().required('This field is required'),
-        country: yup.string().required('This field is required'),
+        address: yup.string().required(''),
+        street_no: yup.string().required(''),
+        city: yup.string().required(''),
+        state: yup.string().required(''),
+        postal_code: yup.string().required(''),
+        country: yup.string().required(''),
     };
 
     const { errors, handleSubmit, defineField, setFieldValue } = useForm({

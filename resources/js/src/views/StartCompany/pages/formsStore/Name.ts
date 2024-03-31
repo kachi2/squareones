@@ -18,17 +18,17 @@ export const nameForm = defineStore('name', () => {
     }
 
     const rules = {
-        choice_level1_chn_name: yup.string().required('This field is required').test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
-        choice_level2_chn_name: yup.string().required('This field is required').test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
-        choice_level3_chn_name: yup.string().required('This field is required').test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
-        choice_level4_chn_name: yup.string().required('This field is required').test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
-        choice_level5_chn_name: yup.string().required('This field is required').test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
+        choice_level1_chn_name: yup.string().required('').test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
+        choice_level2_chn_name: yup.string().required('').test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
+        choice_level3_chn_name: yup.string().required('').test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
+        choice_level4_chn_name: yup.string().required('').test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
+        choice_level5_chn_name: yup.string().required('').test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
 
-        choice_level1_eng_name: yup.string().required('This field is required'),
-        choice_level2_eng_name: yup.string().required('This field is required'),
-        choice_level3_eng_name: yup.string().required('This field is required'),
-        choice_level4_eng_name: yup.string().required('This field is required'),
-        choice_level5_eng_name: yup.string().required('This field is required'),
+        choice_level1_eng_name: yup.string().required(''),
+        choice_level2_eng_name: yup.string().required(''),
+        choice_level3_eng_name: yup.string().required(''),
+        choice_level4_eng_name: yup.string().required(''),
+        choice_level5_eng_name: yup.string().required(''),
     };
 
     const { errors, handleSubmit, defineField, setFieldValue } = useForm({

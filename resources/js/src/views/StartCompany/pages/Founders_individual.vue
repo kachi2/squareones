@@ -55,9 +55,11 @@
 
         <div class="col-md-6">
             <label class="form-label fw-bold">Nationality <small class="text-danger">*</small></label>
-            <select v-model="form.nationality" class="form-select">
+            <!-- <select v-model="form.nationality" class="form-select">
                 <option selected value="Hong Kong"> Hong Kong</option>
-            </select>
+            </select> -->
+            <v-select placeholder="select country.." v-model="form.nationality" :clearable="false"
+                :options="startCompanyStore.countries" />
         </div>
     </section>
 
@@ -87,9 +89,11 @@
                 <small class=" text-danger">{{ form.errors.postal_code }}</small>
             </div>
             <div class="col-md-12">
-                <select class="form-select" v-model="form.country">
+                <v-select placeholder="select country.." v-model="form.country" :clearable="false"
+                    :options="startCompanyStore.countries" />
+                <!-- <select class="form-select" v-model="form.country">
                     <option selected value="Hong Kong">Hong Kong</option>
-                </select>
+                </select> -->
             </div>
         </div>
     </section>
@@ -124,9 +128,11 @@
                 <small class=" text-danger">{{ form.errors.postal_code2 }}</small>
             </div>
             <div class="col-md-12">
-                <select class="form-select" v-model="form.country2">
+                <v-select placeholder="select country.." v-model="form.country2" :clearable="false"
+                    :options="startCompanyStore.countries" />
+                <!-- <select class="form-select" v-model="form.country2">
                     <option selected value="Hong Kong">Hong Kong</option>
-                </select>
+                </select> -->
             </div>
         </div>
     </section>
@@ -141,13 +147,13 @@
         </div>
         <div v-if="form.identity_type_id == '2'" class="col-md-8">
             <label class=" fw-bolder">HKID No. <small class="text-danger">*</small></label>
-            <input v-maska data-maska="#### #### ####" data-maska-tokens="#:[0-9a-zA-Z]" v-model="form.identity_no"
+            <input v-maska data-maska="#### #### #### ####" data-maska-tokens="#:[0-9a-zA-Z]" v-model="form.identity_no"
                 ype="text" class="form-control" placeholder="HKID No.">
             <small class=" text-danger">{{ form.errors.identity_no }}</small>
         </div>
         <div v-if="form.identity_type_id == '1'" class="col-md-8">
             <label class=" fw-bolder">Passport No. <small class="text-danger">*</small></label>
-            <input v-maska data-maska="!HEEEEEEEE" data-maska-tokens="E:[0-9a-zA-Z]" v-model="form.passport_no"
+            <input v-maska data-maska="EEEEEEEEEEEEEEEE" data-maska-tokens="E:[0-9a-zA-Z]" v-model="form.passport_no"
                 type="text" class="form-control" placeholder="Passport No">
             <small class=" text-danger">{{ form.errors.passport_no }}</small>
         </div>

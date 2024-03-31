@@ -7,7 +7,7 @@
 
             <section class="section">
                 <div class="row g-3 mt-1">
-                    <div class="col-md-6 col-lg-4">
+                    <div class="col-md-6 col-lg-3">
                         <label class="form-labe fw-bold small">Class of shares:</label>
                         <div class="col-md-12">
                             <select v-model="form.share_type_id" class="form-select">
@@ -15,7 +15,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-4">
+                    <div class="col-md-6 col-lg-3">
                         <label class="form-labe fw-bold small">Total no of shares:</label>
                         <div class="col-md-12">
                             <input v-model="form.no_of_share" placeholder="0" class="form-control" v-maska
@@ -23,7 +23,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6 col-lg-4">
+                    <div class="col-md-6 col-lg-3">
                         <label class="form-labe fw-bold small">Total amount paid-off:</label>
                         <div class="col-md-12">
                             <input v-model="form.total_amount_paid" placeholder="0.00" class="form-control" v-maska
@@ -31,7 +31,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-lg-3">
                         <label class="form-labe fw-bold small">Currency:</label>
                         <div class="col-md-12">
                             <v-select v-model="form.currency" :clearable="false"
@@ -69,7 +69,7 @@
                             </span>
 
                             <span v-else class=" float-end text-danger small">
-                                Sum of entries must be equal to Total Number of Shares
+                                Sum of entries must be equal to Total Amount Paid
                                 <i class="bi bi-exclamation-circle"></i>
                             </span>
 
@@ -283,8 +283,8 @@ function saveAndContinue() {
     formData.append('no_of_share', form.no_of_share.replace(/,/g, ''))
 
     summaryArray.value.forEach((entity, index) => {
-        // formData.append(`company_entity[${index}][share_percentage]`, entity.share_percentage);
-        formData.append(`company_entity[${index}][total_amount]`, `${dissolveMaska(entity.own_share)}`);
+        formData.append(`company_entity[${index}][share_percentage]`, entity.share_percentage);
+        formData.append(`company_entity[${index}][total_amount]`, `${dissolveMaska(form.total_amount_paid)}`);
         formData.append(`company_entity[${index}][company_entity_id]`, entity.company_entity_id);
     });
 
@@ -318,5 +318,9 @@ th {
 
 th {
     font-weight: bold;
+}
+
+.form-labe {
+    font-size: 11px;
 }
 </style>
