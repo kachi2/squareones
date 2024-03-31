@@ -1,13 +1,15 @@
 <template>
+
+
     <div>
+
         <section class="section">
             <div class="fw-bold fs-5">About your Company </div>
             <div class="fw-bolder">Your company name</div>
             <span>Enter your legal company name</span>
             <div class="row mt-1 g-2">
                 <div class="col-12 ">
-                    <input v-maska data-maska="A a" data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
-                        v-model="form.company_name" type="text" class="form-control" placeholder="English Name..">
+                    <input v-model="form.company_name" type="text" class="form-control" placeholder="English Name..">
                     <small class=" text-danger">{{ form.errors.company_name }}</small>
                 </div>
 
@@ -119,7 +121,7 @@
                 <i class="bi bi-arrow-left"></i> Back
             </button>
             <button v-if="!form.isSaving" @click="saveAndContinue" class="btn btn-primary">
-                Save Record<i class="bi bi-arrow-right"></i>
+                Save Record <i class="bi bi-check2"></i>
             </button>
             <button v-else class="btn btn-primary" type="button" disabled>
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -244,7 +246,7 @@ async function saveFromToApi(formData: FormData) {
         toast.success('Data Saved Successfully', { position: 'top-right' });
         form.isSaving = false
         startCompanyStore.getCompanyInProgress('founder')
-        queryNewAction()
+        startCompanyStore.isShowingFoundersForm = false
         resetForm()
 
     } catch (error) {
@@ -255,17 +257,17 @@ async function saveFromToApi(formData: FormData) {
     }
 }
 
-function queryNewAction() {
-    useFxn.confirmTwoOptions('Do you want to add a new founder?', 'Add New', 'Go to next phase')
-        .then((resp) => {
-            if (resp.isConfirmed) {
-                window.scrollTo(0, 0)
-            }
-            else if (resp.isDenied) {
-                startCompanyStore.switchStage('+')
-            }
-        })
-}
+// function queryNewAction() {
+//     useFxn.confirmTwoOptions('Do you want to add a new founder?', 'Add New', 'Go to next phase')
+//         .then((resp) => {
+//             if (resp.isConfirmed) {
+//                 window.scrollTo(0, 0)
+//             }
+//             else if (resp.isDenied) {
+//                 startCompanyStore.switchStage('+')
+//             }
+//         })
+// }
 
 </script>
 <style lang="css" scoped>

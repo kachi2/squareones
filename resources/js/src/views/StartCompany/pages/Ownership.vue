@@ -69,7 +69,7 @@
                             </span>
 
                             <span v-else class=" float-end text-danger small">
-                                Sum of entries must be equal to Total Amount Paid
+                                Sum of entries must be equal to Total Number of Shares
                                 <i class="bi bi-exclamation-circle"></i>
                             </span>
 
@@ -283,8 +283,8 @@ function saveAndContinue() {
     formData.append('no_of_share', form.no_of_share.replace(/,/g, ''))
 
     summaryArray.value.forEach((entity, index) => {
-        formData.append(`company_entity[${index}][share_percentage]`, entity.share_percentage);
-        formData.append(`company_entity[${index}][total_amount]`, `${dissolveMaska(form.total_amount_paid)}`);
+        // formData.append(`company_entity[${index}][share_percentage]`, entity.share_percentage);
+        formData.append(`company_entity[${index}][total_amount]`, `${dissolveMaska(entity.own_share)}`);
         formData.append(`company_entity[${index}][company_entity_id]`, entity.company_entity_id);
     });
 
