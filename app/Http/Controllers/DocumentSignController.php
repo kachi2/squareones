@@ -61,7 +61,6 @@ class DocumentSignController extends Controller
         $company->corporateShareHolder = $corporateShareHolder;
         $company->individualDirector = $individualDirector;
 
-        // dd()
         PDF::loadView('pdf/pdf', ['company' =>  $company])
            ->save('documents/test2.pdf');
 

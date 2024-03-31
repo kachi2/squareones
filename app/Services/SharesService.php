@@ -34,7 +34,9 @@ class SharesService implements SharesInterface
     public function SharesToCompanyEntities($requestsDto, $owner)
     {
         foreach($requestsDto->company_entity as $request){
-        $data = OwnershipShare::create([
+        $data[] = OwnershipShare::updateOrcreate([
+        'company_entity_id' => $request['company_entity_id']
+        ],[
            'company_id' => $requestsDto->company_id,
            'company_share_id' => $owner->id,
            'company_entity_id' => $request['company_entity_id'],
