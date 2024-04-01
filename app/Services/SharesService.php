@@ -13,7 +13,9 @@ class SharesService implements SharesInterface
 
     public function  SaveFromData($request){
 
-        $owner = CompanyShare::create([
+        $owner = CompanyShare::updateOrcreate([
+            'company_id' => $request->company_id,
+        ],[
             'company_id' => $request->company_id,
             'share_type_id' => $request->share_type_id,
             'no_of_share' => $request->no_of_share,

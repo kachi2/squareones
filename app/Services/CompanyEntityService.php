@@ -53,7 +53,7 @@ class CompanyEntityService implements CompanyEnityInterface
             'individual_id' =>  $individualData->id,
         ],[
             'individual_id' =>  $individualData->id,
-            'identity_type_id' =>  $IndividualDto->identity_type_id, 
+            // 'identity_type_id' =>  $IndividualDto->identity_type_id, 
             'passport_no' =>$IndividualDto->passport_no, 
             'issueing_country' => $IndividualDto->issuing_country, 
             'identity_no' => $IndividualDto->identity_no
