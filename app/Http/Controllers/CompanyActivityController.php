@@ -26,7 +26,7 @@ class CompanyActivityController extends Controller
         $store = $this->activitiesInterface->StoreActivties($requestDto);
         DB::commit();
         //run the generate PDF script here
-        event(new GeneratePDF($requestDto->company_id));
+        // event(new GeneratePDF($requestDto->company_id));
         return response()->json(['data', $store], HttpStatusCode::OK);
        }catch(\Exception $e){
         DB::rollback();
