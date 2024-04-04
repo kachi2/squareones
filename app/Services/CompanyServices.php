@@ -23,7 +23,7 @@ class CompanyServices  implements CompanyFormationInterface
     {
         foreach ($names as $name) {
             $chk = $name['eng_name'];
-            $check = CompanyName::where('eng_name', 'LIKE', "%$chk%")->first();
+            $check = CompanyName::where('eng_name', 'LIKE', "%$chk%")->orWhere('chn_name','LIKE', "%$chk%" )->first();
             if (isset($check)) {
                 return true;
             }
@@ -43,16 +43,20 @@ class CompanyServices  implements CompanyFormationInterface
                 // if($x > $namesDto->names)
                 if(array_key_exists($key, $nameChange->toArray())){
                 $store =  $nameChange[$key]->update([
-                    'eng_name' => $name['eng_name'].' '.$name['prefix']??'Limited',
-                    'chn_name' => $name['chn_name'].' '.$name['chn_prefix']??'有限公司',
+                    'eng_name' => $name['eng_name'],
+                    'chn_name' => $name['chn_name'],
+                    'chn_prefix'=>  $name['chn_prefix'],
+                    'eng_prefix' =>  $name['prefix'],
                     'choice_level' => $name['choice_level'],
                     'company_id' => $namesDto->company_id
                 ]);
             }else{
                   CompanyName::create([
-                    'eng_name' => $name['eng_name'].' '.$name['prefix']??'Limited',
-                    'chn_name' => $name['chn_name'].' '.$name['chn_prefix']??'有限公司',
+                    'eng_name' => $name['eng_name'],
+                    'chn_name' => $name['chn_name'],
                     'choice_level' => $name['choice_level'],
+                     'chn_prefix'=>  $name['chn_prefix'],
+                     'eng_prefix'=>  $name['prefix'],
                     'company_id' => $namesDto->company_id
                 ]);
             }
@@ -65,6 +69,8 @@ class CompanyServices  implements CompanyFormationInterface
             ];
         }
         try {
+            $company = Company::where('is_complete', 0)->first();
+            if($company){
             DB::beginTransaction();
             $initiateCompany = Company::create([
                 'user_id' => auth_user(),
@@ -75,9 +81,11 @@ class CompanyServices  implements CompanyFormationInterface
                 $names = [];
                 foreach ($namesDto->names as $name) {  
                     $store =  CompanyName::create([
-                        'eng_name' => $name['eng_name'].' '.$name['prefix']??'Limited',
-                        'chn_name' => $name['chn_name'].' '.$name['chn_prefix']??'有限公司',
+                        'eng_name' => $name['eng_name'],
+                        'chn_name' => $name['chn_name'],
                         'choice_level' => $name['choice_level'],
+                         'chn_prefix'=>  $name['chn_prefix'],
+                         'eng_prefix'=>  $name['prefix'],
                         'company_id' => $initiateCompany->id
                     ]);
                     $names[] = $store;     
@@ -88,6 +96,11 @@ class CompanyServices  implements CompanyFormationInterface
                     'name' => $names
                 ];
             }
+        }else{
+            return [
+                'error' => 'An error occured',
+            ];
+        }
         } catch (\Exception $e) {
             DB::rollBack();
             return ['error' => $e->getMessage()];
@@ -109,8 +122,9 @@ class CompanyServices  implements CompanyFormationInterface
         $company = Company::whereId($addressDto->company_id)->first();
         if($company){
         $company->update([
-            'address' =>  $addressDto->address,
-            'street_no' => $addressDto->street_no,
+            'flat' =>  $addressDto->flat,
+            'building' => $addressDto->building,
+            'street' => $addressDto->street,
             'city' => $addressDto->city,
             'state' => $addressDto->state,
             'postal_code' => $addressDto->postal_code,

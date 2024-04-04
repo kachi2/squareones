@@ -15,7 +15,7 @@
                     </select>
                 </div>
                 <div class="col-md-8">
-                    <label class=" fw-bolder">Name in English</label>
+                    <label class=" fw-bolder">Name in English <i class="bi bi-lock-fill"></i></label>
                     <input disabled v-model="form.name" type="text" class="form-control" placeholder="Name in English">
                 </div>
                 <!-- <div class="col-md-8">
@@ -23,17 +23,17 @@
                     <input v-model="form.chn_name" type="text" class="form-control" placeholder="Name in Chinese">
                 </div> -->
                 <div class="col-md-8">
-                    <label class=" fw-bolder">Company registration no</label>
+                    <label class=" fw-bolder">Company registration no <i class="bi bi-lock-fill"></i></label>
                     <input disabled v-model="form.company_reg_no" type="text" class="form-control"
                         placeholder="Company registration no">
                 </div>
                 <div class="col-md-8">
-                    <label class=" fw-bolder">Company license no</label>
+                    <label class=" fw-bolder">Company license no <i class="bi bi-lock-fill"></i></label>
                     <input disabled v-model="form.licence_no" type="text" class="form-control"
                         placeholder="Company registration no">
                 </div>
                 <div class="col-md-8">
-                    <label class=" fw-bolder">Country registered in</label>
+                    <label class=" fw-bolder">Country registered in <i class="bi bi-lock-fill"></i></label>
                     <select disabled class="form-select" v-model="form.country_registered">
                         <option selected value="Hong Kong">Hong Kong</option>
                     </select>
@@ -42,16 +42,18 @@
 
 
             <section class="section">
-                <div class="fw-bolder">Address </div>
+                <div class="fw-bolder">Address <i class="bi bi-lock-fill"></i></div>
                 <div class="row g-2 mt-1">
                     <div class="col-12">
                         <input disabled v-model="form.address" class="form-control" type="text"
                             placeholder="Flat／Floor／Block">
                     </div>
                     <div class="col-12">
+                        <div class="fw-bolder">City <i class="bi bi-lock-fill"></i></div>
                         <input disabled v-model="form.city" class="form-control" type="text" placeholder="City">
                     </div>
                     <div class="col-12">
+                        <div class="fw-bolder">State <i class="bi bi-lock-fill"></i></div>
                         <input disabled v-model="form.state" class="form-control" type="text" placeholder="State">
                     </div>
                     <!-- <div class="col-12">
@@ -59,6 +61,7 @@
                             placeholder="Postal Code">
                     </div> -->
                     <div class="col-md-12">
+                        <div class="fw-bolder">Country <i class="bi bi-lock-fill"></i></div>
                         <select disabled class="form-select" v-model="form.country">
                             <option selected value="Hong Kong">Hong Kong</option>
                         </select>

@@ -72,13 +72,16 @@ class CompanyEntityService implements CompanyEnityInterface
     {
             $address = $request->addresses[0];
             $datas = IndividualResAddress::updateOrCreate([
-                'individual_id' => $individual->id ,
-                'address' => $address['address'],
-                'street_no'  => $address['street_no'],
-                'city'  => $address['city'],
-                'state' => $address['state'],
-                'postal_code'  => $address['postal_code'],
-                'country' => $address['country'],
+                'individual_id' => $individual->id,
+            ],[
+                'individual_id' => $individual->id,
+                'flat'=>  $address['flat']??null,
+                'building'=>  $address['building']??null,
+                'street' => $address['street']??null,
+                'city'=>  $address['city']??null,
+                'state'=>  $address['state']??null,
+                'postal_code'=>  $address['postal_code']??null,
+                'country'=>  $address['country']??null,
                 'is_corAddress' => $address['is_corAddress']
             ]);
             if($address['is_corAddress'] != 1){
@@ -87,12 +90,13 @@ class CompanyEntityService implements CompanyEnityInterface
                     'individual_id' => $individual->id
                 ],[
                     'individual_id' => $individual->id,
-                    'address' => $addressCor['address']??null,
-                    'street_no'  => $addressCor['street_no']??null,
-                    'city'  => $addressCor['city']??null,
-                    'state' => $addressCor['state']??null,
-                    'postal_code'  => $addressCor['postal_code']??null,
-                    'country' => $addressCor['country']??null
+                    'flat'=>  $addressCor['flat']??null,
+                    'building'=>  $addressCor['building']??null,
+                    'street' => $addressCor['street']??null,
+                    'city'=>  $addressCor['city']??null,
+                    'state'=>  $addressCor['state']??null,
+                    'postal_code'=>  $addressCor['postal_code']??null,
+                    'country'=>  $addressCor['country']??null,
                 ]);
             }
             return [
@@ -110,8 +114,9 @@ class CompanyEntityService implements CompanyEnityInterface
             'chn_company_name'=>  $request->chn_company_name,
             'date_incorporated'=>  $request->date_incorporated,
             'country_registered'=>  $request->country_registered,
-            'address'=>  $request->address,
-            'street_no'=>  $request->street_no,
+            'flat'=>  $request->flat,
+            'building'=>  $request->building,
+            'street' => $request->street,
             'city'=>  $request->city,
             'state'=>  $request->state,
             'postal_code'=>  $request->postal_code,

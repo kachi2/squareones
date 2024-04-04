@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('individual_res_addresses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('individual_id')->constrained()->unsigned();
-            $table->string('address')->nullable();
-            $table->string('street_no')->nullable();
+            $table->string('flat')->nullable();
+            $table->string('street')->nullable();
+            $table->string('building')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->string('postal_code')->nullable();

@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('company_id')->constrained()->unsigned();
             $table->string('eng_name')->nullable();
             $table->string('chn_name')->nullable();
+            $table->string('eng_prefix')->nullable();
+            $table->string('chn_prefix')->nullable();
             $table->integer('choice_level')->nullable()->comment('number from 1 - 5');
             $table->timestamps();
 
