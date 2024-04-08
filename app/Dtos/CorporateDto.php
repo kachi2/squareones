@@ -11,8 +11,8 @@ class CorporateDto extends BaseDto
     public readonly string $company_name,
     public readonly string $date_incorporated,
     public readonly string $country_registered, 
-    public readonly string $street,
-    public readonly string $city,
+    public readonly ?string $street,
+ 
     public readonly string $state, 
     public readonly string $country,
     public readonly string $phone,
@@ -26,6 +26,7 @@ class CorporateDto extends BaseDto
     public readonly ?string $postal_code = null, 
     public readonly ?string $flat = null,
     public readonly ?string $building = null,
+    public readonly ?string $city = null,
     
     )
     { 

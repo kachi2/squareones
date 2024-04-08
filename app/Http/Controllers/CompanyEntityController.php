@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Dtos\CorporateDto;
 use App\Dtos\IndividualDto;
+use App\Models\CompanyEntity;
 use App\Models\IdentityType;
 use App\Services\CompanyEntityService;
 use Illuminate\Http\Request;
@@ -28,6 +29,10 @@ class CompanyEntityController extends Controller
     }
     public function StoreEntity(Request $request)
     {
+        $check = CompanyEntity::where('company_id', $request->company_id)->get();
+        if(count($check) >= 6){
+           return response()->json(['error' => 'You cannot add more than 6 founders/directors']); 
+        }
         try {
             DB::beginTransaction();
             $company_entity = $this->EntityInterface->SaveParentEntity($request);

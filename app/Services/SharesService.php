@@ -63,7 +63,7 @@ class SharesService implements SharesInterface
         }
         }
         foreach($shareholder as $shareholders){
-            $shares[] = CompanyEntity::where('id', $shareholders)->first()->load('Individual', 'Corporate');
+            $shares[] = CompanyEntity::where('id', $shareholders)->first()->load('Individual', 'Corporate', 'share');
         };
         return [
            'data' => $shares

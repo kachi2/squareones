@@ -33,6 +33,10 @@ class CompanyEntity extends Model
         return $this->hasOne(Corporate::class, 'company_entity_id', 'id');
     }
 
+    public function share(){
+        return $this->hasOne(OwnershipShare::class);
+    }
+
     // public function individualFounder(){
     //     return $this->hasMany(Individual::class, 'company_entity_id', 'id');
     // }

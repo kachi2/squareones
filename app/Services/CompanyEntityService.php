@@ -19,10 +19,7 @@ class CompanyEntityService implements CompanyEnityInterface
 
     public function SaveParentEntity($request)
     {
-            $entity = CompanyEntity::updateOrCreate(
-                [
-                'id' => $request->company_entity,
-                ],
+            $entity = CompanyEntity::Create(
                 [
                 'company_id' => $request->company_id,
                 'entity_type_id' => $request->entity_type_id,
@@ -150,6 +147,7 @@ class CompanyEntityService implements CompanyEnityInterface
             ];
             $entity->Individual?->corAddress?->delete();
             $entity->Individual?->resAddress?->delete();
+            $entity->Individual?->getIdentity?->delete();
             $entity->Individual?->delete();
             $entity->delete();
             return response()->json(['data' => $data]);
