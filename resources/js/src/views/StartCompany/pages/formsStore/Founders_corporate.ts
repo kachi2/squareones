@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { defineStore } from 'pinia'
 import { useForm } from 'vee-validate';
+import { useStorage } from '@vueuse/core'
 // @ts-ignore
 import * as yup from 'yup';
 
@@ -12,32 +13,35 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
         return pattern.test(value)
     }
 
+
+
     const rules = {
-        chn_company_name: yup.string().required('').test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
+        chn_company_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
 
-        company_name: yup.string().required(''),
-        address: yup.string().required(''),
-        street_no: yup.string().required(''),
-        date_incorporated: yup.string().required(''),
-        is_founder: yup.string().required(''),
-        country_registered: yup.string().required(''),
-        state: yup.string().required(''),
-        city: yup.string().required(''),
-        country: yup.string().required(''),
-        postal_code: yup.string().required(''),
-        registeration_no: yup.string().required(''),
+        company_name: yup.string(),
+        flat: yup.string().required(' Flat is required'),
+        building: yup.string().required(' building is required '),
+        street: yup.string().required(' Street is required'),
+        date_incorporated: yup.string().required('Date incorporated is required'),
+        is_founder: yup.string(),
+        country_registered: yup.string().required('Company date of registration is required'),
+        state: yup.string().required('State/City is required'),
+        // city: yup.string().required('city is required'),
+        country: yup.string().required('country is required'),
+        postal_code: yup.string(),
+        registeration_no: yup.string().required('Company registration number is required '),
 
-        business_nature_id: yup.string().required(''),
-        phone: yup.string().required(''),
-        email: yup.string().required(''),
-        confirm_email: yup.string().required(''),
-        first_name: yup.string().required(''),
-        last_name: yup.string().required(''),
+        business_nature_id: yup.string().required('Business nature Id is required'),
+        phone: yup.string().required('phone number is required'),
+        email: yup.string().email().required('Email is required'),
+        confirm_email: yup.string().email(),
+        first_name: yup.string().required('First name is required'),
+        last_name: yup.string().required('Last name is requied'),
     };
+
 
     const { errors, handleSubmit, defineField, setFieldValue } = useForm({
         validationSchema: yup.object(rules),
-
         initialValues: {
             date_incorporated: new Date(),
             entity_type_id: '2',
@@ -51,10 +55,11 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
     const [company_name] = defineField('company_name');
     const [chn_company_name] = defineField('chn_company_name');
     const [date_incorporated] = defineField('date_incorporated');
-    const [address] = defineField('address');
-    const [street_no] = defineField('street_no');
+    const [flat] = defineField('flat');
+    const [building] = defineField('building');
+    const [street] = defineField('street');
     const [state] = defineField('state');
-    const [city] = defineField('city');
+    // const [city] = defineField('city');
     const [country] = defineField('country');
 
     const [postal_code] = defineField('postal_code');
@@ -70,16 +75,91 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
     const [last_name] = defineField('last_name');
     const isSaving = false
 
+    // localStorage
+    const company_name_storage = useStorage('squareOne-fCop-company_name', '');
+    const chn_company_name_storage = useStorage('squareOne-fCop-chn_company_name', '');
+    const flat_storage = useStorage('squareOne-fCop-flat', '');
+    const building_storage = useStorage('squareOne-fCop-building', '');
+    const street_storage = useStorage('squareOne-fCop-street', '');
+    const state_storage = useStorage('squareOne-fCop-state', '');
+
+    const country_storage = useStorage('squareOne-fCop-country', '');
+    const postal_code_storage = useStorage('squareOne-fCop-postal_code', '');
+    const registeration_no_storage = useStorage('squareOne-fCop-registeration_no', '');
+    const country_registered_storage = useStorage('squareOne-fCop-country_registered', '');
+
+    const phone_storage = useStorage('squareOne-fCop-phone', '');
+    const email_storage = useStorage('squareOne-fCop-email', '');
+    const confirm_email_storage = useStorage('squareOne-fCop-confirm_email', '');
+    const first_name_storage = useStorage('squareOne-fCop-first_name', '');
+    const last_name_storage = useStorage('squareOne-fCop-last_name', '');
+
+    function saveToLocalStorage() {
+        if (company_name.value) company_name_storage.value = company_name.value
+        if (chn_company_name.value) chn_company_name_storage.value = chn_company_name.value
+        if (registeration_no.value) registeration_no_storage.value = registeration_no.value
+        if (country_registered.value) country_registered_storage.value = country_registered.value
+
+
+        if (flat.value) flat_storage.value = flat.value
+        if (building.value) building_storage.value = building.value
+        if (street.value) street_storage.value = street.value
+        if (state.value) state_storage.value = state.value
+        if (country.value) country_storage.value = country.value
+        if (postal_code.value) postal_code_storage.value = postal_code.value
+
+        if (phone.value) phone_storage.value = phone.value
+        if (email.value) email_storage.value = email.value
+        if (confirm_email.value) confirm_email_storage.value = confirm_email.value
+        if (first_name.value) first_name_storage.value = first_name.value
+        if (last_name.value) last_name_storage.value = last_name.value
+    }
+
+    function updateFields(companyInProgress: any) {
+        if (flat_storage.value.length > 1)
+            flat.value = flat_storage.value
+        if (building_storage.value.length > 1)
+            building.value = building_storage.value
+        if (street_storage.value.length > 1)
+            street.value = street_storage.value
+        if (state_storage.value.length > 1)
+            state.value = state_storage.value
+        if (country_storage.value.length > 1)
+            country.value = country_storage.value
+        if (postal_code_storage.value.length > 1)
+            postal_code.value = postal_code_storage.value
+
+        if (phone_storage.value.length > 1)
+            phone.value = phone_storage.value
+        if (email_storage.value.length > 1)
+            email.value = email_storage.value
+        if (confirm_email_storage.value.length > 1)
+            confirm_email.value = confirm_email_storage.value
+        if (first_name_storage.value.length > 1)
+            first_name.value = first_name_storage.value
+        if (last_name_storage.value.length > 1)
+            last_name.value = last_name_storage.value
+        if (company_name_storage.value.length > 1)
+            company_name.value = company_name_storage.value
+        if (chn_company_name_storage.value.length > 1)
+            chn_company_name.value = chn_company_name_storage.value
+        if (registeration_no_storage.value.length > 1)
+            registeration_no.value = registeration_no_storage.value
+        if (country_registered_storage.value.length > 1)
+            country_registered.value = country_registered_storage.value
+    }
+
 
     return {
         entity_type_id,
         company_name,
         chn_company_name,
         date_incorporated,
-        address,
-        street_no,
+        street,
+        building,
+        flat,
         state,
-        city,
+        // city,
         country,
         postal_code,
         registeration_no,
@@ -96,6 +176,9 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
         errors,
         handleSubmit,
         setFieldValue,
-        emailAttrs
+        emailAttrs,
+
+        updateFields,
+        saveToLocalStorage
     }
 })

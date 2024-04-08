@@ -2,11 +2,14 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import api from '@/stores/Helpers/axios'
 import jsonData from './StartCompany_jsonData.json'
+import { useStorage } from '@vueuse/core'
 
 export const useStartCompanyStore = defineStore('startCompanyStore', () => {
-    const currentStage = ref<number>(0)
+    // const currentStage = ref<number>(0)
+    const currentStage: any = useStorage('squareOneStage', 2, localStorage)
     const isShowingFoundersForm = ref<boolean>(false)
     const isActiveMenu = (stage: number) => currentStage.value == stage
+    const idToEdit = ref<string>('')
 
     const businessNatures = ref<any[]>([])
     const companyInProgress = ref<any>(null)
@@ -50,7 +53,7 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
             console.log(data);
 
             companyInProgress.value = data.company
-            if (!isFromFounder) decideStageToShow()
+            // if (!isFromFounder) decideStageToShow()
         } catch (error) {
             console.log(error);
         }
@@ -73,7 +76,7 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
         if (response.ok) {
             const data = await response.json();
             let names = data.map((country: { name: any; }) => country.name.common)
-            countries.value = names
+            countries.value = names.sort()
         } else {
             console.error('', response.statusText);
         }
@@ -108,6 +111,7 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
         ongoingSourceOfIncome,
         levelOfActivity,
         natureOfActivity,
+        idToEdit,
 
     }
 })

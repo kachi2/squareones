@@ -11,6 +11,11 @@ button:focus,
     border-color: #dee2e6 !important;
 }
 
+.error-field,
+.error-field .vs__search {
+    border: 1px solid red;
+}
+
 
 .vs__search,
 .vs__search,

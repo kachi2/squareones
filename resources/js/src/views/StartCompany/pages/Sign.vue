@@ -65,7 +65,7 @@ import StartCompany_template from '../StartCompany_template.vue';
 import { useStartCompanyStore } from '../StartCompany_store';
 import { VuePDF, usePDF } from '@tato30/vue-pdf'
 
-const { pdf, pages, info } = usePDF('public/nnc1.pdf')
+const { pdf, pages, info } = usePDF('public/ncc1.pdf')
 const currentPage = ref(1);
 
 const startCompanyStore = useStartCompanyStore()

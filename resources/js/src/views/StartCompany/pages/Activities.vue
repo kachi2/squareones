@@ -7,14 +7,16 @@
             </section>
 
             <section class="section">
-                <div class="fw-bold">Describe your expected business activities</div>
+                <div class="fw-bold">Describe your expected business activities <span class="text-danger"> * </span>
+                </div>
                 <div>Provide a brief but clear description of your anticipated business activities.
                     Be as specific as possible to ensure accurate representation in your business
                 </div>
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-8">
-                        <textarea v-model="form.description" class="form-control" rows="5"></textarea>
+                        <textarea :class="{ 'error-field': form.errors.description }" v-model="form.description"
+                            class="form-control" rows="5"></textarea>
                         <small class=" text-danger">{{ form.errors.description }}</small>
                         <small class="float-end">{{ wordCount }}/{{ maxCharCount }}</small>
                     </div>
@@ -22,14 +24,14 @@
             </section>
 
             <section class="section">
-                <div class="fw-bold">Level of activity</div>
+                <div class="fw-bold">Level of activity <span class="text-danger"> * </span></div>
                 <div>Select the volume and frequency of transactions your business expects to handle.
                 </div>
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-8">
-                        <v-select v-model="form.activity_level" :clearable="false"
-                            :options="startCompanyStore.levelOfActivity" />
+                        <v-select :class="{ 'error-field': form.errors.activity_level }" v-model="form.activity_level"
+                            :clearable="false" :options="startCompanyStore.levelOfActivity" />
                         <small class=" text-danger">{{ form.errors.activity_level }}</small>
                     </div>
 
@@ -37,14 +39,14 @@
             </section>
 
             <section class="section">
-                <div class="fw-bold">Nature of activity</div>
+                <div class="fw-bold">Nature of activity <span class="text-danger"> * </span></div>
                 <div>Choose the main industry or sector that best represents your business operations.
                 </div>
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-8">
-                        <v-select v-model="form.activity_nature" :clearable="false"
-                            :options="startCompanyStore.natureOfActivity" />
+                        <v-select :class="{ 'error-field': form.errors.activity_nature }" v-model="form.activity_nature"
+                            :clearable="false" :options="startCompanyStore.natureOfActivity" />
                         <small class=" text-danger">{{ form.errors.activity_nature }}</small>
                     </div>
 
@@ -52,7 +54,7 @@
             </section>
 
             <section class="section">
-                <div class="fw-bold">Customer location and operation</div>
+                <div class="fw-bold">Customer location and operation <span class="text-danger"> * </span></div>
                 <div>Indicate the primary countries where your company will actively conduct business or serve
                     customers.
                 </div>
@@ -68,7 +70,7 @@
             </section>
 
             <section class="section">
-                <div class="fw-bold">List of countries</div>
+                <div class="fw-bold">List of countries <span class="text-danger"> * </span></div>
                 <div>List all additional countries where your company will have business activities or customer
                     interactions.
                 </div>
@@ -137,7 +139,7 @@
     </StartCompany_template>
 </template>
 <script lang="ts" setup>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, watch } from 'vue';
 import StartCompany_template from '../StartCompany_template.vue';
 import { useStartCompanyStore } from '../StartCompany_store';
 
@@ -149,18 +151,12 @@ const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
 const form = activitiesForm()
 
-
 onMounted(() => {
-    // form.description = startCompanyStore.companyInProgress?.activity?.description ?? ''
-    // form.activity_level = startCompanyStore.companyInProgress?.activity?.activity_level ?? ''
-    // form.activity_nature = startCompanyStore.companyInProgress?.activity?.activity_nature ?? ''
-
-    // const locations = startCompanyStore.companyInProgress?.activity?.customer_location_operation ?? ''
-    // form.customer_location_operation = locations !== '' ? locations.split(',') : ''
-
-    // const countries = startCompanyStore.companyInProgress?.activity?.country ?? ''
-    // form.country = countries !== '' ? countries.split(',') : ''
+    form.updateFields(startCompanyStore.companyInProgress)
 })
+
+watch(() => form, () => { form.saveToLocalStorage() }, { deep: true })
+
 
 function moveBack() {
     startCompanyStore.switchStage('-')
@@ -173,6 +169,12 @@ const saveAndContinue = form.handleSubmit(async (values) => {
         startCompanyStore.switchStage('-', 2)
         return;
     }
+
+    if (Object.keys(form.errors).length > 0) {
+        toast.default("Some fields still have errors", { position: 'top-right' });
+        return true;
+    }
+
 
     if (!form.customer_location_operation || !form.country) {
         toast.default('Please complete all fields', { position: 'top-right' })
@@ -197,7 +199,7 @@ async function saveFromToApi(formData: FormData) {
 
         toast.success('Data Saved Successfully', { position: 'top-right' });
         form.isSaving = false
-        // startCompanyStore.switchStage('+')
+        startCompanyStore.switchStage('+')
         startCompanyStore.getCompanyInProgress()
 
     } catch (error) {
@@ -212,7 +214,7 @@ async function saveFromToApi(formData: FormData) {
 // counting characters
 const maxCharCount = 150
 const wordCount = computed(() => {
-    return form.description.length;
+    return form?.description?.length ?? 0;
 });
 
 

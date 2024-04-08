@@ -14,14 +14,16 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-6">
-                        <input v-maska data-maska="A a" data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
+                        <input :class="{ 'error-field': form.errors.choice_level1_eng_name }" v-maska data-maska="A a"
+                            data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
                             v-model="form.choice_level1_eng_name" type="text" class="form-control"
                             placeholder="This text for English name">
                         <small class=" text-danger">{{ form.errors.choice_level1_eng_name }}</small>
                     </div>
                     <div class="col-md-6">
                         <select v-model="form.choice_level1_prefix" class="form-select">
-                            <option selected :value="'Limited'">Limited</option>
+
+                            <option :value="'Limited'">Limited</option>
                             <option :value="'LIMITED'">LIMITED</option>
                         </select>
                     </div>
@@ -32,14 +34,15 @@
                     </div>
                     <div class="col-md-6">
                         <select v-model="form.choice_level1_chn_prefix" class="form-select">
-                            <option selected :value="'有限公司'">有限公司</option>
+
+                            <option :value="'有限公司'">有限公司</option>
                         </select>
                     </div>
                 </div>
             </section>
 
             <section class="section" v-if="form.isSecond">
-                <div class="fw-bolder">Secondary Choice</div>
+                <div class="fw-bolder">Secondary Choices</div>
                 <div>These are alternative names you would consider should your primary choice be unavailable. List
                     them in descending order of preference.</div>
                 <div class="row g-2 mt-1">
@@ -51,7 +54,8 @@
                     </div>
                     <div class="col-md-6">
                         <select v-model="form.choice_level2_prefix" class="form-select">
-                            <option selected :value="'Limited'">Limited</option>
+
+                            <option :value="'Limited'">Limited</option>
                             <option :value="'LIMITED'">LIMITED</option>
                         </select>
                     </div>
@@ -62,11 +66,17 @@
                     </div>
                     <div class="col-md-6">
                         <select v-model="form.choice_level2_chn_prefix" class="form-select">
-                            <option selected :value="'有限公司'">有限公司</option>
+
+                            <option :value="'有限公司'">有限公司</option>
                         </select>
                     </div>
                 </div>
-
+                <div class="p-1">
+                    <button v-if="form.isSecond || form.isThird || form.isForth || form.isFifth"
+                        @click="removeForm('isSecond')" class="btn btn-outline-danger me-3">
+                        <i class="bi bi-x-circle"></i> Remove
+                    </button>
+                </div>
             </section>
 
             <section class="section" v-if="form.isThird">
@@ -84,7 +94,8 @@
                     </div>
                     <div class="col-md-6">
                         <select v-model="form.choice_level3_prefix" class="form-select">
-                            <option selected :value="'Limited'">Limited</option>
+
+                            <option :value="'Limited'">Limited</option>
                             <option :value="'LIMITED'">LIMITED</option>
                         </select>
                     </div>
@@ -95,9 +106,16 @@
                     </div>
                     <div class="col-md-6">
                         <select v-model="form.choice_level3_chn_prefix" class="form-select">
-                            <option selected :value="'有限公司'">有限公司</option>
+
+                            <option :value="'有限公司'">有限公司</option>
                         </select>
                     </div>
+                </div>
+                <div class="p-1">
+                    <button v-if="form.isSecond || form.isThird || form.isForth || form.isFifth"
+                        @click="removeForm('isThird')" class="btn btn-outline-danger me-3">
+                        <i class="bi bi-x-circle"></i> Remove
+                    </button>
                 </div>
             </section>
 
@@ -116,7 +134,8 @@
                     </div>
                     <div class="col-md-6">
                         <select v-model="form.choice_level4_prefix" class="form-select">
-                            <option selected :value="'Limited'">Limited</option>
+
+                            <option :value="'Limited'">Limited</option>
                             <option :value="'LIMITED'">LIMITED</option>
                         </select>
                     </div>
@@ -127,9 +146,16 @@
                     </div>
                     <div class="col-md-6">
                         <select v-model="form.choice_level4_chn_prefix" class="form-select">
-                            <option selected :value="'有限公司'">有限公司</option>
+
+                            <option :value="'有限公司'">有限公司</option>
                         </select>
                     </div>
+                </div>
+                <div class="p-1">
+                    <button v-if="form.isSecond || form.isThird || form.isForth || form.isFifth"
+                        @click="removeForm('isForth')" class="btn btn-outline-danger me-3">
+                        <i class="bi bi-x-circle"></i> Remove
+                    </button>
                 </div>
             </section>
 
@@ -147,7 +173,8 @@
                     </div>
                     <div class="col-md-6">
                         <select v-model="form.choice_level5_prefix" class="form-select">
-                            <option selected :value="'Limited'">Limited</option>
+
+                            <option :value="'Limited'">Limited</option>
                             <option :value="'LIMITED'">LIMITED</option>
                         </select>
                     </div>
@@ -158,21 +185,29 @@
                     </div>
                     <div class="col-md-6">
                         <select v-model="form.choice_level5_chn_prefix" class="form-select">
-                            <option selected :value="'有限公司'">有限公司</option>
+
+                            <option :value="'有限公司'">有限公司</option>
                         </select>
                     </div>
+                </div>
+                <div class="p-1">
+                    <button v-if="form.isSecond || form.isThird || form.isForth || form.isFifth"
+                        @click="removeForm('isFifth')" class="btn btn-outline-danger me-3">
+                        <i class="bi bi-x-circle"></i> Remove
+                    </button>
                 </div>
             </section>
 
             <div>
-                <button v-if="form.isSecond || form.isThird || form.isForth || form.isFifth" @click="removeForm"
+                <!-- <button v-if="form.isSecond || form.isThird || form.isForth || form.isFifth" @click="removeForm"
                     class="btn btn-outline-danger me-3">
                     <i class="bi bi-x-circle"></i> Remove
-                </button>
+                </button> -->
                 <button :disabled="form.isThird && form.isForth && form.isFifth" @click="addForm"
                     class="btn btn-outline-secondary">
                     <i class="bi bi-plus-circle"></i> Add another name
                 </button>
+
             </div>
 
             <div class="movement-buttons my-5">
@@ -235,11 +270,19 @@ import { useToast } from 'vue-toast-notification';
 import api from '@/stores/Helpers/axios'
 import { nameForm } from './formsStore/Name';
 import { vMaska } from "maska"
+import { ref, onMounted, watch } from 'vue'
 
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
 
 const form: any = nameForm()
+let formId = <any>ref('')
+
+onMounted(() => {
+    form.updateFields(startCompanyStore.companyInProgress)
+})
+
+watch(() => form, () => { form.saveToLocalStorage() }, { deep: true })
 
 function addForm() {
     for (var field of ['isSecond', 'isThird', 'isForth', 'isFifth']) {
@@ -250,14 +293,16 @@ function addForm() {
     }
 }
 
-function removeForm() {
-    for (let field of ['isFifth', 'isForth', 'isThird', 'isSecond']) {
-        if (form[field]) {
-            form[field] = false
-            return;
-        }
+function removeForm(field: any) {
+    // for (let field of ['isFifth', 'isForth', 'isThird', 'isSecond']) {
+    if (form[field]) {
+        form[field] = false
+        console.log(form)
+        return;
     }
+    // }
 }
+
 
 function moveBack() {
     startCompanyStore.switchStage('-')
@@ -270,6 +315,12 @@ function saveAndContinue() {
     // if (isThird.value && checkFields(choice_level3.value)) return;
     // if (isForth.value && checkFields(choice_level4.value)) return;
     // if (isFifth.value && checkFields(choice_level5.value)) return;
+
+    console.log(form.errors)
+    if (Object.keys(form.errors).length > 0) {
+        toast.default("Some fields still have errors", { position: 'top-right' });
+        return true;
+    }
 
     const formData = new FormData()
 
@@ -330,12 +381,14 @@ function checkFields(level: any, msg?: string) {
 async function saveFromToApi(formData: FormData) {
     try {
         await api.registerCompany(formData)
+        console.log(formData)
         toast.success('Data Saved Successfully', { position: 'top-right' });
         form.isSaving = false
-        // startCompanyStore.switchStage('+')
+        startCompanyStore.switchStage('+')
         startCompanyStore.getCompanyInProgress()
 
     } catch (error) {
+
         toast.error('Sorry, Something went wrong', { position: 'top-right' });
         form.isSaving = false
     }

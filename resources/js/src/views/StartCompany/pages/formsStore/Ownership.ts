@@ -10,6 +10,7 @@ export const ownershipForm = defineStore('ownership', () => {
     const currency = ref('')
     const isSaving = false
 
+
     const shareHolders = ref<any>([])
 
     return {
@@ -18,6 +19,6 @@ export const ownershipForm = defineStore('ownership', () => {
         total_amount_paid,
         currency,
         isSaving,
-        shareHolders
+        shareHolders,
     }
 })

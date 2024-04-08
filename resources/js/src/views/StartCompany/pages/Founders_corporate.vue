@@ -25,19 +25,20 @@
 
         <section class="row g-2 section">
             <div class="col-md-6">
-                <label class="form-label fw-bold">Date of incorporation </label>
+                <label class="form-label fw-bold">Date of Incorporation <span class="text-danger"> * </span> </label>
                 <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false" :max-date="new Date()"
                     :enable-time-picker="false" auto-apply v-model="form.date_incorporated">
                 </VueDatePicker>
             </div>
 
             <div class="col-md-6">
-                <label class="form-label fw-bold">Company registration number</label>
-                <input v-model="form.registeration_no" class="form-control" type="text" placeholder="registration no">
+                <label class="form-label fw-bold">Company Registration Number <span class="text-danger"> *
+                    </span></label>
+                <input v-model="form.registeration_no" class="form-control" type="text" placeholder="Registration no">
                 <small class=" text-danger">{{ form.errors.registeration_no }}</small>
             </div>
             <div class="col-12">
-                <label class="form-label fw-bold">Business nature</label>
+                <label class="form-label fw-bold">Business nature <span class="text-danger"> * </span></label>
                 <v-select v-model="form.business_nature_id" :clearable="false"
                     :options="startCompanyStore.businessNatures" :reduce="(item: any) => item.id" label="name" />
                 <small class=" text-danger">{{ form.errors.business_nature_id }}</small>
@@ -46,40 +47,49 @@
 
         <section class="section">
             <div class="fw-bolder">Address </div>
-            <div class="row g-2 mt-1">
+
+            <div class="row g-3 mt-1">
                 <div class="col-12">
-                    <input v-model="form.address" class="form-control" type="text" placeholder="Flat／Floor／Block">
-                    <small class=" text-danger">{{ form.errors.address }}</small>
+                    <label class="form-label">室 ／樓 ／座 等 Flat／Floor／Block <small class=" text-danger">*</small> </label>
+                    <input v-model="form.flat" class="form-control" type="text" placeholder="Flat／Floor／Block">
+                    <small class=" text-danger">{{ form.errors.flat }}</small>
                 </div>
                 <div class="col-12">
-                    <input v-model="form.street_no" class="form-control" type="text" placeholder="Street number">
-                    <small class=" text-danger">{{ form.errors.street_no }}</small>
+                    <label class="form-label">大 廈 Building <small class=" text-danger">*</small></label>
+                    <input v-model="form.building" class="form-control" type="text" placeholder="building number">
+                    <small class=" text-danger">{{ form.errors.building }}</small>
                 </div>
                 <div class="col-12">
-                    <input v-model="form.city" class="form-control" type="text" placeholder="City">
-                    <small class=" text-danger">{{ form.errors.city }}</small>
+                    <label class="form-label"> 街 道 ／屋 苑 ／地 段 ／村 等 Street／Estate／Lot／Village <small
+                            class=" text-danger">*</small></label>
+
+                    <input v-model="form.street" class="form-control" type="text" placeholder="Street">
+                    <small class=" text-danger">{{ form.errors.street }}</small>
                 </div>
                 <div class="col-12">
-                    <input v-model="form.state" class="form-control" type="text" placeholder="State">
+                    <label class="form-label">區／市／省／州／郵遞區號等 District／City／ Province／State／ Postal Code <small
+                            class=" text-danger">*</small></label>
+                    <input v-model="form.state" class="form-control" type="text" placeholder="State/City">
                     <small class=" text-danger">{{ form.errors.state }}</small>
                 </div>
-                <div class="col-12">
-                    <input v-model="form.postal_code" class="form-control" type="text" placeholder="Postal Code">
-                    <small class=" text-danger">{{ form.errors.postal_code }}</small>
-                </div>
+                <!-- <div class="col-12" hidden>
+                        <label class="form-label">Postal Code: <i class="bi bi-lock-fill"></i></label>
+                        <input v-model="form.city" :value="city" class="form-control" type="text"
+                            placeholder=" ">
+                        <small class=" text-danger">{{ form.errors.city }}</small>
+                    </div> -->
                 <div class="col-md-12">
-                    <!-- <select class="form-select" v-model="form.country"> -->
+                    <label class="form-label">國 家 ／地 區 Country／Region <small class=" text-danger">*</small></label>
                     <v-select placeholder="select country.." v-model="form.country" :clearable="false"
                         :options="startCompanyStore.countries" />
-                    <!-- <option selected value="Hong Kong">Hong Kong</option> -->
-                    <!-- </select> -->
+                    <small class=" text-danger">{{ form.errors.country }}</small>
                 </div>
             </div>
         </section>
 
         <section class="row g-2 section">
             <div class="col-md-10">
-                <label class=" fw-bolder">Authorised Person</label>
+                <label class=" fw-bolder">Authorised Person <span class="text-danger"> * </span></label>
                 <div class="row g-2">
                     <div class="col-md-6">
                         <input v-model="form.first_name" type="text" class="form-control" placeholder="first name..">
@@ -91,21 +101,26 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-md-8">
-                <label class=" fw-bolder">Phone number</label>
-                <input v-maska data-maska="99#" data-maska-tokens="9:[0-9]:repeated" data-maska-reversed
-                    v-model="form.phone" type="text" class="form-control" placeholder="phone number">
+                <label class=" fw-bolder">Phone number <span class="text-danger"> * </span></label>
+                <vue-tel-input :inputOptions="phoneField.input" :dropdownOptions="phoneField.dropDown"
+                    :autoFormat="true" v-model="form.phone"></vue-tel-input>
                 <small class=" text-danger">{{ form.errors.phone }}</small>
+                <!-- <div class="input-group">
+                    
+                    <input v-maska data-maska="99#" data-maska-tokens="9:[0-9]:repeated" data-maska-reversed
+                        v-model="form.phone" type="text" class="form-control" placeholder="phone number">
+                    <small class=" text-danger">{{ form.errors.phone }}</small>
+                </div> -->
             </div>
             <div class="col-md-8">
-                <label class=" fw-bolder">Email</label>
+                <label class=" fw-bolder">Email <span class="text-danger"> * </span></label>
                 <input v-model="form.email" v-bind="form.emailAttrs" type="text" class="form-control"
                     placeholder="email">
                 <small class=" text-danger">{{ form.errors.email }}</small>
             </div>
             <div class="col-md-8">
-                <label class=" fw-bolder">Confirm email</label>
+                <label class=" fw-bolder">Confirm email <span class="text-danger"> * </span></label>
                 <input v-model="form.confirm_email" type="text" class="form-control" placeholder="confirm email">
                 <small class=" text-danger">{{ form.errors.confirm_email }}</small>
             </div>
@@ -124,7 +139,7 @@
                 <i class="bi bi-arrow-left"></i> Back
             </button>
             <button v-if="!form.isSaving" @click="saveAndContinue" class="btn btn-primary">
-                Save Record <i class="bi bi-check2"></i>
+                Save and Continue <i class="bi bi-check2"></i>
             </button>
             <button v-else class="btn btn-primary" type="button" disabled>
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -142,20 +157,29 @@ import { useToast } from 'vue-toast-notification';
 import useFxn from '@/stores/Helpers/useFunctions';
 import { foundersCorporateForm } from './formsStore/Founders_corporate'
 import { vMaska } from "maska"
+import { onMounted, watch } from 'vue';
 
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
+// console.log(startCompanyStore.getCountryCode())
 
 const form: any = foundersCorporateForm()
+
+
+onMounted(() => {
+    form.updateFields(startCompanyStore.companyInProgress)
+})
+
+watch(() => form, () => { form.saveToLocalStorage() }, { deep: true })
 
 function resetForm() {
     form.company_name = ''
     form.chn_company_name = ''
     form.date_incorporated = new Date()
-    form.address = ''
-    form.street_no = ''
+    form.flat = ''
+    form.building = ''
+    form.street = ''
     form.state = ''
-    form.city = ''
     form.country = 'Hong Kong'
 
     form.postal_code = ''
@@ -173,15 +197,38 @@ function resetForm() {
     startCompanyStore.checkedEntityCapacity = []
 }
 
+const phoneField = {
+    dropDown: {
+        showDialCodeInSelection: false,
+        showFlags: true,
+        showSearchBox: true,
+        showDialCodeInList: true,
+
+    },
+    input: {
+        showDialCode: true,
+        placeholder: 'Enter phone',
+        styleClasses: 'phone-input-profile'
+    }
+
+}
+
 function moveBack() {
     startCompanyStore.switchStage('-')
 }
 
-const saveAndContinue = form.handleSubmit(async (values: any) => {
+function saveAndContinue() {
+
     if (!startCompanyStore.companyInProgress?.id) {
         toast.default('You have not registered any company name', { position: 'top-right' })
         startCompanyStore.switchStage('-', 2)
         return;
+    }
+
+    console.log(form.errors)
+    if (Object.keys(form.errors).length > 0) {
+        toast.default("Some fields still have errors", { position: 'top-right' });
+        return true;
     }
 
     // if (!form.first_name || !form.last_name || !form.phone || !form.email || !form.date_incorporated || !form.company_name
@@ -198,13 +245,13 @@ const saveAndContinue = form.handleSubmit(async (values: any) => {
     //     return;
     // }
 
-    if (!useFxn.isEmail(values.email)) {
+    if (!useFxn.isEmail(form.email)) {
         toast.default('Invalid email format', { position: 'top-right' })
         return;
     }
 
 
-    if (values.email !== values.confirm_email) {
+    if (form.email !== form.confirm_email) {
         toast.default('Emails do not macth!', { position: 'top-right' })
         return;
     }
@@ -217,31 +264,33 @@ const saveAndContinue = form.handleSubmit(async (values: any) => {
 
     const formData = new FormData;
     formData.append('company_id', startCompanyStore.companyInProgress.id)
+    if (startCompanyStore.idToEdit)
+        formData.append('company_entity_id', startCompanyStore.idToEdit)
     formData.append('entity_capacity_id', JSON.stringify(startCompanyStore.checkedEntityCapacity))
-    formData.append('entity_type_id', values.entity_type_id)
-    formData.append('first_name', values.first_name)
-    formData.append('last_name', values.last_name)
-    formData.append('email', values.email)
-    formData.append('phone', values.phone)
-    formData.append('company_name', values.company_name)
-    formData.append('chn_company_name', values.chn_company_name)
+    formData.append('entity_type_id', form.entity_type_id)
+    formData.append('first_name', form.first_name)
+    formData.append('last_name', form.last_name)
+    formData.append('email', form.email)
+    formData.append('phone', form.phone)
+    formData.append('company_name', form.company_name)
+    formData.append('chn_company_name', form.chn_company_name)
     //@ts-ignore
-    formData.append('date_incorporated', values.date_incorporated)
-    formData.append('address', values.address)
-    formData.append('street_no', values.street_no)
-    formData.append('city', values.city)
-    formData.append('state', values.state)
-    formData.append('country', values.country)
-    formData.append('postal_code', values.postal_code)
-    formData.append('registeration_no', values.registeration_no)
-    formData.append('country_registered', values.country_registered)
-    formData.append('business_nature_id', values.business_nature_id)
+    formData.append('date_incorporated', form.date_incorporated)
+    formData.append('flat', form.flat)
+    formData.append('building', form.building)
+    formData.append('street', form.street)
+    formData.append('state', form.state)
+    formData.append('country', form.country)
+    formData.append('postal_code', form.postal_code)
+    formData.append('registeration_no', form.registeration_no)
+    formData.append('country_registered', form.country_registered)
+    formData.append('business_nature_id', form.business_nature_id)
 
-    formData.append('is_founder', values.is_founder ? '1' : '0')
+    formData.append('is_founder', form.is_founder ? '1' : '0')
 
     form.isSaving = true
     saveFromToApi(formData)
-})
+}
 
 async function saveFromToApi(formData: FormData) {
     try {
@@ -250,7 +299,7 @@ async function saveFromToApi(formData: FormData) {
         form.isSaving = false
         startCompanyStore.getCompanyInProgress('founder')
         startCompanyStore.isShowingFoundersForm = false
-        resetForm()
+        // resetForm()
 
     } catch (error) {
         toast.error('Sorry, Something went wrong', { position: 'top-right' });

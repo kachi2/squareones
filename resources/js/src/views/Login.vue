@@ -115,8 +115,8 @@ const submitForm = handleSubmit(async (values) => {
 
     authStore.login(data.UserToken)
 
-    setFieldValue('email', '');
-    setFieldValue('password', '');
+    // setFieldValue('email', '');
+    // setFieldValue('password', '');
 
     router.push({ name: 'Start' })
   } catch (error: any) {

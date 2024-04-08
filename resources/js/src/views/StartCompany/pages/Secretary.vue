@@ -7,14 +7,14 @@
             </section>
 
             <section class="row g-2">
-                <div class="col-md-8">
-                    <label class=" fw-bolder">Type</label>
+                <div class="col-md-12">
+                    <label class=" fw-bolder">Type <i class="bi bi-lock-fill"></i></label>
                     <select disabled class="form-select">
                         <option seleted value="corporate">Corporate</option>
                         <option value="individual">Individual</option>
                     </select>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <label class=" fw-bolder">Name in English <i class="bi bi-lock-fill"></i></label>
                     <input disabled v-model="form.name" type="text" class="form-control" placeholder="Name in English">
                 </div>
@@ -22,17 +22,17 @@
                     <label class=" fw-bolder">Name in Chinese</label>
                     <input v-model="form.chn_name" type="text" class="form-control" placeholder="Name in Chinese">
                 </div> -->
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <label class=" fw-bolder">Company registration no <i class="bi bi-lock-fill"></i></label>
                     <input disabled v-model="form.company_reg_no" type="text" class="form-control"
                         placeholder="Company registration no">
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <label class=" fw-bolder">Company license no <i class="bi bi-lock-fill"></i></label>
                     <input disabled v-model="form.licence_no" type="text" class="form-control"
                         placeholder="Company registration no">
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <label class=" fw-bolder">Country registered in <i class="bi bi-lock-fill"></i></label>
                     <select disabled class="form-select" v-model="form.country_registered">
                         <option selected value="Hong Kong">Hong Kong</option>
@@ -42,29 +42,42 @@
 
 
             <section class="section">
-                <div class="fw-bolder">Address <i class="bi bi-lock-fill"></i></div>
-                <div class="row g-2 mt-1">
+                <div class="fw-bolder pt-3">Address </div>
+               <div class="row g-3 mt-1">
                     <div class="col-12">
-                        <input disabled v-model="form.address" class="form-control" type="text"
+                        <label class="form-label">室 ／樓 ／座 等 Flat／Floor／Block  <i class="bi bi-lock-fill"></i></label>
+                        <input disabled v-model="form.flat" class="form-control" type="text"
                             placeholder="Flat／Floor／Block">
+                        <!-- <small class=" text-danger">{{ form.errors.flat }}</small> -->
                     </div>
                     <div class="col-12">
-                        <div class="fw-bolder">City <i class="bi bi-lock-fill"></i></div>
-                        <input disabled v-model="form.city" class="form-control" type="text" placeholder="City">
+                        <label class="form-label">大 廈 Building<i class="bi bi-lock-fill"></i></label>
+                        <input disabled v-model="form.building" class="form-control" type="text"
+                            placeholder="Street number">
+                        <!-- <small class=" text-danger">{{ form.errors.building }}</small> -->
                     </div>
                     <div class="col-12">
-                        <div class="fw-bolder">State <i class="bi bi-lock-fill"></i></div>
+                        <label class="form-label"> 街 道 ／屋 苑 ／地 段 ／村 等 Street／Estate／Lot／Village<i class="bi bi-lock-fill"></i></label>
+                   
+                        <input disabled v-model="form.street" class="form-control" type="text" placeholder="City">
+                        <!-- <small class=" text-danger">{{ form.errors.street }}</small> -->
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">區／市／省／州／郵遞區號等 District／City／ Province／State／ Postal Code <i class="bi bi-lock-fill"></i></label>
                         <input disabled v-model="form.state" class="form-control" type="text" placeholder="State">
+                        <!-- <small class=" text-danger">{{ form.errors.state }}</small> -->
                     </div>
                     <!-- <div class="col-12">
+                        <label class="form-label">Postal Code: <i class="bi bi-lock-fill"></i></label>
                         <input disabled v-model="form.postal_code" class="form-control" type="text"
-                            placeholder="Postal Code">
+                            placeholder=" ">
+                        <small class=" text-danger">{{ form.errors.postal_code }}</small>
                     </div> -->
                     <div class="col-md-12">
-                        <div class="fw-bolder">Country <i class="bi bi-lock-fill"></i></div>
-                        <select disabled class="form-select" v-model="form.country">
-                            <option selected value="Hong Kong">Hong Kong</option>
-                        </select>
+                        <label class="form-label">國 家 ／地 區 Country／Region <i class="bi bi-lock-fill"></i></label>
+                        <v-select :disabled="true" placeholder="select country.." v-model="form.country"
+                            :clearable="false" :options="startCompanyStore.countries" />
+                        <!-- <small class=" text-danger">{{ form.errors.country }}</small> -->
                     </div>
                 </div>
             </section>
@@ -103,11 +116,13 @@ const form = reactive({
     company_reg_no: '68891673',
     country_registered: 'Hong Kong',
     licence_no: 'TC000012',
-    address: 'Rooms 502-503, 5th Floor, Wanchai Commercial Centre',
-    city: 'Wanchai',
-    state: '194-204 Johnston Road',
-    // postal_code: '68891673',
+    flat: 'Rooms 502-503, 5th Floor',
+    building:  'Wanchai Commercial Centre',
+    street: '194-204 Johnston Road',
+    postal_code: '',
     country: 'Hong Kong',
+    state: 'Wanchai',
+    city: 'Wanchai',
 })
 
 

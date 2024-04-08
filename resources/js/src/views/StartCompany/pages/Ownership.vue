@@ -8,7 +8,8 @@
             <section class="section">
                 <div class="row g-3 mt-1">
                     <div class="col-md-6 col-lg-3">
-                        <label class="form-labe fw-bold small">Class of shares:</label>
+                        <label class="form-labe fw-bold small">Class of shares: <span class="text-danger"> * </span>
+                        </label>
                         <div class="col-md-12">
                             <select v-model="form.share_type_id" class="form-select">
                                 <option selected value="1">Ordinary</option>
@@ -16,23 +17,26 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-3">
-                        <label class="form-labe fw-bold small">Total no of shares:</label>
+                        <label class="form-labe fw-bold small">Total no of shares: <span class="text-danger"> *
+                            </span></label>
                         <div class="col-md-12">
-                            <input v-model="form.no_of_share" placeholder="0" class="form-control" v-maska
+                            <input v-model="form.no_of_share" required placeholder="0" class="form-control" v-maska
                                 data-maska="9,99#" data-maska-tokens="9:[0-9]:repeated" data-maska-reversed>
                         </div>
                     </div>
 
                     <div class="col-md-6 col-lg-3">
-                        <label class="form-labe fw-bold small">Total amount paid-off:</label>
+                        <label class="form-labe fw-bold small">Total amount paid:<span class="text-danger"> *
+                            </span></label>
                         <div class="col-md-12">
                             <input v-model="form.total_amount_paid" placeholder="0.00" class="form-control" v-maska
-                                data-maska="9,99#.##" data-maska-tokens="9:[0-9]:repeated" data-maska-reversed>
+                                data-maska="9,99#" data-maska-tokens="9:[0-9]:repeated" data-maska-reversed>
+                            <span class="small text-danger">{{ errors.total }}</span>
                         </div>
                     </div>
 
                     <div class="col-md-6 col-lg-3">
-                        <label class="form-labe fw-bold small">Currency:</label>
+                        <label class="form-labe fw-bold small">Currency: <span class="text-danger"> * </span></label>
                         <div class="col-md-12">
                             <v-select v-model="form.currency" :clearable="false"
                                 :options="startCompanyStore.currencies" />
@@ -54,11 +58,12 @@
                     <ul v-else class="list-group list-group-flush">
                         <li v-for="(founder, index) in form.shareHolders" :key="founder"
                             class="list-group-item text-capitalize">
-                            <i class="bi bi-circle-fill text-muted me-2"></i> {{ founder.entity_name }}
+                            <i class="bi bi-person-circle text-muted me-2"></i> {{ founder.entity_name }} <span
+                                class="text-danger"> * </span>
                             <span class="float-end">
                                 <input v-model="founder.own_share" type="text"
-                                    class="form-control form-control-sm text-end" placeholder="0.00" v-maska
-                                    data-maska="9,99#.##" data-maska-tokens="9:[0-9]:repeated" data-maska-reversed>
+                                    class="form-control form-control-sm text-end" placeholder="0" v-maska
+                                    data-maska="9,99#" data-maska-tokens="9:[0-9]:repeated" data-maska-reversed>
                             </span>
                         </li>
 
@@ -68,7 +73,7 @@
                                 100% <i class="bi bi-check-circle"></i>
                             </span>
 
-                            <span v-else class=" float-end text-danger small">
+                            <span v-else class=" float-end text-black small">
                                 Sum of entries must be equal to Total Amount Paid
                                 <i class="bi bi-exclamation-circle"></i>
                             </span>
@@ -103,7 +108,7 @@
 
                                     <tr class="">
                                         <td></td>
-                                        <td class="fw-bold">100%</td>
+                                        <td class="fw-bold  text-success">100%</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -115,12 +120,11 @@
             </section>
 
 
-
             <div class="movement-buttons mt-5 mb-4">
                 <button @click="moveBack" class="btn btn-outline-dark me-3">
                     <i class="bi bi-arrow-left"></i> Back
                 </button>
-                <button :disabled="!sumEqualToTotal" v-if="!form.isSaving" @click="saveAndContinue"
+                <button :disabled="!sumEqualToTotal || fieldsHasErrors" v-if="!form.isSaving" @click="saveAndContinue"
                     class="btn btn-primary">
                     Save Record <i class="bi bi-arrow-right"></i>
                 </button>
@@ -159,7 +163,7 @@
     </StartCompany_template>
 </template>
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, watch, watchEffect, reactive } from 'vue';
 import StartCompany_template from '../StartCompany_template.vue';
 import { useStartCompanyStore } from '../StartCompany_store';
 import api from '@/stores/Helpers/axios'
@@ -172,9 +176,29 @@ const startCompanyStore = useStartCompanyStore()
 
 const form = ownershipForm()
 
+const errors: any = reactive({
+    total: ''
+})
+
+const fieldsHasErrors = computed(() => {
+    return Object.keys(errors).some(el => errors[el] !== '');
+});
+
 function dissolveMaska(str: string) {
-    return parseFloat(str.replace(/,/g, ''))
+    return parseInt(str.replace(/,/g, ''))
 }
+
+watch(() => form.no_of_share, () => {
+    form.total_amount_paid = form.no_of_share
+})
+
+watchEffect(() => {
+    if (dissolveMaska(form.total_amount_paid) > dissolveMaska(form.no_of_share))
+        errors.total = 'Must not be greater than no. of shares'
+    else errors.total = ''
+})
+
+
 
 onMounted(() => {
     // check for atleast one Individual
@@ -194,7 +218,7 @@ function autoFillForm() {
     form.no_of_share = startCompanyStore.companyInProgress?.shares[0]?.no_of_share ?? ''
     form.currency = startCompanyStore.companyInProgress?.shares[0]?.currency ?? ''
     const totalAmount = startCompanyStore.companyInProgress?.shares[0]?.total_amount_paid ?? ''
-    form.total_amount_paid = totalAmount ? (parseFloat(totalAmount)).toFixed(2) : ''
+    form.total_amount_paid = totalAmount ? (parseFloat(totalAmount)).toFixed(0) : ''
 }
 
 
@@ -203,15 +227,17 @@ async function retrieveShareHolders() {
         const resp = await api.retrieveShaheolders()
 
         const entity = resp.data.data;
+        console.log(entity)
         const arrayOfFounders: any[] = []
         if (entity.length) {
             entity.forEach((el: any) => {
+                console.log(el)
                 const obj = el.individual || el.corporate;
                 if (obj) {
                     obj.entity_name = el.entity_type_id == 1 ?
                         `${obj.first_name} ${obj.last_name}`
                         : `${obj.company_name}`
-                    obj.own_share = 0;
+                    obj.own_share = el.share.total_amount;
                     arrayOfFounders.push(obj);
                 }
             });
@@ -284,7 +310,7 @@ function saveAndContinue() {
 
     summaryArray.value.forEach((entity, index) => {
         formData.append(`company_entity[${index}][share_percentage]`, entity.share_percentage);
-        formData.append(`company_entity[${index}][total_amount]`, `${dissolveMaska(form.total_amount_paid)}`);
+        formData.append(`company_entity[${index}][total_amount]`, `${dissolveMaska(entity.own_share)}`);
         formData.append(`company_entity[${index}][company_entity_id]`, entity.company_entity_id);
     });
 
@@ -298,7 +324,7 @@ async function saveFromToApi(formData: FormData) {
 
         toast.success('Data Saved Successfully', { position: 'top-right' });
         form.isSaving = false
-        // startCompanyStore.switchStage('+')
+        startCompanyStore.switchStage('+')
         startCompanyStore.getCompanyInProgress()
 
     } catch (error) {

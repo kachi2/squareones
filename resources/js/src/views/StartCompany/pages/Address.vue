@@ -6,38 +6,42 @@
             </section>
 
             <section class="section">
-                <div class="fw-bold">Registered Office Address</div>
+                <!-- <div class="fw-bold">Registered Office Address</div> -->
 
                 <div class="row g-3 mt-1">
                     <div class="col-12">
-                        <label class="form-label">Address: <i class="bi bi-lock-fill"></i></label>
-                        <input disabled v-model="form.address" class="form-control" type="text"
+                        <label class="form-label">室 ／樓 ／座 等 Flat／Floor／Block <i class="bi bi-lock-fill"></i></label>
+                        <input disabled v-model="form.flat" class="form-control" type="text"
                             placeholder="Flat／Floor／Block">
-                        <small class=" text-danger">{{ form.errors.address }}</small>
+                        <small class=" text-danger">{{ form.errors.flat }}</small>
                     </div>
                     <div class="col-12">
-                        <label class="form-label">Street: <i class="bi bi-lock-fill"></i></label>
-                        <input disabled v-model="form.street_no" class="form-control" type="text"
+                        <label class="form-label">大 廈 Building<i class="bi bi-lock-fill"></i></label>
+                        <input disabled v-model="form.building" class="form-control" type="text"
                             placeholder="Street number">
-                        <small class=" text-danger">{{ form.errors.street_no }}</small>
+                        <small class=" text-danger">{{ form.errors.building }}</small>
                     </div>
-                    <!-- <div class="col-12">
-                        <input disabled v-model="form.city" class="form-control" type="text" placeholder="City">
-                        <small class=" text-danger">{{ form.errors.city }}</small>
-                    </div> -->
                     <div class="col-12">
-                        <label class="form-label">State: <i class="bi bi-lock-fill"></i></label>
+                        <label class="form-label"> 街 道 ／屋 苑 ／地 段 ／村 等 Street／Estate／Lot／Village<i
+                                class="bi bi-lock-fill"></i></label>
+
+                        <input disabled v-model="form.street" class="form-control" type="text" placeholder="City">
+                        <small class=" text-danger">{{ form.errors.street }}</small>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">區／市／省／州／郵遞區號等 District／City／ Province／State／ Postal Code <i
+                                class="bi bi-lock-fill"></i></label>
                         <input disabled v-model="form.state" class="form-control" type="text" placeholder="State">
                         <small class=" text-danger">{{ form.errors.state }}</small>
                     </div>
                     <!-- <div class="col-12">
                         <label class="form-label">Postal Code: <i class="bi bi-lock-fill"></i></label>
                         <input disabled v-model="form.postal_code" class="form-control" type="text"
-                            placeholder="Postal Code">
+                            placeholder=" ">
                         <small class=" text-danger">{{ form.errors.postal_code }}</small>
                     </div> -->
                     <div class="col-md-12">
-                        <label class="form-label">Country: <i class="bi bi-lock-fill"></i></label>
+                        <label class="form-label">國 家 ／地 區 Country／Region <i class="bi bi-lock-fill"></i></label>
                         <v-select :disabled="true" placeholder="select country.." v-model="form.country"
                             :clearable="false" :options="startCompanyStore.countries" />
                         <small class=" text-danger">{{ form.errors.country }}</small>
@@ -118,9 +122,15 @@ const saveAndContinue = form.handleSubmit(async (values) => {
         return;
     }
 
+    if (Object.keys(form.errors).length > 0) {
+        toast.default("Some fields still have errors", { position: 'top-right' });
+        return true;
+    }
+
     const formData = new FormData;
-    formData.append('address', values.address)
-    formData.append('street_no', values.street_no)
+    formData.append('flat', values.flat)
+    formData.append('building', values.building)
+    formData.append('street', values.street)
     formData.append('city', values.city)
     formData.append('state', values.state)
     formData.append('postal_code', values.postal_code)
@@ -137,7 +147,7 @@ async function saveFromToApi(formData: FormData) {
 
         toast.success('Data Saved Successfully', { position: 'top-right' });
         form.isSaving = false
-        // startCompanyStore.switchStage('+')
+        startCompanyStore.switchStage('+')
         startCompanyStore.getCompanyInProgress()
 
     } catch (error) {

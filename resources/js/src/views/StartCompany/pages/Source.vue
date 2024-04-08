@@ -8,7 +8,7 @@
 
             <section class="row g-2">
                 <div class="col-md-8">
-                    <label class=" fw-bolder">Expected source of funds</label>
+                    <label class=" fw-bolder">Expected source of funds <small class="text-danger">*</small></label>
                     <v-select v-model="form.income_expected_source" :clearable="false"
                         :options="startCompanyStore.sourceOfFunds" />
                     <small class="text-danger">{{ form.errors.income_expected_source }}</small>
@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="col-md-8">
-                    <label class=" fw-bolder">Origin source of funds</label>
+                    <label class=" fw-bolder">Origin source of funds <small class="text-danger">*</small></label>
                     <v-select v-model="form.origin_funds" :clearable="false" :options="startCompanyStore.countries" />
                     <small class="text-danger">{{ form.errors.origin_funds }}</small>
                 </div>
@@ -24,7 +24,7 @@
                 <div class="fw-bolder fs-5">Source of Wealth</div>
 
                 <div class="col-md-8">
-                    <label class=" fw-bolder">Initial source of wealth</label>
+                    <label class=" fw-bolder">Initial source of wealth <small class="text-danger">*</small></label>
                     <v-select v-model="form.wealth_initial_source" :clearable="false"
                         :options="startCompanyStore.initialSourceOfWealth" />
                     <small class="text-danger">{{ form.errors.wealth_initial_source }}</small>
@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="col-md-8">
-                    <label class="fw-bolder">Ongoing source of wealth</label>
+                    <label class="fw-bolder">Ongoing source of wealth <small class="text-danger">*</small></label>
                     <v-select v-model="form.income_outgoing_source" :clearable="false"
                         :options="startCompanyStore.ongoingSourceOfIncome" />
                     <small class="text-danger">{{ form.errors.income_outgoing_source }}</small>
@@ -96,11 +96,17 @@ import { useStartCompanyStore } from '../StartCompany_store';
 import api from '@/stores/Helpers/axios'
 import { useToast } from 'vue-toast-notification';
 import { sourceForm } from './formsStore/Source'
+import { onMounted, watch } from 'vue';
 
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
 const form = sourceForm()
 
+onMounted(() => {
+    form.updateFields(startCompanyStore.companyInProgress)
+})
+
+watch(() => form, () => { form.saveToLocalStorage() }, { deep: true })
 
 function moveBack() {
     startCompanyStore.switchStage('-')
@@ -111,6 +117,11 @@ const saveAndContinue = form.handleSubmit(async (values) => {
         toast.default('You have not registered any company name', { position: 'top-right' })
         startCompanyStore.switchStage('-', 2)
         return;
+    }
+
+    if (Object.keys(form.errors).length > 0) {
+        toast.default("Some fields still have errors", { position: 'top-right' });
+        return true;
     }
 
     const formData = new FormData;
@@ -130,7 +141,7 @@ async function saveFromToApi(formData: FormData) {
 
         toast.success('Data Saved Successfully', { position: 'top-right' });
         form.isSaving = false
-        // startCompanyStore.switchStage('+')
+        startCompanyStore.switchStage('+')
         startCompanyStore.getCompanyInProgress()
 
     } catch (error) {

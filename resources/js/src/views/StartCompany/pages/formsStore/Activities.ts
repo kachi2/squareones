@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { useForm } from 'vee-validate';
+import { useStorage } from '@vueuse/core'
 // @ts-ignore
 import * as yup from 'yup';
 
@@ -26,6 +27,61 @@ export const activitiesForm = defineStore('activities', () => {
     const [country] = defineField('country');
     const isSaving = false
 
+
+
+    // localStorage & updating fields..
+    const description_storage = useStorage('squareOne-activity-description', '');
+    const activity_level_storage = useStorage('squareOne-activity-activity_level', '');
+    const activity_nature_storage = useStorage('squareOne-activity-activity_nature', '');
+    const customer_location_operation_storage = useStorage('squareOne-activity-activity-location', '');
+    const country_storage = useStorage('squareOne-activity-activity_nature-country', '');
+
+    function saveToLocalStorage() {
+        if (description.value) description_storage.value = description.value
+        if (activity_level.value) activity_level_storage.value = activity_level.value
+        if (activity_nature.value) activity_nature_storage.value = activity_nature.value
+        if (customer_location_operation.value) customer_location_operation_storage.value = customer_location_operation.value
+        if (country.value) country_storage.value = country.value
+    }
+
+
+    function updateFields(companyInProgress: any) {
+        if (description_storage.value.length > 1)
+            description.value = description_storage.value
+        else if (companyInProgress?.activity?.description)
+            description.value = companyInProgress.activity.description;
+
+        if (activity_level_storage.value)
+            activity_level.value = activity_level_storage.value
+        else if (companyInProgress?.activity?.activity_level)
+            activity_level.value = companyInProgress.activity.activity_level;
+
+        if (activity_nature_storage.value)
+            activity_nature.value = activity_nature_storage.value
+        else if (companyInProgress?.activity?.activity_nature)
+            activity_nature.value = companyInProgress.activity.activity_nature;
+
+        if (customer_location_operation_storage.value) {
+            const location = JSON.parse(customer_location_operation_storage.value)
+            customer_location_operation.value = location.split(',')
+        }
+        else if (companyInProgress?.activity?.customer_location_operation) {
+            const locations = companyInProgress?.activity?.customer_location_operation ?? ''
+            customer_location_operation.value = locations !== '' ? locations.split(',') : ''
+        }
+
+        if (country_storage.value) {
+            const location = JSON.parse(country_storage.value)
+            country.value = location.split(',')
+        }
+        else if (companyInProgress?.activity?.country) {
+            const locations = companyInProgress?.activity?.country ?? ''
+            country.value = locations !== '' ? locations.split(',') : ''
+        }
+
+    }
+
+
     return {
         description,
         activity_level,
@@ -36,6 +92,8 @@ export const activitiesForm = defineStore('activities', () => {
 
         errors,
         handleSubmit,
-        setFieldValue
+        setFieldValue,
+        updateFields,
+        saveToLocalStorage
     }
 })
