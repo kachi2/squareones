@@ -14,14 +14,14 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.choice_level1_eng_name }" v-maska data-maska="A a"
-                            data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
+                        <input :class="{ 'error-field': form.errors.choice_level1_eng_name }" v-maska 
+                            data-maska-tokens="*:[a-zA-Z0-9]:multiple"
                             v-model="form.choice_level1_eng_name" type="text" class="form-control"
                             placeholder="This text for English name">
                         <small class=" text-danger">{{ form.errors.choice_level1_eng_name }}</small>
                     </div>
                     <div class="col-md-6">
-                        <select v-model="form.choice_level1_prefix" class="form-select">
+                        <select v-model="form.choice_level1_prefix" class="form-select" required>
 
                             <option :value="'Limited'">Limited</option>
                             <option :value="'LIMITED'">LIMITED</option>
