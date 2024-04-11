@@ -22,11 +22,13 @@ class CompanyServices  implements CompanyFormationInterface
     public function CheckNameExist($names): bool
     {
         foreach ($names as $name) {
-            $chk = $name['eng_name'];
-            $check = CompanyName::where('eng_name', 'LIKE', "%$chk%")->orWhere('chn_name','LIKE', "%$chk%" )->first();
+            $chk = $name['eng_name'] ;
+            if($chk != ''){
+            $check = CompanyName::where('eng_name', 'LIKE', "%$chk%")->first();
             if (isset($check)) {
                 return true;
             }
+          }
             return false;
         }
     } 
@@ -34,7 +36,7 @@ class CompanyServices  implements CompanyFormationInterface
     public function InitiateCompany(NamesDto $namesDto)
     {
         $company = Company::where('id', $namesDto?->company_id)->first();
-        $nameChange =  CompanyName::where('company_id',$namesDto?->company_id)->get();
+        $nameChange =  CompanyName::where(['company_id' => $namesDto?->company_id])->get();
         if(count($nameChange) > 0){
             $names = [];
             $store = [];
@@ -45,8 +47,8 @@ class CompanyServices  implements CompanyFormationInterface
                 $store =  $nameChange[$key]->update([
                     'eng_name' => $name['eng_name'],
                     'chn_name' => $name['chn_name'],
-                    'chn_prefix'=>  $name['chn_prefix'],
-                    'eng_prefix' =>  $name['prefix'],
+                    'chn_prefix'=>  $name['chn_name'] != ''?$name['chn_prefix']:null,
+                    'eng_prefix' =>  $name['eng_name'] != ''?$name['prefix']:null,
                     'choice_level' => $name['choice_level'],
                     'company_id' => $namesDto->company_id
                 ]);
@@ -69,14 +71,12 @@ class CompanyServices  implements CompanyFormationInterface
             ];
         }
         try {
-            $company = Company::where('is_complete', 0)->first();
-            if($company){
+            $company = Company::where(['is_complete' => 0, 'user_id' => auth_user()])->first();
+            if(!$company){
             DB::beginTransaction();
             $initiateCompany = Company::create([
                 'user_id' => auth_user(),
             ]);
-
-
             if ($initiateCompany) {
                 $names = [];
                 foreach ($namesDto->names as $name) {  

@@ -19,15 +19,29 @@ class CompanyEntityService implements CompanyEnityInterface
 
     public function SaveParentEntity($request)
     {
-            $entity = CompanyEntity::Create(
-                [
+
+        $CompanyEntity = CompanyEntity::where('id', $request?->company_entity_id)->first();
+        if(!$CompanyEntity){
+            $entity = CompanyEntity::updateOrcreate(
+                [ 
+                'entity_type_id' => $request->entity_type_id,
                 'company_id' => $request->company_id,
                 'entity_type_id' => $request->entity_type_id,
                 'entity_capacity_id' => $request->entity_capacity_id,
                 'is_founder' => $request->is_founder,
            ]);
+        }else{
+            $CompanyEntity->update([
+                'entity_type_id' => $request->entity_type_id,
+                'company_id' => $request->company_id,
+                'entity_type_id' => $request->entity_type_id,
+                'entity_capacity_id' => $request->entity_capacity_id,
+                'is_founder' => $request->is_founder,
+            ]);
+        }
+            
 
-           return $entity;
+           return $entity??$CompanyEntity;
     }
 
     public function ProcessIndividualEntity(IndividualDto $IndividualDto, $company_entity)
