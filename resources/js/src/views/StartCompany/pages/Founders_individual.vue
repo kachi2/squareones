@@ -365,7 +365,7 @@ function saveAndContinue() {
     // }
 
     if (!form.correspondingAddressIsSame) {
-        if (!form.address2 || !form.street_no2 || !form.city2 || !form.state2 || !form.postal_code2) {
+        if (!form.flat2 || !form.street2 || !form.city2 || !form.state2) {
             toast.default('Please complete Secondary address', { position: 'top-right' })
             return;
         }
