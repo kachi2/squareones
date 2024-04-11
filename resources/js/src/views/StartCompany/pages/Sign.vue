@@ -1,11 +1,11 @@
 <template>
     <StartCompany_template>
         <template #main>
-            <div>
+            <div >
                 <button  class="btn btn-outline-primary btn-sm" @click="NextPage"> Previous Page</button>  <span style="float: right;">
                     <button class="btn btn-outline-primary btn-sm" @click="PreviousPage"> Next Page</button></span> 
                     <hr style="color:#000435">
-            <VuePDF :pdf="pdf"  intent="display" :page="currentPage" :scale="1.2" />
+            <VuePDF :pdf="pdf"  intent="display" :page="currentPage"  :width="700"/>
             
         </div>
         </template>
@@ -65,7 +65,7 @@ import StartCompany_template from '../StartCompany_template.vue';
 import { useStartCompanyStore } from '../StartCompany_store';
 import { VuePDF, usePDF } from '@tato30/vue-pdf'
 
-const { pdf, pages, info } = usePDF('public/ncc1.pdf')
+const { pdf, pages, info } = usePDF('/ncc1.pdf')
 const currentPage = ref(1);
 
 const startCompanyStore = useStartCompanyStore()

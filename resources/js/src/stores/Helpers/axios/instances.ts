@@ -3,7 +3,7 @@ import axios from 'axios'
 // @ts-ignore
 import Cookies from 'js-cookie';
 
-const hostURL = '';
+const hostURL = 'http://127.0.0.1:8000';
 
 const apiURL = `${hostURL}/api/`;
 
