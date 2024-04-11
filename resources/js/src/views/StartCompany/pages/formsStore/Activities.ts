@@ -62,8 +62,7 @@ export const activitiesForm = defineStore('activities', () => {
             activity_nature.value = companyInProgress.activity.activity_nature;
 
         if (customer_location_operation_storage.value) {
-            const location = JSON.parse(customer_location_operation_storage.value)
-            customer_location_operation.value = location.split(',')
+            customer_location_operation.value = customer_location_operation_storage.value.split(',')
         }
         else if (companyInProgress?.activity?.customer_location_operation) {
             const locations = companyInProgress?.activity?.customer_location_operation ?? ''
@@ -71,8 +70,7 @@ export const activitiesForm = defineStore('activities', () => {
         }
 
         if (country_storage.value) {
-            const location = JSON.parse(country_storage.value)
-            country.value = location.split(',')
+            country.value = country_storage.value.split(',')
         }
         else if (companyInProgress?.activity?.country) {
             const locations = companyInProgress?.activity?.country ?? ''

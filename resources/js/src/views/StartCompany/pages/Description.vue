@@ -30,10 +30,10 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-8">
-                        <v-select  class="dropdown"
+                        <v-select :class="{ 'error-field': form.errors.business_nature_id }"
                             v-model="form.business_nature_id" :clearable="false"
                             :options="startCompanyStore.businessNatures" :reduce="(item: any) => item.id"
-                            label="name"   />
+                            label="name" />
                         <small class=" text-danger">{{ form.errors.business_nature_id }}</small>
                     </div>
                 </div>
@@ -143,6 +143,4 @@ const wordCount = computed(() => {
 });
 
 </script>
-<style lang="css" scoped>
-
-</style>
+<style lang="css" scoped></style>
