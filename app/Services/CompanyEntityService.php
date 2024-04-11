@@ -19,10 +19,9 @@ class CompanyEntityService implements CompanyEnityInterface
 
     public function SaveParentEntity($request)
     {
-
         $CompanyEntity = CompanyEntity::where('id', $request?->company_entity_id)->first();
         if(!$CompanyEntity){
-            $entity = CompanyEntity::updateOrcreate(
+            $entity = CompanyEntity::create(
                 [ 
                 'entity_type_id' => $request->entity_type_id,
                 'company_id' => $request->company_id,
@@ -40,7 +39,6 @@ class CompanyEntityService implements CompanyEnityInterface
             ]);
         }
             
-
            return $entity??$CompanyEntity;
     }
 
@@ -49,7 +47,6 @@ class CompanyEntityService implements CompanyEnityInterface
         $individualData = Individual::updateOrcreate([
             'company_entity_id' =>  $company_entity->id
         ],[
-            'company_entity_id' =>  $company_entity->id,
             'first_name' => $IndividualDto->first_name,
             'last_name' => $IndividualDto->last_name,
             'chn_first_name' => $IndividualDto->chn_first_name,
@@ -60,6 +57,7 @@ class CompanyEntityService implements CompanyEnityInterface
             'email' => $IndividualDto->email,
             'occupation' => $IndividualDto->occupation,
         ]);
+        
         $id_info = IdentityInfo::updateOrcreate([
             'individual_id' =>  $individualData->id,
         ],[

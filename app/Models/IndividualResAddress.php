@@ -10,7 +10,7 @@ class IndividualResAddress extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['individual_id', 'address', 'street_no', 'city', 'state', 'postal_code', 'country', 'is_corAddress'];
+    protected $fillable = ['individual_id', 'flat', 'building','street', 'city', 'state', 'postal_code', 'country', 'is_corAddress'];
 
     public function corporate():BelongsTo
     {

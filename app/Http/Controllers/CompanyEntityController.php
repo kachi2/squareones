@@ -21,7 +21,6 @@ class CompanyEntityController extends Controller
     ) {
     }
 
-
     public function getIdType(){
         return response()->json([
             'identity_type' => IdentityType::get()
@@ -30,7 +29,7 @@ class CompanyEntityController extends Controller
     public function StoreEntity(Request $request)
     {
         $check = CompanyEntity::where('company_id', $request->company_id)->get();
-        if(count($check) >= 6){
+        if(count($check) >= 6 && !isset($request->company_entity_id)){
            return response()->json(['error' => 'You cannot add more than 6 founders/directors']); 
         }
         try {

@@ -1,0 +1,87 @@
+@import './base.css';
+
+/* input:focus, */
+select:focus,
+textarea:focus,
+button:focus,
+.vue-tel-input,
+.v-select:hover,
+.page-link:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    /* border-color: #dee2e6 !important; */
+    border-color: #096CF8 !important;
+}
+
+.error-field,
+.error-field .vs__search {
+    border: 1px solid red;
+}
+
+
+.vs__search,
+.vs__search,
+.vs__search {
+    line-height: 1.81rem !important;
+    border: 0px !important;
+}
+
+.v-select, .v-select * {
+    line-height: 1.7rem !important;
+}
+
+.vs--single {
+    &:not(.vs--open) .vs__selected+.vs__search {
+        width: 0;
+        padding: 0;
+        margin: 0;
+        border: none;
+        height: 0;
+    }
+
+    .vs__selected-options {
+        width: 0;
+    }
+
+    .vs__selected {
+        display: block;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        overflow: hidden;
+    }
+}
+
+
+/* remove tiny mark at bottom left of textareas */
+textarea {
+    resize: none;
+    /* -webkit-appearance: none;
+    -moz-appearance: none; */
+}
+
+
+.section {
+    margin-bottom: 20px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.line-right {
+    border-right: 1px solid #c5c0c0;
+    /* padding-right: 10px; */
+}
+
+th {
+    font-weight: bold;
+    background-color: var(--bs-gray-200) !important;
+}
+
+.everything-center {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

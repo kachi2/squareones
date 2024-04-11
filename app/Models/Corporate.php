@@ -12,7 +12,7 @@ class Corporate extends Model
     use HasFactory;
 
     protected $fillable = [
-        'company_entity_id','is_founder', 'entity_type_id', 'entity_capacity_id', 'company_name', 'business_nature_id', 'chn_company_name', 'date_incorporated', 'address', 'street_no', 'city', 'state', 'postal_code', 'country', 'created_at', 'updated_at', 'country_registered', 'registeration_no'
+        'company_entity_id','is_founder', 'entity_type_id', 'entity_capacity_id', 'company_name', 'business_nature_id', 'chn_company_name', 'date_incorporated', 'flat', 'building','street', 'city', 'state', 'postal_code', 'country', 'created_at', 'updated_at', 'country_registered', 'registeration_no'
     ];
 
     public function companyentity():BelongsTo

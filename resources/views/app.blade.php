@@ -6,8 +6,8 @@
   <link rel="icon" href="/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Squareone</title>
-  <script type="module" crossorigin src="/assets/index-V8KZQ0-k.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-Bjv0rAZM.css">
+  <script type="module" crossorigin src="/assets/index-CH-5sBKi.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-DK7vx5Vc.css">
 </head>
 
 <body>
