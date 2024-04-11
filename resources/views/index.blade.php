@@ -9,7 +9,6 @@
   <script type="module" crossorigin src="/assets/index-BPD2imR2.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/index-BWCJCtz9.css">
 </head>
-
 <body>
   <div id="app"></div>
 </body>
