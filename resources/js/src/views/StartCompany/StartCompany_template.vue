@@ -96,11 +96,9 @@ const activeCompanyName = computed(() => {
     const choiceNames = startCompanyStore.companyInProgress?.names ?? []
     if (choiceNames) {
         const coy = choiceNames.find((x: any) => x.choice_level == 1);
-        console.log(coy)
         if(coy){
-            coyName =  coy?.eng_name != 'undefined' ?coy.eng_name +' '+coy.eng_prefix : coy.chn_name+' '+coy.chn_prefix;
+            coyName =  coy?.eng_name?coy.eng_name +' '+coy.eng_prefix : coy.chn_name+' '+coy.chn_prefix;
         }
-
     }
     return coyName
 })

@@ -45,25 +45,25 @@
                 <div class="fw-bolder pt-3">Address </div>
                <div class="row g-3 mt-1">
                     <div class="col-12">
-                        <label class="form-label">室 ／樓 ／座 等 Flat／Floor／Block  <i class="bi bi-lock-fill"></i></label>
+                        <label class="form-label"> Flat／Floor／Block  <i class="bi bi-lock-fill"></i></label>
                         <input disabled v-model="form.flat" class="form-control" type="text"
                             placeholder="Flat／Floor／Block">
                         <!-- <small class=" text-danger">{{ form.errors.flat }}</small> -->
                     </div>
                     <div class="col-12">
-                        <label class="form-label">大 廈 Building<i class="bi bi-lock-fill"></i></label>
+                        <label class="form-label"> Building<i class="bi bi-lock-fill"></i></label>
                         <input disabled v-model="form.building" class="form-control" type="text"
                             placeholder="Street number">
                         <!-- <small class=" text-danger">{{ form.errors.building }}</small> -->
                     </div>
                     <div class="col-12">
-                        <label class="form-label"> 街 道 ／屋 苑 ／地 段 ／村 等 Street／Estate／Lot／Village<i class="bi bi-lock-fill"></i></label>
+                        <label class="form-label">  Street／Estate／Lot／Village<i class="bi bi-lock-fill"></i></label>
                    
                         <input disabled v-model="form.street" class="form-control" type="text" placeholder="City">
                         <!-- <small class=" text-danger">{{ form.errors.street }}</small> -->
                     </div>
                     <div class="col-12">
-                        <label class="form-label">區／市／省／州／郵遞區號等 District／City／ Province／State／ Postal Code <i class="bi bi-lock-fill"></i></label>
+                        <label class="form-label">District／City／ Province／State／ Postal Code <i class="bi bi-lock-fill"></i></label>
                         <input disabled v-model="form.state" class="form-control" type="text" placeholder="State">
                         <!-- <small class=" text-danger">{{ form.errors.state }}</small> -->
                     </div>
@@ -74,7 +74,7 @@
                         <small class=" text-danger">{{ form.errors.postal_code }}</small>
                     </div> -->
                     <div class="col-md-12">
-                        <label class="form-label">國 家 ／地 區 Country／Region <i class="bi bi-lock-fill"></i></label>
+                        <label class="form-label">Country／Region <i class="bi bi-lock-fill"></i></label>
                         <v-select :disabled="true" placeholder="select country.." v-model="form.country"
                             :clearable="false" :options="startCompanyStore.countries" />
                         <!-- <small class=" text-danger">{{ form.errors.country }}</small> -->

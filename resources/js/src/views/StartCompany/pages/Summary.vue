@@ -272,7 +272,7 @@ import useFxn from '@/stores/Helpers/useFunctions';
 
 const startCompanyStore = useStartCompanyStore()
 
-interface Summary {
+interface SummaryInterface {
     // structure: string,
     company_name: string,
     description: string,
@@ -284,7 +284,7 @@ interface Summary {
     founders_corporate: any[],
 }
 
-const data = reactive<Summary>({
+const data = reactive<SummaryInterface>({
     // structure: 'LLC',
     company_name: '',
     description: '',

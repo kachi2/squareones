@@ -9,14 +9,15 @@
             <span>Enter your legal company name</span>
             <div class="row mt-1 g-2">
                 <div class="col-12 ">
-                    <input v-maska data-maska="A a" data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
-                        v-model="form.company_name" type="text" class="form-control" placeholder="English Name..">
+                    <input :class="{ 'error-field': form.errors.company_name }" v-maska data-maska="A a"
+                        data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple" v-model="form.company_name"
+                        type="text" class="form-control" placeholder="English Name..">
                     <small class=" text-danger">{{ form.errors.company_name }}</small>
                 </div>
 
                 <div class="col-12 ">
-                    <input v-model="form.chn_company_name" type="text" class="form-control"
-                        placeholder="Chinese Name..">
+                    <input :class="{ 'error-field': form.errors.chn_company_name }" v-model="form.chn_company_name"
+                        type="text" class="form-control" placeholder="Chinese Name..">
                     <small class=" text-danger">{{ form.errors.chn_company_name }}</small>
                 </div>
             </div>
@@ -34,13 +35,15 @@
             <div class="col-md-6">
                 <label class="form-label fw-bold">Company Registration Number <span class="text-danger"> *
                     </span></label>
-                <input v-model="form.registeration_no" class="form-control" type="text" placeholder="Registration no">
+                <input :class="{ 'error-field': form.errors.registeration_no }" v-model="form.registeration_no"
+                    class="form-control" type="text" placeholder="Registration no">
                 <small class=" text-danger">{{ form.errors.registeration_no }}</small>
             </div>
             <div class="col-12">
                 <label class="form-label fw-bold">Business nature <span class="text-danger"> * </span></label>
-                <v-select v-model="form.business_nature_id" :clearable="false"
-                    :options="startCompanyStore.businessNatures" :reduce="(item: any) => item.id" label="name" />
+                <v-select :class="{ 'error-field': form.errors.business_nature_id }" v-model="form.business_nature_id"
+                    :clearable="false" :options="startCompanyStore.businessNatures" :reduce="(item: any) => item.id"
+                    label="name" />
                 <small class=" text-danger">{{ form.errors.business_nature_id }}</small>
             </div>
         </section>
@@ -50,26 +53,30 @@
 
             <div class="row g-3 mt-1">
                 <div class="col-12">
-                    <label class="form-label">室 ／樓 ／座 等 Flat／Floor／Block <small class=" text-danger">*</small> </label>
-                    <input v-model="form.flat" class="form-control" type="text" placeholder="Flat／Floor／Block">
+                    <label class="form-label">Floor／Block <small class=" text-danger">*</small> </label>
+                    <input :class="{ 'error-field': form.errors.flat }" v-model="form.flat" class="form-control"
+                        type="text" placeholder="Flat／Floor／Block">
                     <small class=" text-danger">{{ form.errors.flat }}</small>
                 </div>
                 <div class="col-12">
-                    <label class="form-label">大 廈 Building <small class=" text-danger">*</small></label>
-                    <input v-model="form.building" class="form-control" type="text" placeholder="building number">
+                    <label class="form-label"> Building <small class=" text-danger">*</small></label>
+                    <input :class="{ 'error-field': form.errors.building }" v-model="form.building" class="form-control"
+                        type="text" placeholder="building number">
                     <small class=" text-danger">{{ form.errors.building }}</small>
                 </div>
                 <div class="col-12">
-                    <label class="form-label"> 街 道 ／屋 苑 ／地 段 ／村 等 Street／Estate／Lot／Village <small
+                    <label class="form-label"> Street／Estate／Lot／Village <small
                             class=" text-danger">*</small></label>
 
-                    <input v-model="form.street" class="form-control" type="text" placeholder="Street">
+                    <input :class="{ 'error-field': form.errors.street }" v-model="form.street" class="form-control"
+                        type="text" placeholder="Street">
                     <small class=" text-danger">{{ form.errors.street }}</small>
                 </div>
                 <div class="col-12">
-                    <label class="form-label">區／市／省／州／郵遞區號等 District／City／ Province／State／ Postal Code <small
+                    <label class="form-label"> District／City／ Province／State／ Postal Code <small
                             class=" text-danger">*</small></label>
-                    <input v-model="form.state" class="form-control" type="text" placeholder="State/City">
+                    <input :class="{ 'error-field': form.errors.state }" v-model="form.state" class="form-control"
+                        type="text" placeholder="State/City">
                     <small class=" text-danger">{{ form.errors.state }}</small>
                 </div>
                 <!-- <div class="col-12" hidden>
@@ -79,9 +86,9 @@
                         <small class=" text-danger">{{ form.errors.city }}</small>
                     </div> -->
                 <div class="col-md-12">
-                    <label class="form-label">國 家 ／地 區 Country／Region <small class=" text-danger">*</small></label>
-                    <v-select placeholder="select country.." v-model="form.country" :clearable="false"
-                        :options="startCompanyStore.countries" />
+                    <label class="form-label">Country／Region <small class=" text-danger">*</small></label>
+                    <v-select :class="{ 'error-field': form.errors.country }" placeholder="select country.."
+                        v-model="form.country" :clearable="false" :options="startCompanyStore.countries" />
                     <small class=" text-danger">{{ form.errors.country }}</small>
                 </div>
             </div>
@@ -92,11 +99,15 @@
                 <label class=" fw-bolder">Authorised Person <span class="text-danger"> * </span></label>
                 <div class="row g-2">
                     <div class="col-md-6">
-                        <input v-model="form.first_name" type="text" class="form-control" placeholder="first name..">
+                        <input :class="{ 'error-field': form.errors.first_name }" v-maska data-maska="Aa"
+                            data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple" v-model="form.first_name"
+                            type="text" class="form-control" placeholder="first name..">
                         <small class=" text-danger">{{ form.errors.first_name }}</small>
                     </div>
                     <div class="col-md-6">
-                        <input v-model="form.last_name" type="text" class="form-control" placeholder="first name..">
+                        <input :class="{ 'error-field': form.errors.last_name }" v-maska data-maska="Aa"
+                            data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple" v-model="form.last_name"
+                            type="text" class="form-control" placeholder="first name..">
                         <small class=" text-danger">{{ form.errors.last_name }}</small>
                     </div>
                 </div>
@@ -115,13 +126,14 @@
             </div>
             <div class="col-md-8">
                 <label class=" fw-bolder">Email <span class="text-danger"> * </span></label>
-                <input v-model="form.email" v-bind="form.emailAttrs" type="text" class="form-control"
-                    placeholder="email">
+                <input :class="{ 'error-field': form.errors.email }" v-model="form.email" v-bind="form.emailAttrs"
+                    type="text" class="form-control" placeholder="email">
                 <small class=" text-danger">{{ form.errors.email }}</small>
             </div>
             <div class="col-md-8">
                 <label class=" fw-bolder">Confirm email <span class="text-danger"> * </span></label>
-                <input v-model="form.confirm_email" type="text" class="form-control" placeholder="confirm email">
+                <input :class="{ 'error-field': form.errors.confirm_email }" v-model="form.confirm_email" type="text"
+                    class="form-control" placeholder="confirm email">
                 <small class=" text-danger">{{ form.errors.confirm_email }}</small>
             </div>
 

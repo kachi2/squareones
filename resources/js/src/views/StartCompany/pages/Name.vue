@@ -21,14 +21,15 @@
                         <small class=" text-danger">{{ form.errors.choice_level1_eng_name }}</small>
                     </div>
                     <div class="col-md-6">
-                        <select v-model="form.choice_level1_prefix" class="form-select" required>
+                        <select v-model="form.choice_level1_prefix" class="form-select">
 
                             <option :value="'Limited'">Limited</option>
                             <option :value="'LIMITED'">LIMITED</option>
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <input v-model="form.choice_level1_chn_name" type="text" class="form-control"
+                        <input :class="{ 'error-field': form.errors.choice_level1_chn_name }"
+                            v-model="form.choice_level1_chn_name" type="text" class="form-control"
                             placeholder="This text for Chinese name">
                         <small class=" text-danger">{{ form.errors.choice_level1_chn_name }}</small>
                     </div>
@@ -47,7 +48,8 @@
                     them in descending order of preference.</div>
                 <div class="row g-2 mt-1">
                     <div class="col-md-6">
-                        <input v-maska data-maska="A a" data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
+                        <input :class="{ 'error-field': form.errors.choice_level2_eng_name }" v-maska data-maska="A a"
+                            data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
                             v-model="form.choice_level2_eng_name" type="text" class="form-control"
                             placeholder="This text for English name">
                         <small class=" text-danger">{{ form.errors.choice_level2_eng_name }}</small>
@@ -60,7 +62,8 @@
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <input v-model="form.choice_level2_chn_name" type="text" class="form-control"
+                        <input :class="{ 'error-field': form.errors.choice_level2_chn_name }"
+                            v-model="form.choice_level2_chn_name" type="text" class="form-control"
                             placeholder="This text for Chinese name">
                         <small class=" text-danger">{{ form.errors.choice_level2_chn_name }}</small>
                     </div>
@@ -87,7 +90,8 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-6">
-                        <input v-maska data-maska="A a" data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
+                        <input :class="{ 'error-field': form.errors.choice_level3_eng_name }" v-maska data-maska="A a"
+                            data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
                             v-model="form.choice_level3_eng_name" type="text" class="form-control"
                             placeholder="This text for English name">
                         <small class=" text-danger">{{ form.errors.choice_level3_eng_name }}</small>
@@ -100,7 +104,8 @@
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <input v-model="form.choice_level3_chn_name" type="text" class="form-control"
+                        <input :class="{ 'error-field': form.errors.choice_level3_chn_name }"
+                            v-model="form.choice_level3_chn_name" type="text" class="form-control"
                             placeholder="This text for Chinese name">
                         <small class=" text-danger">{{ form.errors.choice_level3_chn_name }}</small>
                     </div>
@@ -127,7 +132,8 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-6">
-                        <input v-maska data-maska="A a" data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
+                        <input :class="{ 'error-field': form.errors.choice_level4_eng_name }" v-maska data-maska="A a"
+                            data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
                             v-model="form.choice_level4_eng_name" type="text" class="form-control"
                             placeholder="This text for English name">
                         <small class=" text-danger">{{ form.errors.choice_level4_eng_name }}</small>
@@ -140,7 +146,8 @@
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <input v-model="form.choice_level4_chn_name" type="text" class="form-control"
+                        <input :class="{ 'error-field': form.errors.choice_level4_chn_name }"
+                            v-model="form.choice_level4_chn_name" type="text" class="form-control"
                             placeholder="This text for Chinese name">
                         <small class=" text-danger">{{ form.errors.choice_level4_chn_name }}</small>
                     </div>
@@ -166,7 +173,8 @@
                 </div>
                 <div class="row g-2 mt-1">
                     <div class="col-md-6">
-                        <input v-maska data-maska="A a" data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
+                        <input :class="{ 'error-field': form.errors.choice_level5_eng_name }" v-maska data-maska="A a"
+                            data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
                             v-model="form.choice_level5_eng_name" type="text" class="form-control"
                             placeholder="This text for English name">
                         <small class=" text-danger">{{ form.errors.choice_level5_eng_name }}</small>
@@ -179,7 +187,8 @@
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <input v-model="form.choice_level5_chn_name" type="text" class="form-control"
+                        <input :class="{ 'error-field': form.errors.choice_level5_chn_name }"
+                            v-model="form.choice_level5_chn_name" type="text" class="form-control"
                             placeholder="This text for Chinese name">
                         <small class=" text-danger">{{ form.errors.choice_level5_chn_name }}</small>
                     </div>

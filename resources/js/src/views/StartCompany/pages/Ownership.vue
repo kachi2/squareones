@@ -232,12 +232,13 @@ async function retrieveShareHolders() {
         if (entity.length) {
             entity.forEach((el: any) => {
                 console.log(el)
+
                 const obj = el.individual || el.corporate;
                 if (obj) {
                     obj.entity_name = el.entity_type_id == 1 ?
                         `${obj.first_name} ${obj.last_name}`
                         : `${obj.company_name}`
-                    obj.own_share = el.share.total_amount;
+                     obj.own_share = el.share?.total_amount??0;
                     arrayOfFounders.push(obj);
                 }
             });
