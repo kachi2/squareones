@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Dtos\AddressDto;
-use App\Dtos\CompanyDescriptionDto;
+use App\Dtos\CompanyDto;
 use App\Dtos\NamesDto;
 use App\Http\Requests\CompanyAddressRequest;
 use App\Http\Requests\CompanyDescriptionReq;
@@ -82,9 +82,9 @@ public function getActiveCompany(){
     {
         try {
             DB::beginTransaction();
-            $companyDto = CompanyDescriptionDto::fromRequest($req->validated());
+            $companyDto = CompanyDto::fromRequest($req->validated());
             if ($companyDto) {
-                $company = $this->companyServices->StoreDescription($companyDto);
+                $company = $this->companyServices->StoreCompanyInfo($companyDto);
             }
             DB::commit();
             return response()->json(['data' =>$company], HttpStatusCode::OK);

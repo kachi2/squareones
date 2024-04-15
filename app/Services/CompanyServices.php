@@ -107,9 +107,10 @@ class CompanyServices  implements CompanyFormationInterface
         }
     }
 
-    public function StoreCompanyInfo(CompanyDto $companyDto, $company_id): ?Company
+    public function StoreCompanyInfo(CompanyDto $companyDto): ?Company
     {
-        $company = Company::whereId($company_id)->first();
+       
+        $company = Company::whereId($companyDto->company_id)->first();
         $company->update([
             'business_nature_id' => $companyDto->business_nature_id,
             'description' => $companyDto->description,
@@ -138,18 +139,18 @@ class CompanyServices  implements CompanyFormationInterface
 
     }
 
-    public function StoreDescription(CompanyDescriptionDto $companyDto){
-      $company = Company::whereId($companyDto->company_id)->first();
-      if($company){
-        $company->update([
-            'description' => $companyDto->description??$company->description,
-            'website' => $companyDto->website??$company->website,
-            'business_nature_id' => $companyDto->business_nature_id??$company->business_nature_id,
-        ]);
-        return $company;
-      }
-      return [];
-    }
+    // public function StoreDescription(CompanyDescriptionDto $companyDto){
+    //   $company = Company::whereId($companyDto->company_id)->first();
+    //   if($company){
+    //     $company->update([
+    //         'description' => $companyDto->description,
+    //         'website' => $companyDto->website,
+    //         'business_nature_id' => $companyDto->business_nature_id,
+    //     ]);
+    //     return $company;
+    //   }
+    //   return [];
+    // }
 
     public function StoreActivties($request)
     {
