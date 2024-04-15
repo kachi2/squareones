@@ -65,25 +65,6 @@ class DocumentSignController extends Controller
            ->save('documents/test2.pdf');
 
         return view('pdf.pdf', ['company' =>$company]);
-        // $company->founders = $company->CompanyEntity->where('is_founder', 0)->load('Individual', 'Corporate');
-        
-
-
-
-
-
-
-
-
-
-//when a user clicks on submit documents// this generates PDF and stores on the database and displays to the user
-//the user then clicks on sign document
-//the user redirecte to docsign api to sign documents, after siging, the user redirected back to the page
-//and proceed to make payment 
-//once the payment is completed, the user is redirected to the dashboard
-
-   
-        // event(new GeneratePDF(''));
 }
 
     public function GetPDFDoc(){
@@ -98,14 +79,5 @@ class DocumentSignController extends Controller
         ]);
     }
     }
-
-    public function ProcessSignature(Request $req){
-        dd($req->all());
-
-    }
-
-
-
-
 
 }

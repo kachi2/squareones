@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Events\GeneratePDF;
+use App\Events\KycEvents;
 use App\Listeners\GeneratePDFListener;
+use App\Listeners\KycListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -24,6 +26,9 @@ class EventServiceProvider extends ServiceProvider
      GeneratePDF::class => [
         GeneratePDFListener::class
      ],
+     KycEvents::class => [
+        KycListener::class
+     ]
         
     ];
 

@@ -8,6 +8,7 @@ use App\Http\Controllers\CompanySharesController;
 use App\Http\Controllers\DocumentSignController;
 use App\Http\Controllers\FundSourceController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KycController;
 use App\Http\Controllers\SecretaryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -47,5 +48,7 @@ Route::post('/retrieve/shareholders/{company_id}', [CompanySharesController::cla
 Route::controller(DocumentSignController::class)->group( function() {
 Route::post('/build/pdf/{id}', 'BuildPDF');
 Route::get('get/pdf/template', 'GetPDFDoc');
+
+Route::post('kyc/register', [KycController::class, 'loadKyc']);
 
 });

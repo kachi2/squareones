@@ -45,8 +45,8 @@ class CompanyServices  implements CompanyFormationInterface
                 // if($x > $namesDto->names)
                 if(array_key_exists($key, $nameChange->toArray())){
                 $store =  $nameChange[$key]->update([
-                    'eng_name' => $name['eng_name'],
-                    'chn_name' => $name['chn_name'],
+                    'eng_name' => $name['eng_name']== 'undefined'? '':$name['eng_name'],
+                    'chn_name' => $name['chn_name'] == 'undefined'? '':$name['chn_name'],
                     'chn_prefix'=>  $name['chn_name'] != ''?$name['chn_prefix']:null,
                     'eng_prefix' =>  $name['eng_name'] != ''?$name['prefix']:null,
                     'choice_level' => $name['choice_level'],
@@ -54,11 +54,11 @@ class CompanyServices  implements CompanyFormationInterface
                 ]);
             }else{
                   CompanyName::create([
-                    'eng_name' => $name['eng_name'],
-                    'chn_name' => $name['chn_name'],
+                    'eng_name' => $name['eng_name']== 'undefined'? '':$name['eng_name'],
+                    'chn_name' => $name['chn_name'] == 'undefined'? '':$name['chn_name'],
                     'choice_level' => $name['choice_level'],
-                     'chn_prefix'=>  $name['chn_prefix'],
-                     'eng_prefix'=>  $name['prefix'],
+                    'chn_prefix'=>  $name['chn_name'] != ''?$name['chn_prefix']:null,
+                    'eng_prefix' =>  $name['eng_name'] != ''?$name['prefix']:null,
                     'company_id' => $namesDto->company_id
                 ]);
             }
@@ -81,11 +81,11 @@ class CompanyServices  implements CompanyFormationInterface
                 $names = [];
                 foreach ($namesDto->names as $name) {  
                     $store =  CompanyName::create([
-                        'eng_name' => $name['eng_name'],
-                        'chn_name' => $name['chn_name'],
+                        'eng_name' => $name['eng_name']== 'undefined'? '':$name['eng_name'],
+                        'chn_name' => $name['chn_name'] == 'undefined'? '':$name['chn_name'],
                         'choice_level' => $name['choice_level'],
-                         'chn_prefix'=>  $name['chn_prefix'],
-                         'eng_prefix'=>  $name['prefix'],
+                        'chn_prefix'=>  $name['chn_name'] != ''?$name['chn_prefix']:null,
+                        'eng_prefix' =>  $name['eng_name'] != ''?$name['prefix']:null,
                         'company_id' => $initiateCompany->id
                     ]);
                     $names[] = $store;     
