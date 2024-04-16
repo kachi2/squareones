@@ -23,6 +23,7 @@ class IndividualDto extends BaseDto
         public readonly ?string $identity_no=null,
         public readonly ?string $passport_no =null,
         public readonly ?string $issuing_country = null,
+        public readonly ?string $identity_no_suffix = null,
        
     )
     {

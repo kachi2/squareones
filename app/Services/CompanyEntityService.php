@@ -65,7 +65,8 @@ class CompanyEntityService implements CompanyEnityInterface
             'identity_type' =>  $IndividualDto->identity_type_id, 
             'passport_no' =>$IndividualDto->passport_no, 
             'issueing_country' => $IndividualDto->issuing_country, 
-            'identity_no' => $IndividualDto->identity_no
+            'identity_no' => $IndividualDto->identity_no,
+            'identity_no_suffix' => $IndividualDto->identity_no_suffix
         ]);
 
       $res =  $this->processResidentialAddress($IndividualDto, $individualData);
@@ -128,6 +129,7 @@ class CompanyEntityService implements CompanyEnityInterface
             'street' => $request->street,
             'city'=>  $request->city,
             'state'=>  $request->state,
+            'business_nature_id' => $request->business_nature_id,
             'postal_code'=>  $request->postal_code,
             'country'=>  $request->country,
             'registeration_no' =>   $request->registeration_no,
