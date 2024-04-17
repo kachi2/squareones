@@ -22,7 +22,7 @@ class SecretaryService implements SecretaryInterface
             'address' => $request->address,
             'city' => $request->city,
             'state' => $request->state,
-            'postal_code' => $request->postal_code,
+            // 'postal_code' => $request->postal_code,
             'country' => $request->country
         ]);
         return $record;

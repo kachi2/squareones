@@ -90,7 +90,7 @@ class CompanyEntityService implements CompanyEnityInterface
                 'street' => $address['street']??null,
                 'city'=>  $address['city']??null,
                 'state'=>  $address['state']??null,
-                'postal_code'=>  $address['postal_code']??null,
+                // 'postal_code'=>  $address['postal_code']??null,
                 'country'=>  $address['country']??null,
                 'is_corAddress' => $address['is_corAddress']
             ]);
@@ -105,7 +105,7 @@ class CompanyEntityService implements CompanyEnityInterface
                     'street' => $addressCor['street']??null,
                     'city'=>  $addressCor['city']??null,
                     'state'=>  $addressCor['state']??null,
-                    'postal_code'=>  $addressCor['postal_code']??null,
+                    // 'postal_code'=>  $addressCor['postal_code']??null,
                     'country'=>  $addressCor['country']??null,
                 ]);
             }
@@ -120,8 +120,8 @@ class CompanyEntityService implements CompanyEnityInterface
        $corporate = Corporate::updateOrcreate([
         'company_entity_id' => $entity->id,
        ],[
-            'company_name' =>  $request->company_name,
-            'chn_company_name'=>  $request->chn_company_name,
+            'company_name' =>  $request->company_name =='undefined'? '': $request->company_name,
+            'chn_company_name'=>  $request->chn_company_name=='undefined'? '': $request->chn_company_name,
             'date_incorporated'=>  $request->date_incorporated,
             'country_registered'=>  $request->country_registered,
             'flat'=>  $request->flat,
@@ -130,7 +130,7 @@ class CompanyEntityService implements CompanyEnityInterface
             'city'=>  $request->city,
             'state'=>  $request->state,
             'business_nature_id' => $request->business_nature_id,
-            'postal_code'=>  $request->postal_code,
+            // 'postal_code'=>  $request->postal_code,
             'country'=>  $request->country,
             'registeration_no' =>   $request->registeration_no,
             'business_nature_id'=>  $request->business_nature_id,

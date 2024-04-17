@@ -48,4 +48,8 @@ class Company extends Model
     public function businessNature(){
         return $this->belongsTo(BusinessNature::class);
     }
+
+    public function Users(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

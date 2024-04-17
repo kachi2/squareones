@@ -116,20 +116,21 @@ class CompanyServices  implements CompanyFormationInterface
             'description' => $companyDto->description,
             'website' => $companyDto->website,
         ]);
+        $this->StoreCompanyAddress($companyDto);
         return $company;
     }
-    public function StoreCompanyAddress(AddressDto $addressDto)
+    public function StoreCompanyAddress($addressDto)
     {
         $company = Company::whereId($addressDto->company_id)->first();
         if($company){
         $company->update([
-            'flat' =>  $addressDto->flat,
-            'building' => $addressDto->building,
-            'street' => $addressDto->street,
-            'city' => $addressDto->city,
-            'state' => $addressDto->state,
-            'postal_code' => $addressDto->postal_code,
-            'country' => $addressDto->country,
+            'flat' =>  'Rooms 502-503, 5th Floor',
+            'building' => 'Wanchai Commercial Centre',
+            'street' => '194-204 Johnston Road',
+            'city' => '194-204 Johnston Road',
+            'state' => 'Wanchai',
+            // 'postal_code' => $addressDto->postal_code,
+            'country' => 'Hong Kong',
             
         ]);
         return $company;
