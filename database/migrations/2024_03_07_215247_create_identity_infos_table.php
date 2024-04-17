@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('passport_no')->nullable();
             $table->string('issueing_country')->nullable();
             $table->string('identity_no')->nullable();
-            $table->string('identity_no_surfix')->nullable();
+            $table->string('identity_no_suffix')->nullable();
             $table->string('dob')->nullable();
             $table->string('card_name')->nullable();
             $table->timestamps();
