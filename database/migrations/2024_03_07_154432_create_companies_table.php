@@ -25,9 +25,9 @@ return new class extends Migration
             $table->string('postal_code')->nullable();
             $table->string('country')->nullable();
             $table->integer('is_complete')->default(0);
-            $table->string('pdf_doc')->nullable();
+            $table->longText('pdf_doc')->nullable();
             $table->longText('signature')->nullable();
-            $table->dateTime('date_signed')->nullable();
+            $table->string('date_signed')->nullable();
             $table->timestamps();
             $table->index('user_id');
         });

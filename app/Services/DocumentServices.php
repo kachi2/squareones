@@ -6,6 +6,7 @@ use App\Models\Document;
 use App\Models\CompanyEntity;
 use App\Models\Company;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 
 class DocumentServices  implements DocumentInterface{
@@ -28,48 +29,73 @@ class DocumentServices  implements DocumentInterface{
     }
 
 
-    public function DocumentToPDF($company_id){
+    public function DocumentToPDF(Request $request){
 
-        $company = Company::whereId($company_id)->first()
-        ->Load([
-            'names' ,'secretary','shares','fundSource','ownerShare'
+    $company = Company::whereId($request->company_id)->first();
+    $fileName = '';
+    if($request->file('document') instanceof UploadedFile){
+        $doc = $request->file('document');
+        $ext = $doc->getClientOriginalExtension();  
+        $name = \pathinfo($doc->getClientOriginalName(), PATHINFO_FILENAME);
+        $fileName = str_replace("['/', '(', ')', ' ']","", $name).'.'.$ext;
+        $doc->move('documents', $fileName);
+    }
+    if($company){
+        $company->update([
+            'pdf_doc' => $fileName,
+            'date_signed' => $request->date_signed
         ]);
-    //    $data['individual'] =  $company->CompanyEntity->load('Individual');
-    //    $data['corporate'] =  $company->CompanyEntity->load('Corporate');
+        return $company;
+    }
+   
+
+
+
+
+
+
+    // $company = Company::whereId($company_id)->first()
+    //     ->Load([
+    //         'names' ,'Secretary','shares','fundSource','ownerShare'
+    //     ]);
+    //    $data['Individual'] =  $company->CompanyEntity->load('Individual');
+    //    $data['Corporate'] =  $company->CompanyEntity->load('Corporate');
     //    $company->founders = $data;
-       $CompanyEntity = CompanyEntity::where(['company_id' => $company_id])->get();
-        if($CompanyEntity){
-        foreach($CompanyEntity as $com){
-            $entity = json_decode($com->entity_capacity_id, true);
-            if($entity != null){
-            if(in_array(CompanyEntity::SHAREHOLDER, $entity)){
-                $shareholders[] = $com->id;
-            }
-            if(in_array(CompanyEntity::DIRECTOR, $entity)){
-                $directors[] = $com->id;
-            }
-        }
-       }
-        foreach($shareholders as $shareho){
-            $shareholder[] = CompanyEntity::where('id', $shareho)->first()->load('Individual', 'Corporate');
-        };
-        foreach($directors as $direc){
-            $director[] = CompanyEntity::where('id', $direc)->first()->load('Individual', 'Corporate');
-        };
-    }
-        // $company->shares = $shareholder;
-        $company->directos = $director;
-        $company->shareholder = $shareholder;
-        $company->founders = $company->CompanyEntity->where('is_founder', 1)->load('Individual', 'Corporate');
-        // return $data['company'];
-       return [
-        'data' => $company
-       ];
+    //    $CompanyEntity = CompanyEntity::where(['company_id' => $company_id])->get();
+    //     if($CompanyEntity){
+    //     foreach($CompanyEntity as $com){
+    //         $entity = json_decode($com->entity_capacity_id, true);
+    //         if($entity != null){
+    //         if(in_array(CompanyEntity::SHAREHOLDER, $entity)){
+    //             $shareholders[] = $com->id;
+    //         }
+    //         if(in_array(CompanyEntity::DIRECTOR, $entity)){
+    //             $directors[] = $com->id;
+    //         }
+    //     }
+    //    }
+    //     foreach($shareholders as $shareho){
+    //         $shareholder[] = CompanyEntity::where('id', $shareho)->first()->load('Individual');
+    //         $corporateShareHolder[] = CompanyEntity::where('id', $shareho)->first()->load('Corporate');
+    //     };
+    //     foreach($directors as $direc){
+    //         $individualDirector[] = CompanyEntity::where('id', $direc)->first()->load('Individual');
+    //         $director[] = CompanyEntity::where('id', $direc)->first()->load('Corporate');
+    //     };
+    // }
+    //     // $company->shares = $shareholder;
+    //     $company->directors = $director;
+    //     $company->shareholder = $shareholder;
+    //     $company->corporateShareHolder = $corporateShareHolder;
+    //     $company->individualDirector = $individualDirector;
+
+    //     PDF::loadView('pdf/pdf', ['company' =>  $company])
+    //        ->save('documents/test2.pdf');
+
+    //     return view('pdf.pdf', ['company' =>$company]);
 
     }
-    public function SignDocument($request){
 
-    }
 
 
 }
