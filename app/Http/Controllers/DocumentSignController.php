@@ -19,7 +19,7 @@ class DocumentSignController extends Controller
     public function BuildPDF(Request $request){
 
         $valid = Validator::make($request->all(), [
-            'document' => 'required|mimes:pdf',
+            'documents' => 'required',
             'company_id' => 'required'
         ]);
         if($valid->fails()){

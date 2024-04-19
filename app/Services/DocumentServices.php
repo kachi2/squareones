@@ -32,17 +32,19 @@ class DocumentServices  implements DocumentInterface{
     public function DocumentToPDF(Request $request){
 
     $company = Company::whereId($request->company_id)->first();
-    $fileName = '';
-    if($request->file('document') instanceof UploadedFile){
-        $doc = $request->file('document');
-        $ext = $doc->getClientOriginalExtension();  
-        $name = \pathinfo($doc->getClientOriginalName(), PATHINFO_FILENAME);
+    $fileNames = [];
+    foreach($request->documents as $document){
+    if($document instanceof UploadedFile){
+        $ext = $document->getClientOriginalExtension();  
+        $name = \pathinfo($document->getClientOriginalName(), PATHINFO_FILENAME);
         $fileName = str_replace("['/', '(', ')', ' ']","", $name).'.'.$ext;
-        $doc->move('documents', $fileName);
+        $document->move('documents', $fileName);
+        $fileNames[] = $fileName ;
     }
+}
     if($company){
         $company->update([
-            'pdf_doc' => $fileName,
+            'pdf_doc' => json_encode($fileNames),
             'date_signed' => $request->date_signed
         ]);
         return $company;
