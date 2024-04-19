@@ -27,11 +27,11 @@ class CompanyEntity extends Model
     }
 
     public function Individual(){
-        return $this->hasOne(Individual::class, 'company_entity_id', 'id')->with('resAddress', 'corAddress', 'getIdentity');
+        return $this->hasOne(Individual::class, 'company_entity_id', 'id')->with('resAddress', 'corAddress', 'getIdentity','ownerShares');
     }
 
     public function Corporate(){
-        return $this->hasOne(Corporate::class, 'company_entity_id', 'id')->with('AuthorizedPersons');
+        return $this->hasOne(Corporate::class, 'company_entity_id', 'id')->with('AuthorizedPersons', 'ownerShares');
     }
 
     public function share(){

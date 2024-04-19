@@ -25,5 +25,10 @@ class Corporate extends Model
         return $this->hasOne(CorporateAuthPersons::class)->withDefault();
     }
 
+    public function ownerShares()
+    {
+        return $this->hasOneThrough(OwnershipShare::class, CompanyEntity::class, 'id', 'company_entity_id', 'company_entity_id', 'id'); 
+    }
+
     
 }

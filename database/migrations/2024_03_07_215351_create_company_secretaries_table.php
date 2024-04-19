@@ -20,7 +20,9 @@ return new class extends Migration
             $table->string('country_registered')->nullable();
             $table->string('licence_no')->nullable();
             $table->string('email')->nullable();
-            $table->string('address')->nullable();
+            $table->string('flat')->nullable();
+            $table->string('street')->nullable();
+            $table->string('building')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->string('postal_code')->nullable();

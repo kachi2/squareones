@@ -26,7 +26,7 @@ class Company extends Model
     }
 
     public function Secretary(){
-        return $this->hasOne(CompanySecretary::class);
+        return $this->hasOne(CompanySecretary::class, 'company_id', 'id');
     }
 
     public function Shares(){

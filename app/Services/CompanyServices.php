@@ -9,6 +9,7 @@ use App\Dtos\CompanyDto;
 use App\Dtos\NamesDto;
 use App\Interfaces\CompanyFormationInterface;
 use App\Models\Company;
+use App\Models\CompanySecretary;
 use App\Models\CompanyAddress;
 use App\Models\CompanyActivity;
 use App\Models\FundSource;
@@ -184,13 +185,37 @@ class CompanyServices  implements CompanyFormationInterface
 
     public function StoreFundSource($request)
     {
-        return FundSource::create([
+        $source = FundSource::updateOrCreate([
+            'company_id' => $request->company_id,
+        ],[
             'company_id' => $request->company_id,
             'income_expected_source' => $request->income_expected_source,
             'origin_funds' => $request->origin_funds,
             'wealth_initial_source' => $request->wealth_initial_source,
             'income_outgoing_source' => $request->income_outgoing_source,
         ]);
+
+          CompanySecretary::updateOrCreate([
+            'company_id' => $request->company_id,
+          ],[
+            'company_id' => $request->company_id,
+            'name' => 'Square One Limited',
+            'chn_name' => '',
+            'company_reg_no' => '68891673',
+            'country_registered' => 'Hong Kong',
+            'licence_no' => 'TC000012',
+            'email' => '',
+            'flat' => 'Rooms 502-503, 5th Floor',
+            'building' => 'Wanchai Commercial Centre',
+            'street' => '194-204 Johnston Road',
+            'city' => 'Wanchai',
+            'state' => 'Wanchai',
+            // 'postal_code' => $request->postal_code,
+            'country' => 'Hong Kong'
+
+        ]);
+
+        return $source;
     }
 
 }

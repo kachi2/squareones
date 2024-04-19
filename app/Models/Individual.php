@@ -33,6 +33,13 @@ class Individual extends Model
         return $this->hasOne(IdentityInfo::class);
     }
 
+    public function ownerShares()
+    {
+        return $this->hasOneThrough(OwnershipShare::class, CompanyEntity::class, 'id', 'company_entity_id', 'company_entity_id', 'id'); 
+    }
+
+
+
 
 
 }
