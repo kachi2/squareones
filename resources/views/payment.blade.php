@@ -188,9 +188,8 @@ let elements;
 initialize();
 checkStatus();
 
-document
-  .querySelector("#payment-form")
-  .addEventListener("submit", handleSubmit);
+document.querySelector("#payment-form")
+document.addEventListener("submit", handleSubmit);
 
 // Fetches a payment intent and captures the client secret
 async function initialize() {
