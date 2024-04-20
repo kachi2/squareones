@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 interface PaymentInterface
  {
 
+public function PaymentIntent();
 public function ProcessPayment(Request $request);
 
 
