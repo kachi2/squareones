@@ -28,7 +28,15 @@ return new class extends Migration
             $table->longText('pdf_doc')->nullable();
             $table->longText('signature')->nullable();
             $table->string('date_signed')->nullable();
+            $table->string('is_approved')->nullable();
+            $table->string('is_incorporated')->nullable();
+            $table->string('tax_id')->nullable();
+            $table->string('business_reg_no')->nullable();
+            $table->string('date_incorporated')->nullable();
+            $table->string('country_registered')->nullable();
+            $table->string('business_classification')->nullable();
             $table->timestamps();
+
             $table->index('user_id');
         });
     }

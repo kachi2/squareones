@@ -16,8 +16,11 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('company_id')->constrained();
             $table->string('payment_ref')->nullable();
+            $table->string('payment_intent')->nullable();
             $table->string('status')->nullable();
             $table->double('amount')->nullable();
+            $table->dateTime('date_due')->nullable();
+            $table->dateTime('date_paid')->nullable();
             $table->timestamps();
 
             $table->index('company_id');

@@ -177,7 +177,6 @@ button:disabled {
 (function()
 { 
 
-
         // This is your test publishable API key.
 const stripe = Stripe("pk_test_51P7LhqRxBSKsFyqbPdmjZpG4tFsnyLZEV6Tn38aic7H4oeWOSub5gTRnjF4vgdRbBJutMM0G3d2x3c9VFz2g1dkX00bPRK5pYT");
 
@@ -195,7 +194,7 @@ document
 
 // Fetches a payment intent and captures the client secret
 async function initialize() {
-  let {client_secret}  = await fetch("payment/intent", {
+  let {client_secret}  = await fetch("/payment/intent", {
     method: "POST",
     headers: { "Content-Type": "application/json",
     'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -203,13 +202,12 @@ async function initialize() {
     body: JSON.stringify({ items }),
   }).then((r) => r.json());
 
-  // clientSecret = 'pi_3P7coyRxBSKsFyqb0pVZ8WaO_secret_9wTka6yC2ejJ3EIOaeOzCtqaH'
-  console.log(client_secret)
   clientSecret = client_secret;
   elements = stripe.elements({ clientSecret });
 
   const paymentElementOptions = {
     layout: "tabs",
+
   };
 
   const paymentElement = elements.create("payment", paymentElementOptions);
@@ -256,6 +254,7 @@ async function checkStatus() {
 
   switch (paymentIntent.status) {
     case "succeeded":
+    // initialize();
       showMessage("Payment succeeded!");
       break;
     case "processing":
