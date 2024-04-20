@@ -12,6 +12,7 @@ use App\Http\Controllers\SecretaryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KycController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,15 +27,18 @@ use App\Http\Controllers\KycController;
 
 
 
-Route::get('{path}', function () {
-  return view('index');
-})->where('path', '^(.+)?$');
+// Route::get('{path}', function () { 
+//   return view('index');
+// })->where('path', '^(.+)?$');
 
 
-Route::fallback(function () {
-    return view('index');
-});
+// Route::fallback(function () {
+//     return view('index');
+// });
 
+Route::get('/payment', [PaymentController::class, 'loadPyamentPage']);
+Route::post('payment/intent', [PaymentController::class, 'PaymentIntent']);
+Route::get('process/payment', [PaymentController::class, 'ProcessPayment'])->name('ProcessPayment');
 
 
 // Route::get('/', function () {
