@@ -55,4 +55,3 @@ Route::post('kyc/register', [KycController::class, 'loadKyc']);
 
 Route::get('/payment', [PaymentController::class, 'loadPyamentPage']);
 Route::post('payment/intent', [PaymentController::class, 'PaymentIntent']);
-Route::get('process/payment', [PaymentController::class, 'ProcessPayment'])->name('ProcessPayment');

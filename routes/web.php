@@ -27,18 +27,18 @@ use App\Http\Controllers\PaymentController;
 
 
 
-// Route::get('{path}', function () { 
-//   return view('index');
-// })->where('path', '^(.+)?$');
+Route::get('{path}', function () { 
+  return view('index');
+})->where('path', '^(.+)?$');
 
 
-// Route::fallback(function () {
-//     return view('index');
-// });
+Route::fallback(function () {
+    return view('index');
+});
 
-Route::get('/payment', [PaymentController::class, 'loadPyamentPage']);
-Route::post('payment/intent', [PaymentController::class, 'PaymentIntent']);
-Route::get('process/payment', [PaymentController::class, 'ProcessPayment'])->name('ProcessPayment');
+// Route::get('/payment', [PaymentController::class, 'loadPyamentPage']);
+// Route::post('payment/intent', [PaymentController::class, 'PaymentIntent']);
+// Route::get('process/payment', [PaymentController::class, 'ProcessPayment'])->name('ProcessPayment');
 
 
 // Route::get('/', function () {
