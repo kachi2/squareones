@@ -11,7 +11,7 @@ class KycController extends Controller
     //
 
     public function loadKyc(){
-        $user = User::where('id', 1)->first();
+        $user = User::where('id', auth_user())->first();
         $name = explode(' ',$user->name);
         $client = new Client();
         $req = $client->request('post', 'https://api.complycube.com/v1/clients', [
