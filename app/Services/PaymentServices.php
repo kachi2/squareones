@@ -22,11 +22,11 @@ class PaymentServices implements PaymentInterface
                 'card',
             ],
         ]);
-        $company = Company::where(['user_id' =>1, 'is_complete' => 1])->first();
+        $company = Company::where(['user_id' => auth_user(), 'is_complete' => 1])->first();
         Billing::updateOrcreate([
             'company_id' => $company->id,
         ],[
-            'user_id' => 1,
+            'user_id' => auth_user(),
             'company_id' => $company->id,
             'amount' => '5000',
             'payment_intent' => $paymentIntent['id'],

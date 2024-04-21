@@ -11,7 +11,7 @@ class KycController extends Controller
     //
 
     public function loadKyc(){
-        $user = User::where('id', auth_user())->first();
+        $user = User::where('id', 1)->first();
         $name = explode(' ',$user->name);
         $client = new Client();
         $req = $client->request('post', 'https://api.complycube.com/v1/clients', [
@@ -38,7 +38,7 @@ class KycController extends Controller
                 'client_id' => $data['id']
             ]);
            $res = $this->GetUserToken();
-           return $res;
+        //    return $res;
 
         }
 
@@ -48,7 +48,7 @@ class KycController extends Controller
 
     public function GetUserToken(){
         $client = new Client();
-        $user = User::where('id', auth_user())->first();
+        $user = User::where('id', 1)->first();
         $request = $client->request('post', 'https://api.complycube.com/v1/tokens', [
             'headers' => 
             [

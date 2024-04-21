@@ -27,9 +27,9 @@ use App\Http\Controllers\PaymentController;
 
 
 
-Route::get('{path}', function () { 
-  return view('index');
-})->where('path', '^(.+)?$');
+// Route::get('{path}', function () { 
+//   return view('index');
+// })->where('path', '^(.+)?$');
 
 
 Route::fallback(function () {
@@ -81,6 +81,6 @@ Route::fallback(function () {
 // Route::post('signature/store', [DocumentSignController::class, 'ProcessSignature'])->name('signaturepad.upload');
 // Route::get('/pdf/pdf/{id}',[DocumentSignController::class, 'BuildPDF']);
 
-// Route::get('kyc/load', [KycController::class, 'loadKyc']);
+Route::get('kyc/load', [KycController::class, 'loadKyc']);
 
 
