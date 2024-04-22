@@ -52,4 +52,12 @@ class Company extends Model
     public function Users(){
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function Billing(){
+        return $this->hasOne(Billing::class, 'id');
+    }
+
+//     public function Kyc(){
+//         return $this->hasOne(KYc)
+//     }
 }

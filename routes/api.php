@@ -11,7 +11,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function() {
     require __DIR__.'/companyFormation.php';
 });
-Route::get('process/payment', [PaymentController::class, 'ProcessPayment'])->name('ProcessPayment');
+Route::post('process/payment', [PaymentController::class, 'ProcessPayment'])->name('ProcessPayment');
 require __DIR__.'/jetstream.php';
 require __DIR__.'/auth.php';
 

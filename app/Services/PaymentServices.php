@@ -23,6 +23,7 @@ class PaymentServices implements PaymentInterface
             ],
         ]);
         $company = Company::where(['user_id' => auth_user(), 'is_complete' => 0])->first();
+        if($company){
         Billing::updateOrcreate([
             'company_id' => $company->id,
         ],[
@@ -33,6 +34,7 @@ class PaymentServices implements PaymentInterface
             'status' => '',
             'payment_ref' => $payment_ref,
         ]);
+      }
         // dd($paymentIntent);
         return  $paymentIntent;
     }catch(\Exception $e){
@@ -42,6 +44,7 @@ class PaymentServices implements PaymentInterface
 
     public function ProcessPayment(Request $request)
     {  
+   
     try{
             $billing = Billing::where('payment_intent', $request->payment_intent)->first();
             if($billing){

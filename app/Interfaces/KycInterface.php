@@ -6,4 +6,6 @@ interface KycInterface {
 
     public function InitiateKycProcess($request);
 
+    public function GetUserToken();
+
 }
