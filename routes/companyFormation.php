@@ -50,8 +50,6 @@ Route::controller(DocumentSignController::class)->group( function() {
 Route::post('/build/pdf/', 'BuildPDF');
 });
 
-Route::post('kyc/register', [KycController::class, 'loadKyc']);
-
-
 Route::get('/payment', [PaymentController::class, 'loadPyamentPage']);
 Route::post('payment/intent', [PaymentController::class, 'PaymentIntent']);
+Route::get('kyc/load', [KycController::class, 'loadKyc']);

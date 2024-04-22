@@ -54,10 +54,7 @@ class Company extends Model
     }
 
     public function Billing(){
-        return $this->hasOne(Billing::class, 'id');
+        return $this->hasOne(Billing::class, 'company_id', 'id');
     }
 
-//     public function Kyc(){
-//         return $this->hasOne(KYc)
-//     }
 }

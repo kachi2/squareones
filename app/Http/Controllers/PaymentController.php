@@ -22,11 +22,6 @@ class PaymentController extends Controller
     }
     //
 
-
-    public function loadPyamentPage(){
-        return view('payment');
-    }
-
     public function PaymentIntent(Request $request){
         $paymentIntent = $this->PaymentInterface->PaymentIntent($request);
        return response()->json($paymentIntent, 200);
