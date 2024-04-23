@@ -8,14 +8,14 @@
         </span>
         <div class="row mt-1 g-2">
             <div class="col-12 ">
-                <input :class="{ 'error-field': form.errors.first_name }" v-maska data-maska="Aa"
+                <input :class="{ 'error-field': form.errors.first_name }" v-maska data-maska="A a"
                     data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple" v-model="form.first_name" type="text"
                     class="form-control" placeholder="First Name..">
                 <small class=" text-danger">{{ form.errors.first_name }}</small>
             </div>
 
             <div class="col-12 ">
-                <input :class="{ 'error-field': form.errors.last_name }" v-maska data-maska="Aa"
+                <input :class="{ 'error-field': form.errors.last_name }" v-maska data-maska="A a"
                     data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple" v-model="form.last_name" type="text"
                     class="form-control" placeholder="Last Name..">
                 <small class=" text-danger">{{ form.errors.last_name }}</small>
@@ -84,8 +84,7 @@
                 <small class=" text-danger">{{ form.errors.building }}</small>
             </div>
             <div class="col-12">
-                <label class="form-label">  Street／Estate／Lot／Village <small
-                        class=" text-danger">*</small></label>
+                <label class="form-label"> Street／Estate／Lot／Village <small class=" text-danger">*</small></label>
 
                 <input :class="{ 'error-field': form.errors.street }" v-model="form.street" class="form-control"
                     type="text" placeholder="City">
@@ -135,8 +134,7 @@
                 <small class=" text-danger">{{ form.errors.building2 }}</small>
             </div>
             <div class="col-12">
-                <label class="form-label"> Street／Estate／Lot／Village <small
-                        class=" text-danger">*</small></label>
+                <label class="form-label"> Street／Estate／Lot／Village <small class=" text-danger">*</small></label>
 
                 <input :class="{ 'error-field': form.errors.street2 }" v-model="form.street2" class="form-control"
                     type="text" placeholder="City">
@@ -165,54 +163,63 @@
     </section>
 
     <section class="row g-2 section">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <label class=" fw-bolder">ID type <small class="text-danger">*</small></label>
             <select class="form-select" v-model="form.identity_type_id">
-                <option> </option>
+                <option value="0"> </option>
                 <option value="1">Passport</option>
                 <option value="2">ID Card</option>
             </select>
         </div>
-        <div v-if="form.identity_type_id == '2'" class="col-md-8">
+        <div v-if="form.identity_type_id == '2'" class="col-md-9">
             <label class=" fw-bolder">HKID No. <small class="text-danger">*</small></label>
             <input :class="{ 'error-field': form.errors.identity_no }" v-maska data-maska="#### #### #### ####"
                 data-maska-tokens="#:[0-9a-zA-Z]" v-model="form.identity_no" ype="text" class="form-control"
                 placeholder="HKID No.">
             <small class=" text-danger">{{ form.errors.identity_no }}</small>
         </div>
-        <div v-if="form.identity_type_id == '1'" class="col-md-8">
+        <div v-if="form.identity_type_id == '2'" class="col-md-3" style="margin-top:30px">
+            <!-- <label class="fw-bolder">HKID No. <small class="text-danger">*</small></label> -->
+            <!-- <div class="append"> -->
+            ( <input :class="{ 'error-field': form.errors.identity_no_suffix }" v-maska data-maska="##"
+                data-maska-tokens="#:[0-9]" v-model="form.identity_no_suffix" type="text" class="form-control "
+                placeholder="" style="display: inline !important; width:100px">)
+            <!-- </div> -->
+            <small class=" text-danger">{{ form.errors.identity_no_suffix }}</small>
+        </div>
+        <div v-if="form.identity_type_id == '1'" class="col-md-12">
             <label class=" fw-bolder">Passport No. <small class="text-danger">*</small></label>
             <input :class="{ 'error-field': form.errors.passport_no }" v-maska data-maska="EEEEEEEEEEEEEEEE"
                 data-maska-tokens="E:[0-9a-zA-Z]" v-model="form.passport_no" type="text" class="form-control"
                 placeholder="Passport No">
             <small class=" text-danger">{{ form.errors.passport_no }}</small>
         </div>
-        <div v-if="form.identity_type_id == '1'" class="col-md-8">
+        <div v-if="form.identity_type_id == '1'" class="col-md-12">
             <label class=" fw-bolder">Passport issuing Country/Region <small class="text-danger">*</small> </label>
             <v-select :class="{ 'error-field': form.errors.issuing_country }" v-model="form.issuing_country"
                 :clearable="false" :options="startCompanyStore.countries" />
             <small class=" text-danger">{{ form.errors.issuing_country }}</small>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-12">
             <label class=" fw-bolder">Phone number <small class="text-danger">*</small></label>
             <vue-tel-input :class="{ 'error-field': form.errors.phone }" :inputOptions="phoneField.input"
                 :dropdownOptions="phoneField.dropDown" :autoFormat="true" v-model="form.phone"></vue-tel-input>
             <small class=" text-danger">{{ form.errors.phone }}</small>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-12">
             <label class=" fw-bolder">Email <small class="text-danger">*</small></label>
             <input :class="{ 'error-field': form.errors.email }" v-model="form.email" type="text" class="form-control"
                 placeholder="email">
             <small class=" text-danger">{{ form.errors.email }}</small>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-12">
             <label class=" fw-bolder">Confirm email <span class="text-danger"> * </span></label>
             <input :class="{ 'error-field': form.errors.confirm_email }" v-model="form.confirm_email" type="text"
                 class="form-control" placeholder="confirm email">
             <small class=" text-danger">{{ form.errors.confirm_email }}</small>
             <small v-if="emailMatchError" class=" text-danger">emails do no match</small>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-12">
             <label class="form-labe fw-bolder">Occupation/Employment <span class="text-danger"> * </span></label>
             <v-select v-model="form.occupation" :clearable="false" :options="startCompanyStore.employmentStatusList" />
         </div>
@@ -227,7 +234,7 @@
 
     <div class="movement-buttons mt-5 mb-4">
         <button @click="moveBack" class="btn btn-outline-dark me-3">
-            <i class="bi bi-arrow-left"></i> Back
+            <i class="bi bi-arrow-left"></i> Close
         </button>
         <button v-if="!form.isSaving" @click="saveAndContinue" class="btn btn-primary">
             Save Record <i class="bi bi-check2"></i>
@@ -330,7 +337,8 @@ watchEffect(() => {
 
 
 function moveBack() {
-    startCompanyStore.switchStage('-')
+    // startCompanyStore.switchStage('-')
+    startCompanyStore.isShowingFoundersForm = false
 }
 
 function saveAndContinue() {
@@ -340,7 +348,6 @@ function saveAndContinue() {
         return;
     }
 
-    console.log(form.errors)
     if (Object.keys(form.errors).length > 0) {
 
         toast.default("Some fields still have errors", { position: 'top-right' });
@@ -365,8 +372,8 @@ function saveAndContinue() {
     // }
 
     if (!form.correspondingAddressIsSame) {
-        if (!form.flat2 || !form.street2 ) {
-            toast.default('Please complete Secondary address', { position: 'top-right' })
+        if (!form.flat2 || !form.street2) {
+            toast.default('Please complete corresponding address', { position: 'top-right' })
             return;
         }
     }
@@ -390,6 +397,10 @@ function saveAndContinue() {
 
     if (form.identity_type_id == '2') {
         if (!form.identity_no) {
+            toast.default('Please complete ID field', { position: 'top-right' })
+            return;
+        }
+        if (!form.identity_no_suffix) {
             toast.default('Please complete ID field', { position: 'top-right' })
             return;
         }
@@ -421,6 +432,8 @@ function saveAndContinue() {
     formData.append('email', form.email)
     formData.append('occupation', form.occupation)
     formData.append('identity_type_id', form.identity_type_id)
+    formData.append('identity_no', form.identity_no)
+    formData.append('identity_no_suffix', form.identity_no_suffix || '')
     formData.append('passport_no', form.passport_no)
     formData.append('issuing_country', form.issuing_country)
 
@@ -432,7 +445,7 @@ function saveAndContinue() {
     formData.append('addresses[0][street]', form.street)
     formData.append('addresses[0][city]', form.city)
     formData.append('addresses[0][state]', form.state)
-    formData.append('addresses[0][postal_code]', form.postal_code)
+    // formData.append('addresses[0][postal_code]', form.postal_code)
     formData.append('addresses[0][country]', form.country)
     formData.append('addresses[0][is_corAddress]', form.correspondingAddressIsSame ? '1' : '0')
 
@@ -442,7 +455,7 @@ function saveAndContinue() {
         formData.append('addresses[1][street]', form.street2)
         formData.append('addresses[1][city]', form.city2)
         formData.append('addresses[1][state]', form.state2)
-        formData.append('addresses[1][postal_code]', form.postal_code2)
+        // formData.append('addresses[1][postal_code]', form.postal_code2)
         formData.append('addresses[1][country]', form.country2)
     }
 

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Interfaces\KycInterface;
 use GuzzleHttp\Client;
+use Illuminate\Http\Request;
 use App\Models\User;
 
 class KycProcessService implements KycInterface{
@@ -39,6 +40,7 @@ class KycProcessService implements KycInterface{
            $res = $this->GetUserToken();
             return $res;
         }
+      
     }
 
 
@@ -62,6 +64,11 @@ class KycProcessService implements KycInterface{
             'user_token' => $res['token']
         ]);
         return $res;
+    }
+
+    public function ProcessKYCVerification($request){
+
+        
     }
 
 }

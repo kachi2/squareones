@@ -45,6 +45,10 @@ export default {
         return $instanceForm.post(`upload/docs`, formData)
     },
 
+    buildPDF(formData: FormData) {
+        return $instanceForm.post(`build/pdf`, formData)
+    },
+
     retrieveShaheolders() {
         return $instance.post(`retrieve/shareholders/1`)
     },

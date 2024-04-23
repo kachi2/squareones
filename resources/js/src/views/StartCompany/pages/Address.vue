@@ -55,7 +55,7 @@
                 <button @click="moveBack" class="btn btn-outline-dark me-3">
                     <i class="bi bi-arrow-left"></i> Back
                 </button>
-                <button v-if="!form.isSaving" @click="saveAndContinue" class="btn btn-primary">
+                <button v-if="!form.isSaving" @click="saveAndContinues" class="btn btn-primary">
                     Save & Continue <i class="bi bi-arrow-right"></i>
                 </button>
                 <button v-else class="btn btn-primary" type="button" disabled>
@@ -115,6 +115,10 @@ function moveBack() {
     startCompanyStore.switchStage('-')
 }
 
+function saveAndContinues() {
+        startCompanyStore.switchStage('+')
+        startCompanyStore.getCompanyInProgress()
+}
 const saveAndContinue = form.handleSubmit(async (values) => {
     if (!startCompanyStore.companyInProgress?.id) {
         toast.default('You have not registered any company name', { position: 'top-right' })

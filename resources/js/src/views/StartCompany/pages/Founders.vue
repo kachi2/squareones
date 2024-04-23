@@ -11,11 +11,11 @@
       <div v-if="!startCompanyStore.isShowingFoundersForm">
         <label for="CompanyStore" class="section" style="width:100%;">
           <!-- <section class="section"> -->
-          <div class="card" style="
+          <div class="card " style="
             display: flex;
             align-items: center;
             height: 60px;
-            background: #eeee;
+            background: #cfe2ff;
             padding: 10px;
             
           ">
@@ -27,7 +27,7 @@
         </label>
         <section v-if="foundersAdded.length" class="section">
           <div class="card" style="width: 100%">
-            <div class="card-header" style="background: #eeee">Founders / Directors </div>
+            <div class="card-header" style="background: #cfe2ff">Founders / Directors </div>
             <div class="table-responsive">
               <table class="table table-sm ">
                 <tbody>
@@ -65,11 +65,16 @@
             </div>
           </div>
         </section>
+        <button @click="moveBack" class="btn btn-outline-dark me-3">
+          <i class="bi bi-arrow-left"></i> Back
+        </button>
+        <button @click="saveAndContinue" class="btn btn-primary">
+          Continue <i class="bi bi-arrow-right"></i>
+        </button>
       </div>
 
       <div v-else>
-        <button @click="startCompanyStore.isShowingFoundersForm = false"
-          class="btn btn-outline-secondary float-end btn-sm"> Close Form</button>
+        <button @click="closeForm" class="btn btn-outline-secondary float-end btn-sm"> Close Form</button>
         <section class="section">
           <div class="fw-bold">What is the type of founder/director? </div>
 
@@ -112,6 +117,8 @@
         <Founders_individual v-if="founderType == 'individual'" />
         <Founders_corporate v-else />
       </div>
+
+
     </template>
 
 
@@ -228,7 +235,6 @@ const toast = useToast();
 
 const foundersAdded = computed(() => {
   const entity = startCompanyStore.companyInProgress?.company_entity ?? [];
-  console.log(entity);
   const arrayOfFounders: any[] = [];
   if (entity.length) {
     entity.forEach((el: any) => {
@@ -240,11 +246,27 @@ const foundersAdded = computed(() => {
       }
     });
   }
-  //   console.log(arrayOfFounders)
   return arrayOfFounders;
 });
 
+function closeForm() {
+  useFxn.confirmDelete("This action will clear all input data?", "Yes, Clear")
+  .then( async (resp) => {
+    if (resp.isConfirmed) {
+    startCompanyStore.isShowingFoundersForm = false;
+  corporate_form.clearLocalStorage()
+  individual_form.clearLocalStorage()
+    }
+  })
+ 
+
+}
+function moveBack() {
+  startCompanyStore.switchStage('-')
+}
 function openForm() {
+  corporate_form.resetForm()
+  individual_form.resetForm()
   startCompanyStore.isShowingFoundersForm = true
   startCompanyStore.idToEdit = ''
 }
@@ -253,48 +275,63 @@ function editFounder(entity: any) {
   founderType.value = entity.entity_type_id == '1' ? 'individual' : 'corporate'
   startCompanyStore.isShowingFoundersForm = true
   startCompanyStore.idToEdit = entity.company_entity_id
-  // console.log(entity);
+  corporate_form.resetForm()
+  individual_form.resetForm()
 
 
   populateForms(entity)
 }
 
+
 function populateForms(entity: any) {
   if (entity.entity_type_id == '1') {
-    individual_form.flat = entity.flat
-    individual_form.building = entity.building
-    individual_form.street = entity.street
-    individual_form.state = entity.state
-    individual_form.postal_code = entity.postal_code
-    individual_form.country = entity.country
+    individual_form.flat = entity.res_address.flat
+    individual_form.building = entity.res_address.building
+    individual_form.street = entity.res_address.street
+    individual_form.state = entity.res_address.state
+    // individual_form.postal_code = entity.postal_code
+    individual_form.country = entity.res_address.country
 
-    individual_form.flat2 = entity.flat2
-    individual_form.building2 = entity.building2
-    individual_form.street2 = entity.street2
-    individual_form.state2 = entity.state2
-    individual_form.postal_code2 = entity.postal_code2
-    individual_form.country2 = entity.country2
+    // individual_form.flat2 = entity.flat2
+    // individual_form.building2 = entity.building2
+    // individual_form.street2 = entity.street2
+    // individual_form.state2 = entity.state2
+    // individual_form.postal_code2 = entity.postal_code2
+    // individual_form.country2 = entity.country2
 
     individual_form.first_name = entity.first_name
     individual_form.last_name = entity.last_name
-    individual_form.chn_first_name = entity.chn_first_name
-    individual_form.chn_last_name = entity.chn_last_name
+    if (entity.chn_first_name && entity.chn_first_name != 'undefined') {
+      individual_form.hasChineseName = true
+      individual_form.chn_first_name = entity.chn_first_name
+    }
+
+    if (entity.chn_last_name && entity.chn_last_name != 'undefined')
+      individual_form.chn_last_name = entity.chn_last_name
     individual_form.dob = new Date(entity.dob)
     individual_form.nationality = entity.nationality
     individual_form.phone = entity.phone
     individual_form.email = entity.email
     individual_form.confirm_email = entity.email
     individual_form.occupation = entity.occupation
-    // individual_form.identity_type_id = '1'
-    individual_form.identity_no = entity.identity_no
-    individual_form.passport_no = entity.passport_no
-    individual_form.issuing_country = entity.issuing_country
+    individual_form.identity_type_id = entity.get_identity.identity_type
+    if (entity.get_identity.identity_type == 1) {
+      individual_form.passport_no = entity.get_identity.passport_no
+      individual_form.issuing_country = entity.get_identity.issueing_country
+    }
+    if (entity.get_identity.identity_type == 2) {
+      individual_form.identity_no = entity.get_identity.identity_no
+      if (entity.get_identity.identity_no_suffix)
+        individual_form.identity_no_suffix = entity.get_identity.identity_no_suffix
+    }
 
     startCompanyStore.checkedEntityCapacity = JSON.parse(entity.capacity)
   }
   else {
-    corporate_form.company_name = entity.company_name
-    corporate_form.chn_company_name = entity.chn_company_name
+    if (entity.company_name != undefined && entity.company_name != 'undefined')
+      corporate_form.company_name = entity.company_name
+    if (entity.chn_company_name != undefined && entity.chn_company_name != 'undefined')
+      corporate_form.chn_company_name = entity.chn_company_name
     corporate_form.date_incorporated = new Date(entity.date_incorporated)
     corporate_form.flat = entity.flat
     corporate_form.building = entity.building
@@ -303,17 +340,19 @@ function populateForms(entity: any) {
     corporate_form.country = entity.country
 
     corporate_form.postal_code = entity.postal_code
-    corporate_form.registeration_no = entity.registeration_no
+    if (entity.registeration_no != undefined && entity.registeration_no != 'undefined')
+      corporate_form.registeration_no = entity.registeration_no
     corporate_form.country_registered = entity.country_registered
     // @ts-ignore
     corporate_form.business_nature_id = parseInt(entity.business_nature_id)
-    corporate_form.phone = entity.phone
-    corporate_form.email = entity.email
-    corporate_form.confirm_email = entity.email
-    corporate_form.first_name = entity.first_name
-    corporate_form.last_name = entity.last_name
+    corporate_form.phone = entity.authorized_persons.phone
+    corporate_form.email = entity.authorized_persons.email
+    corporate_form.confirm_email = entity.authorized_persons.email
+    corporate_form.first_name = entity.authorized_persons.first_name
+    corporate_form.last_name = entity.authorized_persons.last_name
 
     startCompanyStore.checkedEntityCapacity = JSON.parse(entity.capacity)
+
   }
 }
 
@@ -328,13 +367,20 @@ function deleteFounder(id: any) {
           startCompanyStore.getCompanyInProgress("founder");
 
         } catch (error) {
-          console.log(error);
+          // console.log(error);
           toast.error("Sorry Something went wrong", { position: "top-right" });
         }
       }
     });
 }
+
+function saveAndContinue() {
+  startCompanyStore.switchStage('+')
+  startCompanyStore.getCompanyInProgress()
+}
 </script>
+
+
 <style lang="css" scoped>
 .form-check-label {
   cursor: pointer;

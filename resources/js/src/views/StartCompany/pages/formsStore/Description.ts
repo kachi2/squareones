@@ -11,7 +11,7 @@ export const descriptionForm = defineStore('description', () => {
     const rules = {
         // description: yup.string().required().test('hasUppercase', 'Description must not be less than 150 letters', hasUppercase),
         description: yup.string().min(150, 'Description must be at least 150 characters long').required(),
-        website: yup.string().required('Field is required'),
+        website: yup.string(),
         business_nature_id: yup.string().required('Please select a nature of business'),
     };
 

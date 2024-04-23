@@ -73,8 +73,8 @@
                                 100% <i class="bi bi-check-circle"></i>
                             </span>
 
-                            <span v-else class=" float-end text-black small">
-                                Sum of entries must be equal to Total Amount Paid
+                            <span v-else class=" float-end text-danger small">
+                                {{ sumError }}
                                 <i class="bi bi-exclamation-circle"></i>
                             </span>
 
@@ -163,7 +163,7 @@
     </StartCompany_template>
 </template>
 <script lang="ts" setup>
-import { computed, onMounted, watch, watchEffect, reactive } from 'vue';
+import { computed, onMounted, watch, watchEffect, reactive , ref} from 'vue';
 import StartCompany_template from '../StartCompany_template.vue';
 import { useStartCompanyStore } from '../StartCompany_store';
 import api from '@/stores/Helpers/axios'
@@ -174,11 +174,13 @@ import { ownershipForm } from './formsStore/Ownership'
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
 
-const form = ownershipForm()
+const form  = ownershipForm()
 
 const errors: any = reactive({
     total: ''
 })
+
+let sumError : any  = ref('Sum of entries must be equal to Total Amount Paid');
 
 const fieldsHasErrors = computed(() => {
     return Object.keys(errors).some(el => errors[el] !== '');
@@ -188,14 +190,14 @@ function dissolveMaska(str: string) {
     return parseInt(str.replace(/,/g, ''))
 }
 
-watch(() => form.no_of_share, () => {
-    form.total_amount_paid = form.no_of_share
-})
+// watch(() => form.no_of_share, () => {
+//     form.total_amount_paid = form.no_of_share
+// })
 
 watchEffect(() => {
-    if (dissolveMaska(form.total_amount_paid) > dissolveMaska(form.no_of_share))
-        errors.total = 'Must not be greater than no. of shares'
-    else errors.total = ''
+    // if (dissolveMaska(form.total_amount_paid) > dissolveMaska(form.no_of_share))
+        // errors.total = 'Must not be greater than no. of shares'
+     errors.total = ''
 })
 
 
@@ -204,8 +206,9 @@ onMounted(() => {
     // check for atleast one Individual
     const entity = startCompanyStore.companyInProgress?.company_entity ?? [];
     const individual = entity.find((x: any) => x.entity_type_id == 1)
-    if (!entity.length || !individual) {
-        toast.error('You need to add at least one Individual Entity', { position: 'top-right' })
+    const Corporate = entity.find((x: any) => x.entity_type_id == 2)
+    if (!Corporate ||  !individual) {
+        toast.error('You need to add at least one Shareholder <br>   and one Individual Director to proceed', { position: 'top-right' })
         startCompanyStore.switchStage('-')
     }
 
@@ -227,18 +230,18 @@ async function retrieveShareHolders() {
         const resp = await api.retrieveShaheolders()
 
         const entity = resp.data.data;
-        console.log(entity)
+        // console.log(entity)
         const arrayOfFounders: any[] = []
         if (entity.length) {
             entity.forEach((el: any) => {
-                console.log(el)
+                // console.log(el)
 
                 const obj = el.individual || el.corporate;
                 if (obj) {
                     obj.entity_name = el.entity_type_id == 1 ?
                         `${obj.first_name} ${obj.last_name}`
                         : `${obj.company_name}`
-                     obj.own_share = el.share?.total_amount??0;
+                    obj.own_share = el.share?.total_amount ?? 0;
                     arrayOfFounders.push(obj);
                 }
             });
@@ -247,7 +250,7 @@ async function retrieveShareHolders() {
         form.shareHolders = arrayOfFounders
 
     } catch (error) {
-        console.log(error);
+        // console.log(error);
 
     }
 }
@@ -259,11 +262,20 @@ const sumEqualToTotal = computed(() => {
             if (obj.own_share) {
                 total += dissolveMaska(obj.own_share);
             }
+            if(obj.own_share <= 0){
+                sumError = "Shareholder must not have zero(0) shares";
+                return false;
+            }else{
+                sumError = "Sum of entries must be equal to Total Amount Paid";
+            }
+        
         }
+     
     }
 
-    const totalInputed = form.no_of_share ? dissolveMaska(form.no_of_share) : 0
 
+
+    const totalInputed = form.no_of_share ? dissolveMaska(form.no_of_share) : 0
     return total == totalInputed ? true : false
 })
 
@@ -310,6 +322,7 @@ function saveAndContinue() {
     formData.append('no_of_share', form.no_of_share.replace(/,/g, ''))
 
     summaryArray.value.forEach((entity, index) => {
+       
         formData.append(`company_entity[${index}][share_percentage]`, entity.share_percentage);
         formData.append(`company_entity[${index}][total_amount]`, `${dissolveMaska(entity.own_share)}`);
         formData.append(`company_entity[${index}][company_entity_id]`, entity.company_entity_id);
@@ -331,7 +344,7 @@ async function saveFromToApi(formData: FormData) {
     } catch (error) {
         toast.error('Sorry, Something went wrong', { position: 'top-right' });
         form.isSaving = false
-        console.log(error);
+        // console.log(error);
 
     }
 }

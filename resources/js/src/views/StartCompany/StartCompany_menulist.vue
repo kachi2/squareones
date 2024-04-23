@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { useStartCompanyStore } from './StartCompany_store';
 import { useToast } from 'vue-toast-notification';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
@@ -11,8 +14,9 @@ function goToStage(stage: number) {
     if ((stage === 10 || stage == 11 || stage == 12) && (!company || !company.description || !company.address
         || !company.company_entity.length || !company.owner_share.length
         || !company.fund_source.length || !company.activity)) {
-        toast.default('You need to complete all data first!', { position: 'top-right' });
+        toast.info('You cannot access this page here <br> Complete all forms!', { position: 'top-right' });
     } else {
+        router.push({ name: 'Start' })
         startCompanyStore.currentStage = stage;
     }
 

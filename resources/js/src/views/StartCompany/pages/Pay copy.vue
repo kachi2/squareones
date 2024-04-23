@@ -23,7 +23,7 @@
                                 Securely save my information for 1-click checkout
                             </div>
                             <span>
-                                Pay faster on Stripe Atlas and everywhere Link is accepted
+                                Pay faster on Stripe Atlas and everywhere Link is acceapted
                             </span>
                         </label>
                     </div>
@@ -54,12 +54,11 @@
 </template>
 <script lang="ts" setup>
 import StartCompany_template from '../StartCompany_template.vue';
-import { StripeElementCard } from '@vue-stripe/vue-stripe';
 import { useStartCompanyStore } from '../StartCompany_store';
 import axios from 'axios'
 import api from '@/stores/Helpers/axios'
 
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted } from 'vue';
 // import { loadStripe } from "@stripe/stripe-js";
 // import { Elements } from "@stripe/vue-stripe-js";
 
@@ -87,6 +86,8 @@ onMounted(async () => {
         clientSecret = data.client_secret
         if (data?.client_secret)
             clientSecretIsLoaded.value = true
+
+        // @ts-ignore
         elements = stripePromise.elements({ clientSecret });
 
         const paymentElementOptions = {
@@ -103,7 +104,6 @@ onMounted(async () => {
     } catch (error) {
         intentHasError.value = true
     }
-})
 
 
     async function handleSubmit(event: any) {
@@ -112,10 +112,16 @@ onMounted(async () => {
         const { error } = await stripePromise.confirmPayment({
             elements,
             confirmParams: {
-                return_url: `http://localhost:5173/kcy/verifications` //,
+                // Make sure to change this to your payment completion page
+                return_url: `http://127.0.0.1:8000/api/process/payment` //,
             },
         });
 
+        // This point will only be reached if there is an immediate error when
+        // confirming the payment. Otherwise, your customer will be redirected to
+        // your `return_url`. For some payment methods like iDEAL, your customer will
+        // be redirected to an intermediate site first to authorize the payment, then
+        // redirected to the `return_url`.
         if (error.type === "card_error" || error.type === "validation_error") {
             showMessage(error.message);
         } else {
@@ -182,7 +188,7 @@ onMounted(async () => {
         }
     }
 
-
+})
 
 </script>
 <style lang="css" scoped>

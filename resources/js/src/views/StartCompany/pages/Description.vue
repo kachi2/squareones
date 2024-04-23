@@ -14,7 +14,7 @@
                 </div>
 
                 <div class="row g-2 mt-1">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <textarea :class="{ 'error-field': form.errors.description }" v-model="form.description"
                             class="form-control" rows="5"></textarea>
                         <small class=" text-danger">{{ form.errors.description }}</small>
@@ -29,9 +29,9 @@
                 </div>
 
                 <div class="row g-2 mt-1">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <v-select :class="{ 'error-field': form.errors.business_nature_id }"
-                            v-model="form.business_nature_id" :clearable="false"
+                            v-model="form.business_nature_id" :clearable="true"
                             :options="startCompanyStore.businessNatures" :reduce="(item: any) => item.id"
                             label="name" />
                         <small class=" text-danger">{{ form.errors.business_nature_id }}</small>
@@ -42,7 +42,7 @@
             <section class="section">
                 <div class="fw-bold">Website or social media</div>
                 <div class="row g-2 mt-1">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <input :class="{ 'error-field': form.errors.website }" v-model="form.website" type="text"
                             class="form-control">
                         <small class=" text-danger">{{ form.errors.website }}</small>
@@ -100,13 +100,13 @@ function moveBack() {
 
 const saveAndContinue = () => {
     if (!startCompanyStore.companyInProgress?.id) {
-        toast.default('You have not registered any company name', { position: 'top-right' })
+        toast.info('You have not registered any company name', { position: 'top-right' })
         startCompanyStore.switchStage('-', 2)
         return;
     }
 
     if (Object.keys(form.errors).length > 0) {
-        toast.default("Some fields still have errors", { position: 'top-right' });
+        toast.error("Some fields still have errors", { position: 'top-right' });
         return true;
     }
 

@@ -43,9 +43,9 @@
 
             <section class="section">
                 <div class="fw-bolder pt-3">Address </div>
-               <div class="row g-3 mt-1">
+                <div class="row g-3 mt-1">
                     <div class="col-12">
-                        <label class="form-label"> Flat／Floor／Block  <i class="bi bi-lock-fill"></i></label>
+                        <label class="form-label"> Flat／Floor／Block <i class="bi bi-lock-fill"></i></label>
                         <input disabled v-model="form.flat" class="form-control" type="text"
                             placeholder="Flat／Floor／Block">
                         <!-- <small class=" text-danger">{{ form.errors.flat }}</small> -->
@@ -57,13 +57,14 @@
                         <!-- <small class=" text-danger">{{ form.errors.building }}</small> -->
                     </div>
                     <div class="col-12">
-                        <label class="form-label">  Street／Estate／Lot／Village<i class="bi bi-lock-fill"></i></label>
-                   
+                        <label class="form-label"> Street／Estate／Lot／Village<i class="bi bi-lock-fill"></i></label>
+
                         <input disabled v-model="form.street" class="form-control" type="text" placeholder="City">
                         <!-- <small class=" text-danger">{{ form.errors.street }}</small> -->
                     </div>
                     <div class="col-12">
-                        <label class="form-label">District／City／ Province／State／ Postal Code <i class="bi bi-lock-fill"></i></label>
+                        <label class="form-label">District／City／ Province／State／ Postal Code <i
+                                class="bi bi-lock-fill"></i></label>
                         <input disabled v-model="form.state" class="form-control" type="text" placeholder="State">
                         <!-- <small class=" text-danger">{{ form.errors.state }}</small> -->
                     </div>
@@ -104,11 +105,7 @@ import { reactive } from 'vue';
 import StartCompany_template from '../StartCompany_template.vue';
 import { useStartCompanyStore } from '../StartCompany_store';
 import api from '@/stores/Helpers/axios'
-import { useToast } from 'vue-toast-notification';
 
-import useFxn from '@/stores/Helpers/useFunctions';
-
-const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
 
 const form = reactive({
@@ -117,7 +114,7 @@ const form = reactive({
     country_registered: 'Hong Kong',
     licence_no: 'TC000012',
     flat: 'Rooms 502-503, 5th Floor',
-    building:  'Wanchai Commercial Centre',
+    building: 'Wanchai Commercial Centre',
     street: '194-204 Johnston Road',
     postal_code: '',
     country: 'Hong Kong',

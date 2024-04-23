@@ -14,10 +14,9 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.choice_level1_eng_name }" v-maska 
-                            data-maska-tokens="*:[a-zA-Z0-9]:multiple"
-                            v-model="form.choice_level1_eng_name" type="text" class="form-control"
-                            placeholder="This text for English name">
+                        <input :class="{ 'error-field': form.errors.choice_level1_eng_name }" v-maska
+                            data-maska-tokens="*:[a-zA-Z0-9]:multiple" v-model="form.choice_level1_eng_name" type="text"
+                            class="form-control" placeholder="This text for English name">
                         <small class=" text-danger">{{ form.errors.choice_level1_eng_name }}</small>
                     </div>
                     <div class="col-md-6">
@@ -74,9 +73,8 @@
                         </select>
                     </div>
                 </div>
-                <div class="p-1">
-                    <button v-if="form.isSecond || form.isThird || form.isForth || form.isFifth"
-                        @click="removeForm('isSecond')" class="btn btn-outline-danger me-3">
+                <div class="p-1 mt-1">
+                    <button @click="removeForm('isSecond')" class="btn btn-outline-danger me-3">
                         <i class="bi bi-x-circle"></i> Remove
                     </button>
                 </div>
@@ -116,9 +114,8 @@
                         </select>
                     </div>
                 </div>
-                <div class="p-1">
-                    <button v-if="form.isSecond || form.isThird || form.isForth || form.isFifth"
-                        @click="removeForm('isThird')" class="btn btn-outline-danger me-3">
+                <div class="p-1 mt-1">
+                    <button @click="removeForm('isThird')" class="btn btn-outline-danger me-3">
                         <i class="bi bi-x-circle"></i> Remove
                     </button>
                 </div>
@@ -158,9 +155,8 @@
                         </select>
                     </div>
                 </div>
-                <div class="p-1">
-                    <button v-if="form.isSecond || form.isThird || form.isForth || form.isFifth"
-                        @click="removeForm('isForth')" class="btn btn-outline-danger me-3">
+                <div class="p-1 mt-1">
+                    <button @click="removeForm('isForth')" class="btn btn-outline-danger me-3">
                         <i class="bi bi-x-circle"></i> Remove
                     </button>
                 </div>
@@ -199,9 +195,8 @@
                         </select>
                     </div>
                 </div>
-                <div class="p-1">
-                    <button v-if="form.isSecond || form.isThird || form.isForth || form.isFifth"
-                        @click="removeForm('isFifth')" class="btn btn-outline-danger me-3">
+                <div class="p-1 mt-1">
+                    <button @click="removeForm('isFifth')" class="btn btn-outline-danger me-3">
                         <i class="bi bi-x-circle"></i> Remove
                     </button>
                 </div>
@@ -213,8 +208,8 @@
                     <i class="bi bi-x-circle"></i> Remove
                 </button> -->
                 <button :disabled="form.isThird && form.isForth && form.isFifth" @click="addForm"
-                    class="btn btn-outline-secondary">
-                    <i class="bi bi-plus-circle"></i> Add another name
+                    class="btn btn-outline-success bg-success-subtle">
+                    Add another name <i class="bi bi-plus-circle"></i>
                 </button>
 
             </div>
@@ -303,13 +298,31 @@ function addForm() {
 }
 
 function removeForm(field: any) {
-    // for (let field of ['isFifth', 'isForth', 'isThird', 'isSecond']) {
-    if (form[field]) {
         form[field] = false
-        console.log(form)
-        return;
-    }
-    // }
+        if (field== 'isSecond'){
+            form.resetField('choice_level2_eng_name')
+            form.resetField('choice_level2_chn_name')
+            delete form.errors.choice_level2_eng_name
+           delete form.errors.choice_level2_chn_name 
+        }
+        if (field== 'isThird'){
+            form.resetField('choice_level3_eng_name')
+            form.resetField('choice_level3_chn_name')
+           delete  form.errors.choice_level3_eng_name 
+           delete  form.errors.choice_level3_chn_name 
+        }
+        if (field== 'isForth'){
+            form.resetField('choice_level4_eng_name')
+            form.resetField('choice_level4_chn_name')
+           delete  form.errors.choice_level4_eng_name 
+           delete  form.errors.choice_level4_chn_name 
+        }
+        if (field== 'isFifth'){
+            form.resetField('choice_level5_eng_name')
+            form.resetField('choice_level5_chn_name')
+           delete  form.errors.choice_level5_eng_name
+           delete  form.errors.choice_level5_chn_name 
+        }
 }
 
 
@@ -319,13 +332,32 @@ function moveBack() {
 
 function saveAndContinue() {
 
-    // if (checkFields(choice_level1.value, 'choice_level1')) return;
-    // if (isSecond.value && checkFields(choice_level2.value)) return;
-    // if (isThird.value && checkFields(choice_level3.value)) return;
-    // if (isForth.value && checkFields(choice_level4.value)) return;
-    // if (isFifth.value && checkFields(choice_level5.value)) return;
+    if (!form.choice_level1_eng_name && !form.choice_level1_chn_name){
+        toast.default("Please complete Primary choice names", { position: 'top-right' });
+        return;
+    }
 
-    console.log(form.errors)
+    if (form.isSecond && (!form.choice_level2_eng_name && !form.choice_level2_chn_name)){
+        toast.default("Please complete secondary choice names", { position: 'top-right' });
+        return;
+    }
+
+    if (form.isThird && (!form.choice_level3_eng_name && !form.choice_level3_chn_name)){
+        toast.default("Please complete third choice names", { position: 'top-right' });
+        return;
+    }
+
+    if (form.isForth && (!form.choice_level4_eng_name && !form.choice_level4_chn_name)){
+        toast.default("Please complete fourth choice names", { position: 'top-right' });
+        return;
+    }
+
+    if (form.isFifth && (!form.choice_level5_eng_name && !form.choice_level5_chn_name)){
+        toast.default("Please complete fifth choice names", { position: 'top-right' });
+        return;
+    }
+
+    // console.log(form.errors)
     if (Object.keys(form.errors).length > 0) {
         toast.default("Some fields still have errors", { position: 'top-right' });
         return true;
@@ -380,7 +412,7 @@ function saveAndContinue() {
 
 function checkFields(level: any, msg?: string) {
     const message = msg ? 'Please fill Primary Choice Names' : 'Please complete fields'
-    if (!level.eng_name || !level.chn_name || !level.chn_prefix) {
+    if (!level+'_eng_name' || !level+'_chn_name') {
         toast.default(message, { position: 'top-right' });
         return true;
     }
@@ -390,7 +422,7 @@ function checkFields(level: any, msg?: string) {
 async function saveFromToApi(formData: FormData) {
     try {
         await api.registerCompany(formData)
-        console.log(formData)
+        // console.log(formData)
         toast.success('Data Saved Successfully', { position: 'top-right' });
         form.isSaving = false
         startCompanyStore.switchStage('+')

@@ -7,33 +7,33 @@
             </section>
 
             <section class="row g-2">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <label class=" fw-bolder">Expected source of funds <small class="text-danger">*</small></label>
-                    <v-select v-model="form.income_expected_source" :clearable="false"
+                    <v-select :class="{ 'error-field': form.errors.income_expected_source}" v-model="form.income_expected_source" :clearable="true"
                         :options="startCompanyStore.sourceOfFunds" />
                     <small class="text-danger">{{ form.errors.income_expected_source }}</small>
 
                 </div>
 
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <label class=" fw-bolder">Origin source of funds <small class="text-danger">*</small></label>
-                    <v-select v-model="form.origin_funds" :clearable="false" :options="startCompanyStore.countries" />
+                    <v-select :class="{ 'error-field': form.errors.origin_funds}" v-model="form.origin_funds" :clearable="true" :options="startCompanyStore.countries" />
                     <small class="text-danger">{{ form.errors.origin_funds }}</small>
                 </div>
 
                 <div class="fw-bolder fs-5">Source of Wealth</div>
 
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <label class=" fw-bolder">Initial source of wealth <small class="text-danger">*</small></label>
-                    <v-select v-model="form.wealth_initial_source" :clearable="false"
+                    <v-select :class="{ 'error-field': form.errors.wealth_initial_source }" v-model="form.wealth_initial_source" :clearable="true"
                         :options="startCompanyStore.initialSourceOfWealth" />
                     <small class="text-danger">{{ form.errors.wealth_initial_source }}</small>
 
                 </div>
 
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <label class="fw-bolder">Ongoing source of wealth <small class="text-danger">*</small></label>
-                    <v-select v-model="form.income_outgoing_source" :clearable="false"
+                    <v-select :class="{ 'error-field': form.errors.income_outgoing_source }"  v-model="form.income_outgoing_source" :clearable="true"
                         :options="startCompanyStore.ongoingSourceOfIncome" />
                     <small class="text-danger">{{ form.errors.income_outgoing_source }}</small>
                 </div>

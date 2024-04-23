@@ -49,13 +49,37 @@
                         <i class="bi bi-justify fs-3"></i>
                     </button>
                     Start your Company
-                    <span class="small fw-bold" v-if="activeCompanyName">
+                    <span class="small fw-bold d-none d-md-inline" v-if="activeCompanyName">
                         ({{ activeCompanyName }})
                     </span>
+                    <span class="badge bg-success-subtle text-success small"
+                            v-if="paymentStatus">
+                            <i class="bi bi-check-circle"></i> Paid
+                        </span>
                     <span class="float-end">
-                        <button @click="logout" class="btn btn-link btn-sm p-0 text-decoration-none border-0">
-                            Logout <i class="bi bi-box-arrow-right"></i>
-                        </button>
+                        <!-- KYC Status -->
+
+                        <span class="badge bg-success-subtle text-success small"
+                            v-if="KycStatus">
+                            <i class="bi bi-check-circle"></i> Verified
+                        </span>
+                        <span class="badge bg-success-subtle text-danger small"
+                            v-else>
+                            <i class="bi bi-check-circle"></i> Not-Verified
+                        </span>
+                        <!-- KYC Status -->
+                        <span class=" mx-2 me-5 dropdown">
+                            <span data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                class="dropdown-toggle">
+                                <i class="bi bi-person-circle "></i>
+                                {{ startCompanyStore.companyInProgress?.users?.name }}
+                                <i class="bi bi-chevron-down"></i></span>
+                            <div class="dropdown-menu dropdown-menu-start">
+                                <span @click="logout" class="dropdown-item text-danger">
+                                    <i class="bi bi-power"></i> Logout
+                                </span>
+                            </div>
+                        </span>
                     </span>
                 </div>
                 <div class="col-2 d-none d-md-block min-vh-100 sub-menu-panel">
@@ -84,20 +108,32 @@ import { useStartCompanyStore } from './StartCompany_store';
 import StartCompany_menulist from './StartCompany_menulist.vue';
 import StartCompany_mobilemenu from './StartCompany_mobilemenu.vue';
 import { useAuthStore } from '@/stores/authStore';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 const authStore = useAuthStore()
 const router = useRouter()
+const route = useRoute()
+
 
 const startCompanyStore = useStartCompanyStore()
+
+const paymentStatus = computed(()=>{
+    const status = startCompanyStore.companyInProgress?.billing?.status
+return status;
+})
+
+const KycStatus = computed(()=>{
+    const status = startCompanyStore.companyInProgress?.users?.kyc_status
+return status;
+})
 
 const activeCompanyName = computed(() => {
     let coyName = ''
     const choiceNames = startCompanyStore.companyInProgress?.names ?? []
     if (choiceNames) {
         const coy = choiceNames.find((x: any) => x.choice_level == 1);
-        if(coy){
-            coyName =  coy?.eng_name?coy.eng_name +' '+coy.eng_prefix : coy.chn_name+' '+coy.chn_prefix;
+        if (coy) {
+            coyName = coy?.eng_name ? coy.eng_name + ' ' + coy.eng_prefix : coy.chn_name + ' ' + coy.chn_prefix;
         }
     }
     return coyName
@@ -130,7 +166,7 @@ async function logout() {
 .head-panel {
     background-color: #F5F9FC;
     border-bottom: 1px solid #d5dae5;
-    z-index: 10;
+    /* z-index: 1; */
 }
 
 .sub-info-panel,
@@ -147,4 +183,16 @@ async function logout() {
         margin: 5px 5px 5px 5px;
     }
 }
+
+.dropdown {
+    cursor: pointer;
+}
+
+.dropdown-toggle::after {
+    content: none !important;
+}
+
+/* .dropdown-menu {
+    border-radius: 0px;
+} */
 </style>

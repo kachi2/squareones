@@ -16,9 +16,9 @@
                             <li class="list-group-item">
                                 <span>
                                     Name
-                                    <!-- <span class="float-end">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </span> -->
+                                    <span class="float-end">
+                                        <i @click="startCompanyStore.currentStage = 2" class="bi bi-pencil-square"></i>
+                                    </span>
                                     <div class="small text-muted text-capitalize">{{ data.company_name }}</div>
                                 </span>
 
@@ -26,9 +26,9 @@
                             <li class="list-group-item">
                                 <span>
                                     Description
-                                    <!-- <span class="float-end">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </span> -->
+                                    <span class="float-end">
+                                        <i @click="startCompanyStore.currentStage = 3" class="bi bi-pencil-square"></i>
+                                    </span>
                                     <div class="small text-muted">
                                         {{ data.description }}</div>
                                 </span>
@@ -37,9 +37,9 @@
                             <li class="list-group-item">
                                 <span>
                                     Nature of business
-                                    <!-- <span class="float-end">
+                                    <span @click="startCompanyStore.currentStage = 3" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
-                                    </span> -->
+                                    </span>
                                     <div class="small text-muted">{{ data.business_nature }}</div>
                                 </span>
 
@@ -47,9 +47,9 @@
                             <li class="list-group-item">
                                 <span>
                                     Website, social media, or app
-                                    <!-- <span class="float-end">
+                                    <span class="float-end">
                                         <i class="bi bi-pencil-square"></i>
-                                    </span> -->
+                                    </span>
                                     <div class="small text-muted">{{ data.website }}</div>
                                 </span>
 
@@ -57,9 +57,9 @@
                             <li class="list-group-item">
                                 <span>
                                     Address
-                                    <!-- <span class="float-end">
+                                    <span @click="startCompanyStore.currentStage = 4" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
-                                    </span> -->
+                                    </span>
                                     <div class="small text-muted">{{ data.address }}</div>
                                 </span>
 
@@ -89,9 +89,9 @@
                             <li class="list-group-item">
                                 <span>
                                     Name
-                                    <!-- <span class="float-end">
+                                    <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
-                                    </span> -->
+                                    </span>
                                     <div class="small text-muted text-capitalize">
                                         {{ founder.first_name }} {{ founder.last_name }}
                                     </div>
@@ -101,9 +101,9 @@
                             <li class="list-group-item">
                                 <span>
                                     Email
-                                    <!-- <span class="float-end">
+                                    <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
-                                    </span> -->
+                                    </span>
                                     <div class="small text-muted">
                                         {{ founder.email }}
                                     </div>
@@ -113,9 +113,9 @@
                             <li class="list-group-item">
                                 <span>
                                     Phone
-                                    <!-- <span class="float-end">
+                                    <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
-                                    </span> -->
+                                    </span>
                                     <div class="small text-muted">
                                         {{ founder.phone }}
                                     </div>
@@ -126,9 +126,9 @@
                             <li class="list-group-item">
                                 <span>
                                     Date of birth
-                                    <!-- <span class="float-end">
+                                    <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
-                                    </span> -->
+                                    </span>
                                     <div class="small text-muted">
                                         {{ useFxn.dateDisplay(founder.dob) }}
                                     </div>
@@ -138,9 +138,9 @@
                             <li class="list-group-item">
                                 <span>
                                     Occupation
-                                    <!-- <span class="float-end">
+                                    <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
-                                    </span> -->
+                                    </span>
                                     <div class="small text-muted">
                                         {{ founder.occupation }}
                                     </div>
@@ -163,9 +163,9 @@
                             <li class="list-group-item">
                                 <span>
                                     Company Name
-                                    <!-- <span class="float-end">
+                                    <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
-                                    </span> -->
+                                    </span>
                                     <div class="small text-muted text-capitalize">
                                         {{ founder.company_name }}
                                     </div>
@@ -175,9 +175,9 @@
                             <li class="list-group-item">
                                 <span>
                                     Address
-                                    <!-- <span class="float-end">
+                                    <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
-                                    </span> -->
+                                    </span>
                                     <div class="small text-muted text-capitalize">
                                         {{ founder.street_no }},
                                         {{ founder.address }},
@@ -192,22 +192,21 @@
                             <li class="list-group-item">
                                 <span>
                                     Business Nature
-                                    <!-- <span class="float-end">
+                                    <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
-                                    </span> -->
+                                    </span>
                                     <div class="small text-muted">
                                         {{ businesNatureName(founder.business_nature_id) }}
                                     </div>
                                 </span>
-
                             </li>
 
                             <li class="list-group-item">
                                 <span>
                                     Date incorporated
-                                    <!-- <span class="float-end">
+                                    <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
-                                    </span> -->
+                                    </span>
                                     <div class="small text-muted">
                                         {{ useFxn.dateDisplay(founder.date_incorporated) }}
                                     </div>

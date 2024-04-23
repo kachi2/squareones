@@ -28,7 +28,6 @@ export const activitiesForm = defineStore('activities', () => {
     const isSaving = false
 
 
-
     // localStorage & updating fields..
     const description_storage = useStorage('squareOne-activity-description', '');
     const activity_level_storage = useStorage('squareOne-activity-activity_level', '');
@@ -62,7 +61,9 @@ export const activitiesForm = defineStore('activities', () => {
             activity_nature.value = companyInProgress.activity.activity_nature;
 
         if (customer_location_operation_storage.value) {
-            customer_location_operation.value = customer_location_operation_storage.value.split(',')
+            try { customer_location_operation.value = customer_location_operation_storage.value.split(',') }
+            catch (err) { }
+
         }
         else if (companyInProgress?.activity?.customer_location_operation) {
             const locations = companyInProgress?.activity?.customer_location_operation ?? ''
@@ -70,7 +71,8 @@ export const activitiesForm = defineStore('activities', () => {
         }
 
         if (country_storage.value) {
-            country.value = country_storage.value.split(',')
+            try { country.value = country_storage.value.split(','); }
+            catch (err) { }
         }
         else if (companyInProgress?.activity?.country) {
             const locations = companyInProgress?.activity?.country ?? ''

@@ -9,8 +9,8 @@
             <span>Enter your legal company name</span>
             <div class="row mt-1 g-2">
                 <div class="col-12 ">
-                    <input :class="{ 'error-field': form.errors.company_name }" v-maska data-maska="A a"
-                        data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple" v-model="form.company_name"
+                    <input :class="{ 'error-field': form.errors.company_name }" v-maska data-maska=""
+                        data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple 0:[0-9]" v-model="form.company_name"
                         type="text" class="form-control" placeholder="English Name..">
                     <small class=" text-danger">{{ form.errors.company_name }}</small>
                 </div>
@@ -42,7 +42,7 @@
             <div class="col-12">
                 <label class="form-label fw-bold">Business nature <span class="text-danger"> * </span></label>
                 <v-select :class="{ 'error-field': form.errors.business_nature_id }" v-model="form.business_nature_id"
-                    :clearable="false" :options="startCompanyStore.businessNatures" :reduce="(item: any) => item.id"
+                    :clearable="true" :options="startCompanyStore.businessNatures" :reduce="(item: any) => item.id"
                     label="name" />
                 <small class=" text-danger">{{ form.errors.business_nature_id }}</small>
             </div>
@@ -65,8 +65,7 @@
                     <small class=" text-danger">{{ form.errors.building }}</small>
                 </div>
                 <div class="col-12">
-                    <label class="form-label"> Street／Estate／Lot／Village <small
-                            class=" text-danger">*</small></label>
+                    <label class="form-label"> Street／Estate／Lot／Village <small class=" text-danger">*</small></label>
 
                     <input :class="{ 'error-field': form.errors.street }" v-model="form.street" class="form-control"
                         type="text" placeholder="Street">
@@ -95,7 +94,7 @@
         </section>
 
         <section class="row g-2 section">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <label class=" fw-bolder">Authorised Person <span class="text-danger"> * </span></label>
                 <div class="row g-2">
                     <div class="col-md-6">
@@ -112,7 +111,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <label class=" fw-bolder">Phone number <span class="text-danger"> * </span></label>
                 <vue-tel-input :inputOptions="phoneField.input" :dropdownOptions="phoneField.dropDown"
                     :autoFormat="true" v-model="form.phone"></vue-tel-input>
@@ -124,17 +123,18 @@
                     <small class=" text-danger">{{ form.errors.phone }}</small>
                 </div> -->
             </div>
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <label class=" fw-bolder">Email <span class="text-danger"> * </span></label>
                 <input :class="{ 'error-field': form.errors.email }" v-model="form.email" v-bind="form.emailAttrs"
                     type="text" class="form-control" placeholder="email">
                 <small class=" text-danger">{{ form.errors.email }}</small>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <label class=" fw-bolder">Confirm email <span class="text-danger"> * </span></label>
                 <input :class="{ 'error-field': form.errors.confirm_email }" v-model="form.confirm_email" type="text"
                     class="form-control" placeholder="confirm email">
                 <small class=" text-danger">{{ form.errors.confirm_email }}</small>
+                <small v-if="emailMatchError" class=" text-danger">emails do no match</small>
             </div>
 
             <!-- <div class="col-md-8 mt-4">
@@ -148,7 +148,7 @@
         </section>
         <div class="movement-buttons mt-5 mb-4">
             <button @click="moveBack" class="btn btn-outline-dark me-3">
-                <i class="bi bi-arrow-left"></i> Back
+                <i class="bi bi-arrow-left"></i> Close
             </button>
             <button v-if="!form.isSaving" @click="saveAndContinue" class="btn btn-primary">
                 Save and Continue <i class="bi bi-check2"></i>
@@ -169,11 +169,10 @@ import { useToast } from 'vue-toast-notification';
 import useFxn from '@/stores/Helpers/useFunctions';
 import { foundersCorporateForm } from './formsStore/Founders_corporate'
 import { vMaska } from "maska"
-import { onMounted, watch } from 'vue';
+import { onMounted, ref, watch, watchEffect } from 'vue';
 
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
-// console.log(startCompanyStore.getCountryCode())
 
 const form: any = foundersCorporateForm()
 
@@ -183,6 +182,17 @@ onMounted(() => {
 })
 
 watch(() => form, () => { form.saveToLocalStorage() }, { deep: true })
+
+
+const emailMatchError = ref(false)
+watchEffect(() => {
+    if (form.email && form.confirm_email) {
+        if ((form.email !== form.confirm_email) && !form.errors.confirm_email)
+            emailMatchError.value = true
+        else
+            emailMatchError.value = false
+    }
+})
 
 function resetForm() {
     form.company_name = ''
@@ -226,20 +236,21 @@ const phoneField = {
 }
 
 function moveBack() {
-    startCompanyStore.switchStage('-')
+    // startCompanyStore.switchStage('-')
+    startCompanyStore.isShowingFoundersForm = false
 }
 
 function saveAndContinue() {
-
     if (!startCompanyStore.companyInProgress?.id) {
         toast.default('You have not registered any company name', { position: 'top-right' })
         startCompanyStore.switchStage('-', 2)
         return;
     }
 
-    console.log(form.errors)
     if (Object.keys(form.errors).length > 0) {
+        // console.log(form.errors)
         toast.default("Some fields still have errors", { position: 'top-right' });
+     
         return true;
     }
 
@@ -293,7 +304,7 @@ function saveAndContinue() {
     formData.append('street', form.street)
     formData.append('state', form.state)
     formData.append('country', form.country)
-    formData.append('postal_code', form.postal_code)
+    // formData.append('postal_code', form.postal_code)
     formData.append('registeration_no', form.registeration_no)
     formData.append('country_registered', form.country_registered)
     formData.append('business_nature_id', form.business_nature_id)
@@ -315,7 +326,7 @@ async function saveFromToApi(formData: FormData) {
 
     } catch (error) {
         toast.error('Sorry, Something went wrong', { position: 'top-right' });
-        console.log(error);
+
         form.isSaving = false
 
     }

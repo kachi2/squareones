@@ -7,6 +7,7 @@ use App\Models\Billing;
 use App\Models\Company;
 use App\Services\PaymentServices;
 use Carbon\Carbon;
+use App\Interfaces\KycInterface;
 use Cartalyst\Stripe\Api\PaymentIntents;
 use Illuminate\Http\Request;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
@@ -15,7 +16,8 @@ class PaymentController extends Controller
 {
 
     public function __construct(
-        public readonly PaymentInterface $PaymentInterface
+        public readonly PaymentInterface $PaymentInterface,
+        public readonly KycInterface $KycInterface
     )
     {
         
@@ -32,7 +34,6 @@ class PaymentController extends Controller
     return response()->json([
         $procespayment
     ]);
-
 }
 
 

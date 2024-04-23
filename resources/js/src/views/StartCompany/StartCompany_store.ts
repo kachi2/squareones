@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 import api from '@/stores/Helpers/axios'
 import jsonData from './StartCompany_jsonData.json'
@@ -10,6 +10,12 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
     const isShowingFoundersForm = ref<boolean>(false)
     const isActiveMenu = (stage: number) => currentStage.value == stage
     const idToEdit = ref<string>('')
+
+    const signatureImage = useStorage('signatureImage_s1', '')
+    const signatureDateSigned: any = useStorage('signatureDate_s1', '')
+    const pdfAction = ref<boolean>(false)
+    const pdfIsSending = ref<boolean>(false)
+
 
     const businessNatures = ref<any[]>([])
     const companyInProgress = ref<any>(null)
@@ -39,6 +45,7 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
         { stage: 10, name: 'Summary' },
         { stage: 11, name: 'Sign' },
         { stage: 12, name: 'Pay' },
+        // { stage: 13, name: 'KYC' },
     ]
 
     function switchStage(command: string, number?: number) {
@@ -51,11 +58,10 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
         try {
             const { data } = await api.companyProgress();
             console.log(data);
-
             companyInProgress.value = data.company
             // if (!isFromFounder) decideStageToShow()
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
 
@@ -87,7 +93,7 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
             const { data } = await api.businessNature();
             businessNatures.value = data.data?.business_nature ?? []
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
 
@@ -112,6 +118,10 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
         levelOfActivity,
         natureOfActivity,
         idToEdit,
+        signatureImage,
+        signatureDateSigned,
+        pdfAction,
+        pdfIsSending,
 
     }
 })

@@ -15,6 +15,7 @@
         <Summary v-if="startCompanyStore.currentStage == 10" />
         <Sign v-if="startCompanyStore.currentStage == 11" />
         <Pay v-if="startCompanyStore.currentStage == 12" />
+        <!-- <KYC v-if="startCompanyStore.currentStage == 13" /> -->
     </div>
 </template>
 
@@ -36,6 +37,7 @@ import Activities from './pages/Activities.vue';
 import Summary from './pages/Summary.vue';
 import Sign from './pages/Sign.vue';
 import Pay from './pages/Pay.vue';
+// import KYC from './pages/KYC.vue';
 
 
 // allforms #####################################

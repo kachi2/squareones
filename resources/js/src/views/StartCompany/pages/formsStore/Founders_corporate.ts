@@ -9,7 +9,7 @@ import * as yup from 'yup';
 export const foundersCorporateForm = defineStore('foundersCorporate', () => {
 
     const chineseCheck = (value: any) => {
-        var pattern = /^[\u4E00-\u9FFF\u3400-\u4DBF]+$/;
+        var pattern = /^[\u4E00-\u9FFF\u3400-\u4DBF\s*\(\)\,]+$/;
         return pattern.test(value)
     }
 
@@ -40,7 +40,7 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
     };
 
 
-    const { errors, handleSubmit, defineField, setFieldValue } = useForm({
+    const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({
         validationSchema: yup.object(rules),
         initialValues: {
             date_incorporated: new Date(),
@@ -93,6 +93,22 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
     const confirm_email_storage = useStorage('squareOne-fCop-confirm_email', '');
     const first_name_storage = useStorage('squareOne-fCop-first_name', '');
     const last_name_storage = useStorage('squareOne-fCop-last_name', '');
+
+    function clearLocalStorage(){
+        company_name_storage.value = '';
+        chn_company_name_storage.value = '';
+        flat_storage.value = '';
+        building_storage.value = '';
+        street_storage.value = '';
+        country_storage.value  = '';
+        postal_code_storage.value = '';
+        registeration_no_storage.value = '';
+        phone_storage.value = '';
+        email_storage.value = '';
+        confirm_email_storage.value = '';
+        first_name_storage.value = '';
+        last_name_storage.value = '';
+    }
 
     function saveToLocalStorage() {
         if (company_name.value) company_name_storage.value = company_name.value
@@ -179,6 +195,8 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
         emailAttrs,
 
         updateFields,
-        saveToLocalStorage
+        saveToLocalStorage,
+        resetForm,
+        clearLocalStorage
     }
 })

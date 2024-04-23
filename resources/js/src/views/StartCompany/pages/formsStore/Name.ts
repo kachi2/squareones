@@ -9,13 +9,13 @@ import * as yup from 'yup';
 
 export const nameForm = defineStore('name', () => {
 
-    const isSecond = ref(false)
-    const isThird = ref(false)
-    const isForth = ref(false)
-    const isFifth = ref(false)
+    const isSecond = useStorage('name_isSecond', false)
+    const isThird = useStorage('name_isThird', false)
+    const isForth = useStorage('name_isForth', false)
+    const isFifth = useStorage('name_isFifth', false)
 
     const chineseCheck = (value: any) => {
-        var pattern = /^[\u4E00-\u9FFF\u3400-\u4DBF]+$/;
+        var pattern = /^[\u4E00-\u9FFF\u3400-\u4DBF\s*\(\)\,]+$/;
         return pattern.test(value)
     }
 
@@ -33,7 +33,7 @@ export const nameForm = defineStore('name', () => {
         choice_level5_eng_name: yup.string(),
     };
 
-    const { errors, handleSubmit, defineField, setFieldValue } = useForm({
+    const { errors, handleSubmit, defineField, setFieldValue, resetForm, resetField } = useForm({
         validationSchema: yup.object(rules),
 
         initialValues: {
@@ -107,7 +107,6 @@ export const nameForm = defineStore('name', () => {
     const choice_level5_chn_name_storage = useStorage('squareOne-name-choice_level5_chn_name', '');
     const choice_level5_prefix_storage = useStorage('squareOne-name-choice_level5_prefix', '');
     const choice_level5_chn_prefix_storage = useStorage('squareOne-name-choice_level5_chn_prefix', '');
-
 
     function saveToLocalStorage() {
         if (choice_level1_eng_name.value) choice_level1_eng_name_storage.value = choice_level1_eng_name.value
@@ -224,6 +223,9 @@ export const nameForm = defineStore('name', () => {
         setFieldValue,
 
         updateFields,
-        saveToLocalStorage
+        saveToLocalStorage,
+        resetForm,
+
+        resetField
     }
 })

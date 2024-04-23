@@ -21,6 +21,7 @@ export const useAuthStore = defineStore('authStore', () => {
   const logout = () => {
     Cookies.remove('_tokn');
     token.value = '';
+    window.location.reload();
   }
 
   return { login, logout, isLoggedIn, profileData, emailVerified }

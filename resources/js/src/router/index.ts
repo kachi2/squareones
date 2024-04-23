@@ -58,6 +58,17 @@ const router = createRouter({
       ],
     },
 
+    {
+      path: '/kcy/verifications',
+      component: () => import('../views/StartCompany/pages/Kyc.vue'),
+      beforeEnter: authGuard,
+      // children: [
+      //   { path: 'dashboard', name: 'Dashboard', alias: '/dashboard', component: () => import('../views/Account/Dashboard.vue') },
+      //   { path: 'company/submitted_form', name: 'Sumitted Form', component: () => import('../views/Account/Company/submitted_form.vue') },
+      //   { path: 'company/company_info', name: 'Company Details', component: () => import('../views/Account/Company/company_info.vue') },
+      // ],
+    },
+
 
     {
       path: '/:pathMatch(.*)*',
