@@ -73,6 +73,7 @@ const stripePromise = Stripe(STRIPE_PUBLISHABLE_KEY);
 const clientSecretIsLoaded = ref(false)
 const intentHasError = ref(false)
 let clientSecret = ''
+
 let elements: any
 const items = [{ id: "xl-tshirt" }];
 
@@ -108,7 +109,7 @@ onMounted(async () => {
 
     async function handleSubmit(event: any) {
         event.preventDefault();
-        setLoading(true);
+        // setLoading(true);
         const { error } = await stripePromise.confirmPayment({
             elements,
             confirmParams: {
@@ -122,7 +123,7 @@ onMounted(async () => {
             showMessage("An unexpected error occurred.");
         }
 
-        setLoading(false);
+        // setLoading(false);
     }
 
     // Fetches the payment intent status after payment submission
@@ -169,18 +170,18 @@ onMounted(async () => {
     }
 
     // Show a spinner on payment submission
-    function setLoading(isLoading: any) {
-        if (isLoading) {
-            // Disable the button and show a spinner
-            document.querySelector("#submit").disabled = true;
-            document.querySelector("#spinner").classList.remove("hidden");
-            document.querySelector("#button-text").classList.add("hidden");
-        } else {
-            document.querySelector("#submit").disabled = false;
-            document.querySelector("#spinner").classList.add("hidden");
-            document.querySelector("#button-text").classList.remove("hidden");
-        }
-    }
+    // function setLoading(isLoading: any) {
+    //     if (isLoading) {
+    //         // Disable the button and show a spinner
+    //         document.querySelector("#submit").disabled = true;
+    //         document.querySelector("#spinner").classList.remove("hidden");
+    //         document.querySelector("#button-text").classList.add("hidden");
+    //     } else {
+    //         document.querySelector("#submit").disabled = false;
+    //         document.querySelector("#spinner").classList.add("hidden");
+    //         document.querySelector("#button-text").classList.remove("hidden");
+    //     }
+    // }
 
 
 

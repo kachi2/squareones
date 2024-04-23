@@ -291,7 +291,7 @@
     </div>
 </template>
 
-<script setup land="ts">
+<script setup lang="ts">
 import { useStartCompanyStore } from "../StartCompany/StartCompany_store";
 
 const startCompanyStore = useStartCompanyStore()
