@@ -118,7 +118,7 @@
 
     <li data-list-text="2">
         <p class="s19" style="padding-top: 10px;padding-bottom: 10px;padding-left: 20px;text-indent: 0px;">
-            <textarea cols="10" rows="4"> </textarea> <textarea cols="50" rows="4" class="">
+            <textarea cols="10" rows="4">  {{ companyInfo?.business_nature?.code }}</textarea> <textarea cols="50" rows="4" class="">
         {{ companyInfo?.business_nature?.name }}
         </textarea>
         </p>

@@ -223,9 +223,12 @@
                 </td>
                 <td
                     style="width:96px;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                    <p style="text-indent: 0pt;text-align: center;">{{
-                companyInfo?.shares[0]?.ownershares?.reduce((initial, item) => parseInt(initial['total_amount'])
-                    + parseInt(item['total_amount'])), 0 }}<br /> </p>
+                    <!-- <p style="text-indent: 0pt;text-align: center;">{{companyInfo?.shares[0]?.ownershares?.reduce((initial:any, item:any) => 
+                      parseInt(initial)
+                    + parseInt(item['total_amount']),0)}}
+                   <br /> </p> -->
+                   <p style="text-indent: 0pt;text-align: center;">{{companyInfo?.shares[0].total_amount_paid }}
+                   <br /> </p>
                 </td>
                 <td
                     style="width:94px;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -276,13 +279,12 @@
                 <td
                     style="width:96pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p style="text-indent: 0pt;text-align: center;">{{ companyInfo?.shares[0]?.total_amount_paid
-                        }}<br /></p>
+                        }} <br /></p>
                 </td>
                 <td
                     style="width:96pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                    <p style="text-indent: 0pt;text-align: center;">{{
-                companyInfo?.shares[0]?.ownershares.reduce((initial, item) => parseInt(initial['total_amount'])
-                        + parseInt(item['total_amount']) ), 0}}<br /> </p>
+                    <p style="text-indent: 0pt;text-align: center;">{{ companyInfo?.shares[0]?.total_amount_paid
+                        }} <br /> </p>
                 </td>
                 <td
                     style="width:94pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">

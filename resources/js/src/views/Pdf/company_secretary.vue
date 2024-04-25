@@ -6,7 +6,7 @@
         <p style="text-indent: 0pt;text-align: left;"></p>
 
         <p style="text-indent: 0pt;text-align: left;"></p>
-        <table style="border-collapse:collapse;margin-left:42.404pt" cellspacing="0">
+        <table style="border-collapse:collapse;margin-left:30.404pt" cellspacing="0">
             <tr style="height:12pt">
                 <td style="width:30pt">
                     <p class="s1" style="padding-left: 2pt;text-indent: 0pt;line-height: 11pt;text-align: left;">表格 </p>
@@ -39,7 +39,7 @@
                     </p>
                 </td>
             </tr>
-            <tr style="height:10pt">
+            <tr style="height:110pt">
                 <td style="width:30pt">
                     <p style="text-indent: 0pt;text-align: left;"><br /></p>
                 </td>
@@ -51,7 +51,7 @@
                 </td>
             </tr>
         </table>
-        <table style="border-collapse:collapse;margin-left:60.884pt" cellspacing="0">
+        <table style="border-collapse:collapse;margin-left:30.884pt" cellspacing="0">
             <tr style="height:33pt">
                 <td style="width:80pt">
                     <p class="s8" style="padding-left: 2pt;text-indent: 0pt;line-height: 10pt;text-align: left;">中 文姓 名／
@@ -291,7 +291,7 @@
     </div>
 </template>
 
-<script setup land="ts">
+<script setup lang="ts">
 import { useStartCompanyStore } from "../StartCompany/StartCompany_store";
 
 const startCompanyStore = useStartCompanyStore()

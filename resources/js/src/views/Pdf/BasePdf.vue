@@ -26,25 +26,26 @@
 
     <div class="off-screen" ref="PDFsection">
         <company :companyInfo="data" />
-        <!-- <company_info :companyInfo="data" />
+        <company_info :companyInfo="data" />
         <individual_shareholder v-for="shares in shareholders" :shareholder="shares" />
         <corporate_shareholder v-for="coshare in CorporateShareholder" :corporateShare="coshare" />
         <company_secretary />
         <individual_directors v-for="directors in IndividualDirectors" :director="directors" /> -->
 
-        <!-- <corporate_directors v-for="corporates in CorporateDirectors" :corporate="corporates" />
+         <corporate_directors v-for="corporates in CorporateDirectors" :corporate="corporates" />
         <founder_statement />
         <pi_ncc_secretary v-for="directors in IndividualDirectors" :director="directors" />
         <notice_to_business />
         <company_ordinance />
         <class_of_shares />
-        <ownershipShares /> -->
+        <ownershipShares />
+        <articles />
+        <articles_last />
     </div>
 
-    <div class="off-screen" ref="PDFsection2">
-        <articles />
-        <!-- <articles_last /> -->
-    </div>
+    <!-- <div class="off-screen" ref="PDFsection2">
+       
+    </div> -->
 
 </template>
 
@@ -117,7 +118,7 @@ function createPDF(canvas: any, index: any) {
         doc.rect(0, 0, 210, 295);
         heightLeft -= pageHeight;
     }
-
+    doc.save("public/docs.pdf")
     const pdfBlob = doc.output('blob');
     formData.append(`documents[${index}]`, pdfBlob);
 }
@@ -144,7 +145,7 @@ function proceedToPayment() {
 
 async function sendPDFToApi() {
     try {
-        await api.buildPDF(formData)
+        // await api.buildPDF(formData)
         startCompanyStore.pdfIsSending = false
         toast.success('Data Saved Successfully', { position: 'top-right' });
         startCompanyStore.switchStage('+')

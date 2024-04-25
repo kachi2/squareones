@@ -47,7 +47,7 @@
             </span>A <span class="s15">填報 </span>Use Continuation Sheet A if more than 1 founder member)</p>
 
 
-        <table style="border-collapse:collapse;margin-left:60.884pt; margin-bottom:10px" cellspacing="0">
+        <table style="border-collapse:collapse;margin-left:30.884pt; margin-bottom:10px" cellspacing="0">
             <tr style="height:33pt">
                 <td style="width:20%">
                     <p class="s8" style="padding-left: 2pt;text-indent: 0pt;line-height: 10pt;text-align: left;">中 文姓 名／
@@ -56,19 +56,20 @@
                     <p class="s9" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">Name in Chinese</p>
                 </td>
                 <td style="width:49pt;border-right-style:solid;border-right-width:1pt">
-                    <p class="s8" style="padding-left: 27pt;text-indent: 0pt;line-height: 10pt;text-align: left;">姓氏
+                    <p class="s8" style="padding-left: 27pt;text-indent: 0pt;line-height: 10pt;text-align: left;">
+                        <!-- 姓氏 -->
                     </p>
                     <p class="s29" style="padding-left: 14pt;text-indent: 0pt;line-height: 9pt;text-align: left;">
-                        Surname First
+                        <!-- Surname First -->
                     </p>
                 </td>
                 <td style="width:80%;border:1px solid #000">
-                    <p style="text-indent: 0pt;text-align: center;"> <br /></p>
+                    <p style="text-indent: 0pt;text-align: center;">{{ corporateShare?.chn_company_name }}  <br /></p>
                 </td>
             </tr>
         </table>
 
-        <table style="border-collapse:collapse;margin-left:60.884pt" cellspacing="0">
+        <table style="border-collapse:collapse;margin-left:30.884pt" cellspacing="0">
             <tr style="height:33pt; padding-top:5px">
                 <td style="width:20%">
                     <p class="s8" style="padding-left: 2pt;text-indent: 0pt;line-height: 10pt;text-align: left;">英 文姓 名
@@ -111,7 +112,7 @@
 
             </tr>
         </table>
-        <table style="border-collapse:collapse;margin-left:60.884pt" cellspacing="0">
+        <table style="border-collapse:collapse;margin-left:30.884pt" cellspacing="0">
             <tr style="height:33pt">
                 <td style="width:20%">
                     <p class="s8" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">英文名稱 </p>
@@ -125,20 +126,7 @@
             </tr>
         </table>
 
-        <table style="border-collapse:collapse;margin-left:60.884pt; margin-top:10px" cellspacing="0">
-            <tr style="height:33pt">
-                <td style="width:20%">
-                    <p class="s8" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">英文名稱 </p>
-                    <p class="s9" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">Name in China</p>
-                </td>
-                <td style="width:80%; border:1px solid #000">
-                    <p style="text-indent: 0pt;text-align: center;"> {{ corporateShare?.chn_company_name }} <br /></p>
-                </td>
-                <td>
-                </td>
-            </tr>
-        </table>
-        <table style="border-collapse:collapse;margin-left:60.884pt; margin-top:10px" cellspacing="">
+        <table style="border-collapse:collapse;margin-left:30.884pt; margin-top:10px" cellspacing="">
             <tr style="height:22pt; ">
                 <td style="width:20%">
                     <p class="s28" style="padding-top: 3pt;padding-left: 2pt;text-indent: 0pt;text-align: left;">地址
@@ -157,7 +145,7 @@
                 <td></td>
             </tr>
         </table>
-        <table style="border-collapse:collapse;margin-left:60.884pt; margin-top:10px" cellspacing="0">
+        <table style="border-collapse:collapse;margin-left:30.884pt; margin-top:10px" cellspacing="0">
             <tr style="height:34pt">
                 <td style="width:20%">
                     <p class="s8"
@@ -175,7 +163,7 @@
                 </td>
             </tr>
         </table>
-        <table style="border-collapse:collapse;margin-left:60.884pt; margin-top:10px" cellspacing="0">
+        <table style="border-collapse:collapse;margin-left:30.884pt; margin-top:10px" cellspacing="0">
             <tr style="height:34pt">
                 <td style="width:20%;" colspan="0">
                     <p class="s8"
@@ -191,7 +179,7 @@
                 <td></td>
             </tr>
         </table>
-        <table style="border-collapse:collapse;margin-left:60.884pt; margin-top:10px" cellspacing="0">
+        <table style="border-collapse:collapse;margin-left:30.884pt; margin-top:10px" cellspacing="0">
             <tr style="height:34pt">
                 <td style="width:20%;border-right-style:solid;border-right-width:1pt">
                     <p class="s29"
@@ -209,7 +197,7 @@
                 <td></td>
             </tr>
         </table>
-        <table style="border-collapse:collapse;margin-left:60.884pt; margin-top:10px" cellspacing="0">
+        <table style="border-collapse:collapse;margin-left:30.884pt; margin-top:10px" cellspacing="0">
             <tr style="height:33pt">
                 <td style="width:20%">
                     <p class="s8"
@@ -225,7 +213,7 @@
                 <td></td>
             </tr>
         </table>
-        <table style="border-collapse:collapse;margin-left:53.884pt; margin-top:10px" cellspacing="0">
+        <table style="border-collapse:collapse;margin-left:33.884pt; margin-top:10px" cellspacing="0">
             <tr style="height:29pt; margin-top:10px">
                 <td style="width:129pt;border-right-style:solid;border-right-width:1pt" colspan="2">
                     <p class="s8" style="padding-left: 2pt;text-indent: 0pt;line-height: 10pt;text-align: left;">認 購的 股本
