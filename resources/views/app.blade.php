@@ -12,7 +12,6 @@
   <script type="module" crossorigin src="/assets/index-BZEjTmh0.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/index-BWCJCtz9.css">
 </head>
-
 <body>
   <div id="app"></div>
 </body>
