@@ -17,7 +17,6 @@ class KycController extends Controller
     }
     public function loadKyc(Request $request){
         $kyc = $this->KycInterface->InitiateKycProcess($request);
-        // return view('kyc');
         return response()->json(['data' => $kyc]);
     }
    

@@ -3,21 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\PaymentInterface;
-use App\Models\Billing;
-use App\Models\Company;
-use App\Services\PaymentServices;
-use Carbon\Carbon;
-use App\Interfaces\KycInterface;
-use Cartalyst\Stripe\Api\PaymentIntents;
-use Illuminate\Http\Request;
-use Cartalyst\Stripe\Laravel\Facades\Stripe;
 
+use App\Interfaces\KycInterface;
+use Illuminate\Http\Request;
 class PaymentController extends Controller
 {
 
     public function __construct(
         public readonly PaymentInterface $PaymentInterface,
-        public readonly KycInterface $KycInterface
     )
     {
         
