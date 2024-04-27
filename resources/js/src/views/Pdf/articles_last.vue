@@ -1,4 +1,4 @@
-<template>
+<template style="page-break-after: always">
     <div>
         <p class="s7" style="padding-top: 3pt;padding-left: 11pt;text-indent: 0pt;text-align: left;">Part B Other Articles
 </p>

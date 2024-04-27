@@ -1,7 +1,8 @@
 <template>
     <div>
-
-        <table style="border-collapse:collapse;margin-left:42.404pt" cellspacing="0">
+        <div style="height:50px;">
+    </div>
+        <table style="border-collapse:collapse;margin-left:60.404pt" cellspacing="0">
             <tr style="height:12pt">
                 <td style="width:33pt">
                     <p class="s1"
@@ -27,7 +28,7 @@
         <table style="border-collapse:collapse" cellspacing="0">
             <tr style="height:20pt">
                 <td style="width:513pt" colspan="2">
-                    <p class="s13" style="padding-left: 2pt;text-indent: 0pt;line-height: 14pt;text-align: left;">9
+                    <p class="s13" style="padding-left: 30pt;text-indent: 0pt;line-height: 14pt;text-align: left;">9
                         <span class="s12">創辦成員陳述書 </span>Statement of Founder Member
                     </p>
                 </td>
@@ -233,6 +234,8 @@
             </tr>
         </table>
 
+    </div>
+    <div style="height:100px;  border-bottom:5px solid #eee">
     </div>
 </template>
 

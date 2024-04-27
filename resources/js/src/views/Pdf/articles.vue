@@ -1,4 +1,4 @@
-<template>
+<template style="page-break-after: always">
     <div>
         
 <div style="padding-top: 40px">

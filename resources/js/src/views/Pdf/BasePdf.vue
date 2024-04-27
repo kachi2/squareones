@@ -1,18 +1,22 @@
 <template>
 
-    <div class="main" style="max-height: 100vh; overflow-y: auto;">
+    <div class="main" style="max-height: 100vh; overflow-y: auto; max-width:100vw">
         <section>
             <company :companyInfo="data" />
+
             <company_info :companyInfo="data" />
 
             <individual_shareholder v-for="shares in shareholders" :shareholder="shares" />
+
             <corporate_shareholder v-for="coshare in CorporateShareholder" :corporateShare="coshare" />
+
             <company_secretary />
 
             <individual_directors v-for="directors in IndividualDirectors" :director="directors" />
 
             <corporate_directors v-for="corporates in CorporateDirectors" :corporate="corporates" />
             <founder_statement />
+
             <pi_ncc_secretary v-for="directors in IndividualDirectors" :director="directors" />
             <notice_to_business />
             <company_ordinance />
@@ -24,28 +28,45 @@
 
     </div>
 
-    <div class="off-screen" ref="PDFsection">
-        <company :companyInfo="data" />
-        <company_info :companyInfo="data" />
-        <individual_shareholder v-for="shares in shareholders" :shareholder="shares" />
-        <corporate_shareholder v-for="coshare in CorporateShareholder" :corporateShare="coshare" />
-        <company_secretary />
-        <individual_directors v-for="directors in IndividualDirectors" :director="directors" /> -->
+    <div class="off-screen" ref="PDFsection" hidden id="print_item">
 
-         <corporate_directors v-for="corporates in CorporateDirectors" :corporate="corporates" />
-        <founder_statement />
-        <pi_ncc_secretary v-for="directors in IndividualDirectors" :director="directors" />
-        <notice_to_business />
-        <company_ordinance />
-        <class_of_shares />
-        <ownershipShares />
-        <articles />
-        <articles_last />
+            <company :companyInfo="data" />
+
+            <company_info :companyInfo="data" />
+            <div style="page-break-after: always">
+            <individual_shareholder v-for="shares in shareholders" :shareholder="shares" />
+            </div>
+            <div style="page-break-after: always">
+            <corporate_shareholder v-for="coshare in CorporateShareholder" :corporateShare="coshare" />
+            </div> 
+         <div style="page-break-after: always">
+            <company_secretary />
+            </div>
+            <div style="page-break-after: always">
+            <individual_directors v-for="directors in IndividualDirectors" :director="directors" />
+            </div>
+            <div style="page-break-after: always">
+            <corporate_directors v-for="corporates in CorporateDirectors" :corporate="corporates" />
+            </div>
+            <div style="page-break-after: always">
+            <founder_statement />
+            </div>
+            <div style="page-break-after: always">
+            <pi_ncc_secretary v-for="directors in IndividualDirectors" :director="directors" />
+            </div>
+            <notice_to_business />
+            <company_ordinance />
+            <class_of_shares />
+            <ownershipShares />
+            <articles />
+             <!--    <articles_last /> -->
+       
     </div>
 
-    <!-- <div class="off-screen" ref="PDFsection2">
-       
-    </div> -->
+    <div class="off-screen" ref="PDFsection2">
+        <!-- <articles_last />   -->
+        
+    </div>
 
 </template>
 
@@ -75,10 +96,8 @@ import html2canvas from 'html2canvas';
 import api from '@/stores/Helpers/axios'
 import { useToast } from 'vue-toast-notification';
 
-
 const startCompanyStore = useStartCompanyStore();
 const toast = useToast()
-
 
 let data = startCompanyStore.companyInProgress
 
@@ -118,7 +137,7 @@ function createPDF(canvas: any, index: any) {
         doc.rect(0, 0, 210, 295);
         heightLeft -= pageHeight;
     }
-    doc.save("public/docs.pdf")
+    doc.save("public_docs.pdf")
     const pdfBlob = doc.output('blob');
     formData.append(`documents[${index}]`, pdfBlob);
 }
@@ -126,13 +145,15 @@ function createPDF(canvas: any, index: any) {
 function proceedToPayment() {
     const promises = [];
 
+    //@ts-ignore
+    document.getElementById('print_item').hidden = false
     promises.push(html2canvas(PDFsection.value).then(canvas => {
         createPDF(canvas, 0);
     }));
 
-    promises.push(html2canvas(PDFsection2.value).then(canvas => {
-        createPDF(canvas, 1);
-    }));
+    // promises.push(html2canvas(PDFsection2.value).then(canvas => {
+    //     createPDF(canvas, 1);
+    // }));
 
     Promise.all(promises).then(() => {
         formData.append('company_id', startCompanyStore.companyInProgress.id);
@@ -145,16 +166,17 @@ function proceedToPayment() {
 
 async function sendPDFToApi() {
     try {
-        // await api.buildPDF(formData)
+         await api.buildPDF(formData)
         startCompanyStore.pdfIsSending = false
         toast.success('Data Saved Successfully', { position: 'top-right' });
+            //@ts-ignore
+    document.getElementById('print_item').hidden = true
         startCompanyStore.switchStage('+')
 
     } catch (error) {
         toast.error('Sorry, Something went wrong', { position: 'top-right' });
         startCompanyStore.pdfIsSending = false
         console.log(error);
-
     }
 }
 

@@ -1,34 +1,33 @@
 <template>
     <div>
-        <hr>
         <li data-list-text="2" style="padding-top:50px">
             <div style="display: flex; flex-direction:column">
                 <p class="s19"
-                    style="padding-top: 5px; display:inline; padding-left: 4px;text-indent: 0pt;line-height: 14px;text-align: left;">
+                    style="padding-top: 5px; display:inline; padding-left: 30px;text-indent: 0pt;line-height: 14px;text-align: left;">
                     表格 </p>
-                <p style="padding-left:4px; display:inline; text-indent: 0px;line-height: 11px;text-align: left;">Form
+                <p style="padding-left:30px; display:inline; text-indent: 0px;line-height: 11px;text-align: left;">Form
                 </p>
 
-                <h1 style="text-indent: 0px; display:inline;line-height: 1px;padding-left:40px">NNC1</h1>
+                <h1 style="text-indent: 0px; display:inline;line-height: 1px;padding-left:60px">NNC1</h1>
                 <p style="text-indent: 0px;text-align: left;"> </p>
             </div>
         </li>
         <li data-list-text="4">
-            <p class="s14" style="padding-top: 20px;padding-left: 45px;text-indent: -17px;text-align: left;">公司的聯絡資料
+            <p class="s14" style="padding-top: 20px;padding-left: 60px;text-indent: 0;text-align: left;">公司的聯絡資料
                 <span class="h4">Contact Information of the Company</span>
             </p>
             <p style="text-indent: 0pt;text-align: left;"> </p>
             <p class="s19"
-                style="padding-top: 5px;padding-left: 30px;text-indent: 0pt;line-height: 14pt;text-align: left;">電郵地址
+                style="padding-top: 5px;padding-left: 60px;text-indent: 0pt;line-height: 14pt;text-align: left;">電郵地址
             </p>
-            <p style="padding-left: 30px;text-indent: 0px;line-height: 11pt;text-align: left; display:inline">Email
+            <p style="padding-left: 60px;text-indent: 0px;line-height: 11pt;text-align: left; display:inline">Email
                 Address</p>
             <input style="width:60%; height:40px; float: right;" :value="companyInfo?.users?.email" readonly>
             <p style="text-indent: 0pt;text-align: left;"> </p>
             <p class="s19"
-                style="padding-top: 7px;padding-left: 30px;text-indent: 0pt;line-height: 14pt;text-align: left; padding-top:30px">
+                style="padding-top: 7px;padding-left: 60px;text-indent: 0pt;line-height: 14pt;text-align: left; padding-top:30px">
                 香港聯絡電話號碼</p>
-            <p style="padding-left: 30px;text-indent: 0pt;line-height: 11pt;text-align: left; ">Hong Kong Contact
+            <p style="padding-left: 60px;text-indent: 0pt;line-height: 11pt;text-align: left; ">Hong Kong Contact
                 Telephone Number
                 <input style="width:60%; height:40px; float: right;" :value="companyInfo?.users?.phone" readonly>
             </p>
@@ -361,7 +360,7 @@
                         etc.)</p>
                 </td>
             </tr>
-            <tr style="height:224pt">
+            <tr style="height:174pt">
                 <td
                     style="width:104pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p style="text-indent: 0pt;text-align: left;"><br /></p>
@@ -372,6 +371,8 @@
                 </td>
             </tr>
         </table>
+    </div>
+    <div style="height:10px;  border-bottom:5px solid #eee">
     </div>
 </template>
 <script setup lang="ts">
