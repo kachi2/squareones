@@ -113,7 +113,7 @@ onMounted(async () => {
         const { error } = await stripePromise.confirmPayment({
             elements,
             confirmParams: {
-                return_url: `squareone.portrec.ng/kcy/verifications` //,
+                return_url: `https://squareone.portrec.ng/kcy/verifications` //,
             },
         });
 
