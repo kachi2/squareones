@@ -1,36 +1,36 @@
 <template>
+     <div style="height:100px;">
+    </div>
     <div>
-        <div style="padding-top:40px">
-        </div>
         <p style="text-indent: 0pt;text-align: left;"><br /></p>
         <table style="border-collapse:collapse" cellspacing="0">
             <tr style="height:12pt">
                 <td style="width:33pt">
                     <p class="s1"
-                        style="padding-left: 1pt;padding-right: 5pt;text-indent: 0pt;line-height: 11pt;text-align: center;">
+                        style="padding-left: 30pt;padding-right: 5pt;text-indent: 0pt;line-height: 11pt;text-align: center;">
                         表格 </p>
                 </td>
                 <td style="width:141pt" rowspan="2">
-                    <p class="s7" style="padding-left: 6pt;text-indent: 0pt;line-height: 31pt;text-align: left;">NNC1
+                    <p class="s7" style="padding-left: 5pt;text-indent: 0pt;line-height: 31pt;text-align: left;">NNC1
                     </p>
                 </td>
             </tr>
             <tr style="height:20pt">
                 <td style="width:33pt">
-                    <p class="s33" style="padding-left: 1pt;padding-right: 6pt;text-indent: 0pt;text-align: center;">
+                    <p class="s33" style="padding-left: 30pt;padding-right: 6pt;text-indent: 0pt;text-align: center;">
                         Form
                     </p>
                 </td>
             </tr>
             <tr style="height:13pt">
                 <td style="width:174pt" colspan="2">
-                    <p class="s13" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">6
+                    <p class="s13" style="padding-left: 30pt;text-indent: 0pt;line-height: 12pt;text-align: left;">6
                         <span class="s12">創辦成員 </span>Founder Members</p>
                 </td>
             </tr>
         </table>
 
-        <p class="s56" style="padding-left: 23pt;text-indent: 0pt;text-align: left;"><span>
+        <p class="s56" style="padding-left: 30pt;text-indent: 0pt;text-align: left;"><span>
                 <table border="0" cellspacing="0" cellpadding="0">
                     <tr>
                         <td><img width="17" height="17"
@@ -56,14 +56,15 @@
                     <p class="s9" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">Name in Chinese</p>
                 </td>
                 <td style="width:49pt;border-right-style:solid;border-right-width:1pt">
-                    <p class="s8" style="padding-left: 27pt;text-indent: 0pt;line-height: 10pt;text-align: left;">姓氏
+                    <p class="s8" style="padding-left: 27pt;text-indent: 0pt;line-height: 10pt;text-align: left;">
+                        <!-- 姓氏 -->
                     </p>
                     <p class="s29" style="padding-left: 14pt;text-indent: 0pt;line-height: 9pt;text-align: left;">
-                        Surname First
+                        <!-- Surname First -->
                     </p>
                 </td>
                 <td style="width:80%;border:1px solid #000">
-                    <p style="text-indent: 0pt;text-align: center;"> <br /></p>
+                    <p style="text-indent: 0pt;text-align: center;">{{ corporateShare?.chn_company_name }}  <br /></p>
                 </td>
             </tr>
         </table>
@@ -125,19 +126,6 @@
             </tr>
         </table>
 
-        <table style="border-collapse:collapse;margin-left:60.884pt; margin-top:10px" cellspacing="0">
-            <tr style="height:33pt">
-                <td style="width:20%">
-                    <p class="s8" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">英文名稱 </p>
-                    <p class="s9" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">Name in China</p>
-                </td>
-                <td style="width:80%; border:1px solid #000">
-                    <p style="text-indent: 0pt;text-align: center;"> {{ corporateShare?.chn_company_name }} <br /></p>
-                </td>
-                <td>
-                </td>
-            </tr>
-        </table>
         <table style="border-collapse:collapse;margin-left:60.884pt; margin-top:10px" cellspacing="">
             <tr style="height:22pt; ">
                 <td style="width:20%">
@@ -357,7 +345,10 @@
             </tr>
         </table>
     </div>
+    <div style="height:200px;  border-bottom:5px solid #eee">
+    </div>
 </template>
+
 
 <script setup lang="ts">
 

@@ -7,7 +7,7 @@
 <hr>
 
 
-<p style=" width:600px; padding-top: 10pt;padding-left: 6pt;text-indent: 0pt;line-height: 142%;text-align: justify;">I/WE, the
+<p style=" width:600px; padding-top: 10pt;padding-left: 30pt;text-indent: 0pt;line-height: 142%;text-align: justify;">I/WE, the
     undersigned, wish to form a company and wish to adopt the articles of association as attached, and I/we
     respectively agree to subscribe for the amount of share capital of the Company and to take the number of shares
     in the Company set opposite my/our respective name(s).</p>

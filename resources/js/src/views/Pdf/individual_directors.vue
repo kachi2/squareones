@@ -1,12 +1,13 @@
-<template>
-    <div>
-
+<template style="height:300">
+    <div >
+        <div style="height:20px; ">
+    </div>
         <p style="text-indent: 0pt;text-align: left;"><br /></p>
 
         <table style="border-collapse:collapse" cellspacing="0">
             <tr style="height:12pt">
                 <td style="width:27pt">
-                    <p class="s1" style="padding-left: 2pt;text-indent: 0pt;line-height: 11pt;text-align: left;">表格 </p>
+                    <p class="s1" style="padding-left: 30pt;text-indent: 0pt;line-height: 11pt;text-align: left;">表格 </p>
                 </td>
                 <td style="width:193pt" rowspan="2">
                     <p class="s7" style="padding-left: 12pt;text-indent: 0pt;line-height: 31pt;text-align: left;">NNC1
@@ -15,7 +16,7 @@
             </tr>
             <tr style="height:20pt">
                 <td style="width:27pt">
-                    <p class="s33" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">Form</p>
+                    <p class="s33" style="padding-left: 30pt;text-indent: 0pt;text-align: left;">Form</p>
                 </td>
             </tr>
             <tr style="height:14pt">
@@ -69,7 +70,7 @@
                     <p style="text-indent: 0pt;text-align: left;"><br /></p>
                 </td>
                 <td
-                    style="width:87pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
+                    style="width:20pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
                     <p style="text-indent: 0pt;text-align: left;">{{ director?.chn_first_name }}<br /></p>
                 </td>
                 <td
@@ -81,7 +82,7 @@
                     <p style="text-indent: 0pt;text-align: left;"><br /></p>
                 </td>
             </tr>
-            <tr style="height:10pt; ">
+            <tr style="height:4pt; ">
 
             </tr>
 
@@ -117,7 +118,7 @@
                 </td>
 
             </tr>
-            <tr style="height:10pt">
+            <tr style="height:4pt">
 
             </tr>
 
@@ -154,8 +155,8 @@
             </tr>
         </table>
 
-        <div style="padding-top:20px"></div>
-        <table style="border-collapse:collapse;margin-left:60.67145pt" cellspacing="0">
+        <!-- <div style="padding-top:10px"></div> -->
+        <!-- <table style="border-collapse:collapse;margin-left:60.67145pt" cellspacing="0">
             <tr style="height:25pt">
                 <td style="width:88pt;border-right-style:solid;border-right-width:1pt">
                     <p class="s8" style="padding-left: 2pt;text-indent: 0pt;line-height: 11pt;text-align: left;">前 用姓名
@@ -181,7 +182,7 @@
                 </td>
             </tr>
 
-            <tr style="height:25pt">
+            <tr style="height:10pt">
                 <td style="width:8pt;border-right-style:solid;border-right-width:1pt">
                     <p class="s8" style="padding-left: 3pt;text-indent: 0pt;line-height: 11pt;text-align: left;">別名
                     </p>
@@ -206,7 +207,7 @@
                 </td>
             </tr>
 
-        </table>
+        </table> -->
         <li data-list-text="3">
             <p class="s14"
                 style="padding-left: 50px; padding-top:20px; text-indent: 0px;line-height: 15px;text-align: left;">
@@ -257,7 +258,7 @@
                         </td>
                     </tr>
 
-                    <tr style="height:16px; ">
+                    <tr style="height:15px; ">
                     </tr>
                     <tr style="height:23pt">
                         <td
@@ -267,7 +268,6 @@
                                 <span class="">{{ director.address.country }}</span>
                             </p>
                         </td>
-
                     </tr>
 
                     <tr style="height:16px; ">
@@ -285,7 +285,7 @@
                 </table>
             </div>
 
-            <div style="margin-top:20px">
+            <div style="margin-top:4px">
                 <p style="text-indent: 0px;text-align: left;"></p>
                 <p class="s21"
                     style="padding-top: 10px;padding-left: 50px;text-indent: 0px;line-height: 11pt;text-align: left;">
@@ -323,7 +323,7 @@
                 <p style="padding-left: 70px;text-indent: 0px;line-height: 9pt;text-align: left;"></p>
             </div>
         </li>
-        <div style="padding-top: 50px;  "></div>
+        <div style="padding-top: 12px;  "></div>
         <table style="border-collapse:collapse; margin-left:40.67145pt " cellspacing="0">
             <tr style="height:13pt">
                 <td style="width:481pt" colspan="8">
@@ -350,7 +350,7 @@
                 </td>
             </tr>
 
-            <tr style="height:28pt">
+            <tr style="height:8pt">
                 <td style="width:54pt">
                     <p class="s29" style="padding-left: 2pt; text-indent: 0pt;line-height: 11pt;text-align: left;">
                         (b) <span class="s8">護照 </span></p>
@@ -372,7 +372,7 @@
                 </td>
             </tr>
 
-            <tr style="height:28pt">
+            <tr style="height:8pt">
                 <td style="width:54pt">
                     <p style="text-indent: 0pt;text-align: left;"><br /></p>
                 </td>
@@ -397,7 +397,7 @@
 
         </table>
         <table style="border-collapse:collapse; margin-left:40px; margin-top:20px" cellspacing="0">
-            <tr style="height:34pt">
+            <tr style="height:3pt">
                 <td
                     style="width:73pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p class="s8"
@@ -419,7 +419,7 @@
             </tr>
         </table>
         <table style="border-collapse:collapse; margin-top:30px; margin-left:20px" cellspacing="0">
-            <tr style="height:23pt">
+            <tr style="height:2pt">
                 <td style="width:487pt" colspan="3">
                     <p class="s28" style="padding-left: 30pt;text-indent: 0pt;line-height: 11pt;text-align: left;">
                         出任董事職位同意書
@@ -491,10 +491,8 @@
                 </td>
             </tr>
         </table>
-
-
-        <div style="padding-top:20px"></div>
-        <hr>
+    </div>
+    <div style="height:10px;  border-bottom:5px solid #eee">
     </div>
 
 </template>

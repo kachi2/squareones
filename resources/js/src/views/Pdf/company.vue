@@ -1,7 +1,7 @@
 <template>
-
+<div >
     <p style="text-indent: 0px;text-align: left;"><br /></p>
-    <table style="border-collapse:collapse;margin-left:5.78pt" cellspacing="0">
+    <table style="border-collapse:collapse;margin-left:30.78pt; page-break-after: always" cellspacing="0;">
         <tr style="height:79pt">
             <td style="width:148pt">
                 <p style="text-indent: 0px;text-align: left;"><br />
@@ -52,7 +52,7 @@
                 <p style="text-indent: 0px;text-align: left;"><br /></p>
             </td>
         </tr>
-        <tr style="height:17pxpx">
+        <tr style="height:17px">
             <td style="width:20px" colspan="2">
                 <p class="s10" style="padding-left: 50px;text-indent: 0px;text-align: left">
 
@@ -118,7 +118,7 @@
 
     <li data-list-text="2">
         <p class="s19" style="padding-top: 10px;padding-bottom: 10px;padding-left: 20px;text-indent: 0px;">
-            <textarea cols="10" rows="4"> </textarea> <textarea cols="50" rows="4" class="">
+            <textarea cols="10" rows="4">  {{ companyInfo?.business_nature?.code }}</textarea> <textarea cols="60" rows="4" class="">
         {{ companyInfo?.business_nature?.name }}
         </textarea>
         </p>
@@ -209,7 +209,7 @@
         </p>
     </li>
     <li data-list-text="4">
-        <table style="border-collapse:collapse" cellspacing="0">
+        <table style="border-collapse:collapse; margin-left:30px" cellspacing="0">
             <tr style="height:26px">
 
                 <td
@@ -222,7 +222,12 @@
         </table>
         <p style="text-indent: 0px;text-align: left;" />
     </li>
+    <div style="height:60px; border-bottom:5px solid #eee">
+
+    </div>
+</div>
 </template>
+
 
 <script setup lang="ts">
 

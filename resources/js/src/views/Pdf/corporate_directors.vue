@@ -1,11 +1,12 @@
 <template>
     <div>
-
+        <!-- <div style="height:50px;">
+    </div> -->
         <p style="text-indent: 0pt;text-align: left;"><br /></p>
         <p style="text-indent: 0pt;text-align: left;"></p>
 
         <p style="text-indent: 0pt;text-align: left;"></p>
-        <table style="border-collapse:collapse;margin-left:42.404pt" cellspacing="0">
+        <table style="border-collapse:collapse;margin-left:60.404pt" cellspacing="0">
             <tr style="height:12pt">
                 <td style="width:30pt">
                     <p class="s1" style="padding-left: 2pt;text-indent: 0pt;line-height: 11pt;text-align: left;">表格 </p>
@@ -229,7 +230,7 @@
 
         </li>
 
-        <p class="s41" style="padding-left: 7pt;text-indent: 0pt;text-align: left; padding-top:40px">商業登記號碼 Business
+        <p class="s41" style="padding-left: 30pt;text-indent: 0pt;text-align: left; padding-top:40px">商業登記號碼 Business
             Registration Number
             <span class="s42"> <br> <span style="font-size:10px">(只適用於在香港註冊的法人團體 Only applicable to body corporate
                     registered in Hong Kong)</span> </span>
@@ -241,7 +242,7 @@
         <p style="padding-top: 20pt;padding-left: 2pt;text-indent: 0pt;text-align: left;"><span
                 style=" color: #FFF; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 7pt;"></span>
         </p>
-        <table style="border-collapse:collapse" cellspacing="0">
+        <table style="border-collapse:collapse; margin-left:30px" cellspacing="0">
             <tr style="height:37pt">
                 <td
                     style="width:73pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -264,7 +265,7 @@
             </tr>
         </table>
 
-        <table style="border-collapse:collapse; margin-top:30px; margin-left:20px" cellspacing="0">
+        <table style="border-collapse:collapse; margin-top:30px; margin-left:50px" cellspacing="0">
             <tr style="height:23pt">
                 <td style="width:487pt" colspan="3">
                     <p class="s28" style="padding-left: 30pt;text-indent: 0pt;line-height: 11pt;text-align: left;">
@@ -283,7 +284,7 @@
                     <p class="s28" style="padding-left: 30pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         本人獲上述法人團體授權確認上述法人團體同意在公司成立為法團時擔任其董事。 </p>
                     <p class="s9" style="padding-left: 28pt;text-indent: 0pt;line-height: 9pt;text-align: left;">
-                        <input type="checkbox" style="width: 30px; height:20px" checked>
+                        <input type="checkbox" style="width: 30px; height:20px" >
                         I, being authorized by the above body corporate, confirm that the body corporate consents to be
                         a director of this
                         company on its incorporation..
@@ -359,14 +360,8 @@
 
             </tr>
         </table>
-
-
-
-
-
-        <div style="padding-top:30px">
-        </div>
-        <hr>
+    </div>
+    <div style="height:100px;  border-bottom:5px solid #eee">
     </div>
 </template>
 

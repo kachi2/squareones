@@ -1,4 +1,4 @@
-<template>
+<template style="page-break-after: always">
     <div>
 
         <div style="padding-top: 40px">
@@ -7,9 +7,9 @@
 <hr>
 
 <p style="text-indent: 0pt;text-align: left; padding-top:20px;" > </p>
-<p style="padding-top: 4pt;padding-left: 11pt;text-indent: 0pt;text-align: left;">Class of Shares</p>
+<p style="padding-top: 4pt;padding-left: 30pt;text-indent: 0pt;text-align: left;">Class of Shares</p>
 <p style="padding-top: 11pt;text-indent: 0pt;text-align: left;"><br /></p>
-<table style="border-collapse:collapse;margin-left:3pt" cellspacing="0">
+<table style="border-collapse:collapse;margin-left:30pt" cellspacing="0">
     <tr style="height:36pt">
         <td>
      
@@ -69,9 +69,9 @@
 
 
 <p style="text-indent: 0pt;text-align: left; padding-top:40px;" ></p>
-<p style="padding-top: 4pt;padding-left: 11pt;text-indent: 0pt;text-align: left;">Class of Shares</p>
+<p style="padding-top: 4pt;padding-left: 30pt;text-indent: 0pt;text-align: left;">Class of Shares</p>
 <p style="padding-top: 11pt;text-indent: 0pt;text-align: left;"><br /></p>
-<table style="border-collapse:collapse;margin-left:3pt" cellspacing="0">
+<table style="border-collapse:collapse;margin-left:30pt" cellspacing="0">
     <tr style="height:36pt">
         <td>
      

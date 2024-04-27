@@ -170,6 +170,7 @@ onMounted(async () => {
     }
 
     // Show a spinner on payment submission
+<<<<<<< HEAD
     // function setLoading(isLoading: any) {
     //     if (isLoading) {
     //         // Disable the button and show a spinner
@@ -182,6 +183,20 @@ onMounted(async () => {
     //         document.querySelector("#button-text").classList.remove("hidden");
     //     }
     // }
+=======
+    function setLoading(isLoading: any) {
+        if (isLoading) {
+            // Disable the button and show a spinner
+        //     document.querySelector("#submit").disabled = true;
+        //     document.querySelector("#spinner").classList.remove("hidden");
+        //     document.querySelector("#button-text").classList.add("hidden");
+        // } else {
+        //     document.querySelector("#submit").disabled = false;
+        //     document.querySelector("#spinner").classList.add("hidden");
+        //     document.querySelector("#button-text").classList.remove("hidden");
+        }
+    }
+>>>>>>> 33535abd3f449d19ecf172c6baf2c06c8fa446eb
 
 
 

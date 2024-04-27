@@ -1,7 +1,6 @@
 <template>
     <div>
         <div style="padding-top:40px"></div>
-        <hr>
         <p style="text-indent: 0pt;text-align: left;"><br /></p>
         <p style="text-indent: 0pt;text-align: left;"></p>
 
@@ -117,9 +116,9 @@
         </table>
         <li data-list-text="3">
             <p class="s14"
-                style="padding-left: 50px; padding-top:20px; text-indent: 0px;line-height: 15px;text-align: left;">
+                style="padding-left: 60px; padding-top:20px; text-indent: 0px;line-height: 15px;text-align: left;">
             </p>
-            <h4 style="padding-left: 50px;text-indent: 0px;line-height: 12pt;text-align: left;">香港地址 Hong Kong Address
+            <h4 style="padding-left: 60px;text-indent: 0px;line-height: 12pt;text-align: left;">香港地址 Hong Kong Address
             </h4>
             <p class="s18" style="padding-left: 67px;text-indent: 0px;text-align: left;">(<span
                     class="s15">本處不接納「轉交」地址及郵政信箱號碼 </span>‘Care of ’ addresses and post office box numbers are not
@@ -127,7 +126,7 @@
             </p>
 
             <div class="row" style="float: right; margin-top:20px">
-                <table style="border-collapse:collapse" cellspacing="0">
+                <table style="border-collapse:collapse;" cellspacing="0">
                     <tr style="height:25px; ">
                         <td
                             style="width:355pt; padding-left:30px;  padding-top:10px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -231,7 +230,7 @@
 
         </li>
 
-        <p class="s41" style="padding-left: 7pt;text-indent: 0pt;text-align: left; padding-top:40px">商業登記號碼 <span
+        <p class="s41" style="padding-left: 50pt;text-indent: 0pt;text-align: left; padding-top:40px">商業登記號碼 <span
                 class="s42">Business
                 Registration Number</span>
             <span style="text-indent: 0pt; float:right">
@@ -240,19 +239,19 @@
                 <br /></span>
         </p>
 
-        <p style="padding-top: 20pt;padding-left: 2pt;text-indent: 0pt;text-align: left;"><span
+        <p style="padding-top: 20pt;padding-left: 50pt;text-indent: 0pt;text-align: left;"><span
                 style=" color: #FFF; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 7pt;"></span>
         </p>
         <table style="border-collapse:collapse" cellspacing="0">
             <tr style="height:12pt">
                 <td style="width:479pt" colspan="4">
-                    <p class="s28" style="padding-left: 2pt;text-indent: 0pt;line-height: 11pt;text-align: left;">
+                    <p class="s28" style="padding-left: 50pt;text-indent: 0pt;line-height: 11pt;text-align: left;">
                         信託或公司服務提供者牌照 <span class="s2">Trust or Company Service Provider Licence</span></p>
                 </td>
             </tr>
             <tr style="height:19pt">
                 <td style="width:479pt" colspan="4">
-                    <p class="s40" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">請填報牌照編號或在適用的空格內加上<span
+                    <p class="s40" style="padding-left: 50pt;text-indent: 0pt;text-align: left;">請填報牌照編號或在適用的空格內加上<span
                             class="s48"></span><span class="s49"> </span>號 <span class="s39">Please provide the licence
                             no.
                             or tick the relevant box</span></p>
@@ -260,9 +259,9 @@
             </tr>
             <tr style="height:66pt">
                 <td style="width:54pt;border-right-style:solid;border-right-width:1pt; ">
-                    <p class="s8" style="padding-left: 2pt;text-indent: 0pt;line-height: 11pt;text-align: left;">牌 照編 號
+                    <p class="s8" style="padding-left: 20pt;text-indent: 0pt;line-height: 11pt;text-align: left;">牌 照編 號
                     </p>
-                    <p class="s29" style="padding-left: 2pt;text-indent: 0pt;line-height: 9pt;text-align: left;">Licence
+                    <p class="s29" style="padding-left: 20pt;text-indent: 0pt;line-height: 9pt;text-align: left;">Licence
                         No.
                     </p>
                 </td>
@@ -285,9 +284,8 @@
             </tr>
         </table>
 
-        <div style="padding-top:30px">
-        </div>
-        <hr>
+    </div>
+    <div style="height:200px;  border-bottom:5px solid #eee">
     </div>
 </template>
 

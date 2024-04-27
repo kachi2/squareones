@@ -34,17 +34,17 @@ class DocumentServices  implements DocumentInterface{
     $company = Company::whereId($request->company_id)->first();
     $fileNames = [];
     foreach($request->documents as $document){
-    if($document instanceof UploadedFile){
-        $ext = $document->getClientOriginalExtension();  
-        $name = \pathinfo($document->getClientOriginalName(), PATHINFO_FILENAME);
-        $fileName = str_replace("['/', '(', ')', ' ']","", $name).'.'.$ext;
-        $document->move('documents', $fileName);
-        $fileNames[] = $fileName ;
+    if($document instanceof UploadedFile){ 
+        // $name = \pathinfo($document->getClientOriginalName(), PATHINFO_FILENAME);
+        // $fileName = str_replace("['/', '(', ')', ' ']","", $name).'.'.'pdf';
+        $fileName = $company->names[0]->eng_name?$company->names[0]->eng_name.'.pdf':$company->names[0]->chn_name.'.pdf';
+        $document->move('documents', $fileName );
+        $fileNames[] = $fileName;
     }
 }
     if($company){
         $company->update([
-            'pdf_doc' => json_encode($fileNames),
+            'pdf_doc' => $fileNames,
             'date_signed' => $request->date_signed
         ]);
         return $company;
