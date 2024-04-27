@@ -11,7 +11,7 @@
 </head>
 
 <style>
-@font-face {
+/* @font-face {
     font-family: "MingLiU";
     src: url("https://db.onlinewebfonts.com/t/23cfc97e0a97d980f87f5780303baf01.eot");
     src: url("https://db.onlinewebfonts.com/t/23cfc97e0a97d980f87f5780303baf01.eot?#iefix")format("embedded-opentype"),
@@ -28,13 +28,13 @@
     url("https://db.onlinewebfonts.com/t/b8c332e7b686ba28daebf6524c66aeec.woff")format("woff"),
     url("https://db.onlinewebfonts.com/t/b8c332e7b686ba28daebf6524c66aeec.ttf")format("truetype"),
     url("https://db.onlinewebfonts.com/t/b8c332e7b686ba28daebf6524c66aeec.svg#PMingLiU")format("svg");
-}
+} */
 
 @font-face {
       font-family: 'cwTeXKai';
       font-style: normal;
       font-weight: 500;
-      src: url(http://fonts.gstatic.com/ea/cwtexkai/v3/cwTeXKai-zhonly.ttf) format('truetype');
+      /* src: url(https://fonts.gstatic.com/ea/cwtexkai/v3/cwTeXKai-zhonly.ttf) format('truetype'); */
     }
 body{
     display:flex;
