@@ -122,8 +122,9 @@ function clear() {
 }
 
 onMounted(async()=>{
-  const data = await api.ProcessKyc()
-  console.log('check this data' + data)
+ const data = await api.ProcessKyc()
+  console.log('check there')
+  console.log(data)
 })
 function save() {
   const { isEmpty, data, } = signaturePad.value.saveSignature()

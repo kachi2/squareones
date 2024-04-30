@@ -30,7 +30,7 @@
                         <input :class="{ 'error-field': form.errors.choice_level1_chn_name }"
                             v-model="form.choice_level1_chn_name" type="text" class="form-control"
                             placeholder="This text for Chinese name">
-                        <small class=" text-danger">{{ form.errors.choice_level1_chn_name }}</small>
+                        <small class=" text-danger">{{ manualErrors.choice_level1_chn_name }}</small>
                     </div>
                     <div class="col-md-6">
                         <select v-model="form.choice_level1_chn_prefix" class="form-select">
@@ -64,7 +64,7 @@
                         <input :class="{ 'error-field': form.errors.choice_level2_chn_name }"
                             v-model="form.choice_level2_chn_name" type="text" class="form-control"
                             placeholder="This text for Chinese name">
-                        <small class=" text-danger">{{ form.errors.choice_level2_chn_name }}</small>
+                        <small class=" text-danger">{{ manualErrors.choice_level2_chn_name }}</small>
                     </div>
                     <div class="col-md-6">
                         <select v-model="form.choice_level2_chn_prefix" class="form-select">
@@ -105,7 +105,7 @@
                         <input :class="{ 'error-field': form.errors.choice_level3_chn_name }"
                             v-model="form.choice_level3_chn_name" type="text" class="form-control"
                             placeholder="This text for Chinese name">
-                        <small class=" text-danger">{{ form.errors.choice_level3_chn_name }}</small>
+                        <small class=" text-danger">{{ manualErrors.choice_level3_chn_name }}</small>
                     </div>
                     <div class="col-md-6">
                         <select v-model="form.choice_level3_chn_prefix" class="form-select">
@@ -146,7 +146,7 @@
                         <input :class="{ 'error-field': form.errors.choice_level4_chn_name }"
                             v-model="form.choice_level4_chn_name" type="text" class="form-control"
                             placeholder="This text for Chinese name">
-                        <small class=" text-danger">{{ form.errors.choice_level4_chn_name }}</small>
+                        <small class=" text-danger">{{ manualErrors.choice_level4_chn_name }}</small>
                     </div>
                     <div class="col-md-6">
                         <select v-model="form.choice_level4_chn_prefix" class="form-select">
@@ -186,7 +186,7 @@
                         <input :class="{ 'error-field': form.errors.choice_level5_chn_name }"
                             v-model="form.choice_level5_chn_name" type="text" class="form-control"
                             placeholder="This text for Chinese name">
-                        <small class=" text-danger">{{ form.errors.choice_level5_chn_name }}</small>
+                        <small class=" text-danger">{{ manualErrors.choice_level5_chn_name }}</small>
                     </div>
                     <div class="col-md-6">
                         <select v-model="form.choice_level5_chn_prefix" class="form-select">
@@ -274,7 +274,7 @@ import { useToast } from 'vue-toast-notification';
 import api from '@/stores/Helpers/axios'
 import { nameForm } from './formsStore/Name';
 import { vMaska } from "maska"
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, reactive } from 'vue'
 
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
@@ -297,33 +297,74 @@ function addForm() {
     }
 }
 
+// watchEffect(()=>{
+//     if(form.choice_level1_chn_name == ''){
+//         form.errors.choice_level1_chn_name  = ''
+//         delete form.errors.choice_level1_chn_name
+//     }
+//     if(form.choice_level2_chn_name == ''){
+//         form.errors.choice_level2_chn_name  = null
+//         delete form.errors.choice_level2_chn_name
+//     }
+//     if(form.choice_level3_chn_name == ''){
+//         form.errors.choice_level3_chn_name  = null
+//         delete form.errors.choice_level3_chn_name
+//     }
+//     if(form.choice_level4_chn_name == ''){
+//         form.errors.choice_level4_chn_name  = ''
+//         delete form.errors.choice_level4_chn_name
+//     }
+//     if(form.choice_level5_chn_name == ''){
+//         form.errors.choice_level5_chn_name  = ''
+//         delete form.errors.choice_level5_chn_name
+//     }
+// })
+
 function removeForm(field: any) {
-        form[field] = false
-        if (field== 'isSecond'){
-            form.resetField('choice_level2_eng_name')
-            form.resetField('choice_level2_chn_name')
-            delete form.errors.choice_level2_eng_name
-           delete form.errors.choice_level2_chn_name 
-        }
-        if (field== 'isThird'){
-            form.resetField('choice_level3_eng_name')
-            form.resetField('choice_level3_chn_name')
-           delete  form.errors.choice_level3_eng_name 
-           delete  form.errors.choice_level3_chn_name 
-        }
-        if (field== 'isForth'){
-            form.resetField('choice_level4_eng_name')
-            form.resetField('choice_level4_chn_name')
-           delete  form.errors.choice_level4_eng_name 
-           delete  form.errors.choice_level4_chn_name 
-        }
-        if (field== 'isFifth'){
-            form.resetField('choice_level5_eng_name')
-            form.resetField('choice_level5_chn_name')
-           delete  form.errors.choice_level5_eng_name
-           delete  form.errors.choice_level5_chn_name 
-        }
+    form[field] = false
+    if (field == 'isSecond') {
+        form.resetField('choice_level2_eng_name')
+        form.resetField('choice_level2_chn_name')
+        delete form.errors.choice_level2_eng_name
+        delete form.errors.choice_level2_chn_name
+    }
+    if (field == 'isThird') {
+        form.resetField('choice_level3_eng_name')
+        form.resetField('choice_level3_chn_name')
+        delete form.errors.choice_level3_eng_name
+        delete form.errors.choice_level3_chn_name
+    }
+    if (field == 'isForth') {
+        form.resetField('choice_level4_eng_name')
+        form.resetField('choice_level4_chn_name')
+        delete form.errors.choice_level4_eng_name
+        delete form.errors.choice_level4_chn_name
+    }
+    if (field == 'isFifth') {
+        form.resetField('choice_level5_eng_name')
+        form.resetField('choice_level5_chn_name')
+        delete form.errors.choice_level5_eng_name
+        delete form.errors.choice_level5_chn_name
+    }
 }
+
+
+
+const manualErrors = reactive({
+    choice_level1_chn_name: '',
+    choice_level2_chn_name: '',
+    choice_level3_chn_name: '',
+    choice_level4_chn_name: '',
+    choice_level5_chn_name: '',
+})
+watch(() => [form.choice_level1_chn_name, form.choice_level2_chn_name, form.choice_level3_chn_name, form.choice_level4_chn_name, form.choice_level5_chn_name], () => {
+
+    manualErrors.choice_level1_chn_name = form.choice_level1_chn_name && !form.chineseCheck(form.choice_level1_chn_name) ? 'Please input only Chinese characters' : ''
+    manualErrors.choice_level2_chn_name = form.choice_level2_chn_name && !form.chineseCheck(form.choice_level2_chn_name) ? 'Please input only Chinese characters' : ''
+    manualErrors.choice_level3_chn_name = form.choice_level3_chn_name && !form.chineseCheck(form.choice_level3_chn_name) ? 'Please input only Chinese characters' : ''
+    manualErrors.choice_level4_chn_name = form.choice_level4_chn_name && !form.chineseCheck(form.choice_level4_chn_name) ? 'Please input only Chinese characters' : ''
+    manualErrors.choice_level5_chn_name = form.choice_level5_chn_name && !form.chineseCheck(form.choice_level5_chn_name) ? 'Please input only Chinese characters' : ''
+})
 
 
 function moveBack() {
@@ -332,35 +373,42 @@ function moveBack() {
 
 function saveAndContinue() {
 
-    if (!form.choice_level1_eng_name && !form.choice_level1_chn_name){
+    if (!form.choice_level1_eng_name && !form.choice_level1_chn_name) {
         toast.default("Please complete Primary choice names", { position: 'top-right' });
         return;
     }
 
-    if (form.isSecond && (!form.choice_level2_eng_name && !form.choice_level2_chn_name)){
+    if (form.isSecond && (!form.choice_level2_eng_name && !form.choice_level2_chn_name)) {
         toast.default("Please complete secondary choice names", { position: 'top-right' });
         return;
     }
 
-    if (form.isThird && (!form.choice_level3_eng_name && !form.choice_level3_chn_name)){
+    if (form.isThird && (!form.choice_level3_eng_name && !form.choice_level3_chn_name)) {
         toast.default("Please complete third choice names", { position: 'top-right' });
         return;
     }
 
-    if (form.isForth && (!form.choice_level4_eng_name && !form.choice_level4_chn_name)){
+    if (form.isForth && (!form.choice_level4_eng_name && !form.choice_level4_chn_name)) {
         toast.default("Please complete fourth choice names", { position: 'top-right' });
         return;
     }
 
-    if (form.isFifth && (!form.choice_level5_eng_name && !form.choice_level5_chn_name)){
+    if (form.isFifth && (!form.choice_level5_eng_name && !form.choice_level5_chn_name)) {
         toast.default("Please complete fifth choice names", { position: 'top-right' });
         return;
     }
 
-    // console.log(form.errors)
+     console.log(form.errors)
     if (Object.keys(form.errors).length > 0) {
         toast.default("Some fields still have errors", { position: 'top-right' });
-        return true;
+        return;
+    }
+
+    if (manualErrors.choice_level1_chn_name || manualErrors.choice_level2_chn_name || manualErrors.choice_level3_chn_name ||
+        manualErrors.choice_level4_chn_name || manualErrors.choice_level5_chn_name
+    ) {
+        toast.default("Some fields still have errors", { position: 'top-right' });
+        return;
     }
 
     const formData = new FormData()
@@ -412,7 +460,7 @@ function saveAndContinue() {
 
 function checkFields(level: any, msg?: string) {
     const message = msg ? 'Please fill Primary Choice Names' : 'Please complete fields'
-    if (!level+'_eng_name' || !level+'_chn_name') {
+    if (!level + '_eng_name' || !level + '_chn_name') {
         toast.default(message, { position: 'top-right' });
         return true;
     }

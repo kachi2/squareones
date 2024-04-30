@@ -31,7 +31,8 @@
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
                         <v-select :class="{ 'error-field': form.errors.activity_level }" v-model="form.activity_level"
-                            :clearable="false" :options="startCompanyStore.levelOfActivity" />
+                            :clearable="true" 
+                            :options="startCompanyStore.levelOfActivity" />
                         <small class=" text-danger">{{ form.errors.activity_level }}</small>
                     </div>
 
@@ -46,7 +47,7 @@
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
                         <v-select :class="{ 'error-field': form.errors.activity_nature }" v-model="form.activity_nature"
-                            :clearable="false" :options="startCompanyStore.natureOfActivity" />
+                            :clearable="true" :options="startCompanyStore.natureOfActivity" />
                         <small class=" text-danger">{{ form.errors.activity_nature }}</small>
                     </div>
 
@@ -61,7 +62,7 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
-                        <v-select :multiple="true" v-model="form.customer_location_operation" :clearable="false"
+                        <v-select  :class="{ 'error-field':form.errors.customer_location_operation }"  :multiple="true" v-model="form.customer_location_operation" :clearable="true"
                             :options="startCompanyStore.countries" />
                         <small class=" text-danger">{{ form.errors.customer_location_operation }}</small>
                     </div>
@@ -77,7 +78,7 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
-                        <v-select :multiple="true" v-model="form.country" :clearable="false"
+                        <v-select :class="{ 'error-field':form.errors.country }" :multiple="true" v-model="form.country" :clearable="true"
                             :options="startCompanyStore.countries" />
                         <small class=" text-danger">{{ form.errors.country }}</small>
                     </div>
@@ -139,7 +140,7 @@
     </StartCompany_template>
 </template>
 <script lang="ts" setup>
-import { computed, onMounted, watch } from 'vue';
+import { computed, onMounted, watch, watchEffect } from 'vue';
 import StartCompany_template from '../StartCompany_template.vue';
 import { useStartCompanyStore } from '../StartCompany_store';
 
@@ -162,6 +163,23 @@ function moveBack() {
     startCompanyStore.switchStage('-')
 }
 
+onMounted(()=> {
+ watchEffect(() => {
+    if(Object.keys(form.country).length < 1)
+    { 
+    form.errors.country = 'Please select an option'
+    }
+},
+)
+watchEffect(() => {
+    if(Object.keys(form.customer_location_operation).length < 1)
+    { 
+    form.errors.customer_location_operation = 'Please select an option'
+    }
+},
+)
+})
+
 const saveAndContinue = form.handleSubmit(async (values) => {
 
     if (!startCompanyStore.companyInProgress?.id) {
@@ -175,11 +193,7 @@ const saveAndContinue = form.handleSubmit(async (values) => {
         return true;
     }
 
-
-    if (!form.customer_location_operation || !form.country) {
-        toast.default('Please complete all fields', { position: 'top-right' })
-        return;
-    }
+   
 
     const formData = new FormData;
     formData.append('company_id', startCompanyStore.companyInProgress.id)

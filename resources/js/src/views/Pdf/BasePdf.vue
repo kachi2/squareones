@@ -29,17 +29,17 @@
     </div>
 
     <div class="off-screen" ref="PDFsection" hidden id="print_item">
+                        sdsdsddsdsdsdsd
+            <!-- <company :companyInfo="data" /> -->
 
-            <company :companyInfo="data" />
-
-            <company_info :companyInfo="data" />
-            <div style="page-break-after: always">
+            <!-- <company_info :companyInfo="data" /> -->
+            <!-- <div style="page-break-after: always">
             <individual_shareholder v-for="shares in shareholders" :shareholder="shares" />
-            </div>
-            <div style="page-break-after: always">
+            </div> -->
+            <!-- <div style="page-break-after: always">
             <corporate_shareholder v-for="coshare in CorporateShareholder" :corporateShare="coshare" />
-            </div> 
-         <div style="page-break-after: always">
+            </div>  -->
+         <!-- <div style="page-break-after: always">
             <company_secretary />
             </div>
             <div style="page-break-after: always">
@@ -58,12 +58,13 @@
             <company_ordinance />
             <class_of_shares />
             <ownershipShares />
-            <articles />
+            <articles /> -->
              <!--    <articles_last /> -->
        
     </div>
 
     <div class="off-screen" ref="PDFsection2">
+        sdss
         <!-- <articles_last />   -->
         
     </div>
@@ -137,7 +138,7 @@ function createPDF(canvas: any, index: any) {
         doc.rect(0, 0, 210, 295);
         heightLeft -= pageHeight;
     }
-    // doc.save("public_docs.pdf")
+    doc.save("public_docs.pdf")
     const pdfBlob = doc.output('blob');
     formData.append(`documents[${index}]`, pdfBlob);
 }

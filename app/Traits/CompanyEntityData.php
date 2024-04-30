@@ -29,7 +29,8 @@ trait CompanyEntityData
             'addresses' => 'required',
             'is_corAddress' => 'nullable',
             'card_name' => 'nullable',
-            'is_founder' => 'nullable'
+            'is_founder' => 'nullable',
+            'identity_no_suffix' => 'nullable'
         ]);
         return $valid;
     }
@@ -42,7 +43,7 @@ trait CompanyEntityData
             'entity_type_id' => 'required',
             'entity_capacity_id' => 'required',
             'company_name' => 'required',
-            'chn_company_name' => 'required',
+            'chn_company_name' => 'nullable',
             'date_incorporated' => 'required',
             'country_registered' => 'required',
             'flat' => 'required',

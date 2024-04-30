@@ -205,7 +205,7 @@ watchEffect(() => {
 onMounted(() => {
     // check for atleast one Individual
     const entity = startCompanyStore.companyInProgress?.company_entity ?? [];
-    const individual = entity.find((x: any) => x.entity_type_id == 1)
+    const individual = entity.find((x: any) => x.entity_capacity_id.includes(2))
     const Corporate = entity.find((x: any) => x.entity_type_id == 2)
     if (!Corporate ||  !individual) {
         toast.error('You need to add at least one Shareholder <br>   and one Individual Director to proceed', { position: 'top-right' })
@@ -227,7 +227,7 @@ function autoFillForm() {
 
 async function retrieveShareHolders() {
     try {
-        const resp = await api.retrieveShaheolders()
+        const resp = await api.retrieveShaheolders(startCompanyStore.companyInProgress?.id)
 
         const entity = resp.data.data;
         // console.log(entity)

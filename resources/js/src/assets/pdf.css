@@ -21,7 +21,7 @@
       font-family: 'cwTeXKai';
       font-style: normal;
       font-weight: 500;
-      src: url(https://fonts.gstatic.com/ea/cwtexkai/v3/cwTeXKai-zhonly.ttf) format('truetype');
+      src: url(http://fonts.gstatic.com/ea/cwtexkai/v3/cwTeXKai-zhonly.ttf) format('truetype');
     }
 body{
     display:flex;

@@ -39,6 +39,12 @@
                     class="form-control" type="text" placeholder="Registration no">
                 <small class=" text-danger">{{ form.errors.registeration_no }}</small>
             </div>
+            <div class="col-md-12">
+                    <label class="form-label">Country Registered <small class=" text-danger">*</small></label>
+                    <v-select :class="{ 'error-field': form.errors.country_registered }" placeholder="select country.."
+                        v-model="form.country_registered" :clearable="false" :options="startCompanyStore.countries" />
+                    <small class=" text-danger">{{ form.errors.country_registered }}</small>
+                </div>
             <div class="col-12">
                 <label class="form-label fw-bold">Business nature <span class="text-danger"> * </span></label>
                 <v-select :class="{ 'error-field': form.errors.business_nature_id }" v-model="form.business_nature_id"
@@ -114,7 +120,7 @@
             <div class="col-md-12">
                 <label class=" fw-bolder">Phone number <span class="text-danger"> * </span></label>
                 <vue-tel-input :inputOptions="phoneField.input" :dropdownOptions="phoneField.dropDown"
-                    :autoFormat="true" v-model="form.phone"></vue-tel-input>
+                    :autoFormat="true"  v-model="form.phone"></vue-tel-input>
                 <small class=" text-danger">{{ form.errors.phone }}</small>
                 <!-- <div class="input-group">
                     
@@ -169,7 +175,7 @@ import { useToast } from 'vue-toast-notification';
 import useFxn from '@/stores/Helpers/useFunctions';
 import { foundersCorporateForm } from './formsStore/Founders_corporate'
 import { vMaska } from "maska"
-import { onMounted, ref, watch, watchEffect } from 'vue';
+import { onMounted, ref, watch, watchEffect, reactive } from 'vue';
 
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
@@ -194,6 +200,8 @@ watchEffect(() => {
     }
 })
 
+
+
 function resetForm() {
     form.company_name = ''
     form.chn_company_name = ''
@@ -204,7 +212,7 @@ function resetForm() {
     form.state = ''
     form.country = 'Hong Kong'
 
-    form.postal_code = ''
+    // form.postal_code = ''
     form.registeration_no = ''
     form.is_founder = false
     form.country_registered = 'Hong Kong'
@@ -230,10 +238,18 @@ const phoneField = {
     input: {
         showDialCode: true,
         placeholder: 'Enter phone',
-        styleClasses: 'phone-input-profile'
+        styleClasses: 'phone-input-profile',
+        maxlength:12
     }
 
 }
+watchEffect(()=>{
+    if(form.chn_company_name == ''){
+        form.errors.chn_company_name  = ''
+        delete form.errors.chn_company_name
+    }
+})
+
 
 function moveBack() {
     // startCompanyStore.switchStage('-')
@@ -247,8 +263,12 @@ function saveAndContinue() {
         return;
     }
 
+    if(form.phone.length < 12){
+        toast.default("Error on the phone input", { position: 'top-right' });
+       
+    }
     if (Object.keys(form.errors).length > 0) {
-        // console.log(form.errors)
+        console.log(form.errors)
         toast.default("Some fields still have errors", { position: 'top-right' });
      
         return true;

@@ -20,17 +20,17 @@ export const nameForm = defineStore('name', () => {
     }
 
     const rules = {
-        choice_level1_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
-        choice_level2_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
-        choice_level3_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
-        choice_level4_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
-        choice_level5_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
+        // choice_level1_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
+        // choice_level2_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
+        // choice_level3_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
+        // choice_level4_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
+        // choice_level5_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
 
-        choice_level1_eng_name: yup.string(),
-        choice_level2_eng_name: yup.string(),
-        choice_level3_eng_name: yup.string(),
-        choice_level4_eng_name: yup.string(),
-        choice_level5_eng_name: yup.string(),
+        // choice_level1_eng_name: yup.string(),
+        // choice_level2_eng_name: yup.string(),
+        // choice_level3_eng_name: yup.string(),
+        // choice_level4_eng_name: yup.string(),
+        // choice_level5_eng_name: yup.string(),
     };
 
     const { errors, handleSubmit, defineField, setFieldValue, resetForm, resetField } = useForm({
@@ -226,6 +226,7 @@ export const nameForm = defineStore('name', () => {
         saveToLocalStorage,
         resetForm,
 
-        resetField
+        resetField,
+        chineseCheck
     }
 })

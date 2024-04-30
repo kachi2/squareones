@@ -277,7 +277,8 @@ const phoneField = {
     input: {
         showDialCode: true,
         placeholder: 'Enter phone',
-        styleClasses: 'phone-input-profile'
+        styleClasses: 'phone-input-profile',
+        maxlength:12
     }
 
 }
@@ -415,6 +416,7 @@ function saveAndContinue() {
     const formData = new FormData;
     formData.append('company_id', startCompanyStore.companyInProgress.id)
     if (startCompanyStore.idToEdit)
+    
         formData.append('company_entity_id', startCompanyStore.idToEdit)
     formData.append('entity_capacity_id', JSON.stringify(startCompanyStore.checkedEntityCapacity))
     formData.append('entity_type_id', form.entity_type_id)
@@ -468,6 +470,7 @@ async function saveFromToApi(formData: FormData) {
         await api.companyEntity(formData)
         toast.success('Data Saved Successfully', { position: 'top-right' });
         form.isSaving = false
+       
         startCompanyStore.getCompanyInProgress('founder')
         startCompanyStore.isShowingFoundersForm = false
         // resetForm()

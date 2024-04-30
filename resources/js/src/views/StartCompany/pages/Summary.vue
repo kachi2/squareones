@@ -121,59 +121,9 @@
                 </section>
             </section>
 
-            <section class="section">
-                <div class="fw-bold mb-2">Source of Funds</div>
-                <section class="card bg-light border-0">
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <span>
-                                    Expected Source of Funds
-                                    <span class="float-end">
-                                        <i @click="startCompanyStore.currentStage = 8" class="bi bi-pencil-square"></i>
-                                    </span>
-                                    <div class="small text-muted text-capitalize">{{ data.income_expected_source }}
-                                    </div>
-                                </span>
 
-                            </li>
-                            <li class="list-group-item">
-                                <span>
-                                    Origin Source of Funds
-                                    <span class="float-end">
-                                        <i @click="startCompanyStore.currentStage = 8" class="bi bi-pencil-square"></i>
-                                    </span>
-                                    <div class="small text-muted">
-                                        {{ data.origin_funds }}</div>
-                                </span>
 
-                            </li>
-                            <li class="list-group-item">
-                                <span>
-                                    Source of Wealth
-                                    <span @click="startCompanyStore.currentStage = 8" class="float-end">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </span>
-                                    <div class="small text-muted">{{ data.wealth_initial_source }}</div>
-                                </span>
-
-                            </li>
-                            <li class="list-group-item">
-                                <span>
-                                    Ongoing Source of Wealth
-                                    <span @click="startCompanyStore.currentStage = 8" class="float-end">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </span>
-                                    <div class="small text-muted">{{ data.income_outgoing_source }}</div>
-                                </span>
-
-                            </li>
-                        </ul>
-                    </div>
-                </section>
-            </section>
-
-            <section class="section">
+            <!-- <section class="section">
                 <section class="card bg-light border-0">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
@@ -189,7 +139,7 @@
                         </ul>
                     </div>
                 </section>
-            </section>
+            </section> -->
 
             <!-- <section class="section">
                 <section class="card bg-light border-0">
@@ -208,69 +158,6 @@
                     </div>
                 </section>
             </section> -->
-
-            <section class="section">
-                <div class="fw-bold mb-2">Activity</div>
-
-                <section class="card bg-light border-0">
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <span>
-                                    Activity Level
-                                    <span class="float-end">
-                                        <i @click="startCompanyStore.currentStage = 9" class="bi bi-pencil-square"></i>
-                                    </span>
-                                    <div class="small text-muted text-capitalize">{{ data.activity_level }}</div>
-                                </span>
-
-                            </li>
-                            <li class="list-group-item">
-                                <span>
-                                    Activity Nature
-                                    <span class="float-end">
-                                        <i @click="startCompanyStore.currentStage = 9" class="bi bi-pencil-square"></i>
-                                    </span>
-                                    <div class="small text-muted">
-                                        {{ data.activity_nature }}</div>
-                                </span>
-
-                            </li>
-                            <li class="list-group-item">
-                                <span>
-                                    Description
-                                    <span @click="startCompanyStore.currentStage = 9" class="float-end">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </span>
-                                    <div class="small text-muted">{{ data.activity_description }}</div>
-                                </span>
-
-                            </li>
-                            <li class="list-group-item">
-                                <span>
-                                    Customer Location Operation
-                                    <span @click="startCompanyStore.currentStage = 9" class="float-end">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </span>
-                                    <div class="small text-muted">{{ data.activity_customer_location_operation }}</div>
-                                </span>
-
-                            </li>
-                            <li class="list-group-item">
-                                <span>
-                                    Country
-                                    <span @click="startCompanyStore.currentStage = 9" class="float-end">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </span>
-                                    <div class="small text-muted">{{ data.activity_country }}</div>
-                                </span>
-
-                            </li>
-                        </ul>
-                    </div>
-                </section>
-            </section>
-
 
             <section class="section">
                 <div class="fw-bold mb-2">Founders (Individual)</div>
@@ -409,6 +296,123 @@
                     </div>
                 </section>
             </section>
+
+
+            <section class="section">
+                <div class="fw-bold mb-2">Source of Funds</div>
+                <section class="card bg-light border-0">
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <span>
+                                    Expected Source of Funds
+                                    <span class="float-end">
+                                        <i @click="startCompanyStore.currentStage = 8" class="bi bi-pencil-square"></i>
+                                    </span>
+                                    <div class="small text-muted text-capitalize">{{ data.income_expected_source }}
+                                    </div>
+                                </span>
+
+                            </li>
+                            <li class="list-group-item">
+                                <span>
+                                    Origin Source of Funds
+                                    <span class="float-end">
+                                        <i @click="startCompanyStore.currentStage = 8" class="bi bi-pencil-square"></i>
+                                    </span>
+                                    <div class="small text-muted">
+                                        {{ data.origin_funds }}</div>
+                                </span>
+
+                            </li>
+                            <li class="list-group-item">
+                                <span>
+                                    Source of Wealth
+                                    <span @click="startCompanyStore.currentStage = 8" class="float-end">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </span>
+                                    <div class="small text-muted">{{ data.wealth_initial_source }}</div>
+                                </span>
+
+                            </li>
+                            <li class="list-group-item">
+                                <span>
+                                    Ongoing Source of Wealth
+                                    <span @click="startCompanyStore.currentStage = 8" class="float-end">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </span>
+                                    <div class="small text-muted">{{ data.income_outgoing_source }}</div>
+                                </span>
+
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </section>
+
+            <section class="section">
+                <div class="fw-bold mb-2">Activity</div>
+
+                <section class="card bg-light border-0">
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <span>
+                                    Activity Level
+                                    <span class="float-end">
+                                        <i @click="startCompanyStore.currentStage = 9" class="bi bi-pencil-square"></i>
+                                    </span>
+                                    <div class="small text-muted text-capitalize">{{ data.activity_level }}</div>
+                                </span>
+
+                            </li>
+                            <li class="list-group-item">
+                                <span>
+                                    Activity Nature
+                                    <span class="float-end">
+                                        <i @click="startCompanyStore.currentStage = 9" class="bi bi-pencil-square"></i>
+                                    </span>
+                                    <div class="small text-muted">
+                                        {{ data.activity_nature }}</div>
+                                </span>
+
+                            </li>
+                            <li class="list-group-item">
+                                <span>
+                                    Description
+                                    <span @click="startCompanyStore.currentStage = 9" class="float-end">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </span>
+                                    <div class="small text-muted">{{ data.activity_description }}</div>
+                                </span>
+
+                            </li>
+                            <li class="list-group-item">
+                                <span>
+                                    Customer Location Operation
+                                    <span @click="startCompanyStore.currentStage = 9" class="float-end">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </span>
+                                    <div class="small text-muted">{{ data.activity_customer_location_operation }}</div>
+                                </span>
+
+                            </li>
+                            <li class="list-group-item">
+                                <span>
+                                    Country
+                                    <span @click="startCompanyStore.currentStage = 9" class="float-end">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </span>
+                                    <div class="small text-muted">{{ data.activity_country }}</div>
+                                </span>
+
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </section>
+
+
 
             <div class="movement-buttons my-5">
                 <button @click="switchStage('-')" class="btn btn-outline-dark me-3">

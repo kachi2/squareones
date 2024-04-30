@@ -12,8 +12,8 @@ export const activitiesForm = defineStore('activities', () => {
         description: yup.string().min(150, 'Description must be at least 150 characters long').required(),
         activity_level: yup.string().required('Please select an option'),
         activity_nature: yup.string().required('Please select an option'),
-        // customer_location_operation: yup.string().required('Please select an option'),
-        // country: yup.string().required('Required field'),
+        customer_location_operation: yup.array().required('Please select an option'),
+        country: yup.array().required('Required field'),
     };
 
     const { errors, handleSubmit, defineField, setFieldValue } = useForm({

@@ -73,11 +73,11 @@ const stripePromise = Stripe(STRIPE_PUBLISHABLE_KEY);
 const clientSecretIsLoaded = ref(false)
 const intentHasError = ref(false)
 let clientSecret = ''
-
 let elements: any
 const items = [{ id: "xl-tshirt" }];
 
 onMounted(async () => {
+    
     checkStatus()
 
     try {
@@ -109,11 +109,11 @@ onMounted(async () => {
 
     async function handleSubmit(event: any) {
         event.preventDefault();
-        // setLoading(true);
+        setLoading(true);
         const { error } = await stripePromise.confirmPayment({
             elements,
             confirmParams: {
-                return_url: `https://squareone.portrec.ng/kcy/verifications` //,
+                return_url: `http://localhost:5173/kcy/verifications` //,
             },
         });
 
@@ -123,7 +123,7 @@ onMounted(async () => {
             showMessage("An unexpected error occurred.");
         }
 
-        // setLoading(false);
+        setLoading(false);
     }
 
     // Fetches the payment intent status after payment submission
@@ -173,13 +173,19 @@ onMounted(async () => {
     function setLoading(isLoading: any) {
         if (isLoading) {
             // Disable the button and show a spinner
-        //     document.querySelector("#submit").disabled = true;
-        //     document.querySelector("#spinner").classList.remove("hidden");
-        //     document.querySelector("#button-text").classList.add("hidden");
-        // } else {
-        //     document.querySelector("#submit").disabled = false;
-        //     document.querySelector("#spinner").classList.add("hidden");
-        //     document.querySelector("#button-text").classList.remove("hidden");
+            //@ts-ignore
+            document.querySelector("#submit").disabled = true;
+                        //@ts-ignore
+            document.querySelector("#spinner").classList.remove("hidden");
+                        //@ts-ignore
+            document.querySelector("#button-text").classList.add("hidden");
+        } else {
+                        //@ts-ignore
+            document.querySelector("#submit").disabled = false;
+                        //@ts-ignore
+            document.querySelector("#spinner").classList.add("hidden");
+                        //@ts-ignore
+            document.querySelector("#button-text").classList.remove("hidden");
         }
     }
 

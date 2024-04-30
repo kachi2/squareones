@@ -49,8 +49,8 @@ export default {
         return $instanceForm.post(`build/pdf`, formData)
     },
 
-    retrieveShaheolders() {
-        return $instance.post(`retrieve/shareholders/1`)
+    retrieveShaheolders(id: string|number) {
+        return $instance.post(`retrieve/shareholders/${id}`)
     },
 
     deleteEntity(id: string | number) {

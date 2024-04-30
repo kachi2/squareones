@@ -57,7 +57,7 @@ class CompanyEntityService implements CompanyEnityInterface
             'email' => $IndividualDto->email,
             'occupation' => $IndividualDto->occupation,
         ]);
-        
+
         $id_info = IdentityInfo::updateOrcreate([
             'individual_id' =>  $individualData->id,
         ],[

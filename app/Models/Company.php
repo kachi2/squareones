@@ -30,7 +30,7 @@ class Company extends Model
     }
 
     public function Shares(){
-        return $this->hasMany(CompanyShare::class);
+        return $this->hasMany(CompanyShare::class, 'company_id', 'id');
     }
 
     public function documents(){
@@ -42,7 +42,7 @@ class Company extends Model
     }
 
     public function ownerShare(){
-        return $this->hasMany(OwnershipShare::class);
+        return $this->hasMany(OwnershipShare::class, 'company_id', 'id');
     }
 
     public function businessNature(){

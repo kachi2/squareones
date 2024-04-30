@@ -28,7 +28,7 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
         state: yup.string().required('State/City is required'),
         // city: yup.string().required('city is required'),
         country: yup.string().required('country is required'),
-        postal_code: yup.string(),
+        // postal_code: yup.string(),
         registeration_no: yup.string().required('Company registration number is required '),
 
         business_nature_id: yup.string().required('Business nature Id is required'),
@@ -47,7 +47,8 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
             entity_type_id: '2',
             country: 'Hong Kong',
             country_registered: 'Hong Kong',
-            is_founder: false
+            is_founder: false,
+            chn_company_name: ''
         },
     });
 
@@ -62,7 +63,7 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
     // const [city] = defineField('city');
     const [country] = defineField('country');
 
-    const [postal_code] = defineField('postal_code');
+    // const [postal_code] = defineField('postal_code');
     const [registeration_no] = defineField('registeration_no');
     const [is_founder] = defineField('is_founder');
     const [country_registered] = defineField('country_registered');
@@ -84,7 +85,7 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
     const state_storage = useStorage('squareOne-fCop-state', '');
 
     const country_storage = useStorage('squareOne-fCop-country', '');
-    const postal_code_storage = useStorage('squareOne-fCop-postal_code', '');
+    // const postal_code_storage = useStorage('squareOne-fCop-postal_code', '');
     const registeration_no_storage = useStorage('squareOne-fCop-registeration_no', '');
     const country_registered_storage = useStorage('squareOne-fCop-country_registered', '');
 
@@ -101,7 +102,7 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
         building_storage.value = '';
         street_storage.value = '';
         country_storage.value  = '';
-        postal_code_storage.value = '';
+        // postal_code_storage.value = '';
         registeration_no_storage.value = '';
         phone_storage.value = '';
         email_storage.value = '';
@@ -122,7 +123,7 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
         if (street.value) street_storage.value = street.value
         if (state.value) state_storage.value = state.value
         if (country.value) country_storage.value = country.value
-        if (postal_code.value) postal_code_storage.value = postal_code.value
+        // if (postal_code.value) postal_code_storage.value = postal_code.value
 
         if (phone.value) phone_storage.value = phone.value
         if (email.value) email_storage.value = email.value
@@ -142,8 +143,8 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
             state.value = state_storage.value
         if (country_storage.value.length > 1)
             country.value = country_storage.value
-        if (postal_code_storage.value.length > 1)
-            postal_code.value = postal_code_storage.value
+        // if (postal_code_storage.value.length > 1)
+        //     postal_code.value = postal_code_storage.value
 
         if (phone_storage.value.length > 1)
             phone.value = phone_storage.value
@@ -177,7 +178,7 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
         state,
         // city,
         country,
-        postal_code,
+        // postal_code,
         registeration_no,
         is_founder,
         country_registered,

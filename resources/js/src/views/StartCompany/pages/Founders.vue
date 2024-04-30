@@ -35,15 +35,16 @@
                     <i class="bi bi-person-circle" style="font-size:20px; padding-left:20px"></i>
                     <td class="text-capitalize " v-if="item.entity_type_id == 1">
                       {{ item.first_name + " " + item.last_name }} <br>
-                      <small> {{ item.capacity.includes('1') ? 'Shareholder' : '' }}</small>
-                      {{ item.capacity.length > 1 ? " " : " " }}
-                      <small> {{ item.capacity.includes('2') ? 'Director' : '' }}</small>
+                      <small> {{ item.capacity.includes('1') ? 'Shareholder' : '' }}
+                      {{ (item.capacity.includes('1') && item.capacity.includes('2'))?',':'' }}
+                      {{ item.capacity.includes('2') ? 'Director' : '' }}</small>
 
                     </td>
                     <td v-else class="text-capitalize">
                       {{ item.company_name }} <br>
-                      <small> {{ item.capacity.includes('1') ? 'Shareholder' : '' }}</small>
-                      <small> {{ item.capacity.includes('2') ? 'Director' : '' }} </small>
+                      <small> {{ item.capacity.includes('1') ? 'Shareholder' : '' }}
+                      {{ (item.capacity.includes('1') && item.capacity.includes('2'))?',':'' }}
+                      {{ item.capacity.includes('2') ? 'Director' : '' }}</small>
                     </td>
                     <td class="text">
                       {{ item.entity_type_id == "1" ? "Individual" : "Corporate" }}
@@ -251,14 +252,14 @@ const foundersAdded = computed(() => {
 
 function closeForm() {
   useFxn.confirmDelete("This action will clear all input data?", "Yes, Clear")
-  .then( async (resp) => {
-    if (resp.isConfirmed) {
-    startCompanyStore.isShowingFoundersForm = false;
-  corporate_form.clearLocalStorage()
-  individual_form.clearLocalStorage()
-    }
-  })
- 
+    .then(async (resp) => {
+      if (resp.isConfirmed) {
+        startCompanyStore.isShowingFoundersForm = false;
+        corporate_form.clearLocalStorage()
+        individual_form.clearLocalStorage()
+      }
+    })
+
 
 }
 function moveBack() {
@@ -269,6 +270,8 @@ function openForm() {
   individual_form.resetForm()
   startCompanyStore.isShowingFoundersForm = true
   startCompanyStore.idToEdit = ''
+  corporate_form.clearLocalStorage()
+  individual_form.clearLocalStorage()
 }
 
 function editFounder(entity: any) {
@@ -277,6 +280,8 @@ function editFounder(entity: any) {
   startCompanyStore.idToEdit = entity.company_entity_id
   corporate_form.resetForm()
   individual_form.resetForm()
+  corporate_form.clearLocalStorage()
+  individual_form.clearLocalStorage()
 
 
   populateForms(entity)
@@ -330,7 +335,7 @@ function populateForms(entity: any) {
   else {
     if (entity.company_name != undefined && entity.company_name != 'undefined')
       corporate_form.company_name = entity.company_name
-    if (entity.chn_company_name != undefined && entity.chn_company_name != 'undefined')
+    if (entity.chn_company_name && entity.chn_company_name != 'undefined')
       corporate_form.chn_company_name = entity.chn_company_name
     corporate_form.date_incorporated = new Date(entity.date_incorporated)
     corporate_form.flat = entity.flat
@@ -339,7 +344,7 @@ function populateForms(entity: any) {
     corporate_form.state = entity.state
     corporate_form.country = entity.country
 
-    corporate_form.postal_code = entity.postal_code
+    // corporate_form.postal_code = entity.postal_code
     if (entity.registeration_no != undefined && entity.registeration_no != 'undefined')
       corporate_form.registeration_no = entity.registeration_no
     corporate_form.country_registered = entity.country_registered
@@ -365,7 +370,8 @@ function deleteFounder(id: any) {
           await api.deleteEntity(id);
           toast.success("Record deleted", { position: "top-right" });
           startCompanyStore.getCompanyInProgress("founder");
-
+          corporate_form.clearLocalStorage()
+          individual_form.clearLocalStorage()
         } catch (error) {
           // console.log(error);
           toast.error("Sorry Something went wrong", { position: "top-right" });
