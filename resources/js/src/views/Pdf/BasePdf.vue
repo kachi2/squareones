@@ -138,7 +138,7 @@ function createPDF(canvas: any, index: any) {
         doc.rect(0, 0, 210, 295);
         heightLeft -= pageHeight;
     }
-    doc.save("public_docs.pdf")
+    // doc.save("public_docs.pdf")
     const pdfBlob = doc.output('blob');
     formData.append(`documents[${index}]`, pdfBlob);
 }
