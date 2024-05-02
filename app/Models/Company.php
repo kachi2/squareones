@@ -57,4 +57,8 @@ class Company extends Model
         return $this->hasOne(Billing::class, 'company_id', 'id');
     }
 
+    public function address(){
+        return $this->hasOne(CompanyAddress::class, 'company_id', 'id');
+    }
+
 }

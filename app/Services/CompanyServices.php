@@ -109,15 +109,13 @@ class CompanyServices  implements CompanyFormationInterface
     }
 
     public function StoreCompanyInfo(CompanyDto $companyDto): ?Company
-    {
-       
+    { 
         $company = Company::whereId($companyDto->company_id)->first();
         $company->update([
             'business_nature_id' => $companyDto->business_nature_id,
             'description' => $companyDto->description,
             'website' => $companyDto->website,
         ]);
-        $this->StoreCompanyAddress($companyDto);
         return $company;
     }
     public function StoreCompanyAddress($addressDto)
@@ -133,6 +131,19 @@ class CompanyServices  implements CompanyFormationInterface
             // 'postal_code' => $addressDto->postal_code,
             'country' => 'Hong Kong',
             
+        ]);
+
+        CompanyAddress::updateOrcreate([
+            'company_id' => $addressDto->company_id,
+        ],[
+            'company_id' => $addressDto->company_id,
+            'flat' =>  'Rooms 502-503, 5th Floor',
+            'building' => 'Wanchai Commercial Centre',
+            'street' => '194-204 Johnston Road',
+            'city' => '194-204 Johnston Road',
+            'state' => 'Wanchai',
+            // 'postal_code' => $addressDto->postal_code,
+            'country' => 'Hong Kong',
         ]);
         return $company;
     }else{
@@ -156,31 +167,32 @@ class CompanyServices  implements CompanyFormationInterface
 
     public function StoreActivties($request)
     {
-        $activity = CompanyActivity::whereCompanyId($request->company_id)->first();
-        if(!$activity){
-            $store = CompanyActivity::create([
-                'company_id' => $request->company_id,
-                'description' => $request->description,
-                'activity_level' => $request->activity_level,
-                'activity_nature' => $request->activity_nature,
-                'customer_location_operation' => $request->customer_location_operation,
-                'country' => $request->country
-            ]);
-            return $store;
-        }else{
-            $activity->update([
-                'company_id' => $request->company_id,
-                'description' => $request->description,
-                'activity_level' => $request->activity_level,
-                'activity_nature' => $request->activity_nature,
-                'customer_location_operation' => $request->customer_location_operation,
-                'country' => $request->country
-            ]);
-            return $activity;
-        }
-       
-      
-       
+        $store = CompanyActivity::updateOrcreate([
+            'company_id' => $request->company_id,
+        ],[
+            'company_id' => $request->company_id,
+            'description' => $request->description,
+            'activity_level' => $request->activity_level,
+            'activity_nature' => $request->activity_nature,
+            'customer_location_operation' => $request->customer_location_operation,
+            'country' => $request->country
+        ]);
+        return $store;
+
+
+        // $activity = CompanyActivity::whereCompanyId($request->company_id)->first();
+        // if(!$activity){
+        // }else{
+        //     $activity->update([
+        //         'company_id' => $request->company_id,
+        //         'description' => $request->description,
+        //         'activity_level' => $request->activity_level,
+        //         'activity_nature' => $request->activity_nature,
+        //         'customer_location_operation' => $request->customer_location_operation,
+        //         'country' => $request->country
+        //     ]);
+        //     return $activity;
+        // }    
     }
 
     public function StoreFundSource($request)
@@ -193,26 +205,6 @@ class CompanyServices  implements CompanyFormationInterface
             'origin_funds' => $request->origin_funds,
             'wealth_initial_source' => $request->wealth_initial_source,
             'income_outgoing_source' => $request->income_outgoing_source,
-        ]);
-
-          CompanySecretary::updateOrCreate([
-            'company_id' => $request->company_id,
-          ],[
-            'company_id' => $request->company_id,
-            'name' => 'Square One Limited',
-            'chn_name' => '',
-            'company_reg_no' => '68891673',
-            'country_registered' => 'Hong Kong',
-            'licence_no' => 'TC000012',
-            'email' => '',
-            'flat' => 'Rooms 502-503, 5th Floor',
-            'building' => 'Wanchai Commercial Centre',
-            'street' => '194-204 Johnston Road',
-            'city' => 'Wanchai',
-            'state' => 'Wanchai',
-            // 'postal_code' => $request->postal_code,
-            'country' => 'Hong Kong'
-
         ]);
 
         return $source;

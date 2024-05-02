@@ -23,13 +23,12 @@ class CompanyAddressRequest extends FormRequest
     {
         return [
             'company_id' => 'required',
-            'state' => 'required',
-            'postal_code' => 'required',
-            'address' => 'required',
-            'street_no' => 'required',
-            'city' => 'required',
-            'country' => 'required',
-            'company_id' => 'required'
+            'state' => 'nullable',
+            'postal_code' => 'nullable',
+            'address' => 'nullable',
+            'street_no' => 'nullable',
+            'city' => 'nullable',
+            'country' => 'nullable',
         ];
     }
 }

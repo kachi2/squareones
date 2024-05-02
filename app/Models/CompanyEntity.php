@@ -35,7 +35,7 @@ class CompanyEntity extends Model
     }
 
     public function share(){
-        return $this->hasOne(OwnershipShare::class);
+        return $this->hasOne(OwnershipShare::class, 'company_entity_id', 'id');
     }
 
     // public function resAddress(){

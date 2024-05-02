@@ -19,8 +19,8 @@ class SecretaryController extends Controller
     public function StoreSecretary(SecretaryRequest $req){
         try {
         DB::beginTransaction();
-        $ownerDto = SecretaryDto::fromRequest($req->validated());
-        $service = $this->SecretaryInterface->SaveFromData($ownerDto);
+        // $ownerDto = SecretaryDto::fromRequest($req->validated());
+        $service = $this->SecretaryInterface->SaveFromData($req);
         DB::commit();
         return response()->json(['data' => $service], HttpStatusCode::OK);
     }catch(\Exception $e){

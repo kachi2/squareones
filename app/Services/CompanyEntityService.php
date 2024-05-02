@@ -159,10 +159,13 @@ class CompanyEntityService implements CompanyEnityInterface
             $data = [
                 'company_entity' =>$entity->load('Individual')
             ];
+         
             $entity->Individual?->corAddress?->delete();
             $entity->Individual?->resAddress?->delete();
             $entity->Individual?->getIdentity?->delete();
+            $entity->Individual?->share?->delete();
             $entity->Individual?->delete();
+            $entity->share?->delete();
             $entity->delete();
             return response()->json(['data' => $data]);
         }elseif($entity->has('Corporate') && $entity->Corporate != null ){
@@ -171,6 +174,7 @@ class CompanyEntityService implements CompanyEnityInterface
             ];
             $entity->Corporate?->authorizedPersons?->delete();
             $entity->Corporate?->delete();
+            $entity->share?->delete();
             $entity->delete();
             return response()->json(['data' => $data]);
         }

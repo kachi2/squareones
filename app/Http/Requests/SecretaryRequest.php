@@ -24,17 +24,17 @@ class SecretaryRequest extends FormRequest
         return [
 
             'company_id' => 'required',
-            'name'=> 'required',
-            'chn_name'=> 'required',
-            'company_reg_no'=> 'required',
-            'country_registered'=> 'required',
-            'licence_no'=> 'required',
-            'email'=> 'required',
-            'address'=> 'required',
-            'city'=> 'required',
-            'state'=> 'required',
-            'postal_code'=> 'required',
-            'country'=> 'required',
+            'name'=> 'nullable',
+            'chn_name'=> 'nullable',
+            'company_reg_no'=> 'nullable',
+            'country_registered'=> 'nullable',
+            'licence_no'=> 'nullable',
+            'email'=> 'nullable',
+            'address'=> 'nullable',
+            'city'=> 'nullable',
+            'state'=> 'nullable',
+            'postal_code'=> 'nullable',
+            'country'=> 'nullable',
         ];
     }
 }

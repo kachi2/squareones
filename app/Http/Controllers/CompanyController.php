@@ -36,7 +36,7 @@ public function getActiveCompany(){
     try{
     $company = Company::where([ 'is_complete' => 0, 'user_id' => auth_user()])->first();
     if($company){
-       $company->Load(['names', 'activity','Users', 'Billing', 'Secretary', 'Shares','ownerShare','fundSource', 'businessNature']);
+       $company->Load(['names','address', 'activity','Users', 'Billing', 'Secretary', 'Shares','ownerShare','fundSource', 'businessNature']);
        $company->CompanyEntity->load('Individual', 'Corporate');
        $company->shares->load('Ownershares');
     return response()->json([
@@ -97,10 +97,10 @@ public function getActiveCompany(){
     public function StoreCompanyAddress(CompanyAddressRequest $req){
         try{
             DB::beginTransaction();
-            $addressDto = AddressDto::fromRequest($req->validated());
-            if($addressDto){
-                $address = $this->companyServices->StoreCompanyAddress($addressDto);
-            }
+            // $addressDto = AddressDto::fromRequest($req->validated());
+            // if($addressDto){
+                $address = $this->companyServices->StoreCompanyAddress($req);
+            // }
             DB::commit();
          return response()->json(['data' =>$address], HttpStatusCode::OK);
         }catch(\Exception $e)
