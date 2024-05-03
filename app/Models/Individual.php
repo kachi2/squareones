@@ -39,7 +39,4 @@ class Individual extends Model
     }
 
 
-
-
-
 }

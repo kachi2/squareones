@@ -12,6 +12,7 @@ use App\Models\IdentityInfo;
 use App\Models\Individual;
 use App\Models\IndividualCorAddress;
 use App\Models\IndividualResAddress;
+use Illuminate\Http\Request;
 
 class CompanyEntityService implements CompanyEnityInterface
 
@@ -31,9 +32,8 @@ class CompanyEntityService implements CompanyEnityInterface
            ]);
         }else{
             $CompanyEntity->update([
-                'entity_type_id' => $request->entity_type_id,
                 'company_id' => $request->company_id,
-                'entity_type_id' => $request->entity_type_id,
+                // 'entity_type_id' => $request->entity_type_id,
                 'entity_capacity_id' => $request->entity_capacity_id,
                 'is_founder' => $request->is_founder,
             ]);
@@ -182,4 +182,23 @@ class CompanyEntityService implements CompanyEnityInterface
 
     return response()->json(['error' => 'The requested resources does not exist']);
 }
+
+  public function UpdateEntitySignature($request){
+    try {
+    $entity = CompanyEntity::where(['company_id' => $request->company_id, 'company_entity_id' =>$request->company_entity_id])->first();
+    if($entity){
+        $entity->update([
+            'signature' => $request->signature,
+            'date_signed'=> $request->date_signed,
+            'client_id'=> $request->client_id,
+            'kyc_status'=> $request->kyc_status,
+            'user_token'=> $request->user_token,
+        ]);
+    }
+    return $entity;
+}catch(\Exception $e){
+    return false;
+}
+
+  }
 }

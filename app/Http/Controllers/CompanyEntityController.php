@@ -10,7 +10,9 @@ use App\Services\CompanyEntityService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Traits\CompanyEntityData;
+use Cloudinary\Api\Exception\BadRequest;
 use Cloudinary\Api\HttpStatusCode;
+use Illuminate\Support\Facades\Validator;
 
 class CompanyEntityController extends Controller
 {
@@ -61,5 +63,29 @@ class CompanyEntityController extends Controller
         return $this->EntityInterface->RemoveEntity($entity_id);
     }
 
+    public function RegisterEntitySignature(Request $request){
+        $valid = Validator::make($request->all(),[
+            'signature' => 'required',
+            'date_signed' => 'required',
+            'company_id' => 'required',
+            'company_entity_id' => 'required'
+        ]);
+        if($valid->fails()){
+            return response()->json([
+            'error' => $valid->errors()->first()
+            ], HttpStatusCode::BAD_REQUEST);
+        }
+
+        $res = $this->EntityInterface->UpdateEntitySignature($request);
+        if($res){
+            return response()->json([
+                'data' => $res
+                ], HttpStatusCode::OK);
+        }
+        return response()->json([
+            'error' => 'Something went wrong'
+            ], HttpStatusCode::BAD_REQUEST);
+
+    }
     
 }

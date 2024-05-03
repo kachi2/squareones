@@ -15,7 +15,16 @@ class CompanyEntity extends Model
     CONST DIRECTOR = 2;
 
 
-    protected $fillable = [ 'company_id', 'entity_type_id', 'entity_capacity_id'];
+    protected $fillable = [ 
+    'company_id', 
+    'entity_type_id', 
+    'entity_capacity_id', 
+    'signature',
+    'date_signed',
+    'client_id',
+    'kyc_status',
+    'user_token'
+     ];
 
     public function company():BelongsTo
     {
