@@ -46,7 +46,7 @@ Route::controller(CompanyEntityController::class)->group(function(){
     Route::get('id/types', 'getIdType');
     Route::post('/entities/remove/{entity_id}', 'removeEntity');
     Route::post('/retrieve/shareholders/{company_id}','RetrieveShareholders');
-Route::get('register/signatute', 'RegisterEntitySignature');
+Route::get('register/signature', 'RegisterEntitySignature');
 });
 
 
