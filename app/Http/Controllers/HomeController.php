@@ -24,12 +24,12 @@ class HomeController extends Controller
     }
 
 
-    public function CompleteCompanyFormation($company_id){
-        $company = Company::whereId($company_id)->first();
+//     public function CompleteCompanyFormation($company_id){
+//         $company = Company::whereId($company_id)->first();
 
-   $ss =  event(new GeneratePDF($company->id));
+//    $ss =  event(new GeneratePDF($company->id));
 
-   dd($ss);
+//    dd($ss);
 
-    }
+//     }
 }

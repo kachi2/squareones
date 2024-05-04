@@ -46,7 +46,7 @@ Route::controller(CompanyEntityController::class)->group(function(){
     Route::get('id/types', 'getIdType');
     Route::post('/entities/remove/{entity_id}', 'removeEntity');
     Route::post('/retrieve/shareholders/{company_id}','RetrieveShareholders');
-Route::get('register/signature', 'RegisterEntitySignature');
+Route::post('register/signature', 'RegisterEntitySignature');
 });
 
 
@@ -58,3 +58,4 @@ Route::get('/payment', [PaymentController::class, 'loadPyamentPage']);
 Route::post('payment/intent', [PaymentController::class, 'PaymentIntent']);
 Route::get('kyc/load', [KycController::class, 'loadKyc']);
 
+Route::get('load/founder/kyc', [KycController::class, 'LoadFounderKyc']);

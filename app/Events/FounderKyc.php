@@ -10,16 +10,19 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class KycEvents
+class FounderKyc
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * Create a new event instance.
      */
-    public function __construct( public $data)
+    public function __construct(
+        public $data
+    )
     {
         $this->data = $data;
+         //
     }
 
     /**

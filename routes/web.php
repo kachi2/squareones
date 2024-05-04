@@ -26,6 +26,7 @@ use App\Http\Controllers\PaymentController;
 */
 
 
+Route::get('load/founder/kyc/{company_id}/{company_entity_id}', [KycController::class, 'loadFounderView'])->name('load-founder-kycpage');
 
 Route::get('{path}', function () { 
   return view('index');

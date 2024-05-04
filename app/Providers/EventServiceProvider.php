@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\FounderKyc;
 use App\Events\GeneratePDF;
 use App\Events\KycEvents;
+use App\Listeners\FounderKycListener;
 use App\Listeners\GeneratePDFListener;
 use App\Listeners\KycListener;
 use Illuminate\Auth\Events\Registered;
@@ -26,9 +28,11 @@ class EventServiceProvider extends ServiceProvider
      GeneratePDF::class => [
         GeneratePDFListener::class
      ],
-     KycEvents::class => [
-        KycListener::class
-     ]
+  FounderKyc::class => [
+    FounderKycListener::class
+  ]
+
+     
         
     ];
 

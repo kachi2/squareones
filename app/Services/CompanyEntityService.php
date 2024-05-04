@@ -185,7 +185,7 @@ class CompanyEntityService implements CompanyEnityInterface
 
   public function UpdateEntitySignature($request){
     try {
-    $entity = CompanyEntity::where(['company_id' => $request->company_id, 'company_entity_id' =>$request->company_entity_id])->first();
+    $entity = CompanyEntity::where(['company_id' => $request->company_id, 'id' =>$request->company_entity_id])->first();
     if($entity){
         $entity->update([
             'signature' => $request->signature,
@@ -195,9 +195,10 @@ class CompanyEntityService implements CompanyEnityInterface
             'user_token'=> $request->user_token,
         ]);
     }
+    $entity['success'] = true;
     return $entity;
 }catch(\Exception $e){
-    return false;
+    return $e->getMessage();
 }
 
   }
