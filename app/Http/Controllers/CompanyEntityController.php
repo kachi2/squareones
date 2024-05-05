@@ -70,7 +70,6 @@ class CompanyEntityController extends Controller
     public function removeEntity($entity_id){
         return $this->EntityInterface->RemoveEntity($entity_id);
     }
-
     public function RegisterEntitySignature(Request $request){
         $valid = Validator::make($request->all(),[
             'signature' => 'required',
