@@ -12,6 +12,7 @@ use App\Models\IdentityInfo;
 use App\Models\Individual;
 use App\Models\IndividualCorAddress;
 use App\Models\IndividualResAddress;
+use App\Events\FounderKyc;
 use Illuminate\Http\Request;
 
 class CompanyEntityService implements CompanyEnityInterface
@@ -29,7 +30,7 @@ class CompanyEntityService implements CompanyEnityInterface
                 'entity_type_id' => $request->entity_type_id,
                 'entity_capacity_id' => $request->entity_capacity_id,
                 'is_founder' => $request->is_founder,
-           ]);
+                ]);
         }else{
             $CompanyEntity->update([
                 'company_id' => $request->company_id,
@@ -38,7 +39,6 @@ class CompanyEntityService implements CompanyEnityInterface
                 'is_founder' => $request->is_founder,
             ]);
         }
-            
            return $entity??$CompanyEntity;
     }
 

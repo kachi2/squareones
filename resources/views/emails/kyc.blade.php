@@ -15,7 +15,7 @@
                     <tbody>
                         <tr>
                             <td class="text-center pb-4" style="text-align: center !important;padding-bottom: 24px !important;">
-                                <img class="email-logo" src="{{asset('squareone-light-logo.png')}}" alt="logo" style="height: 40px;max-width: 100%;vertical-align:middle;">
+                                <img class="email-logo"  src="https://squareone.portrec.ng/icons/sidebar/squareone_main.png" alt="logo" style="height: 40px;max-width: 100%;vertical-align:middle;background: #6f6767">
                             </td>
                         </tr>
                     </tbody>
@@ -24,7 +24,7 @@
                     <tbody>
                         <tr>
                             <td class="px-3 px-sm-5 pt-3 pt-sm-5 pb-1" style="padding-bottom: 16px !important;padding-top: 44px !important;padding-right: 44px !important;padding-left: 44px !important;">
-                                <h2 class="email-heading" style="font-size: 18px;color: #303e67;font-weight: 600;margin: 0;line-height: 1.4;">Hi  {{ucfirst($data['first_name'])}} {{ucfirst($data['last_name'])}}</h2>
+                                <h2 class="email-heading" style="font-size: 18px;color: #303e67;font-weight: 600;margin: 0;line-height: 1.4;">Hi  {{ucfirst($data['first_name'])}} {{ucfirst($data['last_name'])}},</h2>
                             </td>
                         </tr>
                         <tr>

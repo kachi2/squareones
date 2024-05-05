@@ -22,15 +22,19 @@ class KycController extends Controller
         return response()->json(['data' => $kyc]);
     }
 
-    public function LoadFounderKyc($company_id, $company_entity_id){
-        $data['company_id'] = 4;
-        $data['company_entity_id'] = 26;
+    public function LoadFounderKyc(Request $request){
+        $data['company_id'] = $request->company_id;
+        $data['company_entity_id'] = $request->company_entity_id;
+
         $res = event(new FounderKyc($data));
         return $res;
     }
 
     public function loadFounderView($company_id, $company_entity_id){
         $founder = CompanyEntity::where(['id' => decrypt($company_entity_id), 'company_id' => decrypt($company_id)])->first();
+        if(!$founder){
+            return 404;
+        }
        return view('founderkyc')->with([
         'company_id' => $company_id,
         'founder' => $founder

@@ -1,40 +1,42 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Jobs;
 
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
-use GuzzleHttp\Client;
+use Illuminate\Queue\SerializesModels;
 use App\Models\CompanyEntity;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\KycRegistrationMail;
 
 
-
-class FounderKycListener implements ShouldQueue
+class ProcessFounderKyc implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     */
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    /**
+     * Create a new job instance.
+     */
     public function __construct(
-      
+        public $data
     )
     {
-       
+        $this->data = $data;
+         //
     }
-
     /**
-     * Handle the event.
+     * Execute the job.
      */
-    public function handle(object $event)
+    public function handle()
     {
-        $data = $event->data;
+        $data = $this->data;
         $entity = CompanyEntity::where(['company_id' => $data['company_id'], 'id' => $data['company_entity_id']])->first();
         $res = $this->InitiateKycProcess($entity);
         return $res;
     }
-
 
     public function InitiateKycProcess($request){
 

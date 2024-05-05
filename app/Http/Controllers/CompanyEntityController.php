@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Dtos\CorporateDto;
 use App\Dtos\IndividualDto;
 use App\Models\CompanyEntity;
@@ -11,8 +10,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Traits\CompanyEntityData;
 use Cloudinary\Api\Exception\BadRequest;
+use App\Events\FounderKyc;
 use Cloudinary\Api\HttpStatusCode;
 use Illuminate\Support\Facades\Validator;
+
+use App\Jobs\ProcessFounderKyc;
 
 class CompanyEntityController extends Controller
 {
@@ -37,6 +39,7 @@ class CompanyEntityController extends Controller
         try {
             DB::beginTransaction();
             $company_entity = $this->EntityInterface->SaveParentEntity($request);
+            // dd($company_entity);
             if ($company_entity) {
                 if ($request->entity_type_id == 1) {
                     $validateRequest = $this->IndividualEntityData($request);
@@ -50,8 +53,13 @@ class CompanyEntityController extends Controller
                     $data = $this->EntityInterface->ProcessCorporateEntity($CorporateEntity,  $company_entity);
                 }
             }
-
             DB::commit();
+            if(!isset($request->isEdit)){
+            $datas['company_id'] = $company_entity->company_id;
+            $datas['company_entity_id'] = $company_entity->id;
+            //  event(new FounderKyc($datas));
+            ProcessFounderKyc::dispatch($datas);
+            }
             return response()->json([ 'data' => $data], HttpStatusCode::OK);
         } catch (\Exception $e) {
             DB::rollBack();
