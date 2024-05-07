@@ -12,17 +12,16 @@ class BaseClient {
 
     public function HttpClients()
     {
-
-         $BaseUrl = 'https://api.docuseal.co/'.$this->url;
+         $BaseUrl = ''.$this->url;
         $client = new Client();
         $req = $client->request($this->method, $BaseUrl, [
             'headers' => 
             [
-                'X-Auth-Token' => 'z8Zh26TwtFkGiSXUgBLXZrLJ9W6oe6bqntgDexYAxCu',
+                'X-Auth-Token' => '',
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json'
             ],
-            'json' => $this->body
+            'json' => json_encode($this->body)
         ]);
         return $req;
     }

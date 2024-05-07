@@ -45,7 +45,6 @@ Route::get('/company/progress', [CompanyController::class, 'getActiveCompany']);
 Route::controller(CompanyEntityController::class)->group(function(){
     Route::get('id/types', 'getIdType');
     Route::post('/entities/remove/{entity_id}', 'removeEntity');
-    Route::post('/retrieve/shareholders/{company_id}','RetrieveShareholders');
 Route::post('register/signature', 'RegisterEntitySignature');
 });
 
@@ -54,6 +53,7 @@ Route::controller(DocumentSignController::class)->group( function() {
 Route::post('/build/pdf/', 'BuildPDF');
 });
 
+Route::post('/retrieve/shareholders/{company_id}', [CompanySharesController::class,'RetrieveShareholders']);
 Route::get('/payment', [PaymentController::class, 'loadPyamentPage']);
 Route::post('payment/intent', [PaymentController::class, 'PaymentIntent']);
 Route::get('kyc/load', [KycController::class, 'loadKyc']);
