@@ -11,6 +11,6 @@ interface DocumentInterface
 
     public function upload($request);
     public function DocumentToPDF(Request $request);
-    // public function SignDocument($request);
+    public function RenderPagePDF($request);
 
 }

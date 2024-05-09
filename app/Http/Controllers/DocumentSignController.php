@@ -30,4 +30,13 @@ class DocumentSignController extends Controller
         $pdf = $this->documentInterface->DocumentToPDF($request);
         return $pdf;      
 }
+
+public function RenderPagePDF($company_d){
+
+    $data = $this->documentInterface->RenderPagePDF(1);
+    return view('pdf.pdf', [
+        'company' => $data
+    ]);
+
+}
 }

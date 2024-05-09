@@ -7,6 +7,7 @@
 
     <title>NNC1 - Incorporation Form (Company Limited by Shares) 法團成立表格 (股份有限公司)</title>
     <meta name="author" content="Companies Registry 公司註冊處" />
+    
    {{-- <link rel="stylesheet" href="{{asset('pdf.css')}}"> --}}
 </head>
 
@@ -43,13 +44,26 @@ body{
     background: rgb(82, 86, 89);
 }
 
-.main{
+.document{
     margin:10px auto;
     padding:40px;
    display:flex;
    border: 1px solid rgb(90, 88, 88);
    background-color: #FFF;
+}
+.main{
+    margin:10px 50px;
+    padding:40px;
+   display:flex;
+   border: 1px solid rgb(90, 88, 88);
+   background-color: #FFF;
+}
 
+.main.sidebar{
+    width:200px;
+    background-color: red;
+    float: right;
+    height: 1000px;
 }
 
 * {
@@ -1243,54 +1257,98 @@ tbody {
 
 <body>
     <div class="main">
-    <section> 
+    <div class="document">
+                <section> 
          
-@include('pdf.company')
+                    @include('pdf.company')
+                    
+                     @include('pdf.company_info')
+                    
+                    
+                    <p style="text-indent: 0pt;text-align: left; padding:20px"  ><br /></p>
+                    <hr>
+                    
+                    @foreach ($company->shareholder as $entity) 
+                    @if ($entity->Individual !== null) 
+                    @include('pdf.founders_individual')
+                    @endif
+                    @endforeach
+                    
+                     
+                    {{-- @include('pdf.founders_corporate') --}}
+                    
+                    @include('pdf.company_secretary')
+                    
+                    
+                    @include('pdf.directors')
+                    
+                    
+                    
+                    @foreach ( $company->directors as $corporate )
+                    @if ($corporate->Corporate !== null)
+                    @include('pdf.first_directors')
+                    @endif
+                    @endforeach
+                    
+                    @include('pdf.founder_statement') <!--done -->
+                    
+                    @foreach ( $company->individualDirector as $individualDirector )
+                    @if ($individualDirector->Individual !== null)
+                    @include('pdf.pi-ncc_secretary') <!-- static-->
+                    @endif
+                    @endforeach
+                    @include('pdf.notice_to_business') <!-- done -->
+                    
+                    @include('pdf.company_ordinance') 
+                    
+                    @include('pdf.class_of_shares')
+                    
+                    @include('pdf.founder_sign')
+                    
+                    {{-- @include('pdf.articles')
+                    @include('pdf.articles2') --}}
+                    </section>
 
- @include('pdf.company_info')
+       
+      
+                </div>
 
+                <div style="width:300px; border:2px solid #bdb8b8">
 
-<p style="text-indent: 0pt;text-align: left; padding:20px"  ><br /></p>
-<hr>
+                     <button class="btn btn-primary mt-3">Sign Document</button>
+      <span class="float-end">
+        <!-- <button class="btn btn-warning" @click="undo">Clear</button> -->
+      </span>
+      <br>
+      <!-- <div class="card w-75 float-end" > -->
+      <p style="margin-top:10px">
+        <span style="color:red; "> Please review and Sign Document</span>
+      </p>
+      <br>
+      <p style="border-bottom: 1px solid #000;">Signature will be applied to the following pages</p>
+      <p>
+        <span class="mr-2">📄</span>
+        Incorporation Form (NNC1) <br>
+        <span>We file this with the Companies Registry.</span>
+      </p>
+      <p>
+        <span class="mr-2">📄</span>
+        Articles of Association (AA)
+      <p class="ml-6 text-gray-600">The Articles of Association is a document that outlines the regulations for a
+        company's operations and the structure of its internal governance.</p>
 
-@foreach ($company->shareholder as $entity) 
-@if ($entity->Individual !== null) 
-@include('pdf.founders_individual')
-@endif
-@endforeach
-
- 
-{{-- @include('pdf.founders_corporate') --}}
-
-@include('pdf.company_secretary')
-
-
-{{-- @include('pdf.directors') --}}
-
-
-
-@foreach ( $company->directors as $corporate )
-@if ($corporate->Corporate !== null)
-@include('pdf.first_directors')
-@endif
-@endforeach
-
-@include('pdf.founder_statement') <!--done -->
-
-@foreach ( $company->individualDirector as $individualDirector )
-@if ($individualDirector->Individual !== null)
-@include('pdf.pi-ncc_secretary') <!-- static-->
-@endif
-@endforeach
-@include('pdf.notice_to_business') <!-- done -->
-
-@include('pdf.company_ordinance') 
-
-@include('pdf.class_of_shares')
-
-@include('pdf.founder_sign')
-
-{{-- @include('pdf.articles') --}}
-</section>
+      </p>
+      <p class="mb-1 flex items-center text-gray-700">
+        <span class="mr-2">✔️</span>
+        Notice to Business Registration Office (IRBR1)
+      <p class="ml-6 text-gray-600">Notify the Inland Revenue for business registration.</p>
+      <ul class="ml-10 list-inside list-disc text-gray-600">
+        <li>This makes application for the purpose of business registration.</li>
+        <li>Business registration is renewed on an annual basis if elected to obtain 1-year Business Registration
+          Certificate.</li>
+        <li>This shows your business address, and the nature of your business.</li>
+      </ul>
+      </p>
+                </div>
 </div>
 </html>  
