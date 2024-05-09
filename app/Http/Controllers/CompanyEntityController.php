@@ -84,7 +84,7 @@ class CompanyEntityController extends Controller
         }
 
         $res = $this->EntityInterface->UpdateEntitySignature($request);
-        if($res['success']){
+        if(isset($res['success'])){
             return response()->json([
                 'data' => $res
                 ], HttpStatusCode::OK);
