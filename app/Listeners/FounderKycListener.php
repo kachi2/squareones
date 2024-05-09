@@ -29,10 +29,12 @@ class FounderKycListener implements ShouldQueue
      */
     public function handle(object $event)
     {
+        
         $data = $event->data;
         $entity = CompanyEntity::where(['company_id' => $data['company_id'], 'id' => $data['company_entity_id']])->first();
         $res = $this->InitiateKycProcess($entity);
-        return $res;
+        dd($res);
+        return $data;
     }
 
 
@@ -85,7 +87,9 @@ class FounderKycListener implements ShouldQueue
            'company_name' => $request?->company?->names[0]->eng_name??$request?->company?->names[0]->chn_name
            ]; 
          Mail::to('jesmikky@gmail.com')->send(new KycRegistrationMail($datas));
+         return $user;
         }
+        
     }catch(\Exception $e){
         return $e->getMessage();
     }

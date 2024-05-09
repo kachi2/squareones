@@ -54,12 +54,16 @@ class CompanyEntityController extends Controller
                 }
             }
             DB::commit();
-            if(!isset($request->isEdit)){
+            // if(isset($request->isEdit)){
             $datas['company_id'] = $company_entity->company_id;
             $datas['company_entity_id'] = $company_entity->id;
-            //  event(new FounderKyc($datas));
-            ProcessFounderKyc::dispatch($datas);
-            }
+
+            // $sss = event(new FounderKyc($datas));
+            //  dd('asas');
+      
+            $ss = ProcessFounderKyc::dispatch($datas);
+            
+            // }
             return response()->json([ 'data' => $data], HttpStatusCode::OK);
         } catch (\Exception $e) {
             DB::rollBack();

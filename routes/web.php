@@ -26,7 +26,7 @@ use App\Http\Controllers\PaymentController;
 */
 
 
-Route::get('load/founder/kyc/{company_id}/{company_entity_id}', [KycController::class, 'loadFounderView'])->name('load-founder-kycpage');
+// Route::get('load/founder/kyc/{company_id}/{company_entity_id}', [KycController::class, 'loadFounderView'])->name('load-founder-kycpage');
 
 // Route::get('/pdf/signature',[DocumentSignController::class, 'CreateTemplate']);
 // Route::post('signature/store', [DocumentSignController::class, 'ProcessSignature'])->name('signaturepad.upload');

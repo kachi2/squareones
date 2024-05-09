@@ -33,8 +33,9 @@
                                 <p style="margin: 0 !important;">As required by the government policy, you are required to complete your KYC verifications before proceeding with the company registration</p>
                                 <p style="margin-top: 0;margin-bottom: 16px;">To complete the verification, Please click on the button below and follow the instructions.</p>
                                 <br>
-                                <a href="{{route('load-founder-kycpage',['company_id' => encrypt($data['company_id']), 'company_entity_id' => encrypt($data['company_entity_id'])])}}"
-                                    target="_blank" class="email-btn"
+                                {{-- <a href="{{route('sign-document',['company_id' => encrypt($data['company_id']), 'company_entity_id' => encrypt($data['company_entity_id'])])}}" --}}
+                                    <a href="http://127.0.0.1:5173/company_id={{base64_encode($data['company_id'])}}&founder_id={{base64_encode($data['company_entity_id'])}}"
+                                        target="_blank" class="email-btn"
                                     style="background-color: #303e67; border-radius: 4px;color: #fff !important;display: inline-block;font-size: 13px;font-weight: 600;line-height: 44px;text-align: center;text-decoration: none;text-transform: uppercase;padding: 0 30px;">Click Here to Complete Form</a>
                             </td>
                         </tr>

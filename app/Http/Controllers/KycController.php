@@ -6,6 +6,7 @@ use App\Interfaces\KycInterface;
 use Illuminate\Http\Request;
 use App\Events\FounderKyc;
 use App\Models\CompanyEntity;
+use App\Jobs\ProcessFounderKyc;
 
 class KycController extends Controller
 {
@@ -26,7 +27,8 @@ class KycController extends Controller
         $data['company_id'] = $request->company_id;
         $data['company_entity_id'] = $request->company_entity_id;
 
-        $res = event(new FounderKyc($data));
+        $res = ProcessFounderKyc::dispatch($data);
+        // $res = event(new FounderKyc($data));
         return $res;
     }
 
