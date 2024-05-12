@@ -76,9 +76,10 @@ class CompanyEntityController extends Controller
     }
     public function RegisterEntitySignature(Request $request){
         $valid = Validator::make($request->all(),[
-            'signature' => 'required',
-            'date_signed' => 'required',
+            'signature' => 'nullable',
+            'date_signed' => 'nullable',
             'company_id' => 'required',
+            'kyc_status' => 'nullable',
             'company_entity_id' => 'required'
         ]);
         if($valid->fails()){

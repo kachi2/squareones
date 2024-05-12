@@ -30,13 +30,13 @@
                         <tr>
                             <td class="px-3 px-sm-1 pb-2" style="padding-bottom: 12px !important;padding-right: 44px !important;padding-left: 44px !important;">
                                 <p style="margin-top: 0;margin-bottom: 16px;">You are added as Founder/Director on the registration of {{$data['company_name']}}.</p>
-                                <p style="margin: 0 !important;">As required by the government policy, you are required to complete your KYC verifications before proceeding with the company registration</p>
-                                <p style="margin-top: 0;margin-bottom: 16px;">To complete the verification, Please click on the button below and follow the instructions.</p>
+                                <p style="margin: 0 !important;">As required by the government policy, you are required to sign the PDF document and  complete your KYC verifications before proceeding with the company registration</p>
+                                <p style="margin-top: 0;margin-bottom: 16px;">To complete PDF signing and the KYC verification, Please click on the button below and follow the instructions.</p>
                                 <br>
                                 {{-- <a href="{{route('sign-document',['company_id' => encrypt($data['company_id']), 'company_entity_id' => encrypt($data['company_entity_id'])])}}" --}}
-                                    <a href="http://127.0.0.1:5173/company_id={{base64_encode($data['company_id'])}}&founder_id={{base64_encode($data['company_entity_id'])}}"
+                                    <a href="http://127.0.0.1:5173/sign-document/{{base64_encode($data['company_id'])}}/{{base64_encode($data['company_entity_id'])}}"
                                         target="_blank" class="email-btn"
-                                    style="background-color: #303e67; border-radius: 4px;color: #fff !important;display: inline-block;font-size: 13px;font-weight: 600;line-height: 44px;text-align: center;text-decoration: none;text-transform: uppercase;padding: 0 30px;">Click Here to Complete Form</a>
+                                    style="background-color: #303e67; border-radius: 4px;color: #fff !important;display: inline-block;font-size: 13px;font-weight: 600;line-height: 44px;text-align: center;text-decoration: none;text-transform: uppercase;padding: 0 30px;">Click Here to Proceed</a>
                             </td>
                         </tr>
                         <tr>

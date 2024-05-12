@@ -32,15 +32,27 @@ class KycController extends Controller
         return $res;
     }
 
-    public function loadFounderView($company_id, $company_entity_id){
+    public function UpdateKycStatus($company_id, $company_entity_id){
         $founder = CompanyEntity::where(['id' => decrypt($company_entity_id), 'company_id' => decrypt($company_id)])->first();
-        if(!$founder){
-            return 404;
+       
+        if($founder){
+            $founder->update([
+                'kyc_status' => 'pending'
+            ]);
         }
-       return view('founderkyc')->with([
-        'company_id' => $company_id,
-        'founder' => $founder
-       ]);
     }
+
+    // public function loadFounderView($company_id, $company_entity_id){
+    //     $founder = CompanyEntity::where(['id' => decrypt($company_entity_id), 'company_id' => decrypt($company_id)])->first();
+    //     if(!$founder){
+    //         return 404;
+    //     }
+    //    return view('founderkyc')->with([
+    //     'company_id' => $company_id,
+    //     'founder' => $founder
+    //    ]);
+    // }
+
+
    
 }
