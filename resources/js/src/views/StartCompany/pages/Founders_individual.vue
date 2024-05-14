@@ -280,7 +280,7 @@ const phoneField = {
         showDialCode: true,
         placeholder: 'Enter phone',
         styleClasses: 'phone-input-profile',
-        maxlength:12
+        maxlength: 12
     }
 
 }
@@ -344,7 +344,7 @@ function moveBack() {
     startCompanyStore.isShowingFoundersForm = false
 }
 
-function saveAndContinue() {
+const saveAndContinue = form.handleSubmit((values: any) => {
     if (!startCompanyStore.companyInProgress?.id) {
         toast.error('You have not registered any company name', { position: 'top-right' })
         startCompanyStore.switchStage('-', 2)
@@ -368,7 +368,15 @@ function saveAndContinue() {
         }
     }
 
-    // if (!form.address || !form.street_no || !form.city || !form.state || !form.postal_code) {
+    if (form.hasChineseName) {
+        if (!useFxn.chineseCheck(form.chn_first_name) || !useFxn.chineseCheck(form.chn_last_name)) {
+            toast.error('Please input only Chinese characters', { position: 'top-right' })
+            return;
+        }
+    }
+
+
+    // if (!form.address || !form.flat || !form.building || !form.state || !form.postal_code) {
     //     toast.default('Please complete fields', { position: 'top-right' })
     //     return;
     // }
@@ -380,10 +388,10 @@ function saveAndContinue() {
         }
     }
 
-    if(form.phone.length < 12){
+    if (form.phone.length < 12) {
         toast.error("Error on the phone input", { position: 'top-right' });
         return;
-       
+
     }
     if (!useFxn.isEmail(form.email)) {
         toast.error('Invalid email format', { position: 'top-right' })
@@ -424,7 +432,7 @@ function saveAndContinue() {
 
     const formData = new FormData;
     formData.append('company_id', startCompanyStore.companyInProgress.id)
-    if (startCompanyStore.idToEdit){
+    if (startCompanyStore.idToEdit) {
         formData.append('company_entity_id', startCompanyStore.idToEdit)
         formData.append('isEdit', '1')
     }
@@ -437,8 +445,8 @@ function saveAndContinue() {
         formData.append('chn_first_name', form.chn_first_name)
         formData.append('chn_last_name', form.chn_last_name)
     }
-   if(form.dob)
-    formData.append('dob', form.dob)
+    if (form.dob)
+        formData.append('dob', form.dob)
     formData.append('nationality', form.nationality)
     formData.append('phone', form.phone)
     formData.append('email', form.email)
@@ -473,21 +481,21 @@ function saveAndContinue() {
 
     form.isSaving = true
     saveFromToApi(formData)
-}
+})
 
 async function saveFromToApi(formData: FormData) {
     try {
         await api.companyEntity(formData)
-        .then(async (response)=>{
-            // console.log(response, 'Data from foundes')
-        toast.success('Data Saved Successfully', { position: 'top-right' });
-        form.isSaving = false
-        startCompanyStore.getCompanyInProgress('founder')
-        startCompanyStore.isShowingFoundersForm = false
-        form.clearLocalStorage()
-        form.clearLocalStorage()
+            .then(async (response) => {
+                // console.log(response, 'Data from foundes')
+                toast.success('Data Saved Successfully', { position: 'top-right' });
+                form.isSaving = false
+                startCompanyStore.getCompanyInProgress('founder')
+                startCompanyStore.isShowingFoundersForm = false
+                form.clearLocalStorage()
+                form.clearLocalStorage()
 
-    })
+            })
     } catch (error) {
         toast.error('Sorry, Something went wrong', { position: 'top-right' });
         // console.log(error);

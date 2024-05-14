@@ -24,15 +24,26 @@ if(stage == 11 || stage == 12){
     }
 }
 
-    function isformCompleted(dataSource: any) {
+    function isformCompleted(dataSource: any, menuStage: any) {
 
-        if(dataSource instanceof Array)
+        if(menuStage != 5){
+            if(dataSource instanceof Array)
         { 
           return  dataSource?.length
         }else if(dataSource != null){
             return true
         }
         return false
+        }else{
+        const entity = startCompanyStore.companyInProgress?.company_entity ?? [];
+        const individual = entity.find((x: any) => x.entity_capacity_id.includes(2) && x.entity_type_id == 1)
+        const Corporate = entity.find((x: any) => x.entity_capacity_id.includes(1))
+        if (!Corporate ||  !individual) {
+        return false
+        }
+        return true
+        }
+       
     }
 
 
@@ -42,10 +53,10 @@ if(stage == 11 || stage == 12){
     <ul class="list-group list-group-flush mt-4">
         <li v-for="menu in startCompanyStore.menus" @click="goToStage(menu.stage)" class="list-group-item"
             :class="{ 'isActive': startCompanyStore.isActiveMenu(menu.stage) }">
-            {{ menu?.name }}
+            {{ menu?.name }} 
             <!-- {{startCompanyStore.companyInProgress[menu.dataSource]?.length || startCompanyStore.companyInProgress[menu.dataSource] != null }} -->
             <span v-if="startCompanyStore.companyInProgress">
-                <small style="font-size:10px" v-if="isformCompleted(startCompanyStore?.companyInProgress[menu.dataSource])" ><i class="bi bi-check-circle text-primary "></i></small> 
+                <small style="font-size:10px" v-if="isformCompleted(startCompanyStore?.companyInProgress[menu.dataSource], menu.stage)" ><i class="bi bi-check-circle text-primary "></i></small> 
             </span>
          </li> 
     </ul>

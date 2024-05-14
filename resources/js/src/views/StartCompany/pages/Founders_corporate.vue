@@ -40,11 +40,11 @@
                 <small class=" text-danger">{{ form.errors.registeration_no }}</small>
             </div>
             <div class="col-md-12">
-                    <label class="form-label">Country Registered <small class=" text-danger">*</small></label>
-                    <v-select :class="{ 'error-field': form.errors.country_registered }" placeholder="select country.."
-                        v-model="form.country_registered" :clearable="false" :options="startCompanyStore.countries" />
-                    <small class=" text-danger">{{ form.errors.country_registered }}</small>
-                </div>
+                <label class="form-label">Country Registered <small class=" text-danger">*</small></label>
+                <v-select :class="{ 'error-field': form.errors.country_registered }" placeholder="select country.."
+                    v-model="form.country_registered" :clearable="false" :options="startCompanyStore.countries" />
+                <small class=" text-danger">{{ form.errors.country_registered }}</small>
+            </div>
             <div class="col-12">
                 <label class="form-label fw-bold">Business nature <span class="text-danger"> * </span></label>
                 <v-select :class="{ 'error-field': form.errors.business_nature_id }" v-model="form.business_nature_id"
@@ -120,7 +120,7 @@
             <div class="col-md-12">
                 <label class=" fw-bolder">Phone number <span class="text-danger"> * </span></label>
                 <vue-tel-input :inputOptions="phoneField.input" :dropdownOptions="phoneField.dropDown"
-                    :autoFormat="true"  v-model="form.phone"></vue-tel-input>
+                    :autoFormat="true" v-model="form.phone"></vue-tel-input>
                 <small class=" text-danger">{{ form.errors.phone }}</small>
                 <!-- <div class="input-group">
                     
@@ -239,13 +239,13 @@ const phoneField = {
         showDialCode: true,
         placeholder: 'Enter phone',
         styleClasses: 'phone-input-profile',
-        maxlength:12
+        maxlength: 12
     }
 
 }
-watchEffect(()=>{
-    if(form.chn_company_name == ''){
-        form.errors.chn_company_name  = ''
+watchEffect(() => {
+    if (form.chn_company_name == '') {
+        form.errors.chn_company_name = ''
         delete form.errors.chn_company_name
     }
 })
@@ -256,6 +256,7 @@ function moveBack() {
     startCompanyStore.isShowingFoundersForm = false
 }
 
+// const saveAndContinue = form.handleSubmit((values: any) => {
 function saveAndContinue() {
     if (!startCompanyStore.companyInProgress?.id) {
         toast.error('You have not registered any company name', { position: 'top-right' })
@@ -263,30 +264,30 @@ function saveAndContinue() {
         return;
     }
 
-    if(form.phone.length < 12){
-        toast.error("Error on the phone input", { position: 'top-right' });
+    if (form.phone.length < 12) {
+        toast.error("Error on the phone input <br> must be 12 digits and above", { position: 'top-right' });
         return;
-       
+
     }
     if (Object.keys(form.errors).length > 0) {
-        // console.log(form.errors)
+         console.log(form.errors)
         toast.error("Some fields still have errors", { position: 'top-right' });
         return;
     }
 
     if (!form.first_name || !form.last_name || !form.phone || !form.email || !form.date_incorporated || !form.company_name
-        || !form.chn_company_name || !form.business_nature_id || !form.country_registered
+        || !form.business_nature_id || !form.country_registered
         || !form.registeration_no) {
-        toast.default('Please complete fields', { position: 'top-right' })
+        toast.error('Some fields still have errors', { position: 'top-right' })
         return;
     }
 
 
 
-    if (!form.flat || !form.street ||  !form.country || !form.building) {
-        toast.default('Please complete fields', { position: 'top-right' })
-        return;
-    }
+    // if (!form.flat || !form.street || !form.city || !form.country || !form.building) {
+    //     toast.default('Please complete fields', { position: 'top-right' })
+    //     return;
+    // }
 
     if (!useFxn.isEmail(form.email)) {
         toast.default('Invalid email format', { position: 'top-right' })
@@ -295,7 +296,7 @@ function saveAndContinue() {
 
 
     if (form.email !== form.confirm_email) {
-        toast.default('Emails do not macth!', { position: 'top-right' })
+        toast.default('Emails do not match!', { position: 'top-right' })
         return;
     }
 
@@ -307,7 +308,7 @@ function saveAndContinue() {
 
     const formData = new FormData;
     formData.append('company_id', startCompanyStore.companyInProgress.id)
-    if (startCompanyStore.idToEdit){
+    if (startCompanyStore.idToEdit) {
         formData.append('company_entity_id', startCompanyStore.idToEdit)
     }
     formData.append('entity_capacity_id', JSON.stringify(startCompanyStore.checkedEntityCapacity))

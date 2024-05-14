@@ -172,5 +172,10 @@ export default {
     timeAgo: (date: Date) => {
         const timeAgo = useTimeAgo(date);
         return timeAgo.value;
+    },
+
+    chineseCheck: (value: any) => {
+        var pattern = /^[\u4E00-\u9FFF\u3400-\u4DBF\s*\(\)\,]+$/;
+        return pattern.test(value)
     }
 }

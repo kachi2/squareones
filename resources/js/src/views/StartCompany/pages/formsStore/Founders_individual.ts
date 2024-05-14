@@ -13,20 +13,20 @@ export const foundersIdividualForm = defineStore("foundersIdividual", () => {
   };
 
   const rules = {
-    chn_first_name: yup
-      .string()
-      .test(
-        "chineseCheck",
-        "Please input only Chinese characters",
-        chineseCheck
-      ),
-    chn_last_name: yup
-      .string()
-      .test(
-        "chineseCheck",
-        "Please input only Chinese characters",
-        chineseCheck
-      ),
+    // chn_first_name: yup
+    //   .string()
+    //   .test(
+    //     "chineseCheck",
+    //     "Please input only Chinese characters",
+    //     chineseCheck
+    //   ),
+    // chn_last_name: yup
+    //   .string()
+    //   .test(
+    //     "chineseCheck",
+    //     "Please input only Chinese characters",
+    //     chineseCheck
+    //   ),
 
     flat: yup.string().required("Flat is required"),
     building: yup.string().required("Building is required"),
@@ -35,13 +35,13 @@ export const foundersIdividualForm = defineStore("foundersIdividual", () => {
     city: yup.string(),
     country: yup.string().required("Country is required"),
     postal_code: yup.string(),
-    flat2: yup.string().required("Flat is required"),
-    building2: yup.string().required("Building is required"),
-    street2: yup.string().required("Street is required"),
-    state2: yup.string().required("State is required"),
-    city2: yup.string(),
-    country2: yup.string().required("Country is required"),
-    postal_code2: yup.string(),
+    // flat2: yup.string().required("Flat is required"),
+    // building2: yup.string().required("Building is required"),
+    // street2: yup.string().required("Street is required"),
+    // state2: yup.string().required("State is required"),
+    // city2: yup.string(),
+    // country2: yup.string().required("Country is required"),
+    // postal_code2: yup.string(),
 
     phone: yup.string().required("Phone Number is required"),
     email: yup.string().email().required("Email is required"),
@@ -177,7 +177,7 @@ export const foundersIdividualForm = defineStore("foundersIdividual", () => {
     if (country2.value) country2_storage.value = country2.value;
     if (postal_code2.value) postal_code2_storage.value = postal_code2.value;
     if (identity_no_suffix.value) identity_no_suffix_storage.value = identity_no_suffix.value;
-    if (issuing_country.value)issuing_country_storage.value = issuing_country.value;
+    if (issuing_country.value) issuing_country_storage.value = issuing_country.value;
     if (phone.value) phone_storage.value = phone.value;
     if (email.value) email_storage.value = email.value;
     if (confirm_email.value) confirm_email_storage.value = confirm_email.value;
