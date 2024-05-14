@@ -283,7 +283,7 @@ function saveAndContinue() {
 
 
 
-    if (!form.flat || !form.street || !form.city || !form.country || !form.building) {
+    if (!form.flat || !form.street ||  !form.country || !form.building) {
         toast.default('Please complete fields', { position: 'top-right' })
         return;
     }
