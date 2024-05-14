@@ -26,7 +26,6 @@ return new class extends Migration
             $table->string('registered_office')->nullable();
             $table->tinyText('business_address')->nullable();
             $table->tinyText('directors')->nullable();
-            $table->tinyText('registered_office')->nullable();
             $table->tinyText('shareholders')->nullable();
             $table->tinyText('company_secretary')->nullable();
             $table->tinyText('scr_designated_representative')->nullable();
