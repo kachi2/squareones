@@ -13,8 +13,6 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
         return pattern.test(value)
     }
 
-
-
     const rules = {
         chn_company_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
 
@@ -29,7 +27,7 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
         // city: yup.string().required('city is required'),
         country: yup.string().required('country is required'),
         // postal_code: yup.string(),
-        registeration_no: yup.string().required('Company registration number is required '),
+        registeration_no: yup.string().required('Company registration number is required'),
 
         business_nature_id: yup.string().required('Business nature Id is required'),
         phone: yup.string().required('phone number is required'),
@@ -95,22 +93,6 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
     const first_name_storage = useStorage('squareOne-fCop-first_name', '');
     const last_name_storage = useStorage('squareOne-fCop-last_name', '');
 
-    function clearLocalStorage(){
-        company_name_storage.value = '';
-        chn_company_name_storage.value = '';
-        flat_storage.value = '';
-        building_storage.value = '';
-        street_storage.value = '';
-        country_storage.value  = '';
-        // postal_code_storage.value = '';
-        registeration_no_storage.value = '';
-        phone_storage.value = '';
-        email_storage.value = '';
-        confirm_email_storage.value = '';
-        first_name_storage.value = '';
-        last_name_storage.value = '';
-    }
-
     function saveToLocalStorage() {
         if (company_name.value) company_name_storage.value = company_name.value
         if (chn_company_name.value) chn_company_name_storage.value = chn_company_name.value
@@ -122,7 +104,7 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
         if (building.value) building_storage.value = building.value
         if (street.value) street_storage.value = street.value
         if (state.value) state_storage.value = state.value
-        if (country.value) country_storage.value = country.value
+        // if (country.value) country_storage.value = country.value
         // if (postal_code.value) postal_code_storage.value = postal_code.value
 
         if (phone.value) phone_storage.value = phone.value
@@ -164,6 +146,27 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
             registeration_no.value = registeration_no_storage.value
         if (country_registered_storage.value.length > 1)
             country_registered.value = country_registered_storage.value
+    }
+
+
+    function clearLocalStorage() {
+        company_name_storage.value = ''
+        chn_company_name_storage.value = ''
+        flat_storage.value = ''
+        building_storage.value = ''
+        street_storage.value = ''
+        state_storage.value = ''
+
+        country_storage.value = ''
+        // postal_code_storage.value = ''
+        registeration_no_storage.value = ''
+        country_registered_storage.value = ''
+
+        phone_storage.value = ''
+        email_storage.value = ''
+        confirm_email_storage.value = ''
+        first_name_storage.value = ''
+        last_name_storage.value = ''
     }
 
 

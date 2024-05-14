@@ -47,8 +47,8 @@
                     them in descending order of preference.</div>
                 <div class="row g-2 mt-1">
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.choice_level2_eng_name }" v-maska data-maska="A a"
-                            data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
+                        <input :class="{ 'error-field': form.errors.choice_level2_eng_name }" v-maska 
+                            data-maska-tokens="*:[a-zA-Z0-9]:multiple"
                             v-model="form.choice_level2_eng_name" type="text" class="form-control"
                             placeholder="This text for English name">
                         <small class=" text-danger">{{ form.errors.choice_level2_eng_name }}</small>
@@ -88,8 +88,8 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.choice_level3_eng_name }" v-maska data-maska="A a"
-                            data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
+                        <input :class="{ 'error-field': form.errors.choice_level3_eng_name }" v-maska 
+                            data-maska-tokens="*:[a-zA-Z0-9]:multiple"
                             v-model="form.choice_level3_eng_name" type="text" class="form-control"
                             placeholder="This text for English name">
                         <small class=" text-danger">{{ form.errors.choice_level3_eng_name }}</small>
@@ -129,8 +129,8 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.choice_level4_eng_name }" v-maska data-maska="A a"
-                            data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
+                        <input :class="{ 'error-field': form.errors.choice_level4_eng_name }" v-maska
+                            data-maska-tokens="*:[a-zA-Z0-9]:multiple"
                             v-model="form.choice_level4_eng_name" type="text" class="form-control"
                             placeholder="This text for English name">
                         <small class=" text-danger">{{ form.errors.choice_level4_eng_name }}</small>
@@ -169,8 +169,8 @@
                 </div>
                 <div class="row g-2 mt-1">
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.choice_level5_eng_name }" v-maska data-maska="A a"
-                            data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
+                        <input :class="{ 'error-field': form.errors.choice_level5_eng_name }" v-maska 
+                            data-maska-tokens="*:[a-zA-Z0-9]:multiple"
                             v-model="form.choice_level5_eng_name" type="text" class="form-control"
                             placeholder="This text for English name">
                         <small class=" text-danger">{{ form.errors.choice_level5_eng_name }}</small>
@@ -274,7 +274,7 @@ import { useToast } from 'vue-toast-notification';
 import api from '@/stores/Helpers/axios'
 import { nameForm } from './formsStore/Name';
 import { vMaska } from "maska"
-import { ref, onMounted, watch, reactive } from 'vue'
+import { ref, onMounted, watch, reactive, watchEffect} from 'vue'
 
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
@@ -297,28 +297,28 @@ function addForm() {
     }
 }
 
-// watchEffect(()=>{
-//     if(form.choice_level1_chn_name == ''){
-//         form.errors.choice_level1_chn_name  = ''
-//         delete form.errors.choice_level1_chn_name
-//     }
-//     if(form.choice_level2_chn_name == ''){
-//         form.errors.choice_level2_chn_name  = null
-//         delete form.errors.choice_level2_chn_name
-//     }
-//     if(form.choice_level3_chn_name == ''){
-//         form.errors.choice_level3_chn_name  = null
-//         delete form.errors.choice_level3_chn_name
-//     }
-//     if(form.choice_level4_chn_name == ''){
-//         form.errors.choice_level4_chn_name  = ''
-//         delete form.errors.choice_level4_chn_name
-//     }
-//     if(form.choice_level5_chn_name == ''){
-//         form.errors.choice_level5_chn_name  = ''
-//         delete form.errors.choice_level5_chn_name
-//     }
-// })
+watchEffect(()=>{
+    if(form.choice_level1_chn_name == ''){
+        form.errors.choice_level1_chn_name  = ''
+        delete form.errors.choice_level1_chn_name
+    }
+    if(form.choice_level2_chn_name == ''){
+        form.errors.choice_level2_chn_name  = null
+        delete form.errors.choice_level2_chn_name
+    }
+    if(form.choice_level3_chn_name == ''){
+        form.errors.choice_level3_chn_name  = null
+        delete form.errors.choice_level3_chn_name
+    }
+    if(form.choice_level4_chn_name == ''){
+        form.errors.choice_level4_chn_name  = ''
+        delete form.errors.choice_level4_chn_name
+    }
+    if(form.choice_level5_chn_name == ''){
+        form.errors.choice_level5_chn_name  = ''
+        delete form.errors.choice_level5_chn_name
+    }
+})
 
 function removeForm(field: any) {
     form[field] = false
@@ -367,6 +367,7 @@ watch(() => [form.choice_level1_chn_name, form.choice_level2_chn_name, form.choi
 })
 
 
+
 function moveBack() {
     startCompanyStore.switchStage('-')
 }
@@ -374,33 +375,33 @@ function moveBack() {
 function saveAndContinue() {
 
     if (!form.choice_level1_eng_name && !form.choice_level1_chn_name) {
-        toast.default("Please complete Primary choice names", { position: 'top-right' });
+        toast.error("Please complete Primary choice names", { position: 'top-right' });
         return;
     }
 
     if (form.isSecond && (!form.choice_level2_eng_name && !form.choice_level2_chn_name)) {
-        toast.default("Please complete secondary choice names", { position: 'top-right' });
+        toast.error("Please complete secondary choice names", { position: 'top-right' });
         return;
     }
 
     if (form.isThird && (!form.choice_level3_eng_name && !form.choice_level3_chn_name)) {
-        toast.default("Please complete third choice names", { position: 'top-right' });
+        toast.error("Please complete third choice names", { position: 'top-right' });
         return;
     }
 
     if (form.isForth && (!form.choice_level4_eng_name && !form.choice_level4_chn_name)) {
-        toast.default("Please complete fourth choice names", { position: 'top-right' });
+        toast.error("Please complete fourth choice names", { position: 'top-right' });
         return;
     }
 
     if (form.isFifth && (!form.choice_level5_eng_name && !form.choice_level5_chn_name)) {
-        toast.default("Please complete fifth choice names", { position: 'top-right' });
+        toast.error("Please complete fifth choice names", { position: 'top-right' });
         return;
     }
 
      console.log(form.errors)
     if (Object.keys(form.errors).length > 0) {
-        toast.default("Some fields still have errors", { position: 'top-right' });
+        toast.error("Some fields still have errors", { position: 'top-right' });
         return;
     }
 

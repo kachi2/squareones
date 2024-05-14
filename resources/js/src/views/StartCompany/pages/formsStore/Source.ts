@@ -51,6 +51,13 @@ export const sourceForm = defineStore('source', () => {
             income_outgoing_source.value = income_outgoing_source_storage.value
     }
 
+    function clearLocalStorage() {
+        income_expected_source_storage.value = '';
+        origin_funds_storage.value = '';
+        wealth_initial_source_storage.value = '';
+        income_outgoing_source_storage.value = '';
+    }
+
     return {
         income_expected_source,
         origin_funds,
@@ -63,6 +70,7 @@ export const sourceForm = defineStore('source', () => {
         setFieldValue,
         updateFields,
 
-        saveToLocalStorage
+        saveToLocalStorage,
+        clearLocalStorage
     }
 })

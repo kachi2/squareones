@@ -116,8 +116,9 @@ function moveBack() {
 }
 
 function saveAndContinues() {
-        startCompanyStore.switchStage('+')
-        startCompanyStore.getCompanyInProgress()
+        form.isSaving = true
+          saveFromToApi()
+
 }
 const saveAndContinue = form.handleSubmit(async (values) => {
     if (!startCompanyStore.companyInProgress?.id) {
@@ -142,11 +143,13 @@ const saveAndContinue = form.handleSubmit(async (values) => {
     formData.append('company_id', startCompanyStore.companyInProgress.id)
 
     form.isSaving = true
-    saveFromToApi(formData)
+    // saveFromToApi(formData)
 })
 
-async function saveFromToApi(formData: FormData) {
+async function saveFromToApi() {
     try {
+        const formData = new FormData;
+        formData.append('company_id', startCompanyStore.companyInProgress.id)
         await api.companyAddress(formData)
 
         toast.success('Data Saved Successfully', { position: 'top-right' });

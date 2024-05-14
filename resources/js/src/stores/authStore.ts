@@ -2,10 +2,12 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 // @ts-ignore
 import Cookies from 'js-cookie';
+import { useStorage } from '@vueuse/core';
 
 export const useAuthStore = defineStore('authStore', () => {
   const token = ref('')
-  const profileData = ref<any>('')
+  const profileData: any = useStorage('sqOneProfile_data', '')
+  const profileDataName: any = useStorage('sqOneProfile_dataName', '')
 
   const isLoggedIn = computed(() => token.value || Cookies.get('_tokn'));
 
@@ -13,9 +15,11 @@ export const useAuthStore = defineStore('authStore', () => {
     return profileData.value?.email_verified_at
   })
 
-  const login = (tokenStr: string) => {
-    Cookies.set('_tokn', tokenStr, { expires: 7 });
-    token.value = tokenStr;
+  const login = (data: any) => {
+    Cookies.set('_tokn', data.UserToken, { expires: 7 });
+    token.value = data.UserToken;
+    profileData.value = data.user;
+    profileDataName.value = data.user.name;
   }
 
   const logout = () => {
@@ -24,5 +28,5 @@ export const useAuthStore = defineStore('authStore', () => {
     window.location.reload();
   }
 
-  return { login, logout, isLoggedIn, profileData, emailVerified }
+  return { login, logout, isLoggedIn, profileData, profileDataName, emailVerified }
 })

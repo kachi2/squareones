@@ -63,19 +63,19 @@
                     <p class="s9" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">Name in Chinese</p>
                 </td>
                 <td style="width:49pt;border-right-style:solid;border-right-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    <p style="text-indent: 0pt;text-align: left;padding-left:10px">{{ director?.chn_first_name }}<br /></p>
                 </td>
                 <td
                     style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    <p style="text-indent: 0pt;text-align: left;padding-left:10px">{{ director?.chn_last_name }}<br /></p>
                 </td>
                 <td
                     style="width:20pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;">{{ director?.chn_first_name }}<br /></p>
+                    <p style="text-indent: 0pt;text-align: left;"><br /></p>
                 </td>
                 <td
                     style="width:57pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;">{{ director?.chn_last_name }}<br /></p>
+                    <p style="text-indent: 0pt;text-align: left;"><br /></p>
                 </td>
                 <td
                     style="width:96pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -102,15 +102,15 @@
 
                 <td
                     style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    <p style="text-indent: 0pt;text-align: left;padding-left:10px">{{ director?.first_name }}<br /></p>
                 </td>
                 <td
                     style="width:87pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;">{{ director?.last_name }}<br /></p>
+                    <p style="text-indent: 0pt;text-align: left;"><br /></p>
                 </td>
                 <td
                     style="width:57pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"> {{ director?.first_name }}<br /></p>
+                    <p style="text-indent: 0pt;text-align: left;"> <br /></p>
                 </td>
                 <td
                     style="width:96pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -136,7 +136,7 @@
                 </td>
                 <td
                     style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    <p style="text-indent: 0pt;text-align: left;padding-left:10px">{{ director?.last_name }}<br /></p>
                 </td>
 
                 <td
@@ -344,7 +344,7 @@
                     style="width:258pt;border:1px solid #000;  border:1px solid #000; border-right-style:solid;border-right-width:1pt">
                     <p class="s46"
                         style="padding-top: 8pt;padding-right: 10pt;text-indent: 0pt;text-align: left;padding-left:10px">
-                        {{ director.get_identity.identity_no }} ( [{{ director?.get_identity?.identity_no_suffix }}] )
+                        {{ director.get_identity.identity_no  == 'undefined'?'':director.get_identity.identity_no}} ( [{{ director?.get_identity?.identity_no_suffix == 'undefined'?'':director?.get_identity?.identity_no_suffix   }}] )
                     </p>
 
                 </td>
@@ -367,7 +367,7 @@
                     style="width:258pt;border:1px solid #000;  border:1px solid #000; border-right-style:solid;border-right-width:1pt">
                     <p class="s46"
                         style="padding-top: 8pt;padding-right: 10pt;text-indent: 0pt;text-align: left;padding-left:10px">
-                        {{ director?.get_identity?.issueing_country }}
+                        {{ director?.get_identity?.issueing_country == 'undefined'?'':director?.get_identity?.issueing_country   }}
                     </p>
                 </td>
             </tr>
@@ -388,7 +388,7 @@
                     style="width:258pt;border:1px solid #000;  border:1px solid #000; border-right-style:solid;border-right-width:1pt">
                     <p class="s46"
                         style="padding-top: 8pt;padding-right: 10pt;text-indent: 0pt;text-align: left;padding-left:10px">
-                        {{ director?.get_identity?.passport_no }}
+                        {{ director?.get_identity?.passport_no == 'undefined'?'':director?.get_identity?.passport_no }}
                     </p>
                 </td>
 
@@ -437,7 +437,7 @@
                     <p class="s28" style="padding-left: 30pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         本人同意在公司成立為法團時擔任其董事， 並確認本人已年滿 <span class="s2"> 18 </span>歲。</p>
                     <p class="s9" style="padding-left: 28pt;text-indent: 0pt;line-height: 9pt;text-align: left;">
-                        <input type="checkbox" style="width: 30px; height:20px" checked> I consent
+                        <input type="checkbox" style="width: 30px; height:20px" checked disabled> I consent
                         to be a director of the company on its incorporation and confirm that I have attained the age of
                         18
                         years.
@@ -454,7 +454,7 @@
                     <p style="text-indent: 0pt;text-align: left;"><br /></p>
                     <p class="s33"
                         style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;">:
-                        <img width="100" :src="startCompanyStore?.signatureImage" alt="">
+                        <img width="100" :src="director?.signature" alt="">
                     </p>
                 </td>
                 <td style="width:55pt">
@@ -467,7 +467,7 @@
             <tr style="height:46pt">
 
                 <td style="width:432pt" colspan="2">
-                    <input type="checkbox" style="width: 20px; height:20px; margin-left:30px" readonly>
+                    <input type="checkbox" style="width: 20px; height:20px; margin-left:30px" disabled>
                     <p class="s28"
                         style="padding-top: 3pt; display:inline; padding-left: pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         出任董事職位同意書會於公司成立為法團的日期後 <span class="s2">15 </span>日內交付登記。 </p>

@@ -113,7 +113,7 @@ const submitForm = handleSubmit(async (values) => {
     const data = resp.data.data
     // console.log(resp.data.data);
 
-    authStore.login(data.UserToken)
+    authStore.login(data)
     router.push({ name: 'Start' })
   } catch (error: any) {
     // console.log(error);

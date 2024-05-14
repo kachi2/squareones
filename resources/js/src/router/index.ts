@@ -60,13 +60,22 @@ const router = createRouter({
 
     {
       path: '/kcy/verifications',
+      name: 'KYC',
       component: () => import('../views/StartCompany/pages/Kyc.vue'),
       beforeEnter: authGuard,
-      // children: [
-      //   { path: 'dashboard', name: 'Dashboard', alias: '/dashboard', component: () => import('../views/Account/Dashboard.vue') },
-      //   { path: 'company/submitted_form', name: 'Sumitted Form', component: () => import('../views/Account/Company/submitted_form.vue') },
-      //   { path: 'company/company_info', name: 'Company Details', component: () => import('../views/Account/Company/company_info.vue') },
-      // ],
+    },
+
+    {
+      path: '/sign-document/:company_id/:founder_id',
+      name: 'SIGN DOCUMENT',
+      component: () => import('../views/StartCompany/SignDocument_founder.vue'),
+    },
+
+    {
+      path: '/complete-kyc/:company_id/:founder_id',
+      name: 'FOUNDERKYC',
+      alias: '/complete-kyc/:company_id/:founder_id',
+      component: () => import('../views/StartCompany/Kyc_founder.vue'),
     },
 
 

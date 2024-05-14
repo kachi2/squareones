@@ -1,8 +1,9 @@
 import { $instance, $instanceForm } from '../instances'
 
 export default {
-    companyProgress() {
-        return $instance.get(`company/progress`)
+    companyProgress(company_id = null) {
+        const url = company_id ? `company/progress/${company_id}` : `company/progress`
+        return $instance.get(url)
     },
 
     businessNature() {
@@ -23,6 +24,10 @@ export default {
 
     companyEntity(formData: FormData) {
         return $instanceForm.post(`entity/store`, formData)
+    },
+
+    FounderKyc(formData: FormData) {
+        return $instanceForm.post(`load/founder/kyc`, formData)
     },
 
     companyShares(formData: FormData) {
@@ -49,11 +54,17 @@ export default {
         return $instanceForm.post(`build/pdf`, formData)
     },
 
-    retrieveShaheolders(id: string|number) {
+    retrieveShaheolders(id: string | number) {
         return $instance.post(`retrieve/shareholders/${id}`)
     },
 
     deleteEntity(id: string | number) {
         return $instance.post(`entities/remove/${id}`)
     },
+
+    registerSignature(formData: FormData) {
+        return $instanceForm.post(`register/signature`, formData)
+    },
+
+
 }

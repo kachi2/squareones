@@ -131,14 +131,14 @@ export const foundersIdividualForm = defineStore("foundersIdividual", () => {
   const street_storage = useStorage("squareOne-fInd-street", "");
   const state_storage = useStorage("squareOne-fInd-state", "");
   const country_storage = useStorage("squareOne-fInd-country", "");
-  // const postal_code_storage = useStorage("squareOne-fInd-postal_code", "");
+  const postal_code_storage = useStorage("squareOne-fInd-postal_code", "");
 
   const flat2_storage = useStorage("squareOne-fInd-flat2", "");
   const building2_storage = useStorage("squareOne-fInd-building2", "");
   const street2_storage = useStorage("squareOne-fInd-street2", "");
   const state2_storage = useStorage("squareOne-fInd-state2", "");
   const country2_storage = useStorage("squareOne-fInd-country2", "");
-  // const postal_code2_storage = useStorage("squareOne-fInd-postal_code2", "");
+  const postal_code2_storage = useStorage("squareOne-fInd-postal_code2", "");
 
   const issuing_country_storage = useStorage(
     "squareOne-fInd-issuing_country",
@@ -161,51 +161,23 @@ export const foundersIdividualForm = defineStore("foundersIdividual", () => {
   const identity_no_suffix_storage = useStorage("squareOne-fInd-identity_no_suffix", "");
   const passport_no_storage = useStorage("squareOne-fInd-passport_no", "");
 
-  function clearLocalStorage() {
-    flat_storage.value = "";
-    building_storage.value = "";
-    street_storage.value = "";
-    state_storage.value = "";
-    country_storage.value = "";
-    // postal_code_storage.value = "";
-    identity_no_suffix_storage.value = "";
-    flat2_storage.value = "";
-    building2_storage.value = "";
-    street2_storage.value = "";
-    state2_storage.value = "";
-    country2_storage.value = "";
-    // postal_code2_storage.value = "";
 
-    issuing_country_storage.value = "";
-    phone_storage.value = "";
-    email_storage.value = "";
-    confirm_email_storage.value = "";
-    first_name_storage.value = "";
-    last_name_storage.value = "";
-    chn_first_name_storage.value = "";
-    chn_last_name_storage.value = "";
-    nationality_storage.value = "";
-    occupation_storage.value = "";
-    identity_no_storage.value = "";
-    passport_no_storage.value = "";
-  }
   function saveToLocalStorage() {
     if (flat.value) flat_storage.value = flat.value;
     if (building.value) building_storage.value = building.value;
     if (street.value) street_storage.value = street.value;
     if (state.value) state_storage.value = state.value;
     if (country.value) country_storage.value = country.value;
-    // if (postal_code.value) postal_code_storage.value = postal_code.value;
+    if (postal_code.value) postal_code_storage.value = postal_code.value;
 
     if (flat2.value) flat2_storage.value = flat2.value;
     if (building2.value) building2_storage.value = building2.value;
     if (street2.value) street2_storage.value = street2.value;
     if (state2.value) state2_storage.value = state2.value;
     if (country2.value) country2_storage.value = country2.value;
-    // if (postal_code2.value) postal_code2_storage.value = postal_code2.value;
+    if (postal_code2.value) postal_code2_storage.value = postal_code2.value;
     if (identity_no_suffix.value) identity_no_suffix_storage.value = identity_no_suffix.value;
-    if (issuing_country.value)
-      issuing_country_storage.value = issuing_country.value;
+    if (issuing_country.value)issuing_country_storage.value = issuing_country.value;
     if (phone.value) phone_storage.value = phone.value;
     if (email.value) email_storage.value = email.value;
     if (confirm_email.value) confirm_email_storage.value = confirm_email.value;
@@ -227,8 +199,8 @@ export const foundersIdividualForm = defineStore("foundersIdividual", () => {
     if (street_storage.value.length > 1) street.value = street_storage.value;
     if (state_storage.value.length > 1) state.value = state_storage.value;
     if (country_storage.value.length > 1) country.value = country_storage.value;
-    // if (postal_code_storage.value.length > 1)
-    //   postal_code.value = postal_code_storage.value;
+    if (postal_code_storage.value.length > 1)
+      postal_code.value = postal_code_storage.value;
     if (flat2_storage.value.length > 1) flat2.value = flat2_storage.value;
     if (building2_storage.value.length > 1)
       building2.value = building2_storage.value;
@@ -236,8 +208,8 @@ export const foundersIdividualForm = defineStore("foundersIdividual", () => {
     if (state2_storage.value.length > 1) state2.value = state2_storage.value;
     if (country2_storage.value.length > 1)
       country2.value = country2_storage.value;
-    // if (postal_code2_storage.value.length > 1)
-    //   postal_code2.value = postal_code2_storage.value;
+    if (postal_code2_storage.value.length > 1)
+      postal_code2.value = postal_code2_storage.value;
     if (issuing_country_storage.value)
       issuing_country.value = issuing_country_storage.value;
     if (phone_storage.value.length > 1) phone.value = phone_storage.value;
@@ -263,6 +235,35 @@ export const foundersIdividualForm = defineStore("foundersIdividual", () => {
       passport_no.value = passport_no_storage.value;
   }
 
+  function clearLocalStorage() {
+    flat_storage.value = "";
+    building_storage.value = "";
+    street_storage.value = "";
+    state_storage.value = "";
+    country_storage.value = "";
+    postal_code_storage.value = "";
+    identity_no_suffix_storage.value = "";
+    flat2_storage.value = "";
+    building2_storage.value = "";
+    street2_storage.value = "";
+    state2_storage.value = "";
+    country2_storage.value = "";
+    postal_code2_storage.value = "";
+
+    issuing_country_storage.value = "";
+    phone_storage.value = "";
+    email_storage.value = "";
+    confirm_email_storage.value = "";
+    first_name_storage.value = "";
+    last_name_storage.value = "";
+    chn_first_name_storage.value = "";
+    chn_last_name_storage.value = "";
+    nationality_storage.value = "";
+    occupation_storage.value = "";
+    identity_no_storage.value = "";
+    passport_no_storage.value = "";
+  }
+
   return {
     entity_type_id,
     flat,
@@ -270,14 +271,14 @@ export const foundersIdividualForm = defineStore("foundersIdividual", () => {
     street,
     // city,
     state,
-    // postal_code,
+    postal_code,
     country,
     flat2,
     building2,
     street2,
     // city2,
     state2,
-    // postal_code2,
+    postal_code2,
     country2,
     first_name,
     last_name,

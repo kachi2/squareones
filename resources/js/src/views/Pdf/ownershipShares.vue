@@ -42,6 +42,10 @@
                 style="padding-top: 6pt;padding-left: 4pt;text-indent: 0pt;line-height: 16pt;text-align: center;">
                 {{shares?.chn_first_name?shares?.chn_first_name +" "+shares?.chn_last_name:shares.chn_company_name}}
                 </p>
+                <p class="s17"
+                style="padding-top: 6pt;padding-left: 4pt;text-indent: 0pt;line-height: 16pt;text-align: center;">
+                    <img width="100" :src="shares?.signature" alt="">
+                </p>
 
         </td>
         <td
@@ -55,7 +59,7 @@
                 Ordinary</p>
             <p class="s17"
                 style="padding-top: 11pt;padding-left: 2pt;padding-right: 5pt;text-indent: 0pt;text-align: center;">
-                {{shares?.company_shares[0]?.currency}} {{shares?.company_shares[0]?.total_amount_paid}}</p>
+                {{shares?.company_shares[0]?.currency}} {{shares?.owner_shares?.total_amount}}</p>
         </td>
     </tr>
  
@@ -104,7 +108,7 @@ const shareholders = computed(() => {
             obj.company_shares = startCompanyStore.companyInProgress?.shares
             founders.push(obj)
 
-            console.log(founders)
+            // console.log(founders)
         }
     })
 

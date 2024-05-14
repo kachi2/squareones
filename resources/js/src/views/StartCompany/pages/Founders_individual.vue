@@ -87,7 +87,7 @@
                 <label class="form-label"> Street／Estate／Lot／Village <small class=" text-danger">*</small></label>
 
                 <input :class="{ 'error-field': form.errors.street }" v-model="form.street" class="form-control"
-                    type="text" placeholder="City">
+                    type="text" placeholder="Street">
                 <small class=" text-danger">{{ form.errors.street }}</small>
             </div>
             <div class="col-12">
@@ -137,7 +137,7 @@
                 <label class="form-label"> Street／Estate／Lot／Village <small class=" text-danger">*</small></label>
 
                 <input :class="{ 'error-field': form.errors.street2 }" v-model="form.street2" class="form-control"
-                    type="text" placeholder="City">
+                    type="text" placeholder="Street">
                 <small class=" text-danger">{{ form.errors.street2 }}</small>
             </div>
             <div class="col-12">
@@ -203,7 +203,9 @@
         <div class="col-md-12">
             <label class=" fw-bolder">Phone number <small class="text-danger">*</small></label>
             <vue-tel-input :class="{ 'error-field': form.errors.phone }" :inputOptions="phoneField.input"
-                :dropdownOptions="phoneField.dropDown" :autoFormat="true" v-model="form.phone"></vue-tel-input>
+                :dropdownOptions="phoneField.dropDown" :autoFormat="true" v-model="form.phone"
+                data-maska-tokens="0:[0-9]:multiple">
+            </vue-tel-input>
             <small class=" text-danger">{{ form.errors.phone }}</small>
         </div>
         <div class="col-md-12">
@@ -344,15 +346,14 @@ function moveBack() {
 
 function saveAndContinue() {
     if (!startCompanyStore.companyInProgress?.id) {
-        toast.default('You have not registered any company name', { position: 'top-right' })
+        toast.error('You have not registered any company name', { position: 'top-right' })
         startCompanyStore.switchStage('-', 2)
         return;
     }
 
     if (Object.keys(form.errors).length > 0) {
-
-        toast.default("Some fields still have errors", { position: 'top-right' });
-        return true;
+        toast.error("Some fields still have errors", { position: 'top-right' });
+        return;
     }
 
     // if (!form.first_name || !form.last_name || !form.dob || !form.phone || !form.email || !form.occupation) {
@@ -362,7 +363,7 @@ function saveAndContinue() {
 
     if (form.hasChineseName) {
         if (!form.chn_first_name || !form.chn_last_name) {
-            toast.default('Please complete Chinese names', { position: 'top-right' })
+            toast.error('Please complete Chinese names', { position: 'top-right' })
             return;
         }
     }
@@ -374,52 +375,61 @@ function saveAndContinue() {
 
     if (!form.correspondingAddressIsSame) {
         if (!form.flat2 || !form.street2) {
-            toast.default('Please complete corresponding address', { position: 'top-right' })
+            toast.error('Please complete Corresponding address', { position: 'top-right' })
             return;
         }
     }
 
+    if(form.phone.length < 12){
+        toast.error("Error on the phone input", { position: 'top-right' });
+        return;
+       
+    }
     if (!useFxn.isEmail(form.email)) {
-        toast.default('Invalid email format', { position: 'top-right' })
+        toast.error('Invalid email format', { position: 'top-right' })
         return;
     }
 
     if (form.email !== form.confirm_email) {
-        toast.default('Emails do not macth!', { position: 'top-right' })
+        toast.error('Emails do not macth!', { position: 'top-right' })
         return;
     }
 
     if (form.identity_type_id == '1') {
         if (!form.passport_no || !form.issuing_country) {
-            toast.default('Please complete Passport fields', { position: 'top-right' })
+            toast.error('Please complete Passport fields', { position: 'top-right' })
             return;
         }
     }
 
     if (form.identity_type_id == '2') {
         if (!form.identity_no) {
-            toast.default('Please complete ID field', { position: 'top-right' })
+            toast.error('Please complete ID field', { position: 'top-right' })
             return;
         }
         if (!form.identity_no_suffix) {
-            toast.default('Please complete ID field', { position: 'top-right' })
+            toast.error('Please complete ID field', { position: 'top-right' })
             return;
         }
     }
 
     if (useFxn.ageInYears(new Date(form.dob)) < 18) {
-        toast.default('Must not be less that 18years old', { position: 'top-right' })
+        toast.error('Must not be less that 18years old', { position: 'top-right' })
+        return;
+    }
+    if (startCompanyStore.checkedEntityCapacity.length == 0) {
+        toast.error('Select at least a Capacity!', { position: 'top-right' })
         return;
     }
 
-
     const formData = new FormData;
     formData.append('company_id', startCompanyStore.companyInProgress.id)
-    if (startCompanyStore.idToEdit)
-    
+    if (startCompanyStore.idToEdit){
         formData.append('company_entity_id', startCompanyStore.idToEdit)
-    formData.append('entity_capacity_id', JSON.stringify(startCompanyStore.checkedEntityCapacity))
+        formData.append('isEdit', '1')
+    }
     formData.append('entity_type_id', form.entity_type_id)
+    formData.append('entity_capacity_id', JSON.stringify(startCompanyStore.checkedEntityCapacity))
     formData.append('first_name', form.first_name)
     formData.append('last_name', form.last_name)
 
@@ -427,7 +437,7 @@ function saveAndContinue() {
         formData.append('chn_first_name', form.chn_first_name)
         formData.append('chn_last_name', form.chn_last_name)
     }
-
+   if(form.dob)
     formData.append('dob', form.dob)
     formData.append('nationality', form.nationality)
     formData.append('phone', form.phone)
@@ -468,16 +478,19 @@ function saveAndContinue() {
 async function saveFromToApi(formData: FormData) {
     try {
         await api.companyEntity(formData)
+        .then(async (response)=>{
+            // console.log(response, 'Data from foundes')
         toast.success('Data Saved Successfully', { position: 'top-right' });
         form.isSaving = false
-       
         startCompanyStore.getCompanyInProgress('founder')
         startCompanyStore.isShowingFoundersForm = false
-        // resetForm()
+        form.clearLocalStorage()
+        form.clearLocalStorage()
 
+    })
     } catch (error) {
         toast.error('Sorry, Something went wrong', { position: 'top-right' });
-        console.log(error);
+        // console.log(error);
         form.isSaving = false
 
     }

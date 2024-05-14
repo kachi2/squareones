@@ -205,10 +205,10 @@ watchEffect(() => {
 onMounted(() => {
     // check for atleast one Individual
     const entity = startCompanyStore.companyInProgress?.company_entity ?? [];
-    const individual = entity.find((x: any) => x.entity_capacity_id.includes(2))
-    const Corporate = entity.find((x: any) => x.entity_type_id == 2)
+    const individual = entity.find((x: any) => x.entity_capacity_id.includes(2) && x.entity_type_id == 1)
+    const Corporate = entity.find((x: any) => x.entity_capacity_id.includes(1))
     if (!Corporate ||  !individual) {
-        toast.error('You need to add at least one Shareholder <br>   and one Individual Director to proceed', { position: 'top-right' })
+        toast.error('You need to add at least one <br> Shareholder    and one Individual <br> Director to proceed', { position: 'top-right' })
         startCompanyStore.switchStage('-')
     }
 
@@ -234,7 +234,7 @@ async function retrieveShareHolders() {
         const arrayOfFounders: any[] = []
         if (entity.length) {
             entity.forEach((el: any) => {
-                // console.log(el)
+                 console.log(el)
 
                 const obj = el.individual || el.corporate;
                 if (obj) {

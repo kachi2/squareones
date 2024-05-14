@@ -4,7 +4,7 @@
       <section class="section">
         <div class="fw-bolder fs-5">Founders / Directors
           <span v-if="startCompanyStore.isShowingFoundersForm && startCompanyStore.idToEdit"
-            class="text-warning small fst-italic">(Editing)</span>
+            class="text-primary small fst-italic">(editing...)</span>
         </div>
         <span>Tell us the details about the founder and director.</span>
       </section>
@@ -35,16 +35,15 @@
                     <i class="bi bi-person-circle" style="font-size:20px; padding-left:20px"></i>
                     <td class="text-capitalize " v-if="item.entity_type_id == 1">
                       {{ item.first_name + " " + item.last_name }} <br>
-                      <small> {{ item.capacity.includes('1') ? 'Shareholder' : '' }}
-                      {{ (item.capacity.includes('1') && item.capacity.includes('2'))?',':'' }}
-                      {{ item.capacity.includes('2') ? 'Director' : '' }}</small>
+                      <small> {{ item.capacity.includes('1') ? 'Shareholder' : '' }}</small>
+                      {{ item.capacity.length > 1 ? " " : " " }}
+                      <small> {{ item.capacity.includes('2') ? 'Director' : ' ' }}</small>
 
                     </td>
                     <td v-else class="text-capitalize">
                       {{ item.company_name }} <br>
-                      <small> {{ item.capacity.includes('1') ? 'Shareholder' : '' }}
-                      {{ (item.capacity.includes('1') && item.capacity.includes('2'))?',':'' }}
-                      {{ item.capacity.includes('2') ? 'Director' : '' }}</small>
+                      <small> {{ item.capacity.includes('1') ? 'Shareholder' : ' ' }}</small>
+                      <small> {{ item.capacity.includes('2') ? ' Director' : ' ' }} </small>
                     </td>
                     <td class="text">
                       {{ item.entity_type_id == "1" ? "Individual" : "Corporate" }}
@@ -80,13 +79,15 @@
           <div class="fw-bold">What is the type of founder/director? </div>
 
           <div class="row justify-content- mt-1">
-            <div @click="founderType = 'individual'" class="col-4 cursor-pointer">
+            <div @click="founderType = 'individual'" class="col-4 cursor-pointer"
+              :class="{ 'pointer-events-none': startCompanyStore.idToEdit }">
               <i v-if="founderType == 'individual'" class="bi bi-record-circle-fill text-primary me-1"></i>
               <i v-else class="bi bi-circle me-1"></i>
               Individual
             </div>
 
-            <div @click="founderType = 'corporate'" class="col-4 cursor-pointer">
+            <div @click="founderType = 'corporate'" class="col-4 cursor-pointer"
+              :class="{ 'pointer-events-none': startCompanyStore.idToEdit }">
               <i v-if="founderType == 'corporate'" class="bi bi-record-circle-fill text-primary me-1"></i>
               <i v-else class="bi bi-circle me-1"></i>
               Corporate
@@ -232,6 +233,7 @@ const individual_form = foundersIdividualForm()
 const founderType = ref<"individual" | "corporate">("individual");
 const startCompanyStore = useStartCompanyStore();
 const toast = useToast();
+const founderRadio = ref(false)
 
 
 const foundersAdded = computed(() => {
@@ -270,18 +272,19 @@ function openForm() {
   individual_form.resetForm()
   startCompanyStore.isShowingFoundersForm = true
   startCompanyStore.idToEdit = ''
-  corporate_form.clearLocalStorage()
-  individual_form.clearLocalStorage()
+  // individual_form.clearLocalStorage()
+  // individual_form.clearLocalStorage()
 }
 
 function editFounder(entity: any) {
   founderType.value = entity.entity_type_id == '1' ? 'individual' : 'corporate'
   startCompanyStore.isShowingFoundersForm = true
   startCompanyStore.idToEdit = entity.company_entity_id
-  corporate_form.resetForm()
-  individual_form.resetForm()
-  corporate_form.clearLocalStorage()
+  // corporate_form.resetForm()
+  // individual_form.resetForm()
   individual_form.clearLocalStorage()
+  individual_form.clearLocalStorage()
+  founderRadio.value = true;
 
 
   populateForms(entity)
@@ -335,7 +338,7 @@ function populateForms(entity: any) {
   else {
     if (entity.company_name != undefined && entity.company_name != 'undefined')
       corporate_form.company_name = entity.company_name
-    if (entity.chn_company_name && entity.chn_company_name != 'undefined')
+    if (entity.chn_company_name != undefined && entity.chn_company_name != 'undefined')
       corporate_form.chn_company_name = entity.chn_company_name
     corporate_form.date_incorporated = new Date(entity.date_incorporated)
     corporate_form.flat = entity.flat
@@ -367,10 +370,10 @@ function deleteFounder(id: any) {
     .then(async (resp) => {
       if (resp.isConfirmed) {
         try {
-          await api.deleteEntity(id);
+          const apis = await api.deleteEntity(id);
           toast.success("Record deleted", { position: "top-right" });
           startCompanyStore.getCompanyInProgress("founder");
-          corporate_form.clearLocalStorage()
+          individual_form.clearLocalStorage()
           individual_form.clearLocalStorage()
         } catch (error) {
           // console.log(error);
@@ -390,5 +393,9 @@ function saveAndContinue() {
 <style lang="css" scoped>
 .form-check-label {
   cursor: pointer;
+}
+
+.pointer-events-none {
+  pointer-events: none;
 }
 </style>

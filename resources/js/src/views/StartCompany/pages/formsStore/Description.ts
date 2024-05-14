@@ -52,6 +52,12 @@ export const descriptionForm = defineStore('description', () => {
             website.value = companyInProgress.website;
     }
 
+    function clearLocalStorage() {
+        description_storage.value = ''
+        website_storage.value = ''
+        business_nature_id_storage.value = ''
+    }
+
 
     return {
         description,
@@ -65,5 +71,6 @@ export const descriptionForm = defineStore('description', () => {
         updateFields,
 
         saveToLocalStorage,
+        clearLocalStorage,
     }
 })

@@ -258,35 +258,35 @@ function moveBack() {
 
 function saveAndContinue() {
     if (!startCompanyStore.companyInProgress?.id) {
-        toast.default('You have not registered any company name', { position: 'top-right' })
+        toast.error('You have not registered any company name', { position: 'top-right' })
         startCompanyStore.switchStage('-', 2)
         return;
     }
 
     if(form.phone.length < 12){
-        toast.default("Error on the phone input", { position: 'top-right' });
+        toast.error("Error on the phone input", { position: 'top-right' });
+        return;
        
     }
     if (Object.keys(form.errors).length > 0) {
-        console.log(form.errors)
-        toast.default("Some fields still have errors", { position: 'top-right' });
-     
-        return true;
+        // console.log(form.errors)
+        toast.error("Some fields still have errors", { position: 'top-right' });
+        return;
     }
 
-    // if (!form.first_name || !form.last_name || !form.phone || !form.email || !form.date_incorporated || !form.company_name
-    //     || !form.chn_company_name || !form.business_nature_id || !form.country_registered
-    //     || !form.registeration_no) {
-    //     toast.default('Please complete fields', { position: 'top-right' })
-    //     return;
-    // }
+    if (!form.first_name || !form.last_name || !form.phone || !form.email || !form.date_incorporated || !form.company_name
+        || !form.chn_company_name || !form.business_nature_id || !form.country_registered
+        || !form.registeration_no) {
+        toast.default('Please complete fields', { position: 'top-right' })
+        return;
+    }
 
 
 
-    // if (!form.address || !form.street_no || !form.city || !form.state || !form.postal_code) {
-    //     toast.default('Please complete fields', { position: 'top-right' })
-    //     return;
-    // }
+    if (!form.flat || !form.street || !form.city || !form.country || !form.building) {
+        toast.default('Please complete fields', { position: 'top-right' })
+        return;
+    }
 
     if (!useFxn.isEmail(form.email)) {
         toast.default('Invalid email format', { position: 'top-right' })
@@ -307,8 +307,9 @@ function saveAndContinue() {
 
     const formData = new FormData;
     formData.append('company_id', startCompanyStore.companyInProgress.id)
-    if (startCompanyStore.idToEdit)
+    if (startCompanyStore.idToEdit){
         formData.append('company_entity_id', startCompanyStore.idToEdit)
+    }
     formData.append('entity_capacity_id', JSON.stringify(startCompanyStore.checkedEntityCapacity))
     formData.append('entity_type_id', form.entity_type_id)
     formData.append('first_name', form.first_name)
@@ -342,6 +343,8 @@ async function saveFromToApi(formData: FormData) {
         form.isSaving = false
         startCompanyStore.getCompanyInProgress('founder')
         startCompanyStore.isShowingFoundersForm = false
+        form.clearLocalStorage()
+        form.clearLocalStorage()
         // resetForm()
 
     } catch (error) {

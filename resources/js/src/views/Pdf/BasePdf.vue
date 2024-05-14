@@ -29,36 +29,21 @@
     </div>
 
     <div class="off-screen" ref="PDFsection" hidden id="print_item">
-                        sdsdsddsdsdsdsd
-            <!-- <company :companyInfo="data" /> -->
-
-            <!-- <company_info :companyInfo="data" /> -->
-            <!-- <div style="page-break-after: always">
+                      
+            <company :companyInfo="data" />
+            <company_info :companyInfo="data" />
             <individual_shareholder v-for="shares in shareholders" :shareholder="shares" />
-            </div> -->
-            <!-- <div style="page-break-after: always">
             <corporate_shareholder v-for="coshare in CorporateShareholder" :corporateShare="coshare" />
-            </div>  -->
-         <!-- <div style="page-break-after: always">
             <company_secretary />
-            </div>
-            <div style="page-break-after: always">
             <individual_directors v-for="directors in IndividualDirectors" :director="directors" />
-            </div>
-            <div style="page-break-after: always">
             <corporate_directors v-for="corporates in CorporateDirectors" :corporate="corporates" />
-            </div>
-            <div style="page-break-after: always">
             <founder_statement />
-            </div>
-            <div style="page-break-after: always">
             <pi_ncc_secretary v-for="directors in IndividualDirectors" :director="directors" />
-            </div>
             <notice_to_business />
             <company_ordinance />
             <class_of_shares />
             <ownershipShares />
-            <articles /> -->
+            <articles />
              <!--    <articles_last /> -->
        
     </div>
@@ -138,7 +123,7 @@ function createPDF(canvas: any, index: any) {
         doc.rect(0, 0, 210, 295);
         heightLeft -= pageHeight;
     }
-    // doc.save("public_docs.pdf")
+    doc.save("public_docs.pdf")
     const pdfBlob = doc.output('blob');
     formData.append(`documents[${index}]`, pdfBlob);
 }
@@ -177,7 +162,7 @@ async function sendPDFToApi() {
     } catch (error) {
         toast.error('Sorry, Something went wrong', { position: 'top-right' });
         startCompanyStore.pdfIsSending = false
-        console.log(error);
+        // console.log(error);
     }
 }
 
@@ -205,13 +190,16 @@ const IndividualDirectors = computed(() => {
     const director: any[] = [];
     Directors.forEach((dir: any) => {
         const obj = dir.individual;
-        //   console.log(dir)
+        //   console.log(dir, "true")
         let cp = dir.entity_capacity_id;
         if (obj && cp.includes(2)) {
             obj.entity_type_id = dir.entity_type_id,
                 obj.capacity = dir.entity_capacity_id
             obj.address = obj.cor_address ?? obj.res_address
+            obj.signature = dir.signature??''
             director.push(obj)
+
+            // console.log(director, 'directors list')
         }
     })
 
@@ -228,8 +216,9 @@ const CorporateDirectors = computed(() => {
         if (objs && cps.includes(2)) {
             objs.entity_type_id = cdir.entity_type_id,
                 objs.capacity = cdir.entity_capacity_id
+                objs.signature = cdir.signature??''
             Corporate.push(objs)
-            //   console.log(Corporate)
+            //   console.log(Corporate, 'corporate list')
         }
     })
 

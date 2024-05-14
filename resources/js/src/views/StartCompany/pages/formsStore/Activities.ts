@@ -81,6 +81,14 @@ export const activitiesForm = defineStore('activities', () => {
 
     }
 
+    function clearLocalStorage() {
+        description_storage.value = '';
+        activity_level_storage.value = ''
+        activity_nature_storage.value = ''
+        customer_location_operation_storage.value = ''
+        country_storage.value = ''
+    }
+
 
     return {
         description,
@@ -94,6 +102,7 @@ export const activitiesForm = defineStore('activities', () => {
         handleSubmit,
         setFieldValue,
         updateFields,
-        saveToLocalStorage
+        saveToLocalStorage,
+        clearLocalStorage
     }
 })

@@ -10,11 +10,14 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
     const isShowingFoundersForm = ref<boolean>(false)
     const isActiveMenu = (stage: number) => currentStage.value == stage
     const idToEdit = ref<string>('')
-
+    const companyIdonRoute=ref<any>(null)
     const signatureImage = useStorage('signatureImage_s1', '')
+    const isFounderSigned = ref<any>(null)
+    const isKYCcompleted = ref<any>(null)
     const signatureDateSigned: any = useStorage('signatureDate_s1', '')
     const pdfAction = ref<boolean>(false)
     const pdfIsSending = ref<boolean>(false)
+
 
 
     const businessNatures = ref<any[]>([])
@@ -30,21 +33,22 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
     const ongoingSourceOfIncome = jsonData.ongoingSourceOfIncome
     const levelOfActivity = jsonData.levelOfActivity
     const natureOfActivity = jsonData.natureOfActivity
+  
 
     const menus = [
         // { stage: 1, name: 'Structure' },
-        { stage: 2, name: 'Name' },
-        { stage: 3, name: 'Description' },
-        { stage: 4, name: 'Address' },
-        { stage: 5, name: 'Founders/Directors' },
-        { stage: 6, name: 'Ownership' },
-        { stage: 7, name: 'Company Secretary' },
-        { stage: 8, name: 'Source' },
-        { stage: 9, name: 'Activities' },
+        { stage: 2, name: 'Name', dataSource: "names" },
+        { stage: 3, name: 'Description', dataSource: 'description' },
+        { stage: 4, name: 'Address', dataSource: 'address' },
+        { stage: 5, name: 'Founders/Directors', dataSource: 'company_entity' },
+        { stage: 6, name: 'Ownership', dataSource: 'owner_share' },
+        { stage: 7, name: 'Company Secretary', dataSource: 'secretary' },
+        { stage: 8, name: 'Source', dataSource: 'fund_source' },
+        { stage: 9, name: 'Activities', dataSource: 'activity' },
         // { stage: 10, name: 'Uploads' },
-        { stage: 10, name: 'Summary' },
-        { stage: 11, name: 'Sign' },
-        { stage: 12, name: 'Pay' },
+        { stage: 10, name: 'Summary', dataSource: '' },
+        { stage: 11, name: 'Sign', dataSource: '' },
+        { stage: 12, name: 'Pay', dataSource: '' },
         // { stage: 13, name: 'KYC' },
     ]
 
@@ -56,8 +60,8 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
 
     const getCompanyInProgress = async (isFromFounder?: string) => {
         try {
-            const { data } = await api.companyProgress();
-            console.log(data);
+            const { data } = await api.companyProgress(companyIdonRoute.value);
+            // console.log(data);
             companyInProgress.value = data.company
             // if (!isFromFounder) decideStageToShow()
         } catch (error) {
@@ -88,6 +92,26 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
         }
     }
 
+    function collateFounders(founders: any[]) {
+        const arrayOfFounders: any[] = []
+        if (founders.length) {
+            founders.forEach((el: any) => {
+                const obj = el.individual || el.corporate;
+                if (obj) {
+                    obj.label = el.entity_type_id == 1 ?
+                        `${obj.first_name ?? obj.chn_first_name} ${obj.last_name ?? obj.chn_last_name}`
+                        : `${obj.company_name ?? obj.chn_company_name}`;
+                    obj.company_entity_id = el.id
+                    obj.signature = el.signature
+                    obj.kyc_status = el.kyc_status
+                    arrayOfFounders.push(obj)
+                }
+            });
+        }
+        return arrayOfFounders;
+    }
+
+
     const getBusinessNatures = async () => {
         try {
             const { data } = await api.businessNature();
@@ -95,6 +119,12 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
         } catch (error) {
             // console.log(error);
         }
+    }
+
+    function clearLocalStorage() {
+        currentStage.value = 2
+        signatureImage.value = ''
+        signatureDateSigned.value = ''
     }
 
     return {
@@ -108,7 +138,10 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
         companyInProgress,
         getCountries,
         isShowingFoundersForm,
+        isFounderSigned,
+        isKYCcompleted,
         countries,
+        companyIdonRoute,
         checkedEntityCapacity,
         employmentStatusList,
         currencies,
@@ -122,6 +155,8 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
         signatureDateSigned,
         pdfAction,
         pdfIsSending,
+        clearLocalStorage,
+        collateFounders,
 
     }
 })

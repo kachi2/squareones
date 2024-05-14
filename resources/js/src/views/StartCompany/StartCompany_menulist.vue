@@ -2,6 +2,7 @@
 import { useStartCompanyStore } from './StartCompany_store';
 import { useToast } from 'vue-toast-notification';
 import { useRouter } from 'vue-router';
+import {computed} from 'vue'
 
 const router = useRouter()
 
@@ -11,25 +12,42 @@ const startCompanyStore = useStartCompanyStore()
 function goToStage(stage: number) {
     const company = startCompanyStore.companyInProgress;
 
-    if ((stage === 10 || stage == 11 || stage == 12) && (!company || !company.description || !company.address
+if(stage == 11 || stage == 12){
+    toast.info('You cannot access this page <br> here from here,complete all forms', { position: 'top-right' });
+}else if ((stage === 10 || stage == 11 || stage == 12) && (!company || !company?.description || !company?.address
         || !company.company_entity.length || !company.owner_share.length
         || !company.fund_source.length || !company.activity)) {
-        toast.info('You cannot access this page here <br> Complete all forms!', { position: 'top-right' });
+        toast.info('You cannot access this page <br> here from here,complete all forms', { position: 'top-right' });
     } else {
         router.push({ name: 'Start' })
         startCompanyStore.currentStage = stage;
     }
-
-
 }
+
+    function isformCompleted(dataSource: any) {
+
+        if(dataSource instanceof Array)
+        { 
+          return  dataSource?.length
+        }else if(dataSource != null){
+            return true
+        }
+        return false
+    }
+
+
 </script>
 
 <template>
     <ul class="list-group list-group-flush mt-4">
         <li v-for="menu in startCompanyStore.menus" @click="goToStage(menu.stage)" class="list-group-item"
             :class="{ 'isActive': startCompanyStore.isActiveMenu(menu.stage) }">
-            {{ menu.name }}
-        </li>
+            {{ menu?.name }}
+            <!-- {{startCompanyStore.companyInProgress[menu.dataSource]?.length || startCompanyStore.companyInProgress[menu.dataSource] != null }} -->
+            <span v-if="startCompanyStore.companyInProgress">
+                <small style="font-size:10px" v-if="isformCompleted(startCompanyStore?.companyInProgress[menu.dataSource])" ><i class="bi bi-check-circle text-primary "></i></small> 
+            </span>
+         </li> 
     </ul>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-    <div v-if="companyInfoStore.currentForm == 1">
+    <div v-if="companyInfoStore.currentPanel == 1">
         <div class="col-12">
             <div class="alert alert-dark bg-primary-subtle" role="alert">
                 <div class="row gy-1">
@@ -53,7 +53,7 @@
 
             </div>
             <div class="col-md-6">
-                <div class="card border-0 h-100 bg-transparent">
+                <div class="card border-0 h-100 bg-transparent" style="min-height: 400px;">
                     <div class="card-header fw-bold bg-transparent border-0 ps-0">Track Incorporation</div>
                     <div class="card-body small bg-white rounded-3">
                         <!-- <div class="fw-bold mb-2 fs-5"></div> -->
@@ -164,11 +164,12 @@
         </div>
     </div>
 
-    <company_info_registers v-if="companyInfoStore.currentForm == 2" />
-    <company_info_registers2 v-if="companyInfoStore.currentForm == 3" />
+    <company_info_registers1 v-if="companyInfoStore.currentPanel == 2" />
+    <company_info_registers2 v-if="companyInfoStore.currentPanel == 3" />
+    <company_info_registers3 v-if="companyInfoStore.currentPanel == 4" />
 
     <div class="mt-4">
-        <customPagination :per-page="1" :total-records="3" :current-page="companyInfoStore.currentForm"
+        <customPagination :per-page="1" :total-records="4" :current-page="companyInfoStore.currentPanel"
             @move-to-next="moveToNext" />
     </div>
 </template>
@@ -176,8 +177,9 @@
 import { useRoute } from 'vue-router';
 import customPagination from '@/components/customPagination.vue';
 import { useCompanyInfoStore } from './company_info_store';
-import company_info_registers from './company_info_registers.vue';
+import company_info_registers1 from './company_info_registers1.vue';
 import company_info_registers2 from './company_info_registers2.vue';
+import company_info_registers3 from './company_info_registers3.vue';
 
 const route = useRoute()
 const companyInfoStore = useCompanyInfoStore()
@@ -252,4 +254,4 @@ th {
     /* right: 0%; */
     left: 100%;
 }
-</style>
+</style>./company_info_registers1.vue

@@ -165,20 +165,19 @@ function moveBack() {
 
 onMounted(()=> {
  watchEffect(() => {
-    if(Object.keys(form.country).length < 1)
-    { 
-    form.errors.country = 'Please select an option'
-    }
-},
-)
-watchEffect(() => {
-    if(Object.keys(form.customer_location_operation).length < 1)
+  
+    if(form.customer_location_operation &&  form.customer_location_operation.length < 1)
     { 
     form.errors.customer_location_operation = 'Please select an option'
     }
-},
-)
+
+    if(form.country && form.country.length < 1){
+        form.errors.country = 'Please select an option'  
+    }
 })
+})
+
+
 
 const saveAndContinue = form.handleSubmit(async (values) => {
 

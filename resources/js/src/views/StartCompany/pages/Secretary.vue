@@ -127,7 +127,10 @@ function moveBack() {
     startCompanyStore.switchStage('-')
 }
 
-function saveAndContinue() {
+async function saveAndContinue() {
+    const formData = new FormData();
+    formData.append('company_id', startCompanyStore.companyInProgress?.id)
+    await api.companySecretary(formData)
     startCompanyStore.switchStage('+')
 }
 

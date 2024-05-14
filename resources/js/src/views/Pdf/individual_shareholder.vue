@@ -197,7 +197,7 @@
                     </p>
                 </td>
                 <td style="width:80%;border:1px solid #000">
-                    <p style="text-indent: 0pt;text-align: center;">{{ shareholder?.res_address?.city }}<br /></p>
+                    <p style="text-indent: 0pt;text-align: center;">{{ shareholder?.res_address?.state }}<br /></p>
                 </td>
                 <td></td>
             </tr>
@@ -295,7 +295,7 @@
                     style="width:87pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
 
                     <p style="text-indent: 0pt;text-align: center;">
-                        {{ shareholder?.company_shares[0]?.no_of_share }}<br /></p>
+                        {{ shareholder?.owner_shares?.total_amount  }}<br /></p>
                 </td>
                 <td
                     style="width:57pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -305,7 +305,7 @@
                 <td
                     style="width:96pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p style="text-indent: 0pt;text-align: center;">
-                        {{ shareholder?.company_shares[0]?.total_amount_paid }}<br /></p>
+                        {{ shareholder?.owner_shares?.total_amount  }}<br /></p>
                 </td>
             </tr>
             <tr style="height:28pt">
@@ -338,7 +338,7 @@
                 <td
                     style="width:87pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p style="text-indent: 0pt;text-align: center;">
-                        {{ shareholder?.company_shares[0]?.no_of_share }}<br /></p>
+                        {{ shareholder?.owner_shares?.total_amount }}<br /></p>
                 </td>
                 <td
                     style="width:57pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -347,7 +347,7 @@
                 <td
                     style="width:96pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p style="text-indent: 0pt;text-align: center;">
-                        {{ shareholder?.company_shares[0]?.total_amount_paid }}<br /></p>
+                        {{ shareholder?.owner_shares?.total_amount }}<br /></p>
                 </td>
             </tr>
         </table>

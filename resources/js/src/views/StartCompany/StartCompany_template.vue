@@ -52,19 +52,16 @@
                     <span class="small fw-bold d-none d-md-inline" v-if="activeCompanyName">
                         ({{ activeCompanyName }})
                     </span>
-                    <span class="badge bg-success-subtle text-success small"
-                            v-if="paymentStatus">
-                            <i class="bi bi-check-circle"></i> Paid
-                        </span>
+                    <span class="badge bg-success-subtle text-success small" v-if="paymentStatus">
+                        <i class="bi bi-check-circle"></i> Paid
+                    </span>
                     <span class="float-end">
                         <!-- KYC Status -->
 
-                        <span class="badge bg-success-subtle text-success small"
-                            v-if="KycStatus">
+                        <span class="badge bg-success-subtle text-success small" v-if="KycStatus">
                             <i class="bi bi-check-circle"></i> Verified
                         </span>
-                        <span class="badge bg-success-subtle text-danger small"
-                            v-else>
+                        <span class="badge bg-success-subtle text-danger small" v-else>
                             <i class="bi bi-check-circle"></i> Not-Verified
                         </span>
                         <!-- KYC Status -->
@@ -72,7 +69,7 @@
                             <span data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                 class="dropdown-toggle">
                                 <i class="bi bi-person-circle "></i>
-                                {{ startCompanyStore.companyInProgress?.users?.name }}
+                                {{ authStore.profileDataName }}
                                 <i class="bi bi-chevron-down"></i></span>
                             <div class="dropdown-menu dropdown-menu-start">
                                 <span @click="logout" class="dropdown-item text-danger">
@@ -110,6 +107,21 @@ import StartCompany_mobilemenu from './StartCompany_mobilemenu.vue';
 import { useAuthStore } from '@/stores/authStore';
 import { useRouter, useRoute } from 'vue-router';
 
+import { descriptionForm } from './pages/formsStore/Description';
+import { nameForm } from './pages/formsStore/Name';
+import { sourceForm } from './pages/formsStore/Source';
+import { activitiesForm } from './pages/formsStore/Activities';
+import { foundersCorporateForm } from './pages/formsStore/Founders_corporate'
+import { foundersIdividualForm } from './pages/formsStore/Founders_individual'
+
+
+const description_form = descriptionForm()
+const name_form = nameForm()
+const source_form = sourceForm()
+const activities_form = activitiesForm()
+const fCoporate_form = foundersCorporateForm()
+const fIndividual_form = foundersIdividualForm()
+
 const authStore = useAuthStore()
 const router = useRouter()
 const route = useRoute()
@@ -117,14 +129,14 @@ const route = useRoute()
 
 const startCompanyStore = useStartCompanyStore()
 
-const paymentStatus = computed(()=>{
+const paymentStatus = computed(() => {
     const status = startCompanyStore.companyInProgress?.billing?.status
-return status;
+    return status;
 })
 
-const KycStatus = computed(()=>{
+const KycStatus = computed(() => {
     const status = startCompanyStore.companyInProgress?.users?.kyc_status
-return status;
+    return status;
 })
 
 const activeCompanyName = computed(() => {
@@ -141,6 +153,13 @@ const activeCompanyName = computed(() => {
 
 
 async function logout() {
+    await description_form.clearLocalStorage()
+    await name_form.clearLocalStorage()
+    await source_form.clearLocalStorage()
+    await activities_form.clearLocalStorage()
+    await fCoporate_form.clearLocalStorage()
+    await fIndividual_form.clearLocalStorage()
+    await startCompanyStore.clearLocalStorage()
     await authStore.logout()
     router.replace({ name: 'Login' })
 }

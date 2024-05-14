@@ -20,17 +20,17 @@ export const nameForm = defineStore('name', () => {
     }
 
     const rules = {
-        // choice_level1_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
-        // choice_level2_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
-        // choice_level3_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
-        // choice_level4_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
-        // choice_level5_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
+        choice_level1_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
+        choice_level2_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
+        choice_level3_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
+        choice_level4_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
+        choice_level5_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
 
-        // choice_level1_eng_name: yup.string(),
-        // choice_level2_eng_name: yup.string(),
-        // choice_level3_eng_name: yup.string(),
-        // choice_level4_eng_name: yup.string(),
-        // choice_level5_eng_name: yup.string(),
+        choice_level1_eng_name: yup.string(),
+        choice_level2_eng_name: yup.string(),
+        choice_level3_eng_name: yup.string(),
+        choice_level4_eng_name: yup.string(),
+        choice_level5_eng_name: yup.string(),
     };
 
     const { errors, handleSubmit, defineField, setFieldValue, resetForm, resetField } = useForm({
@@ -185,6 +185,39 @@ export const nameForm = defineStore('name', () => {
             choice_level5_chn_prefix.value = choice_level5_chn_prefix_storage.value
     }
 
+
+    function clearLocalStorage() {
+        choice_level1_eng_name_storage.value = '';
+        choice_level1_chn_name_storage.value = '';
+        choice_level1_prefix_storage.value = '';
+        choice_level1_chn_prefix_storage.value = '';
+
+        choice_level2_eng_name_storage.value = '';
+        choice_level2_chn_name_storage.value = '';
+        choice_level2_prefix_storage.value = '';
+        choice_level2_chn_prefix_storage.value = '';
+
+        choice_level3_eng_name_storage.value = '';
+        choice_level3_chn_name_storage.value = '';
+        choice_level3_prefix_storage.value = '';
+        choice_level3_chn_prefix_storage.value = '';
+
+        choice_level4_eng_name_storage.value = '';
+        choice_level4_chn_name_storage.value = '';
+        choice_level4_prefix_storage.value = '';
+        choice_level4_chn_prefix_storage.value = '';
+
+        choice_level5_eng_name_storage.value = '';
+        choice_level5_chn_name_storage.value = '';
+        choice_level5_prefix_storage.value = '';
+        choice_level5_chn_prefix_storage.value = '';
+
+        isSecond.value = false
+        isThird.value = false
+        isForth.value = false
+        isFifth.value = false
+    }
+
     return {
         choice_level1_eng_name,
         choice_level1_chn_name,
@@ -227,6 +260,7 @@ export const nameForm = defineStore('name', () => {
         resetForm,
 
         resetField,
-        chineseCheck
+        chineseCheck,
+        clearLocalStorage,
     }
 })

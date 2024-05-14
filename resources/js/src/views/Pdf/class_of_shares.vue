@@ -78,7 +78,7 @@
         </td>
         <td
             style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s17" style="padding-top: 3pt;text-indent: 0pt;text-align: center;">ORDINARY</p>
+            <p class="s17" style="padding-top: 3pt;text-indent: 0pt;text-align: center;"></p>
         </td>
     </tr>
     <tr style="height:36pt">
@@ -90,7 +90,8 @@
         <td
             style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
             <p class="s17" style="padding-top: 3pt;text-indent: 0pt;text-align: center;">
-                {{startCompanyStore?.companyInProgress?.shares[0].currency}}    {{startCompanyStore?.companyInProgress?.shares[0].no_of_shares}} </p>
+                <!-- {{startCompanyStore?.companyInProgress?.shares[0].currency}}    {{startCompanyStore?.companyInProgress?.shares[0].no_of_shares}} -->
+             </p>
         </td>
     </tr>
     <tr style="height:36pt">
@@ -101,7 +102,9 @@
 
         <td
             style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s17" style="padding-left: 24pt;text-indent: 0pt;text-align: left;">                           {{startCompanyStore?.companyInProgress?.shares[0].currency}}    {{startCompanyStore?.companyInProgress?.shares[0].total_amount_paid}} </p>
+            <p class="s17" style="padding-left: 24pt;text-indent: 0pt;text-align: left;">          
+                                 <!-- {{startCompanyStore?.companyInProgress?.shares[0].currency}}    {{startCompanyStore?.companyInProgress?.shares[0].total_amount_paid}}  -->
+                                </p>
         </td>
     </tr>
     <tr style="height:20pt">
@@ -113,7 +116,8 @@
         <td
             style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
             <p class="s17" style="padding-top: 1pt;padding-left: 23pt;text-indent: 0pt;text-align: left;">
-                {{startCompanyStore?.companyInProgress?.shares[0].currency}}    {{startCompanyStore?.companyInProgress?.shares[0].total_amount_paid}} </p>
+                <!-- {{startCompanyStore?.companyInProgress?.shares[0].currency}}    {{startCompanyStore?.companyInProgress?.shares[0].total_amount_paid}} -->
+             </p>
         </td>
     </tr>
     <tr style="height:10pt; " >
@@ -123,7 +127,7 @@
         </td>
         <td
             style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s17" style="padding-left: 24pt;text-indent: 0pt;text-align: left;">HKD 0</p>
+            <p class="s17" style="padding-left: 24pt;text-indent: 0pt;text-align: left;"></p>
         </td>
     </tr>
 </table>

@@ -54,9 +54,9 @@ onMounted(async () => {
     try {
         const items = route.query
         let param = await api.paymentConfirm(items);
-        console.log(param)
+        // console.log(param)
     } catch (err) {
-        console.log(err)
+        // console.log(err)
     }
 
     UserToken.value = startCompanyStore.companyInProgress.users.user_token
@@ -95,7 +95,7 @@ function goToDash(){
 }
 
 function startVerification() {
-    console.log('comply');
+    // console.log('comply');
 
     // @ts-ignore
     const complycube = ComplyCube.mount({
@@ -107,7 +107,7 @@ function startVerification() {
                 isKycCompleted.value = true
             },3000)
           
-            console.log("Capture complete", data)
+            // console.log("Capture complete", data)
         },
         onModalClose: function () {
             complycube.unmount()
@@ -117,7 +117,7 @@ function startVerification() {
                 // Request a new SDK token
             } else {
                 // Handle other errors
-                console.log(error.message);
+                // console.log(error.message);
             }
         }
     });

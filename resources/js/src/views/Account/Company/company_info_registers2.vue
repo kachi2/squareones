@@ -4,7 +4,7 @@
     <div class="row g-3">
         <div class="col-12">
             <div class="fw-bold mb-1">Secretary’s Register</div>
-            <div class="card border-0">
+            <div class="card">
                 <div class="card-body">
                     <div class="table-responsive small">
                         <table class="table table-sm text-nowra">
@@ -44,7 +44,7 @@
 
         <div class="col-12">
             <div class="fw-bold mb-1">Register of Company Name Changes</div>
-            <div class="card border-0">
+            <div class="card ">
                 <div class="card-body">
                     <div class="table-responsive small">
                         <table class="table table-sm text-nowrap">

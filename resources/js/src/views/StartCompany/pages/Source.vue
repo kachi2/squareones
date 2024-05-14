@@ -118,13 +118,13 @@ function moveBack() {
 
 const saveAndContinue = form.handleSubmit(async (values) => {
     if (!startCompanyStore.companyInProgress?.id) {
-        toast.default('You have not registered any company name', { position: 'top-right' })
+        toast.error('You have not registered any company name', { position: 'top-right' })
         startCompanyStore.switchStage('-', 2)
         return;
     }
 
     if (Object.keys(form.errors).length > 0) {
-        toast.default("Some fields still have errors", { position: 'top-right' });
+        toast.error("Some fields still have errors", { position: 'top-right' });
         return true;
     }
 
@@ -149,7 +149,7 @@ async function saveFromToApi(formData: FormData) {
         startCompanyStore.getCompanyInProgress()
 
     } catch (error) {
-        console.log(error);
+        // console.log(error);
 
         toast.error('Sorry, Something went wrong', { position: 'top-right' });
         form.isSaving = false

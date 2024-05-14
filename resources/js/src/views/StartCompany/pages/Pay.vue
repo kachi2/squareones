@@ -83,7 +83,7 @@ onMounted(async () => {
     try {
         intentHasError.value = false
         const { data } = await api.paymentIntent(items)
-        console.log(data);
+        // console.log(data);
 
         clientSecret = data.client_secret
         if (data?.client_secret)
