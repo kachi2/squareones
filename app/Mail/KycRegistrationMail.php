@@ -28,7 +28,7 @@ class KycRegistrationMail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('support@mazeoptions.com', 'SquareOne KYC'),
+            from: new Address('support@portrec.ng', 'SquareOne KYC'),
             subject: 'SquareOne KYC Verificaitons',
 
         );
