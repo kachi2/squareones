@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Dtos\SecretaryDto;
 use App\Http\Requests\SecretaryRequest;
 use App\Interfaces\SecretaryInterface;
 use Cloudinary\Api\HttpStatusCode;

@@ -9,14 +9,11 @@ use App\Models\CompanyEntity;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\KycRegistrationMail;
 
-
-
 class FounderKycListener implements ShouldQueue
 {
     /**
      * Create the event listener.
      */
-
     public function __construct(
       
     )
@@ -29,11 +26,9 @@ class FounderKycListener implements ShouldQueue
      */
     public function handle(object $event)
     {
-        
         $data = $event->data;
         $entity = CompanyEntity::where(['company_id' => $data['company_id'], 'id' => $data['company_entity_id']])->first();
         $res = $this->InitiateKycProcess($entity);
-        dd($res);
         return $data;
     }
 

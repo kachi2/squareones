@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
@@ -16,6 +15,7 @@ Route::middleware('auth:sanctum')->group(function() {
 Route::post('register/signature', [CompanyEntityController::class, 'RegisterEntitySignature']);
 Route::post('process/payment', [PaymentController::class, 'ProcessPayment'])->name('ProcessPayment');
 Route::get('/kyc/status/{company_entity_id?}', [KycController::class, 'UpdateKycStatus']);
+
 require __DIR__.'/jetstream.php';
 require __DIR__.'/auth.php';
 
