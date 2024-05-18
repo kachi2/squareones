@@ -69,7 +69,8 @@ public function getActiveCompany($company_id = null){
         try{ 
         //check if the company is same befor checking for names similarities
         $comp = CompanyName::where('company_id', $req?->company_id)->first();
-        if(isset($comp)){
+       
+        if(!isset($comp)){
             $check = $this->companyServices->CheckNameExist($req->names);
             if ($check) {
                 return  response()->json(['error' => "Names already exist on our database, please choose another name"]);
