@@ -61,7 +61,7 @@ class CompanyEntityController extends Controller
             // $sss = event(new FounderKyc($datas));
             //  dd('asas');
       
-            // $ss = ProcessFounderKyc::dispatch($datas);
+            $ss = ProcessFounderKyc::dispatch($datas);
             
             // }
             return response()->json([ 'data' => $data], HttpStatusCode::OK);
