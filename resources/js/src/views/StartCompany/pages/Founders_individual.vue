@@ -271,7 +271,6 @@ const form: any = foundersIdividualForm()
 
 onMounted(() => {
     form.updateFields(startCompanyStore.companyInProgress)
-    console.log(form.identity_type_id, 'idtype')
 })
 
 

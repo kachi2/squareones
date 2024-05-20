@@ -19,7 +19,7 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
         date_incorporated: yup.string().required('Date incorporated is required'),
         registeration_no: yup.string().required('Company registration number is required'),
         country_registered: yup.string().required('Company date of registration is required'),
-        // business_nature_id: yup.string().required('Business nature Id is required'),
+        business_nature_id: yup.string().required('Business nature Id is required'),
         flat: yup.string().required(' Flat is required'),
         building: yup.string().required(' building is required '),
         street: yup.string().required(' Street is required'),
@@ -104,7 +104,7 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
         if (building.value) building_storage.value = building.value
         if (street.value) street_storage.value = street.value
         if (state.value) state_storage.value = state.value
-        // if (country.value) country_storage.value = country.value
+        if (country.value) country_storage.value = country.value
         // if (postal_code.value) postal_code_storage.value = postal_code.value
 
         if (phone.value) phone_storage.value = phone.value

@@ -258,7 +258,7 @@ function moveBack() {
 
 const saveAndContinue = form.handleSubmit((values: any) => {
     // function saveAndContinue() {
-    console.log('validation passed..');
+    // console.log('validation passed..');
 
     if (!startCompanyStore.companyInProgress?.id) {
         toast.error('You have not registered any company name', { position: 'top-right' })
@@ -266,23 +266,23 @@ const saveAndContinue = form.handleSubmit((values: any) => {
         return;
     }
 
-    if (form.phone.length < 12) {
-        toast.error("Error on the phone input <br> must be 12 digits and above", { position: 'top-right' });
-        return;
+    // if (form.phone.length < 14) {
+    //     toast.error("Error on the phone input <br> must be 12 digits and above", { position: 'top-right' });
+    //     return;
 
-    }
+    // }
     if (Object.keys(form.errors).length > 0) {
-         console.log(form.errors)
+        //  console.log(form.errors)
         toast.error("Some fields still have errors", { position: 'top-right' });
         return;
     }
 
-    if (!form.first_name || !form.last_name || !form.phone || !form.email || !form.date_incorporated || !form.company_name
-        || !form.business_nature_id || !form.country_registered
-        || !form.registeration_no) {
-        toast.error('Some fields still have errors', { position: 'top-right' })
-        return;
-    }
+    // if (!form.first_name || !form.last_name || !form.phone || !form.email || !form.date_incorporated || !form.company_name
+    //     || !form.business_nature_id || !form.country_registered
+    //     || !form.registeration_no) {
+    //     toast.error('Some fields still have errors', { position: 'top-right' })
+    //     return;
+    // }
 
 
 
