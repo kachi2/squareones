@@ -62,7 +62,7 @@
         </div>
       </div>
 
-      <!-- <v-select placeholder="select founder.." v-model="selected_entity_id" :clearable="false" :options="entities" /> -->
+      <v-select placeholder="select founder.." v-model="selected_entity_id" :clearable="false" :options="entities" />
 
       <button class="btn btn-primary mt-3" @click="signaturePadModal = true">Sign Document</button>
       <span class="float-end">

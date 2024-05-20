@@ -153,7 +153,7 @@
 
         </section>
         <div class="movement-buttons mt-5 mb-4">
-            <button @click="moveBack" class="btn btn-outline-dark me-3">
+            <button @click="closeForm" class="btn btn-outline-dark me-3">
                 <i class="bi bi-arrow-left"></i> Close
             </button>
             <button v-if="!form.isSaving" @click="saveAndContinue" class="btn btn-primary">
@@ -172,7 +172,7 @@
 import { useStartCompanyStore } from '../StartCompany_store';
 import api from '@/stores/Helpers/axios'
 import { useToast } from 'vue-toast-notification';
-import useFxn from '@/stores/Helpers/useFunctions';
+import useFxn from "@/stores/Helpers/useFunctions";
 import { foundersCorporateForm } from './formsStore/Founders_corporate'
 import { vMaska } from "maska"
 import { onMounted, ref, watch, watchEffect, reactive } from 'vue';
@@ -201,6 +201,18 @@ watchEffect(() => {
 })
 
 
+function closeForm() {
+  useFxn.confirmDelete("This will clear the data field", '')
+    .then(async (resp) => {
+      if (resp.isConfirmed) {
+        startCompanyStore.isShowingFoundersForm = false;
+        form.clearLocalStorage()
+        form.clearLocalStorage()
+      }
+    })
+
+
+}
 
 function resetForm() {
     form.company_name = ''
