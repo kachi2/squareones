@@ -7,26 +7,19 @@ import { useStorage } from "@vueuse/core";
 import * as yup from "yup";
 
 export const foundersIdividualForm = defineStore("foundersIdividual", () => {
+
   const chineseCheck = (value: any) => {
     var pattern = /^[\u4E00-\u9FFF\u3400-\u4DBF\s*\(\)\,]+$/;
-    return pattern.test(value);
+    return hasChineseName.value ? pattern.test(value) : true
   };
 
+  const correspondingAddressCheck = (value: any) => {
+    return !correspondingAddressIsSame.value ? (value !== undefined && value != '') : true;
+  }
+
   const rules = {
-    // chn_first_name: yup
-    //   .string()
-    //   .test(
-    //     "chineseCheck",
-    //     "Please input only Chinese characters",
-    //     chineseCheck
-    //   ),
-    // chn_last_name: yup
-    //   .string()
-    //   .test(
-    //     "chineseCheck",
-    //     "Please input only Chinese characters",
-    //     chineseCheck
-    //   ),
+    chn_first_name: yup.string().test("chineseCheck", "Please input only Chinese characters", chineseCheck),
+    chn_last_name: yup.string().test("chineseCheck", "Please input only Chinese characters", chineseCheck),
 
     flat: yup.string().required("Flat is required"),
     building: yup.string().required("Building is required"),
@@ -34,27 +27,26 @@ export const foundersIdividualForm = defineStore("foundersIdividual", () => {
     state: yup.string().required("State is required"),
     city: yup.string(),
     country: yup.string().required("Country is required"),
-    postal_code: yup.string(),
-    // flat2: yup.string().required("Flat is required"),
-    // building2: yup.string().required("Building is required"),
-    // street2: yup.string().required("Street is required"),
-    // state2: yup.string().required("State is required"),
-    // city2: yup.string(),
-    // country2: yup.string().required("Country is required"),
-    // postal_code2: yup.string(),
 
-    phone: yup.string().required("Phone Number is required"),
+    flat2: yup.string().test("correspondingAddressCheck", "This field is required", correspondingAddressCheck),
+    building2: yup.string().test("correspondingAddressCheck", "This field is required", correspondingAddressCheck),
+    street2: yup.string().test("correspondingAddressCheck", "This field is required", correspondingAddressCheck),
+    state2: yup.string().test("correspondingAddressCheck", "This field is required", correspondingAddressCheck),
+    city2: yup.string().test("correspondingAddressCheck", "This field is required", correspondingAddressCheck),
+    country2: yup.string().test("correspondingAddressCheck", "This field is required", correspondingAddressCheck),
+
+    phone: yup.string().required("Phone Number is not complete"),
     email: yup.string().email().required("Email is required"),
     confirm_email: yup.string().required("Email is required"),
     first_name: yup.string().required("First Name is required"),
     last_name: yup.string().required("Last Name is required"),
     nationality: yup.string(),
     occupation: yup.string().required("Occupation is required"),
-    identity_type_id: yup.string(),
+    identity_type_id: yup.string().required("ID type is required"),
     identity_no: yup.string(),
     identity_no_suffix: yup.string(),
     passport_no: yup.string(),
-    dob: yup.string().required(""),
+    dob: yup.string().required("Date of birth is required"),
   };
 
   // Get the current date
@@ -77,9 +69,9 @@ export const foundersIdividualForm = defineStore("foundersIdividual", () => {
         country2: "Hong Kong",
         issuing_country: "Hong Kong",
         nationality: "Hong Kong",
-        identity_type_id: "0",
+        identity_type_id: "",
         is_founder: false,
-        dob: futureDate,
+        // dob: futureDate,
       },
     });
 

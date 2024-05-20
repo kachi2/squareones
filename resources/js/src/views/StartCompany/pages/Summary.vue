@@ -19,7 +19,26 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 2" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted text-capitalize">{{ data.company_name }}</div>
+                                    <div class="small text-muted text-capitalize" v-if="data?.company_name[0]"> First
+                                        Choice: {{ data?.company_name[0]?.eng_name }} {{ data?.company_name[0]?.chn_name
+                                        }}
+                                    </div>
+                                    <div class="small text-muted text-capitalize" v-if="data?.company_name[1]"> Second
+                                        Choice: {{ data?.company_name[1]?.eng_name }} {{ data?.company_name[1]?.chn_name
+                                        }}
+                                    </div>
+                                    <div class="small text-muted text-capitalize" v-if="data?.company_name[2]"> Third
+                                        Choice: {{ data?.company_name[2]?.eng_name }} {{ data?.company_name[2]?.chn_name
+                                        }}
+                                    </div>
+                                    <div class="small text-muted text-capitalize" v-if="data?.company_name[3]">Forth
+                                        Choice: {{ data?.company_name[3]?.eng_name }} {{ data?.company_name[3]?.chn_name
+                                        }}
+                                    </div>
+                                    <div class="small text-muted text-capitalize" v-if="data?.company_name[4]">Fifth
+                                        Choice: {{ data?.company_name[4]?.eng_name }} {{ data?.company_name[5]?.chn_name
+                                        }}
+                                    </div>
                                 </span>
 
                             </li>
@@ -121,7 +140,7 @@
                 </section>
             </section>
             <section class="section">
-                <div class="fw-bold mb-2">Founders (Individual)</div> 
+                <div class="fw-bold mb-2">Founders (Individual)</div>
                 <section v-for="founder in data.founders_individual" class="card bg-light border-0 section">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
@@ -248,18 +267,21 @@
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-muted">
-                                        {{ founder.get_identity.identity_no?? founder.get_identity.passport_no}}
+                                        {{ founder.get_identity.identity_no != null ? founder.get_identity.identity_no +
+                                            "-" + founder.get_identity.identity_no_suffix : founder.get_identity.passport_no
+                                        }}
                                     </div>
                                 </span>
                             </li>
-                            <li class="list-group-item">
+                            <li class="list-group-item" v-if="founder.get_identity.identity_no != null">
                                 <span>
                                     Issueing country
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-muted">
-                                        {{ founder.get_identity.issueing_country?? ''}}
+                                        {{ founder.get_identity.issueing_country != 'undefined' ?
+                                            founder.get_identity.issueing_country : '' }}
                                     </div>
                                 </span>
                             </li>
@@ -375,7 +397,8 @@
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-muted">
-                                        {{ founder.authorized_persons.first_name }}  {{ founder.authorized_persons.last_name }}
+                                        {{ founder.authorized_persons.first_name }} {{
+                                            founder.authorized_persons.last_name }}
                                     </div>
                                 </span>
                             </li>
@@ -406,17 +429,15 @@
                 </section>
             </section>
 
-
-
             <section class="section">
                 <div class="fw-bold mb-2">Ownership</div>
                 <section class="card bg-light border-0">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
-                          
+
                             <li class="list-group-item">
                                 <span class="fw-bold">
-                                   Share Type
+                                    Share Type
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 6" class="bi bi-pencil-square"></i>
                                     </span>
@@ -443,24 +464,46 @@
                             </li>
                             <li class="list-group-item">
                                 <span class="fw-bold">
-                                   Currency
+                                    Currency
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 6" class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-muted">{{ data.currency }}</div>
                                 </span>
                             </li>
+                            <li class="list-group-item">
+                                <span class="fw-bold card border-0 shadow-sm">
+                                    <div class="card-body">
+                                        <div class="fw-bold">
+                                            Shareholders    <span style="float:right"> No of Shares</span> 
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                        
+                                            <li class="list-group-item" v-for="share in data.ownerShares">
+                                                <span class="float-end text-right">
+                                                    {{ share.amount }}
+                                                </span>
+                                                <div class="small text-muted">{{ share.name }}</div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </span>
+                            </li>
+
                         </ul>
                     </div>
                 </section>
+
             </section>
+
+
 
             <section class="section">
                 <div class="fw-bold mb-2">Company Secretary</div>
                 <section class="card bg-light border-0">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
-                          
+
                             <li class="list-group-item">
                                 <span class="fw-bold">
                                     Name
@@ -485,7 +528,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.secretary_company_reg_no  }}</div>
+                                    <div class="small text-muted">{{ data.secretary_company_reg_no }}</div>
                                 </span>
                             </li>
                             <li class="list-group-item">
@@ -494,7 +537,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.secretary_country_registered  }}</div>
+                                    <div class="small text-muted">{{ data.secretary_country_registered }}</div>
                                 </span>
                             </li>
                             <li class="list-group-item">
@@ -503,7 +546,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{  data.secretary_licence_no  }}</div>
+                                    <div class="small text-muted">{{ data.secretary_licence_no }}</div>
                                 </span>
                             </li>
                             <li class="list-group-item">
@@ -517,11 +560,11 @@
                             </li>
                             <li class="list-group-item">
                                 <span class="fw-bold">
-                                   Street
+                                    Street
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.secretary_street  }}</div>
+                                    <div class="small text-muted">{{ data.secretary_street }}</div>
                                 </span>
                             </li>
                             <li class="list-group-item">
@@ -530,7 +573,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{  data.secretary_state   }}</div>
+                                    <div class="small text-muted">{{ data.secretary_state }}</div>
                                 </span>
                             </li>
                             <li class="list-group-item">
@@ -539,7 +582,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.secretary_country  }}</div>
+                                    <div class="small text-muted">{{ data.secretary_country }}</div>
                                 </span>
                             </li>
                         </ul>
@@ -711,7 +754,7 @@
     </StartCompany_template>
 </template>
 <script lang="ts" setup>
-import { computed, reactive, onMounted } from 'vue';
+import { computed, reactive, onMounted, ref } from 'vue';
 import StartCompany_template from '../StartCompany_template.vue';
 import { useStartCompanyStore } from '../StartCompany_store';
 import useFxn from '@/stores/Helpers/useFunctions';
@@ -720,7 +763,7 @@ const startCompanyStore = useStartCompanyStore()
 
 interface SummaryInterface {
     // structure: string,
-    company_name: string,
+    company_name: any[],
     description: string,
     address: string,
     business_nature: string,
@@ -748,7 +791,7 @@ interface SummaryInterface {
     founders_corporate: any[],
     secretary_name: string,
     secretary_chname: string,
-    secretary_company_reg_no:string
+    secretary_company_reg_no: string
     secretary_country_registered: string,
     secretary_licence_no: string,
     secretary_email: string,
@@ -758,16 +801,17 @@ interface SummaryInterface {
     secretary_state: string,
     secretary_country: string,
 
-    share_type_id:string,
-    no_of_share:string,
-    total_amount_paid:string,
-    currency:string
+    share_type_id: string,
+    no_of_share: string,
+    total_amount_paid: string,
+    currency: string
+    ownerShares: any[]
 
 }
 
 const data = reactive<SummaryInterface>({
     // structure: 'LLC',
-    company_name: '',
+    company_name: [],
     description: '',
     address: '',
     business_nature: '',
@@ -796,20 +840,21 @@ const data = reactive<SummaryInterface>({
 
     secretary_name: '',
     secretary_chname: '',
-    secretary_company_reg_no:'',
+    secretary_company_reg_no: '',
     secretary_country_registered: '',
     secretary_licence_no: '',
     secretary_email: '',
-    secretary_flat:'',
-    secretary_street:'',
+    secretary_flat: '',
+    secretary_street: '',
     secretary_city: '',
     secretary_state: '',
     secretary_country: '',
 
-    share_type_id:'',
-    no_of_share:'',
-    total_amount_paid:'',
-    currency: ''
+    share_type_id: '',
+    no_of_share: '',
+    total_amount_paid: '',
+    currency: '',
+    ownerShares: []
 })
 
 onMounted(() => {
@@ -821,44 +866,48 @@ onMounted(() => {
 
         // Names & Description
         const namesArray = companyInProgress.names
+        console.log(namesArray, 'Name array')
         const coy = namesArray.find((x: any) => x.choice_level == 1);
-        data.company_name = coy.eng_name
+        data.company_name = namesArray
         data.description = companyInProgress.description
         data.business_nature = companyInProgress?.business_nature?.name ?? ''
         data.website = companyInProgress.website
 
         //secretary 
-        data.secretary_name = companyInProgress?.secretary?.name??''
-        data.secretary_chname = companyInProgress?.secretary?.chn_name??''
-        data.secretary_company_reg_no= companyInProgress?.secretary?.company_reg_no??''
-        data.secretary_country_registered= companyInProgress?.secretary?.country_registered??''
-        data.secretary_licence_no= companyInProgress?.secretary?.licence_no??''
-        data.secretary_email = companyInProgress?.secretary?.email??''
-        data.secretary_flat = companyInProgress?.secretary?.flat??''
-        data.secretary_street = companyInProgress?.secretary?.street??''
-        data.secretary_city = companyInProgress?.secretary?.city??''
-        data.secretary_state = companyInProgress?.secretary?.state??''
-        data.secretary_country = companyInProgress?.secretary?.country??''
+        data.secretary_name = companyInProgress?.secretary?.name ?? ''
+        data.secretary_chname = companyInProgress?.secretary?.chn_name ?? ''
+        data.secretary_company_reg_no = companyInProgress?.secretary?.company_reg_no ?? ''
+        data.secretary_country_registered = companyInProgress?.secretary?.country_registered ?? ''
+        data.secretary_licence_no = companyInProgress?.secretary?.licence_no ?? ''
+        data.secretary_email = companyInProgress?.secretary?.email ?? ''
+        data.secretary_flat = companyInProgress?.secretary?.flat ?? ''
+        data.secretary_street = companyInProgress?.secretary?.street ?? ''
+        data.secretary_city = companyInProgress?.secretary?.city ?? ''
+        data.secretary_state = companyInProgress?.secretary?.state ?? ''
+        data.secretary_country = companyInProgress?.secretary?.country ?? ''
 
         // Address
-        data.flat = companyInProgress?.flat??''
-        data.building = companyInProgress?.building??''
-        data.street = companyInProgress?.street??''
-        data.state = companyInProgress?.state??''
-        data.country = companyInProgress?.country??''
+        data.flat = companyInProgress?.flat ?? ''
+        data.building = companyInProgress?.building ?? ''
+        data.street = companyInProgress?.street ?? ''
+        data.state = companyInProgress?.state ?? ''
+        data.country = companyInProgress?.country ?? ''
 
         //Ownership
 
-        data.share_type_id= companyInProgress?.shares[0]?.share_type_id??''
-        data.no_of_share = companyInProgress?.shares[0]?.no_of_share??''
-        data.total_amount_paid= companyInProgress?.shares[0]?.total_amount_paid??''
-        data.currency = companyInProgress?.shares[0]?.currency??''
+        data.share_type_id = companyInProgress?.shares[0]?.share_type_id ?? ''
+        data.no_of_share = companyInProgress?.shares[0]?.no_of_share ?? ''
+        data.total_amount_paid = companyInProgress?.shares[0]?.total_amount_paid ?? ''
+        data.currency = companyInProgress?.shares[0]?.currency ?? ''
+        // data.ownerShares = companyInProgress?.shares
+
+
 
         // Fund Source
-        data.income_expected_source = companyInProgress.fund_source[0]?.income_expected_source ?? ''
-        data.income_outgoing_source = companyInProgress.fund_source[0]?.income_outgoing_source ?? ''
-        data.origin_funds = companyInProgress.fund_source[0]?.origin_funds ?? ''
-        data.wealth_initial_source = companyInProgress.fund_source[0]?.wealth_initial_source ?? ''
+        data.income_expected_source = companyInProgress.fund_source?.income_expected_source ?? ''
+        data.income_outgoing_source = companyInProgress.fund_source?.income_outgoing_source ?? ''
+        data.origin_funds = companyInProgress.fund_source?.origin_funds ?? ''
+        data.wealth_initial_source = companyInProgress.fund_source?.wealth_initial_source ?? ''
 
 
         // Activity
@@ -868,6 +917,7 @@ onMounted(() => {
         data.activity_customer_location_operation = companyInProgress.activity?.customer_location_operation ?? ''
         data.activity_country = companyInProgress.activity?.country ?? ''
 
+        // founders
         const entity = startCompanyStore.companyInProgress?.company_entity ?? [];
 
         if (entity.length) {
@@ -876,6 +926,11 @@ onMounted(() => {
                 const founder = el.individual
                 // founder.is_founder = el.is_founder == 0 ? 'No' : 'Yes'
                 data.founders_individual.push(founder)
+
+                data.ownerShares.push({
+                    name: founder.first_name || founder.chn_first_name + ' ' + founder.last_name || founder.chn_last_name,
+                    amount: founder.owner_shares?.total_amount ?? 0
+                })
             });
 
             const coporates = entity.filter((x: any) => x.entity_type_id == 2)
@@ -883,9 +938,17 @@ onMounted(() => {
                 const founder = el.corporate
                 // founder.is_founder = el.is_founder == 0 ? 'No' : 'Yes'
                 data.founders_corporate.push(founder)
+
+                data.ownerShares.push({
+                    name: founder.company_name || founder.chn_company_name,
+                    amount: founder.owner_shares?.total_amount ?? 0
+                })
             });
         }
     }
+
+    console.log('shers:', data.ownerShares);
+
 })
 
 const businesNatureName = (id: any) => {

@@ -104,14 +104,14 @@
                 <label class=" fw-bolder">Authorised Person <span class="text-danger"> * </span></label>
                 <div class="row g-2">
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.first_name }" v-maska data-maska="Aa"
-                            data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple" v-model="form.first_name"
+                        <input :class="{ 'error-field': form.errors.first_name }" v-maska 
+                            data-maska-tokens="A:[A-Za-z]:multiple" v-model="form.first_name"
                             type="text" class="form-control" placeholder="first name..">
                         <small class=" text-danger">{{ form.errors.first_name }}</small>
                     </div>
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.last_name }" v-maska data-maska="Aa"
-                            data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple" v-model="form.last_name"
+                        <input :class="{ 'error-field': form.errors.last_name }" v-maska 
+                            data-maska-tokens="A:[A-Za-z]:multiple" v-model="form.last_name"
                             type="text" class="form-control" placeholder="first name..">
                         <small class=" text-danger">{{ form.errors.last_name }}</small>
                     </div>
@@ -256,8 +256,10 @@ function moveBack() {
     startCompanyStore.isShowingFoundersForm = false
 }
 
-// const saveAndContinue = form.handleSubmit((values: any) => {
-function saveAndContinue() {
+const saveAndContinue = form.handleSubmit((values: any) => {
+    // function saveAndContinue() {
+    console.log('validation passed..');
+
     if (!startCompanyStore.companyInProgress?.id) {
         toast.error('You have not registered any company name', { position: 'top-right' })
         startCompanyStore.switchStage('-', 2)
@@ -335,7 +337,8 @@ function saveAndContinue() {
 
     form.isSaving = true
     saveFromToApi(formData)
-}
+    // }
+})
 
 async function saveFromToApi(formData: FormData) {
     try {

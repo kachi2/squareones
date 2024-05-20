@@ -141,14 +141,17 @@ const KycStatus = computed(() => {
 
 const activeCompanyName = computed(() => {
     let coyName = ''
+    let coyCh_name = ''
     const choiceNames = startCompanyStore.companyInProgress?.names ?? []
     if (choiceNames) {
         const coy = choiceNames.find((x: any) => x.choice_level == 1);
         if (coy) {
-            coyName = coy?.eng_name ? coy.eng_name + ' ' + coy.eng_prefix : coy.chn_name + ' ' + coy.chn_prefix;
-        }
+            coyName = coy?.eng_name ? coy.eng_name + ' ' + coy.eng_prefix:'';
+            coyCh_name = coy.chn_name? coy.chn_name + ' ' + coy.chn_prefix:''
+
+        }   
     }
-    return coyName
+    return coyName + ' ' + coyCh_name
 })
 
 

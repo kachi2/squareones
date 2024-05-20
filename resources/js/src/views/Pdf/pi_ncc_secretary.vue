@@ -110,14 +110,14 @@
 
                 </td>
                 <td>
-                    <input type="checkbox">
+                    <input type="checkbox" disabled> 
                     <span style="font-size:10px">公 司 秘 書</span>
                     <p style="font-size:10px">Company Secretary </p>
                 </td>
                 <td>
-                    <input type="checkbox" checked>
-                    <span style="font-size:10px">公 司 秘 書</span>
-                    <p style="font-size:10px">Company Director </p>
+                    <input type="checkbox" checked disabled>
+                    <span style="font-size:10px">董 事</span>
+                    <p style="font-size:10px">Director </p>
 
 
                 </td>
@@ -346,7 +346,7 @@
                         <td
                             style="width:355pt;padding-left:20px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                             <p style="text-indent: 0px;text-align: left;">{{
-                                director?.res_address?.city??director?.res_address?.state}} </p>
+                                director?.res_address?.state}} </p>
                         </td>
                     </tr>
 

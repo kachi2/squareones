@@ -106,9 +106,9 @@
         <p style="text-indent: 0pt;text-align: left;"> </p>
         <p style="text-indent: 0pt;text-align: left;"></p>
         <p class="s19" style="padding-top: 2px;padding-left: 64px;text-indent: 0pt;">
-            <input type="checkbox" checked style="width: 20px; height:20px; background:#000">
+            <input type="checkbox" checked style="width: 20px; height:20px; border:2px solid #000 " disabled>
             <span class="p" style="padding:3px; "> 私人 Private </span>
-            <input type="checkbox" style="width: 20px; height:20px;">
+            <input type="checkbox" style="width: 20px; height:20px;" disabled>
             <span class="p"> 公眾 Public</span>
         </p>
 
@@ -118,7 +118,7 @@
 
     <li data-list-text="2">
         <p class="s19" style="padding-top: 10px;padding-bottom: 10px;padding-left: 20px;text-indent: 0px;">
-            <textarea cols="10" rows="4">  {{ companyInfo?.business_nature?.code }}</textarea> <textarea cols="60" rows="4" class="">
+            <textarea cols="10" rows="4">  {{ companyInfo?.business_nature?.code }}</textarea> <textarea cols="87" rows="4" class="">
         {{ companyInfo?.business_nature?.name }}
         </textarea>
         </p>

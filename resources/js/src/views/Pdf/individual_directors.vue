@@ -344,7 +344,7 @@
                     style="width:258pt;border:1px solid #000;  border:1px solid #000; border-right-style:solid;border-right-width:1pt">
                     <p class="s46"
                         style="padding-top: 8pt;padding-right: 10pt;text-indent: 0pt;text-align: left;padding-left:10px">
-                        {{ director.get_identity.identity_no  == 'undefined'?'':director.get_identity.identity_no}} ( [{{ director?.get_identity?.identity_no_suffix == 'undefined'?'':director?.get_identity?.identity_no_suffix   }}] )
+                        {{ director.get_identity.identity_no  == 'undefined' ||  director.get_identity.identity_no  == null?'': director.get_identity.identity_no}} ( [{{ director?.get_identity?.identity_no_suffix == 'undefined' && director?.get_identity?.identity_no_suffix == null ?'':director?.get_identity?.identity_no_suffix   }}] )
                     </p>
 
                 </td>
@@ -388,7 +388,7 @@
                     style="width:258pt;border:1px solid #000;  border:1px solid #000; border-right-style:solid;border-right-width:1pt">
                     <p class="s46"
                         style="padding-top: 8pt;padding-right: 10pt;text-indent: 0pt;text-align: left;padding-left:10px">
-                        {{ director?.get_identity?.passport_no == 'undefined'?'':director?.get_identity?.passport_no }}
+                        {{ director?.get_identity?.passport_no == 'undefined' || director?.get_identity?.passport_no == null? ' ':director?.get_identity?.passport_no }}
                     </p>
                 </td>
 
@@ -452,8 +452,8 @@
                 </td>
                 <td style="width:350pt">
                     <p style="text-indent: 0pt;text-align: left;"><br /></p>
-                    <p class="s33"
-                        style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;">:
+                    <p class="s33" 
+                        style="border-bottom:1px solid #000; background:yellow; padding-left: 6pt;text-indent: 0pt;text-align: left;">:
                         <img width="100" :src="director?.signature" alt="">
                     </p>
                 </td>

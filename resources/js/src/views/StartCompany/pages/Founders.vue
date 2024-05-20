@@ -74,7 +74,7 @@
       </div>
 
       <div v-else>
-        <button @click="closeForm" class="btn btn-outline-secondary float-end btn-sm"> Close Form</button>
+        <button  v-if="founderType == 'individual' || founderType == 'corporate'"  @click="closeForm" class="btn btn-outline-primary float-end btn-sm"> Clear Form</button>
         <section class="section">
           <div class="fw-bold">What is the type of founder/director? </div>
 
@@ -116,8 +116,10 @@
           </div>
         </section>
 
+    
         <Founders_individual v-if="founderType == 'individual'" />
-        <Founders_corporate v-else />
+        <Founders_corporate v-else-if="founderType == 'corporate'" />
+        <div class="p-2" v-else></div>
       </div>
 
 
@@ -230,7 +232,7 @@ import { foundersIdividualForm } from '../pages/formsStore/Founders_individual';
 const corporate_form = foundersCorporateForm()
 const individual_form = foundersIdividualForm()
 
-const founderType = ref<"individual" | "corporate">("individual");
+const founderType = ref<"individual" | "corporate" | null>(null);
 const startCompanyStore = useStartCompanyStore();
 const toast = useToast();
 const founderRadio = ref(false)
@@ -253,18 +255,19 @@ const foundersAdded = computed(() => {
 });
 
 function closeForm() {
-  useFxn.confirmDelete("This action will clear all input data?", "Yes, Clear")
-    .then(async (resp) => {
-      if (resp.isConfirmed) {
+  // useFxn.confirmDelete("This will clear the data field")
+    // .then(async (resp) => {
+      // if (resp.isConfirmed) {
         startCompanyStore.isShowingFoundersForm = false;
         corporate_form.clearLocalStorage()
         individual_form.clearLocalStorage()
-      }
-    })
+      // }
+    // })
 
 
 }
 function moveBack() {
+  
   startCompanyStore.switchStage('-')
 }
 function openForm() {

@@ -14,34 +14,34 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
     }
 
     const rules = {
-        chn_company_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
-
         company_name: yup.string(),
+        chn_company_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
+        date_incorporated: yup.string().required('Date incorporated is required'),
+        registeration_no: yup.string().required('Company registration number is required'),
+        country_registered: yup.string().required('Company date of registration is required'),
+        // business_nature_id: yup.string().required('Business nature Id is required'),
         flat: yup.string().required(' Flat is required'),
         building: yup.string().required(' building is required '),
         street: yup.string().required(' Street is required'),
-        date_incorporated: yup.string().required('Date incorporated is required'),
-        // is_founder: yup.string(),
-        country_registered: yup.string().required('Company date of registration is required'),
         state: yup.string().required('State/City is required'),
-        // city: yup.string().required('city is required'),
         country: yup.string().required('country is required'),
-        // postal_code: yup.string(),
-        registeration_no: yup.string().required('Company registration number is required'),
-
-        business_nature_id: yup.string().required('Business nature Id is required'),
+        first_name: yup.string().required('First name is required'),
+        last_name: yup.string().required('Last name is requied'),
         phone: yup.string().required('phone number is required'),
         email: yup.string().email().required('Email is required'),
         confirm_email: yup.string().email(),
-        first_name: yup.string().required('First name is required'),
-        last_name: yup.string().required('Last name is requied'),
+
+        // is_founder: yup.string(),
+        // city: yup.string().required('city is required'),
+        // postal_code: yup.string(),
+
     };
 
 
     const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({
         validationSchema: yup.object(rules),
         initialValues: {
-            date_incorporated: new Date(),
+            date_incorporated: new Date('2006-5-4'),
             entity_type_id: '2',
             country: 'Hong Kong',
             country_registered: 'Hong Kong',

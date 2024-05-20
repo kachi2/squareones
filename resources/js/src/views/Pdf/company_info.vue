@@ -22,7 +22,8 @@
             </p>
             <p style="padding-left: 60px;text-indent: 0px;line-height: 11pt;text-align: left; display:inline">Email
                 Address</p>
-            <input style="width:60%; height:40px; float: right;" :value="companyInfo?.users?.email" readonly>
+            <input style="width:60%; height:40px; float: right;"  readonly>
+            <!-- :value="companyInfo?.users?.email" -->
             <p style="text-indent: 0pt;text-align: left;"> </p>
             <p class="s19"
                 style="padding-top: 7px;padding-left: 60px;text-indent: 0pt;line-height: 14pt;text-align: left; padding-top:30px">

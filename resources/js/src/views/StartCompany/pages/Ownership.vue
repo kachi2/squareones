@@ -234,7 +234,7 @@ async function retrieveShareHolders() {
         const arrayOfFounders: any[] = []
         if (entity.length) {
             entity.forEach((el: any) => {
-                console.log(el)
+                // console.log(el)
 
                 const obj = el.individual || el.corporate;
                 if (obj) {
@@ -266,7 +266,7 @@ const sumEqualToTotal = computed(() => {
                 sumError = "Shareholder must not have zero(0) shares";
                 return false;
             } else {
-                sumError = "Sum of entries must be equal to Total Amount Paid";
+                sumError = "Sum of entries must be equal to Number of Shares";
             }
 
         }

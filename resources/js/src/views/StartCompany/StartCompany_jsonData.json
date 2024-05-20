@@ -141,5 +141,10 @@
         "Import/Export Trade",
         "Educational Services",
         "Healthcare and Medical Services"
+    ],
+
+    "IDType": [
+        {"id" :"1", "name": "Passport"},
+        {"id" :"2", "name":  "ID Card"}
     ]
 }

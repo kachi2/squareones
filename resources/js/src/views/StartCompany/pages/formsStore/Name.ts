@@ -136,53 +136,103 @@ export const nameForm = defineStore('name', () => {
     }
 
     function updateFields(companyInProgress: any) {
+        // console.log(companyInProgress)
         if (choice_level1_eng_name_storage.value.length > 1)
             choice_level1_eng_name.value = choice_level1_eng_name_storage.value
+        else if(companyInProgress?.names[0]?.eng_name)
+            choice_level1_eng_name.value =companyInProgress?.names[0]?.eng_name 
+
         if (choice_level1_chn_name_storage.value.length > 1)
             choice_level1_chn_name.value = choice_level1_chn_name_storage.value
+        else if(companyInProgress?.names[0]?.chn_eng_name)
+            choice_level1_chn_name.value = companyInProgress?.names[0]?.chn_eng_name
+
         if (choice_level1_prefix_storage.value.length > 1)
             choice_level1_prefix.value = choice_level1_prefix_storage.value
+         else if(companyInProgress?.names[0]?.eng_prefix)
+            choice_level1_prefix.value =companyInProgress?.names[0]?.eng_prefix 
+
         if (choice_level1_chn_prefix_storage.value.length > 1)
             choice_level1_chn_prefix.value = choice_level1_chn_prefix_storage.value
+        else if(companyInProgress?.names[0]?.chn_prefix)
+            choice_level1_chn_prefix.value =companyInProgress?.names[0]?.chn_prefix 
 
+
+        // second choice names
         if (choice_level2_eng_name_storage.value.length > 1)
             choice_level2_eng_name.value = choice_level2_eng_name_storage.value
+        else if(companyInProgress?.names[1]?.eng_name)
+            choice_level2_eng_name.value = companyInProgress?.names[1]?.eng_name 
         if (choice_level2_chn_name_storage.value.length > 1)
             choice_level2_chn_name.value = choice_level2_chn_name_storage.value
+        else if(companyInProgress?.names[1]?.hn_name)
+            choice_level2_chn_name.value =companyInProgress?.names[1]?.chn_name 
         if (choice_level2_prefix_storage.value.length > 1)
             choice_level2_prefix.value = choice_level2_prefix_storage.value
+        else if(companyInProgress?.names[1]?.eng_prefix)
+            choice_level2_prefix.value =companyInProgress?.names[1]?.eng_prefix 
         if (choice_level2_chn_prefix_storage.value.length > 1)
             choice_level2_chn_prefix.value = choice_level2_chn_prefix_storage.value
+        else if(companyInProgress?.names[1]?.chn_prefix)
+            choice_level2_chn_prefix.value =companyInProgress?.names[1]?.chn_prefix 
 
 
+        //third choice names 
         if (choice_level3_eng_name_storage.value.length > 1)
             choice_level3_eng_name.value = choice_level3_eng_name_storage.value
+        else if(companyInProgress?.names[2]?.eng_name)
+            choice_level3_eng_name.value =companyInProgress?.names[2]?.eng_name 
+
         if (choice_level3_chn_name_storage.value.length > 1)
             choice_level3_chn_name.value = choice_level3_chn_name_storage.value
+        else if(companyInProgress?.names[2]?.chn_name)
+            choice_level3_chn_name.value =companyInProgress?.names[2]?.chn_name 
         if (choice_level3_prefix_storage.value.length > 1)
             choice_level3_prefix.value = choice_level3_prefix_storage.value
+        else if(companyInProgress?.names[2]?.eng_prefix)
+            choice_level3_prefix.value =companyInProgress?.names[2]?.eng_prefix 
         if (choice_level3_chn_prefix_storage.value.length > 1)
             choice_level3_chn_prefix.value = choice_level3_chn_prefix_storage.value
+        else if(companyInProgress?.names[2]?.chn_prefix)
+            choice_level3_chn_prefix.value =companyInProgress?.names[2]?.chn_prefix 
 
 
+        // forth names 
         if (choice_level4_eng_name_storage.value.length > 1)
             choice_level4_eng_name.value = choice_level4_eng_name_storage.value
+        else if(companyInProgress?.names[3]?.eng_name)
+            choice_level4_eng_name.value =companyInProgress?.names[3]?.eng_name 
         if (choice_level4_chn_name_storage.value.length > 1)
             choice_level4_chn_name.value = choice_level4_chn_name_storage.value
+        else if(companyInProgress?.names[3]?.chn_name)
+            choice_level4_chn_name.value =companyInProgress?.names[3]?.chn_name 
         if (choice_level4_prefix_storage.value.length > 1)
             choice_level4_prefix.value = choice_level4_prefix_storage.value
+        else if(companyInProgress?.names[3]?.eng_prefix)
+            choice_level4_prefix.value =companyInProgress?.names[3]?.eng_prefix 
         if (choice_level4_chn_prefix_storage.value.length > 1)
             choice_level4_chn_prefix.value = choice_level4_chn_prefix_storage.value
+        else if(companyInProgress?.names[3]?.chn_prefix)
+            choice_level4_chn_prefix.value =companyInProgress?.names[3]?.chn_prefix 
 
 
+        // fifth names
         if (choice_level5_eng_name_storage.value.length > 1)
             choice_level5_eng_name.value = choice_level5_eng_name_storage.value
+        else if(companyInProgress?.names[3]?.eng_name)
+            choice_level5_eng_name.value =companyInProgress?.names[3]?.eng_name 
         if (choice_level5_chn_name_storage.value.length > 1)
             choice_level5_chn_name.value = choice_level5_chn_name_storage.value
+        else if(companyInProgress?.names[3]?.chn_name)
+            choice_level5_chn_name.value =companyInProgress?.names[3]?.chn_name 
         if (choice_level5_prefix_storage.value.length > 1)
             choice_level5_prefix.value = choice_level5_prefix_storage.value
+        else if(companyInProgress?.names[3]?.eng_prefix)
+            choice_level5_prefix.value =companyInProgress?.names[3]?.eng_prefix 
         if (choice_level5_chn_prefix_storage.value.length > 1)
             choice_level5_chn_prefix.value = choice_level5_chn_prefix_storage.value
+        else if(companyInProgress?.names[3]?.chn_prefix)
+            choice_level5_chn_prefix.value =companyInProgress?.names[3]?.chn_prefix 
     }
 
 

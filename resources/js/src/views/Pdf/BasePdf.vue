@@ -15,7 +15,7 @@
             <individual_directors v-for="directors in IndividualDirectors" :director="directors" />
 
             <corporate_directors v-for="corporates in CorporateDirectors" :corporate="corporates" />
-            <founder_statement />
+            <founder_statement  :founders_counts="founders_counts"/>
 
             <pi_ncc_secretary v-for="directors in IndividualDirectors" :director="directors" />
             <notice_to_business />
@@ -29,27 +29,27 @@
     </div>
 
     <div class="off-screen" ref="PDFsection" hidden id="print_item">
-                      
-            <company :companyInfo="data" />
-            <company_info :companyInfo="data" />
+                      zxzzxxzzx
+            <!-- <company :companyInfo="data" /> -->
+            <!-- <company_info :companyInfo="data" />
             <individual_shareholder v-for="shares in shareholders" :shareholder="shares" />
-            <corporate_shareholder v-for="coshare in CorporateShareholder" :corporateShare="coshare" />
-            <company_secretary />
+            <corporate_shareholder v-for="coshare in CorporateShareholder" :corporateShare="coshare" /> -->
+            <!-- <company_secretary />
             <individual_directors v-for="directors in IndividualDirectors" :director="directors" />
             <corporate_directors v-for="corporates in CorporateDirectors" :corporate="corporates" />
-            <founder_statement />
+            <founder_statement :founders_counts="founders_counts.value"/>
             <pi_ncc_secretary v-for="directors in IndividualDirectors" :director="directors" />
             <notice_to_business />
             <company_ordinance />
-            <class_of_shares />
-            <ownershipShares />
-            <articles />
+            <class_of_shares /> -->
+            <!-- <ownershipShares /> -->
+            <!-- <articles /> -->
              <!--    <articles_last /> -->
        
     </div>
 
     <div class="off-screen" ref="PDFsection2">
-        sdss
+        
         <!-- <articles_last />   -->
         
     </div>
@@ -95,6 +95,7 @@ const PDFsection = ref<any>(null);
 const PDFsection2 = ref<any>(null);
 
 const formData = new FormData()
+const founders_counts = ref(7)
 
 function createPDF(canvas: any, index: any) {
     var doc = new jsPDF('p', 'mm');
@@ -123,7 +124,7 @@ function createPDF(canvas: any, index: any) {
         doc.rect(0, 0, 210, 295);
         heightLeft -= pageHeight;
     }
-    doc.save("public_docs.pdf")
+    // doc.save("public_docs.pdf")
     const pdfBlob = doc.output('blob');
     formData.append(`documents[${index}]`, pdfBlob);
 }
@@ -200,6 +201,7 @@ const IndividualDirectors = computed(() => {
             director.push(obj)
 
             // console.log(director, 'directors list')
+            founders_counts.value + 1
         }
     })
 
@@ -219,11 +221,13 @@ const CorporateDirectors = computed(() => {
                 objs.signature = cdir.signature??''
             Corporate.push(objs)
             //   console.log(Corporate, 'corporate list')
+            founders_counts.value + 1
         }
     })
 
     return Corporate;
 })
+
 
 const CorporateShareholder = computed(() => {
     const ShareholderC = startCompanyStore.companyInProgress?.company_entity ?? [];

@@ -38,7 +38,7 @@ class Company extends Model
     }
 
     public function fundSource(){
-        return $this->hasMany(FundSource::class);
+        return $this->hasOne(FundSource::class);
     }
 
     public function ownerShare(){

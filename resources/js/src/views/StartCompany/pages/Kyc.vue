@@ -6,11 +6,11 @@
                 <div id="complycube-mount"></div>
                 <div class="alert alert-success text-center" role="alert">
                     <i style="font-size: 2.56rem;" class="bi bi-check-circle"></i>
-                    <h5> KYC Document Submitted Successfully</h5>
+                    <h5> KYC Document Submitted</h5>
                     <small> Verification status will be updated once completed </small>
                 </div>
                 <button class="btn btn-primary w-50" @click="goToDash">
-                   Proceed To Dashboard to Manage Company
+                   Proceed To Dashboard
                 </button>
 
             </div>
@@ -19,8 +19,10 @@
                 <div class="alert alert-success text-center" role="alert">
                     <i style="font-size: 2.56rem;" class="bi bi-check-circle"></i>
                     <h5> Payment Successful </h5>
+                    <p>We are receiving your request, please exercise patience while we setup your company</p>
+                   <p> Please click the button below to complete your KYC, ensure the details are correct</p>
                 </div>
-                <button class="btn btn-primary" @click="startVerification">
+                <button class="btn btn-primary"  @click="startVerification">
                     Proceed to complete KYC
                 </button>
 
@@ -51,6 +53,9 @@ const UserToken = ref('');
 onMounted(async () => {
     await startCompanyStore.getCompanyInProgress()
 
+    if(startCompanyStore.companyInProgress.users.kyc_status != null){
+        isKycCompleted.value = true
+    }
     try {
         const items = route.query
         let param = await api.paymentConfirm(items);

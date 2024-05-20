@@ -1,6 +1,18 @@
 <template>
     <StartCompany_template>
         <template #main>
+
+                <div v-if="paymentStatus" class="row justify-content-center">
+                <div id="complycube-mount"></div>
+                <div class="alert alert-success text-center" role="alert">
+                    <i style="font-size: 2.56rem;" class="bi bi-check-circle"></i>
+                    <h5> Payment Completed </h5>
+                    <p>We are receiving your request, please exercise patience while we setup your company</p>
+
+                    <small>If you have not completed your KYC, please <a :href="returnUrl"> click here </a> </small>
+                </div>
+            </div>
+            <div v-else="">
             <div v-if="intentHasError" class="text-center text-danger mt-5">
                 <strong>Error!,</strong> Cannot load payment information, please reload page.
             </div>
@@ -46,6 +58,7 @@
                     <div id="payment-message" class="hidden"></div>
                 </form>
             </div>
+        </div>
         </template>
 
         <template #info>
@@ -58,12 +71,17 @@ import { StripeElementCard } from '@vue-stripe/vue-stripe';
 import { useStartCompanyStore } from '../StartCompany_store';
 import axios from 'axios'
 import api from '@/stores/Helpers/axios'
-
 import { ref, onMounted, computed } from 'vue';
 // import { loadStripe } from "@stripe/stripe-js";
 // import { Elements } from "@stripe/vue-stripe-js";
 
 
+const startCompanyStore = useStartCompanyStore()
+
+const paymentStatus = computed(() => {
+    const status = startCompanyStore.companyInProgress?.billing?.status
+    return status;
+})
 
 const STRIPE_PUBLISHABLE_KEY = "pk_test_51P7LhqRxBSKsFyqbPdmjZpG4tFsnyLZEV6Tn38aic7H4oeWOSub5gTRnjF4vgdRbBJutMM0G3d2x3c9VFz2g1dkX00bPRK5pYT"; // Replace with your actual key
 // @ts-ignore
@@ -106,6 +124,7 @@ onMounted(async () => {
     }
 })
 
+const returnUrl = computed(()=> { return 'http://localhost:5173/kcy/verifications'})
 
     async function handleSubmit(event: any) {
         event.preventDefault();
@@ -113,7 +132,7 @@ onMounted(async () => {
         const { error } = await stripePromise.confirmPayment({
             elements,
             confirmParams: {
-                return_url: `https://squareone.portrec.ng/kcy/verifications` //,
+                return_url: `http://localhost:5173/kcy/verifications` //,
             },
         });
 

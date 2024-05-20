@@ -31,7 +31,6 @@ class PaymentServices implements PaymentInterface
             'company_id' => $company->id,
             'amount' => '5000',
             'payment_intent' => $paymentIntent['id'],
-            'status' => '',
             'payment_ref' => $payment_ref,
         ]);
       }

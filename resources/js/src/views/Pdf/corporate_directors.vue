@@ -284,7 +284,7 @@
                     <p class="s28" style="padding-left: 30pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         本人獲上述法人團體授權確認上述法人團體同意在公司成立為法團時擔任其董事。 </p>
                     <p class="s9" style="padding-left: 28pt;text-indent: 0pt;line-height: 9pt;text-align: left;">
-                        <input type="checkbox" style="width: 30px; height:20px" disabled>
+                        <input type="checkbox"  checked style="width: 30px; height:20px" disabled>
                         I, being authorized by the above body corporate, confirm that the body corporate consents to be
                         a director of this
                         company on its incorporation..
@@ -349,7 +349,7 @@
             <tr style="height:46pt; padding-top:30px">
 
                 <td style="width:432pt" colspan="2">
-                    <input type="checkbox" checked style="width: 20px; height:20px; margin-left:30px" disabled>
+                    <input type="checkbox"  style="width: 20px; height:20px; margin-left:30px" disabled>
                     <p class="s28"
                         style="padding-top: 3pt; display:inline; padding-left: pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         出任董事職位同意書會 於公司成立 為法團的日期 後 15 日 內 交 付 登記。 </p>

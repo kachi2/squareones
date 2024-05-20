@@ -33,6 +33,7 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
     const ongoingSourceOfIncome = jsonData.ongoingSourceOfIncome
     const levelOfActivity = jsonData.levelOfActivity
     const natureOfActivity = jsonData.natureOfActivity
+    const IDType = jsonData.IDType
   
 
     const menus = [
@@ -157,6 +158,7 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
         pdfIsSending,
         clearLocalStorage,
         collateFounders,
+        IDType
 
     }
 })

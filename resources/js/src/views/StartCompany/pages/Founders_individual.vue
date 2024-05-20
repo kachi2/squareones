@@ -55,6 +55,7 @@
             <VueDatePicker :format="useFxn.dateDisplay" input-class-name="dob-settings-input" hide-input-icon
                 :clearable="false" :max-date="new Date()" :enable-time-picker="false" auto-apply v-model="form.dob">
             </VueDatePicker>
+            <small class=" text-danger">{{ form.errors.dob }}</small>
             <small class=" text-danger">{{ ageError }}</small>
         </div>
 
@@ -165,11 +166,13 @@
     <section class="row g-2 section">
         <div class="col-md-12">
             <label class=" fw-bolder">ID type <small class="text-danger">*</small></label>
-            <select class="form-select" v-model="form.identity_type_id">
-                <option value="0"> </option>
+            <select class="form-select" v-model="form.identity_type_id"
+                :class="{ 'error-field': form.errors.identity_type_id }">
+                <option></option>
                 <option value="1">Passport</option>
                 <option value="2">ID Card</option>
             </select>
+            <small class="text-danger">{{ form.errors.identity_type_id }}</small>
         </div>
         <div v-if="form.identity_type_id == '2'" class="col-md-9">
             <label class=" fw-bolder">HKID No. <small class="text-danger">*</small></label>
@@ -223,7 +226,9 @@
         </div>
         <div class="col-md-12">
             <label class="form-labe fw-bolder">Occupation/Employment <span class="text-danger"> * </span></label>
-            <v-select v-model="form.occupation" :clearable="false" :options="startCompanyStore.employmentStatusList" />
+            <v-select :class="{ 'error-field': form.errors.occupation }" v-model="form.occupation" :clearable="true"
+                :options="startCompanyStore.employmentStatusList" />
+            <small class="text-danger">{{ form.errors.occupation }}</small>
         </div>
 
         <!-- <div class="col-md-8 mt-4">
@@ -260,11 +265,15 @@ import { onMounted, ref, watch, watchEffect } from 'vue';
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
 
+
+
 const form: any = foundersIdividualForm()
 
 onMounted(() => {
     form.updateFields(startCompanyStore.companyInProgress)
+    console.log(form.identity_type_id, 'idtype')
 })
+
 
 watch(() => form, () => { form.saveToLocalStorage() }, { deep: true })
 
@@ -280,7 +289,7 @@ const phoneField = {
         showDialCode: true,
         placeholder: 'Enter phone',
         styleClasses: 'phone-input-profile',
-        maxlength: 12
+        maxlength: 15,
     }
 
 }
@@ -320,6 +329,7 @@ function resetForm() {
     startCompanyStore.checkedEntityCapacity = []
 }
 
+
 const ageError = ref('')
 const emailMatchError = ref(false)
 watch(() => form.dob, () => {
@@ -339,6 +349,8 @@ watchEffect(() => {
 })
 
 
+
+
 function moveBack() {
     // startCompanyStore.switchStage('-')
     startCompanyStore.isShowingFoundersForm = false
@@ -356,40 +368,10 @@ const saveAndContinue = form.handleSubmit((values: any) => {
         return;
     }
 
-    // if (!form.first_name || !form.last_name || !form.dob || !form.phone || !form.email || !form.occupation) {
-    //     toast.default('Please complete fields', { position: 'top-right' })
-    //     return;
-    // }
 
-    if (form.hasChineseName) {
-        if (!form.chn_first_name || !form.chn_last_name) {
-            toast.error('Please complete Chinese names', { position: 'top-right' })
-            return;
-        }
-    }
-
-    if (form.hasChineseName) {
-        if (!useFxn.chineseCheck(form.chn_first_name) || !useFxn.chineseCheck(form.chn_last_name)) {
-            toast.error('Please input only Chinese characters', { position: 'top-right' })
-            return;
-        }
-    }
-
-
-    // if (!form.address || !form.flat || !form.building || !form.state || !form.postal_code) {
-    //     toast.default('Please complete fields', { position: 'top-right' })
-    //     return;
-    // }
-
-    if (!form.correspondingAddressIsSame) {
-        if (!form.flat2 || !form.street2) {
-            toast.error('Please complete Corresponding address', { position: 'top-right' })
-            return;
-        }
-    }
-
-    if (form.phone.length < 12) {
-        toast.error("Error on the phone input", { position: 'top-right' });
+    if (form.phone.length < 14) {
+        // form.errors.phone = "Phone number is not complete"
+        toast.error("Phone number is not complete", { position: 'top-right' });
         return;
 
     }

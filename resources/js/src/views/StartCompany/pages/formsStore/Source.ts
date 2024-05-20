@@ -38,17 +38,27 @@ export const sourceForm = defineStore('source', () => {
     }
 
     function updateFields(companyInProgress: any) {
+
+        // console.log(companyInProgress)
         if (income_expected_source_storage.value)
             income_expected_source.value = income_expected_source_storage.value
+        else if(companyInProgress?.fund_source?.income_expected_source)
+            income_expected_source.value = companyInProgress?.fund_source?.income_expected_source
 
         if (origin_funds_storage.value)
             origin_funds.value = origin_funds_storage.value
+        else if(companyInProgress?.fund_source?.origin_funds)
+            origin_funds.value = companyInProgress?.fund_source?.origin_funds
 
         if (wealth_initial_source_storage.value)
             wealth_initial_source.value = wealth_initial_source_storage.value
+        else if(companyInProgress?.fund_source?.wealth_initial_source)
+            wealth_initial_source.value = companyInProgress?.fund_source?.wealth_initial_source
 
         if (income_outgoing_source_storage.value)
             income_outgoing_source.value = income_outgoing_source_storage.value
+        else if(companyInProgress?.fund_source?.income_outgoing_source)
+            income_outgoing_source.value = companyInProgress?.fund_source?.income_outgoing_source
     }
 
     function clearLocalStorage() {
