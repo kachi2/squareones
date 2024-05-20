@@ -114,7 +114,7 @@ class CompanyServices  implements CompanyFormationInterface
         $company->update([
             'business_nature_id' => $companyDto->business_nature_id,
             'description' => $companyDto->description,
-            'website' => $companyDto->website,
+            'website' => $companyDto->website=='undefined'?'':$companyDto->website,
         ]);
         return $company;
     }
