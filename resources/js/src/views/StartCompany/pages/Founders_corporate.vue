@@ -271,11 +271,11 @@ const saveAndContinue = form.handleSubmit((values: any) => {
     //     return;
 
     // }
-    if (Object.keys(form.errors).length > 0) {
-        //  console.log(form.errors)
-        toast.error("Some fields still have errors", { position: 'top-right' });
-        return;
-    }
+    // if (Object.keys(form.errors).length > 0) {
+    //      console.log(form.errors)
+    //     toast.error("Some fields still have errors", { position: 'top-right' });
+    //     return;
+    // }
 
     // if (!form.first_name || !form.last_name || !form.phone || !form.email || !form.date_incorporated || !form.company_name
     //     || !form.business_nature_id || !form.country_registered

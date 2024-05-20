@@ -15,7 +15,7 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
 
     const rules = {
         company_name: yup.string(),
-        chn_company_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
+        // chn_company_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
         date_incorporated: yup.string().required('Date incorporated is required'),
         registeration_no: yup.string().required('Company registration number is required'),
         country_registered: yup.string().required('Company date of registration is required'),
