@@ -4,19 +4,26 @@ namespace App\Http\Controllers\Manage;
 
 use App\Dtos\ComplianceReportingDto;
 use App\Dtos\RegisteredCompanyDto;
+use App\Dtos\RegisterOfDirectorsDto;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisteredCompanyRequest;
 use App\Http\Requests\RegisterOfficeRequest;
 use App\Interfaces\IncorporationInterface;
+use Illuminate\Support\Facades\DB;
+use Cloudinary\Api\HttpStatusCode;
 use App\Dtos\RegisterOfficeContractDto;
+use App\Dtos\RegisterOfSecretaryDto;
+use App\Dtos\RegisterOfShareholdersDto;
 use App\Http\Requests\ComplianceReportingRequest;
+use App\Http\Requests\RegisterOfDirectorsRequest;
+use App\Http\Requests\RegisterOfSecretaryRequest;
+use App\Http\Requests\RegisterOfShareholdersRequest;
 use App\Models\Company;
+use App\Models\RegisterOfShareholder;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    //
-
     public function __construct(
         public readonly IncorporationInterface $IncorporationInterface
     )
@@ -31,21 +38,68 @@ class CompanyController extends Controller
     }
 
     public function RegisteredCompany(RegisteredCompanyRequest $request){
+        try{
         $RegDto = RegisteredCompanyDto::fromRequest($request->validated());
         $registered = $this->IncorporationInterface->CompanyCorporation($RegDto);
-        return $registered;
+        return response()->json(['data', $registered], HttpStatusCode::OK);
+    }catch(\Exception $e){
+        DB::rollback();
+        return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+       }
     }
 
     public function RegisterOfficeAndContract(RegisterOfficeRequest $request){
+        try{
         $contract = RegisterOfficeContractDto::fromRequest($request->validated());
         $data = $this->IncorporationInterface->RegisterOfficeContract($contract);
-        return $data;
-        
+        return response()->json(['data', $data], HttpStatusCode::OK);
+    }catch(\Exception $e){
+        DB::rollback();
+        return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+       }
     }
 
     public function ComplianceReportings(ComplianceReportingRequest $request){
+        try{
         $reptDto = ComplianceReportingDto::fromRequest($request->validated());
         $data = $this->IncorporationInterface->ComplianceReporting($reptDto);
-        return $data;
+        return response()->json(['data', $data], HttpStatusCode::OK);
+    }catch(\Exception $e){
+        DB::rollback();
+        return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+       }
+    }
+
+    public function RegisterOfDirector(RegisterOfDirectorsRequest $req){
+        try{
+        $dirDto = RegisterOfDirectorsDto::fromRequest($req->validated());
+        $data = $this->IncorporationInterface->RegisterOfDirectors($dirDto);
+        return response()->json(['data', $data], HttpStatusCode::OK);
+    }catch(\Exception $e){
+        DB::rollback();
+        return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+       }
+    }
+
+    public function RegisterOfShareholder(RegisterOfShareholdersRequest $req){
+        try{
+            $shareholdDto = RegisterOfShareholdersDto::fromRequest($req->validated());
+            $data = $this->IncorporationInterface->RegisterOfShareholders($shareholdDto);
+            return response()->json(['data', $data], HttpStatusCode::OK);
+        }catch(\Exception $e){
+            DB::rollback();
+            return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+           }
+    }
+
+    public function RegisterOfSecretaries(RegisterOfSecretaryRequest $req){
+        try{
+        $secretaryDto = RegisterOfSecretaryDto::fromRequest($req->validated());
+        $data = $this->IncorporationInterface->RegisterOfSecretary($secretaryDto);
+        return response()->json(['data', $data], HttpStatusCode::OK);
+    }catch(\Exception $e){
+        DB::rollback();
+        return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+       }
     }
 }
