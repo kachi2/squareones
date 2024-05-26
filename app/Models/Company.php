@@ -61,4 +61,36 @@ class Company extends Model
         return $this->hasOne(CompanyAddress::class, 'company_id', 'id');
     }
 
+    public function RegisteredCompany(){
+        return $this->belongsTo(Company::class);
+    }
+
+    public function RegisterOfAllotments(){
+        return $this->belongsTo(Company::class);
+    }
+
+    public function RegisterOfCharge(){
+        return $this->belongsTo(Company::class);
+    }
+
+    public function RegisterOfCompanyName(){
+        return $this->belongsTo(Company::class);
+    }
+
+    public function RegisterOfDirector(){
+        return $this->belongsTo(Company::class);
+    }
+
+    public function RegisterOfSecretary(){
+        return $this->belongsTo(Company::class);
+    }
+
+    public function RegisterOfShareholders(){
+        return $this->belongsTo(Company::class);
+    }
+
+    public function RegisterOfTransfer(){
+        return $this->belongsTo(Company::class);
+    }
+
 }

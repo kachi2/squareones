@@ -7,6 +7,7 @@ use App\Interfaces\CompanyFormationInterface;
 use App\Interfaces\DocumentInterface;
 use App\Interfaces\SecretaryInterface;
 use App\Interfaces\CompanyEnityInterface;
+use App\Interfaces\IncorporationInterface;
 use App\Interfaces\KycInterface;
 use App\Interfaces\PaymentInterface;
 use App\Interfaces\SharesInterface;
@@ -16,6 +17,7 @@ use App\Services\CompanyServices;
 use Laravel\Cashier\Cashier;
 use App\Services\DocumentServices;
 use App\Services\CompanyEntityService;
+use App\Services\IncorporationService;
 use App\Services\KycProcessService;
 use App\Services\PaymentServices;
 use App\Services\SharesService;
@@ -36,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
         app()->bind(AuthInterface::class, AuthService::class);
         app()->bind(PaymentInterface::class, PaymentServices::class);
         app()->bind(KycInterface::class, KycProcessService::class);
+        app()->bind(IncorporationInterface::class, IncorporationService::class);
     }
 
     /**

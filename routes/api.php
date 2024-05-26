@@ -11,6 +11,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group(function() {
     require __DIR__.'/companyFormation.php';
+    require __DIR__.'/CompanyIncorporation.php';
 });
 Route::post('register/signature', [CompanyEntityController::class, 'RegisterEntitySignature']);
 Route::post('process/payment', [PaymentController::class, 'ProcessPayment'])->name('ProcessPayment');
