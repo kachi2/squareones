@@ -66,31 +66,31 @@ class Company extends Model
     }
 
     public function RegisterOfAllotments(){
-        return $this->belongsTo(Company::class);
+        return $this->hasMany(RegisterOfAllotment::class);
     }
 
     public function RegisterOfCharge(){
-        return $this->belongsTo(Company::class);
+        return $this->hasMany(RegisterOfCharge::class);
     }
 
     public function RegisterOfCompanyName(){
-        return $this->belongsTo(Company::class);
+        return $this->hasMany(RegisterOfCompanyName::class);
     }
 
     public function RegisterOfDirector(){
-        return $this->belongsTo(Company::class);
+        return $this->hasMany(RegisterOfDirector::class);
     }
 
     public function RegisterOfSecretary(){
-        return $this->belongsTo(Company::class);
+        return $this->hasMany(RegisterOfSecretary::class);
     }
 
     public function RegisterOfShareholders(){
-        return $this->belongsTo(Company::class);
+        return $this->hasMany(RegisterOfShareholder::class);
     }
 
     public function RegisterOfTransfer(){
-        return $this->belongsTo(Company::class);
+        return $this->hasMany(RegisterOfTransfer::class);
     }
 
 }

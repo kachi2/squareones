@@ -17,5 +17,5 @@ Route::post('manage/secretaries', 'RegisterOfSecretaries');
 Route::post('manage/allotments', 'RegisterOfAllotments');
 Route::post('manage/controllers', 'SignificantController');
 Route::post('manage/representatives', 'DesignatedRepresentatives');
-
+Route::get('manage/incorporation/{company_id}', 'CompanyIncorporation');
 });
