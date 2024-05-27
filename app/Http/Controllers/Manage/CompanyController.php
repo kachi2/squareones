@@ -83,7 +83,7 @@ class CompanyController extends Controller
         try{
         $contract = RegisterOfficeContractDto::fromRequest($request->validated());
         $data = $this->IncorporationInterface->RegisterOfficeContract($contract);
-        return response()->json(['data', $data], HttpStatusCode::OK);
+        return response()->json(['data' => $data], HttpStatusCode::OK);
     }catch(\Exception $e){
         DB::rollback();
         return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
