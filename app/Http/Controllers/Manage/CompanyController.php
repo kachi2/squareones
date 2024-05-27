@@ -54,6 +54,18 @@ class CompanyController extends Controller
             return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
            }
     }
+
+    public function getCompany($company_id){
+       
+        try{
+            $data =  Company::where('id', $company_id)->first();
+            return response()->json(['data', $data], HttpStatusCode::OK);
+        }catch(\Exception $e){
+            DB::rollback();
+            return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+           }
+    }
+  
   
 
     public function RegisteredCompany(RegisteredCompanyRequest $request){

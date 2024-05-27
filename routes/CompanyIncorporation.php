@@ -5,6 +5,7 @@ use App\Http\Controllers\Manage\{CompanyController, DashboardController, Documen
 
 Route::controller(CompanyController::class)->group(function(){
 Route::get('/companies/index', 'getAllCompanies');
+Route::get('/company/{id}', 'getCompany');
 Route::post('manage/company', 'RegisteredCompany');
 Route::post('manage/officecontract', 'RegisterOfficeAndContract');
 Route::post('manage/compliance/reporting', 'ComplianceReportings');
@@ -16,4 +17,5 @@ Route::post('manage/secretaries', 'RegisterOfSecretaries');
 Route::post('manage/allotments', 'RegisterOfAllotments');
 Route::post('manage/controllers', 'SignificantController');
 Route::post('manage/representatives', 'DesignatedRepresentatives');
+
 });
