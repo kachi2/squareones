@@ -13,6 +13,7 @@ public readonly ?string $identity_info= null,
 public readonly ?string $address= null,
 public readonly ?string $cease_to_act= null,
 public readonly ?string $remarks= null,
+public readonly ?string $secretary_id= null,
     )
     {
         

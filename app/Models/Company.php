@@ -62,7 +62,7 @@ class Company extends Model
     }
 
     public function RegisteredCompany(){
-        return $this->belongsTo(Company::class);
+        return $this->hasMany(RegisteredCompany::class);
     }
 
     public function RegisterOfAllotments(){

@@ -18,6 +18,7 @@ use Cloudinary\Api\HttpStatusCode;
 use App\Dtos\RegisterOfficeContractDto;
 use App\Dtos\RegisterOfSecretaryDto;
 use App\Dtos\RegisterOfShareholdersDto;
+use App\Dtos\RegisterOfTransferDto;
 use App\Dtos\SignificantControllerDto;
 use App\Http\Requests\ComplianceReportingRequest;
 use App\Http\Requests\DesignatedRepresentativeRequest;
@@ -27,6 +28,7 @@ use App\Http\Requests\RegisterOfCompanyNameRequest;
 use App\Http\Requests\RegisterOfDirectorsRequest;
 use App\Http\Requests\RegisterOfSecretaryRequest;
 use App\Http\Requests\RegisterOfShareholdersRequest;
+use App\Http\Requests\RegisterOfTransferRequest;
 use App\Http\Requests\SignificantControllerRequest;
 use App\Models\Billing;
 use App\Models\Company;
@@ -161,6 +163,16 @@ class CompanyController extends Controller
         try{
         $secretaryDto = RegisterOfSecretaryDto::fromRequest($req->validated());
         $data = $this->IncorporationInterface->RegisterOfSecretary($secretaryDto);
+        return response()->json(['data' => $data], HttpStatusCode::OK);
+    }catch(\Exception $e){
+        DB::rollback();
+        return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+       }
+    }
+    public function RegisterOfTransfer(RegisterOfTransferRequest $req){
+        try{
+        $transferDto = RegisterOfTransferDto::fromRequest($req->validated());
+        $data = $this->IncorporationInterface->RegisterOfTransfer($transferDto);
         return response()->json(['data' => $data], HttpStatusCode::OK);
     }catch(\Exception $e){
         DB::rollback();

@@ -28,7 +28,8 @@ class RegisterOfSecretaryRequest extends FormRequest
             'identity_info' => 'nullable',
             'address' => 'nullable',
             'cease_to_act' => 'nullable',
-            'remarks' => 'nullable'
+            'remarks' => 'nullable',
+            'secretary_id' => 'nullable'
         ];
     }
 }

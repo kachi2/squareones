@@ -16,5 +16,6 @@ interface IncorporationInterface {
     public function SignificantControllers($SignificantControllersDto);
     public function DesignatedRepresentative($DesignatedRepresentative);
     public function RegisterOfAllotment($RegisterOfAllotmentDto);
+    public function RegisterOfTransfer($RegisterOfTransferDto);
 
 }

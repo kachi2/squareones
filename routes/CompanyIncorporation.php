@@ -13,6 +13,7 @@ Route::post('manage/directors', 'RegisterOfDirector');
 Route::post('manage/shareholders/', 'RegisterOfShareholder');
 Route::post('manage/namechange', 'RegisterChangeOfName');
 Route::post('manage/charges', 'RegisterOfCharge');
+Route::post('manage/transfer', 'RegisterOfTransfer');
 Route::post('manage/secretaries', 'RegisterOfSecretaries');
 Route::post('manage/allotments', 'RegisterOfAllotments');
 Route::post('manage/controllers', 'SignificantController');

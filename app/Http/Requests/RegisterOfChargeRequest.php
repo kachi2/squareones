@@ -29,7 +29,8 @@ class RegisterOfChargeRequest extends FormRequest
             'charge_description' => 'nullable',
             'names_of_charge' => 'nullable',
             'terms_of_charge' => 'nullable',
-            'registration_details' => 'nullable'
+            'registration_details' => 'nullable',
+            'charges_id' => 'nullable'
         ];
     }
 }

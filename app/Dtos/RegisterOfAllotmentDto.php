@@ -13,6 +13,7 @@ public readonly ?string $no_of_shares_allocated= null,
 public readonly ?string $denomination= null,
 public readonly ?string $total_consideration= null,
 public readonly ?string $remarks= null,
+public readonly ?string $allotments_id= null,
     )
     {   
     }

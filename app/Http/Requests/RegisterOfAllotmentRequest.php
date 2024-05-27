@@ -30,7 +30,8 @@ class RegisterOfAllotmentRequest extends FormRequest
             'no_of_shares_allocated' => 'nullable',
             'denomination' => 'nullable',
             'total_consideration' => 'nullable',
-            'remarks' => 'nullable'
+            'remarks' => 'nullable',
+            'allotments_id' => 'nullable'
         ];
     }
 }

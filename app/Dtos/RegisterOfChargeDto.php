@@ -12,6 +12,7 @@ public readonly ?string $charge_description= null,
 public readonly ?string $names_of_charge= null,
 public readonly ?string $terms_of_charge= null,
 public readonly ?string $registration_details= null,
+public readonly ?string $charges_id= null,
     )
     {   
     }

@@ -30,7 +30,8 @@ class SignificantControllerRequest extends FormRequest
             'resdential_address' => 'nullable',
             'identiy_info' => 'nullable',
             'place_of_registration' => 'nullable',
-            'nature_of_control_over_the_company' => 'nullable'
+            'nature_of_control_over_the_company' => 'nullable',
+            'controllers_id'=> 'nullable',
         ];
     }
 }

@@ -27,7 +27,8 @@ class RegisterOfCompanyNameRequest extends FormRequest
             'name' => 'nullable',
             'address' => 'nullable',
             'class_of_shares' => 'nullable',
-            'no_of_shares_allocated' => 'nullable'
+            'no_of_shares_allocated' => 'nullable',
+            'namechange_id' => 'nullable'
         ];
     }
 }

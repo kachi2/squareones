@@ -28,7 +28,8 @@ class RegisterOfDirectorsRequest extends FormRequest
             'reg_no' => 'nullable',
             'registered_office' => 'nullable',
             'ceasing_of_act' => 'nullable',
-            'remarks' => 'nullable'
+            'remarks' => 'nullable',
+            'directors_id' => 'nullable'
         ];
     }
 }

@@ -30,6 +30,7 @@ class RegisterOfficeRequest extends FormRequest
             'business_address' => 'nullable',
             'company_secretary' => 'nullable',
             'scr_designated_representative' => 'nullable',
+            'officecontract_id' => 'nullable'
         ];
     }
 }

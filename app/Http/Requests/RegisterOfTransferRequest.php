@@ -27,7 +27,8 @@ class RegisterOfTransferRequest extends FormRequest
             'transferee' => 'nullable',
             'no_of_shares_transfered' => 'nullable',
             'total_consideration' => 'nullable',
-            'transfer_method' => 'nullable'
+            'transfer_method' => 'nullable',
+            'transfer_id'   => 'nullable'
         ];
     }
 }

@@ -30,6 +30,7 @@ class DesignatedRepresentativeRequest extends FormRequest
             'identiy_info'=> 'nullable',
             'place_of_registration'=> 'nullable',
             'nature_of_control_over_the_company'=> 'nullable',
+            'representatives_id'=> 'nullable',
         ];
     }
 }

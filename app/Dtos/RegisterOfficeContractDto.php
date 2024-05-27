@@ -12,7 +12,9 @@ class RegisterOfficeContractDto extends BaseDto
         public readonly ?string $directors = null,
         public readonly ?string $shareholders = null,
         public readonly ?string $company_secretary = null,
+        public readonly ?string $officecontract_id = null,
         public readonly ?string $scr_designated_representative = null,
+        
     ) {
     }
 }
