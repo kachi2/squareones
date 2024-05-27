@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('register_of_allotments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained()->cascadeOnDelete();
-            $table->dateTime('allotment_date')->nullable();
+            $table->string('allotment_date')->nullable();
             $table->string('name')->nullable();
             $table->tinyText('address')->nullable();
             $table->tinyText('class_of_shares')->nullable();

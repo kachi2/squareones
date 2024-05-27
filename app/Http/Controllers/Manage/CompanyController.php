@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Manage;
 
 use App\Dtos\ComplianceReportingDto;
+use App\Dtos\DesignatedRepresentativeDto;
 use App\Dtos\RegisteredCompanyDto;
+use App\Dtos\RegisterOfAllotmentDto;
+use App\Dtos\RegisterOfChargeDto;
+use App\Dtos\RegisterOfCompanyNameDto;
 use App\Dtos\RegisterOfDirectorsDto;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisteredCompanyRequest;
@@ -14,10 +18,16 @@ use Cloudinary\Api\HttpStatusCode;
 use App\Dtos\RegisterOfficeContractDto;
 use App\Dtos\RegisterOfSecretaryDto;
 use App\Dtos\RegisterOfShareholdersDto;
+use App\Dtos\SignificantControllerDto;
 use App\Http\Requests\ComplianceReportingRequest;
+use App\Http\Requests\DesignatedRepresentativeRequest;
+use App\Http\Requests\RegisterOfAllotmentRequest;
+use App\Http\Requests\RegisterOfChargeRequest;
+use App\Http\Requests\RegisterOfCompanyNameRequest;
 use App\Http\Requests\RegisterOfDirectorsRequest;
 use App\Http\Requests\RegisterOfSecretaryRequest;
 use App\Http\Requests\RegisterOfShareholdersRequest;
+use App\Http\Requests\SignificantControllerRequest;
 use App\Models\Company;
 use App\Models\RegisterOfShareholder;
 use Illuminate\Http\Request;
@@ -92,6 +102,28 @@ class CompanyController extends Controller
            }
     }
 
+    public function RegisterChangeOfName(RegisterOfCompanyNameRequest $req){
+        try{
+        $name = RegisterOfCompanyNameDto::fromRequest($req->validated());
+        $data = $this->IncorporationInterface->RegisterOfChangeOfName($name);
+        return response()->json(['data', $data], HttpStatusCode::OK);
+    }catch(\Exception $e){
+        DB::rollback();
+        return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+       }
+    }
+
+    public function RegisterOfCharge(RegisterOfChargeRequest $req){
+        try{
+        $charge = RegisterOfChargeDto::fromRequest($req->validated());
+        $data = $this->IncorporationInterface->RegisterOfCharges($charge);
+        return response()->json(['data', $data], HttpStatusCode::OK);
+    }catch(\Exception $e){
+        DB::rollback();
+        return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+       }
+
+    }
     public function RegisterOfSecretaries(RegisterOfSecretaryRequest $req){
         try{
         $secretaryDto = RegisterOfSecretaryDto::fromRequest($req->validated());
@@ -102,4 +134,38 @@ class CompanyController extends Controller
         return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
        }
     }
+    public function RegisterOfAllotments(RegisterOfAllotmentRequest $req){
+
+        try{
+        $allotment = RegisterOfAllotmentDto::fromRequest($req->validated());
+        $data = $this->IncorporationInterface->RegisterOfAllotment($allotment);
+        return response()->json(['data', $data], HttpStatusCode::OK);
+    }catch(\Exception $e){
+        DB::rollback();
+        return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+       }
+    }
+    public function SignificantController(SignificantControllerRequest $request){
+ 
+        try{
+        $SignificantDto = SignificantControllerDto::fromRequest($request->validated());
+        $data = $this->IncorporationInterface->SignificantControllers($SignificantDto);
+        return response()->json(['data', $data], HttpStatusCode::OK);
+    }catch(\Exception $e){
+        DB::rollback();
+        return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+       }
+    }
+
+    public function DesignatedRepresentatives(DesignatedRepresentativeRequest $req){
+        try{
+        $designatedDto = DesignatedRepresentativeDto::fromRequest($req->validated());
+        $data = $this->IncorporationInterface->DesignatedRepresentative($designatedDto);
+        return response()->json(['data', $data], HttpStatusCode::OK);
+    }catch(\Exception $e){
+        DB::rollback();
+        return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+       }
+    }
+
 }

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('company_id')->constrained()->cascadeOnDelete();
             $table->string('company_registered_name')->nullable();
             $table->string('business_registered_number')->nullable();
-            $table->dateTime('incorporated_date')->nullable();
+            $table->string('incorporated_date')->nullable();
             $table->string('company_structure')->nullable();
             $table->string('company_registered')->nullable();
             $table->string('business_classification')->nullable();

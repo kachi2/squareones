@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('significant_controllers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained()->cascadeOnDelete();
-            $table->dateTime('date_of_entry')->nullable();
-            $table->string('name_of_legal_entity')->nullable();
-            $table->dateTime('date_becoming_rep_person')->nullable();
-            $table->dateTime('dater_ceased_to_be_rep_person')->nullable();
+            $table->string('entry_date')->nullable();
+            $table->string('legal_entity_name')->nullable(); 
+            $table->string('date_becoming_rep_person')->nullable();
+            $table->string('date_ceased_to_be_rep_person')->nullable();
             $table->timestamps();
         });
     }

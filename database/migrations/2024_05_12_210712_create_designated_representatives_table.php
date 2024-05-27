@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('designated_representatives', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained()->cascadeOnDelete();
-            $table->string('date_of_entry')->nullable();
+            $table->string('entry_date')->nullable();
             $table->string('name')->nullable();
             $table->text('remarks')->nullable();
+            
             $table->timestamps();
         });
     }

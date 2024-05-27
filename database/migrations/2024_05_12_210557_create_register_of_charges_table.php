@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('register_of_charges', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained()->cascadeOnDelete();
-            $table->dateTime('charge_creation_date')->nullable();
+            $table->string('charge_creation_date')->nullable();
             $table->string('account_secured_by_charge')->nullable();
             $table->string('type_of_charge')->nullable();
             $table->tinyText('charge_description')->nullable();

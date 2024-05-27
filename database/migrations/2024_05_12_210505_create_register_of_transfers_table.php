@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('register_of_transfers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained()->cascadeOnDelete();
-            $table->dateTime('registration_date')->nullable();
+            $table->string('registration_date')->nullable();
             $table->string('transferee')->nullable();
             $table->string('no_of_shares_transfered')->nullable();
             $table->string('total_consideration')->nullable();

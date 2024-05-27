@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('register_of_secretaries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained()->cascadeOnDelete();
-            $table->dateTime('appointment_date')->nullable();
+            $table->string('appointment_date')->nullable();
             $table->string('name')->nullable();
             $table->string('identity_info')->nullable();
             $table->string('address')->nullable();

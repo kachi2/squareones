@@ -13,7 +13,11 @@ use App\Models\{
     RegisterOfSecretary,
     RegisterOfShareholder,
     RegisterOfTransfer,
-    RegisteredOfficeContract
+    RegisteredOfficeContract,
+    SignificantController,
+    ControllersParticulars,
+    DesignatedRepresentative,
+    DesignatedParticulars
 };
 
 class IncorporationService implements IncorporationInterface
@@ -154,11 +158,11 @@ class IncorporationService implements IncorporationInterface
             ],
             [
                 'company_id' => $RegisterOfCompanyNameDto->company_id,
-                'allotment_date'=> $RegisterOfCompanyNameDto->allotment_date,
+                'allotment_date' => $RegisterOfCompanyNameDto->allotment_date,
                 'name' => $RegisterOfCompanyNameDto->name,
-                'address'=> $RegisterOfCompanyNameDto->address,
-                'class_of_shares'=> $RegisterOfCompanyNameDto->class_of_shares,
-                'no_of_shares_allocated'=> $RegisterOfCompanyNameDto->no_of_shares_allocated
+                'address' => $RegisterOfCompanyNameDto->address,
+                'class_of_shares' => $RegisterOfCompanyNameDto->class_of_shares,
+                'no_of_shares_allocated' => $RegisterOfCompanyNameDto->no_of_shares_allocated
             ]
         );
         return $data;
@@ -181,6 +185,91 @@ class IncorporationService implements IncorporationInterface
                 'registration_details' => $RegisterOfChargeDto->registration_details
             ]
         );
+        return $data;
+    }
+
+    public function RegisterOfAllotment($RegisterOfAllotmentDto)
+    {
+        $data = RegisterOfAllotment::updateOrCreate(
+            [
+                'company_id' => $RegisterOfAllotmentDto->company_id
+            ],
+            [
+                'company_id' => $RegisterOfAllotmentDto->company_id,
+                'allotment_date' => $RegisterOfAllotmentDto->allotment_date,
+                'name' => $RegisterOfAllotmentDto->name,
+                'address' => $RegisterOfAllotmentDto->address,
+                'class_of_shares' => $RegisterOfAllotmentDto->class_of_shares,
+                'no_of_shares_allocated' => $RegisterOfAllotmentDto->no_of_shares_allocated,
+                'denomination' => $RegisterOfAllotmentDto->denomination,
+                'total_consideration' => $RegisterOfAllotmentDto->total_consideration,
+                'remarks' => $RegisterOfAllotmentDto->remarks
+            ]
+        );
+        return $data;
+    }
+
+    public function SignificantControllers($SignificantControllersDto)
+    {
+        $data = SignificantController::updateOrCreate(
+            [
+                'company_id' => $SignificantControllersDto->company_id
+            ],
+            [
+                'company_id' => $SignificantControllersDto->company_id,
+                'entry_date' => $SignificantControllersDto->entry_date,
+                'date_becoming_rep_person' => $SignificantControllersDto->date_becoming_rep_person,
+                'date_ceased_to_be_rep_person' => $SignificantControllersDto->date_ceased_to_be_rep_person
+            ]
+        );
+
+        if ($data) {
+            $particulars = ControllersParticulars::updateOrCreate(
+                [
+                    'significant_controller_id' => $data->id,
+                ],
+                [
+                    'significant_controller_id' =>  $data->id,
+                    'corresponding_address' => $SignificantControllersDto->corresponding_address,
+                    'resdential_address' => $SignificantControllersDto->resdential_address,
+                    'identiy_info' => $SignificantControllersDto->identiy_info,
+                    'place_of_registration' => $SignificantControllersDto->place_of_registration,
+                    'nature_of_control_over_the_company' => $SignificantControllersDto->nature_of_control_over_the_company,
+                ]
+            );
+        }
+
+        $data->particulars =  $particulars;
+        return $data;
+    }
+
+    public function DesignatedRepresentative($DesignatedRepresentative)
+    {
+
+        $data = DesignatedRepresentative::updateOrCreate(
+            [
+                'company_id' => $DesignatedRepresentative->company_id
+            ],
+            [
+                'company_id' => $DesignatedRepresentative->company_id,
+                'entry_date' => $DesignatedRepresentative->entry_date,
+                'name' => $DesignatedRepresentative->name,
+                'remarks' => $DesignatedRepresentative->remarks
+            ]
+        );
+        if ($data) {
+            $particulars = DesignatedParticulars::updateOrCreate(
+                [
+                    'designated_representative_id' => $data->id,
+                ],
+                [
+                    'identiy_info' => $DesignatedRepresentative->identiy_info,
+                    'place_of_registration' => $DesignatedRepresentative->place_of_registration,
+                    'nature_of_control_over_the_company' => $DesignatedRepresentative->nature_of_control_over_the_company
+                ]
+            );
+        }
+        $data->particulars =  $particulars;
         return $data;
     }
 }

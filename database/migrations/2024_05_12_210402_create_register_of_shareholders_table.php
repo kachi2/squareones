@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('denomination')->nullable();
             $table->string('current_holding')->nullable();
             $table->string('total_consideration')->nullable();
-            $table->dateTime('date_entered_as_member')->nullable();
-            $table->dateTime('date_cease_to_be_member')->nullable();
+            $table->string('date_entered_as_member')->nullable();
+            $table->string('date_cease_to_be_member')->nullable();
             $table->timestamps();
         });
     }
