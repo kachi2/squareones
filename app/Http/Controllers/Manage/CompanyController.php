@@ -41,11 +41,20 @@ class CompanyController extends Controller
         
     }
 
-    public function IncorporationProgress($company_id = null){
 
-        $company = Company::where('id', $company_id)->first();
-        
+    public function getAllCompanies(){
+       
+        try{
+            $companies =  Company::latest()->get();
+            $data['form_completed'] = Company::where('is_complete', 1)->get();
+            $data['is_incorporated'] = Company::where('is_incorporated', 1)->get();
+            return response()->json(['data', $data], HttpStatusCode::OK);
+        }catch(\Exception $e){
+            DB::rollback();
+            return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+           }
     }
+  
 
     public function RegisteredCompany(RegisteredCompanyRequest $request){
         try{

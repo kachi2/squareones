@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Manage\{CompanyController, DashboardController, DocumentController, UserController};
 
 Route::controller(CompanyController::class)->group(function(){
+Route::get('/companies/index', 'getAllCompanies');
 Route::post('manage/company', 'RegisteredCompany');
 Route::post('manage/officecontract', 'RegisterOfficeAndContract');
 Route::post('manage/compliance/reporting', 'ComplianceReportings');
