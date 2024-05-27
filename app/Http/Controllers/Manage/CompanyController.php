@@ -28,6 +28,7 @@ use App\Http\Requests\RegisterOfDirectorsRequest;
 use App\Http\Requests\RegisterOfSecretaryRequest;
 use App\Http\Requests\RegisterOfShareholdersRequest;
 use App\Http\Requests\SignificantControllerRequest;
+use App\Models\Billing;
 use App\Models\Company;
 use App\Models\RegisterOfShareholder;
 use Illuminate\Http\Request;
@@ -45,7 +46,7 @@ class CompanyController extends Controller
     public function getAllCompanies(){
        
         try{
-            $data['companies'] =  Company::latest()->get();
+            $data['companies'] =  Company::latest()->get()->load('Billing', 'Names');
             $data['form_completed'] = Company::where('is_complete', 1)->get();
             $data['is_incorporated'] = Company::where('is_incorporated', 1)->get();
             return response()->json(['data' => $data], HttpStatusCode::OK);
