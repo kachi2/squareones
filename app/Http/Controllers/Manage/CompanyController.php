@@ -45,7 +45,7 @@ class CompanyController extends Controller
     public function getAllCompanies(){
        
         try{
-            $companies =  Company::latest()->get();
+            $data['companies'] =  Company::latest()->get();
             $data['form_completed'] = Company::where('is_complete', 1)->get();
             $data['is_incorporated'] = Company::where('is_incorporated', 1)->get();
             return response()->json(['data', $data], HttpStatusCode::OK);
