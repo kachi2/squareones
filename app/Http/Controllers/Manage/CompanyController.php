@@ -48,7 +48,7 @@ class CompanyController extends Controller
             $data['companies'] =  Company::latest()->get();
             $data['form_completed'] = Company::where('is_complete', 1)->get();
             $data['is_incorporated'] = Company::where('is_incorporated', 1)->get();
-            return response()->json(['data', $data], HttpStatusCode::OK);
+            return response()->json(['data' => $data], HttpStatusCode::OK);
         }catch(\Exception $e){
             DB::rollback();
             return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
@@ -59,7 +59,7 @@ class CompanyController extends Controller
        
         try{
             $data =  Company::where('id', $company_id)->first();
-            return response()->json(['data', $data], HttpStatusCode::OK);
+            return response()->json(['data' => $data], HttpStatusCode::OK);
         }catch(\Exception $e){
             DB::rollback();
             return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
@@ -72,7 +72,7 @@ class CompanyController extends Controller
         try{
         $RegDto = RegisteredCompanyDto::fromRequest($request->validated());
         $registered = $this->IncorporationInterface->CompanyCorporation($RegDto);
-        return response()->json(['data', $registered], HttpStatusCode::OK);
+        return response()->json(['data' => $registered], HttpStatusCode::OK);
     }catch(\Exception $e){
         DB::rollback();
         return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
@@ -94,7 +94,7 @@ class CompanyController extends Controller
         try{
         $reptDto = ComplianceReportingDto::fromRequest($request->validated());
         $data = $this->IncorporationInterface->ComplianceReporting($reptDto);
-        return response()->json(['data', $data], HttpStatusCode::OK);
+        return response()->json(['data' => $data], HttpStatusCode::OK);
     }catch(\Exception $e){
         DB::rollback();
         return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
@@ -105,7 +105,7 @@ class CompanyController extends Controller
         try{
         $dirDto = RegisterOfDirectorsDto::fromRequest($req->validated());
         $data = $this->IncorporationInterface->RegisterOfDirectors($dirDto);
-        return response()->json(['data', $data], HttpStatusCode::OK);
+        return response()->json(['data' => $data], HttpStatusCode::OK);
     }catch(\Exception $e){
         DB::rollback();
         return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
@@ -116,7 +116,7 @@ class CompanyController extends Controller
         try{
             $shareholdDto = RegisterOfShareholdersDto::fromRequest($req->validated());
             $data = $this->IncorporationInterface->RegisterOfShareholders($shareholdDto);
-            return response()->json(['data', $data], HttpStatusCode::OK);
+            return response()->json(['data' => $data], HttpStatusCode::OK);
         }catch(\Exception $e){
             DB::rollback();
             return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
@@ -127,7 +127,7 @@ class CompanyController extends Controller
         try{
         $name = RegisterOfCompanyNameDto::fromRequest($req->validated());
         $data = $this->IncorporationInterface->RegisterOfChangeOfName($name);
-        return response()->json(['data', $data], HttpStatusCode::OK);
+        return response()->json(['data' => $data], HttpStatusCode::OK);
     }catch(\Exception $e){
         DB::rollback();
         return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
@@ -138,7 +138,7 @@ class CompanyController extends Controller
         try{
         $charge = RegisterOfChargeDto::fromRequest($req->validated());
         $data = $this->IncorporationInterface->RegisterOfCharges($charge);
-        return response()->json(['data', $data], HttpStatusCode::OK);
+        return response()->json(['data' => $data], HttpStatusCode::OK);
     }catch(\Exception $e){
         DB::rollback();
         return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
@@ -149,7 +149,7 @@ class CompanyController extends Controller
         try{
         $secretaryDto = RegisterOfSecretaryDto::fromRequest($req->validated());
         $data = $this->IncorporationInterface->RegisterOfSecretary($secretaryDto);
-        return response()->json(['data', $data], HttpStatusCode::OK);
+        return response()->json(['data' => $data], HttpStatusCode::OK);
     }catch(\Exception $e){
         DB::rollback();
         return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
@@ -160,7 +160,7 @@ class CompanyController extends Controller
         try{
         $allotment = RegisterOfAllotmentDto::fromRequest($req->validated());
         $data = $this->IncorporationInterface->RegisterOfAllotment($allotment);
-        return response()->json(['data', $data], HttpStatusCode::OK);
+        return response()->json(['data' => $data], HttpStatusCode::OK);
     }catch(\Exception $e){
         DB::rollback();
         return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
@@ -171,7 +171,7 @@ class CompanyController extends Controller
         try{
         $SignificantDto = SignificantControllerDto::fromRequest($request->validated());
         $data = $this->IncorporationInterface->SignificantControllers($SignificantDto);
-        return response()->json(['data', $data], HttpStatusCode::OK);
+        return response()->json(['data' => $data], HttpStatusCode::OK);
     }catch(\Exception $e){
         DB::rollback();
         return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
@@ -182,7 +182,7 @@ class CompanyController extends Controller
         try{
         $designatedDto = DesignatedRepresentativeDto::fromRequest($req->validated());
         $data = $this->IncorporationInterface->DesignatedRepresentative($designatedDto);
-        return response()->json(['data', $data], HttpStatusCode::OK);
+        return response()->json(['data' => $data], HttpStatusCode::OK);
     }catch(\Exception $e){
         DB::rollback();
         return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
