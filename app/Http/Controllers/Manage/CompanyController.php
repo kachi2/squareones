@@ -31,6 +31,7 @@ use App\Http\Requests\RegisterOfShareholdersRequest;
 use App\Http\Requests\RegisterOfTransferRequest;
 use App\Http\Requests\SignificantControllerRequest;
 use App\Models\Billing;
+use App\Models\RegistrationProgress;
 use App\Models\Company;
 use App\Models\RegisterOfShareholder;
 use Illuminate\Http\Request;
@@ -55,6 +56,15 @@ class CompanyController extends Controller
        }
     }
 
+    public function GetIncorporationStatuses(){
+        try{
+            $progress = RegistrationProgress::latest()->get();
+            return response()->json(['data' => $progress], HttpStatusCode::OK);
+        }catch(\Exception $e){
+            DB::rollback();
+            return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+           }
+    }
 
     public function getAllCompanies(){
        
