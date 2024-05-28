@@ -105,4 +105,8 @@ class Company extends Model
         return $this->hasMany(DesignatedRepresentative::class)->with('DesignatedParticulars');
     }
 
+    public function OfficeContract(){
+        return $this->hasMany(RegisteredOfficeContract::class);
+    }
+
 }
