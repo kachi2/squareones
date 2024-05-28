@@ -93,4 +93,16 @@ class Company extends Model
         return $this->hasMany(RegisterOfTransfer::class);
     }
 
+    public function SignificantController(){
+        return $this->hasMany(SignificantController::class)->with('ControllersParticulars');
+    }
+
+    public function ComplianceReporting(){
+        return $this->hasMany(ComplianceAndReporting::class);
+    }
+
+    public function DesignatedRepresentative(){
+        return $this->hasMany(DesignatedRepresentative::class)->with('DesignatedParticulars');
+    }
+
 }

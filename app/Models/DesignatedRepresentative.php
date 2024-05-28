@@ -12,4 +12,8 @@ class DesignatedRepresentative extends Model
     protected $fillable = [
   'company_id','entry_date','name','remarks'
     ];
+
+    public function DesignatedParticulars(){
+      return $this->hasOne(DesignatedParticulars::class);
+    }
 }
