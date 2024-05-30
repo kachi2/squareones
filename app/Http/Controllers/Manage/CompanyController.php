@@ -33,7 +33,9 @@ use App\Http\Requests\SignificantControllerRequest;
 use App\Models\Billing;
 use App\Models\RegistrationProgress;
 use App\Models\Company;
+use App\Models\RegisteredCompany;
 use App\Models\RegisterOfShareholder;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -59,6 +61,21 @@ class CompanyController extends Controller
     public function GetIncorporationStatuses(){
         try{
             $progress = RegistrationProgress::latest()->get();
+            return response()->json(['data' => $progress], HttpStatusCode::OK);
+        }catch(\Exception $e){
+            DB::rollback();
+            return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+           }
+    }
+
+    public function UpdateIncorporationStatus(Request $request){
+        try{
+            $progress = RegisteredCompany::where('id', $request->registered_company_id)->first();
+            if($progress){
+                $progress->update([
+                    'registration_progress_id' => $request->registration_progress_id
+                ]);
+            }
             return response()->json(['data' => $progress], HttpStatusCode::OK);
         }catch(\Exception $e){
             DB::rollback();

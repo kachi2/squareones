@@ -17,6 +17,7 @@ class RegisteredCompany extends Model
     'company_structure', 
     'company_registered', 
     'business_classification',
-     'tax_id'
+     'tax_id',
+     'registration_progress_id'
      ];
 }

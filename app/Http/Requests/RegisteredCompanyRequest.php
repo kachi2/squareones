@@ -30,6 +30,7 @@ class RegisteredCompanyRequest extends FormRequest
             'company_registered' => 'nullable',
             'business_classification' => 'nullable',
             'tax_id' => 'nullable',
+            'registration_progress_id' => 'nullable'
         ];
     }
 }

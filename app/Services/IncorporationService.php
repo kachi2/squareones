@@ -27,7 +27,7 @@ class IncorporationService implements IncorporationInterface
     public function CompanyCorporation($RegisteredCompanyDto)
     {
         // try {
-        $data = RegisteredCompany::UpdateOrCreate(
+        $data = RegisteredCompany::updateOrcreate(
             [
                 'company_id' => $RegisteredCompanyDto->company_id
             ],
