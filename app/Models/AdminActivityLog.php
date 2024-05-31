@@ -5,11 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DesignatedRepresentativeLog extends Model
+class AdminActivityLog extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'representative_id','entry_date','name','remarks'
-          ];
 }

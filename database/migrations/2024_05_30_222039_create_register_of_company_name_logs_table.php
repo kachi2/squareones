@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('register_of_company_name_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('register_of_company_name_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('company_name_id');
             $table->string('allotment_date')->nullable();
             $table->string('name')->nullable();
             $table->tinyText('address')->nullable();

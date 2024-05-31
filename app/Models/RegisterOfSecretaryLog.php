@@ -9,6 +9,6 @@ class RegisterOfSecretaryLog extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['register_of_secretary_id', 'appointment_date', 'name', 'identity_info', 'address', 'cease_to_act', 'remarks'];
+    protected $fillable = ['secretary_id', 'appointment_date', 'name', 'identity_info', 'address', 'cease_to_act', 'remarks'];
 
 }

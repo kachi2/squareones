@@ -21,4 +21,5 @@ Route::post('manage/representatives', 'DesignatedRepresentatives');
 Route::get('manage/incorporation/{company_id}', 'CompanyIncorporation');
 Route::get('manage/incorporations/statuses', 'GetIncorporationStatuses');
 Route::post('manage/incorporations/update', 'UpdateIncorporationStatus');
+Route::post('manage/company/logs', 'GetRegisteredLogs');
 });

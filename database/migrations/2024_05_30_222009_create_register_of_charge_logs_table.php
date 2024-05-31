@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('register_of_charge_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('register_of_charge_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('charge_id');
             $table->string('charge_creation_date')->nullable();
             $table->string('account_secured_by_charge')->nullable();
             $table->string('type_of_charge')->nullable();

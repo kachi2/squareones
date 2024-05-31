@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('designated_representative_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('designated_representative_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('representative_id');
             $table->string('entry_date')->nullable();
             $table->string('name')->nullable();
             $table->text('remarks')->nullable();

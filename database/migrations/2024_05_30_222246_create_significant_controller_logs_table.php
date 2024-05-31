@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('significant_controller_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('significant_controller_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('controller_id');
             $table->string('entry_date')->nullable();
             $table->string('legal_entity_name')->nullable(); 
             $table->string('date_becoming_rep_person')->nullable();

@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class RegisterOfAllotmentLog extends Model
 {
     use HasFactory;
-    protected $fillable = ['register_of_allotment_id', 'allotment_date', 'name', 'address', 'class_of_shares', 'no_of_shares_allocated', 'denomination', 'total_consideration', 'remarks'];
+    protected $fillable = ['allotment_id', 'allotment_date', 'name', 'address', 'class_of_shares', 'no_of_shares_allocated', 'denomination', 'total_consideration', 'remarks'];
 }

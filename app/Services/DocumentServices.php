@@ -22,6 +22,7 @@ class DocumentServices  implements DocumentInterface{
               $documents =  Document::create([
                 'company_id' => $request->company_id,
                 'document' => $base64Image,
+                'title' => $request->title,
                 'document_type_id' => $files['document_type_id']
             ]);
             $docs[] =  $documents;

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('register_of_secretary_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('register_of_secretary_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('secretary_id');
             $table->string('appointment_date')->nullable();
             $table->string('name')->nullable();
             $table->string('identity_info')->nullable();

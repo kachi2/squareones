@@ -10,5 +10,5 @@ class RegisterOfDirectorLog extends Model
 
     use HasFactory;
 
-    protected $fillable = ['register_of_director_id', 'date_of_appointment', 'name', 'reg_no', 'registered_office', 'ceasing_of_act', 'remarks'];
+    protected $fillable = ['director_id', 'date_of_appointment', 'name', 'reg_no', 'registered_office', 'ceasing_of_act', 'remarks'];
 }

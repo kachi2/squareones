@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('register_of_shareholder_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('register_of_shareholder_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('shareholder_id');
             $table->string('name')->nullable();
             $table->tinyText('address')->nullable();
             $table->tinyText('class_of_shares')->nullable();

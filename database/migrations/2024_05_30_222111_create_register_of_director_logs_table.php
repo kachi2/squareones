@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('register_of_director_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('register_of_director_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('director_id');
             $table->string('date_of_appointment')->nullable();
             $table->string('name')->nullable();
             $table->string('reg_no')->nullable();
