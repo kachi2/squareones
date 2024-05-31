@@ -23,3 +23,7 @@ Route::get('manage/incorporations/statuses', 'GetIncorporationStatuses');
 Route::post('manage/incorporations/update', 'UpdateIncorporationStatus');
 Route::post('manage/company/logs', 'GetRegisteredLogs');
 });
+
+Route::controller(DashboardController::class)->group(function(){
+    Route::get('manage/activitylog', 'AdminActivityLog');
+});

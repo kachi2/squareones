@@ -5,6 +5,14 @@ if(!function_exists('auth_user')){
     function auth_user(){
          return auth()->user()->id;
     }
+}
+
+if(!function_exists('auth_name')){
+
+    function auth_name(){
+         return auth()->user()->name;
+    }
+}
 
 
    function filter($query, $relationship, $delimeter, $pointer = "id")
@@ -16,4 +24,3 @@ if(!function_exists('auth_user')){
 			return $query;
 		}
 	
-}

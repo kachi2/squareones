@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class AdminActivityLog extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['type', 'activity', 'action_status'];
 }

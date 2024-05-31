@@ -32,6 +32,7 @@ class SignificantControllerRequest extends FormRequest
             'place_of_registration' => 'nullable',
             'nature_of_control_over_the_company' => 'nullable',
             'controllers_id'=> 'nullable',
+            'legal_entity_name' => 'nullable'
         ];
     }
 }
