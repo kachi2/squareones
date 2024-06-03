@@ -61,4 +61,12 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function company(){
+        return $this->hasMany(Company::class);
+    }
+
+    public function getUserDocuments(){
+        return $this->hasMany(SignDocument::class);
+    }
 }

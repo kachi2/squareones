@@ -63,7 +63,6 @@ class CompanyController extends Controller
         $company->load('RegisteredCompany', 'RegisterOfAllotments', 'RegisterOfCharge', 'RegisterOfCompanyName','RegisterOfDirector','RegisterOfSecretary','RegisterOfShareholders','RegisterOfTransfer', 'SignificantController', 'ComplianceReporting', 'DesignatedRepresentative', 'OfficeContract');
         return response()->json(['data' => $company], HttpStatusCode::OK);
     }catch(\Exception $e){
-        DB::rollback();
         return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
        }
     }
@@ -80,7 +79,7 @@ class CompanyController extends Controller
 
     public function UpdateIncorporationStatus(Request $request){
         try{
-            $progress = RegisteredCompany::where('id', $request->registered_company_id)->first();
+            $progress = RegisteredCompany::where('id', $request->company_id)->first();
             if($progress){
                 $progress->update([
                     'registration_progress_id' => $request->registration_progress_id
@@ -94,9 +93,10 @@ class CompanyController extends Controller
     }
 
     public function getAllCompanies(){
-       
+
         try{
-            $data['companies'] =  Company::latest()->get()->load('Billing', 'Names');
+            $company = Company::latest()->get();
+            $data['companies'] =  $company->load('Names', 'Billing');
             $data['form_completed'] = Company::where('is_complete', 1)->get();
             $data['is_incorporated'] = Company::where('is_incorporated', 1)->get();
             return response()->json(['data' => $data], HttpStatusCode::OK);

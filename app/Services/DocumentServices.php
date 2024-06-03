@@ -15,19 +15,23 @@ class DocumentServices  implements DocumentInterface{
   
     public function upload($request)
     {
-        foreach($request->document as $files){
-            if($files['docs'] instanceof UploadedFile){
-                $base64Image = base64_encode(file_get_contents($files['docs']->getRealPath()));
+        $docs =  [];
+        foreach($request->documents as $files){
+            dd($files);
+            if($files instanceof UploadedFile){
+                $base64Image = base64_encode(file_get_contents($files->getRealPath()));
+                $docs[] =  $base64Image;
+                return $docs;
             }
-              $documents =  Document::create([
-                'company_id' => $request->company_id,
-                'document' => $base64Image,
-                'title' => $request->title,
-                'document_type_id' => $files['document_type_id']
-            ]);
-            $docs[] =  $documents;
         }
-        return  $docs;
+              $data =  Document::create([
+                'company_id' => $request->company_id,
+                'document' => json_encode($docs),
+                'title' => $request->title,
+                'document_type_id' => $request->document_type_id
+            ]);
+   
+        return  $data;
     }
 
 

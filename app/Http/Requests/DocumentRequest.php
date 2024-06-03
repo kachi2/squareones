@@ -11,7 +11,7 @@ class DocumentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +23,10 @@ class DocumentRequest extends FormRequest
     {
         return [
             //
+            'company_id' => 'required',
+            'documents' => 'nullable',
+            'title' => 'nullable',
+            'document_type_id' => 'nullable'
         ];
     }
 }

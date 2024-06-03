@@ -6,7 +6,8 @@ use App\Events\GeneratePDF;
 use App\Models\Company;
 use App\Models\Corporate;
 use App\Models\Individual;
-
+use Cloudinary\Api\HttpStatusCode;
+use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     //
@@ -23,13 +24,16 @@ class HomeController extends Controller
         return view('pdf/pdf')->with('company', $company);
     }
 
+    public function CompanyIncorporation($company_id){
+        try{
+        $company = Company::where('id', $company_id)->first();
+        $company->load('RegisteredCompany', 'RegisterOfAllotments', 'RegisterOfCharge', 'RegisterOfCompanyName','RegisterOfDirector','RegisterOfSecretary','RegisterOfShareholders','RegisterOfTransfer', 'SignificantController', 'ComplianceReporting', 'DesignatedRepresentative', 'OfficeContract');
+        return response()->json(['data' => $company], HttpStatusCode::OK);
+    }catch(\Exception $e){
+        return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+       }
+    }
 
-//     public function CompleteCompanyFormation($company_id){
-//         $company = Company::whereId($company_id)->first();
 
-//    $ss =  event(new GeneratePDF($company->id));
 
-//    dd($ss);
-
-//     }
 }

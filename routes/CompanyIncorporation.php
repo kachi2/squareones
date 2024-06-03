@@ -2,28 +2,41 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Manage\{CompanyController, DashboardController, DocumentController, UserController};
-
-Route::controller(CompanyController::class)->group(function(){
+Route::prefix('manage')->group(function() { 
+Route::controller(CompanyController::class)->group( function(){
 Route::get('/companies/index', 'getAllCompanies');
-Route::get('/company/{id}', 'getCompany');
-Route::post('manage/company', 'RegisteredCompany');
-Route::post('manage/officecontract', 'RegisterOfficeAndContract');
-Route::post('manage/compliance/reporting', 'ComplianceReportings');
-Route::post('manage/directors', 'RegisterOfDirector');
-Route::post('manage/shareholders/', 'RegisterOfShareholder');
-Route::post('manage/namechange', 'RegisterChangeOfName');
-Route::post('manage/charges', 'RegisterOfCharge');
-Route::post('manage/transfer', 'RegisterOfTransfer');
-Route::post('manage/secretaries', 'RegisterOfSecretaries');
-Route::post('manage/allotments', 'RegisterOfAllotments');
-Route::post('manage/controllers', 'SignificantController');
-Route::post('manage/representatives', 'DesignatedRepresentatives');
-Route::get('manage/incorporation/{company_id}', 'CompanyIncorporation');
-Route::get('manage/incorporations/statuses', 'GetIncorporationStatuses');
-Route::post('manage/incorporations/update', 'UpdateIncorporationStatus');
-Route::post('manage/company/logs', 'GetRegisteredLogs');
+Route::get('/get/company/{id}', 'getCompany');
+Route::post('/company', 'RegisteredCompany');
+Route::post('/officecontract', 'RegisterOfficeAndContract');
+Route::post('/compliance/reporting', 'ComplianceReportings');
+Route::post('/directors', 'RegisterOfDirector');
+Route::post('/shareholders', 'RegisterOfShareholder');
+Route::post('/namechange', 'RegisterChangeOfName');
+Route::post('/charges', 'RegisterOfCharge');
+Route::post('/transfer', 'RegisterOfTransfer');
+Route::post('/secretaries', 'RegisterOfSecretaries');
+Route::post('/allotments', 'RegisterOfAllotments');
+Route::post('/controllers', 'SignificantController');
+Route::post('/representatives', 'DesignatedRepresentatives');
+Route::get('/incorporation/{company_id}', 'CompanyIncorporation');
+Route::get('/incorporations/statuses', 'GetIncorporationStatuses');
+Route::post('/incorporations/update', 'UpdateIncorporationStatus');
+Route::post('/company/logs', 'GetRegisteredLogs');
 });
+
 
 Route::controller(DashboardController::class)->group(function(){
-    Route::get('manage/activitylog', 'AdminActivityLog');
+    Route::get('/activitylog', 'AdminActivityLog');
+    Route::get('company/stats', 'GetCompanyStats');
+    Route::get('/revenue/stats', 'getRevenueStats');
 });
+
+Route::controller(DocumentController::class)->group(function (){
+
+Route::post('/upload/document/', 'ProcessDocuments');
+Route::get('/get/document/{company_id}', 'Getdocuments');
+});
+
+Route::get('/users', [UserController::class, 'getUsers']);
+});
+
