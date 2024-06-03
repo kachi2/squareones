@@ -22,6 +22,7 @@ return new class extends Migration
             $table->Text('user_token')->nullable();
             $table->string('last_login')->nullable();
             $table->string('login_ip')->nullable();
+            $table->integer('status')->nullable();
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();

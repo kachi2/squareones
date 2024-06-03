@@ -22,6 +22,8 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
  
     
+    CONST BLOCKED = 2;
+    CONST ACTIVE = 1;
 
     /**
      * The attributes that are mass assignable.
@@ -29,7 +31,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'email', 'password','client_id', 'user_token','kyc_status'
+        'name', 'email', 'password','client_id', 'user_token','kyc_status', 'status', 'last_login', 'login_ip'
     ];
 
     /**

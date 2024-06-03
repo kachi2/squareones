@@ -36,6 +36,13 @@ Route::post('/upload/document/', 'ProcessDocuments');
 Route::get('/get/documents/{company_id}', 'Getdocuments');
 });
 
-Route::get('/users', [UserController::class, 'getUsers']);
+Route::controller(UserController::class)->group(function() {
+    Route::get('/users', 'getUsers');
+    Route::get('/get/user/companies/{user_id}', 'UserCompanies');
+    Route::get('/get/user/billing/{user_id}', 'UserBilling');
+    Route::post('/update/users/status/', 'UpdateUserStatus');
+});
+
+
 });
 
