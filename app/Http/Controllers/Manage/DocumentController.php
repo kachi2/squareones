@@ -20,10 +20,10 @@ class DocumentController extends Controller
         
     }
 
-    public function ProcessDocuments( DocumentRequest $request){
+    public function ProcessDocuments( Request $request){
         try{
-            $data = FileUploadDto::fromRequest($request->validated());
-               $processDoc = $this->fileUpload->upload($data);
+            $data = FileUploadDto::fromRequest($request->all());
+               $processDoc = $this->fileUpload->uploadDoc($data);
             return response()->json(['data' => $processDoc], HttpStatusCode::OK);
         }catch(\Exception $e){
             return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);

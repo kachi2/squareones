@@ -10,6 +10,7 @@ interface DocumentInterface
 {
 
     public function upload($request);
+    public function uploadDoc($request);
     public function DocumentToPDF(Request $request);
     public function RenderPagePDF($request);
 

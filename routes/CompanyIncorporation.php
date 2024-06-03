@@ -27,14 +27,13 @@ Route::post('/company/logs', 'GetRegisteredLogs');
 
 Route::controller(DashboardController::class)->group(function(){
     Route::get('/activitylog', 'AdminActivityLog');
-    Route::get('company/stats', 'GetCompanyStats');
+    Route::get('company/stats/', 'GetCompanyStats');
     Route::get('/revenue/stats', 'getRevenueStats');
 });
 
 Route::controller(DocumentController::class)->group(function (){
-
 Route::post('/upload/document/', 'ProcessDocuments');
-Route::get('/get/document/{company_id}', 'Getdocuments');
+Route::get('/get/documents/{company_id}', 'Getdocuments');
 });
 
 Route::get('/users', [UserController::class, 'getUsers']);

@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('client_id')->nullable();
             $table->string('kyc_status')->nullable();
             $table->Text('user_token')->nullable();
+            $table->string('last_login')->nullable();
+            $table->string('login_ip')->nullable();
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();

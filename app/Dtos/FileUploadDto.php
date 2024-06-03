@@ -7,9 +7,9 @@ class FileUploadDto extends BaseDto
 {
     public function __construct(
         public readonly string $company_id, 
-        public readonly UploadedFile|array $documents,
+        public readonly UploadedFile|array $document,
         public readonly ?string $document_type_id = null, 
-        public readonly ?string $title,
+        public readonly ?string $title = null,
     )
     {
     }
