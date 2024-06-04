@@ -134,7 +134,7 @@ class IncorporationService implements IncorporationInterface
             $director = RegisterOfDirector::whereId($RegisterOfDirectorsDto->directors_id)->first();
             $director->update($data);
             $data['director_id'] = $director->id;
-            RegisterOfDirectorLog::create($data);
+            RegisterOfDirectorLog::create($director);
             AdminActivityLog::create([
                 'type' => 'update',
                 'activity' => auth_name() . ' Updated the Register Of Director table with the following details: ' . $RegisterOfDirectorsDto->date_of_appointment. ',' . $RegisterOfDirectorsDto->name . ',' . $RegisterOfDirectorsDto->reg_no . ',' . $RegisterOfDirectorsDto->registered_office.','.$RegisterOfDirectorsDto->ceasing_of_act.','.$RegisterOfDirectorsDto->remarks,

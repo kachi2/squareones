@@ -41,7 +41,7 @@ class AuthController extends Controller
         if ($user->status == USER::BLOCKED) {
             return response()->json(['error' => 'You account temporary banned, please contact support'], HttpStatusCode::FORBIDDEN);
         }
-            $this->authInterface->LoginUser($request);
+         $usr =   $this->authInterface->LoginUser($request);
         $users = User::where('id', auth_user())->first();
         // return $users;
         if ($user) {
@@ -56,7 +56,7 @@ class AuthController extends Controller
                 'type' => 'Login Request'
             ]);
 
-            return response()->json(['data' =>  $users], HttpStatusCode::OK);
+            return response()->json(['data' =>  $usr], HttpStatusCode::OK);
         }
         return response()->json(['error' => 'Email or password is incoreect'], HttpStatusCode::UNAUTHORIZED);
     }
