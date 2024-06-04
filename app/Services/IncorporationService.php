@@ -455,6 +455,6 @@ class IncorporationService implements IncorporationInterface
             );
         }
         $representatives->particulars =  $particulars;
-        return ['new one' => $representatives, 'old one' => $reps];
+        return $representatives;
     }
 }

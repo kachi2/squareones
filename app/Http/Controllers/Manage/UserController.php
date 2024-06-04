@@ -25,6 +25,7 @@ class UserController extends Controller
 
    try{
         $company = Company::where('user_id', $user_id)->get();
+        $company->load('RegisteredCompany', 'RegisterOfAllotments', 'RegisterOfCharge', 'RegisterOfCompanyName','RegisterOfDirector','RegisterOfSecretary','RegisterOfShareholders','RegisterOfTransfer', 'SignificantController', 'ComplianceReporting', 'DesignatedRepresentative', 'OfficeContract');
         return response()->json(['data' => $company], HttpStatusCode::OK);
        }catch(\Exception $e){
         return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
