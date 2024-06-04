@@ -32,7 +32,7 @@ class DocumentController extends Controller
 
     public function Getdocuments($company_id){
         try{
-            $documents = Document::where('company_id', $company_id)->get();
+            $documents = Document::where('company_id', $company_id)->paginate(20);
             return response()->json(['data' => $documents], HttpStatusCode::OK);
         }catch(\Exception $e){
             return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
