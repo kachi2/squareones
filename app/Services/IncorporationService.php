@@ -132,15 +132,17 @@ class IncorporationService implements IncorporationInterface
 
         if ($RegisterOfDirectorsDto->directors_id) {
             $director = RegisterOfDirector::whereId($RegisterOfDirectorsDto->directors_id)->first();
-            $director->update($data);
-            $data['director_id'] = $director->id;
-            RegisterOfDirectorLog::create($director);
+            $dir = $director->toArray();
+            $dir['director_id'] = $director->id;
+            RegisterOfDirectorLog::create($dir);
             AdminActivityLog::create([
                 'type' => 'update',
                 'activity' => auth_name() . ' Updated the Register Of Director table with the following details: ' . $RegisterOfDirectorsDto->date_of_appointment. ',' . $RegisterOfDirectorsDto->name . ',' . $RegisterOfDirectorsDto->reg_no . ',' . $RegisterOfDirectorsDto->registered_office.','.$RegisterOfDirectorsDto->ceasing_of_act.','.$RegisterOfDirectorsDto->remarks,
                 'action_status' => 'COMPLETED',
             ]);
-            return $director;
+            $director->update($data);
+            return ['recent' => $director,
+                    'old' => $dir];
         }
         $director = RegisterOfDirector::create($data);
         AdminActivityLog::create([
@@ -166,20 +168,21 @@ class IncorporationService implements IncorporationInterface
         ];
         if ($RegisterOfShareholdersDto->shareholders_id) {
             $shareholders = RegisterOfShareholder::whereId($RegisterOfShareholdersDto->shareholders_id)->first();
-            $shareholders->update($data);
-            $data['shareholder_id'] = $shareholders->id;
-            RegisterOfShareholderLog::create($data);
+            $shard = $shareholders->toArray();
+            $shard['shareholder_id'] = $shareholders->id;
+            RegisterOfShareholderLog::create($shard);
             AdminActivityLog::create([
                 'type' => 'update',
                 'activity' => auth_name() . ' Updated the Register Of Shareholder table with the following details: ' . $RegisterOfShareholdersDto->name .',' . $RegisterOfShareholdersDto->address . ',' . $RegisterOfShareholdersDto->denomination . ',' . $RegisterOfShareholdersDto->denomination.','.$RegisterOfShareholdersDto->current_holding.','.$RegisterOfShareholdersDto->total_consideration.', '.$RegisterOfShareholdersDto->date_entered_as_member.', '.$RegisterOfShareholdersDto->date_cease_to_be_member,
                 'action_status' => 'COMPLETED',
             ]);
+            $shareholders->update($data);
             return $shareholders;
         }
         $shareholders = RegisterOfShareholder::updateOrcreate($data);
         AdminActivityLog::create([
             'type' => 'New Entry',
-            'activity' => auth_name() . ' Added new Entry on the Register Of Shareholder table with the following details: ' . $RegisterOfShareholdersDto->name .',' . $RegisterOfShareholdersDto->address . ',' . $RegisterOfShareholdersDto->denomination . ',' . $RegisterOfShareholdersDto->denomination.','.$RegisterOfShareholdersDto->current_holding.','.$RegisterOfShareholdersDto->total_consideration.', '.$RegisterOfShareholdersDto->date_entered_as_member.', '.$RegisterOfShareholdersDto->date_cease_to_be_member,
+            'activity' => auth_name() . ' Added new Entry on the Register Of SHAREHOLDER TABLE  with the following details: ' . $RegisterOfShareholdersDto->name .',' . $RegisterOfShareholdersDto->address . ',' . $RegisterOfShareholdersDto->denomination . ',' . $RegisterOfShareholdersDto->denomination.','.$RegisterOfShareholdersDto->current_holding.','.$RegisterOfShareholdersDto->total_consideration.', '.$RegisterOfShareholdersDto->date_entered_as_member.', '.$RegisterOfShareholdersDto->date_cease_to_be_member,
             'action_status' => 'COMPLETED',
         ]);
         return $shareholders;
@@ -198,14 +201,15 @@ class IncorporationService implements IncorporationInterface
         ];
         if ($RegisterOfSecretaryDto->secretary_id) {
             $secretary = RegisterOfSecretary::whereId($RegisterOfSecretaryDto->secretary_id)->first();
-            $secretary->update($data);
-            $data['secretary_id'] = $secretary->id;
-            RegisterOfSecretaryLog::create($data);
+            $sec = $secretary;
+            $sec['secretary_id'] = $secretary->id;
+            RegisterOfSecretaryLog::create($sec);
             AdminActivityLog::create([
                 'type' => 'Update',
                 'activity' => auth_name() . ' Updated the Register Of Secretary table with the following details: ' . $RegisterOfSecretaryDto->appointment_date.',' . $RegisterOfSecretaryDto->name . ',' . $RegisterOfSecretaryDto->identity_info. ',' . $RegisterOfSecretaryDto->address.','.$RegisterOfSecretaryDto->cease_to_act.','.$RegisterOfSecretaryDto->remarks,
                 'action_status' => 'COMPLETED',
             ]);
+            $secretary->update($data);
             return $secretary;
         }
         $secretary = RegisterOfSecretary::create($data);
@@ -231,14 +235,15 @@ class IncorporationService implements IncorporationInterface
             ];
         if ($RegisterOfCompanyNameDto->namechange_id) {
             $namechange = RegisterOfCompanyName::whereId($RegisterOfCompanyNameDto->namechange_id)->first();
-            $namechange->update($data);
-            $data['company_name_id'] = $namechange->id;
-            RegisterOfCompanyNameLog::create($data);
+            $name = $namechange->toArray();
+            $name['company_name_id'] = $namechange->id;
+            RegisterOfCompanyNameLog::create($name);
             AdminActivityLog::create([
                 'type' => 'Update',
                 'activity' => auth_name() . ' Updated the Register Of Company Name  table with the following details: ' .  $RegisterOfCompanyNameDto->allotment_date.',' . $RegisterOfCompanyNameDto->name . ',' . $RegisterOfCompanyNameDto->address. ',' . $RegisterOfCompanyNameDto->class_of_shares.','.$RegisterOfCompanyNameDto->no_of_shares_allocated,
                 'action_status' => 'COMPLETED',
             ]);
+            $namechange->update($data);
             return $namechange;
         }
         $data = RegisterOfCompanyName::create($data);
@@ -261,14 +266,15 @@ class IncorporationService implements IncorporationInterface
         ];
         if ($RegisterOfTransferDto->transfer_id) {
             $register = RegisterOfTransfer::where('id', $RegisterOfTransferDto->transfer_id)->first();
-            $register->update($data);
-            $data['transfer_id'] = $register->id;
-            RegisterOfTransferLog::create($data);
+            $reg = $register->toArray();
+            $reg['transfer_id'] = $register->id;
+            RegisterOfTransferLog::create($reg);
             AdminActivityLog::create([
                 'type' => 'Update',
                 'activity' => auth_name() . 'Updated the Register Of Transfer   table with the following details: ' .$RegisterOfTransferDto->registration_date.', ' . $RegisterOfTransferDto->transferee . ', ' .$RegisterOfTransferDto->no_of_shares_transfered. ', ' . $RegisterOfTransferDto->total_consideration.', '.$RegisterOfTransferDto->transfer_method,
                 'action_status' => 'COMPLETED',
             ]);
+            $register->update($data);
             return $register;
         }
         $register = RegisterOfTransfer::create($data);
@@ -294,14 +300,15 @@ class IncorporationService implements IncorporationInterface
 
         if ($RegisterOfChargeDto->charges_id) {
             $charges = RegisterOfCharge::where('id', $RegisterOfChargeDto->charges_id)->first();
-            $charges->update($data);
-            $data['charge_id'] = $charges->id;
-            RegisterOfChargeLog::create($data);
+            $charge = $charges->toArray(); 
+            $charge['charge_id'] = $charges->id;
+            RegisterOfChargeLog::create($charge);
             AdminActivityLog::create([
                 'type' => 'Update',
                 'activity' => auth_name() . 'updated  the Register Of Charge  table with the following details: ' .$RegisterOfChargeDto->charge_creation_date.', ' . $RegisterOfChargeDto->account_secured_by_charge . ', ' .$RegisterOfChargeDto->type_of_charge. ', ' .$RegisterOfChargeDto->charge_description.', '.$RegisterOfChargeDto->names_of_charge.', '.$RegisterOfChargeDto->registration_details,
                 'action_status' => 'COMPLETED',
             ]);
+            $charges->update($data);
             return $charges;
         }
         $charges = RegisterOfCharge::create($data);
@@ -328,23 +335,24 @@ class IncorporationService implements IncorporationInterface
         ];
         if ($RegisterOfAllotmentDto->allotments_id) {
             $allotments = RegisterOfAllotment::where('id', $RegisterOfAllotmentDto->allotments_id)->first();
-            $allotments->update($data);
-            $data['allotment_id'] = $allotments->id;
-            RegisterOfAllotmentLog::create($data);
+            $allot = $allotments->toArray();
+            $allot['allotment_id'] = $allotments->id;
+            RegisterOfAllotmentLog::create($allot);
             AdminActivityLog::create([
                 'type' => 'Update',
-                'activity' => auth_name() . 'updated the  Register Of Charge  table with the following details: ' .$RegisterOfAllotmentDto->allotment_date.', ' . $RegisterOfAllotmentDto->name . ', ' .$RegisterOfAllotmentDto->address. ', ' .$RegisterOfAllotmentDto->class_of_shares.', '.$RegisterOfAllotmentDto->no_of_shares_allocated.', '.$RegisterOfAllotmentDto->denomination.', '.$RegisterOfAllotmentDto->total_consideration.', '.$RegisterOfAllotmentDto->remarks,
+                'activity' => auth_name() . 'updated the  REGISTER OF CHARGE TABLE  with the following details: ' .$RegisterOfAllotmentDto->allotment_date.', ' . $RegisterOfAllotmentDto->name . ', ' .$RegisterOfAllotmentDto->address. ', ' .$RegisterOfAllotmentDto->class_of_shares.', '.$RegisterOfAllotmentDto->no_of_shares_allocated.', '.$RegisterOfAllotmentDto->denomination.', '.$RegisterOfAllotmentDto->total_consideration.', '.$RegisterOfAllotmentDto->remarks,
                 'action_status' => 'COMPLETED',
             ]);
+            $allotments->update($data);
             return $allotments;
         }
-        $allotments = RegisterOfAllotment::Create($data);
+        $allotment = RegisterOfAllotment::Create($data);
         AdminActivityLog::create([
             'type' => 'Update',
-            'activity' => auth_name() . 'Added new entry on the  Register Of Charge  table with the following details: ' .$RegisterOfAllotmentDto->allotment_date.', ' . $RegisterOfAllotmentDto->name . ', ' .$RegisterOfAllotmentDto->address. ', ' .$RegisterOfAllotmentDto->class_of_shares.', '.$RegisterOfAllotmentDto->no_of_shares_allocated.', '.$RegisterOfAllotmentDto->denomination.', '.$RegisterOfAllotmentDto->total_consideration.', '.$RegisterOfAllotmentDto->remarks,
+            'activity' => auth_name() . 'Added new entry on the  REGISTER OF CHARGE TABLE with the following details: ' .$RegisterOfAllotmentDto->allotment_date.', ' . $RegisterOfAllotmentDto->name . ', ' .$RegisterOfAllotmentDto->address. ', ' .$RegisterOfAllotmentDto->class_of_shares.', '.$RegisterOfAllotmentDto->no_of_shares_allocated.', '.$RegisterOfAllotmentDto->denomination.', '.$RegisterOfAllotmentDto->total_consideration.', '.$RegisterOfAllotmentDto->remarks,
             'action_status' => 'COMPLETED',
         ]);
-        return $allotments;
+        return $allotment;
     }
 
     public function SignificantControllers($SignificantControllersDto)
@@ -359,19 +367,21 @@ class IncorporationService implements IncorporationInterface
 
         if ($SignificantControllersDto->controllers_id) {
             $controllers = SignificantController::where('id', $SignificantControllersDto->controllers_id)->first();
-            $controllers->update($data);
-            $data['controller_id'] = $controllers->id;
-            $data['corresponding_address'] = $SignificantControllersDto->corresponding_address;
-            $data['resdential_address'] = $SignificantControllersDto->resdential_address;
-            $data['identiy_info'] = $SignificantControllersDto->identiy_info;
-            $data['place_of_registration'] = $SignificantControllersDto->place_of_registration;
-            $data['nature_of_control_over_the_company'] = $SignificantControllersDto->nature_of_control_over_the_company;
+            $contrl = $controllers->toArray();
+            $particulars = ControllersParticulars::where('significant_controller_id',$controllers->id)->first();
+            $contrl['controller_id'] = $controllers->id;
+            $contrl['corresponding_address'] = $particulars->corresponding_address;
+            $contrl['resdential_address'] = $particulars->resdential_address;
+            $contrl['identiy_info'] = $particulars->identiy_info;
+            $contrl['place_of_registration'] = $particulars->place_of_registration;
+            $contrl['nature_of_control_over_the_company'] = $particulars->nature_of_control_over_the_company;
+            SignificantControllerLog::create($contrl);
             AdminActivityLog::create([
                 'type' => 'Update',
                 'activity' => auth_name() . 'Updated the  Significant Controller  table with the following details: ' .$SignificantControllersDto->legal_entity_name.', ' . $SignificantControllersDto->entry_date . ', ' .$SignificantControllersDto->date_becoming_rep_person. ', ' .$SignificantControllersDto->date_ceased_to_be_rep_person,
                 'action_status' => 'COMPLETED',
             ]);
-            SignificantControllerLog::create($data);
+            $controllers->update($data);
         } else {
             AdminActivityLog::create([
                 'type' => 'New Entry',
@@ -411,11 +421,13 @@ class IncorporationService implements IncorporationInterface
         ];
         if ($DesignatedRepresentative->representatives_id) {
             $representatives = DesignatedRepresentative::where('id', $DesignatedRepresentative->representatives_id)->first();
-            $data['controller_id'] = $representatives->id;
-            $data['identiy_info'] = $DesignatedRepresentative->identiy_info;
-            $data['place_of_registration'] = $DesignatedRepresentative->place_of_registration;
-            $data['nature_of_control_over_the_company'] = $DesignatedRepresentative->nature_of_control_over_the_company;
-            DesignatedRepresentative::create($data);
+            $particulars = DesignatedParticulars::where('designated_representative_id', $representatives->id)->first();
+            $reps = $representatives->toArray();
+            $reps['controller_id'] = $representatives->id;
+            $reps['identiy_info'] = $particulars->identiy_info;
+            $reps['place_of_registration'] = $particulars->place_of_registration;
+            $reps['nature_of_control_over_the_company'] = $particulars->nature_of_control_over_the_company;
+            DesignatedRepresentative::create($reps);
             $representatives->update($data);
             AdminActivityLog::create([
                 'type' => 'Update',
@@ -443,6 +455,6 @@ class IncorporationService implements IncorporationInterface
             );
         }
         $representatives->particulars =  $particulars;
-        return $representatives;
+        return ['new one' => $representatives, 'old one' => $reps];
     }
 }
