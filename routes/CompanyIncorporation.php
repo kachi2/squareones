@@ -34,7 +34,7 @@ Route::controller(DashboardController::class)->group(function(){
 Route::controller(DocumentController::class)->group(function (){
 Route::post('/upload/document/', 'ProcessDocuments');
 Route::get('/get/documents/{company_id}', 'Getdocuments');
-Route::get('documents/delete/{id}', 'deleteDocument');
+Route::get('documents/delete/{document_id}', 'deleteDocument');
 });
 
 Route::controller(UserController::class)->group(function() {
