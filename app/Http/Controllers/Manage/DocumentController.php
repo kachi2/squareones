@@ -44,8 +44,9 @@ class DocumentController extends Controller
             $document = Document::where('id', $document_id)->first();
             if($document){
                 $document->delete();
+                return response()->json(['data' => 'Item Deleted'], HttpStatusCode::OK);
             }
-            return response()->json(['data' => 'Item Deleted'], HttpStatusCode::OK);
+            return response()->json(['data' => 'No document found'], HttpStatusCode::OK);
         }catch(\Exception $e){
             return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
         }
