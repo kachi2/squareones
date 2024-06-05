@@ -39,8 +39,17 @@ class DocumentController extends Controller
         }
     }
 
+    public function deleteDocument($document_id){
+        try{
+            $document = Document::where('id', $document_id)->first();
+            if($document){
+                $document->delete();
+            }
+            return response()->json(['data' => 'Item Deleted'], HttpStatusCode::OK);
+        }catch(\Exception $e){
+            return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+        }
+    }
     
-
-
     
 }

@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function getUsers(){
         try{
-            $users = User::latest()->paginate(10);
+            $users = User::latest()->paginate(20);
             $users->load('company', 'getUserDocuments');
             return response()->json(['data' => $users], HttpStatusCode::OK);
         }catch(\Exception $e){
@@ -23,19 +23,21 @@ class UserController extends Controller
 
     public function UserCompanies($user_id){
 
-   try{
-        $company = Company::where('user_id', $user_id)->get();
-        $company->load('RegisteredCompany', 'RegisterOfAllotments', 'RegisterOfCharge', 'RegisterOfCompanyName','RegisterOfDirector','RegisterOfSecretary','RegisterOfShareholders','RegisterOfTransfer', 'SignificantController', 'ComplianceReporting', 'DesignatedRepresentative', 'OfficeContract');
-        return response()->json(['data' => $company], HttpStatusCode::OK);
-       }catch(\Exception $e){
-        return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
-       }
+        try{
+            $company = Company::where('user_id', $user_id)->paginate(20);
+            $data['companies'] =  $company->load('Names', 'Billing');
+            $data['form_completed'] = Company::where('is_complete', 1)->get();
+            $data['is_incorporated'] = Company::where('is_incorporated', 1)->get();
+            return response()->json(['data' => $data], HttpStatusCode::OK);
+        }catch(\Exception $e){
+            return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+           }
     }
 
     public function UserBilling($user_id){
 
         try{
-             $billing = Billing::where('user_id', $user_id)->get();
+             $billing = Billing::where('user_id', $user_id)->paginate(20);
              return response()->json(['data' => $billing], HttpStatusCode::OK);
             }catch(\Exception $e){
              return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
