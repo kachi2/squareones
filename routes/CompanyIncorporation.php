@@ -27,8 +27,8 @@ Route::post('/company/logs', 'GetRegisteredLogs');
 
 Route::controller(DashboardController::class)->group(function(){
     Route::get('/activitylog', 'AdminActivityLog');
-    Route::get('company/stats/', 'GetCompanyStats');
-    Route::get('/revenue/stats', 'getRevenueStats');
+    Route::post('company/stats/', 'GetCompanyStats');
+    Route::post('/revenue/stats', 'getRevenueStats');
 });
 
 Route::controller(DocumentController::class)->group(function (){
