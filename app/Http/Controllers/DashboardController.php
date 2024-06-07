@@ -19,8 +19,10 @@ class DashboardController extends Controller
     public function GetAllCompany(){
         try{
             $company = Company::whereUserId(auth_user())->get();
-            $company->load('RegisteredCompany', 'RegisterOfAllotments', 'RegisterOfCharge', 'RegisterOfCompanyName','RegisterOfDirector','RegisterOfSecretary','RegisterOfShareholders','RegisterOfTransfer', 'SignificantController', 'ComplianceReporting', 'DesignatedRepresentative', 'OfficeContract', 'documents');
-            return response()->json(['data' => $company], HttpStatusCode::OK);
+            $data['companies'] =  $company->load('Names', 'Billing');
+            $data['form_completed'] = Company::where('is_complete', 1)->get();
+            $data['is_incorporated'] = Company::where('is_incorporated', 1)->get();
+            return response()->json(['data' => $data], HttpStatusCode::OK);
         }catch(\Exception $e){
             return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
            }
@@ -87,7 +89,7 @@ class DashboardController extends Controller
 
     public function ResendSignatureKycRequest($company_entity_id){
 
-        
+
     }
 
 }
