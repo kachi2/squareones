@@ -58,7 +58,7 @@ class DashboardController extends Controller
 
     public function Billing(){
         try{
-            $billing = Billing::whereUserId(auth_user())->get();
+            $billing = Billing::whereUserId(auth_user())->paginate(20);
             return response()->json(['data' => $billing], HttpStatusCode::OK);
         }catch(\Exception $e){
             return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
@@ -76,7 +76,7 @@ class DashboardController extends Controller
 
     public function UserActivityLog(){
         try{
-            $activity = userActivity::whereUserId(auth_user())->get();
+            $activity = userActivity::whereUserId(auth_user())->paginate(20);
             return response()->json(['data' => $activity], HttpStatusCode::OK);
         }catch(\Exception $e){
             return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
@@ -86,7 +86,7 @@ class DashboardController extends Controller
 
     public function ListFounders($company_id){
         try{
-            $company_entities = CompanyEntity::whereCompanyId($company_id)->get();
+            $company_entities = CompanyEntity::whereCompanyId($company_id)->paginate(20);
             if($company_entities){
                 $company_entities->load('Individual', 'Corporate');
             }
