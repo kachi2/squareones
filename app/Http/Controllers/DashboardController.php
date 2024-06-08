@@ -49,7 +49,7 @@ class DashboardController extends Controller
 
     public function GetUserDocuments(){
         try{
-            $documents = UserDocument::whereUserId(auth_user())->get();
+            $documents = UserDocument::whereUserId(auth_user())->paginate(20);
             return response()->json(['data' => $documents], HttpStatusCode::OK);
         }catch(\Exception $e){
             return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);

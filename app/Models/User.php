@@ -71,4 +71,16 @@ class User extends Authenticatable
     public function getUserDocuments(){
         return $this->hasMany(UserDocument::class);
     }
+
+    public function GetTeams(){
+        return $this->hasMany(UserTeam::class, 'id', 'user_id');
+    }
+
+    public function createTeam($company_id, $user_id){
+       
+        $teams = UserTeam::whereCompanyId($company_id)->first();
+        if($teams){
+
+        }
+    }
 }
