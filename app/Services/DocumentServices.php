@@ -127,10 +127,11 @@ class DocumentServices  implements DocumentInterface{
         foreach($request->document as $files){
             if($files instanceof UploadedFile){
                 $base64Image = base64_encode(file_get_contents($files->getRealPath()));
+                $docs[] =  $base64Image;
             }
               $documents =  UserDocument::create([
                 'user_id' => auth_user(),
-                'document' => $base64Image,
+                'document' => json_encode($docs),
                 'title' => $request->title,
             ]);
             $docs[] =  $documents;

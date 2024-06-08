@@ -80,7 +80,14 @@ class User extends Authenticatable
        
         $teams = UserTeam::whereCompanyId($company_id)->first();
         if($teams){
-
+            $team = array_push($teams->members, $user_id);
+          $teams->update([
+            'members' => $team
+          ]);
+          return $team;
         }
+        $team = new UserTeam();
+        $team->user_id = $this->user;
+    
     }
 }
