@@ -9,12 +9,21 @@ use App\Models\Document;
 use App\Models\SignDocument;
 use App\Models\userActivity;
 use App\Models\User;
+use App\Models\UserDocument;
+use App\Dtos\FileUploadDto;
+use App\Interfaces\DocumentInterface;
 use Cloudinary\Api\HttpStatusCode;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     //
+    public function __construct(
+        public readonly DocumentInterface $fileUpload
+    )
+    {
+        
+    }
 
     public function GetAllCompany(){
         try{
@@ -40,7 +49,7 @@ class DashboardController extends Controller
 
     public function GetUserDocuments(){
         try{
-            $documents = SignDocument::whereUserId(auth_user())->get();
+            $documents = UserDocument::whereUserId(auth_user())->get();
             return response()->json(['data' => $documents], HttpStatusCode::OK);
         }catch(\Exception $e){
             return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
@@ -87,9 +96,19 @@ class DashboardController extends Controller
            } 
     }
 
-    public function ResendSignatureKycRequest($company_entity_id){
+   public function UploadUserDocument(Request $request)
+   {
+        try{
+            $data = FileUploadDto::fromRequest($request->all());
+            if($data){
+               $processDoc = $this->fileUpload->uploadUserDocument($request);
+            return response()->json(['data' => $processDoc], HttpStatusCode::OK);
+            }
+        }catch(\Exception $e){
+            return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+           } 
+        }
 
 
-    }
-
+    
 }

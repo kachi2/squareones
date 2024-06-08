@@ -5,6 +5,7 @@ use App\Interfaces\DocumentInterface;
 use App\Models\Document;
 use App\Models\CompanyEntity;
 use App\Models\Company;
+use App\Models\UserDocument;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -121,6 +122,21 @@ class DocumentServices  implements DocumentInterface{
         // return view('pdf.pdf', ['company' =>$company]);
     }
 
+    public function uploadUserDocument($request)
+    {
+        foreach($request->document as $files){
+            if($files instanceof UploadedFile){
+                $base64Image = base64_encode(file_get_contents($files->getRealPath()));
+            }
+              $documents =  UserDocument::create([
+                'user_id' => auth_user(),
+                'document' => $base64Image,
+                'title' => $request->title,
+            ]);
+            $docs[] =  $documents;
+        }
+        return  $docs;
+    }
 
 
 }

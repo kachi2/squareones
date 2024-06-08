@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Dtos\FileUploadDto;
 use App\Interfaces\DocumentInterface;
 use Illuminate\Http\Request;
+use Cloudinary\Api\HttpStatusCode;
 
 class FileUploadController extends Controller
 {
@@ -16,12 +17,16 @@ class FileUploadController extends Controller
     }
 
     public function ProcessDocuments( Request $request){
+
+        try{
             $data = FileUploadDto::fromRequest($request->all());
-            if($data)
-            {
+            if($data){
                $processDoc = $this->fileUpload->upload($request);
-               return response()->json(['data' =>$processDoc]);
+            return response()->json(['data' => $processDoc], HttpStatusCode::OK);
             }
-    }
+        }catch(\Exception $e){
+            return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+           } 
+        }
 
 }
