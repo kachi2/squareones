@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserRequest;
 use App\Interfaces\AuthInterface;
+use App\Models\userActivity;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,10 +39,21 @@ class AuthService  implements AuthInterface{
         $check = Auth()->attempt(['email' => $request->email, 'password' => $request->password]);
         if($check){
             $token =  $request->user()->createToken("UserToken")->plainTextToken;
+          $request->user()->update([
+                    'last_login' => Carbon::now(),
+                    'login_ip' => request()->ip()
+                ]);
+                   userActivity::create([
+                    'action' => 'Login to account on' . Carbon::now(),
+                    'name' => $request->user()->name,
+                    'status' => 'success',
+                    'type' => 'Login Request'
+                ]);
             return [
                 'user' => $request->user(),
                 'UserToken' =>$token 
             ];
+
         }
         return false;        
     }

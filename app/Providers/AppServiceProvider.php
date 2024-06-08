@@ -11,6 +11,8 @@ use App\Interfaces\IncorporationInterface;
 use App\Interfaces\KycInterface;
 use App\Interfaces\PaymentInterface;
 use App\Interfaces\SharesInterface;
+use APp\Interfaces\TeamsInterface;
+use App\Interfaces\UserInterface;
 use App\Services\AuthService;
 use Illuminate\Support\ServiceProvider;
 use App\Services\CompanyServices;
@@ -22,6 +24,8 @@ use App\Services\KycProcessService;
 use App\Services\PaymentServices;
 use App\Services\SharesService;
 use App\Services\SecretaryService;
+use App\Services\TeamServices;
+use UserService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -39,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
         app()->bind(PaymentInterface::class, PaymentServices::class);
         app()->bind(KycInterface::class, KycProcessService::class);
         app()->bind(IncorporationInterface::class, IncorporationService::class);
+        app()->bind(TeamsInterface::class, TeamServices::class);
     }
 
     /**

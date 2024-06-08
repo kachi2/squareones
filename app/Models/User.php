@@ -69,6 +69,6 @@ class User extends Authenticatable
     }
 
     public function getUserDocuments(){
-        return $this->hasMany(SignDocument::class);
+        return $this->hasMany(UserDocument::class);
     }
 }

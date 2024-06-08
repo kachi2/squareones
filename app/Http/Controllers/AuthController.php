@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Dtos\LoginDto;
 use App\Dtos\UserDto;
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UserRequest;
 use App\Interfaces\AuthInterface;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use App\Models\userActivity;
 use Carbon\Carbon;
 use Cloudinary\Api\HttpStatusCode;
@@ -28,36 +31,18 @@ class AuthController extends Controller
         }
     }
 
-    public function LoginUser(Request $request)
+    public function LoginUser(LoginRequest $request)
     {
-        $valid = Validator::make($request->all(), [
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-        if ($valid->fails()) {
-            return response()->json($valid->errors()->first());
-        }
-        $user = User::where('email', $request->email)->first();
+        $userDto = LoginDto::fromRequest($request->validated());
+        try{
+        $user = User::where('email', $userDto->email)->first();
         if ($user->status == USER::BLOCKED) {
-            return response()->json(['error' => 'You account temporary banned, please contact support'], HttpStatusCode::FORBIDDEN);
+            return response()->json(['error' => 'You account temporary Blocked, please contact support'], HttpStatusCode::FORBIDDEN);
         }
          $usr =   $this->authInterface->LoginUser($request);
-        $users = User::where('id', auth_user())->first();
-        // return $users;
-        if ($user) {
-            $users->update([
-                'last_login' => Carbon::now(),
-                'login_ip' => request()->ip()
-            ]);
-            userActivity::create([
-                'action' => 'Login to account on' . Carbon::now(),
-                'name' => $users->name,
-                'status' => 'success',
-                'type' => 'Login Request'
-            ]);
-
-            return response()->json(['data' =>  $usr], HttpStatusCode::OK);
-        }
-        return response()->json(['error' => 'Email or password is incoreect'], HttpStatusCode::UNAUTHORIZED);
+        return response()->json(['data' =>  $usr], HttpStatusCode::OK);
+    }catch(\Exception $e){
+        return response()->json(['error' => 'Password is wrong, try again'], HttpStatusCode::UNAUTHORIZED);
     }
+}
 }
