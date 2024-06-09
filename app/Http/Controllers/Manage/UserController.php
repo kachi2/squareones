@@ -38,6 +38,7 @@ class UserController extends Controller
 
         try{
              $billing = Billing::where('user_id', $user_id)->paginate(20);
+             $billing->load('company','user');
              return response()->json(['data' => $billing], HttpStatusCode::OK);
             }catch(\Exception $e){
              return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);

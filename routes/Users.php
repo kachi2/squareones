@@ -14,5 +14,6 @@ Route::group(['prefix' => 'user'], function(){
     Route::get('/activity/log', 'UserActivityLog');
     Route::get('founder/list/{company_id}', 'ListFounders');
     Route::post('upload/documents', 'UploadUserDocument');
+    Route::get('/documents/delete/{document_id}', 'DeleteDoc');
 });
 });

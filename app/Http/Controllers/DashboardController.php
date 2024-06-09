@@ -109,6 +109,15 @@ class DashboardController extends Controller
            } 
         }
 
+        public function DeleteDoc($document_id)
+        {
+            try{
+                $processDoc = $this->fileUpload->DeleteDocument($document_id);
+                return response()->json(['data' => $processDoc], HttpStatusCode::OK);
+        }catch(\Exception $e){
+            return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+           } 
+        }
 
     
 }

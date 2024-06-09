@@ -18,6 +18,6 @@ class Billing extends Model
 
     public function company():BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class)->with('names');
     }
 }

@@ -14,5 +14,6 @@ interface DocumentInterface
     public function DocumentToPDF(Request $request);
     public function RenderPagePDF($request);
     public function uploadUserDocument($request);
+    public function DeleteDocument($doc_id);
 
 }

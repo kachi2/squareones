@@ -139,5 +139,13 @@ class DocumentServices  implements DocumentInterface{
         return  $docs;
     }
 
+    public function DeleteDocument($doc_id){
+        $doc = UserDocument::whereId($doc_id)->first();
+        if($doc){
+            $doc->delete();
+            return true;
+        }
+        return false;
+    }
 
 }
