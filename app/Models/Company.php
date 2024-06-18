@@ -66,47 +66,47 @@ class Company extends Model
     }
 
     public function RegisterOfAllotments(){
-        return $this->hasMany(RegisterOfAllotment::class);
+        return $this->hasMany(RegisterOfAllotment::class)->latest();
     }
 
     public function RegisterOfCharge(){
-        return $this->hasMany(RegisterOfCharge::class);
+        return $this->hasMany(RegisterOfCharge::class)->latest();
     }
 
     public function RegisterOfCompanyName(){
-        return $this->hasMany(RegisterOfCompanyName::class);
+        return $this->hasMany(RegisterOfCompanyName::class)->latest();
     }
 
     public function RegisterOfDirector(){
-        return $this->hasMany(RegisterOfDirector::class);
+        return $this->hasMany(RegisterOfDirector::class)->latest();
     }
 
     public function RegisterOfSecretary(){
-        return $this->hasMany(RegisterOfSecretary::class);
+        return $this->hasMany(RegisterOfSecretary::class)->latest();
     }
 
     public function RegisterOfShareholders(){
-        return $this->hasMany(RegisterOfShareholder::class);
+        return $this->hasMany(RegisterOfShareholder::class)->latest();
     }
 
     public function RegisterOfTransfer(){
-        return $this->hasMany(RegisterOfTransfer::class);
+        return $this->hasMany(RegisterOfTransfer::class)->latest();
     }
 
     public function SignificantController(){
-        return $this->hasMany(SignificantController::class)->with('ControllersParticulars');
+        return $this->hasMany(SignificantController::class)->with('ControllersParticulars')->latest();
     }
 
     public function ComplianceReporting(){
-        return $this->hasMany(ComplianceAndReporting::class);
+        return $this->hasMany(ComplianceAndReporting::class)->latest();
     }
 
     public function DesignatedRepresentative(){
-        return $this->hasMany(DesignatedRepresentative::class)->with('DesignatedParticulars');
+        return $this->hasMany(DesignatedRepresentative::class)->with('DesignatedParticulars')->latest();
     }
 
     public function OfficeContract(){
-        return $this->hasMany(RegisteredOfficeContract::class);
+        return $this->hasMany(RegisteredOfficeContract::class)->latest();
     }
 
  

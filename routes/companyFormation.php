@@ -58,3 +58,5 @@ Route::post('payment/intent', [PaymentController::class, 'PaymentIntent']);
 Route::get('kyc/load', [KycController::class, 'loadKyc']);
 
 Route::post('load/founder/kyc', [KycController::class, 'LoadFounderKyc']);
+
+

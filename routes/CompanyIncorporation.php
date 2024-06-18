@@ -2,6 +2,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Manage\{CompanyController, DashboardController, DocumentController, UserController};
+
+
 Route::prefix('manage')->group(function() { 
 Route::controller(CompanyController::class)->group( function(){
 Route::get('/companies/index', 'getAllCompanies');
@@ -29,6 +31,7 @@ Route::controller(DashboardController::class)->group(function(){
     Route::get('/activitylog', 'AdminActivityLog');
     Route::post('company/stats/', 'GetCompanyStats');
     Route::post('/revenue/stats', 'getRevenueStats');
+    
 });
 
 Route::controller(DocumentController::class)->group(function (){

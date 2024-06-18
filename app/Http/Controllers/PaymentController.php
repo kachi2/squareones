@@ -10,15 +10,12 @@ use Cartalyst\Stripe\Laravel\Facades\Stripe;
 
 class PaymentController extends Controller
 {
-
     public function __construct(
         public readonly PaymentInterface $PaymentInterface,
         public readonly KycInterface $KycInterface
     )
-    {
-        
+    {  
     }
-    //
 
     public function PaymentIntent(Request $request){
         $paymentIntent = $this->PaymentInterface->PaymentIntent($request);
