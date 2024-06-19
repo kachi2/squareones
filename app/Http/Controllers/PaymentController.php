@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Interfaces\PaymentInterface;
 
 use App\Interfaces\KycInterface;
+use App\Jobs\ProcessFounderKyc;
+use App\Models\CompanyEntity;
 use Illuminate\Http\Request;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
 
@@ -28,6 +30,7 @@ class PaymentController extends Controller
         $procespayment
     ]);
 }
+
 
 
 }
