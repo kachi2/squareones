@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Interfaces\IncorporationInterface;
 use App\Models\{
     AdminActivityLog,
+    Company,
     ComplianceAndReporting,
     RegisteredCompany,
     RegisterOfAllotment,
@@ -19,6 +20,7 @@ use App\Models\{
     ControllersParticulars,
     DesignatedRepresentative,
     DesignatedParticulars,
+    Notification,
     RegisterOfAllotmentLog,
     RegisterOfChargeLog,
     RegisterOfCompanyNameLog,
@@ -26,8 +28,11 @@ use App\Models\{
     RegisterOfSecretaryLog,
     RegisterOfShareholderLog,
     RegisterOfTransferLog,
-    SignificantControllerLog
+    SignificantControllerLog,
+    UserSubscription
 };
+use App\Notifications\CompanyIncorporated;
+use Carbon\Carbon;
 
 class IncorporationService implements IncorporationInterface
 {
@@ -51,6 +56,22 @@ class IncorporationService implements IncorporationInterface
                 'tax_id' => $RegisteredCompanyDto->tax_id,
             ]
         );
+        if($RegisteredCompanyDto->company_registered){
+            $subscription = UserSubscription::where('company_id', $RegisteredCompanyDto->company_id)->first();
+            if($subscription){
+            $subscription->update([
+                'expiry_date' => Carbon::now(),
+            ]);
+        }
+        $user = Company::where('id',  $RegisteredCompanyDto->company_id)->first();
+       Notification::create([
+            'title' => 'Company Incorporated',
+            'content' => 'Hi, '.$user->Users->name.' Your company ['.$RegisteredCompanyDto->company_registered_name.'] is fully incorporated',
+            'user_id'=> $user->Users->id
+        ]);
+        $user->Users->notify(new CompanyIncorporated($data));
+    }
+        
         return $data;
         // } catch (\Exception $e) {
         //     return $e->getMessage();

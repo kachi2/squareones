@@ -20,4 +20,9 @@ class RegisteredCompany extends Model
      'tax_id',
      'registration_progress_id'
      ];
+
+     public function company()
+     {
+        return $this->belongsTo(Company::class);
+     }
 }

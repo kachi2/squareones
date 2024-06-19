@@ -7,6 +7,7 @@ use App\Dtos\UserDto;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UserRequest;
 use App\Interfaces\AuthInterface;
+use App\Models\NotificationSettings;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\userActivity;
@@ -27,8 +28,29 @@ class AuthController extends Controller
     {
         $userDto = UserDto::fromRequest($user->validated());
         if ($userDto) {
-            return $this->authInterface->StoreUser($userDto);
+
+            $user = $this->authInterface->StoreUser($userDto);
+            if($user){
+                $data = [
+                   [ 'user_id' => $user->id,
+                    'name' => 'email Notificaiton', 
+                    'type' => 'email',
+                    'status' => 1
+                  ],
+                  [ 'user_id' => $user->id,
+                  'name' => 'App notifications', 
+                  'type' => 'app',
+                  'status' => 1
+                ],
+
+                ];
+            foreach($data as $ss){
+            NotificationSettings::create($ss);
+            }
         }
+            return $user;
+        }
+        return false;
     }
 
     public function LoginUser(LoginRequest $request)

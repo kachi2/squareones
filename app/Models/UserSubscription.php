@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class UserSubscription extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'plan_id', 'expiry_date', 'contact_person', 'amount_paid', 'payment_id'];
+    protected $fillable = ['user_id', 'plan_id', 'expiry_date', 'contact_person', 'amount_paid', 'payment_id', 'company_id'];
     protected $table = 'user_subscriptions';
 }

@@ -26,12 +26,10 @@ Route::post('/incorporations/update', 'UpdateIncorporationStatus');
 Route::post('/company/logs', 'GetRegisteredLogs');
 });
 
-
 Route::controller(DashboardController::class)->group(function(){
     Route::get('/activitylog', 'AdminActivityLog');
     Route::post('company/stats/', 'GetCompanyStats');
     Route::post('/revenue/stats', 'getRevenueStats');
-    
 });
 
 Route::controller(DocumentController::class)->group(function (){
