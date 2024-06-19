@@ -42,7 +42,7 @@ class KycController extends Controller
         $founders  = CompanyEntity::where('id', $request->company_entity_id)->first();
         if($founders){
         $data['company_id'] = $request->company_id;
-        $data['company_entity_id'] = $request->id;
+        $data['company_entity_id'] = $founders->id;
         ProcessFounderKyc::dispatch($data);
         return response()->json(['data' => $founders], HttpStatusCode::OK);
         }
