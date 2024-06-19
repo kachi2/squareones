@@ -86,7 +86,7 @@ class ProcessFounderKyc implements ShouldQueue
            'company_entity_id' => $request->id,
            'company_name' => $request?->company?->names[0]->eng_name??$request?->company?->names[0]->chn_name
            ]; 
-         Mail::to('dx2main@gmail.com', 'jesmikky@gmail.com')->send(new KycRegistrationMail($datas));
+         Mail::to('jesmikky@gmail.com')->send(new KycRegistrationMail($datas));
         //  'steven@squareone.com.hk',
         }
     }catch(\Exception $e){

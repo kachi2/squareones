@@ -30,17 +30,17 @@ class KycController extends Controller
             return response()->json(['error' => 'company_id is required'], HttpStatusCode::BAD_REQUEST);
         }
         try{
-        $founders = CompanyEntity::where('company_id', $request->company_id)->get();
-        if($request->allFounder){
+        if($request->all_founders){
+            $founders = CompanyEntity::where('company_id', $request->company_id)->get();
             foreach($founders as $entity){
                 $datas['company_id'] = $entity->company_id;
                 $datas['company_entity_id'] = $entity->id;
                  ProcessFounderKyc::dispatch($datas);
-
             }
         }else{
+        $founders  = CompanyEntity::where('id', $request->company_entity_id)->get();
         $data['company_id'] = $request->company_id;
-        $data['company_entity_id'] = $request->company_entity_id;
+        $data['company_entity_id'] = $request->id;
         ProcessFounderKyc::dispatch($data);
         // $res = event(new FounderKyc($data));
        }
