@@ -26,27 +26,30 @@ class KycController extends Controller
     }
 
     public function LoadFounderKyc(Request $request){
-        $founders = CompanyEntity::where('company_id', $request->company_id)->get();
-        if(!$request->company_id && !empty($founders)){
+
+        if(!$request->company_id ){
             return response()->json(['error' => 'company_id not found'], HttpStatusCode::BAD_REQUEST);
         }
         try{
-        if($request->all_founders){
+            $founders = CompanyEntity::where('company_id', $request->company_id)->get();
+        if($request->all_founders && !empty($founders)){
             foreach($founders as $entity){
                 $datas['company_id'] = $entity->company_id;
                 $datas['company_entity_id'] = $entity->id;
                  ProcessFounderKyc::dispatch($datas);
             }
         }else{
-        $founders  = CompanyEntity::where('id', $request->company_entity_id)->get();
+        $founders  = CompanyEntity::where('id', $request->company_entity_id)->first();
+        if($founders){
         $data['company_id'] = $request->company_id;
         $data['company_entity_id'] = $request->id;
         ProcessFounderKyc::dispatch($data);
+        }
         // $res = event(new FounderKyc($data));
        }
         return response()->json(['data' => $founders, 'status' => 'success'], HttpStatusCode::OK);
        }catch(\Exception $e){
-        return response()->json(['error' => $e->getMessage()], HttpStatusCode::INTERNAL_SERVER_ERROR);
+        return response()->json(['error' => 'An error occured, request not found'], HttpStatusCode::BAD_REQUEST);
         }
 }
 
