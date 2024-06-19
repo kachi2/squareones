@@ -26,12 +26,12 @@ class KycController extends Controller
     }
 
     public function LoadFounderKyc(Request $request){
-        if(!$request->company_id){
-            return response()->json(['error' => 'company_id is required'], HttpStatusCode::BAD_REQUEST);
+        $founders = CompanyEntity::where('company_id', $request->company_id)->get();
+        if(!$request->company_id && !empty($founders)){
+            return response()->json(['error' => 'company_id not found'], HttpStatusCode::BAD_REQUEST);
         }
         try{
         if($request->all_founders){
-            $founders = CompanyEntity::where('company_id', $request->company_id)->get();
             foreach($founders as $entity){
                 $datas['company_id'] = $entity->company_id;
                 $datas['company_entity_id'] = $entity->id;
