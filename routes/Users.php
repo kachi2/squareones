@@ -21,6 +21,7 @@ Route::controller(DashboardController::class)->group(function(){
 });
 Route::controller(NotificationController::class)->group(function(){
     Route::post('/toggle/notifications/setting', 'ToggleNofication');
+    Route::post('notifications/status', 'getNoficationStatus');
     });
 
 });

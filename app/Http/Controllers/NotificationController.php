@@ -23,4 +23,13 @@ class NotificationController extends Controller
       
     }
 
+    public function getNoficationStatus(Request $request)
+    {
+        $notify = NotificationSettings::where(['user_id' => $request->user_id, 'type' => strtolower($request->type)])->first();
+        if($notify){
+        return response()->json(['data' => $notify], HttpStatusCode::OK);
+        }
+        return false;
+    }
+
 }
