@@ -16,6 +16,8 @@ Route::controller(DashboardController::class)->group(function(){
     Route::get('founder/list/{company_id}', 'ListFounders');
     Route::post('upload/documents', 'UploadUserDocument');
     Route::get('/documents/delete/{document_id}', 'DeleteDoc');
+    Route::post('/update/password', 'UpdatePassword');
+    Route::post('update/user/details', 'UpdateUserDetails');
 });
 Route::controller(NotificationController::class)->group(function(){
     Route::post('/toggle/notifications/setting', 'ToggleNofication');

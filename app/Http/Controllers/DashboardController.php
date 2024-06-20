@@ -7,19 +7,24 @@ use App\Models\Company;
 use App\Models\CompanyEntity;
 use App\Models\Document;
 use App\Models\SignDocument;
+use Illuminate\Support\Facades\Hash;
 use App\Models\userActivity;
 use App\Models\User;
 use App\Models\UserDocument;
 use App\Dtos\FileUploadDto;
+use App\Dtos\UserDto;
 use App\Interfaces\DocumentInterface;
+use App\Services\AuthService;
 use Cloudinary\Api\HttpStatusCode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class DashboardController extends Controller
 {
     //
     public function __construct(
-        public readonly DocumentInterface $fileUpload
+        public readonly DocumentInterface $fileUpload,
+        public readonly AuthService $userService
     )
     {
         
@@ -119,6 +124,15 @@ class DashboardController extends Controller
            } 
         }
 
+    public function UpdatePassword(Request $request)
+    {
+      return   $this->userService->ChangePassword($request);
+    }
         
+    public function UpdateUserDetails(Request $request)
+    {
+        $userDto = UserDto::fromRequest($request->all());
+     return $this->userService->UpdateUserDetails($userDto);
+    }
     
 }

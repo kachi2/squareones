@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserRequest;
 use App\Interfaces\AuthInterface;
 use App\Models\userActivity;
+use Cloudinary\Api\HttpStatusCode;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -58,10 +59,40 @@ class AuthService  implements AuthInterface{
         return false;        
     }
     public function UpdateUserDetails(UserDto $request){
-        return User::class;
+     
+        if($request->name){
+            $data['name'] = $request->name;
+        }
+        if($request->phone){
+            $data['phone'] = $request->phone;
+        }
+        if($request->email){
+            $data['email'] = $request->email;
+        }
+        $user = User::whereId(auth_user())->first();
+        $user->fill($data)->save();
+        return response()->json(['data' => 'Account Updated successfully'], HttpStatusCode::OK);
     }
-    public function ChangePassword($password){
-        return $password;
+    public function ChangePassword($request){
+        $valid = Validator::make($request->all(), [
+            'oldPassword' => 'required',
+            'password' => 'required|min:8',
+            ]);
+        if($valid->fails()){
+            return response()->json(['data' => $valid->errors()->first()], HttpStatusCode::OK);
+        }
+           $hashedPassword = auth()->user()->password;
+            if (Hash::check($request->oldPassword , $hashedPassword)) {
+            if (!Hash::check($request->password , $hashedPassword)) {
+                  $users_password = bcrypt($request->password);
+                  User::where( 'id' , auth_user())->update(['password' =>  $users_password]);
+                  return response()->json(['data' => 'Password Updated successfully'], HttpStatusCode::OK);
+                }else{
+                    return response()->json(['error' => 'Old Password cannot be same with New Password'], HttpStatusCode::FORBIDDEN);
+                 } 
+            } else{
+                return response()->json(['error' => 'Old Passowrd is not correct'], HttpStatusCode::BAD_REQUEST);
+            }
     }
 
 
