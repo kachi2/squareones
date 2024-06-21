@@ -77,11 +77,8 @@ class TwofactorController extends Controller
    public function check2faStatus()
    {
           $user = User::whereId(auth_user())->first();
-          if($user->enable_2fa_at){
-          return response()->json(['2fastatus' => $user->enable_2fa_at, 'data' => $user ], HttpStatusCode::OK);  
-          }else{
+        
             return response()->json(['2fastatus' => $user->enable_2fa_at, 'data' => $user], HttpStatusCode::OK); 
-          }
   }
 
     
