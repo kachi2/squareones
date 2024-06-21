@@ -80,7 +80,7 @@ class TwofactorController extends Controller
           if($user->enable_2fa_at){
           return response()->json(['2fastatus' => $user->enable_2fa_at, 'data' => $user ], HttpStatusCode::OK);  
           }else{
-            return response()->json(['2fastatus' => $user->enable_2fa_at, 'data' => $user], HttpStatusCode::NOT_FOUND); 
+            return response()->json(['2fastatus' => $user->enable_2fa_at, 'data' => $user], HttpStatusCode::OK); 
           }
   }
 
