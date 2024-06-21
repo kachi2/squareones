@@ -26,6 +26,11 @@ return new class extends Migration
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
+            $table->string('google2fa_secret')->nullable();
+            $table->string('otp')->nullable();
+            $table->string('barcode')->nullable();
+            $table->dateTime('enable_2fa_at')->nullable();
+            $table->integer('2fa_verified')->nullable();
             $table->timestamps();
         });
     }

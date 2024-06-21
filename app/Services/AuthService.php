@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserRequest;
 use App\Interfaces\AuthInterface;
+use App\Models\NotificationSettings;
 use App\Models\userActivity;
 use Cloudinary\Api\HttpStatusCode;
 use Illuminate\Support\Carbon;
@@ -30,8 +31,25 @@ class AuthService  implements AuthInterface{
             ]), function (User $user) {
                 // $this->createTeam($user);
             });
-
         });
+        if($user){
+            $data = [
+               [ 'user_id' => $user->id,
+                'name' => 'email Notificaiton', 
+                'type' => 'email',
+                'status' => 1
+              ],
+              [ 'user_id' => $user->id,
+              'name' => 'App notifications', 
+              'type' => 'app',
+              'status' => 1
+            ],
+
+            ];
+        foreach($data as $ss){
+        NotificationSettings::create($ss);
+        }
+    }
 
         return $user;
     }
