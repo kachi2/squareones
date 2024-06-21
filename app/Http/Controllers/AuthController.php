@@ -9,6 +9,7 @@ use App\Http\Requests\UserRequest;
 use App\Interfaces\AuthInterface;
 use App\Models\NotificationSettings;
 use App\Models\User;
+use App\Enums\twoFactor;
 use Illuminate\Support\Facades\DB;
 use App\Models\userActivity;
 use Carbon\Carbon;
@@ -30,24 +31,7 @@ class AuthController extends Controller
         if ($userDto) {
 
             $user = $this->authInterface->StoreUser($userDto);
-            if($user){
-                $data = [
-                   [ 'user_id' => $user->id,
-                    'name' => 'email Notificaiton', 
-                    'type' => 'email',
-                    'status' => 1
-                  ],
-                  [ 'user_id' => $user->id,
-                  'name' => 'App notifications', 
-                  'type' => 'app',
-                  'status' => 1
-                ],
-
-                ];
-            foreach($data as $ss){
-            NotificationSettings::create($ss);
-            }
-        }
+      
             return $user;
         }
         return false;
@@ -62,6 +46,7 @@ class AuthController extends Controller
             return response()->json(['error' => 'You account temporary Blocked, please contact support'], HttpStatusCode::FORBIDDEN);
         }
          $usr =   $this->authInterface->LoginUser($request);
+         $user->update(['2fa_verified' => twoFactor::UN_VERIFIED]);
         return response()->json(['data' =>  $usr], HttpStatusCode::OK);
     }catch(\Exception $e){
         return response()->json(['error' => 'Password is wrong, try again'], HttpStatusCode::UNAUTHORIZED);
