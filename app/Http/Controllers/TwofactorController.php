@@ -39,9 +39,7 @@ class TwofactorController extends Controller
            if(!$request->ValidateToken()){
             return response()->json(['error' => 'Token provided is incorrect'], HttpStatusCode::UNAUTHORIZED);
            }
-
-           [$user, $qrCodeUrl] = $this->generateSecretKey();
-           $user->update(['enable_2fa_at' => Carbon::now(), 'secret' => $user, 'barcode' => $qrCodeUrl]);
+           $user->update(['enable_2fa_at' => Carbon::now(), 'secret' => $user]);
            return response()->json(['success' => 'Two Factor Authentication activated Successfully', 'data' => $user], HttpStatusCode::OK);
 
     }
@@ -69,8 +67,8 @@ class TwofactorController extends Controller
 
    public function check2faStatus()
    {
-          $user = User::whereId(auth_user())->first();
-            return response()->json(['2fastatus' => $user->enable_2fa_at, 'data' => $user], HttpStatusCode::OK); 
+       $user = User::whereId(auth_user())->first();
+       return response()->json(['2fastatus' => $user->enable_2fa_at, 'data' => $user], HttpStatusCode::OK); 
   }
 
     
