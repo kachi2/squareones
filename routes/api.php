@@ -10,9 +10,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->group(function() {
+    Route::middleware('2fa')->group(function() {
     require __DIR__.'/companyFormation.php';
     require __DIR__.'/CompanyIncorporation.php';
     require __DIR__.'/Users.php';
+});
 });
 Route::post('register/signature', [CompanyEntityController::class, 'RegisterEntitySignature']);
 Route::post('process/payment', [PaymentController::class, 'ProcessPayment'])->name('ProcessPayment');

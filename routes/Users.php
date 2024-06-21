@@ -7,7 +7,6 @@ use App\Http\Controllers\TwofactorController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'user'], function(){
-    Route::middleware('2fa')->group(function() {
 Route::controller(DashboardController::class)->group(function(){
     Route::get('account/company/', 'GetAllCompany');
     Route::get('account/company/{company_id}', 'CompanyInfo');
@@ -33,6 +32,4 @@ Route::controller(TwofactorController::class)->group(function() {
     Route::post('enable/2fa', 'Enable');
     Route::post('disable/2fa', 'Disable');
     Route::get('/check/status', 'check2faStatus');
-});
-
 });
