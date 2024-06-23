@@ -63,6 +63,7 @@ class AuthService  implements AuthInterface{
                     'login_ip' => request()->ip()
                 ]);
                    userActivity::create([
+                    'user_id' => $request->user()->id,
                     'action' => 'Login to account on' . Carbon::now(),
                     'name' => $request->user()->name,
                     'status' => 'success',
