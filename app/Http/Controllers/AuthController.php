@@ -49,7 +49,7 @@ class AuthController extends Controller
          $user->update(['2fa_verified' => twoFactor::UN_VERIFIED]);
         return response()->json(['data' =>  $usr], HttpStatusCode::OK);
     }catch(\Exception $e){
-        return response()->json(['error' => 'Password is wrong, try again'], HttpStatusCode::UNAUTHORIZED);
+        return response()->json(['error' => $e], HttpStatusCode::UNAUTHORIZED);
     }
 }
 }
