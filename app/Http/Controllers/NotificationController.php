@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\NotificationSettings;
 use Illuminate\Support\Facades\DB;
 use Cloudinary\Api\HttpStatusCode;
@@ -31,5 +32,28 @@ class NotificationController extends Controller
         }
         return false;
     }
+
+    public function UserNotification()
+    {
+        try{
+        $notify = Notification::whereUserId(auth_user())->paginate(10);
+        return response()->json(['data' => $notify], HttpStatusCode::OK);
+    }catch(\Exception $e){
+        return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+       } 
+    }
+
+    public function DeleteNotification($notify_id){
+        try{
+            $notify = Notification::whereId($notify_id)->first();
+            if($notify){
+                $notify->delete();
+             return response()->json(['data' => 'Item Deleted successful'], HttpStatusCode::OK);
+            }
+            return response()->json(['data' => 'Notification does not exist'], HttpStatusCode::OK);
+        }catch(\Exception $e){
+            return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+           } 
+        }
 
 }

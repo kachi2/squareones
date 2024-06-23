@@ -23,6 +23,8 @@ Route::controller(DashboardController::class)->group(function(){
 Route::controller(NotificationController::class)->group(function(){
     Route::post('/toggle/notifications/setting', 'ToggleNofication');
     Route::post('notifications/status', 'getNoficationStatus');
+    Route::get('/notifications', 'UserNotification');
+    Route::get('notification/delete/{notify_id}', 'DeleteNotification');
     });
 Route::controller(TwofactorController::class)->group(function() {
     Route::get('activate/2fa', 'generateSecretKey');

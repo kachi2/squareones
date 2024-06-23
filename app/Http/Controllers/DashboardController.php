@@ -14,6 +14,7 @@ use App\Models\UserDocument;
 use App\Dtos\FileUploadDto;
 use App\Dtos\UserDto;
 use App\Interfaces\DocumentInterface;
+use App\Models\Notification;
 use App\Services\AuthService;
 use Cloudinary\Api\HttpStatusCode;
 use Illuminate\Http\Request;
@@ -134,5 +135,9 @@ class DashboardController extends Controller
         $userDto = UserDto::fromRequest($request->all());
      return $this->userService->UpdateUserDetails($userDto);
     }
+
+
+        
+  
     
 }
