@@ -2,7 +2,7 @@
     <StartCompany_template>
         <template #main>
 
-            <div v-if="isKycCompleted"  class="row justify-content-center">
+            <div v-if="isKycCompleted" class="row justify-content-center">
                 <div id="complycube-mount"></div>
                 <div class="alert alert-success text-center" role="alert">
                     <i style="font-size: 2.56rem;" class="bi bi-check-circle"></i>
@@ -10,7 +10,7 @@
                     <small> Verification status will be updated once completed </small>
                 </div>
                 <button class="btn btn-primary w-50" @click="goToDash">
-                   Proceed To Dashboard
+                    Proceed To Dashboard
                 </button>
 
             </div>
@@ -20,14 +20,14 @@
                     <i style="font-size: 2.56rem;" class="bi bi-check-circle"></i>
                     <h5> Payment Successful </h5>
                     <p>We are receiving your request, please exercise patience while we setup your company</p>
-                   <p> Please click the button below to complete your KYC, ensure the details are correct</p>
+                    <p> Please click the button below to complete your KYC, ensure the details are correct</p>
                 </div>
-                <button class="btn btn-primary"  @click="startVerification">
+                <button class="btn btn-primary" @click="startVerification">
                     Proceed to complete KYC
                 </button>
 
             </div>
-           
+
 
         </template>
 
@@ -53,7 +53,7 @@ const UserToken = ref('');
 onMounted(async () => {
     await startCompanyStore.getCompanyInProgress()
 
-    if(startCompanyStore.companyInProgress.users.kyc_status != null){
+    if (startCompanyStore.companyInProgress.users.kyc_status != null) {
         isKycCompleted.value = true
     }
     try {
@@ -94,8 +94,8 @@ function saveAndContinue() {
     startCompanyStore.switchStage('+')
 }
 
-function goToDash(){
-    router.push({path:'/dashboard'})
+function goToDash() {
+    router.push({ path: '/user/dashboard' })
     // startCompanyStore.currentStage = 2
 }
 
@@ -107,11 +107,11 @@ function startVerification() {
         containerId: 'complycube-mount',
         token: UserToken.value,
         onComplete: function (data: any) {
-            setTimeout(()=>{
+            setTimeout(() => {
                 complycube.unmount()
                 isKycCompleted.value = true
-            },3000)
-          
+            }, 3000)
+
             // console.log("Capture complete", data)
         },
         onModalClose: function () {

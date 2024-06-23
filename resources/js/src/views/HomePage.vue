@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row g-3 justify-content-center align-items-center">
         <div class="col-md-11">
-          <div class="card bg-transparent border-0">
+          <div class="car bg-transparent border-0">
             <div class="card-body justify-content-center text-center ">
               <div class="fw-bold small">COMPANY INFORMATION</div>
               <div class="main-name">Hon Kong Company Limited by Shares</div>
@@ -27,7 +27,7 @@
         </div>
 
         <div class="col-md-8">
-          <div class="card border-0 bg-transparent">
+          <div class="car border-0 bg-transparent">
             <div class="card-body">
               <section>
                 <div class="text-muted h6">FOR INDIVIDUALS (DIRECTORS, MEMBERS, BENEFICIAL OWNERS)</div>

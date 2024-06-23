@@ -45,7 +45,7 @@
             </section>
 
             <div class="movement-buttons my-5">
-                <button @click="moveBack" class="btn btn-outline-dark me-3">
+                <button @click="moveBack" class="btn btn-outline-info me-3">
                     <i class="bi bi-arrow-left"></i> Back
                 </button>
                 <button v-if="!form.isSaving" @click="saveAndContinue" class="btn btn-primary">

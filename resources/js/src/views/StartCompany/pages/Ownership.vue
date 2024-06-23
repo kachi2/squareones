@@ -58,7 +58,7 @@
                     <ul v-else class="list-group list-group-flush">
                         <li v-for="(founder, index) in form.shareHolders" :key="founder"
                             class="list-group-item text-capitalize">
-                            <i class="bi bi-person-circle text-muted me-2"></i> {{ founder.entity_name }} <span
+                            <i class="bi bi-person-circle me-2"></i> {{ founder.entity_name }} <span
                                 class="text-danger"> * </span>
                             <span class="float-end">
                                 <input v-model="founder.own_share" type="text"
@@ -91,17 +91,17 @@
                 <div class="card mt-1 rounded-0 border-0 bg-light">
                     <div class="card-body bg-transparent">
                         <div class="table-responsive">
-                            <table class="table ">
-                                <thead>
+                            <table class="table">
+                                <thead class=".thead">
                                     <tr>
                                         <th></th>
                                         <th>Split</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr v-for="founder in summaryArray" :key="founder">
-                                        <td class="text-capitalize">
-                                            <i class="bi bi-circle-fill text-muted me-2"></i> {{ founder.name }}
+                                <tbody class="tbody">
+                                    <tr v-for="founder in summaryArray" :key="founder" class="thead">
+                                        <td class="text-capitalize thead">
+                                            <i class="bi bi-circle-fill me-2"></i> {{ founder.name }}
                                         </td>
                                         <td>{{ founder.share_percentage }}%</td>
                                     </tr>
@@ -121,7 +121,7 @@
 
 
             <div class="movement-buttons mt-5 mb-4">
-                <button @click="moveBack" class="btn btn-outline-dark me-3">
+                <button @click="moveBack" class="btn btn-outline-info me-3">
                     <i class="bi bi-arrow-left"></i> Back
                 </button>
                 <button :disabled="!sumEqualToTotal || fieldsHasErrors" v-if="!form.isSaving" @click="saveAndContinue"
@@ -351,11 +351,6 @@ async function saveFromToApi(formData: FormData) {
 
 </script>
 <style lang="css" scoped>
-td,
-th {
-    background: transparent !important;
-}
-
 th {
     font-weight: bold;
 }

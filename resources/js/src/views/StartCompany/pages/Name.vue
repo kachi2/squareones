@@ -47,10 +47,9 @@
                     them in descending order of preference.</div>
                 <div class="row g-2 mt-1">
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.choice_level2_eng_name }" v-maska 
-                            data-maska-tokens="*:[a-zA-Z0-9]:multiple"
-                            v-model="form.choice_level2_eng_name" type="text" class="form-control"
-                            placeholder="This text for English name">
+                        <input :class="{ 'error-field': form.errors.choice_level2_eng_name }" v-maska
+                            data-maska-tokens="*:[a-zA-Z0-9]:multiple" v-model="form.choice_level2_eng_name" type="text"
+                            class="form-control" placeholder="This text for English name">
                         <small class=" text-danger">{{ form.errors.choice_level2_eng_name }}</small>
                     </div>
                     <div class="col-md-6">
@@ -88,10 +87,9 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.choice_level3_eng_name }" v-maska 
-                            data-maska-tokens="*:[a-zA-Z0-9]:multiple"
-                            v-model="form.choice_level3_eng_name" type="text" class="form-control"
-                            placeholder="This text for English name">
+                        <input :class="{ 'error-field': form.errors.choice_level3_eng_name }" v-maska
+                            data-maska-tokens="*:[a-zA-Z0-9]:multiple" v-model="form.choice_level3_eng_name" type="text"
+                            class="form-control" placeholder="This text for English name">
                         <small class=" text-danger">{{ form.errors.choice_level3_eng_name }}</small>
                     </div>
                     <div class="col-md-6">
@@ -130,9 +128,8 @@
                 <div class="row g-2 mt-1">
                     <div class="col-md-6">
                         <input :class="{ 'error-field': form.errors.choice_level4_eng_name }" v-maska
-                            data-maska-tokens="*:[a-zA-Z0-9]:multiple"
-                            v-model="form.choice_level4_eng_name" type="text" class="form-control"
-                            placeholder="This text for English name">
+                            data-maska-tokens="*:[a-zA-Z0-9]:multiple" v-model="form.choice_level4_eng_name" type="text"
+                            class="form-control" placeholder="This text for English name">
                         <small class=" text-danger">{{ form.errors.choice_level4_eng_name }}</small>
                     </div>
                     <div class="col-md-6">
@@ -169,10 +166,9 @@
                 </div>
                 <div class="row g-2 mt-1">
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.choice_level5_eng_name }" v-maska 
-                            data-maska-tokens="*:[a-zA-Z0-9]:multiple"
-                            v-model="form.choice_level5_eng_name" type="text" class="form-control"
-                            placeholder="This text for English name">
+                        <input :class="{ 'error-field': form.errors.choice_level5_eng_name }" v-maska
+                            data-maska-tokens="*:[a-zA-Z0-9]:multiple" v-model="form.choice_level5_eng_name" type="text"
+                            class="form-control" placeholder="This text for English name">
                         <small class=" text-danger">{{ form.errors.choice_level5_eng_name }}</small>
                     </div>
                     <div class="col-md-6">
@@ -215,9 +211,9 @@
             </div>
 
             <div class="movement-buttons my-5">
-                <button @click="moveBack" class="btn btn-outline-dark me-3">
+                <!-- <button @click="moveBack" class="btn btn-outline-info me-3">
                     <i class="bi bi-arrow-left"></i> Back
-                </button>
+                </button> -->
                 <button v-if="!form.isSaving" @click="saveAndContinue" class="btn btn-primary">
                     Save & Continue <i class="bi bi-arrow-right"></i>
                 </button>
@@ -274,7 +270,7 @@ import { useToast } from 'vue-toast-notification';
 import api from '@/stores/Helpers/axios'
 import { nameForm } from './formsStore/Name';
 import { vMaska } from "maska"
-import { ref, onMounted, watch, reactive, watchEffect} from 'vue'
+import { ref, onMounted, watch, reactive, watchEffect } from 'vue'
 
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
@@ -298,25 +294,25 @@ function addForm() {
     }
 }
 
-watchEffect(()=>{
-    if(form.choice_level1_chn_name == ''){
-        form.errors.choice_level1_chn_name  = ''
+watchEffect(() => {
+    if (form.choice_level1_chn_name == '') {
+        form.errors.choice_level1_chn_name = ''
         delete form.errors.choice_level1_chn_name
     }
-    if(form.choice_level2_chn_name == ''){
-        form.errors.choice_level2_chn_name  = null
+    if (form.choice_level2_chn_name == '') {
+        form.errors.choice_level2_chn_name = null
         delete form.errors.choice_level2_chn_name
     }
-    if(form.choice_level3_chn_name == ''){
-        form.errors.choice_level3_chn_name  = null
+    if (form.choice_level3_chn_name == '') {
+        form.errors.choice_level3_chn_name = null
         delete form.errors.choice_level3_chn_name
     }
-    if(form.choice_level4_chn_name == ''){
-        form.errors.choice_level4_chn_name  = ''
+    if (form.choice_level4_chn_name == '') {
+        form.errors.choice_level4_chn_name = ''
         delete form.errors.choice_level4_chn_name
     }
-    if(form.choice_level5_chn_name == ''){
-        form.errors.choice_level5_chn_name  = ''
+    if (form.choice_level5_chn_name == '') {
+        form.errors.choice_level5_chn_name = ''
         delete form.errors.choice_level5_chn_name
     }
 })
@@ -400,7 +396,7 @@ function saveAndContinue() {
         return;
     }
 
-     console.log(form.errors)
+    console.log(form.errors)
     if (Object.keys(form.errors).length > 0) {
         toast.error("Some fields still have errors", { position: 'top-right' });
         return;

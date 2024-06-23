@@ -155,33 +155,57 @@ export const foundersIdividualForm = defineStore("foundersIdividual", () => {
 
 
   function saveToLocalStorage() {
-    if (flat.value) flat_storage.value = flat.value;
-    if (building.value) building_storage.value = building.value;
-    if (street.value) street_storage.value = street.value;
-    if (state.value) state_storage.value = state.value;
-    if (country.value) country_storage.value = country.value;
-    if (postal_code.value) postal_code_storage.value = postal_code.value;
+    // if (flat.value)
+    flat_storage.value = flat.value;
+    // if (building.value)
+    building_storage.value = building.value;
+    // if (street.value)
+    street_storage.value = street.value;
+    // if (state.value)
+    state_storage.value = state.value;
+    // if (country.value)
+    country_storage.value = country.value;
+    // if (postal_code.value)
+    postal_code_storage.value = postal_code.value;
 
-    if (flat2.value) flat2_storage.value = flat2.value;
-    if (building2.value) building2_storage.value = building2.value;
-    if (street2.value) street2_storage.value = street2.value;
-    if (state2.value) state2_storage.value = state2.value;
-    if (country2.value) country2_storage.value = country2.value;
-    if (postal_code2.value) postal_code2_storage.value = postal_code2.value;
-    if (identity_no_suffix.value) identity_no_suffix_storage.value = identity_no_suffix.value;
-    if (issuing_country.value) issuing_country_storage.value = issuing_country.value;
-    if (phone.value) phone_storage.value = phone.value;
-    if (email.value) email_storage.value = email.value;
-    if (confirm_email.value) confirm_email_storage.value = confirm_email.value;
-    if (first_name.value) first_name_storage.value = first_name.value;
-    if (last_name.value) last_name_storage.value = last_name.value;
-    if (chn_first_name.value)
-      chn_first_name_storage.value = chn_first_name.value;
-    if (chn_last_name.value) chn_last_name_storage.value = chn_last_name.value;
-    if (nationality.value) nationality_storage.value = nationality.value;
-    if (occupation.value) occupation_storage.value = occupation.value;
-    if (identity_no.value) identity_no_storage.value = identity_no.value;
-    if (passport_no.value) passport_no_storage.value = passport_no.value;
+    // if (flat2.value)
+    flat2_storage.value = flat2.value;
+    // if (building2.value)
+    building2_storage.value = building2.value;
+    // if (street2.value)
+    street2_storage.value = street2.value;
+    // if (state2.value)
+    state2_storage.value = state2.value;
+    // if (country2.value)
+    country2_storage.value = country2.value;
+    // if (postal_code2.value)
+    postal_code2_storage.value = postal_code2.value;
+    // if (identity_no_suffix.value)
+    identity_no_suffix_storage.value = identity_no_suffix.value;
+    // if (issuing_country.value)
+    issuing_country_storage.value = issuing_country.value;
+    // if (phone.value)
+    phone_storage.value = phone.value;
+    // if (email.value)
+    email_storage.value = email.value;
+    // if (confirm_email.value)
+    confirm_email_storage.value = confirm_email.value;
+    // if (first_name.value)
+    first_name_storage.value = first_name.value;
+    // if (last_name.value)
+    last_name_storage.value = last_name.value;
+    // if (chn_first_name.value)
+    chn_first_name_storage.value = chn_first_name.value;
+    // if (chn_last_name.value)
+    chn_last_name_storage.value = chn_last_name.value;
+    // if (nationality.value)
+    nationality_storage.value = nationality.value;
+    // if (occupation.value)
+    occupation_storage.value = occupation.value;
+    // if (identity_no.value)
+    identity_no_storage.value = identity_no.value;
+    // if (passport_no.value)
+    passport_no_storage.value = passport_no.value;
   }
 
   function updateFields(companyInProgress: any) {

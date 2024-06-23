@@ -8,6 +8,9 @@ export const useAuthStore = defineStore('authStore', () => {
   const token = ref('')
   const profileData: any = useStorage('sqOneProfile_data', '')
   const profileDataName: any = useStorage('sqOneProfile_dataName', '')
+  const twofactorEnabled: any = useStorage('sqOneTwoFactorEnabled', '')
+  const twofactorAttendedTo: any = useStorage('sqOneTwoFactorAttndTo', '')
+
 
   const isLoggedIn = computed(() => token.value || Cookies.get('_tokn'));
 
@@ -18,9 +21,10 @@ export const useAuthStore = defineStore('authStore', () => {
   const login = (data: any) => {
     Cookies.set('_tokn', data.UserToken, { expires: 7 });
     token.value = data.UserToken;
-    profileData.value = data.user;
+    profileData.value = JSON.stringify(data.user);
     profileDataName.value = data.user.name;
   }
+
 
   const logout = () => {
     Cookies.remove('_tokn');
@@ -28,5 +32,14 @@ export const useAuthStore = defineStore('authStore', () => {
     window.location.reload();
   }
 
-  return { login, logout, isLoggedIn, profileData, profileDataName, emailVerified }
+  return {
+    login,
+    logout,
+    isLoggedIn,
+    profileData,
+    profileDataName,
+    emailVerified,
+    twofactorEnabled,
+    twofactorAttendedTo
+  }
 })

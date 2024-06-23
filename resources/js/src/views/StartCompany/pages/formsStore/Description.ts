@@ -30,9 +30,12 @@ export const descriptionForm = defineStore('description', () => {
     const business_nature_id_storage = useStorage('squareOne-desc-bNature', '');
 
     function saveToLocalStorage() {
-        if (description.value) description_storage.value = description.value
-        if (website.value) website_storage.value = website.value
-        if (business_nature_id.value) business_nature_id_storage.value = business_nature_id.value
+        // if (description.value) 
+        description_storage.value = description.value
+        // if (website.value) 
+        website_storage.value = website.value
+        // if (business_nature_id.value)
+        business_nature_id_storage.value = business_nature_id.value
     }
 
     function updateFields(companyInProgress: any) {

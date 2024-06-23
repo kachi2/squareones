@@ -15,11 +15,11 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
 
     const rules = {
         company_name: yup.string(),
-        // chn_company_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
+        chn_company_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
         date_incorporated: yup.string().required('Date incorporated is required'),
         registeration_no: yup.string().required('Company registration number is required'),
         country_registered: yup.string().required('Company date of registration is required'),
-        business_nature_id: yup.string().required('Business nature Id is required'),
+        // business_nature_id: yup.string().required('Business nature Id is required'),
         flat: yup.string().required(' Flat is required'),
         building: yup.string().required(' building is required '),
         street: yup.string().required(' Street is required'),
@@ -94,24 +94,37 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
     const last_name_storage = useStorage('squareOne-fCop-last_name', '');
 
     function saveToLocalStorage() {
-        if (company_name.value) company_name_storage.value = company_name.value
-        if (chn_company_name.value) chn_company_name_storage.value = chn_company_name.value
-        if (registeration_no.value) registeration_no_storage.value = registeration_no.value
-        if (country_registered.value) country_registered_storage.value = country_registered.value
+        // if (company_name.value)
+        company_name_storage.value = company_name.value
+        // if (chn_company_name.value) 
+        chn_company_name_storage.value = chn_company_name.value
+        // if (registeration_no.value) 
+        registeration_no_storage.value = registeration_no.value
+        // if (country_registered.value) 
+        country_registered_storage.value = country_registered.value
 
 
-        if (flat.value) flat_storage.value = flat.value
-        if (building.value) building_storage.value = building.value
-        if (street.value) street_storage.value = street.value
-        if (state.value) state_storage.value = state.value
-        if (country.value) country_storage.value = country.value
+        // if (flat.value) 
+        flat_storage.value = flat.value
+        // if (building.value)
+        building_storage.value = building.value
+        // if (street.value) 
+        street_storage.value = street.value
+        // if (state.value) 
+        state_storage.value = state.value
+        // if (country.value) country_storage.value = country.value
         // if (postal_code.value) postal_code_storage.value = postal_code.value
 
-        if (phone.value) phone_storage.value = phone.value
-        if (email.value) email_storage.value = email.value
-        if (confirm_email.value) confirm_email_storage.value = confirm_email.value
-        if (first_name.value) first_name_storage.value = first_name.value
-        if (last_name.value) last_name_storage.value = last_name.value
+        // if (phone.value)
+        phone_storage.value = phone.value
+        // if (email.value)
+        email_storage.value = email.value
+        // if (confirm_email.value)
+        confirm_email_storage.value = confirm_email.value
+        // if (first_name.value)
+        first_name_storage.value = first_name.value
+        // if (last_name.value)
+        last_name_storage.value = last_name.value
     }
 
     function updateFields(companyInProgress: any) {

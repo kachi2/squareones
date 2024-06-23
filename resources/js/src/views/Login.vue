@@ -5,7 +5,7 @@
         <div class="container">
           <div class="everything-center overflow-hidden">
             <div class="col-12 col-md-7">
-              <div class="card bg-transparent border-0">
+              <div class="car p-3 rounded-3 bg-whit border-0">
                 <div class="card-body">
                   <h4 class="fw-bold lh-1">Sign In</h4>
                   <div>Access Squareone using your email and password</div>
@@ -13,7 +13,7 @@
                   <div class="row mt-4 g-3">
                     <div class="col-12">
                       <label class="form-label fw-bold"> Email </label>
-                      <input v-model="email" v-bind="emailAttrs" type="text" class="form-control">
+                      <input v-model="email" v-bind="emailAttrs" type="text" class="form-control exemption">
                       <span class="small text-danger">{{ errors.email }}</span>
                     </div>
 
@@ -24,7 +24,7 @@
                           <i v-else class="bi bi-eye cursor-pointer"></i>
                         </span>
                       </div>
-                      <input v-model="password" v-bind="passwordAttrs" :type="inputType" class="form-control">
+                      <input v-model="password" v-bind="passwordAttrs" :type="inputType" class="form-control exemption">
                       <span class="small text-danger">{{ errors.password }}</span>
                     </div>
 
@@ -76,19 +76,17 @@ import { useForm } from 'vee-validate';
 // @ts-ignore
 import * as yup from 'yup';
 
-
-
 const toast = useToast()
 const authStore = useAuthStore()
 const router = useRouter()
 
 const isSaving = ref(false)
 
+
 const inputType = ref('password')
 const changeInputType = () => {
   inputType.value = inputType.value == 'password' ? 'text' : 'password'
 }
-
 
 const { errors, handleSubmit, defineField, setFieldValue } = useForm({
   validationSchema: yup.object({
@@ -104,30 +102,54 @@ const { errors, handleSubmit, defineField, setFieldValue } = useForm({
 const [email, emailAttrs] = defineField('email');
 const [password, passwordAttrs] = defineField('password');
 
-
-
 const submitForm = handleSubmit(async (values) => {
   isSaving.value = true
   try {
     const resp = await api.login(values)
     const data = resp.data.data
-    // console.log(resp.data.data);
+    // console.log(data);
 
     authStore.login(data)
-    router.push({ name: 'Start' })
+
+    getTwoFactorStatus()
+
   } catch (error: any) {
-    // console.log(error);
+    console.log(error, 'error');
 
     if (error.response && error.response.status === 401) {
       toast.error('Invalid credentials, try again', { position: 'top-right' })
+      isSaving.value = false
       return;
     }
   }
-  finally {
-    isSaving.value = false
-  }
 
 });
+
+
+
+
+async function getTwoFactorStatus() {
+  try {
+    const resp = await api.checkAccountStatus()
+    const data = resp.data.data
+
+    if (data.enable_2fa_at) {
+      authStore.twofactorEnabled = '1'
+      authStore.twofactorAttendedTo = null
+      router.push({ name: 'TwoFactorAuthentication' })
+    }
+    else {
+      authStore.twofactorEnabled = null
+      router.push({ name: 'Start' })
+    }
+
+    window.location.reload()
+    // console.log(resp.data);
+  } catch (error: any) {
+    console.log(error);
+  }
+}
+
 </script>
 
 <style lang="css" scoped></style>

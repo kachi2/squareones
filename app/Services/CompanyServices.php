@@ -36,41 +36,13 @@ class CompanyServices  implements CompanyFormationInterface
 
     public function InitiateCompany(NamesDto $namesDto)
     {
-        $company = Company::where('id', $namesDto?->company_id)->first();
-        $nameChange =  CompanyName::where(['company_id' => $namesDto?->company_id])->get();
-        if(count($nameChange) > 0){
-            $names = [];
-            $store = [];
-            $x = 0;
-            foreach ($namesDto->names as $key => $name) {  
-                // if($x > $namesDto->names)
-                if(array_key_exists($key, $nameChange->toArray())){
-                $store =  $nameChange[$key]->update([
-                    'eng_name' => $name['eng_name']== 'undefined'? '':$name['eng_name'],
-                    'chn_name' => $name['chn_name'] == 'undefined'? '':$name['chn_name'],
-                    'chn_prefix'=>  $name['chn_name'] != ''?$name['chn_prefix']:null,
-                    'eng_prefix' =>  $name['eng_name'] != ''?$name['prefix']:null,
-                    'choice_level' => $name['choice_level'],
-                    'company_id' => $namesDto->company_id
-                ]);
-            }else{
-                  CompanyName::create([
-                    'eng_name' => $name['eng_name']== 'undefined'? '':$name['eng_name'],
-                    'chn_name' => $name['chn_name'] == 'undefined'? '':$name['chn_name'],
-                    'choice_level' => $name['choice_level'],
-                    'chn_prefix'=>  $name['chn_name'] != ''?$name['chn_prefix']:null,
-                    'eng_prefix' =>  $name['eng_name'] != ''?$name['prefix']:null,
-                    'company_id' => $namesDto->company_id
-                ]);
+         $nameChange =  CompanyName::where(['company_id' => $namesDto?->company_id])->get();
+         if(count($nameChange) > 0){
+            foreach($nameChange as $name)
+            {
+                $name->delete();
             }
-               
-            }
-
-              return [
-                'company' => $company,
-                'name' =>   CompanyName::where('company_id',$company->id)->get()
-            ];
-        }
+         }
         try {
             $company = Company::where(['is_complete' => 0, 'user_id' => auth_user()])->first();
             if(!$company){
@@ -78,7 +50,8 @@ class CompanyServices  implements CompanyFormationInterface
             $initiateCompany = Company::create([
                 'user_id' => auth_user(),
             ]);
-            if ($initiateCompany) {
+        }
+            $initiateCompany = Company::latest()->first();
                 $names = [];
                 foreach ($namesDto->names as $name) {  
                     $store =  CompanyName::create([
@@ -96,16 +69,44 @@ class CompanyServices  implements CompanyFormationInterface
                     'company' => $initiateCompany,
                     'name' => $names
                 ];
-            }
-        }else{
-            return [
-                'error' => 'An error occured',
-            ];
-        }
         } catch (\Exception $e) {
             DB::rollBack();
             return ['error' => $e->getMessage()];
         }
+
+         // $company = Company::where('id', $namesDto?->company_id)->first();
+        // $nameChange =  CompanyName::where(['company_id' => $namesDto?->company_id])->get();
+        // if(count($nameChange) > 0){
+        //     $names = [];
+        //     $store = [];
+        //     foreach ($namesDto->names as $key => $name) {  
+        //         if(array_key_exists($key, $nameChange->toArray())){
+        //         $store =  $nameChange[$key]->update([
+        //             'eng_name' => $name['eng_name']== 'undefined'? '':$name['eng_name'],
+        //             'chn_name' => $name['chn_name'] == 'undefined'? '':$name['chn_name'],
+        //             'chn_prefix'=>  $name['chn_name'] != ''?$name['chn_prefix']:null,
+        //             'eng_prefix' =>  $name['eng_name'] != ''?$name['prefix']:null,
+        //             'choice_level' => $name['choice_level'],
+        //             'company_id' => $namesDto->company_id
+        //         ]);
+        //     }else{
+        //           CompanyName::create([
+        //             'eng_name' => $name['eng_name']== 'undefined'? '':$name['eng_name'],
+        //             'chn_name' => $name['chn_name'] == 'undefined'? '':$name['chn_name'],
+        //             'choice_level' => $name['choice_level'],
+        //             'chn_prefix'=>  $name['chn_name'] != ''?$name['chn_prefix']:null,
+        //             'eng_prefix' =>  $name['eng_name'] != ''?$name['prefix']:null,
+        //             'company_id' => $namesDto->company_id
+        //         ]);
+        //     }
+               
+        //     }
+
+        //       return [
+        //         'company' => $company,
+        //         'name' =>   CompanyName::where('company_id',$company->id)->get()
+        //     ];
+        // }
     }
 
     public function StoreCompanyInfo(CompanyDto $companyDto): ?Company

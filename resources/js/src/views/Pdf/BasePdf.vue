@@ -29,7 +29,7 @@
     </div>
 
     <div class="off-screen" ref="PDFsection" hidden id="print_item">
-                      zxzzxxzzx
+                      
             <!-- <company :companyInfo="data" /> -->
             <!-- <company_info :companyInfo="data" />
             <individual_shareholder v-for="shares in shareholders" :shareholder="shares" />

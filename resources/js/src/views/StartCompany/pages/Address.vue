@@ -22,8 +22,7 @@
                         <small class=" text-danger">{{ form.errors.building }}</small>
                     </div>
                     <div class="col-12">
-                        <label class="form-label"> Street／Estate／Lot／Village<i
-                                class="bi bi-lock-fill"></i></label>
+                        <label class="form-label"> Street／Estate／Lot／Village<i class="bi bi-lock-fill"></i></label>
 
                         <input disabled v-model="form.street" class="form-control" type="text" placeholder="City">
                         <small class=" text-danger">{{ form.errors.street }}</small>
@@ -52,7 +51,7 @@
 
 
             <div class="movement-buttons my-5">
-                <button @click="moveBack" class="btn btn-outline-dark me-3">
+                <button @click="moveBack" class="btn btn-outline-info me-3">
                     <i class="bi bi-arrow-left"></i> Back
                 </button>
                 <button v-if="!form.isSaving" @click="saveAndContinues" class="btn btn-primary">
@@ -116,8 +115,8 @@ function moveBack() {
 }
 
 function saveAndContinues() {
-        form.isSaving = true
-          saveFromToApi()
+    form.isSaving = true
+    saveFromToApi()
 
 }
 const saveAndContinue = form.handleSubmit(async (values) => {

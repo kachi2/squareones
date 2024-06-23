@@ -254,4 +254,4 @@ th {
     /* right: 0%; */
     left: 100%;
 }
-</style>./company_info_registers1.vue
+</style>

@@ -7,7 +7,7 @@
       </div>
 
       <div class="movement-buttons my-5">
-        <button class="btn btn-outline-dark me-3">
+        <button class="btn btn-outline-info me-3">
           <i class="bi bi-arrow-left"></i> Back
         </button>
         <button v-if="!startCompanyStore.pdfIsSending" @click="proceed" class="btn btn-primary">
@@ -41,10 +41,10 @@
             </div>
             <div class="modal-body">
 
-              <VueSignaturePad class="bg-light" height="300px" width="100%"  ref="signaturePad" />
+              <VueSignaturePad class="bg-transparent" height="300px" width="100%" ref="signaturePad" />
 
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer bg-transparent">
               <button v-if="!signatureIsSaving" @click="save" type="button" class="btn btn-primary">Save
                 Signature</button>
               <button v-else class="btn btn-primary" type="button" disabled>
@@ -62,7 +62,7 @@
         </div>
       </div>
 
-      <v-select placeholder="select founder.." v-model="selected_entity_id" :clearable="false" :options="entities" />
+      <!-- <v-select placeholder="select founder.." v-model="selected_entity_id" :clearable="false" :options="entities" /> -->
 
       <button class="btn btn-primary mt-3" @click="signaturePadModal = true">Sign Document</button>
       <span class="float-end">
@@ -138,9 +138,9 @@ const entities = computed(() => {
       const obj = el.individual || el.corporate;
       if (obj) {
         obj.label = el.entity_type_id == 1 ?
-          `${obj.first_name??obj.chn_first_name} ${obj.last_name??obj.chn_last_name}`
-          : `${obj.company_name??obj.chn_company_name}`
-          obj.company_entity_id = el.id
+          `${obj.first_name ?? obj.chn_first_name} ${obj.last_name ?? obj.chn_last_name}`
+          : `${obj.company_name ?? obj.chn_company_name}`
+        obj.company_entity_id = el.id
         array.push(obj)
       }
     });
@@ -168,7 +168,7 @@ function save() {
 async function saveSignatureBySelectedFounder() {
   const newForm = new FormData();
   newForm.append('company_id', startCompanyStore.companyInProgress.id)
-  newForm.append('company_entity_id', selected_entity_id.value.company_entity_id) 
+  newForm.append('company_entity_id', selected_entity_id.value.company_entity_id)
   newForm.append('signature', startCompanyStore.signatureImage)
   newForm.append('date_signed', startCompanyStore.signatureDateSigned)
 

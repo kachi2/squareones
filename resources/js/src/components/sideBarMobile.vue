@@ -3,6 +3,9 @@ import menuList from './menuList.vue';
 import { watch, ref } from 'vue'
 import { useRoute } from 'vue-router';
 
+import { useTemplateStore } from '@/stores/templateStore';
+const templateStore = useTemplateStore()
+
 const route = useRoute()
 const btnClose = ref<any>(null)
 watch(() => route.path, () => {
@@ -29,6 +32,6 @@ watch(() => route.path, () => {
 <style lang="css" scoped>
 .offcanvas {
     width: 230px;
-    background-color: var(--sidebar-bg);
+    background-color: v-bind('templateStore.bgColor');
 }
 </style>

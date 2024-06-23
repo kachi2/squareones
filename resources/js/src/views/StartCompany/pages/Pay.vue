@@ -7,7 +7,7 @@
                 <div class="alert alert-success text-center" role="alert">
                     <i style="font-size: 2.56rem;" class="bi bi-check-circle"></i>
                     <h5> Payment Completed </h5>
-                    <p>We are receiving your request, please exercise patience while we setup your company</p>
+                    <p>We have received your request, please exercise patience while we setup your company</p>
 
                     <small>If you have not completed your KYC, please <a :href="returnUrl"> click here </a> </small>
                 </div>
@@ -124,7 +124,7 @@ onMounted(async () => {
     }
 })
 
-const returnUrl = computed(()=> { return 'https://squareone.portrec.ng/kcy/verifications'})
+const returnUrl = computed(()=> { return 'http://localhost:5173/kcy/verifications'})
 
     async function handleSubmit(event: any) {
         event.preventDefault();
@@ -132,7 +132,7 @@ const returnUrl = computed(()=> { return 'https://squareone.portrec.ng/kcy/verif
         const { error } = await stripePromise.confirmPayment({
             elements,
             confirmParams: {
-                return_url: `https://squareone.portrec.ng/kcy/verifications` //,
+                return_url: `http://localhost:5173/kcy/verifications` //,
             },
         });
 

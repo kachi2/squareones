@@ -27,7 +27,7 @@
         <section class="row g-2 section">
             <div class="col-md-6">
                 <label class="form-label fw-bold">Date of Incorporation <span class="text-danger"> * </span> </label>
-                <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false" :max-date="new Date()"
+                <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
                     :enable-time-picker="false" auto-apply v-model="form.date_incorporated">
                 </VueDatePicker>
             </div>
@@ -104,15 +104,15 @@
                 <label class=" fw-bolder">Authorised Person <span class="text-danger"> * </span></label>
                 <div class="row g-2">
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.first_name }" v-maska 
-                            data-maska-tokens="A:[A-Za-z]:multiple" v-model="form.first_name"
-                            type="text" class="form-control" placeholder="first name..">
+                        <input :class="{ 'error-field': form.errors.first_name }" v-maska
+                            data-maska-tokens="A:[A-Za-z]:multiple" v-model="form.first_name" type="text"
+                            class="form-control" placeholder="first name..">
                         <small class=" text-danger">{{ form.errors.first_name }}</small>
                     </div>
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.last_name }" v-maska 
-                            data-maska-tokens="A:[A-Za-z]:multiple" v-model="form.last_name"
-                            type="text" class="form-control" placeholder="first name..">
+                        <input :class="{ 'error-field': form.errors.last_name }" v-maska
+                            data-maska-tokens="A:[A-Za-z]:multiple" v-model="form.last_name" type="text"
+                            class="form-control" placeholder="first name..">
                         <small class=" text-danger">{{ form.errors.last_name }}</small>
                     </div>
                 </div>
@@ -153,7 +153,7 @@
 
         </section>
         <div class="movement-buttons mt-5 mb-4">
-            <button @click="closeForm" class="btn btn-outline-dark me-3">
+            <button @click="moveBack" class="btn btn-outline-info me-3">
                 <i class="bi bi-arrow-left"></i> Close
             </button>
             <button v-if="!form.isSaving" @click="saveAndContinue" class="btn btn-primary">
@@ -172,7 +172,7 @@
 import { useStartCompanyStore } from '../StartCompany_store';
 import api from '@/stores/Helpers/axios'
 import { useToast } from 'vue-toast-notification';
-import useFxn from "@/stores/Helpers/useFunctions";
+import useFxn from '@/stores/Helpers/useFunctions';
 import { foundersCorporateForm } from './formsStore/Founders_corporate'
 import { vMaska } from "maska"
 import { onMounted, ref, watch, watchEffect, reactive } from 'vue';
@@ -201,18 +201,6 @@ watchEffect(() => {
 })
 
 
-function closeForm() {
-  useFxn.confirmDelete("This will clear the data field", '')
-    .then(async (resp) => {
-      if (resp.isConfirmed) {
-        startCompanyStore.isShowingFoundersForm = false;
-        form.clearLocalStorage()
-        form.clearLocalStorage()
-      }
-    })
-
-
-}
 
 function resetForm() {
     form.company_name = ''
@@ -270,7 +258,7 @@ function moveBack() {
 
 const saveAndContinue = form.handleSubmit((values: any) => {
     // function saveAndContinue() {
-    // console.log('validation passed..');
+    console.log('validation passed..');
 
     if (!startCompanyStore.companyInProgress?.id) {
         toast.error('You have not registered any company name', { position: 'top-right' })
@@ -278,23 +266,23 @@ const saveAndContinue = form.handleSubmit((values: any) => {
         return;
     }
 
-    // if (form.phone.length < 14) {
-    //     toast.error("Error on the phone input <br> must be 12 digits and above", { position: 'top-right' });
-    //     return;
+    if (form.phone.length < 12) {
+        toast.error("Error on the phone input <br> must be 12 digits and above", { position: 'top-right' });
+        return;
 
-    // }
-    // if (Object.keys(form.errors).length > 0) {
-    //      console.log(form.errors)
-    //     toast.error("Some fields still have errors", { position: 'top-right' });
-    //     return;
-    // }
+    }
+    if (Object.keys(form.errors).length > 0) {
+        console.log(form.errors)
+        toast.error("Some fields still have errors", { position: 'top-right' });
+        return;
+    }
 
-    // if (!form.first_name || !form.last_name || !form.phone || !form.email || !form.date_incorporated || !form.company_name
-    //     || !form.business_nature_id || !form.country_registered
-    //     || !form.registeration_no) {
-    //     toast.error('Some fields still have errors', { position: 'top-right' })
-    //     return;
-    // }
+    if (!form.first_name || !form.last_name || !form.phone || !form.email || !form.date_incorporated || !form.company_name
+        || !form.business_nature_id || !form.country_registered
+        || !form.registeration_no) {
+        toast.error('Some fields still have errors', { position: 'top-right' })
+        return;
+    }
 
 
 

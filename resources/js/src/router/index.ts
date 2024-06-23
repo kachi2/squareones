@@ -9,6 +9,9 @@ const authGuard = (to, from, next) => {
     next({ name: `Login` });
   }
   else {
+    if (authStore.twofactorEnabled && !authStore.twofactorAttendedTo) {
+      next({ name: `TwoFactorAuthentication` });
+    }
     next()
   }
 }
@@ -17,6 +20,17 @@ const authGuard = (to, from, next) => {
 const initGuard = (to, from, next) => {
   const authStore = useAuthStore();
   if (authStore.isLoggedIn) {
+    next({ name: `Start` });
+  }
+  else {
+    next()
+  }
+}
+
+// @ts-ignore
+const twoFaGuard = (to, from, next) => {
+  const authStore = useAuthStore();
+  if (authStore.twofactorEnabled && authStore.twofactorAttendedTo) {
     next({ name: `Start` });
   }
   else {
@@ -48,15 +62,39 @@ const router = createRouter({
     },
 
     {
-      path: '/account',
-      component: () => import('../views/Account/Account_template.vue'),
+      path: '/two_factor_auth',
+      name: 'TwoFactorAuthentication',
+      component: () => import('../views/TwoFaAuthPage.vue'),
+      beforeEnter: twoFaGuard
+    },
+
+    {
+      path: '/user',
+      component: () => import('../views/Account/User/Account_template.vue'),
       beforeEnter: authGuard,
       children: [
-        { path: 'dashboard', name: 'Dashboard', alias: '/dashboard', component: () => import('../views/Account/Dashboard.vue') },
-        { path: 'company/submitted_form', name: 'Sumitted Form', component: () => import('../views/Account/Company/submitted_form.vue') },
-        { path: 'company/company_info', name: 'Company Details', component: () => import('../views/Account/Company/company_info.vue') },
+        { path: 'dashboard', name: 'User-Dashboard', alias: '/user', component: () => import('../views/Account/User/UserDashboard.vue') },
+        { path: 'users', name: 'User-Users', component: () => import('../views/Account/User/UserUsers.vue') },
+        { path: 'company', name: 'User-Company', component: () => import('../views/Account/User/CompanyDetails/Company.vue') },
+        { path: 'account', name: 'User-Settings', component: () => import('../views/Account/User/UserAccount.vue') },
+        { path: 'billings', name: 'User-Billings', component: () => import('../views/Account/User/UserBillings.vue') },
+
+      ],
+    }, {
+      path: '/admin',
+      component: () => import('../views/Account/Admin/Account_template.vue'),
+      beforeEnter: authGuard,
+      children: [
+        { path: 'dashboard', name: 'Admin-Dashboard', alias: '/admin', component: () => import('../views/Account/Admin/AdminDashboard.vue') },
+        { path: 'companies', name: 'Admin-Companies', component: () => import('../views/Account/Admin/AdminCompanies.vue') },
+        { path: 'company', name: 'Admin-Company', component: () => import('../views/Account/Admin/CompanyDetails/Company.vue') },
+        { path: 'users', name: 'Users-Admin', component: () => import('../views/Account/Admin/AdminUsers.vue') },
+        { path: 'account', name: 'Admin-Settings', component: () => import('../views/Account/Admin/AdminAccount.vue') },
+        { path: 'billings', name: 'Admin-Billings', component: () => import('../views/Account/Admin/AdminBillings.vue') },
       ],
     },
+
+
 
     {
       path: '/kcy/verifications',

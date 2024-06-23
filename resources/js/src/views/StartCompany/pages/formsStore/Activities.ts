@@ -36,11 +36,16 @@ export const activitiesForm = defineStore('activities', () => {
     const country_storage = useStorage('squareOne-activity-activity_nature-country', '');
 
     function saveToLocalStorage() {
-        if (description.value) description_storage.value = description.value
-        if (activity_level.value) activity_level_storage.value = activity_level.value
-        if (activity_nature.value) activity_nature_storage.value = activity_nature.value
-        if (customer_location_operation.value) customer_location_operation_storage.value = customer_location_operation.value
-        if (country.value) country_storage.value = country.value
+        // if (description.value)
+        description_storage.value = description.value
+        // if (activity_level.value) 
+        activity_level_storage.value = activity_level.value
+        // if (activity_nature.value) 
+        activity_nature_storage.value = activity_nature.value
+        // if (customer_location_operation.value) 
+        customer_location_operation_storage.value = customer_location_operation.value
+        // if (country.value) 
+        country_storage.value = country.value
     }
 
 

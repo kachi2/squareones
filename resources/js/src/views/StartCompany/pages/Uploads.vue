@@ -43,7 +43,7 @@
             </section>
 
             <div class="movement-buttons my-5">
-                <button @click="switchStage('-')" class="btn btn-outline-dark me-3">
+                <button @click="switchStage('-')" class="btn btn-outline-info me-3">
                     <i class="bi bi-arrow-left"></i> Back
                 </button>
                 <button @click="switchStage('+')" class="btn btn-primary">

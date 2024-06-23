@@ -143,14 +143,29 @@ export default {
     },
 
     dateDisplay: (date: Date, options?: string) => {
-        if (options) {
-            if (options == 'm,y') {
-                const dd = useDateFormat(date, 'MMM, YYYY')
-                return dd.value
+        if (date || date != null || date != undefined) {
+            if (options) {
+                if (options == 'm,y') {
+                    const dd = useDateFormat(date, 'MMM, YYYY')
+                    return dd.value
+                }
+                if (options == 'm,y,t') {
+                    const dd = useDateFormat(date, 'MMM D, YYYY. mm:ss')
+                    return dd.value
+                }
             }
+            const dd = useDateFormat(date, 'MMM D, YYYY')
+            return dd.value
         }
-        const dd = useDateFormat(date, 'MMM D, YYYY')
-        return dd.value
+        else return ''
+    },
+
+    formatDate: (date: Date, format = 'YYYY-MM-DD') => {
+        if (date || date != null || date != undefined) {
+            const dd = useDateFormat(date, format)
+            return dd.value
+        }
+        else return ''
     },
 
     ageInYears: (dateOfBirth: Date) => {

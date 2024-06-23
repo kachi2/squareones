@@ -2,7 +2,9 @@
 import { useStartCompanyStore } from './StartCompany_store';
 import { useToast } from 'vue-toast-notification';
 import { useRouter } from 'vue-router';
-import {computed} from 'vue'
+import { computed } from 'vue'
+import { useTemplateStore } from '@/stores/templateStore';
+const templateStore = useTemplateStore()
 
 const router = useRouter()
 
@@ -12,9 +14,9 @@ const startCompanyStore = useStartCompanyStore()
 function goToStage(stage: number) {
     const company = startCompanyStore.companyInProgress;
 
-if(stage == 11 || stage == 12){
-    toast.info('You cannot access this page <br> here from here,complete all forms', { position: 'top-right' });
-}else if ((stage === 10 || stage == 11 || stage == 12) && (!company || !company?.description || !company?.address
+    if (stage == 11 || stage == 12) {
+        toast.info('You cannot access this page <br> here from here,complete all forms', { position: 'top-right' });
+    } else if ((stage === 10 || stage == 11 || stage == 12) && (!company || !company?.description || !company?.address
         || !company.company_entity.length || !company.owner_share.length
         || !company.fund_source.length || !company.activity)) {
         toast.info('You cannot access this page <br> here from here,complete all forms', { position: 'top-right' });
@@ -24,27 +26,26 @@ if(stage == 11 || stage == 12){
     }
 }
 
-    function isformCompleted(dataSource: any, menuStage: any) {
+function isformCompleted(dataSource: any, menuStage: any) {
 
-        if(menuStage != 5){
-            if(dataSource instanceof Array)
-        { 
-          return  dataSource?.length
-        }else if(dataSource != null){
+    if (menuStage != 5) {
+        if (dataSource instanceof Array) {
+            return dataSource?.length
+        } else if (dataSource != null) {
             return true
         }
         return false
-        }else{
+    } else {
         const entity = startCompanyStore.companyInProgress?.company_entity ?? [];
         const individual = entity.find((x: any) => x.entity_capacity_id.includes(2) && x.entity_type_id == 1)
         const Corporate = entity.find((x: any) => x.entity_capacity_id.includes(1))
-        if (!Corporate ||  !individual) {
-        return false
+        if (!Corporate || !individual) {
+            return false
         }
         return true
-        }
-       
     }
+
+}
 
 
 </script>
@@ -53,12 +54,14 @@ if(stage == 11 || stage == 12){
     <ul class="list-group list-group-flush mt-4">
         <li v-for="menu in startCompanyStore.menus" @click="goToStage(menu.stage)" class="list-group-item"
             :class="{ 'isActive': startCompanyStore.isActiveMenu(menu.stage) }">
-            {{ menu?.name }} 
+            {{ menu?.name }}
             <!-- {{startCompanyStore.companyInProgress[menu.dataSource]?.length || startCompanyStore.companyInProgress[menu.dataSource] != null }} -->
             <span v-if="startCompanyStore.companyInProgress">
-                <small style="font-size:10px" v-if="isformCompleted(startCompanyStore?.companyInProgress[menu.dataSource], menu.stage)" ><i class="bi bi-check-circle text-primary "></i></small> 
+                <small style="font-size:10px"
+                    v-if="isformCompleted(startCompanyStore?.companyInProgress[menu.dataSource], menu.stage)"><i
+                        class="bi bi-check-circle text-primary "></i></small>
             </span>
-         </li> 
+        </li>
     </ul>
 </template>
 
@@ -70,6 +73,7 @@ if(stage == 11 || stage == 12){
     font-weight: 400;
     cursor: pointer;
     padding-block: 4px;
+    color: v-bind('templateStore.textColor');
 }
 
 .isActive {

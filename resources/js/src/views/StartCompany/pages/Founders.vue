@@ -9,31 +9,22 @@
         <span>Tell us the details about the founder and director.</span>
       </section>
       <div v-if="!startCompanyStore.isShowingFoundersForm">
-        <label for="CompanyStore" class="section" style="width:100%;">
-          <!-- <section class="section"> -->
-          <div class="card " style="
-            display: flex;
-            align-items: center;
-            height: 60px;
-            background: #cfe2ff;
-            padding: 10px;
-            
-          ">
-            <button class="btn btn-outline-none" id="CompanyStore" @click="openForm">
-              <i class="bi bi-plus-circle"></i> Add New founder / Director
-            </button>
-          </div>
-          <!-- </section> -->
-        </label>
+
+        <button class="btn w-100 btn-outline-secondary py-3 mb-4" id="CompanyStore" @click="openForm">
+          <i class="bi bi-plus-circle"></i> Add New founder / Director
+        </button>
+
         <section v-if="foundersAdded.length" class="section">
           <div class="card" style="width: 100%">
-            <div class="card-header" style="background: #cfe2ff">Founders / Directors </div>
+            <div class="card-header py-3 fw-bold border-0">Founders / Directors: </div>
             <div class="table-responsive">
               <table class="table table-sm ">
                 <tbody>
-                  <tr v-for="item in foundersAdded" :key="item">
-                    <i class="bi bi-person-circle" style="font-size:20px; padding-left:20px"></i>
+                  <tr v-for="(item, index) in foundersAdded" :key="item">
+                    <!-- <i class="bi bi-person-circle" style="font-size:20px; padding-left:20px"></i> -->
+                    <td>{{ (index + 1) }}</td>
                     <td class="text-capitalize " v-if="item.entity_type_id == 1">
+                      <i class="bi bi-person-circle"></i>
                       {{ item.first_name + " " + item.last_name }} <br>
                       <small> {{ item.capacity.includes('1') ? 'Shareholder' : '' }}</small>
                       {{ item.capacity.length > 1 ? " " : " " }}
@@ -41,6 +32,7 @@
 
                     </td>
                     <td v-else class="text-capitalize">
+                      <i class="bi bi-person-circle"></i>
                       {{ item.company_name }} <br>
                       <small> {{ item.capacity.includes('1') ? 'Shareholder' : ' ' }}</small>
                       <small> {{ item.capacity.includes('2') ? ' Director' : ' ' }} </small>
@@ -65,7 +57,7 @@
             </div>
           </div>
         </section>
-        <button @click="moveBack" class="btn btn-outline-dark me-3">
+        <button @click="moveBack" class="btn btn-outline-info me-3">
           <i class="bi bi-arrow-left"></i> Back
         </button>
         <button @click="saveAndContinue" class="btn btn-primary">
@@ -74,7 +66,8 @@
       </div>
 
       <div v-else>
-        <!-- <button  v-if="founderType == 'individual' || founderType == 'corporate'"  @click="closeForm" class="btn btn-outline-primary float-end btn-sm"> Clear Form</button> -->
+        <button v-if="founderType == 'individual' || founderType == 'corporate'" @click="closeForm"
+          class="btn btn-outline-primary float-end btn-sm"> Clear Form</button>
         <section class="section">
           <div class="fw-bold">What is the type of founder/director? </div>
 
@@ -116,7 +109,7 @@
           </div>
         </section>
 
-    
+
         <Founders_individual v-if="founderType == 'individual'" />
         <Founders_corporate v-else-if="founderType == 'corporate'" />
         <div class="p-2" v-else></div>
@@ -256,18 +249,18 @@ const foundersAdded = computed(() => {
 
 function closeForm() {
   // useFxn.confirmDelete("This will clear the data field")
-    // .then(async (resp) => {
-      // if (resp.isConfirmed) {
-        startCompanyStore.isShowingFoundersForm = false;
-        corporate_form.clearLocalStorage()
-        individual_form.clearLocalStorage()
-      // }
-    // })
+  // .then(async (resp) => {
+  // if (resp.isConfirmed) {
+  startCompanyStore.isShowingFoundersForm = false;
+  corporate_form.clearLocalStorage()
+  individual_form.clearLocalStorage()
+  // }
+  // })
 
 
 }
 function moveBack() {
-  
+
   startCompanyStore.switchStage('-')
 }
 function openForm() {

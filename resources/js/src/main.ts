@@ -28,9 +28,15 @@ import VueSignaturePad from 'vue-signature-pad';
 import { SkeletonLoader } from "vue3-loading-skeleton";
 import "vue3-loading-skeleton/dist/style.css";
 
+//https://www.npmjs.com/package/vue3-apexcharts
+import VueApexCharts from "vue3-apexcharts";
 
 import VueTelInput from 'vue-tel-input';
 import 'vue-tel-input/vue-tel-input.css';
+
+//https://hc200ok.github.io/vue3-easy-data-table-doc/getting-started.html
+import Vue3EasyDataTable from 'vue3-easy-data-table';
+import 'vue3-easy-data-table/dist/style.css';
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -38,13 +44,22 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 
+import isLoadingComponent from '@/components/isLoadingComponent.vue'
+import appModeToggler from '@/components/appModeToggler.vue'
+import modalCloseBtn from '@/components/modalCloseBtn.vue'
+
 const app = createApp(App)
 
 app.component('VueDatePicker', VueDatePicker);
 app.component('vSelect', vSelect);
 app.component("SkeletonLoader", SkeletonLoader);
+app.component("isLoadingComponent", isLoadingComponent);
+app.component("appModeToggler", appModeToggler);
+app.component('EasyDataTable', Vue3EasyDataTable);
+app.component('modalCloseBtn', modalCloseBtn);
 
 app.use(createPinia())
+app.use(VueApexCharts);
 app.use(router)
 app.use(VueTelInput)
 app.use(VueSignaturePad);

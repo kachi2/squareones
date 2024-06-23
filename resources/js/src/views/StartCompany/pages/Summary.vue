@@ -19,23 +19,23 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 2" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted text-capitalize" v-if="data?.company_name[0]"> First
+                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[0]"> First
                                         Choice: {{ data?.company_name[0]?.eng_name }} {{ data?.company_name[0]?.chn_name
                                         }}
                                     </div>
-                                    <div class="small text-muted text-capitalize" v-if="data?.company_name[1]"> Second
+                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[1]"> Second
                                         Choice: {{ data?.company_name[1]?.eng_name }} {{ data?.company_name[1]?.chn_name
                                         }}
                                     </div>
-                                    <div class="small text-muted text-capitalize" v-if="data?.company_name[2]"> Third
+                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[2]"> Third
                                         Choice: {{ data?.company_name[2]?.eng_name }} {{ data?.company_name[2]?.chn_name
                                         }}
                                     </div>
-                                    <div class="small text-muted text-capitalize" v-if="data?.company_name[3]">Forth
+                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[3]">Forth
                                         Choice: {{ data?.company_name[3]?.eng_name }} {{ data?.company_name[3]?.chn_name
                                         }}
                                     </div>
-                                    <div class="small text-muted text-capitalize" v-if="data?.company_name[4]">Fifth
+                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[4]">Fifth
                                         Choice: {{ data?.company_name[4]?.eng_name }} {{ data?.company_name[5]?.chn_name
                                         }}
                                     </div>
@@ -48,7 +48,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 3" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ data.description }}</div>
                                 </span>
 
@@ -59,7 +59,7 @@
                                     <span @click="startCompanyStore.currentStage = 3" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.business_nature }}</div>
+                                    <div class="small text-mut">{{ data.business_nature }}</div>
                                 </span>
 
                             </li>
@@ -69,7 +69,7 @@
                                     <span class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data?.website }}</div>
+                                    <div class="small text-mut">{{ data?.website }}</div>
                                 </span>
 
                             </li>
@@ -90,7 +90,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 4" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted text-capitalize">{{ data.flat }}</div>
+                                    <div class="small text-mut text-capitalize">{{ data.flat }}</div>
                                 </span>
 
                             </li>
@@ -100,7 +100,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 4" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ data.building }}</div>
                                 </span>
 
@@ -111,7 +111,7 @@
                                     <span @click="startCompanyStore.currentStage = 4" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.street }}</div>
+                                    <div class="small text-mut">{{ data.street }}</div>
                                 </span>
 
                             </li>
@@ -121,7 +121,7 @@
                                     <span class="float-end" @click="startCompanyStore.currentStage = 4">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.state }}</div>
+                                    <div class="small text-mut">{{ data.state }}</div>
                                 </span>
 
                             </li>
@@ -131,7 +131,7 @@
                                     <span @click="startCompanyStore.currentStage = 4" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.country }}</div>
+                                    <div class="small text-mut">{{ data.country }}</div>
                                 </span>
 
                             </li>
@@ -150,7 +150,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted text-capitalize">
+                                    <div class="small text-mut text-capitalize">
                                         {{ founder.first_name }} {{ founder.last_name }}
                                     </div>
                                 </span>
@@ -162,7 +162,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ founder.email }}
                                     </div>
                                 </span>
@@ -174,7 +174,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ founder.phone }}
                                     </div>
                                 </span>
@@ -187,7 +187,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ useFxn.dateDisplay(founder.dob) }}
                                     </div>
                                 </span>
@@ -199,7 +199,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ founder.occupation }}
                                     </div>
                                 </span>
@@ -211,7 +211,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ founder.res_address.flat }}
                                     </div>
                                 </span>
@@ -222,7 +222,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ founder.res_address.street }}
                                     </div>
                                 </span>
@@ -233,7 +233,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ founder.res_address.building }}
                                     </div>
                                 </span>
@@ -244,7 +244,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ founder.res_address.state }}
                                     </div>
                                 </span>
@@ -255,7 +255,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ founder.res_address.country }}
                                     </div>
                                 </span>
@@ -266,7 +266,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ founder.get_identity.identity_no != null ? founder.get_identity.identity_no +
                                             "-" + founder.get_identity.identity_no_suffix : founder.get_identity.passport_no
                                         }}
@@ -279,7 +279,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ founder.get_identity.issueing_country != 'undefined' ?
                                             founder.get_identity.issueing_country : '' }}
                                     </div>
@@ -305,7 +305,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted text-capitalize">
+                                    <div class="small text-mut text-capitalize">
                                         {{ founder.company_name }}
                                     </div>
                                 </span>
@@ -317,7 +317,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ businesNatureName(founder.business_nature_id) }}
                                     </div>
                                 </span>
@@ -329,7 +329,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ useFxn.dateDisplay(founder.date_incorporated) }}
                                     </div>
                                 </span>
@@ -341,7 +341,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ founder.flat }}
                                     </div>
                                 </span>
@@ -352,7 +352,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ founder.street }}
                                     </div>
                                 </span>
@@ -363,7 +363,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ founder.building }}
                                     </div>
                                 </span>
@@ -374,7 +374,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ founder.state }}
                                     </div>
                                 </span>
@@ -385,7 +385,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ founder.country }}
                                     </div>
                                 </span>
@@ -396,7 +396,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ founder.authorized_persons.first_name }} {{
                                             founder.authorized_persons.last_name }}
                                     </div>
@@ -408,7 +408,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ founder.authorized_persons.email }}
                                     </div>
                                 </span>
@@ -419,7 +419,7 @@
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ founder.authorized_persons.phone }}
                                     </div>
                                 </span>
@@ -441,7 +441,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 6" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">Ordinary</div>
+                                    <div class="small text-mut">Ordinary</div>
                                 </span>
                             </li>
                             <li class="list-group-item">
@@ -450,7 +450,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 6" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.no_of_share }}</div>
+                                    <div class="small text-mut">{{ data.no_of_share }}</div>
                                 </span>
                             </li>
                             <li class="list-group-item">
@@ -459,7 +459,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 6" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.total_amount_paid }}</div>
+                                    <div class="small text-mut">{{ data.total_amount_paid }}</div>
                                 </span>
                             </li>
                             <li class="list-group-item">
@@ -468,22 +468,22 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 6" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.currency }}</div>
+                                    <div class="small text-mut">{{ data.currency }}</div>
                                 </span>
                             </li>
                             <li class="list-group-item">
                                 <span class="fw-bold card border-0 shadow-sm">
                                     <div class="card-body">
                                         <div class="fw-bold">
-                                            Shareholders    <span style="float:right"> No of Shares</span> 
+                                            Shareholders <span style="float:right"> No of Shares</span>
                                         </div>
                                         <ul class="list-group list-group-flush">
-                                        
+
                                             <li class="list-group-item" v-for="share in data.ownerShares">
                                                 <span class="float-end text-right">
                                                     {{ share.amount }}
                                                 </span>
-                                                <div class="small text-muted">{{ share.name }}</div>
+                                                <div class="small text-mut">{{ share.name }}</div>
                                             </li>
                                         </ul>
                                     </div>
@@ -510,7 +510,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.secretary_name }}</div>
+                                    <div class="small text-mut">{{ data.secretary_name }}</div>
                                 </span>
                             </li>
                             <!-- <li class="list-group-item">
@@ -519,7 +519,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.secretary_chname  }}</div>
+                                    <div class="small text-mut">{{ data.secretary_chname  }}</div>
                                 </span>
                             </li> -->
                             <li class="list-group-item">
@@ -528,7 +528,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.secretary_company_reg_no }}</div>
+                                    <div class="small text-mut">{{ data.secretary_company_reg_no }}</div>
                                 </span>
                             </li>
                             <li class="list-group-item">
@@ -537,7 +537,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.secretary_country_registered }}</div>
+                                    <div class="small text-mut">{{ data.secretary_country_registered }}</div>
                                 </span>
                             </li>
                             <li class="list-group-item">
@@ -546,7 +546,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.secretary_licence_no }}</div>
+                                    <div class="small text-mut">{{ data.secretary_licence_no }}</div>
                                 </span>
                             </li>
                             <li class="list-group-item">
@@ -555,7 +555,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.secretary_flat }}</div>
+                                    <div class="small text-mut">{{ data.secretary_flat }}</div>
                                 </span>
                             </li>
                             <li class="list-group-item">
@@ -564,7 +564,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.secretary_street }}</div>
+                                    <div class="small text-mut">{{ data.secretary_street }}</div>
                                 </span>
                             </li>
                             <li class="list-group-item">
@@ -573,7 +573,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.secretary_state }}</div>
+                                    <div class="small text-mut">{{ data.secretary_state }}</div>
                                 </span>
                             </li>
                             <li class="list-group-item">
@@ -582,7 +582,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.secretary_country }}</div>
+                                    <div class="small text-mut">{{ data.secretary_country }}</div>
                                 </span>
                             </li>
                         </ul>
@@ -603,7 +603,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 8" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted text-capitalize">{{ data.income_expected_source }}
+                                    <div class="small text-mut text-capitalize">{{ data.income_expected_source }}
                                     </div>
                                 </span>
 
@@ -614,7 +614,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 8" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ data.origin_funds }}</div>
                                 </span>
 
@@ -625,7 +625,7 @@
                                     <span @click="startCompanyStore.currentStage = 8" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.wealth_initial_source }}</div>
+                                    <div class="small text-mut">{{ data.wealth_initial_source }}</div>
                                 </span>
 
                             </li>
@@ -635,7 +635,7 @@
                                     <span @click="startCompanyStore.currentStage = 8" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.income_outgoing_source }}</div>
+                                    <div class="small text-mut">{{ data.income_outgoing_source }}</div>
                                 </span>
 
                             </li>
@@ -656,7 +656,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 9" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted text-capitalize">{{ data.activity_level }}</div>
+                                    <div class="small text-mut text-capitalize">{{ data.activity_level }}</div>
                                 </span>
 
                             </li>
@@ -666,7 +666,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 9" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">
+                                    <div class="small text-mut">
                                         {{ data.activity_nature }}</div>
                                 </span>
 
@@ -677,7 +677,7 @@
                                     <span @click="startCompanyStore.currentStage = 9" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.activity_description }}</div>
+                                    <div class="small text-mut">{{ data.activity_description }}</div>
                                 </span>
 
                             </li>
@@ -687,7 +687,7 @@
                                     <span @click="startCompanyStore.currentStage = 9" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.activity_customer_location_operation }}</div>
+                                    <div class="small text-mut">{{ data.activity_customer_location_operation }}</div>
                                 </span>
 
                             </li>
@@ -697,7 +697,7 @@
                                     <span @click="startCompanyStore.currentStage = 9" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-muted">{{ data.activity_country }}</div>
+                                    <div class="small text-mut">{{ data.activity_country }}</div>
                                 </span>
 
                             </li>
@@ -709,7 +709,7 @@
 
 
             <div class="movement-buttons my-5">
-                <button @click="switchStage('-')" class="btn btn-outline-dark me-3">
+                <button @click="switchStage('-')" class="btn btn-outline-info me-3">
                     <i class="bi bi-arrow-left"></i> Back
                 </button>
                 <button @click="switchStage('+')" class="btn btn-primary">

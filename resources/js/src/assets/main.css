@@ -74,14 +74,59 @@ textarea {
     /* padding-right: 10px; */
 }
 
-th {
-    font-weight: bold;
+/* th {
     background-color: var(--bs-gray-200) !important;
-}
+} */
 
 .everything-center {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* nav tabs ############################################### */
+.nav-link {
+    border: none !important;
+    /* background-color: transparent !important; */
+}
+
+.nav-link, .nav-link:hover {
+    color: #7C8493;
+}
+
+
+
+@media (max-width: 767px) {
+    .nav-link {
+        font-size: 13px;
+    }
+}
+
+.easy-data-table {
+    --easy-table-body-row-height: 55px;
+    /* --easy-table-header-background-color: var(--bs-gray-200); */
+    --easy-table-header-height: 55px;
+    --easy-table-footer-height: 55px;
+    --easy-table-body-row-hover-background-color: transparent;
+}
+
+/* .vue3-easy-data-table__body td.expand[data-v-32683533] {
+    background-color: #eee !important;
+} */
+
+
+.buttons-pagination .item.button.active {
+    background-color: var(--bs-secondary) !important;
+    border: none !important;
+    /* border-left: var(--easy-table-buttons-pagination-border); */
+    /* border-color: var(--40dd4f07)!important; */
+}
+
+tbody tr:hover {
+    background-color: transparent !important;
+}
+
+.xsmall {
+    font-size: 12px;
 }

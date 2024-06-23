@@ -7,11 +7,12 @@
                 </router-link>
             </li>
             <li class="list-group-item border-0 bg-transparent">
-                <router-link to="/dashboard">
-                    <img src="/icons/sidebar/grid-four.png" alt="">
+                <router-link to="/user/dashboard">
+                    <!-- <img src="/icons/sidebar/grid-four.png" alt=""> -->
+                    <i class="bi bi-grid me-2 mode"></i>
                 </router-link>
             </li>
-            <li class="list-group-item border-0 bg-transparent">
+            <!-- <li class="list-group-item border-0 bg-transparent">
                 <img src="/icons/sidebar/main-component.png" alt="">
             </li>
             <li class="list-group-item border-0 bg-transparent">
@@ -19,23 +20,25 @@
             </li>
             <li class="list-group-item border-0 bg-transparent">
                 <img src="/icons/sidebar/people.png" alt="">
-            </li>
+            </li> -->
         </ul>
 
 
         <ul class="list-group list-group-flush" style="margin-top: 120px;">
 
-            <li class="list-group-item border-0 bg-transparent">
+            <!-- <li class="list-group-item border-0 bg-transparent">
                 <img src="/icons/sidebar/profile.png" alt="">
+            </li> -->
+            <li class="list-group-item border-0 bg-transparent">
+                <i class="bi bi-gear mode"></i>
+
             </li>
             <li class="list-group-item border-0 bg-transparent">
-                <img src="/icons/sidebar/setting-2.png" alt="">
+                <i class="bi bi-cash-stack mode"></i>
             </li>
             <li class="list-group-item border-0 bg-transparent">
-                <img src="/icons/sidebar/money.png" alt="">
-            </li>
-            <li class="list-group-item border-0 bg-transparent">
-                <img src="/icons/sidebar/message-question.png" alt="">
+                <!-- <img src="/icons/sidebar/message-question.png" alt=""> -->
+                <i class="bi bi-question-circle-fill"></i>
             </li>
         </ul>
 
@@ -57,7 +60,9 @@
                     </span>
                     <span class="float-end">
                         <!-- KYC Status -->
-
+                        <span class="me-3">
+                            <!-- <appModeToggler /> -->
+                        </span>
                         <span class="badge bg-success-subtle text-success small" v-if="KycStatus">
                             <i class="bi bi-check-circle"></i> Verified
                         </span>
@@ -75,6 +80,7 @@
                                 <span @click="logout" class="dropdown-item text-danger">
                                     <i class="bi bi-power"></i> Logout
                                 </span>
+                                <appModeToggler class="dropdown-item" />
                             </div>
                         </span>
                     </span>
@@ -82,8 +88,8 @@
                 <div class="col-2 d-none d-md-block min-vh-100 sub-menu-panel">
                     <StartCompany_menulist />
                 </div>
-                <div class="col-md-7 bg-white min-vh-100 sub-form-panel pt-4">
-                    <div class="card border-0">
+                <div class="col-md-7  min-vh-100 sub-form-panel pt-4">
+                    <div class="car border-">
                         <div class="card-body pt-0 p-0 px-md-3">
                             <slot name="main"></slot>
                         </div>
@@ -113,6 +119,9 @@ import { sourceForm } from './pages/formsStore/Source';
 import { activitiesForm } from './pages/formsStore/Activities';
 import { foundersCorporateForm } from './pages/formsStore/Founders_corporate'
 import { foundersIdividualForm } from './pages/formsStore/Founders_individual'
+
+import { useTemplateStore } from '@/stores/templateStore';
+const templateStore = useTemplateStore()
 
 
 const description_form = descriptionForm()
@@ -146,10 +155,10 @@ const activeCompanyName = computed(() => {
     if (choiceNames) {
         const coy = choiceNames.find((x: any) => x.choice_level == 1);
         if (coy) {
-            coyName = coy?.eng_name ? coy.eng_name + ' ' + coy.eng_prefix:'';
-            coyCh_name = coy.chn_name? coy.chn_name + ' ' + coy.chn_prefix:''
+            coyName = coy?.eng_name ? coy.eng_name + ' ' + coy.eng_prefix : '';
+            coyCh_name = coy.chn_name ? coy.chn_name + ' ' + coy.chn_prefix : ''
 
-        }   
+        }
     }
     return coyName + ' ' + coyCh_name
 })
@@ -166,6 +175,7 @@ async function logout() {
     await authStore.logout()
     router.replace({ name: 'Login' })
 }
+
 </script>
 
 <style lang="css" scoped>
@@ -175,25 +185,46 @@ async function logout() {
     left: 0;
     bottom: 0;
     width: 50px !important;
-    background-color: #212935;
+    background-color: v-bind('templateStore.bgColor');
     overflow-y: auto;
+    box-shadow: 1px 1px 5px 1px #0302020f;
+}
+
+.mode {
+    color: v-bind('templateStore.textColor');
+    font-size: 17px;
+    font-weight: 750;
 }
 
 .main-panel {
-    background-color: #fff;
+    /* background-color: #00000000; */
+    background-color: v-bind('templateStore.bgColor');
+    color: v-bind('templateStore.textColor');
     min-height: 100vh;
     margin: 25px 25px 25px 75px;
 }
 
 .head-panel {
-    background-color: #F5F9FC;
-    border-bottom: 1px solid #d5dae5;
+    /* background-color: #F5F9FC; */
+    background-color: v-bind('templateStore.bgColor');
+    color: v-bind('templateStore.textColor');
+    border-bottom: 1px solid #cccccc57;
+    /* color: red; */
     /* z-index: 1; */
 }
 
 .sub-info-panel,
 .sub-menu-panel {
-    background-color: #F5F9FC;
+    /* background-color: #F5F9FC; */
+    /* background-color: #ffffff; */
+    background-color: v-bind('templateStore.bgColor');
+    color: v-bind('templateStore.textColor');
+    /* box-shadow: 1px 1px 1px 1px #eeebeb; */
+}
+
+.sub-info-panel,
+.sub-form-panel {
+    border-left: 1px solid #cccccc57 !important;
 }
 
 @media (max-width: 767px) {
@@ -215,6 +246,7 @@ async function logout() {
 }
 
 /* .dropdown-menu {
-    border-radius: 0px;
+    background-color: v-bind('templateStore.bgColor') !important;
+    color: v-bind('templateStore.textColor') !important;
 } */
 </style>

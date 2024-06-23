@@ -1,11 +1,24 @@
 <script lang="ts" setup>
+import { onMounted } from 'vue';
 import { RouterLink } from 'vue-router';
+import { useParamsStore } from '@/views/Account/User/CompanyDetails/paramsStore';
+import { useTemplateStore } from '@/stores/templateStore';
+
+const templateStore = useTemplateStore()
+
+
+const paramsStore = useParamsStore()
+onMounted(async () => {
+    await paramsStore.getCompanies()
+
+
+})
 </script>
 
 <template>
     <ul class="list-group list-group-flush">
         <li class="list-group-item">
-            <router-link to="/dashboard">
+            <router-link to="/user/dashboard">
                 <!-- <img class="side-icon" src="/icons/sidebar/grid-four.png" alt=""> -->
                 <i class="bi bi-grid me-2"></i>Dashboard
             </router-link>
@@ -25,22 +38,13 @@ import { RouterLink } from 'vue-router';
                     <div id="accordionMenuCompanyCollapse" class="accordion-collapse collapse "
                         aria-labelledby="menu1Heading" data-bs-parent="#accordionMenuCaompany">
                         <div class="accordion-body">
-                            <ul class="nav flex-column">
-                                <li class="nav-item"><a class="nav-link" href="#">
-                                        <router-link to="/account/company/company_info">
-                                            <i class="bi bi-dot"></i> AB Limited
-                                        </router-link>
-                                    </a>
+                            <ul class="nav flex-column mt-2" v-if="paramsStore.companies.list.length">
+                                <li v-for="item in paramsStore.companies.list" :key="item" class="nav-item">
+                                    <router-link @click="paramsStore.currentCompanyId = item.id" to="/user/company">
+                                        <small style="font-size:10px"><i class="bi bi-buildings"></i></small> {{
+                                paramsStore.computedCoyName(item) }}
+                                    </router-link>
                                 </li>
-
-                                <li class="nav-item"><a class="nav-link" href="#">
-                                        <!-- <router-link to="/account/company/company_info"> -->
-                                        <i class="bi bi-dot"></i> CD Limited
-                                        <!-- </router-link> -->
-
-                                    </a>
-                                </li>
-
                             </ul>
                         </div>
                     </div>
@@ -49,74 +53,38 @@ import { RouterLink } from 'vue-router';
         </li>
 
         <li class="list-group-item">
-            <div class="accordion" id="accordionMenuADocument">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="menu1Heading">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#documentCollapse" aria-expanded="true"
-                            aria-controls="accordionMenuADocumentCollapse">
-                            <!-- <img class="side-icon" src="/icons/sidebar/document-upload.png" alt=""> -->
-                            <i class="bi bi-file-earmark-arrow-up me-2"></i>
-                            Documents
-                        </button>
-                    </h2>
-                    <div id="documentCollapse" class="accordion-collapse collapse " aria-labelledby="menu1Heading"
-                        data-bs-parent="#accordionMenuADocument">
-                        <div class="accordion-body">
-                            <ul class="nav flex-column">
-                                <li class="nav-item"><a class="nav-link" href="#">Drivers License</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#">Birth Certificate</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <router-link to="/user/users">
+                <i class="bi bi-people me-2"></i>My Team
+            </router-link>
+
         </li>
 
-        <li class="list-group-item">
-            <div class="accordion" id="accordionMenuUsers">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="menu1Heading">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#accordionMenuUsersCollapse" aria-expanded="true"
-                            aria-controls="accordionMenuUsersCollapse">
-                            <!-- <img class="side-icon" src="/icons/sidebar/people.png" alt=""> -->
-                            <i class="bi bi-people me-2"></i>
-                            Users
-                        </button>
-                    </h2>
-                    <div id="accordionMenuUsersCollapse" class="accordion-collapse collapse "
-                        aria-labelledby="menu1Heading" data-bs-parent="#accordionMenuUsers">
-                        <div class="accordion-body">
-                            <ul class="nav flex-column">
-                                <li class="nav-item"><a class="nav-link" href="#">John Doe</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#">Micheal Kachi</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>
     </ul>
 
     <div class="mt-5">
-        <!-- Some borders are removed -->
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">Preferences</li>
-            <li class="list-group-item">
-                <img class="side-icon" src="/icons/sidebar/profile.png" alt="">Account
-            </li>
-            <li class="list-group-item">
-                <img class="side-icon" src="/icons/sidebar/setting-2.png" alt="">Setting
-            </li>
+            <li class="list-group-item text-secondary">Preferences</li>
 
             <li class="list-group-item">
-                <img class="side-icon" src="/icons/sidebar/money.png" alt="">Billings
+                <router-link to="/user/account">
+                    <!-- <img class="side-icon" src="/icons/sidebar/profile.png" alt=""> -->
+                    <i class="bi bi-gear"></i>
+                    Settings
+                </router-link>
             </li>
 
+
             <li class="list-group-item">
+                <router-link to="/user/billings">
+                    <!-- <img class="side-icon" src="/icons/sidebar/money.png" alt=""> -->
+                    <i class="bi bi-cash-stack"></i>    Billings
+                </router-link>
+            </li>
+
+
+            <!-- <li class="list-group-item">
                 <img class="side-icon" src="/icons/sidebar/message-question.png" alt="">Help
-            </li>
+            </li> -->
 
         </ul>
 
@@ -127,13 +95,14 @@ import { RouterLink } from 'vue-router';
 .list-group-item {
     background: transparent;
     border: none;
-    color: #fff;
     padding-bottom: 15px;
 }
 
 .list-group-item a {
-    color: #fff;
+    color: #080707;
+    color: v-bind('templateStore.textColor');
     text-decoration: none;
+    font-weight: 450;
 }
 
 
@@ -147,9 +116,11 @@ import { RouterLink } from 'vue-router';
     padding: 0px;
     background-color: transparent;
     /* font-size: 16px; */
-    color: #fff;
+    color: #070707;
+    color: v-bind('templateStore.textColor');
     border: none;
     box-shadow: none;
+    font-weight: 450;
 }
 
 .accordion-button.collapsed::after {
@@ -161,7 +132,8 @@ import { RouterLink } from 'vue-router';
 }
 
 .accordion-item .nav-item a {
-    color: #fff;
+    color: #000000;
+    color: v-bind('templateStore.textColor');
     margin-block: 0px;
     font-size: 14px;
 }
@@ -177,6 +149,9 @@ import { RouterLink } from 'vue-router';
 }
 
 .list-group-item .router-link-active {
-    color: var(--primary-color) !important
+    /* color: var(--primary-color) !important */
+    color: #000000;
+    color: v-bind('templateStore.textColor');
+    font-weight: 450;
 }
 </style>

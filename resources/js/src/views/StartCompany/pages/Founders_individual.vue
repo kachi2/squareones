@@ -53,7 +53,7 @@
 
             <label class="form-label fw-bold">Date of Birth <small class="text-danger">*</small></label>
             <VueDatePicker :format="useFxn.dateDisplay" input-class-name="dob-settings-input" hide-input-icon
-                :clearable="false" :max-date="new Date()" :enable-time-picker="false" auto-apply v-model="form.dob">
+                :clearable="false" :enable-time-picker="false" auto-apply v-model="form.dob">
             </VueDatePicker>
             <small class=" text-danger">{{ form.errors.dob }}</small>
             <small class=" text-danger">{{ ageError }}</small>
@@ -240,7 +240,7 @@
     </section>
 
     <div class="movement-buttons mt-5 mb-4">
-        <button @click="closeForm" class="btn btn-outline-dark me-3">
+        <button @click="moveBack" class="btn btn-outline-info me-3">
             <i class="bi bi-arrow-left"></i> Close
         </button>
         <button v-if="!form.isSaving" @click="saveAndContinue" class="btn btn-primary">
@@ -271,6 +271,7 @@ const form: any = foundersIdividualForm()
 
 onMounted(() => {
     form.updateFields(startCompanyStore.companyInProgress)
+    console.log(form.identity_type_id, 'idtype')
 })
 
 
@@ -328,18 +329,6 @@ function resetForm() {
     startCompanyStore.checkedEntityCapacity = []
 }
 
-function closeForm() {
-  useFxn.confirmDelete("This will clear the data field", '')
-    .then(async (resp) => {
-      if (resp.isConfirmed) {
-        startCompanyStore.isShowingFoundersForm = false;
-        form.clearLocalStorage()
-        form.clearLocalStorage()
-      }
-    })
-
-
-}
 
 const ageError = ref('')
 const emailMatchError = ref(false)

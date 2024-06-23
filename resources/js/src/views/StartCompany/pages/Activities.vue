@@ -31,8 +31,7 @@
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
                         <v-select :class="{ 'error-field': form.errors.activity_level }" v-model="form.activity_level"
-                            :clearable="true" 
-                            :options="startCompanyStore.levelOfActivity" />
+                            :clearable="true" :options="startCompanyStore.levelOfActivity" />
                         <small class=" text-danger">{{ form.errors.activity_level }}</small>
                     </div>
 
@@ -62,7 +61,8 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
-                        <v-select  :class="{ 'error-field':form.errors.customer_location_operation }"  :multiple="true" v-model="form.customer_location_operation" :clearable="true"
+                        <v-select :class="{ 'error-field': form.errors.customer_location_operation }" :multiple="true"
+                            v-model="form.customer_location_operation" :clearable="true"
                             :options="startCompanyStore.countries" />
                         <small class=" text-danger">{{ form.errors.customer_location_operation }}</small>
                     </div>
@@ -78,8 +78,8 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
-                        <v-select :class="{ 'error-field':form.errors.country }" :multiple="true" v-model="form.country" :clearable="true"
-                            :options="startCompanyStore.countries" />
+                        <v-select :class="{ 'error-field': form.errors.country }" :multiple="true" v-model="form.country"
+                            :clearable="true" :options="startCompanyStore.countries" />
                         <small class=" text-danger">{{ form.errors.country }}</small>
                     </div>
 
@@ -88,7 +88,7 @@
 
 
             <div class="movement-buttons my-5">
-                <button @click="moveBack" class="btn btn-outline-dark me-3">
+                <button @click="moveBack" class="btn btn-outline-info me-3">
                     <i class="bi bi-arrow-left"></i> Back
                 </button>
                 <button v-if="!form.isSaving" @click="saveAndContinue" class="btn btn-primary">
@@ -163,18 +163,17 @@ function moveBack() {
     startCompanyStore.switchStage('-')
 }
 
-onMounted(()=> {
- watchEffect(() => {
-  
-    if(form.customer_location_operation &&  form.customer_location_operation.length < 1)
-    { 
-    form.errors.customer_location_operation = 'Please select an option'
-    }
+onMounted(() => {
+    watchEffect(() => {
 
-    if(form.country && form.country.length < 1){
-        form.errors.country = 'Please select an option'  
-    }
-})
+        if (form.customer_location_operation && form.customer_location_operation.length < 1) {
+            form.errors.customer_location_operation = 'Please select an option'
+        }
+
+        if (form.country && form.country.length < 1) {
+            form.errors.country = 'Please select an option'
+        }
+    })
 })
 
 
@@ -192,7 +191,7 @@ const saveAndContinue = form.handleSubmit(async (values) => {
         return true;
     }
 
-   
+
 
     const formData = new FormData;
     formData.append('company_id', startCompanyStore.companyInProgress.id)
