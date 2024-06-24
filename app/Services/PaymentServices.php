@@ -90,7 +90,13 @@ class PaymentServices implements PaymentInterface
         //     'contact_person' => null,
         //    ]);
     
+
         $companies = Company::where('id', $billing->company_id)->first();
+        if($companies){
+        $companies->update([
+            'is_completed' => 1
+        ]);
+    }
         $company = CompanyEntity::where('company_id', $billing->company_id)->get();
          foreach($company as $companyEntity){
             $datas['company_id'] = $companyEntity->company_id;
@@ -100,8 +106,6 @@ class PaymentServices implements PaymentInterface
         }
         $companies->User->notify(new CompanyFomationCompleted($companies));
         // $companies->User->notify(new PaymentCompleted($billing));
-
-
       
         return $request->all();
     }

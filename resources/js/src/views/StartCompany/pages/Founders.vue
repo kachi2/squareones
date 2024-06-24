@@ -93,15 +93,15 @@
           <div class="row justify-content- mt-1">
             <div class="col-4 ">
               <div class="form-check ">
-                <input v-model="startCompanyStore.checkedEntityCapacity" class="form-check-input cursor-pointer"
-                  type="checkbox" id="shareholder" value="1" />
+                <input v-model="startCompanyStore.checkedEntityCapacity"
+                  class="form-check-input cursor-pointer exemption" type="checkbox" id="shareholder" value="1" />
                 <label class="form-check-label" for="shareholder">Shareholder</label>
               </div>
             </div>
 
             <div class="col-4 ">
               <div class="form-check ">
-                <input class="form-check-input" type="checkbox" id="director" value="2"
+                <input class="form-check-input exemption" type="checkbox" id="director" value="2"
                   v-model="startCompanyStore.checkedEntityCapacity" />
                 <label class="form-check-label" for="director">Director</label>
               </div>

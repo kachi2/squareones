@@ -46,5 +46,13 @@ export default {
         return $instanceForm.post(`user/update/user/details`, formData)
     },
 
+    userActivities(queryString: any) {
+        return $instance.get(`/user/activity/log?${queryString}`)
+    },
+
+    userNotifications() {
+        return $instance.get(`user/notifications`)
+    },
+
 
 }

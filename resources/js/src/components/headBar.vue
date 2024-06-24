@@ -17,29 +17,24 @@
                     <span class="position-relative  cursor-pointer bell dropdown-toggle" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         <i class="bi bi-bell "></i>
-                        <span
+                        <span v-if="notifications.length"
                             class="position-absolute top-0 start-100 translate-middle p-1 mt-2 bg-danger border border-light rounded-circle">
                             <span class="visually-hidden"></span>
                         </span>
 
                         <div class="dropdown-menu dropdown-menu-end">
-                            <ul class="list-group list-group-flush  ">
-                                <li class="dropdown-item list-group-item small">
-                                    <strong>Company Incorporated <span
+                            <div v-if="!notifications.length" class="dropdown-item"> No Notificatons</div>
+                            <ul v-else class="list-group list-group-flush  ">
+                                <li v-for="noti in notifications" :key="noti"
+                                    class="dropdown-item list-group-item small">
+                                    <strong>{{ noti.title }} <span
                                             style="color:red; border:1px solid #fef; border-radius: 10%;" class="p-1">
                                             X</span> </strong>
-                                    <div class="small text-mut">Your company Mikky123 is updated <br> to incorporated
-                                        status Click on the company <br> tag to view more information
+                                    <div class="small text-mut">
+                                        {{ noti.content }}
                                         <br>
-                                        23/6/2025
+                                        {{ useFunctions.dateDisplay(noti.created_at) }}
                                     </div>
-                                </li>
-                                <li class="dropdown-item list-group-item small">
-                                    <strong>A Founder completed Kyc <span
-                                            style="color:red; border:1px solid #fef; border-radius: 10%;" class="p-1">
-                                            X</span> </strong>
-                                    <div class="small text-mut">Michael Kachi just completed their KYC <br>and
-                                        verification completed</div>
                                 </li>
                             </ul>
                         </div>
@@ -73,11 +68,29 @@ import sideBarMobile from './sideBarMobile.vue';
 import { useAuthStore } from '@/stores/authStore';
 import { useTemplateStore } from '@/stores/templateStore';
 import { useRouter } from 'vue-router';
+import { onMounted, reactive, ref, watch } from "vue";
+import api from "@/stores/Helpers/axios";
+import useFunctions from '@/stores/Helpers/useFunctions';
 
+onMounted(() => {
+    getNotifications()
+})
+
+
+const notifications = ref<any[]>([])
 const authStore = useAuthStore()
 const router = useRouter()
-
 const templateStore = useTemplateStore()
+
+async function getNotifications() {
+    try {
+        const resp = await api.userNotifications()
+        notifications.value = resp.data?.data ?? []
+    } catch (error) {
+
+    }
+
+}
 
 async function logout() {
     await authStore.logout()

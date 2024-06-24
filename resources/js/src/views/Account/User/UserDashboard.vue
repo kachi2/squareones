@@ -55,8 +55,8 @@
               <div class="col-8">
                 Total Companies
                 <div>
-                  <span class="fs-4 fw-bold text-mute"> 5</span>
-                  <span class="small"> from last this year</span>
+                  <span class="fs-4 fw-bold text-mute"> {{ companies.list.length }}</span>
+                  <span class="small"></span>
                 </div>
               </div>
               <div class="col-4">
@@ -76,8 +76,8 @@
               <div class="col-8">
                 Incorporated Companies
                 <div>
-                  <span class="fs-4 fw-bold text-mute">1</span>
-                  <span class="small"> this year</span>
+                  <span class="fs-4 fw-bold text-mute">{{ companies.is_incorporated.length }}</span>
+                  <span class="small"></span>
                 </div>
               </div>
               <div class="col-4">
@@ -132,68 +132,23 @@
             <!-- <span style="float:right">Filter</span> -->
           </div>
           <div class="card-body">
-            <div class="table-responsive small">
-              <table class="table table-sm text-nowrap">
-                <thead>
-                  <tr>
-                    <th>User</th>
-                    <th>Action</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="i in 1">
-                    <td class="text-primary cursor-pointer">Michael</td>
-                    <td>New Signin Request</td>
-                    <td>01/6/2024</td>
-                    <td><span class="text-success fw-bold">Succeed</span></td>
-                  </tr>
-                  <tr v-for="i in 1">
-                    <td class="text-primary cursor-pointer">Michael</td>
-                    <td>Registered New Company</td>
-                    <td>02/6/2024</td>
-                    <td><span class="text-success fw-bold">Succeed</span></td>
-                  </tr>
-                  <tr v-for="i in 1">
-                    <td class="text-primary cursor-pointer">Michael</td>
-                    <td>Completed KYC Verfication</td>
-                    <td>03/6/2024</td>
-                    <td><span class="text-success fw-bold">Succeed</span></td>
-                  </tr>
-                  <tr v-for="i in 1">
-                    <td class="text-primary cursor-pointer">Michael</td>
-                    <td>New Signin Request</td>
-                    <td>04/6/2024</td>
-                    <td><span class="text-success fw-bold">Succeed</span></td>
-                  </tr>
-                  <tr v-for="i in 1">
-                    <td class="text-primary cursor-pointer">Kachi</td>
-                    <td>Registered Company</td>
-                    <td>02/5/2024</td>
-                    <td><span class="text-success fw-bold">Succeed</span></td>
-                  </tr>
-                  <tr v-for="i in 1">
-                    <td class="text-primary cursor-pointer">Michael</td>
-                    <td>Completed Signature Signing</td>
-                    <td>03/5/2024</td>
-                    <td><span class="text-success fw-bold">Succeed</span></td>
-                  </tr>
-                  <tr v-for="i in 1">
-                    <td class="text-primary cursor-pointer">Michael</td>
-                    <td>Send Team Invitation</td>
-                    <td>06/6/2024</td>
-                    <td><span class="text-success fw-bold">Succeed</span></td>
-                  </tr>
-                  <tr v-for="i in 1">
-                    <td class="text-primary cursor-pointer">Michael</td>
-                    <td>New Signin Request</td>
-                    <td>06/6/2024</td>
-                    <td><span class="text-success fw-bold">Succeed</span></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <isLoadingComponent v-if="itemsLoading" />
+            <EasyDataTable v-else class="easy-data-table" show-index :headers="headersActivities" :items="items"
+              buttons-pagination v-model:server-options="serverOptions" :server-items-length="total">
+
+              <template #header="header">
+                <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
+              </template>
+
+              <template #item-updated_at="item">
+                {{ useFxn.dateDisplay(item.updated_at) }}
+              </template>
+
+              <template #item-created_at="item">
+                {{ useFxn.dateDisplay(item.created_at) }}
+              </template>
+
+            </EasyDataTable>
 
             <!-- <div class="card-body">
                         <ul class="list-group list-group-flush">
@@ -286,14 +241,18 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, reactive, ref, watch } from "vue";
 import api from "@/stores/Helpers/axios";
 import { useParamsStore } from "./CompanyDetails/paramsStore";
 import { onBeforeRouteLeave } from "vue-router";
 import { useAuthStore } from "@/stores/authStore";
+import type { ServerOptions } from "vue3-easy-data-table";
 const authStore = useAuthStore();
+import useFxn from '@/stores/Helpers/useFunctions';
 
 const paramsStore = useParamsStore();
+
+const userActivities = ref([])
 
 const companies = reactive<any>({
   list: [],
@@ -318,6 +277,7 @@ const computedCoyName = (coy: any) => {
 
 onMounted(() => {
   getCompanies();
+  getUserActivities();
 });
 
 async function getCompanies() {
@@ -325,13 +285,15 @@ async function getCompanies() {
     const resp = await api.getCompaniesByUserID(paramsStore.currentUserId);
 
     const data = resp.data.data;
-    // console.log(data);
+    // console.log(data, 'compannnn');
     companies.list = data.companies;
     companies.form_completed = data.form_completed;
     companies.is_incorporated = data.is_incorporated;
     companies.isLoading = false;
   } catch (error) { }
 }
+
+
 
 // table
 const headers = [
@@ -439,6 +401,49 @@ const chartOptions3 = {
     },
   },
 };
+
+
+
+
+// Activities ##########################
+async function getUserActivities() {
+  try {
+    const queryString = new URLSearchParams(serverOptions.value).toString();
+    const resp = await api.userActivities(queryString)
+    const data = resp.data.data
+    total.value = data.total
+    items.value = data.data
+    itemsLoading.value = false
+    console.log(data);
+  } catch (error) {
+    // 
+  }
+}
+
+
+
+const serverOptions = ref<ServerOptions | any>({
+  page: 1,
+  rowsPerPage: 15,
+  // sortType: 'desc',
+  // sortBy: ''
+});
+
+const total = ref(0)
+const items = ref([])
+const itemsLoading = ref(true)
+
+watch(serverOptions, (value) => { getUserActivities(); }, { deep: true });
+
+const headersActivities = [
+  { text: "NAME", value: "name" },
+  { text: "TYPE", value: "type" },
+  { text: "ACTION", value: "action" },
+  { text: "DATE", value: "created_at" },
+];
+
+
+
 </script>
 <style lang="css" scoped>
 .list-group-item {
