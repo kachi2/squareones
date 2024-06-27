@@ -4,7 +4,9 @@
             <span class="navbar-brand">
                 <!-- <small style="font-weight: 450;">User Dashboard </small> -->
                 <!-- <span class="text-capitalize">{{ authStore.profileDataName }}</span> -->
-                <span>&nbsp;</span>
+                <span @click="templateStore.sideBarToggleCollapse()" class="cursor-pointer">
+                    <i class="bi bi-justify"></i>
+                </span>
             </span>
             <button class="btn btn-lg p-1 py-0 d-md-none" data-bs-toggle="offcanvas"
                 data-bs-target="#sideBarMobileOffcanvas" aria-controls="sideBarMobileOffcanvas">

@@ -32,16 +32,15 @@
                 <a href="" style="color: red; text-decoration: none">X</a>
               </div>
               <div class="col-md-8">
-                <span class="badge bg-success" style="border-radius: 5px">
-                  Company Incorporated
+                <span v-if="!notifications.length" class="text-black"> No Notificatons</span>
+                <span class="badge bg-secondary" style="border-radius: 5px">
+                  {{ notifications[0]?.title }} 
                 </span>
                 <br />
 
-                <span class="text-mute"> Your company Mikky123 is updated to incorporated status Click on
-                  the company tag to view more information
-                </span>
+                <span class="text-mute">  {{ notifications[0]?.content }} </span>
               </div>
-              <div class="col-md-3 text-mute ">2/24/2025</div>
+              <div class="col-md-3 text-mute ">  {{ useFunctions.dateDisplay(notifications[0]?.created_at) }}</div>
             </div>
 
           </div>
@@ -249,10 +248,12 @@ import { useAuthStore } from "@/stores/authStore";
 import type { ServerOptions } from "vue3-easy-data-table";
 const authStore = useAuthStore();
 import useFxn from '@/stores/Helpers/useFunctions';
+import useFunctions from '@/stores/Helpers/useFunctions';
 
 const paramsStore = useParamsStore();
 
 const userActivities = ref([])
+const notifications = ref<any[]>([])
 
 const companies = reactive<any>({
   list: [],
@@ -260,7 +261,15 @@ const companies = reactive<any>({
   is_incorporated: [],
   isLoading: true,
 });
+async function getNotifications() {
+    try {
+        const resp = await api.userNotifications()
+        notifications.value = resp.data?.data ?? []
+    } catch (error) {
 
+    }
+
+}
 const computedCoyName = (coy: any) => {
   const id = coy.id;
   const names = companies.list.find((x: any) => x.id == id).names;
@@ -277,6 +286,7 @@ const computedCoyName = (coy: any) => {
 
 onMounted(() => {
   getCompanies();
+  getNotifications()
   getUserActivities();
 });
 
@@ -412,9 +422,8 @@ async function getUserActivities() {
     const resp = await api.userActivities(queryString)
     const data = resp.data.data
     total.value = data.total
-    items.value = data.data
+    // items.value = data.data
     itemsLoading.value = false
-    console.log(data);
   } catch (error) {
     // 
   }

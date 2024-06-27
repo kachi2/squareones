@@ -25,17 +25,17 @@ export const foundersIdividualForm = defineStore("foundersIdividual", () => {
     building: yup.string().required("Building is required"),
     street: yup.string().required("Street is required"),
     state: yup.string().required("State is required"),
-    city: yup.string(),
+    // city: yup.string(),
     country: yup.string().required("Country is required"),
 
     flat2: yup.string().test("correspondingAddressCheck", "This field is required", correspondingAddressCheck),
     building2: yup.string().test("correspondingAddressCheck", "This field is required", correspondingAddressCheck),
     street2: yup.string().test("correspondingAddressCheck", "This field is required", correspondingAddressCheck),
     state2: yup.string().test("correspondingAddressCheck", "This field is required", correspondingAddressCheck),
-    city2: yup.string().test("correspondingAddressCheck", "This field is required", correspondingAddressCheck),
+    // city2: yup.string().test("correspondingAddressCheck", "This field is required", correspondingAddressCheck),
     country2: yup.string().test("correspondingAddressCheck", "This field is required", correspondingAddressCheck),
 
-    phone: yup.string().required("Phone Number is not complete"),
+    phone: yup.string().required("Phone is required"),
     email: yup.string().email().required("Email is required"),
     confirm_email: yup.string().required("Email is required"),
     first_name: yup.string().required("First Name is required"),
@@ -65,10 +65,10 @@ export const foundersIdividualForm = defineStore("foundersIdividual", () => {
       initialValues: {
         date_incorporated: new Date(),
         entity_type_id: "1",
-        country: "Hong Kong",
-        country2: "Hong Kong",
-        issuing_country: "Hong Kong",
-        nationality: "Hong Kong",
+        country: "",
+        country2: "",
+        issuing_country: "",
+        nationality: "",
         identity_type_id: "",
         is_founder: false,
         // dob: futureDate,
@@ -215,7 +215,7 @@ export const foundersIdividualForm = defineStore("foundersIdividual", () => {
     if (street_storage.value.length > 1) street.value = street_storage.value;
     if (state_storage.value.length > 1) state.value = state_storage.value;
     if (country_storage.value.length > 1) country.value = country_storage.value;
-    if (postal_code_storage.value.length > 1)
+    if (postal_code_storage.value.length)
       postal_code.value = postal_code_storage.value;
     if (flat2_storage.value.length > 1) flat2.value = flat2_storage.value;
     if (building2_storage.value.length > 1)

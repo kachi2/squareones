@@ -924,13 +924,16 @@ onMounted(() => {
             const individuals = entity.filter((x: any) => x.entity_type_id == 1)
             individuals.forEach((el: any) => {
                 const founder = el.individual
+                console.log(founder, 'get shareholder')
                 // founder.is_founder = el.is_founder == 0 ? 'No' : 'Yes'
                 data.founders_individual.push(founder)
-
+                // if(founder.)
+                if(founder.owner_shares){
                 data.ownerShares.push({
                     name: founder.first_name || founder.chn_first_name + ' ' + founder.last_name || founder.chn_last_name,
                     amount: founder.owner_shares?.total_amount ?? 0
                 })
+            }
             });
 
             const coporates = entity.filter((x: any) => x.entity_type_id == 2)
@@ -939,10 +942,12 @@ onMounted(() => {
                 // founder.is_founder = el.is_founder == 0 ? 'No' : 'Yes'
                 data.founders_corporate.push(founder)
 
+                if(founder.owner_shares){
                 data.ownerShares.push({
                     name: founder.company_name || founder.chn_company_name,
                     amount: founder.owner_shares?.total_amount ?? 0
                 })
+            }
             });
         }
     }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Dtos\AddressDto;
 use App\Dtos\CompanyDto;
 use App\Dtos\NamesDto;
 use App\Http\Requests\CompanyAddressRequest;

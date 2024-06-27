@@ -3,14 +3,13 @@ import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
 
 export const useTemplateStore = defineStore('templateStore', () => {
-  const sidebarWidth = ref('220px')
-  const darkColor = '#0f172a' //0f172a //212935
+  // const sidebarWidth = ref('220px')
+  const sidebarIsCollapsed = ref<boolean>(false)
+  const darkColor = '#0f172a'
   const lightColor = '#fff'
   const border = '#ccc'
-  // const cardBg = '#1e293b'
-  const lightColor2 = 'rgb(245, 246, 248)'
   const appMode = useStorage('squreOne#appMode', 'light')
-  // const bgColor = computed(() => appMode.value == 'light' ? 'rgb(245, 246, 248)' : '#212935')
+  const sidebarWidth = computed(() => sidebarIsCollapsed.value ? '50px' : '220px')
   const bgColor = computed(() => appMode.value == 'light' ? lightColor : darkColor)
   const cardColor = computed(() => appMode.value == 'light' ? lightColor : darkColor)
   const textColor = computed(() => appMode.value == 'light' ? darkColor : lightColor)
@@ -18,5 +17,18 @@ export const useTemplateStore = defineStore('templateStore', () => {
   const accountTemplateBg = computed(() => appMode.value == 'light' ? '#f5f6f8' : '#0f172acc')
   const cardBg = computed(() => appMode.value == 'light' ? lightColor : '#1e293b')
   const cardTextColor = computed(() => appMode.value == 'light' ? '#111' : '#94a3b8')
-  return { sidebarWidth, appMode, bgColor, textColor, borderInDark, cardColor, border, accountTemplateBg, cardBg, cardTextColor }
+
+  const sideBarToggleCollapse = () => {
+    sidebarIsCollapsed.value = !sidebarIsCollapsed.value
+  }
+  return {
+    sidebarWidth,
+    appMode, bgColor,
+    textColor, borderInDark,
+    cardColor, border,
+    accountTemplateBg,
+    cardBg, cardTextColor,
+    sidebarIsCollapsed,
+    sideBarToggleCollapse
+  }
 })

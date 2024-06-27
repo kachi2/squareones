@@ -20,11 +20,12 @@ onMounted(async () => {
         <li class="list-group-item">
             <router-link to="/user/dashboard">
                 <!-- <img class="side-icon" src="/icons/sidebar/grid-four.png" alt=""> -->
-                <i class="bi bi-grid me-2"></i>Dashboard
+                <i class="bi bi-grid me-2"></i>
+                <span v-if="!templateStore.sidebarIsCollapsed">Dashboard</span>
             </router-link>
 
         </li>
-        <li class="list-group-item">
+        <li class="list-group-item" v-if="!templateStore.sidebarIsCollapsed">
             <div class="accordion" id="accordionMenuCaompany">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="menu1Heading">
@@ -32,7 +33,8 @@ onMounted(async () => {
                             data-bs-target="#accordionMenuCompanyCollapse" aria-expanded="true"
                             aria-controls="accordionMenuCompanyCollapse">
                             <!-- <img class="side-icon" src="/icons/sidebar/main-component.png" alt=""> -->
-                            <i class="bi bi-buildings me-2"></i>Company
+                            <i class="bi bi-buildings me-2"></i>
+                            <span v-if="!templateStore.sidebarIsCollapsed">Company</span>
                         </button>
                     </h2>
                     <div id="accordionMenuCompanyCollapse" class="accordion-collapse collapse "
@@ -42,7 +44,7 @@ onMounted(async () => {
                                 <li v-for="item in paramsStore.companies.list" :key="item" class="nav-item">
                                     <router-link @click="paramsStore.currentCompanyId = item.id" to="/user/company">
                                         <small style="font-size:10px"><i class="bi bi-buildings"></i></small> {{
-                                paramsStore.computedCoyName(item) }}
+                    paramsStore.computedCoyName(item) }}
                                     </router-link>
                                 </li>
                             </ul>
@@ -54,7 +56,9 @@ onMounted(async () => {
 
         <li class="list-group-item">
             <router-link to="/user/users">
-                <i class="bi bi-people me-2"></i>My Team
+                <i class="bi bi-people me-2"></i>
+                <span v-if="!templateStore.sidebarIsCollapsed">My Team</span>
+
             </router-link>
 
         </li>
@@ -63,13 +67,13 @@ onMounted(async () => {
 
     <div class="mt-5">
         <ul class="list-group list-group-flush">
-            <li class="list-group-item text-secondary">Preferences</li>
+            <li v-if="!templateStore.sidebarIsCollapsed" class="list-group-item text-secondary">Preferences</li>
 
             <li class="list-group-item">
                 <router-link to="/user/account">
                     <!-- <img class="side-icon" src="/icons/sidebar/profile.png" alt=""> -->
                     <i class="bi bi-gear"></i>
-                    Settings
+                    <span v-if="!templateStore.sidebarIsCollapsed"> Settings</span>
                 </router-link>
             </li>
 
@@ -77,7 +81,8 @@ onMounted(async () => {
             <li class="list-group-item">
                 <router-link to="/user/billings">
                     <!-- <img class="side-icon" src="/icons/sidebar/money.png" alt=""> -->
-                    <i class="bi bi-cash-stack"></i>    Billings
+                    <i class="bi bi-cash-stack"></i>
+                    <span v-if="!templateStore.sidebarIsCollapsed"> Billings</span>
                 </router-link>
             </li>
 

@@ -28,12 +28,11 @@
 
     </div>
 
-    <div class="off-screen" ref="PDFsection" hidden id="print_item">
-                      
-            <!-- <company :companyInfo="data" /> -->
-            <!-- <company_info :companyInfo="data" />
-            <individual_shareholder v-for="shares in shareholders" :shareholder="shares" />
-            <corporate_shareholder v-for="coshare in CorporateShareholder" :corporateShare="coshare" /> -->
+    <div class="off-screen" ref="PDFsection" hidden id="print_item">     
+            <company :companyInfo="data" />
+            <!-- <company_info :companyInfo="data" /> -->
+            <!-- <individual_shareholder v-for="shares in shareholders" :shareholder="shares" /> -->
+            <!-- <corporate_shareholder v-for="coshare in CorporateShareholder" :corporateShare="coshare" /> -->
             <!-- <company_secretary />
             <individual_directors v-for="directors in IndividualDirectors" :director="directors" />
             <corporate_directors v-for="corporates in CorporateDirectors" :corporate="corporates" />

@@ -256,6 +256,33 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-12 mt-5">
+        <div class="card border-0 shadow-sm  h-100">
+          <div class="card-header bg-transparent fw-bold py-4">
+            Recent Login Activities
+            <!-- <span style="float:right">Filter</span> -->
+          </div>
+          <div class="card-body">
+            <isLoadingComponent v-if="itemsLoading" />
+            <EasyDataTable v-else class="easy-data-table" show-index :headers="headersActivities"  :items="items_activities"
+              buttons-pagination v-model:server-options="serverOption" :server-items-length="total_activities">
+
+              <template #header="header">
+                <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
+              </template>
+
+              <template #item-updated_at="item">
+                {{ useFxn.dateDisplay(item.updated_at) }}
+              </template>
+
+              <template #item-created_at="item">
+                {{ useFxn.dateDisplay(item.created_at) }}
+              </template>
+
+            </EasyDataTable>
+        </div>
+        </div>
+      </div>
         </div>
 
 
@@ -371,6 +398,7 @@ onMounted(() => {
     // getNotificationsStatusesApp()
     setUserDataAutomatic()
     getTwoFactorStatus()
+    getUserActivities()
 })
 
 
@@ -484,6 +512,42 @@ async function setNotificationStatus(type: 'app' | 'email') {
 // NOTIFICATIONS END ##########################################################
 
 
+
+// Activities ##########################
+async function getUserActivities() {
+  try {
+    const queryString = new URLSearchParams(serverOptions.value).toString();
+    const resp = await api.userActivities(queryString)
+    const data = resp.data.data
+    total_activities.value = data.total
+    items_activities.value = data.data
+    itemsLoading_activities.value = false
+  } catch (error) {
+    // 
+  }
+}
+
+
+
+const serverOption = ref<ServerOptions | any>({
+  page: 1,
+  rowsPerPage: 15,
+  // sortType: 'desc',
+  // sortBy: ''
+});
+
+const total_activities = ref(0)
+const items_activities = ref([])
+const itemsLoading_activities = ref(true)
+
+watch(serverOption, (value) => { getUserActivities(); }, { deep: true });
+
+const headersActivities = [
+  { text: "NAME", value: "name" },
+  { text: "TYPE", value: "type" },
+  { text: "ACTION", value: "action" },
+  { text: "DATE", value: "created_at" },
+];
 
 
 // DETAILS UPDATE START ############################################################

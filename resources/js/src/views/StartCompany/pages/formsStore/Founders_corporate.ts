@@ -10,7 +10,7 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
 
     const chineseCheck = (value: any) => {
         var pattern = /^[\u4E00-\u9FFF\u3400-\u4DBF\s*\(\)\,]+$/;
-        return pattern.test(value)
+        return chn_company_name.value ? pattern.test(value) : true
     }
 
     const rules = {
@@ -43,8 +43,8 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
         initialValues: {
             date_incorporated: new Date('2006-5-4'),
             entity_type_id: '2',
-            country: 'Hong Kong',
-            country_registered: 'Hong Kong',
+            country: '',
+            country_registered: '',
             is_founder: false,
             chn_company_name: ''
         },

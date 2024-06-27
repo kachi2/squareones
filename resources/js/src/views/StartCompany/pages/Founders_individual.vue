@@ -1,11 +1,8 @@
 <template>
-
     <section class="section">
         <div class="fw-bold fs-5">About you </div>
         <div class="fw-bolder">Your name in English <small class="text-danger">*</small></div>
-        <span>Enter your first and last name as they appear on a government ID
-
-        </span>
+        <span>Enter your first and last name as they appear on a government ID</span>
         <div class="row mt-1 g-2">
             <div class="col-12 ">
                 <input :class="{ 'error-field': form.errors.first_name }" v-maska data-maska="A a"
@@ -13,23 +10,21 @@
                     class="form-control" placeholder="First Name..">
                 <small class=" text-danger">{{ form.errors.first_name }}</small>
             </div>
-
             <div class="col-12 ">
                 <input :class="{ 'error-field': form.errors.last_name }" v-maska data-maska="A a"
                     data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple" v-model="form.last_name" type="text"
                     class="form-control" placeholder="Last Name..">
                 <small class=" text-danger">{{ form.errors.last_name }}</small>
             </div>
-
             <div class="col-12 ">
                 <div class="form-check ">
-                    <input class="form-check-input" v-model="form.hasChineseName" type="checkbox" id="chinese_name" />
+                    <input class="form-check-input exemption" v-model="form.hasChineseName" type="checkbox"
+                        id="chinese_name" />
                     <label class="form-check-label" for="chinese_name">Do you have a Chinese Name?</label>
                 </div>
             </div>
         </div>
     </section>
-
     <section class="section" v-if="form.hasChineseName">
         <div class="fw-bolder">Your name in Chinese <small class="text-danger">*</small></div>
         <span>Enter your first and last name as they appear on a government ID</span>
@@ -39,7 +34,6 @@
                     class="form-control" placeholder="First Name..">
                 <small class=" text-danger">{{ form.errors.chn_first_name }}</small>
             </div>
-
             <div class="col-12 ">
                 <input :class="{ 'error-field': form.errors.chn_last_name }" v-model="form.chn_last_name" type="text"
                     class="form-control" placeholder="Last Name..">
@@ -50,11 +44,10 @@
 
     <section class="row g-2 section">
         <div class="col-md-6">
-
             <label class="form-label fw-bold">Date of Birth <small class="text-danger">*</small></label>
             <VueDatePicker :format="useFxn.dateDisplay" input-class-name="dob-settings-input" hide-input-icon
-                :clearable="false" :enable-time-picker="false" auto-apply v-model="form.dob">
-            </VueDatePicker>
+                :clearable="false" :enable-time-picker="false" auto-apply v-model="form.dob"  placeholder="select date of birth" >
+            </VueDatePicker> 
             <small class=" text-danger">{{ form.errors.dob }}</small>
             <small class=" text-danger">{{ ageError }}</small>
         </div>
@@ -116,7 +109,7 @@
         <div class="fw-bolder">Your corresponding address </div>
         <span>
             <div class="form-check ">
-                <input class="form-check-input" type="checkbox" id="same_address"
+                <input class="form-check-input exemption" type="checkbox" id="same_address"
                     v-model="form.correspondingAddressIsSame" />
                 <label class="form-check-label" for="same_address">Same as residential address</label>
             </div>
@@ -455,7 +448,7 @@ const saveAndContinue = form.handleSubmit((values: any) => {
         formData.append('addresses[1][flat]', form.flat2)
         formData.append('addresses[1][building]', form.building2)
         formData.append('addresses[1][street]', form.street2)
-        formData.append('addresses[1][city]', form.city2)
+        // formData.append('addresses[1][city]', form.city2)
         formData.append('addresses[1][state]', form.state2)
         // formData.append('addresses[1][postal_code]', form.postal_code2)
         formData.append('addresses[1][country]', form.country2)

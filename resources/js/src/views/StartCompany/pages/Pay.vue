@@ -14,11 +14,11 @@
             </div>
             <div v-else="">
             <div v-if="intentHasError" class="text-center text-danger mt-5">
-                <strong>Error!,</strong> Cannot load payment information, please reload page.
+                <strong>Error!</strong> loading payment information, please reload page.
             </div>
-            <div class="row justify-content-center">
+            <div v-if="clientSecretIsLoaded" class="row justify-content-center">
                 <form id="payment-form">
-                    <div v-if="clientSecretIsLoaded" class="row my-2">
+                    <div  class="row my-2">
                         <div class="col-12">
                             <label for="" class="form-label">Card holder's name</label>
                             <input type="text" class="form-control" placeholder="Full name on Card">
@@ -29,7 +29,7 @@
 
                     </div>
                     <div v-if="clientSecretIsLoaded" class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="checker" />
+                        <input class="form-check-input exemption" type="checkbox" value="" id="checker" />
                         <label class="form-check-label" for="checker">
                             <div class="fw-bold">
                                 Securely save my information for 1-click checkout
@@ -39,8 +39,6 @@
                             </span>
                         </label>
                     </div>
-
-
                     <div v-if="clientSecretIsLoaded" class="small my-3">
                         To pay your company formation fee, make sure you're not using an anonymous
                         IP address or a VPN.
@@ -54,13 +52,11 @@
                         By confirming your payment, you allow Stripe Atlas to charge you for this payment
                         and the future payments in accordance with their terms.
                     </div>
-
                     <div id="payment-message" class="hidden"></div>
                 </form>
             </div>
         </div>
         </template>
-
         <template #info>
         </template>
     </StartCompany_template>
@@ -92,7 +88,7 @@ const clientSecretIsLoaded = ref(false)
 const intentHasError = ref(false)
 let clientSecret = ''
 let elements: any
-const items = [{ id: "xl-tshirt" }];
+const items = [{ id: "xl-tshirt", plan_id: 1}];
 
 onMounted(async () => {
     
@@ -101,8 +97,7 @@ onMounted(async () => {
     try {
         intentHasError.value = false
         const { data } = await api.paymentIntent(items)
-        // console.log(data);
-
+    //  console.log(data, 'patent int');
         clientSecret = data.client_secret
         if (data?.client_secret)
             clientSecretIsLoaded.value = true
@@ -124,7 +119,7 @@ onMounted(async () => {
     }
 })
 
-const returnUrl = computed(()=> { return 'http://localhost:5173/kcy/verifications'})
+const returnUrl = computed(()=> { return 'http://127.0.0.1:5173/kcy/verifications'})
 
     async function handleSubmit(event: any) {
         event.preventDefault();
@@ -132,7 +127,7 @@ const returnUrl = computed(()=> { return 'http://localhost:5173/kcy/verification
         const { error } = await stripePromise.confirmPayment({
             elements,
             confirmParams: {
-                return_url: `http://localhost:5173/kcy/verifications` //,
+                return_url: `http://127.0.0.1:5173/kcy/verifications` //,
             },
         });
 

@@ -210,12 +210,12 @@ function resetForm() {
     form.building = ''
     form.street = ''
     form.state = ''
-    form.country = 'Hong Kong'
+    form.country = ''
 
     // form.postal_code = ''
     form.registeration_no = ''
     form.is_founder = false
-    form.country_registered = 'Hong Kong'
+    form.country_registered = ''
 
     form.business_nature_id = ''
     form.phone = ''
@@ -241,7 +241,6 @@ const phoneField = {
         styleClasses: 'phone-input-profile',
         maxlength: 12
     }
-
 }
 watchEffect(() => {
     if (form.chn_company_name == '') {
@@ -256,8 +255,8 @@ function moveBack() {
     startCompanyStore.isShowingFoundersForm = false
 }
 
-const saveAndContinue = form.handleSubmit((values: any) => {
-    // function saveAndContinue() {
+// const saveAndContinue = form.handleSubmit((values: any) => {
+    function saveAndContinue() {
     console.log('validation passed..');
 
     if (!startCompanyStore.companyInProgress?.id) {
@@ -338,7 +337,7 @@ const saveAndContinue = form.handleSubmit((values: any) => {
     form.isSaving = true
     saveFromToApi(formData)
     // }
-})
+}
 
 async function saveFromToApi(formData: FormData) {
     try {

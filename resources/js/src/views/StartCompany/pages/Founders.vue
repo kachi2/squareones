@@ -66,8 +66,8 @@
       </div>
 
       <div v-else>
-        <button v-if="founderType == 'individual' || founderType == 'corporate'" @click="closeForm"
-          class="btn btn-outline-primary float-end btn-sm"> Clear Form</button>
+        <!-- <button v-if="founderType == 'individual' || founderType == 'corporate'" @click="closeForm"
+          class="btn btn-outline-primary float-end btn-sm"> Clear Form</button> -->
         <section class="section">
           <div class="fw-bold">What is the type of founder/director? </div>
 
@@ -112,7 +112,11 @@
 
         <Founders_individual v-if="founderType == 'individual'" />
         <Founders_corporate v-else-if="founderType == 'corporate'" />
-        <div class="p-2" v-else></div>
+        <div class="p-2" v-else>
+          <button @click="moveBack" class="btn btn-outline-info me-3">
+            <i class="bi bi-arrow-left"></i> Close
+        </button>
+        </div>
       </div>
 
 

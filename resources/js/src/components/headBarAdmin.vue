@@ -1,7 +1,13 @@
 <template>
-    <nav class="navbar navbar-expand-sm  ">
+    <nav class="navbar navbar-expand-sm shadow-sm ">
         <div class="container">
-            <span class="navbar-brand"> <small style="font-weight: 450"> Welcome back Admin</small></span>
+            <span class="navbar-brand">
+                <span @click="templateStore.sideBarToggleCollapse()" class="cursor-pointer">
+                    <i class="bi bi-justify"></i>
+                </span>
+
+                <span class="ms-3"> Welcome back Admin</span>
+            </span>
             <button class="btn btn-lg p-1 py-0 d-md-none" data-bs-toggle="offcanvas"
                 data-bs-target="#sideBarMobileOffcanvas" aria-controls="sideBarMobileOffcanvas">
                 <i class="bi bi-justify fs-3"></i>

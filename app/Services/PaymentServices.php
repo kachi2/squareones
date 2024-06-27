@@ -15,15 +15,17 @@ use App\Notifications\CompanyFomationCompleted;
 use App\Notifications\PaymentCompleted;
 use Illuminate\Support\Carbon;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
+use Illuminate\Support\Facades\DB;
 
 class PaymentServices implements PaymentInterface
  {
 
     public function PaymentIntent(Request $request){
         try{
-            $plans = Plan::where('id', $request->plan_id)->first();
+            DB::beginTransaction();
+            $plans = Plan::latest()->first();
             $payment_ref = str_replace(['(',')','\\','/','%','#','$','@','!'],'',base64_encode(random_bytes(10)));
-          
+
         $paymentIntent = Stripe::paymentIntents()->create([
             'amount' => $plans->amount,
             'currency' => 'usd',
@@ -51,26 +53,11 @@ class PaymentServices implements PaymentInterface
             'amount_paid' => $plans->amount,
             'payment_id' => $paymentIntent['id'],
         ]);
-        
-        Notification::create([
-            'title' => 'Payment Completed Successfully',
-            'content' => 'Hi, '.auth_name().' Your payment '.$plans->amount .' for compamy registration is completed',
-            'user_id'=> auth_user()
-        ]);
-
-        AdminNotification::create([
-            'title' => 'New Incoming Payment',
-            'content' => 'The payment of '.$plans->amount.' was received from '.auth_user() .' for their company registration',
-            'admin_id'=> 1 
-        ]);
-
-
-
-
       }
-        // dd($paymentIntent);
+      DB::commit();
         return  $paymentIntent;
     }catch(\Exception $e){
+    DB::rollBack();
         return $e->getMessage();
     }
     }
@@ -83,20 +70,24 @@ class PaymentServices implements PaymentInterface
            $billing->update([
             'status' => $request->redirect_status,
            ]);
-        //    $sub = UserSubscription::where('payment_id', $request->payment_intent)->first();
-        //    $sub->update([
-        //     'user_id' => auth_user(),
-        //     'expiry_date' => null, 
-        //     'contact_person' => null,
-        //    ]);
-    
+
+        Notification::create([
+            'title' => 'Payment Completed Successfully',
+            'content' => 'Hi, '.auth_name().' Your payment '.$billing->amount .' for compamy registration is completed',
+            'user_id'=> auth_user()
+        ]);
+        AdminNotification::create([
+            'title' => 'New Incoming Payment',
+            'content' => 'The payment of '.$billing->amount.' was received from '.auth_user() .' for their company registration',
+            'admin_id'=> 1 
+        ]);
 
         $companies = Company::where('id', $billing->company_id)->first();
         if($companies){
         $companies->update([
             'is_completed' => 1
         ]);
-    }
+        }
         $company = CompanyEntity::where('company_id', $billing->company_id)->get();
          foreach($company as $companyEntity){
             $datas['company_id'] = $companyEntity->company_id;

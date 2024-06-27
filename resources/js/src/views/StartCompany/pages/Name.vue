@@ -281,7 +281,6 @@ let formId = <any>ref('')
 onMounted(() => {
     form.updateFields(startCompanyStore.companyInProgress)
 })
-console.log(form.choice_level1_eng_name)
 
 watch(() => form, () => { form.saveToLocalStorage() }, { deep: true })
 

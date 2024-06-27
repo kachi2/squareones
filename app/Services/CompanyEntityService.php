@@ -13,6 +13,7 @@ use App\Models\Individual;
 use App\Models\IndividualCorAddress;
 use App\Models\IndividualResAddress;
 use App\Events\FounderKyc;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CompanyEntityService implements CompanyEnityInterface
@@ -63,9 +64,9 @@ class CompanyEntityService implements CompanyEnityInterface
         ],[
             'individual_id' =>  $individualData->id,
             'identity_type' =>  $IndividualDto->identity_type_id, 
-            'passport_no' =>$IndividualDto->passport_no, 
-            'issueing_country' => $IndividualDto->issuing_country, 
-            'identity_no' => $IndividualDto->identity_no,
+            'passport_no' =>$IndividualDto->passport_no == 'undefine'? '' :$IndividualDto->passport_no , 
+            'issueing_country' => $IndividualDto->issuing_country == 'undefine'? '' : $IndividualDto->issuing_country, 
+            'identity_no' => $IndividualDto->identity_no== 'undefine'?'':$IndividualDto->identity_no,
             'identity_no_suffix' => $IndividualDto->identity_no_suffix
         ]);
 
@@ -189,7 +190,7 @@ class CompanyEntityService implements CompanyEnityInterface
     if($entity){
         $entity->update([
             'signature' => $request->signature??$entity->signature,
-            'date_signed'=> $request->date_signed??$entity->date_signed,
+            'date_signed'=> Carbon::now(),
             'client_id'=> $request->client_id??$entity->client_id,
             'kyc_status'=> $request->kyc_status??$entity->kyc_status,
             'user_token'=> $request->user_token??$entity->user_token,

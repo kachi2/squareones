@@ -10,21 +10,27 @@ const templateStore = useTemplateStore()
         <li class="list-group-item">
             <router-link to="/admin">
                 <!-- <img class="side-icon" src="/icons/sidebar/grid-four.png" alt=""> -->
-                <i class="bi bi-grid me-2"></i>Dashboard
+                <i class="bi bi-grid me-2"></i>
+                <span v-if="!templateStore.sidebarIsCollapsed">Dashboard</span>
+
             </router-link>
 
         </li>
         <li class="list-group-item">
             <router-link to="/admin/companies">
                 <!-- <img class="side-icon" src="/icons/sidebar/grid-four.png" alt=""> -->
-                <i class="bi bi-buildings me-2"></i>Manage Company
+                <i class="bi bi-buildings me-2"></i>
+                <span v-if="!templateStore.sidebarIsCollapsed">Manage Company</span>
+
             </router-link>
         </li>
 
         <li class="list-group-item">
             <router-link to="/admin/users">
                 <!-- <img class="side-icon" src="/icons/sidebar/grid-four.png" alt=""> -->
-                <i class="bi bi-people me-2"></i>Manage Users
+                <i class="bi bi-people me-2"></i>
+                <span v-if="!templateStore.sidebarIsCollapsed">Manage Users</span>
+
             </router-link>
         </li>
 
@@ -33,13 +39,13 @@ const templateStore = useTemplateStore()
     <div class="mt-5">
         <!-- Some borders are removed -->
         <ul class="list-group list-group-flush">
-            <li class="list-group-item text-secondary">Preferences</li>
+            <li v-if="!templateStore.sidebarIsCollapsed" class="list-group-item text-secondary">Preferences</li>
 
             <li class="list-group-item">
                 <router-link to="/admin/account">
                     <!-- <img class="side-icon" src="/icons/sidebar/profile.png" alt=""> -->
-                    <i class="bi bi-gear"></i>
-                    Account Settings
+                    <i class="bi bi-gear me-2"></i>
+                    <span v-if="!templateStore.sidebarIsCollapsed">Account Settings</span>
                 </router-link>
             </li>
 
@@ -47,8 +53,9 @@ const templateStore = useTemplateStore()
             <li class="list-group-item">
                 <router-link to="/admin/billings">
                     <!-- <img class="side-icon" src="/icons/sidebar/money.png" alt=""> -->
-                    <i class="bi bi-cash-stack"></i>
-                    Billings
+                    <i class="bi bi-cash-stack me-2"></i>
+
+                    <span v-if="!templateStore.sidebarIsCollapsed">Billings</span>
                 </router-link>
             </li>
 
