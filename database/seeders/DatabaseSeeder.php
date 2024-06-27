@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
                 EntityTypeSeeder::class,
                 UserSeeder::class,
                 NamePrefixSeeder::class,
-                RegistrationProgress::class
+                RegistrationProgress::class,
+                PlanSeeder::class
             ]);
 
         }catch(\Exception $e){
