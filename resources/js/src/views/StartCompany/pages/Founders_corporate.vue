@@ -48,7 +48,7 @@
             <div class="col-12">
                 <label class="form-label fw-bold">Business nature <span class="text-danger"> * </span></label>
                 <v-select :class="{ 'error-field': form.errors.business_nature_id }" v-model="form.business_nature_id"
-                    :clearable="true" :options="startCompanyStore.businessNatures" :reduce="(item: any) => item.id"
+                    :clearable="true" placeholder="select business nature" :options="startCompanyStore.businessNatures" :reduce="(item: any) => item.id"
                     label="name" />
                 <small class=" text-danger">{{ form.errors.business_nature_id }}</small>
             </div>
@@ -112,7 +112,7 @@
                     <div class="col-md-6">
                         <input :class="{ 'error-field': form.errors.last_name }" v-maska
                             data-maska-tokens="A:[A-Za-z]:multiple" v-model="form.last_name" type="text"
-                            class="form-control" placeholder="first name..">
+                            class="form-control" placeholder="last name..">
                         <small class=" text-danger">{{ form.errors.last_name }}</small>
                     </div>
                 </div>
