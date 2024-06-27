@@ -119,7 +119,7 @@ onMounted(async () => {
     }
 })
 
-const returnUrl = computed(()=> { return 'http://127.0.0.1:5173/kcy/verifications'})
+const returnUrl = computed(()=> { return 'https://squareone.portrec.ng/kcy/verifications'})
 
     async function handleSubmit(event: any) {
         event.preventDefault();
@@ -127,7 +127,7 @@ const returnUrl = computed(()=> { return 'http://127.0.0.1:5173/kcy/verification
         const { error } = await stripePromise.confirmPayment({
             elements,
             confirmParams: {
-                return_url: `http://127.0.0.1:5173/kcy/verifications` //,
+                return_url: `https://squareone.portrec.ng/kcy/verifications` //,
             },
         });
 
@@ -169,7 +169,6 @@ const returnUrl = computed(()=> { return 'http://127.0.0.1:5173/kcy/verification
         }
     }
 
-    // ------- UI helpers -------
 
     function showMessage(messageText: any) {
         const messageContainer: any = document.querySelector("#payment-message");
