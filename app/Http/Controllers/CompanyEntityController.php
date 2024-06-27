@@ -37,27 +37,26 @@ class CompanyEntityController extends Controller
            return response()->json(['error' => 'You cannot add more than 6 founders/directors']); 
         }
         try {
+            $data = [];
             DB::beginTransaction();
             $company_entity = $this->EntityInterface->SaveParentEntity($request);
-            // dd($company_entity);
             if ($company_entity) {
                 if ($request->entity_type_id == 1) {
                     $validateRequest = $this->IndividualEntityData($request);
                     if ($validateRequest) {
                         $IndividualEntity = IndividualDto::fromRequest($validateRequest->validated());
                         $data = $this->EntityInterface->ProcessIndividualEntity($IndividualEntity, $company_entity);
+                        // return response()->json([ 'data' => $data], HttpStatusCode::OK);
                     }
                 } elseif ($request->entity_type_id == 2) {
                     $validateRequest = $this->CorporateEntitysData($request);
                     $CorporateEntity = CorporateDto::fromRequest($validateRequest->validated());
                     $data = $this->EntityInterface->ProcessCorporateEntity($CorporateEntity,  $company_entity);
+                    // return response()->json([ 'data' => $data], HttpStatusCode::OK);
                 }
             }
             DB::commit();
             // if(isset($request->isEdit)){
-           
-            
-            // }
             return response()->json([ 'data' => $data], HttpStatusCode::OK);
         } catch (\Exception $e) {
             DB::rollBack();

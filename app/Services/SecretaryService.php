@@ -11,7 +11,6 @@ class SecretaryService implements SecretaryInterface
 
     public function SaveFromData($request)
     {
-
         $record = CompanySecretary::updateOrCreate([
             'company_id' => $request->company_id,
           ],[

@@ -19,6 +19,11 @@ export const nameForm = defineStore('name', () => {
         return pattern.test(value)
     }
 
+    const chineseChar = (value: any) => {
+        var pattern = /^[\u4E00-\u9FFF\u3400-\u4DBF\s*\(\)\,]+$/;
+        return !pattern.test(value)
+    }
+
     const rules = {
         choice_level1_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
         choice_level2_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
@@ -26,11 +31,11 @@ export const nameForm = defineStore('name', () => {
         choice_level4_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
         choice_level5_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
 
-        choice_level1_eng_name: yup.string(),
-        choice_level2_eng_name: yup.string(),
-        choice_level3_eng_name: yup.string(),
-        choice_level4_eng_name: yup.string(),
-        choice_level5_eng_name: yup.string(),
+        choice_level1_eng_name: yup.string().test('chineseChar', 'Please input only English characters', chineseCheck),
+        choice_level2_eng_name: yup.string().test('chineseChar', 'Please input only English characters', chineseCheck),
+        choice_level3_eng_name: yup.string().test('chineseChar', 'Please input only English characters', chineseCheck),
+        choice_level4_eng_name: yup.string().test('chineseChar', 'Please input only English characters', chineseCheck),
+        choice_level5_eng_name: yup.string().test('chineseChar', 'Please input only English characters', chineseCheck),
     };
 
     const { errors, handleSubmit, defineField, setFieldValue, resetForm, resetField } = useForm({
