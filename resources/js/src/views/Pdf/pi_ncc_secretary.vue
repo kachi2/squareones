@@ -274,7 +274,8 @@
                     style="width:258pt;border:1px solid #000;  border:1px solid #000; border-right-style:solid;border-right-width:1pt">
                     <p class="s46"
                         style="padding-top: 8pt; padding-left:20px; padding-right: 10pt;text-indent: 0pt;text-align: left;">
-                        <span style="text-align: right; color:rgb(3, 27, 27); "> {{ director?.get_identity.passport_no }}
+                        <span style="text-align: right; color:rgb(3, 27, 27); "> 
+                            <!-- {{ director?.get_identity.passport_no }} -  -->
                             {{ director?.get_identity.issueing_country }} </span>
                     </p>
                 </td>

@@ -10,7 +10,7 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
     const isShowingFoundersForm = ref<boolean>(false)
     const isActiveMenu = (stage: number) => currentStage.value == stage
     const idToEdit = ref<string>('')
-    const companyIdonRoute=ref<any>(null)
+    const companyIdonRoute = ref<any>(null)
     const signatureImage = useStorage('signatureImage_s1', '')
     const isFounderSigned = ref<any>(null)
     const isKYCcompleted = ref<any>(null)
@@ -34,7 +34,7 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
     const levelOfActivity = jsonData.levelOfActivity
     const natureOfActivity = jsonData.natureOfActivity
     const IDType = jsonData.IDType
-  
+
 
     const menus = [
         // { stage: 1, name: 'Structure' },

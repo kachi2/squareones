@@ -14,7 +14,8 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.choice_level1_eng_name }" v-maska
+                        <input v-bind="form.choice_level1_eng_nameAttr"
+                            :class="{ 'error-field': form.errors.choice_level1_eng_name }" v-maska
                             data-maska-tokens="*:[a-zA-Z0-9]:multiple" v-model="form.choice_level1_eng_name" type="text"
                             class="form-control" placeholder="This text for English name">
                         <small class=" text-danger">{{ form.errors.choice_level1_eng_name }}</small>
@@ -474,7 +475,6 @@ async function saveFromToApi(formData: FormData) {
         startCompanyStore.getCompanyInProgress()
 
     } catch (error) {
-
         toast.error('Sorry, Something went wrong', { position: 'top-right' });
         form.isSaving = false
     }

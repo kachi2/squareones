@@ -102,12 +102,11 @@ const shareholders = computed(() => {
         const obj = shares.individual || shares.corporate ;
         //  console.log(shares)
         let cp = shares.entity_capacity_id;
-        if (obj && cp.includes(2)) {
+        if (obj && cp.includes(1)) {
             obj.entity_type_id = shares.entity_type_id,
                 obj.capacity = shares.entity_capacity_id
             obj.company_shares = startCompanyStore.companyInProgress?.shares
             founders.push(obj)
-
             // console.log(founders)
         }
     })

@@ -74,8 +74,12 @@
         </tr>
         <tr style="height:51pt">
             <td style="width:100%;border-style:solid;border-width:1pt; border-bottom-width:1pt" colspan="3">
-                <p style="text-indent: 0px;text-align: left; padding-left:40px"> {{ companyInfo?.names[0].eng_name }} {{
-                    companyInfo?.names[0]?.eng_prefix }} <br />
+                <p style="text-indent: 0px;text-align: left; padding-left:40px"> 
+                <span v-if="companyInfo?.names[0]?.eng_name">Choice Level One:  {{ companyInfo?.names[0]?.eng_name }} {{ companyInfo?.names[0]?.eng_prefix }} <br /></span> 
+                <span v-if="companyInfo?.names[1]?.eng_name">  Choice Level Two: {{ companyInfo?.names[1]?.eng_name }} {{ companyInfo?.names[1]?.eng_prefix }}<br /></span> 
+                <span v-if="companyInfo?.names[2]?.eng_name"> Choice Level Three: {{ companyInfo?.names[2]?.eng_name }}{{ companyInfo?.names[2]?.eng_prefix }} <br /></span> 
+                 <span v-if="companyInfo?.names[3]?.eng_name"> Choice Level Four:{{ companyInfo?.names[3]?.eng_name }} {{ companyInfo?.names[3]?.eng_prefix }} <br /></span> 
+                <span v-if="companyInfo?.names[4]?.eng_name">Choice Level Five:{{ companyInfo?.names[4]?.eng_name }} {{ companyInfo?.names[4]?.eng_prefix }} <br /></span> 
                 </p>
             </td>
         </tr>
@@ -88,9 +92,12 @@
         </tr>
         <tr style="height:51pt">
             <td style="width:100%;border-style:solid;border-width:1pt; border-bottom-width:1pt" colspan="3">
-                <p style="text-indent: 0px;text-align: left; padding-left:40px"> {{ companyInfo?.names[0].chn_name }} {{
-                    companyInfo?.names[0]?.chn_prefix }}<br />
-
+                <p style="text-indent: 0px;text-align: left; padding-left:40px"> 
+                    <span v-if="companyInfo?.names[0]"> Choice Level One: {{ companyInfo?.names[0]?.chn_name }} {{ companyInfo?.names[0]?.chn_prefix }}<br /> </span>
+                    <span v-if="companyInfo?.names[1]?.chn_name"> Choice Level Two: {{ companyInfo?.names[1]?.chn_name }} {{ companyInfo?.names[1]?.chn_prefix }}<br /> </span>
+                    <span v-if="companyInfo?.names[2]?.chn_name"> Choice Level Three: {{ companyInfo?.names[2]?.chn_name }} {{ companyInfo?.names[2]?.chn_prefix }}<br /> </span>
+                    <span v-if="companyInfo?.names[3]?.chn_name"> Choice Level Four: {{ companyInfo?.names[3]?.chn_name }} {{ companyInfo?.names[3]?.chn_prefix }}<br /> </span>
+                    <span v-if="companyInfo?.names[4]?.chn_name">Choice Level Five:  {{ companyInfo?.names[4]?.chn_name }} {{ companyInfo?.names[4]?.chn_prefix }}<br /> </span>
                 </p>
             </td>
         </tr>

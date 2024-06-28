@@ -40,9 +40,7 @@
                 aria-label="Close"></button>
             </div>
             <div class="modal-body">
-
               <VueSignaturePad class="bg-transparent" height="300px" width="100%" ref="signaturePad" />
-
             </div>
             <div class="modal-footer bg-transparent">
               <button v-if="!signatureIsSaving" @click="save" type="button" class="btn btn-primary">Save
@@ -51,7 +49,6 @@
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 Saving...
               </button>
-
               <button @click="clear" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                 Clear
               </button>
@@ -63,8 +60,8 @@
       </div>
 
       <v-select placeholder="select founder.." v-model="selected_entity_id" :clearable="false" :options="entities" />
-
-      <button class="btn btn-primary mt-3" @click="signaturePadModal = true">Sign Document</button>
+      <p v-if="!signaturePadModal" style="color:darkred"> {{ msg}}</p>
+      <button class="btn btn-primary mt-3" @click="signaturePadModals">Sign Document</button>
       <span class="float-end">
         <!-- <button class="btn btn-warning" @click="undo">Clear</button> -->
       </span>
@@ -119,7 +116,17 @@ const toast = useToast()
 const signaturePadModal = ref<boolean>(false)
 const signatureIsSaving = ref<boolean>(false)
 const signaturePad = ref<any>(null)
+const msg = ref('')
 
+ function signaturePadModals()
+ {
+  if(selected_entity_id.value){
+  return signaturePadModal.value = true
+  }else{
+    msg.value = "Please select a Founder";
+   return  signaturePadModal.value = false
+  }
+}
 
 function undo() {
   signaturePad.value.undoSignature()
@@ -136,7 +143,7 @@ const entities = computed(() => {
   if (data.length) {
     data.forEach((el: any) => {
       const obj = el.individual || el.corporate;
-      if (obj) {
+      if (el.entity_capacity_id.includes(1)) {
         obj.label = el.entity_type_id == 1 ?
           `${obj.first_name ?? obj.chn_first_name} ${obj.last_name ?? obj.chn_last_name}`
           : `${obj.company_name ?? obj.chn_company_name}`

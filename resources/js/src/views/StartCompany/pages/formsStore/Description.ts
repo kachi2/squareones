@@ -15,13 +15,13 @@ export const descriptionForm = defineStore('description', () => {
         business_nature_id: yup.string().required('Please select a nature of business'),
     };
 
-    const { errors, handleSubmit, defineField, setFieldValue } = useForm({
+    const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({
         validationSchema: yup.object(rules),
     });
 
-    const [description] = defineField('description');
-    const [website] = defineField('website');
-    const [business_nature_id] = defineField('business_nature_id');
+    const [description, descriptiontAttr] = defineField('description');
+    const [website, websiteAttr] = defineField('website');
+    const [business_nature_id, business_nature_idAttr] = defineField('business_nature_id');
     const isSaving = false
 
     // localStorage & updating fields..
@@ -63,9 +63,9 @@ export const descriptionForm = defineStore('description', () => {
 
 
     return {
-        description,
-        business_nature_id,
-        website,
+        description, descriptiontAttr,
+        business_nature_id, business_nature_idAttr,
+        website, websiteAttr,
         isSaving,
 
         errors,
@@ -75,5 +75,6 @@ export const descriptionForm = defineStore('description', () => {
 
         saveToLocalStorage,
         clearLocalStorage,
+        resetForm
     }
 })

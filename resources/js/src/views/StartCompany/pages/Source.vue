@@ -10,7 +10,7 @@
                 <div class="col-md-12">
                     <label class=" fw-bolder">Expected source of funds <small class="text-danger">*</small></label>
                     <v-select :class="{ 'error-field': form.errors.income_expected_source }"
-                        v-model="form.income_expected_source" :clearable="true"
+                        v-model="form.income_expected_source" :clearable="true" placeholder="select income expected source  "
                         :options="startCompanyStore.sourceOfFunds" />
                     <small class="text-danger">{{ form.errors.income_expected_source }}</small>
 
@@ -19,7 +19,7 @@
                 <div class="col-md-12">
                     <label class=" fw-bolder">Origin source of funds <small class="text-danger">*</small></label>
                     <v-select :class="{ 'error-field': form.errors.origin_funds }" v-model="form.origin_funds"
-                        :clearable="true" :options="startCompanyStore.countries" />
+                        :clearable="true" :options="startCompanyStore.countries" placeholder="select origin funds"/>
                     <small class="text-danger">{{ form.errors.origin_funds }}</small>
                 </div>
 
@@ -29,7 +29,7 @@
                     <label class=" fw-bolder">Initial source of wealth <small class="text-danger">*</small></label>
                     <v-select :class="{ 'error-field': form.errors.wealth_initial_source }"
                         v-model="form.wealth_initial_source" :clearable="true"
-                        :options="startCompanyStore.initialSourceOfWealth" />
+                        :options="startCompanyStore.initialSourceOfWealth" placeholder=" select wealth initialsource"/>
                     <small class="text-danger">{{ form.errors.wealth_initial_source }}</small>
 
                 </div>
@@ -38,7 +38,7 @@
                     <label class="fw-bolder">Ongoing source of wealth <small class="text-danger">*</small></label>
                     <v-select :class="{ 'error-field': form.errors.income_outgoing_source }"
                         v-model="form.income_outgoing_source" :clearable="true"
-                        :options="startCompanyStore.ongoingSourceOfIncome" />
+                        :options="startCompanyStore.ongoingSourceOfIncome" placeholder="select income outgoing source" />
                     <small class="text-danger">{{ form.errors.income_outgoing_source }}</small>
                 </div>
 
@@ -123,6 +123,11 @@ const saveAndContinue = form.handleSubmit(async (values) => {
         return;
     }
 
+    function showError(value: any, param:any){
+        if(value == ''){
+            form.errors.param == ""
+        }
+    }
     if (Object.keys(form.errors).length > 0) {
         toast.error("Some fields still have errors", { position: 'top-right' });
         return true;

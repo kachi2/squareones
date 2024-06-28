@@ -13,8 +13,13 @@
     <h3 style="padding-left: 16pt;text-indent: 0pt;line-height: 16pt;text-align: center;">OF</h3>
     <p style="text-indent: 0pt;text-align: left;"><br /></p>
     <p class="s73" style="padding-left: 16pt;text-indent: 0pt;text-align: center;">
-        {{startCompanyStore?.companyInProgress?.names[0].eng_name?startCompanyStore?.companyInProgress?.names[0].eng_name + " " +startCompanyStore?.companyInProgress?.names[0].eng_prefix :startCompanyStore?.companyInProgress?.names[0].chn_name +" "+ startCompanyStore?.companyInProgress?.names[0].chn_prefix}}</p>
-    <p style="text-indent: 0pt;text-align: left;"><br /></p>
+        {{startCompanyStore?.companyInProgress?.names[0].eng_name + " " +startCompanyStore?.companyInProgress?.names[0].eng_prefix}}</p>
+   
+        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+        <p class="s73" style="padding-left: 16pt;text-indent: 0pt;text-align: center;">
+        {{startCompanyStore?.companyInProgress?.names[0].chn_name +" "+ startCompanyStore?.companyInProgress?.names[0].chn_prefix}}</p>
+   
+        <p style="text-indent: 0pt;text-align: left;"><br /></p>
     <p class="7" style="padding-left: 11pt;text-indent: 0pt;text-align: left;">Part A Mandatory Articles</p>
     <ol id="l18">
         <li data-list-text="1.">

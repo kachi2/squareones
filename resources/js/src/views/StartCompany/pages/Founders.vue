@@ -113,7 +113,7 @@
         <Founders_individual v-if="founderType == 'individual'" />
         <Founders_corporate v-else-if="founderType == 'corporate'" />
         <div class="p-2" v-else>
-          <button @click="moveBack" class="btn btn-outline-info me-3">
+          <button @click="moveBacks" class="btn btn-outline-info me-3">
             <i class="bi bi-arrow-left"></i> Close
         </button>
         </div>
@@ -263,8 +263,13 @@ function closeForm() {
 
 
 }
+function moveBacks() {
+  individual_form.clearLocalStorage()
+  individual_form.clearLocalStorage()
+  startCompanyStore.isShowingFoundersForm = false
+  // startCompanyStore.switchStage('-')
+}
 function moveBack() {
-
   startCompanyStore.switchStage('-')
 }
 function openForm() {

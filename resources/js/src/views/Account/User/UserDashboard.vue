@@ -42,11 +42,11 @@
               </div>
               <div class="col-md-3 text-mute ">  {{ useFunctions.dateDisplay(notifications[0]?.created_at) }}</div>
             </div>
-
           </div>
         </div>
       </div>
 
+      
       <div class="col-lg-4">
         <div class="card border-0 shadow-sm h-100">
           <div class="card-body py-4">

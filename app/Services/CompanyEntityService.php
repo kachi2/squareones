@@ -97,7 +97,7 @@ class CompanyEntityService implements CompanyEnityInterface
             ]);
             if($address['is_corAddress'] != 1){
                 $addressCor = $request->addresses[1];
-                IndividualCorAddress::updateOrCreate([
+                $cor =  IndividualCorAddress::updateOrCreate([
                     'individual_id' => $individual->id
                 ],[
                     'individual_id' => $individual->id,

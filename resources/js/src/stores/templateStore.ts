@@ -17,6 +17,7 @@ export const useTemplateStore = defineStore('templateStore', () => {
   const accountTemplateBg = computed(() => appMode.value == 'light' ? '#f5f6f8' : '#0f172acc')
   const cardBg = computed(() => appMode.value == 'light' ? lightColor : '#1e293b')
   const cardTextColor = computed(() => appMode.value == 'light' ? '#111' : '#94a3b8')
+  const disabledBg = computed(() => appMode.value == 'light' ? '#e9ecef' : '#212935f2')
 
   const sideBarToggleCollapse = () => {
     sidebarIsCollapsed.value = !sidebarIsCollapsed.value
@@ -29,6 +30,7 @@ export const useTemplateStore = defineStore('templateStore', () => {
     accountTemplateBg,
     cardBg, cardTextColor,
     sidebarIsCollapsed,
+    disabledBg,
     sideBarToggleCollapse
   }
 })

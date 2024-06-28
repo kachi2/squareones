@@ -18,24 +18,27 @@ export const nameForm = defineStore('name', () => {
         var pattern = /^[\u4E00-\u9FFF\u3400-\u4DBF\s*\(\)\,]+$/;
         return pattern.test(value)
     }
-
-    const chineseChar = (value: any) => {
+    const chineseChecks = (value: any) => {
         var pattern = /^[\u4E00-\u9FFF\u3400-\u4DBF\s*\(\)\,]+$/;
         return !pattern.test(value)
     }
 
+
     const rules = {
+        choice_level1_eng_name: yup.string().required('Field id required').test('chineseChecks', 'Please input only English characters', chineseChecks),
+        choice_level2_eng_name: yup.string().test('chineseChecks', 'Please input only English characters', chineseChecks),
+        choice_level3_eng_name: yup.string().test('chineseChecks', 'Please input only English characters', chineseChecks),
+        choice_level4_eng_name: yup.string().test('chineseChecks', 'Please input only English characters', chineseChecks),
+        choice_level5_eng_name: yup.string().test('chineseChecks', 'Please input only English characters', chineseChecks),
+
+
         choice_level1_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
         choice_level2_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
         choice_level3_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
         choice_level4_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
         choice_level5_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
 
-        choice_level1_eng_name: yup.string().test('chineseChar', 'Please input only English characters', chineseCheck),
-        choice_level2_eng_name: yup.string().test('chineseChar', 'Please input only English characters', chineseCheck),
-        choice_level3_eng_name: yup.string().test('chineseChar', 'Please input only English characters', chineseCheck),
-        choice_level4_eng_name: yup.string().test('chineseChar', 'Please input only English characters', chineseCheck),
-        choice_level5_eng_name: yup.string().test('chineseChar', 'Please input only English characters', chineseCheck),
+
     };
 
     const { errors, handleSubmit, defineField, setFieldValue, resetForm, resetField } = useForm({
@@ -60,7 +63,7 @@ export const nameForm = defineStore('name', () => {
         },
     });
 
-    const [choice_level1_eng_name] = defineField('choice_level1_eng_name');
+    const [choice_level1_eng_name, choice_level1_eng_nameAttr] = defineField('choice_level1_eng_name');
     const [choice_level1_chn_name] = defineField('choice_level1_chn_name');
     const [choice_level1_prefix] = defineField('choice_level1_prefix');
     const [choice_level1_chn_prefix] = defineField('choice_level1_chn_prefix');
@@ -294,7 +297,7 @@ export const nameForm = defineStore('name', () => {
     }
 
     return {
-        choice_level1_eng_name,
+        choice_level1_eng_name, choice_level1_eng_nameAttr,
         choice_level1_chn_name,
         choice_level1_prefix,
         choice_level1_chn_prefix,

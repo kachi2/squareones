@@ -76,4 +76,12 @@ textarea::placeholder,
 .dropdown-item:hover {
   background-color: var(--bs-info) !important;
 }
+
+
+input[type="text"]:disabled,
+.form-select:disabled,
+.vs--disabled .vs__selected-options,
+.vs--disabled .vs__selected {
+  background-color: v-bind('templateStore.disabledBg') !important;
+}
 </style>

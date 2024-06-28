@@ -33,30 +33,28 @@ class CompanyEntityController extends Controller
     public function StoreEntity(Request $request)
     {
         $check = CompanyEntity::where('company_id', $request->company_id)->get();
-        if(count($check) >= 6 && !isset($request->company_entity_id)){
+        if(count($check) >= 6 && isset($request->company_entity_id)){
            return response()->json(['error' => 'You cannot add more than 6 founders/directors']); 
         }
         try {
-            $data = [];
+            $data  = [];
             DB::beginTransaction();
             $company_entity = $this->EntityInterface->SaveParentEntity($request);
+            // dd($company_entity);
             if ($company_entity) {
                 if ($request->entity_type_id == 1) {
                     $validateRequest = $this->IndividualEntityData($request);
                     if ($validateRequest) {
                         $IndividualEntity = IndividualDto::fromRequest($validateRequest->validated());
                         $data = $this->EntityInterface->ProcessIndividualEntity($IndividualEntity, $company_entity);
-                        // return response()->json([ 'data' => $data], HttpStatusCode::OK);
                     }
                 } elseif ($request->entity_type_id == 2) {
                     $validateRequest = $this->CorporateEntitysData($request);
                     $CorporateEntity = CorporateDto::fromRequest($validateRequest->validated());
                     $data = $this->EntityInterface->ProcessCorporateEntity($CorporateEntity,  $company_entity);
-                    // return response()->json([ 'data' => $data], HttpStatusCode::OK);
                 }
             }
             DB::commit();
-            // if(isset($request->isEdit)){
             return response()->json([ 'data' => $data], HttpStatusCode::OK);
         } catch (\Exception $e) {
             DB::rollBack();

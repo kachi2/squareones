@@ -15,8 +15,8 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
-                        <textarea :class="{ 'error-field': form.errors.description }" v-model="form.description"
-                            class="form-control" rows="5"></textarea>
+                        <textarea v-bind="form.descriptionAttr" :class="{ 'error-field': form.errors.description }"
+                            v-model="form.description" class="form-control" rows="5"></textarea>
                         <small class=" text-danger">{{ form.errors.description }}</small>
                         <small class="float-end">{{ wordCount }}/{{ maxCharCount }}</small>
                     </div>
@@ -30,7 +30,8 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
-                        <v-select :class="{ 'error-field': form.errors.activity_level }" v-model="form.activity_level"
+                        <v-select v-bind="form.activity_levelAttr"
+                            :class="{ 'error-field': form.errors.activity_level }" v-model="form.activity_level"
                             :clearable="true" :options="startCompanyStore.levelOfActivity" />
                         <small class=" text-danger">{{ form.errors.activity_level }}</small>
                     </div>
@@ -45,7 +46,8 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
-                        <v-select :class="{ 'error-field': form.errors.activity_nature }" v-model="form.activity_nature"
+                        <v-select v-bind="form.activity_natureAttr"
+                            :class="{ 'error-field': form.errors.activity_nature }" v-model="form.activity_nature"
                             :clearable="true" :options="startCompanyStore.natureOfActivity" />
                         <small class=" text-danger">{{ form.errors.activity_nature }}</small>
                     </div>
@@ -61,7 +63,8 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
-                        <v-select :class="{ 'error-field': form.errors.customer_location_operation }" :multiple="true"
+                        <v-select v-bind="form.customer_location_operationAttr"
+                            :class="{ 'error-field': form.errors.customer_location_operation }" :multiple="true"
                             v-model="form.customer_location_operation" :clearable="true"
                             :options="startCompanyStore.countries" />
                         <small class=" text-danger">{{ form.errors.customer_location_operation }}</small>
@@ -78,8 +81,8 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
-                        <v-select :class="{ 'error-field': form.errors.country }" :multiple="true" v-model="form.country"
-                            :clearable="true" :options="startCompanyStore.countries" />
+                        <v-select :class="{ 'error-field': form.errors.country }" :multiple="true"
+                            v-model="form.country" :clearable="true" :options="startCompanyStore.countries" />
                         <small class=" text-danger">{{ form.errors.country }}</small>
                     </div>
 
@@ -213,7 +216,6 @@ async function saveFromToApi(formData: FormData) {
         form.isSaving = false
         startCompanyStore.switchStage('+')
         startCompanyStore.getCompanyInProgress()
-
     } catch (error) {
         toast.error('Sorry, Something went wrong', { position: 'top-right' });
         form.isSaving = false

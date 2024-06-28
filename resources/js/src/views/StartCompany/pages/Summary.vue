@@ -857,16 +857,16 @@ const data = reactive<SummaryInterface>({
     ownerShares: []
 })
 
-onMounted(() => {
+onMounted(async () => {
+    await startCompanyStore.getCompanyInProgress()
     const companyInProgress = startCompanyStore.companyInProgress
-    // console.log(companyInProgress, 'use');
+    console.log(companyInProgress, 'check activities');
 
 
     if (companyInProgress) {
-
         // Names & Description
         const namesArray = companyInProgress.names
-        console.log(namesArray, 'Name array')
+        // console.log(namesArray, 'Name array')
         const coy = namesArray.find((x: any) => x.choice_level == 1);
         data.company_name = namesArray
         data.description = companyInProgress.description
@@ -928,12 +928,12 @@ onMounted(() => {
                 // founder.is_founder = el.is_founder == 0 ? 'No' : 'Yes'
                 data.founders_individual.push(founder)
                 // if(founder.)
-                if(founder.owner_shares){
-                data.ownerShares.push({
-                    name: founder.first_name || founder.chn_first_name + ' ' + founder.last_name || founder.chn_last_name,
-                    amount: founder.owner_shares?.total_amount ?? 0
-                })
-            }
+                if (founder.owner_shares) {
+                    data.ownerShares.push({
+                        name: founder.first_name + ' ' + founder.last_name || founder.chn_first_name + ' ' + founder.chn_last_name,
+                        amount: founder.owner_shares?.total_amount ?? 0
+                    })
+                }
             });
 
             const coporates = entity.filter((x: any) => x.entity_type_id == 2)
@@ -942,17 +942,17 @@ onMounted(() => {
                 // founder.is_founder = el.is_founder == 0 ? 'No' : 'Yes'
                 data.founders_corporate.push(founder)
 
-                if(founder.owner_shares){
-                data.ownerShares.push({
-                    name: founder.company_name || founder.chn_company_name,
-                    amount: founder.owner_shares?.total_amount ?? 0
-                })
-            }
+                if (founder.owner_shares) {
+                    data.ownerShares.push({
+                        name: founder.company_name || founder.chn_company_name,
+                        amount: founder.owner_shares?.total_amount ?? 0
+                    })
+                }
             });
         }
     }
 
-    console.log('shers:', data.ownerShares);
+    // console.log('shers:', data.ownerShares);
 
 })
 

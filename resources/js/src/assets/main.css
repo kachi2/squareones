@@ -11,9 +11,12 @@ button:focus,
     border-color: #dee2e6 !important;
 }
 
-.error-field,
-.error-field .vs__search {
-    border: 1px solid red;
+.error-field {
+    border: 1px solid red !important;
+}
+
+.error-field .vs__dropdown-toggle {
+    border: 1px solid red !important;
 }
 
 

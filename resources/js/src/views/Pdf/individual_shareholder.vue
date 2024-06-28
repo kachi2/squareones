@@ -86,7 +86,7 @@
                     </p>
                 </td>
                 <td style="width:80%;border:1px solid #000">
-                    <p style="text-indent: 0pt;text-align: center;"> {{ shareholder?.first_name }}
+                    <p style="text-indent: 0pt;text-align: center;"> {{ shareholder?.last_name }}
                       <br /></p>
                 </td>
             </tr>
@@ -104,7 +104,7 @@
                     <p class="s29" style="text-indent: 0pt;text-align: left;">Other Names</p>
                 </td>
                 <td style="width:80%; border:1px solid #000">
-                    <p style="text-indent: 0pt;text-align: center;">  {{ shareholder?.last_name }}<br /></p>
+                    <p style="text-indent: 0pt;text-align: center;">  {{ shareholder?.first_name }}<br /></p>
                 </td>
             </tr>
             <tr style="height:17pt">

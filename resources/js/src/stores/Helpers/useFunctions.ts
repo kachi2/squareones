@@ -192,5 +192,14 @@ export default {
     chineseCheck: (value: any) => {
         var pattern = /^[\u4E00-\u9FFF\u3400-\u4DBF\s*\(\)\,]+$/;
         return pattern.test(value)
+    },
+
+    yearsAgo: (num = 0) => {
+        const currentDate = new Date();
+        return new Date(
+            currentDate.getFullYear() - num,
+            currentDate.getMonth(),
+            currentDate.getDate()
+        );
     }
 }

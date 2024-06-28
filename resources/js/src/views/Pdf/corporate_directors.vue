@@ -235,7 +235,7 @@
             <span class="s42"> <br> <span style="font-size:10px">(只適用於在香港註冊的法人團體 Only applicable to body corporate
                     registered in Hong Kong)</span> </span>
             <span style="text-indent: 0pt; float:right">
-                <input style="width: 200px; height:30px" readonly :value="corporate.registeration_no">
+                <input style="width: 200px; height:30px" readonly :value="checkCountryRegistered">
                 <br /></span>
         </p>
 
@@ -284,7 +284,7 @@
                     <p class="s28" style="padding-left: 30pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         本人獲上述法人團體授權確認上述法人團體同意在公司成立為法團時擔任其董事。 </p>
                     <p class="s9" style="padding-left: 28pt;text-indent: 0pt;line-height: 9pt;text-align: left;">
-                        <input type="checkbox"  checked style="width: 30px; height:20px" disabled>
+                        <input type="checkbox"   style="width: 30px; height:20px" disabled>
                         I, being authorized by the above body corporate, confirm that the body corporate consents to be
                         a director of this
                         company on its incorporation..
@@ -318,13 +318,13 @@
                     <p class="s8" style="padding-left: 28pt;text-indent: 0pt;text-align: left;">姓 名<span
                             class="s29">Name</span></p>
                 </td>
-                <td style="width:350pt">
+                <!-- <td style="width:350pt">
                     <p style="text-indent: 0pt;text-align: left;"><br /></p>
                     <p class="s33"
                         style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;">
                         {{ corporate?.authorized_persons.first_name }} {{ corporate?.authorized_persons.last_name }}
                     </p>
-                </td>
+                </td> -->
                 <td style="width:55pt">
                     <p style="text-indent: 0pt;text-align: left;"><br /></p>
                 </td>
@@ -349,7 +349,7 @@
             <tr style="height:46pt; padding-top:30px">
 
                 <td style="width:432pt" colspan="2">
-                    <input type="checkbox"  style="width: 20px; height:20px; margin-left:30px" disabled>
+                    <input type="checkbox" checked style="width: 20px; height:20px; margin-left:30px" disabled>
                     <p class="s28"
                         style="padding-top: 3pt; display:inline; padding-left: pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         出任董事職位同意書會 於公司成立 為法團的日期 後 15 日 內 交 付 登記。 </p>
@@ -369,12 +369,21 @@
 
 <script setup lang="ts">
 import { useStartCompanyStore } from '../StartCompany/StartCompany_store';
+import {computed} from 'vue'
 const startCompanyStore = useStartCompanyStore();
 
 const props = defineProps<{
     corporate: any
 }>();
 
+const checkCountryRegistered = computed(()=> {
+
+    if(props.corporate.country_registered != "Hong Kong"){
+        return ''
+    }else{
+        return props.corporate.registeration_no
+    }
+});
 
 
 </script>

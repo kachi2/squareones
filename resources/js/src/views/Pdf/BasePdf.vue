@@ -15,13 +15,15 @@
             <individual_directors v-for="directors in IndividualDirectors" :director="directors" />
 
             <corporate_directors v-for="corporates in CorporateDirectors" :corporate="corporates" />
-            <founder_statement  :founders_counts="founders_counts"/>
+
+            <founder_statement  :founder="founder"/>
 
             <pi_ncc_secretary v-for="directors in IndividualDirectors" :director="directors" />
+
             <notice_to_business />
             <company_ordinance />
             <class_of_shares />
-            <ownershipShares />
+            <ownershipShares  />
             <articles />
             <articles_last />
         </section>
@@ -57,7 +59,7 @@
 
 <script setup lang="ts">
 import { useStartCompanyStore } from "../StartCompany/StartCompany_store";
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch, reactive} from 'vue'
 
 import company from './company.vue'
 import company_info from './company_info.vue'
@@ -81,6 +83,7 @@ import html2canvas from 'html2canvas';
 import api from '@/stores/Helpers/axios'
 import { useToast } from 'vue-toast-notification';
 
+
 const startCompanyStore = useStartCompanyStore();
 const toast = useToast()
 
@@ -94,7 +97,14 @@ const PDFsection = ref<any>(null);
 const PDFsection2 = ref<any>(null);
 
 const formData = new FormData()
-const founders_counts = ref(7)
+const founder = reactive({
+    founders_count: 0,
+    founder_details: {
+        name: '',
+        signature: '',
+        date: ''
+    },
+});
 
 function createPDF(canvas: any, index: any) {
     var doc = new jsPDF('p', 'mm');
@@ -172,15 +182,19 @@ const shareholders = computed(() => {
     individualShareholder.forEach((shares: any) => {
         const obj = shares.individual;
         //  console.log(shares)
+        founder.founder_details.name = individualShareholder[0].individual.first_name + ' ' + individualShareholder[0].individual.last_name
+        founder.founder_details.signature = individualShareholder[0]?.signature
+        founder.founder_details.date = individualShareholder[0]?.date_signed
         let cp = shares.entity_capacity_id;
         if (obj && cp.includes(1)) {
+            founder.founders_count++
             obj.entity_type_id = shares.entity_type_id,
                 obj.capacity = shares.entity_capacity_id
             obj.company_shares = startCompanyStore.companyInProgress?.shares
             founders.push(obj)
+             console.log(founder, 'fonder count');
         }
     })
-
     return founders;
 })
 
@@ -200,7 +214,7 @@ const IndividualDirectors = computed(() => {
             director.push(obj)
 
             // console.log(director, 'directors list')
-            founders_counts.value + 1
+            // founders_counts.value + 1
         }
     })
 
@@ -220,10 +234,9 @@ const CorporateDirectors = computed(() => {
                 objs.signature = cdir.signature??''
             Corporate.push(objs)
             //   console.log(Corporate, 'corporate list')
-            founders_counts.value + 1
+            // founders_counts.value + 1
         }
     })
-
     return Corporate;
 })
 
@@ -234,7 +247,7 @@ const CorporateShareholder = computed(() => {
     ShareholderC.forEach((dt: any) => {
         const ob = dt.corporate;
         let cps = dt.entity_capacity_id;
-        if (ob && cps.includes(2)) {
+        if (ob && cps.includes(1)) {
             ob.entity_type_id = dt.entity_type_id,
                 ob.capacity = dt.entity_capacity_id
             ob.company_shares = startCompanyStore.companyInProgress?.shares

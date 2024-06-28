@@ -159,7 +159,7 @@
                 </td>
                 <td
                     style="width:71pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;padding-left:20px"> {{ founders_counts }}</p>
+                    <p style="text-indent: 0pt;text-align: left;padding-left:20px"> {{ founder.founders_count }}</p>
                 </td>
             </tr>
         </table>
@@ -175,7 +175,9 @@
                     <p style="text-indent: 0pt;text-align: left;"><br /></p>
                     <p class="s33"
                         style="border-bottom:1px solid #000;background:yellow; padding-left: 6pt;text-indent: 0pt;text-align: left;">:
-                        <img width="100" :src="startCompanyStore?.signatureImage" alt="">
+                        <img width="100" :src="founder?.founder_details?.signature" alt="">
+
+
                     </p>
                 </td>
                 <td style="width:55pt">
@@ -192,7 +194,7 @@
                     <p style="text-indent: 0pt;text-align: left;"> <br /></p>
                     <p class="s33"
                         style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;">:
-                        {{startCompanyStore?.companyInProgress?.users.name}}
+                        {{founder?.founder_details?.name}}
                     </p>
                 </td>
                 <td style="width:55pt">
@@ -224,7 +226,7 @@
                 <td style="width:30pt">
                     <p style="text-indent: 0pt;text-align: left;"><br /></p>
                     <p class="s33"
-                        style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;">:
+                        style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;">{{founder.founder_details.date}}
                     </p>
                     <span>(日 DD / 月 MM / 年 YYYY)</span>
                 </td>
@@ -244,7 +246,7 @@ import { useStartCompanyStore } from '../StartCompany/StartCompany_store';
 const startCompanyStore = useStartCompanyStore();
 
 const props = defineProps<{
-    founders_counts: any
+    founder: any
 }>()
 
 </script>

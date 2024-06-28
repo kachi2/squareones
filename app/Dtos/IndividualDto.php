@@ -18,6 +18,7 @@ class IndividualDto extends BaseDto
         public readonly string $first_name,
         public readonly ?string $last_name, 
         public readonly ?string $is_founder = null,
+        public readonly ?string $is_corAddress = null,
         public readonly ?string $chn_first_name = null,
         public readonly ?string $chn_last_name = null,  
         public readonly ?string $identity_no=null,

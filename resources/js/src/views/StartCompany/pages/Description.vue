@@ -15,8 +15,8 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
-                        <textarea :class="{ 'error-field': form.errors.description }" v-model="form.description"
-                            class="form-control" rows="5"></textarea>
+                        <textarea v-bind="form.descriptiontAttr" :class="{ 'error-field': form.errors.description }"
+                            v-model="form.description" class="form-control" rows="5"></textarea>
                         <small class=" text-danger">{{ form.errors.description }}</small>
                         <small class="float-end">{{ wordCount }}/{{ maxCharCount }}</small>
                     </div>
@@ -30,10 +30,10 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
-                        <v-select :class="{ 'error-field': form.errors.business_nature_id }"
-                            v-model="form.business_nature_id" :clearable="true"
-                            :options="startCompanyStore.businessNatures" :reduce="(item: any) => item.id"
-                            label="name" />
+                        <v-select v-bind="form.business_nature_idAttr"
+                            :class="{ 'error-field': form.errors.business_nature_id }" v-model="form.business_nature_id"
+                            :clearable="true" :options="startCompanyStore.businessNatures"
+                            :reduce="(item: any) => item.id" label="name" />
                         <small class=" text-danger">{{ form.errors.business_nature_id }}</small>
                     </div>
                 </div>
@@ -43,8 +43,8 @@
                 <div class="fw-bold">Website or social media</div>
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
-                        <input :class="{ 'error-field': form.errors.website }" v-model="form.website" type="text"
-                            class="form-control">
+                        <input v-bind="form.websiteAttr" :class="{ 'error-field': form.errors.website }"
+                            v-model="form.website" type="text" class="form-control">
                         <small class=" text-danger">{{ form.errors.website }}</small>
                     </div>
                 </div>
@@ -85,6 +85,7 @@ const startCompanyStore = useStartCompanyStore()
 const form = descriptionForm()
 
 onMounted(() => {
+    form.resetForm()
     form.updateFields(startCompanyStore.companyInProgress)
 })
 
@@ -98,7 +99,7 @@ function moveBack() {
 
 
 
-const saveAndContinue = () => {
+const saveAndContinue = form.handleSubmit(async (values) => {
     if (!startCompanyStore.companyInProgress?.id) {
         toast.info('You have not registered any company name', { position: 'top-right' })
         startCompanyStore.switchStage('-', 2)
@@ -118,7 +119,7 @@ const saveAndContinue = () => {
 
     form.isSaving = true
     saveFromToApi(formData)
-}
+})
 
 
 async function saveFromToApi(formData: FormData) {

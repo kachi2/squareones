@@ -10,21 +10,21 @@ export const activitiesForm = defineStore('activities', () => {
     const rules = {
         // description: yup.string().required().test('hasUppercase', 'Description must not be less than 150 letters', hasUppercase),
         description: yup.string().min(150, 'Description must be at least 150 characters long').required(),
-        activity_level: yup.string().required('Please select an option'),
-        activity_nature: yup.string().required('Please select an option'),
-        customer_location_operation: yup.array().required('Please select an option'),
-        country: yup.array().required('Required field'),
+        activity_level: yup.string().required('Please select an option').required(),
+        activity_nature: yup.string().required('Please select an option').required(),
+        customer_location_operation: yup.array().required('Please select an option').required(),
+        country: yup.array().required('Required field').required(),
     };
 
     const { errors, handleSubmit, defineField, setFieldValue } = useForm({
         validationSchema: yup.object(rules),
     });
 
-    const [description] = defineField('description');
-    const [activity_level] = defineField('activity_level');
-    const [activity_nature] = defineField('activity_nature');
-    const [customer_location_operation] = defineField('customer_location_operation');
-    const [country] = defineField('country');
+    const [description, descriptionAttr] = defineField('description');
+    const [activity_level, activity_levelAttr] = defineField('activity_level');
+    const [activity_nature, activity_natureAttr] = defineField('activity_nature');
+    const [customer_location_operation, customer_location_operationAttr] = defineField('customer_location_operation');
+    const [country, countryAttr] = defineField('country');
     const isSaving = false
 
 
@@ -96,11 +96,11 @@ export const activitiesForm = defineStore('activities', () => {
 
 
     return {
-        description,
-        activity_level,
-        activity_nature,
-        customer_location_operation,
-        country,
+        description, descriptionAttr,
+        activity_level, activity_levelAttr,
+        activity_nature, activity_natureAttr,
+        customer_location_operation, customer_location_operationAttr,
+        country, countryAttr,
         isSaving,
 
         errors,
