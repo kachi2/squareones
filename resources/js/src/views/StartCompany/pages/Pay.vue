@@ -14,9 +14,11 @@
             </div>
             <div v-else="">
             <div v-if="intentHasError" class="text-center text-danger mt-5">
-                <strong>Error!</strong> loading payment information, please reload page.
+                <strong>Error!</strong> loading payment information, please refresh page.
+                <hr>
             </div>
-            <div v-if="clientSecretIsLoaded" class="row justify-content-center">
+            <div v-else>
+            <div class="row justify-content-center">
                 <form id="payment-form">
                     <div  class="row my-2">
                         <div class="col-12">
@@ -25,8 +27,6 @@
                         </div>
                     </div>
                     <div id="payment-element">
-                        <!--Stripe.js injects the Payment Element-->
-
                     </div>
                     <div v-if="clientSecretIsLoaded" class="form-check">
                         <input class="form-check-input exemption" type="checkbox" value="" id="checker" />
@@ -56,6 +56,7 @@
                 </form>
             </div>
         </div>
+        </div>
         </template>
         <template #info>
         </template>
@@ -63,37 +64,33 @@
 </template>
 <script lang="ts" setup>
 import StartCompany_template from '../StartCompany_template.vue';
-import { StripeElementCard } from '@vue-stripe/vue-stripe';
 import { useStartCompanyStore } from '../StartCompany_store';
-import axios from 'axios'
 import api from '@/stores/Helpers/axios'
 import { ref, onMounted, computed } from 'vue';
+
+// import axios from 'axios'
+// import { StripeElementCard } from '@vue-stripe/vue-stripe';
 // import { loadStripe } from "@stripe/stripe-js";
 // import { Elements } from "@stripe/vue-stripe-js";
 
 
 const startCompanyStore = useStartCompanyStore()
-
 const paymentStatus = computed(() => {
     const status = startCompanyStore.companyInProgress?.billing?.status
     return status;
 })
-
 const STRIPE_PUBLISHABLE_KEY = "pk_test_51P7LhqRxBSKsFyqbPdmjZpG4tFsnyLZEV6Tn38aic7H4oeWOSub5gTRnjF4vgdRbBJutMM0G3d2x3c9VFz2g1dkX00bPRK5pYT"; // Replace with your actual key
 // @ts-ignore
 const stripePromise = Stripe(STRIPE_PUBLISHABLE_KEY);
-
 
 const clientSecretIsLoaded = ref(false)
 const intentHasError = ref(false)
 let clientSecret = ''
 let elements: any
-const items = [{ id: "xl-tshirt", plan_id: 1}];
+const items = [{id: "xl-tshirt"}];
 
 onMounted(async () => {
-    
     checkStatus()
-
     try {
         intentHasError.value = false
         const { data } = await api.paymentIntent(items)
@@ -102,19 +99,15 @@ onMounted(async () => {
         if (data?.client_secret)
             clientSecretIsLoaded.value = true
         elements = stripePromise.elements({ clientSecret });
-
         const paymentElementOptions = {
             layout: "tabs",
-
         };
-
         const paymentElement = elements.create("payment", paymentElementOptions);
         paymentElement.mount("#payment-element");
-
-
         document.querySelector("#payment-form")
         document.addEventListener("submit", handleSubmit);
     } catch (error) {
+        console.log(error)
         intentHasError.value = true
     }
 })
@@ -145,13 +138,12 @@ const returnUrl = computed(()=> { return 'http://127.0.0.1:5173/kcy/verification
         const clientSecret = new URLSearchParams(window.location.search).get(
             "payment_intent_client_secret"
         );
-
         if (!clientSecret) {
             return;
         }
 
-        const { paymentIntent } = await stripePromise.retrievePaymentIntent(clientSecret);
 
+        const { paymentIntent } = await stripePromise.retrievePaymentIntent(clientSecret);
         switch (paymentIntent.status) {
             case "succeeded":
                 // initialize();

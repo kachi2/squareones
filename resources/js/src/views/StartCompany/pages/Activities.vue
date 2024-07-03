@@ -30,9 +30,10 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
-                        <v-select v-bind="form.activity_levelAttr"
-                            :class="{ 'error-field': form.errors.activity_level }" v-model="form.activity_level"
-                            :clearable="true" :options="startCompanyStore.levelOfActivity" />
+                        <v-select @search:blur="form.validateVueSelectOnBlur('activity_level')"
+                            v-bind="form.activity_levelAttr" :class="{ 'error-field': form.errors.activity_level }"
+                            v-model="form.activity_level" :clearable="true"
+                            :options="startCompanyStore.levelOfActivity" />
                         <small class=" text-danger">{{ form.errors.activity_level }}</small>
                     </div>
 
@@ -46,9 +47,10 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
-                        <v-select v-bind="form.activity_natureAttr"
-                            :class="{ 'error-field': form.errors.activity_nature }" v-model="form.activity_nature"
-                            :clearable="true" :options="startCompanyStore.natureOfActivity" />
+                        <v-select @search:blur="form.validateVueSelectOnBlur('activity_nature')"
+                            v-bind="form.activity_natureAttr" :class="{ 'error-field': form.errors.activity_nature }"
+                            v-model="form.activity_nature" :clearable="true"
+                            :options="startCompanyStore.natureOfActivity" />
                         <small class=" text-danger">{{ form.errors.activity_nature }}</small>
                     </div>
 

@@ -66,5 +66,8 @@ export default {
         return $instanceForm.post(`register/signature`, formData)
     },
 
+    deleteSignature(formData: FormData) {
+        return $instanceForm.post(`delete/signature`, formData)
+    },
 
 }

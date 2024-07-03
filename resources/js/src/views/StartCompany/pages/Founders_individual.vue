@@ -59,8 +59,9 @@
                 <!-- <select v-model="form.nationality" class="form-select">
                 <option selected value="Hong Kong"> Hong Kong</option>
             </select> -->
-                <v-select v-bind="form.nationalityAttr" placeholder="select country.." v-model="form.nationality"
-                    :clearable="false" :options="startCompanyStore.countries" />
+                <v-select @search:blur="form.validateVueSelectOnBlur('nationality')" v-bind="form.nationalityAttr"
+                    placeholder="select country.." v-model="form.nationality" :clearable="false"
+                    :options="startCompanyStore.countries" />
                 <small class=" text-danger">{{ form.errors.nationality }}</small>
             </div>
         </section>
@@ -102,9 +103,9 @@
                     </div> -->
                 <div class="col-md-12">
                     <label class="form-label"> Country／Region <small class=" text-danger">*</small></label>
-                    <v-select v-bind="form.countryAttr" :class="{ 'error-field': form.errors.country }"
-                        placeholder="select country.." v-model="form.country" :clearable="false"
-                        :options="startCompanyStore.countries" />
+                    <v-select @search:blur="form.validateVueSelectOnBlur('country')" v-bind="form.countryAttr"
+                        :class="{ 'error-field': form.errors.country }" placeholder="select country.."
+                        v-model="form.country" :clearable="false" :options="startCompanyStore.countries" />
                     <small class=" text-danger">{{ form.errors.country }}</small>
                 </div>
             </div>
@@ -153,9 +154,9 @@
                     </div> -->
                 <div class="col-md-12">
                     <label class="form-label">Country／Region <small class=" text-danger">*</small></label>
-                    <v-select v-bind="form.country2Attr" :class="{ 'error-field': form.errors.country2 }"
-                        placeholder="select country.." v-model="form.country2" :clearable="false"
-                        :options="startCompanyStore.countries" />
+                    <v-select @search:blur="form.validateVueSelectOnBlur('country2')" v-bind="form.country2Attr"
+                        :class="{ 'error-field': form.errors.country2 }" placeholder="select country.."
+                        v-model="form.country2" :clearable="false" :options="startCompanyStore.countries" />
                     <small class=" text-danger">{{ form.errors.country2 }}</small>
                 </div>
             </div>
@@ -170,7 +171,8 @@
                 <option value="1">Passport</option>
                 <option value="2">ID Card</option>
             </select> -->
-                <v-select v-bind="form.identity_type_idAttr" :class="{ 'error-field': form.errors.identity_type_id }"
+                <v-select @search:blur="form.validateVueSelectOnBlur('indentity_type_id')"
+                    v-bind="form.identity_type_idAttr" :class="{ 'error-field': form.errors.identity_type_id }"
                     v-model="form.identity_type_id" :clearable="false"
                     :options="[{ value: 1, label: 'Passport' }, { value: 2, label: 'ID CARD' }]"
                     :reduce="(val: any) => val.value" />
@@ -178,7 +180,7 @@
             </div>
             <div v-if="form.identity_type_id == '2'" class="col-md-9">
                 <label class=" fw-bolder">HKID No. <small class="text-danger">*</small></label>
-                <input :class="{ 'error-field': form.errors.identity_no }" v-maska data-maska="#### #### #### ####"
+                <input :class="{ 'error-field': form.errors.identity_no }" v-maska data-maska="##########"
                     data-maska-tokens="#:[0-9a-zA-Z]" v-model="form.identity_no" ype="text" class="form-control"
                     placeholder="HKID No.">
                 <small class=" text-danger">{{ form.errors.identity_no }}</small>
@@ -201,7 +203,8 @@
             </div>
             <div v-if="form.identity_type_id == '1'" class="col-md-12">
                 <label class=" fw-bolder">Passport issuing Country/Region <small class="text-danger">*</small> </label>
-                <v-select v-bind="form.issuing_countryAttr" :class="{ 'error-field': form.errors.issuing_country }"
+                <v-select @search:blur="form.validateVueSelectOnBlur('issuing_country')"
+                    v-bind="form.issuing_countryAttr" :class="{ 'error-field': form.errors.issuing_country }"
                     v-model="form.issuing_country" :clearable="false" :options="startCompanyStore.countries" />
                 <small class=" text-danger">{{ form.errors.issuing_country }}</small>
             </div>
@@ -228,8 +231,9 @@
             </div>
             <div class="col-md-12">
                 <label class="form-labe fw-bolder">Occupation/Employment <span class="text-danger"> * </span></label>
-                <v-select v-bind="form.occupationAttr" :class="{ 'error-field': form.errors.occupation }"
-                    v-model="form.occupation" :clearable="true" :options="startCompanyStore.employmentStatusList" />
+                <v-select @search:blur="form.validateVueSelectOnBlur('occupation')" v-bind="form.occupationAttr"
+                    :class="{ 'error-field': form.errors.occupation }" v-model="form.occupation" :clearable="true"
+                    :options="startCompanyStore.employmentStatusList" />
                 <small class="text-danger">{{ form.errors.occupation }}</small>
             </div>
 

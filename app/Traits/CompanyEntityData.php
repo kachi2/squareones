@@ -42,7 +42,7 @@ trait CompanyEntityData
             'company_id' => 'required',
             'entity_type_id' => 'required',
             'entity_capacity_id' => 'required',
-            'company_name' => 'required',
+            'company_name' => 'nullable',
             'chn_company_name' => 'nullable',
             'date_incorporated' => 'required',
             'country_registered' => 'required',

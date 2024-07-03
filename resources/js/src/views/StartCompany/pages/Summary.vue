@@ -20,24 +20,19 @@
                                         <i @click="startCompanyStore.currentStage = 2" class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-mut text-capitalize" v-if="data?.company_name[0]"> First
-                                        Choice: {{ data?.company_name[0]?.eng_name }} {{ data?.company_name[0]?.chn_name
-                                        }}
+                                        Choice: {{ data?.company_name[0]?.eng_name }} {{ data?.company_name[0]?.eng_prefix}} {{ data?.company_name[0]?.chn_name }}{{ data?.company_name[0]?.chn_prefix }}
                                     </div>
                                     <div class="small text-mut text-capitalize" v-if="data?.company_name[1]"> Second
-                                        Choice: {{ data?.company_name[1]?.eng_name }} {{ data?.company_name[1]?.chn_name
-                                        }}
+                                        Choice: {{ data?.company_name[1]?.eng_name }} {{ data?.company_name[0]?.eng_prefix}}  {{ data?.company_name[1]?.chn_name}}{{ data?.company_name[0]?.chn_prefix }}
                                     </div>
                                     <div class="small text-mut text-capitalize" v-if="data?.company_name[2]"> Third
-                                        Choice: {{ data?.company_name[2]?.eng_name }} {{ data?.company_name[2]?.chn_name
-                                        }}
+                                        Choice: {{ data?.company_name[2]?.eng_name }} {{ data?.company_name[0]?.eng_prefix}}  {{ data?.company_name[2]?.chn_name}}{{ data?.company_name[0]?.chn_prefix }}
                                     </div>
                                     <div class="small text-mut text-capitalize" v-if="data?.company_name[3]">Forth
-                                        Choice: {{ data?.company_name[3]?.eng_name }} {{ data?.company_name[3]?.chn_name
-                                        }}
+                                        Choice: {{ data?.company_name[3]?.eng_name }} {{ data?.company_name[0]?.eng_prefix}}  {{ data?.company_name[3]?.chn_name }}{{ data?.company_name[0]?.chn_prefix }}
                                     </div>
-                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[4]">Fifth
-                                        Choice: {{ data?.company_name[4]?.eng_name }} {{ data?.company_name[5]?.chn_name
-                                        }}
+                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[4]">
+                                        Fifth Choice: {{ data?.company_name[4]?.eng_name }} {{ data?.company_name[0]?.eng_prefix}}  {{ data?.company_name[5]?.chn_name }}{{ data?.company_name[0]?.chn_prefix }}
                                     </div>
                                 </span>
 
@@ -267,7 +262,7 @@
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-mut">
-                                        {{ founder.get_identity.identity_no != null ? founder.get_identity.identity_no +
+                                        {{  founder.get_identity.identity_no != 'undefined' ? founder.get_identity.identity_no +
                                             "-" + founder.get_identity.identity_no_suffix : founder.get_identity.passport_no
                                         }}
                                     </div>
@@ -481,7 +476,7 @@
 
                                             <li class="list-group-item" v-for="share in data.ownerShares">
                                                 <span class="float-end text-right">
-                                                    {{ share.amount }}
+                                                    {{ share.amount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") }}
                                                 </span>
                                                 <div class="small text-mut">{{ share.name }}</div>
                                             </li>
@@ -860,7 +855,7 @@ const data = reactive<SummaryInterface>({
 onMounted(async () => {
     await startCompanyStore.getCompanyInProgress()
     const companyInProgress = startCompanyStore.companyInProgress
-    console.log(companyInProgress, 'check activities');
+    // console.log(companyInProgress, 'check activities');
 
 
     if (companyInProgress) {
@@ -930,7 +925,7 @@ onMounted(async () => {
                 // if(founder.)
                 if (founder.owner_shares) {
                     data.ownerShares.push({
-                        name: founder.first_name + ' ' + founder.last_name || founder.chn_first_name + ' ' + founder.chn_last_name,
+                        name: (founder.first_name?founder.first_name:'') + ' ' + (founder.last_name?founder.last_name:'') +' '+ (founder.chn_last_name?founder.chn_last_name:'')  + (founder.chn_first_name?founder.chn_first_name:''),
                         amount: founder.owner_shares?.total_amount ?? 0
                     })
                 }

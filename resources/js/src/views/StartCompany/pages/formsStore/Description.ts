@@ -15,9 +15,13 @@ export const descriptionForm = defineStore('description', () => {
         business_nature_id: yup.string().required('Please select a nature of business'),
     };
 
-    const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({
+    const { errors, handleSubmit, defineField, setFieldValue, resetForm, validateField } = useForm({
         validationSchema: yup.object(rules),
     });
+
+    function validateVueSelectOnBlur(str: string) {
+        validateField(str)
+    }
 
     const [description, descriptiontAttr] = defineField('description');
     const [website, websiteAttr] = defineField('website');
@@ -75,6 +79,7 @@ export const descriptionForm = defineStore('description', () => {
 
         saveToLocalStorage,
         clearLocalStorage,
-        resetForm
+        resetForm,
+        validateVueSelectOnBlur
     }
 })

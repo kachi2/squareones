@@ -1,6 +1,6 @@
 <template>
 
-    <div class="main" style="max-height: 100vh; overflow-y: auto; max-width:100vw">
+    <div class="main" style="max-height: 90vh; overflow-y: auto; max-width:100vw">
         <section>
             <company :companyInfo="data" />
 
@@ -182,7 +182,7 @@ const shareholders = computed(() => {
     individualShareholder.forEach((shares: any) => {
         const obj = shares.individual;
         //  console.log(shares)
-        founder.founder_details.name = individualShareholder[0].individual.first_name + ' ' + individualShareholder[0].individual.last_name
+        founder.founder_details.name = individualShareholder[0].individual.first_name + ' ' + individualShareholder[0].individual.last_name + ' ' +  individualShareholder[0].individual.chn_last_name + individualShareholder[0].individual.chn_first_name
         founder.founder_details.signature = individualShareholder[0]?.signature
         founder.founder_details.date = individualShareholder[0]?.date_signed
         let cp = shares.entity_capacity_id;
@@ -192,7 +192,7 @@ const shareholders = computed(() => {
                 obj.capacity = shares.entity_capacity_id
             obj.company_shares = startCompanyStore.companyInProgress?.shares
             founders.push(obj)
-             console.log(founder, 'fonder count');
+            //  console.log(founder, 'fonder count');
         }
     })
     return founders;

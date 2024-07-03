@@ -25,7 +25,8 @@
                     <td>{{ (index + 1) }}</td>
                     <td class="text-capitalize " v-if="item.entity_type_id == 1">
                       <i class="bi bi-person-circle"></i>
-                      {{ item.first_name + " " + item.last_name }} <br>
+                      {{ item.first_name ? item.first_name: '' }} {{item.last_name?item.last_name:'' }} 
+                    {{ item.chn_last_name?item.chn_last_name :''}}  {{item.chn_last_name?item.chn_first_name:'' }} <br>  
                       <small> {{ item.capacity.includes('1') ? 'Shareholder' : '' }}</small>
                       {{ item.capacity.length > 1 ? " " : " " }}
                       <small> {{ item.capacity.includes('2') ? 'Director' : ' ' }}</small>
@@ -33,7 +34,8 @@
                     </td>
                     <td v-else class="text-capitalize">
                       <i class="bi bi-person-circle"></i>
-                      {{ item.company_name }} <br>
+                      {{ item.company_name }} 
+                      {{ item.chn_company_name }} <br>
                       <small> {{ item.capacity.includes('1') ? 'Shareholder' : ' ' }}</small>
                       <small> {{ item.capacity.includes('2') ? ' Director' : ' ' }} </small>
                     </td>

@@ -19,13 +19,13 @@ export const nameForm = defineStore('name', () => {
         return pattern.test(value)
     }
     const chineseChecks = (value: any) => {
-        var pattern = /^[\u4E00-\u9FFF\u3400-\u4DBF\s*\(\)\,]+$/;
+        var pattern = /[\u4e00-\u9fa5]/;
         return !pattern.test(value)
     }
 
 
     const rules = {
-        choice_level1_eng_name: yup.string().required('Field id required').test('chineseChecks', 'Please input only English characters', chineseChecks),
+        choice_level1_eng_name: yup.string().test('chineseChecks', 'Please input only English characters', chineseChecks),
         choice_level2_eng_name: yup.string().test('chineseChecks', 'Please input only English characters', chineseChecks),
         choice_level3_eng_name: yup.string().test('chineseChecks', 'Please input only English characters', chineseChecks),
         choice_level4_eng_name: yup.string().test('chineseChecks', 'Please input only English characters', chineseChecks),
@@ -41,7 +41,7 @@ export const nameForm = defineStore('name', () => {
 
     };
 
-    const { errors, handleSubmit, defineField, setFieldValue, resetForm, resetField } = useForm({
+    const { errors, handleSubmit, defineField, setFieldValue, resetForm, resetField, validateField } = useForm({
         validationSchema: yup.object(rules),
 
         initialValues: {
@@ -62,6 +62,10 @@ export const nameForm = defineStore('name', () => {
             choice_level5_chn_prefix: '有限公司',
         },
     });
+
+    function validateVueSelectOnBlur(str: string) {
+        validateField(str)
+    }
 
     const [choice_level1_eng_name, choice_level1_eng_nameAttr] = defineField('choice_level1_eng_name');
     const [choice_level1_chn_name] = defineField('choice_level1_chn_name');
@@ -340,5 +344,6 @@ export const nameForm = defineStore('name', () => {
         resetField,
         chineseCheck,
         clearLocalStorage,
+        validateVueSelectOnBlur
     }
 })

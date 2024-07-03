@@ -13,8 +13,13 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
         return chn_company_name.value ? pattern.test(value) : true
     }
 
+    const chineseChecks = (value: any) => {
+        var pattern = /[\u4e00-\u9fa5]/;
+        return !pattern.test(value)
+    }
+
     const rules: any = {
-        company_name: yup.string(),
+        company_name: yup.string().test('chineseChecks', 'Please input only English characters', chineseChecks),
         chn_company_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
         date_incorporated: yup.string().required('Date incorporated is required'),
         registeration_no: yup.string().required('Company registration number is required'),
@@ -38,7 +43,7 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
     };
 
 
-    const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({
+    const { errors, handleSubmit, defineField, setFieldValue, resetForm, validateField } = useForm({
         validationSchema: yup.object(rules),
         // initialValues: {
         //     date_incorporated: new Date('2006-5-4'),
@@ -49,6 +54,10 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
         //     chn_company_name: ''
         // },
     });
+
+    function validateVueSelectOnBlur(str: string) {
+        validateField(str)
+    }
 
     const [entity_type_id] = defineField('entity_type_id');
     const [company_name, company_nameAttr] = defineField('company_name');
@@ -218,6 +227,7 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
         updateFields,
         saveToLocalStorage,
         resetForm,
-        clearLocalStorage
+        clearLocalStorage,
+        validateVueSelectOnBlur
     }
 })

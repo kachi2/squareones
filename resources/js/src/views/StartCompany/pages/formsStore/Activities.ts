@@ -16,9 +16,13 @@ export const activitiesForm = defineStore('activities', () => {
         country: yup.array().required('Required field').required(),
     };
 
-    const { errors, handleSubmit, defineField, setFieldValue } = useForm({
+    const { errors, handleSubmit, defineField, setFieldValue, validateField } = useForm({
         validationSchema: yup.object(rules),
     });
+
+    function validateVueSelectOnBlur(str: string) {
+        validateField(str)
+    }
 
     const [description, descriptionAttr] = defineField('description');
     const [activity_level, activity_levelAttr] = defineField('activity_level');
@@ -50,7 +54,7 @@ export const activitiesForm = defineStore('activities', () => {
 
 
     function updateFields(companyInProgress: any) {
-        if (description_storage.value.length > 1)
+        if (description_storage.value)
             description.value = description_storage.value
         else if (companyInProgress?.activity?.description)
             description.value = companyInProgress.activity.description;
@@ -108,6 +112,7 @@ export const activitiesForm = defineStore('activities', () => {
         setFieldValue,
         updateFields,
         saveToLocalStorage,
-        clearLocalStorage
+        clearLocalStorage,
+        validateVueSelectOnBlur
     }
 })

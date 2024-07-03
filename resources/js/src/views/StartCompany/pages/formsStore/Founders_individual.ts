@@ -50,22 +50,25 @@ export const foundersIdividualForm = defineStore("foundersIdividual", () => {
   };
 
 
-  const { errors, handleSubmit, defineField, setFieldValue, resetForm } =
-    useForm({
-      validationSchema: yup.object(rules),
+  const { errors, handleSubmit, defineField, setFieldValue, resetForm, validateField } = useForm({
+    validationSchema: yup.object(rules),
 
-      // initialValues: {
-      //   date_incorporated: new Date(),
-      //   entity_type_id: "1",
-      //   country: "",
-      //   country2: "",
-      //   issuing_country: "",
-      //   // nationality: "",
-      //   identity_type_id: "",
-      //   is_founder: false,
-      //   // dob: futureDate,
-      // },
-    });
+    // initialValues: {
+    //   date_incorporated: new Date(),
+    //   entity_type_id: "1",
+    //   country: "",
+    //   country2: "",
+    //   issuing_country: "",
+    //   // nationality: "",
+    //   identity_type_id: "",
+    //   is_founder: false,
+    //   // dob: futureDate,
+    // },
+  });
+
+  function validateVueSelectOnBlur(str: string) {
+    validateField(str)
+  }
 
   const [entity_type_id] = defineField("entity_type_id");
 
@@ -314,5 +317,6 @@ export const foundersIdividualForm = defineStore("foundersIdividual", () => {
     clearLocalStorage,
     saveToLocalStorage,
     resetForm,
+    validateVueSelectOnBlur
   };
 });

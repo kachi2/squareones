@@ -23,7 +23,8 @@ class CompanyEntity extends Model
     'date_signed',
     'client_id',
     'kyc_status',
-    'user_token'
+    'user_token',
+    'is_founder'
      ];
 
     public function company():BelongsTo

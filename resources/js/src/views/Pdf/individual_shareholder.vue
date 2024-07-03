@@ -65,8 +65,8 @@
                     </p>
                 </td>
                 <td style="width:80%;border:1px solid #000">
-                    <p style="text-indent: 0pt;text-align: center;">{{ shareholder?.chn_first_name }}
-                        {{ shareholder?.chn_last_name }}<br /></p>
+                    <p style="text-indent: 0pt;text-align: center;">
+                        {{ shareholder?.chn_first_name }}{{ shareholder?.chn_last_name }}<br /></p>
                 </td>
             </tr>
         </table>

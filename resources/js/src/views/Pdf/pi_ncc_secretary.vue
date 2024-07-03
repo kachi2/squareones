@@ -12,12 +12,20 @@
         <table style="border-collapse:collapse;margin-left:55.964pt" cellspacing="0">
             <tr style="height:42pt">
                 <td
+
                     style="width:489pt; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p style=" padding-left:0px; text-indent: 0pt;text-align: center;">
-                        {{ startCompanyStore?.companyInProgress?.names[0].eng_name ? startCompanyStore?.companyInProgress?.names[0].eng_name
-                            + " " + startCompanyStore?.companyInProgress?.names[0].eng_prefix
-                            : startCompanyStore?.companyInProgress?.names[0].chn_name + " " +
-                            startCompanyStore?.companyInProgress?.names[0].chn_prefix }}
+                <span v-if="startCompanyStore?.companyInProgress?.names[0]?.eng_name">Choice Level One:  {{ startCompanyStore?.companyInProgress?.names[0]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[0]?.eng_prefix }}</span>   &nbsp;
+                <span v-if="startCompanyStore?.companyInProgress?.names[0].chn_name">  {{ startCompanyStore?.companyInProgress?.names[0]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[0]?.chn_prefix }}<br /> </span>
+                <span v-if="startCompanyStore?.companyInProgress?.names[1]?.eng_name">  Choice Level Two: {{ startCompanyStore?.companyInProgress?.names[1]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[1]?.eng_prefix }}</span>  &nbsp;
+                <span v-if="startCompanyStore?.companyInProgress?.names[1]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[1]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[1]?.chn_prefix }}<br /> </span>
+                <span v-if="startCompanyStore?.companyInProgress?.names[2]?.eng_name"> Choice Level Three: {{ startCompanyStore?.companyInProgress?.names[2]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[2]?.eng_prefix }} </span>  &nbsp;
+                <span v-if="startCompanyStore?.companyInProgress?.names[2]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[2]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[2]?.chn_prefix }}<br /> </span>
+                <span v-if="startCompanyStore?.companyInProgress?.names[3]?.eng_name"> Choice Level Four:{{ startCompanyStore?.companyInProgress?.names[3]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[3]?.eng_prefix }} </span>  &nbsp;
+                <span v-if="startCompanyStore?.companyInProgress?.names[3]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[3]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[3]?.chn_prefix }}<br /> </span>
+                <span v-if="startCompanyStore?.companyInProgress?.names[4]?.eng_name">Choice Level Five:{{ startCompanyStore?.companyInProgress?.names[4]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[4]?.eng_prefix }} </span>  &nbsp;
+                    <span v-if="startCompanyStore?.companyInProgress?.names[4]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[4]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[4]?.chn_prefix }}<br /> </span>
+                
                         <br />
                     </p>
                 </td>
@@ -140,8 +148,8 @@
                 </td>
                 <td
                     style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;">{{ director?.chn_first_name }} {{
-                            director?.chn_last_name }}<br /></p>
+                    <p style="text-indent: 0pt;text-align: left;"> {{
+                            director?.chn_last_name }}{{ director?.chn_first_name }}<br /></p>
                 </td>
                 <td
                     style="width:87pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">

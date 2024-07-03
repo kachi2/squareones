@@ -90,5 +90,33 @@ class CompanyEntityController extends Controller
             ], HttpStatusCode::INTERNAL_SERVER_ERROR);
 
     }
+
+    public function DeleteSignature(Request $request)
+    {
+
+        $valid = Validator::make($request->all(),[
+            'company_id' => 'required',
+            'company_entity_id' => 'required'
+        ]);
+        if($valid->fails()){
+            return response()->json([
+            'error' => $valid->errors()->first()
+            ], HttpStatusCode::BAD_REQUEST);
+        }
+
+        try
+        {
+        $data = $this->EntityInterface->deleteSignatures($request);
+        return response()->json([
+            'data' => $data
+            ], HttpStatusCode::OK);
+        }catch(\Exception $e)
+        {
+            return response()->json([
+                'error' => $e->getMessage()
+                ], HttpStatusCode::INTERNAL_SERVER_ERROR);
+        }
+
+    }
     
 }

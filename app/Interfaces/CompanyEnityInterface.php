@@ -12,4 +12,5 @@ interface CompanyEnityInterface {
  public function processResidentialAddress($request, $individual);
  public function RemoveEntity($entity_id);
 public function UpdateEntitySignature($request);
+public function deleteSignatures($request);
 }

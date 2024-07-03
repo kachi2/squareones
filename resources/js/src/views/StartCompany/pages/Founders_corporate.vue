@@ -42,17 +42,18 @@
             </div>
             <div class="col-md-12">
                 <label class="form-label">Country Registered <small class=" text-danger">*</small></label>
-                <v-select v-bind="form.country_registeredAttr"
-                    :class="{ 'error-field': form.errors.country_registered }" placeholder="select country.."
-                    v-model="form.country_registered" :clearable="false" :options="startCompanyStore.countries" />
+                <v-select @search:blur="form.validateVueSelectOnBlur('country_registered')"
+                    v-bind="form.country_registeredAttr" :class="{ 'error-field': form.errors.country_registered }"
+                    placeholder="select country.." v-model="form.country_registered" :clearable="false"
+                    :options="startCompanyStore.countries" />
                 <small class=" text-danger">{{ form.errors.country_registered }}</small>
             </div>
             <div class="col-12">
                 <label class="form-label fw-bold">Business nature <span class="text-danger"> * </span></label>
-                <v-select v-bind="form.business_nature_idAttr"
-                    :class="{ 'error-field': form.errors.business_nature_id }" v-model="form.business_nature_id"
-                    :clearable="true" placeholder="select business nature" :options="startCompanyStore.businessNatures"
-                    :reduce="(item: any) => item.id" label="name" />
+                <v-select @search:blur="form.validateVueSelectOnBlur('business_nature_id')"
+                    v-bind="form.business_nature_idAttr" :class="{ 'error-field': form.errors.business_nature_id }"
+                    v-model="form.business_nature_id" :clearable="true" placeholder="select business nature"
+                    :options="startCompanyStore.businessNatures" :reduce="(item: any) => item.id" label="name" />
                 <small class=" text-danger">{{ form.errors.business_nature_id }}</small>
             </div>
         </section>
@@ -95,9 +96,9 @@
             </div> -->
                 <div class="col-md-12">
                     <label class="form-label">Country／Region <small class=" text-danger">*</small></label>
-                    <v-select v-bind="form.countryAttr" :class="{ 'error-field': form.errors.country }"
-                        placeholder="select country.." v-model="form.country" :clearable="false"
-                        :options="startCompanyStore.countries" />
+                    <v-select @search:blur="form.validateVueSelectOnBlur('country')" v-bind="form.countryAttr"
+                        :class="{ 'error-field': form.errors.country }" placeholder="select country.."
+                        v-model="form.country" :clearable="false" :options="startCompanyStore.countries" />
                     <small class=" text-danger">{{ form.errors.country }}</small>
                 </div>
             </div>
@@ -109,13 +110,13 @@
                 <div class="row g-2">
                     <div class="col-md-6">
                         <input v-bind="form.first_nameAttr" :class="{ 'error-field': form.errors.first_name }" v-maska
-                            data-maska-tokens="A:[A-Za-z]:multiple" v-model="form.first_name" type="text"
+                        data-maska="A a" data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple" v-model="form.first_name" type="text"
                             class="form-control" placeholder="first name..">
                         <small class=" text-danger">{{ form.errors.first_name }}</small>
                     </div>
                     <div class="col-md-6">
                         <input v-bind="form.last_nameAttr" :class="{ 'error-field': form.errors.last_name }" v-maska
-                            data-maska-tokens="A:[A-Za-z]:multiple" v-model="form.last_name" type="text"
+                        data-maska="A a" data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple" v-model="form.last_name" type="text" 
                             class="form-control" placeholder="last name..">
                         <small class=" text-danger">{{ form.errors.last_name }}</small>
                     </div>
@@ -243,7 +244,7 @@ const phoneField = {
         showDialCode: true,
         placeholder: 'Enter phone',
         styleClasses: 'phone-input-profile',
-        maxlength: 12
+        maxlength: 21
     }
 }
 watchEffect(() => {
@@ -282,7 +283,7 @@ const saveAndContinue = form.handleSubmit((values: any) => {
         return;
     }
 
-    if (!form.first_name || !form.last_name || !form.phone || !form.email || !form.date_incorporated || !form.company_name
+    if (!form.first_name || !form.last_name || !form.phone || !form.email || !form.date_incorporated 
         || !form.business_nature_id || !form.country_registered
         || !form.registeration_no) {
         toast.error('Some fields still have errors', { position: 'top-right' })

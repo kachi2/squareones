@@ -45,6 +45,7 @@ Route::get('/company/progress/{id?}', [CompanyController::class, 'getActiveCompa
 Route::controller(CompanyEntityController::class)->group(function(){
     Route::get('id/types', 'getIdType');
     Route::post('/entities/remove/{entity_id}', 'removeEntity');
+    Route::post('delete/signature', 'DeleteSignature');
 });
 
 

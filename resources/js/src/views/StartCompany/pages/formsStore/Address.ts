@@ -15,11 +15,11 @@ export const addressForm = defineStore('address', () => {
         country: yup.string().required(''),
     };
 
-    const { errors, handleSubmit, defineField, setFieldValue } = useForm({
+    const { errors, handleSubmit, defineField, setFieldValue, validateField } = useForm({
         validationSchema: yup.object(rules),
         initialValues: {
             flat: 'Rooms 502-503, 5th Floor',
-            building:  'Wanchai Commercial Centre',
+            building: 'Wanchai Commercial Centre',
             street: '194-204 Johnston Road',
             postal_code: '',
             country: 'Hong Kong',
@@ -27,6 +27,10 @@ export const addressForm = defineStore('address', () => {
             city: 'Wanchai',
         },
     });
+
+    function validateVueSelectOnBlur(str: any) {
+        validateField(str)
+    }
 
     const [flat] = defineField('flat');
     const [building] = defineField('building')
@@ -48,6 +52,7 @@ export const addressForm = defineStore('address', () => {
         building,
         errors,
         handleSubmit,
-        setFieldValue
+        setFieldValue,
+        validateVueSelectOnBlur
     }
 })

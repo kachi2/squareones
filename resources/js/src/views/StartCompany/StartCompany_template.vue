@@ -156,7 +156,7 @@ const activeCompanyName = computed(() => {
         const coy = choiceNames.find((x: any) => x.choice_level == 1);
         if (coy) {
             coyName = coy?.eng_name ? coy.eng_name + ' ' + coy.eng_prefix : '';
-            coyCh_name = coy.chn_name ? coy.chn_name + ' ' + coy.chn_prefix : ''
+            coyCh_name = coy.chn_name ? coy.chn_name + '' + coy.chn_prefix : ''
 
         }
     }

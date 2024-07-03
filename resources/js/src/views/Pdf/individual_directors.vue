@@ -63,11 +63,11 @@
                     <p class="s9" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">Name in Chinese</p>
                 </td>
                 <td style="width:49pt;border-right-style:solid;border-right-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;padding-left:10px">{{ director?.chn_first_name }}<br /></p>
+                    <p style="text-indent: 0pt;text-align: left;padding-left:10px"><br /></p>
                 </td>
                 <td
                     style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;padding-left:10px">{{ director?.chn_last_name }}<br /></p>
+                    <p style="text-indent: 0pt;text-align: left;padding-left:10px">{{ director?.chn_first_name }}{{ director?.chn_last_name }}<br /></p>
                 </td>
                 <td
                     style="width:20pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
@@ -344,7 +344,7 @@
                     style="width:258pt;border:1px solid #000;  border:1px solid #000; border-right-style:solid;border-right-width:1pt">
                     <p class="s46"
                         style="padding-top: 8pt;padding-right: 10pt;text-indent: 0pt;text-align: left;padding-left:10px">
-                        {{ director.get_identity.identity_no  == 'undefined' ||  director.get_identity.identity_no  == null?'': director.get_identity.identity_no}} ( [{{ director?.get_identity?.identity_no_suffix == 'undefined' && director?.get_identity?.identity_no_suffix == null ?'':director?.get_identity?.identity_no_suffix   }}] )
+                        {{ director.get_identity.identity_no  == 'undefined' ||  director.get_identity.identity_no  == null?'': director.get_identity.identity_no}} ( {{ director?.get_identity?.identity_no_suffix == 'undefined' && director?.get_identity?.identity_no_suffix == null ?'':director?.get_identity?.identity_no_suffix   }} )
                     </p>
 
                 </td>

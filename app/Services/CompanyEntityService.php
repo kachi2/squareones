@@ -194,6 +194,7 @@ class CompanyEntityService implements CompanyEnityInterface
             'client_id'=> $request->client_id??$entity->client_id,
             'kyc_status'=> $request->kyc_status??$entity->kyc_status,
             'user_token'=> $request->user_token??$entity->user_token,
+            'is_founder' => $request->is_founder??0,
         ]);
     }
     $entity['success'] = true;
@@ -202,5 +203,18 @@ class CompanyEntityService implements CompanyEnityInterface
     return $e->getMessage();
 }
 
+  }
+
+  public function deleteSignatures($request)
+  {
+    $entity = CompanyEntity::where(['company_id' => $request->company_id, 'id' =>$request->company_entity_id])->first();
+    if($entity){
+        $entity->update([
+            'signature' => null,
+            'date_signed'=> null,
+        ]);
+        return $entity;
+    }
+    return false;
   }
 }

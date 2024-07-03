@@ -30,7 +30,9 @@
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
-                        <v-select v-bind="form.business_nature_idAttr"
+
+                        <v-select @search:blur="form.validateVueSelectOnBlur('business_nature_id')"
+                            v-bind="form.business_nature_idAttr"
                             :class="{ 'error-field': form.errors.business_nature_id }" v-model="form.business_nature_id"
                             :clearable="true" :options="startCompanyStore.businessNatures"
                             :reduce="(item: any) => item.id" label="name" />
@@ -82,7 +84,7 @@ import { computed, onMounted, watch } from 'vue';
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
 
-const form = descriptionForm()
+const form = descriptionForm()     
 
 onMounted(() => {
     form.resetForm()
@@ -94,10 +96,6 @@ watch(() => form, () => { form.saveToLocalStorage() }, { deep: true })
 function moveBack() {
     startCompanyStore.switchStage('-')
 }
-
-
-
-
 
 const saveAndContinue = form.handleSubmit(async (values) => {
     if (!startCompanyStore.companyInProgress?.id) {
