@@ -182,7 +182,7 @@ const shareholders = computed(() => {
     individualShareholder.forEach((shares: any) => {
         const obj = shares.individual;
         //  console.log(shares)
-        founder.founder_details.name = individualShareholder[0].individual.first_name + ' ' + individualShareholder[0].individual.last_name + ' ' +  individualShareholder[0].individual.chn_last_name + individualShareholder[0].individual.chn_first_name
+        founder.founder_details.name = individualShareholder[0].individual.first_name + ' ' + individualShareholder[0].individual.last_name+  individualShareholder[0].individual.chn_last_name
         founder.founder_details.signature = individualShareholder[0]?.signature
         founder.founder_details.date = individualShareholder[0]?.date_signed
         let cp = shares.entity_capacity_id;

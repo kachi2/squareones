@@ -260,7 +260,8 @@
                     style="width:258pt;border:1px solid #000;  border:1px solid #000; border-right-style:solid;border-right-width:1pt">
                     <p class="s46"
                         style="padding-left:20px; padding-top: 8pt;padding-right: 10pt;text-indent: 0pt;text-align: left;">
-                        {{ director?.get_identity.identity_no }}
+                        <!-- {{ director?.get_identity.identity_no }} -->
+                        {{ director.get_identity.identity_no  == 'undefined' ||  director.get_identity.identity_no  == null?'': director.get_identity.identity_no}} ( {{ director?.get_identity?.identity_no_suffix == 'undefined' && director?.get_identity?.identity_no_suffix == null ?'':director?.get_identity?.identity_no_suffix   }} )
                     </p>
                 </td>
             </tr>
@@ -284,7 +285,8 @@
                         style="padding-top: 8pt; padding-left:20px; padding-right: 10pt;text-indent: 0pt;text-align: left;">
                         <span style="text-align: right; color:rgb(3, 27, 27); "> 
                             <!-- {{ director?.get_identity.passport_no }} -  -->
-                            {{ director?.get_identity.issueing_country }} </span>
+                            {{ director?.get_identity?.issueing_country == 'undefined'?'':director?.get_identity?.issueing_country   }}
+                         </span>
                     </p>
                 </td>
             </tr>
@@ -305,7 +307,7 @@
                     style="width:258pt;border:1px solid #000;  border:1px solid #000; border-right-style:solid;border-right-width:1pt">
                     <p class="s46"
                         style="padding-top: 8pt; padding-left:20px; padding-right: 10pt;text-indent: 0pt;text-align: left;">
-                        {{ director?.get_identity.identity_no }} - {{ director?.get_identity.identity_no_suffix }}
+                        {{ director?.get_identity?.passport_no == 'undefined' || director?.get_identity?.passport_no == null? ' ':director?.get_identity?.passport_no }}
                     </p>
                 </td>
 

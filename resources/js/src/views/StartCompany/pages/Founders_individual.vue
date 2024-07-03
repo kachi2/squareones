@@ -296,7 +296,7 @@ const phoneField = {
         showDialCode: true,
         placeholder: 'Enter phone',
         styleClasses: 'phone-input-profile',
-        maxlength: 15,
+        maxlength: 22,
     }
 
 }
