@@ -26,7 +26,7 @@ function goToStage(stage: number) {
 }
 
 function isformCompleted(dataSource: any, menuStage: any) {
-
+    const company = startCompanyStore.companyInProgress;
     if (menuStage != 5 && menuStage != 6 ) {
         if (dataSource instanceof Array) {
             return dataSource?.length
@@ -36,7 +36,10 @@ function isformCompleted(dataSource: any, menuStage: any) {
         return false
     }else if(menuStage == 6){
         // console.log(CheckNulleShares.value, '!CheckNulleShares')
-        return !CheckNulleShares.value
+        if(company.company_entity.length){
+            return !CheckNulleShares.value
+        }
+  
     }
     else{
         const entity = startCompanyStore.companyInProgress?.company_entity ?? [];

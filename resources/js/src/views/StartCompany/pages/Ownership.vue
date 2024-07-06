@@ -176,6 +176,8 @@ const startCompanyStore = useStartCompanyStore()
 
 const form = ownershipForm()
 
+watch(() => form, () => { form.updateLocalStorage() }, { deep: true })
+
 const errors: any = reactive({
     total: ''
 })
@@ -218,10 +220,10 @@ onMounted(() => {
 })
 
 function autoFillForm() {
-    form.no_of_share = startCompanyStore.companyInProgress?.shares[0]?.no_of_share ?? ''
-    form.currency = startCompanyStore.companyInProgress?.shares[0]?.currency ?? ''
-    const totalAmount = startCompanyStore.companyInProgress?.shares[0]?.total_amount_paid ?? ''
-    form.total_amount_paid = totalAmount ? (parseFloat(totalAmount)).toFixed(0) : ''
+    const shares = startCompanyStore.companyInProgress?.shares[0] ?? null
+    form.no_of_share = form.localStorage.no_of_share ? form.localStorage.no_of_share : shares?.no_of_share ?? ''
+    form.currency = form.localStorage.currency ? form.localStorage.currency : shares?.currency ?? ''
+    form.total_amount_paid = form.localStorage.total_amount_paid ? form.localStorage.total_amount_paid : shares?.total_amount_paid ?? ''
 }
 
 
@@ -235,8 +237,8 @@ async function retrieveShareHolders() {
                 const obj = el.individual || el.corporate;
                 if (obj) {
                     obj.entity_name = el.entity_type_id == 1 ?
-                        `${obj.first_name??''} ${obj.last_name??''} ${obj.chn_last_name??''}${obj.chn_first_name??''}` 
-                        : `${obj.company_name??''}${obj.chn_company_name }`
+                        `${obj.first_name ?? ''} ${obj.last_name ?? ''} ${obj.chn_last_name ?? ''}${obj.chn_first_name ?? ''}`
+                        : `${obj.company_name ?? ''}${obj.chn_company_name??''}`
                     obj.own_share = el.share?.total_amount ?? 0;
                     arrayOfFounders.push(obj);
                 }

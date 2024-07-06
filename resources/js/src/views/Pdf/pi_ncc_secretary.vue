@@ -15,17 +15,26 @@
 
                     style="width:489pt; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p style=" padding-left:0px; text-indent: 0pt;text-align: center;">
-                <span v-if="startCompanyStore?.companyInProgress?.names[0]?.eng_name">Choice Level One:  {{ startCompanyStore?.companyInProgress?.names[0]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[0]?.eng_prefix }}</span>  <br /> &nbsp;
-                <span v-if="startCompanyStore?.companyInProgress?.names[0].chn_name">  {{ startCompanyStore?.companyInProgress?.names[0]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[0]?.chn_prefix }} </span><br />
-                <span v-if="startCompanyStore?.companyInProgress?.names[1]?.eng_name">  Choice Level Two: {{ startCompanyStore?.companyInProgress?.names[1]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[1]?.eng_prefix }}</span> <br /> &nbsp;
-                <span v-if="startCompanyStore?.companyInProgress?.names[1]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[1]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[1]?.chn_prefix }} </span><br />
-                <span v-if="startCompanyStore?.companyInProgress?.names[2]?.eng_name"> Choice Level Three: {{ startCompanyStore?.companyInProgress?.names[2]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[2]?.eng_prefix }} </span><br />  &nbsp;
-                <span v-if="startCompanyStore?.companyInProgress?.names[2]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[2]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[2]?.chn_prefix }} </span><br />
-                <span v-if="startCompanyStore?.companyInProgress?.names[3]?.eng_name"> Choice Level Four:{{ startCompanyStore?.companyInProgress?.names[3]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[3]?.eng_prefix }} </span> <br /> &nbsp;
-                <span v-if="startCompanyStore?.companyInProgress?.names[3]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[3]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[3]?.chn_prefix }}</span><br />
-                <span v-if="startCompanyStore?.companyInProgress?.names[4]?.eng_name">Choice Level Five:{{ startCompanyStore?.companyInProgress?.names[4]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[4]?.eng_prefix }} </span> <br /> &nbsp;
+                <span v-if="startCompanyStore?.companyInProgress?.names[0]">Choice Level One:
+                <span v-if="startCompanyStore?.companyInProgress?.names[0]?.eng_name">  {{ startCompanyStore?.companyInProgress?.names[0]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[0]?.eng_prefix }}</span>   &nbsp;
+                <span v-if="startCompanyStore?.companyInProgress?.names[0].chn_name">  {{ startCompanyStore?.companyInProgress?.names[0]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[0]?.chn_prefix }} <br /></span>
+            </span>
+            <span v-if="startCompanyStore?.companyInProgress?.names[1]">Choice Level Two: 
+                <span v-if="startCompanyStore?.companyInProgress?.names[1]?.eng_name">  {{ startCompanyStore?.companyInProgress?.names[1]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[1]?.eng_prefix }}</span>  &nbsp;
+                <span v-if="startCompanyStore?.companyInProgress?.names[1]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[1]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[1]?.chn_prefix }} <br /></span>
+            </span>
+            <span v-if="startCompanyStore?.companyInProgress?.names[2]">Choice Level Three: 
+                <span v-if="startCompanyStore?.companyInProgress?.names[2]?.eng_name">  {{ startCompanyStore?.companyInProgress?.names[2]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[2]?.eng_prefix }} <br /> </span> &nbsp;
+                <span v-if="startCompanyStore?.companyInProgress?.names[2]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[2]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[2]?.chn_prefix }} <br /> </span>
+                </span>
+                <span v-if="startCompanyStore?.companyInProgress?.names[3]"> Choice Level Four:
+                <span v-if="startCompanyStore?.companyInProgress?.names[3]?.eng_name"> {{ startCompanyStore?.companyInProgress?.names[3]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[3]?.eng_prefix }} <br /> </span>  &nbsp;
+                <span v-if="startCompanyStore?.companyInProgress?.names[3]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[3]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[3]?.chn_prefix }} <br /></span>
+                </span>
+                <span v-if="startCompanyStore?.companyInProgress?.names[4]">Choice Level Five:
+                <span v-if="startCompanyStore?.companyInProgress?.names[4]?.eng_name">{{ startCompanyStore?.companyInProgress?.names[4]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[4]?.eng_prefix }}</span>  &nbsp;
                     <span v-if="startCompanyStore?.companyInProgress?.names[4]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[4]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[4]?.chn_prefix }} </span>
-                
+                </span>
                         <br />
                     </p>
                 </td>

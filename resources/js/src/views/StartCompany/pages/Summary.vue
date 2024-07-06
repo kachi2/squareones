@@ -151,7 +151,7 @@
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-mut text-capitalize">
-                                        {{ founder.first_name }} {{ founder.last_name }}
+                                        {{ founder.first_name }} {{ founder.last_name }}        {{ founder.chn_last_name??'' }}{{ founder.chn_first_name??'' }}
                                     </div>
                                 </span>
 
@@ -280,12 +280,12 @@
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-mut">
-                                        {{  founder.get_identity.passport_no?? founder.get_identity.identity_no +"-" + founder.get_identity.identity_no_suffix  
+                                        {{  founder.get_identity.passport_no != null? founder.get_identity.passport_no: founder.get_identity.identity_no +"-" + founder.get_identity.identity_no_suffix 
                                         }}
                                     </div>
                                 </span>
                             </li>
-                            <li class="list-group-item" v-if="founder.get_identity.identity_no != null">
+                            <li class="list-group-item" v-if="founder.get_identity.identity_no == null">
                                 <span>
                                     Issueing country
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
@@ -330,7 +330,7 @@
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-mut text-capitalize">
-                                        {{ founder.company_name }}
+                                        {{ founder.company_name }}     {{ founder.chn_company_name }}
                                     </div>
                                 </span>
 
@@ -952,7 +952,7 @@ onMounted(async () => {
                 const founder = el.individual
                 founder.Shareholder = el.entity_capacity_id.includes(1)?'Shareholder': '';
                 founder.Director = el.entity_capacity_id.includes(2)?'Director': '';
-                console.log(founder, 'get shareholder')
+                // console.log(founder, 'get shareholder')
                 // founder.is_founder = el.is_founder == 0 ? 'No' : 'Yes'
 
                 data.founders_individual.push(founder)
@@ -975,7 +975,7 @@ onMounted(async () => {
 
                 if (founder.owner_shares) {
                     data.ownerShares.push({
-                        name: founder.company_name || founder.chn_company_name,
+                        name: founder.company_name??'' +' ' + founder.chn_company_name??'',
                         amount: founder.owner_shares?.total_amount ?? 0
                     })
                 }

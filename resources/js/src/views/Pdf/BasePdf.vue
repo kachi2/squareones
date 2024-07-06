@@ -182,27 +182,29 @@ async function sendPDFToApi() {
 const shareholders = computed(() => {
     const individualShareholder = startCompanyStore.companyInProgress?.company_entity ?? [];
     const founders: any[] = [];
+    let counts = 0
+    console.log(individualShareholder, 'individualShareholder')
     individualShareholder.forEach((shares: any) => {
         const obj = shares.individual;
-        //  console.log(shares)
         const fxs = individualShareholder.filter((t:any) =>  t.is_founder == 1 )
         if(fxs.length > 0){
         const fx = fxs[0];
-        founder.founder_details.name = (fx.individual?.first_name) + ' ' + (fx.individual?.last_name) +' '+ (fx.individual?.chn_last_name)+(fx.individual?.chn_first_name) 
+        founder.founder_details.name = (fx.individual?.first_name??'') + ' ' + (fx.individual?.last_name??'') +' '+ (fx.individual?.chn_last_name??'')+(fx.individual?.chn_first_name??'') 
         founder.founder_details.signature = fx.signature
         founder.founder_details.date = fx.date_signed
           }
 
         let cp = shares.entity_capacity_id;
         if (obj && cp.includes(2)) {
-            founder.founders_count++
+            counts++
             obj.entity_type_id = shares.entity_type_id,
                 obj.capacity = shares.entity_capacity_id
             obj.company_shares = startCompanyStore.companyInProgress?.shares
             founders.push(obj)
-            //  console.log(founder, 'fonder count');
+              console.log(counts, 'counts count');
         }
     })
+    founder.founders_count = counts
     return founders;
 })
 

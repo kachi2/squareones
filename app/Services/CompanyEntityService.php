@@ -64,10 +64,10 @@ class CompanyEntityService implements CompanyEnityInterface
         ],[
             'individual_id' =>  $individualData->id,
             'identity_type' =>  $IndividualDto->identity_type_id, 
-            'passport_no' =>$IndividualDto->passport_no == 'undefined'? '' :$IndividualDto->passport_no , 
-            'issueing_country' => $IndividualDto->issuing_country == 'undefined'? '' : $IndividualDto->issuing_country, 
-            'identity_no' => $IndividualDto->identity_no== 'undefined'?'':$IndividualDto->identity_no,
-            'identity_no_suffix' => $IndividualDto->identity_no_suffix== 'undefined'?'':$IndividualDto->identity_no_suffix,
+            'passport_no' =>$IndividualDto->passport_no == 'undefined'? null :$IndividualDto->passport_no , 
+            'issueing_country' => $IndividualDto->issuing_country == 'undefined'? null : $IndividualDto->issuing_country, 
+            'identity_no' => $IndividualDto->identity_no== 'undefined'?null:$IndividualDto->identity_no,
+            'identity_no_suffix' => $IndividualDto->identity_no_suffix== 'undefined'?null:$IndividualDto->identity_no_suffix,
         ]);
 
       $res =  $this->processResidentialAddress($IndividualDto, $individualData);
