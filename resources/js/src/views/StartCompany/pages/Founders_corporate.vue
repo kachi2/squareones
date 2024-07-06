@@ -355,6 +355,7 @@ async function saveFromToApi(formData: FormData) {
         startCompanyStore.isShowingFoundersForm = false
         form.clearLocalStorage()
         form.clearLocalStorage()
+        startCompanyStore.checkedEntityCapacity = []
         // resetForm()
 
     } catch (error) {

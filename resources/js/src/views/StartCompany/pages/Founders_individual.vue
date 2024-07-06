@@ -487,6 +487,7 @@ async function saveFromToApi(formData: FormData) {
                 startCompanyStore.getCompanyInProgress('founder')
                 startCompanyStore.isShowingFoundersForm = false
                 form.clearLocalStorage()
+                startCompanyStore.checkedEntityCapacity = []
 
             })
     } catch (error) {
