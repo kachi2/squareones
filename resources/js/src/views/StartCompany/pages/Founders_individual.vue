@@ -46,9 +46,10 @@
         <section class="row g-2 section">
             <div class="col-md-6">
                 <label class="form-label fw-bold">Date of Birth <small class="text-danger">*</small></label>
-                <VueDatePicker :start-date="useFxn.yearsAgo(18)" v-bind="form.dobAttr" :format="useFxn.dateDisplay"
-                    input-class-name="dob-settings-input" hide-input-icon :clearable="false" :enable-time-picker="false"
-                    auto-apply v-model="form.dob" placeholder="select date of birth">
+                <VueDatePicker :start-date="useFxn.yearsAgo(18)" :max-date="new Date()" v-bind="form.dobAttr"
+                    :format="useFxn.dateDisplay" input-class-name="dob-settings-input" :class="{ 'error-field': form.errors.dob??ageError }"   hide-input-icon
+                    :clearable="false" :enable-time-picker="false" auto-apply v-model="form.dob"
+                    placeholder="select date of birth">
                 </VueDatePicker>
                 <small class=" text-danger">{{ form.errors.dob }}</small>
                 <small class=" text-danger">{{ ageError }}</small>
@@ -60,7 +61,7 @@
                 <option selected value="Hong Kong"> Hong Kong</option>
             </select> -->
                 <v-select @search:blur="form.validateVueSelectOnBlur('nationality')" v-bind="form.nationalityAttr"
-                    placeholder="select country.." v-model="form.nationality" :clearable="false"
+                    placeholder="select country.." :class="{ 'error-field': form.errors.nationality }"  v-model="form.nationality" :clearable="false"
                     :options="startCompanyStore.countries" />
                 <small class=" text-danger">{{ form.errors.nationality }}</small>
             </div>
@@ -180,7 +181,7 @@
             </div>
             <div v-if="form.identity_type_id == '2'" class="col-md-9">
                 <label class=" fw-bolder">HKID No. <small class="text-danger">*</small></label>
-                <input :class="{ 'error-field': form.errors.identity_no }" v-maska data-maska="##########"
+                <input :class="{ 'error-field': form.errors.identity_no }" v-maska data-maska="#################"
                     data-maska-tokens="#:[0-9a-zA-Z]" v-model="form.identity_no" ype="text" class="form-control"
                     placeholder="HKID No.">
                 <small class=" text-danger">{{ form.errors.identity_no }}</small>
@@ -210,9 +211,10 @@
             </div>
             <div class="col-md-12">
                 <label class=" fw-bolder">Phone number <small class="text-danger">*</small></label>
-                <vue-tel-input v-bind="form.phoneAttr" :class="{ 'error-field': form.errors.phone }"
-                    :inputOptions="phoneField.input" :dropdownOptions="phoneField.dropDown" :autoFormat="true"
-                    v-model="form.phone" data-maska-tokens="0:[0-9]:multiple">
+                <vue-tel-input mode="international" v-bind="form.phoneAttr"
+                    :class="{ 'error-field': form.errors.phone }" :inputOptions="phoneField.input"
+                    :dropdownOptions="phoneField.dropDown" :autoFormat="true" v-model="form.phone"
+                    data-maska-tokens="0:[0-9]:multiple">
                 </vue-tel-input>
                 <small class=" text-danger">{{ form.errors.phone }}</small>
             </div>
@@ -286,7 +288,7 @@ watch(() => form, () => { form.saveToLocalStorage() }, { deep: true })
 
 const phoneField = {
     dropDown: {
-        showDialCodeInSelection: false,
+        showDialCodeInSelection: true,
         showFlags: true,
         showSearchBox: true,
         showDialCodeInList: true,

@@ -2,7 +2,7 @@
 import { useStartCompanyStore } from './StartCompany_store';
 import { useToast } from 'vue-toast-notification';
 import { useRouter } from 'vue-router';
-import { computed } from 'vue'
+import { computed, onMounted, ref} from 'vue'
 import { useTemplateStore } from '@/stores/templateStore';
 const templateStore = useTemplateStore()
 
@@ -13,12 +13,11 @@ const startCompanyStore = useStartCompanyStore()
 
 function goToStage(stage: number) {
     const company = startCompanyStore.companyInProgress;
+    console.log(company, 'companies data')
 
-    if (stage == 11 || stage == 12) {
-        toast.info('You cannot access this page <br> here from here,complete all forms', { position: 'top-right' });
-    } else if ((stage === 10 || stage == 11 || stage == 12) && (!company || !company?.description || !company?.address
-        || !company.company_entity.length || !company.owner_share.length
-        || !company.fund_source.length || !company.activity)) {
+    if ((stage == 10 || stage == 11 || stage == 12) && (!company || !company?.description
+        || !company.company_entity.length || CheckNulleShares.value
+        || !company.fund_source || !company.activity)) {
         toast.info('You cannot access this page <br> here from here,complete all forms', { position: 'top-right' });
     } else {
         router.push({ name: 'Start' })
@@ -28,17 +27,22 @@ function goToStage(stage: number) {
 
 function isformCompleted(dataSource: any, menuStage: any) {
 
-    if (menuStage != 5) {
+    if (menuStage != 5 && menuStage != 6 ) {
         if (dataSource instanceof Array) {
             return dataSource?.length
         } else if (dataSource != null) {
             return true
         }
         return false
-    } else {
+    }else if(menuStage == 6){
+        // console.log(CheckNulleShares.value, '!CheckNulleShares')
+        return !CheckNulleShares.value
+    }
+    else{
         const entity = startCompanyStore.companyInProgress?.company_entity ?? [];
         const individual = entity.find((x: any) => x.entity_capacity_id.includes(2) && x.entity_type_id == 1)
         const Corporate = entity.find((x: any) => x.entity_capacity_id.includes(1))
+
         if (!Corporate || !individual) {
             return false
         }
@@ -46,6 +50,30 @@ function isformCompleted(dataSource: any, menuStage: any) {
     }
 
 }
+
+// const CheckNulleShares = ref(false)
+// const checkShareHolder = comput
+
+// onMounted(()=> {
+    // ShareHolders()
+// })
+const CheckNulleShares:any = computed(() => {
+    const NoShareHolders:any = []
+    let checkFX:boolean = false
+        const entity = startCompanyStore.companyInProgress?.company_entity ?? []
+        if (entity.length) {
+            entity.forEach((el: any) => {
+                const obj = el.individual || el.corporate;
+                  if(el.entity_capacity_id.includes(1)){
+                   NoShareHolders.push(obj)
+                   }
+            })
+            // console.log(NoShareHolders,'NoShareHolders')
+            const nullShares = NoShareHolders.find((t:any) => t.owner_shares == null)
+            checkFX  = nullShares?true:false
+        } 
+        return checkFX 
+});
 
 
 </script>

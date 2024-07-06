@@ -25,8 +25,9 @@
                     <td>{{ (index + 1) }}</td>
                     <td class="text-capitalize " v-if="item.entity_type_id == 1">
                       <i class="bi bi-person-circle"></i>
-                      {{ item.first_name ? item.first_name: '' }} {{item.last_name?item.last_name:'' }} 
-                    {{ item.chn_last_name?item.chn_last_name :''}}  {{item.chn_last_name?item.chn_first_name:'' }} <br>  
+                      {{ item.first_name ? item.first_name : '' }} {{ item.last_name ? item.last_name : '' }}
+                      {{ item.chn_last_name ? item.chn_last_name : '' }}{{ item.chn_last_name ? item.chn_first_name : ''
+                      }} <br>
                       <small> {{ item.capacity.includes('1') ? 'Shareholder' : '' }}</small>
                       {{ item.capacity.length > 1 ? " " : " " }}
                       <small> {{ item.capacity.includes('2') ? 'Director' : ' ' }}</small>
@@ -34,7 +35,7 @@
                     </td>
                     <td v-else class="text-capitalize">
                       <i class="bi bi-person-circle"></i>
-                      {{ item.company_name }} 
+                      {{ item.company_name }}
                       {{ item.chn_company_name }} <br>
                       <small> {{ item.capacity.includes('1') ? 'Shareholder' : ' ' }}</small>
                       <small> {{ item.capacity.includes('2') ? ' Director' : ' ' }} </small>
@@ -117,7 +118,7 @@
         <div class="p-2" v-else>
           <button @click="moveBacks" class="btn btn-outline-info me-3">
             <i class="bi bi-arrow-left"></i> Close
-        </button>
+          </button>
         </div>
       </div>
 
@@ -279,6 +280,7 @@ function openForm() {
   individual_form.resetForm()
   startCompanyStore.isShowingFoundersForm = true
   startCompanyStore.idToEdit = ''
+  founderType.value = null
   // individual_form.clearLocalStorage()
   // individual_form.clearLocalStorage()
 }
@@ -293,36 +295,37 @@ function editFounder(entity: any) {
   individual_form.clearLocalStorage()
   founderRadio.value = true;
 
-
   populateForms(entity)
 }
 
 
 function populateForms(entity: any) {
   if (entity.entity_type_id == '1') {
-    individual_form.flat = entity.res_address.flat
-    individual_form.building = entity.res_address.building
-    individual_form.street = entity.res_address.street
-    individual_form.state = entity.res_address.state
-    // individual_form.postal_code = entity.postal_code
-    individual_form.country = entity.res_address.country
+    const res_address = entity.res_address;
+    individual_form.flat = res_address.flat
+    individual_form.building = res_address.building
+    individual_form.street = res_address.street
+    individual_form.state = res_address.state
+    // individual_form.postal_code = postal_code
+    individual_form.country = res_address.country
 
-    // individual_form.flat2 = entity.flat2
-    // individual_form.building2 = entity.building2
-    // individual_form.street2 = entity.street2
-    // individual_form.state2 = entity.state2
-    // individual_form.postal_code2 = entity.postal_code2
-    // individual_form.country2 = entity.country2
+    const cor_address = entity.cor_address;
+    if (cor_address?.flat) individual_form.flat2 = cor_address.flat
+    if (cor_address?.building) individual_form.building2 = cor_address.building
+    if (cor_address?.street) individual_form.street2 = cor_address.street
+    if (cor_address?.state) individual_form.state2 = cor_address.state
+    if (cor_address?.country) individual_form.country2 = cor_address.country
 
-    individual_form.first_name = entity.first_name
-    individual_form.last_name = entity.last_name
+    if (entity.first_name) individual_form.first_name = entity.first_name
+    if (entity.last_name) individual_form.last_name = entity.last_name
+
     if (entity.chn_first_name && entity.chn_first_name != 'undefined') {
       individual_form.hasChineseName = true
       individual_form.chn_first_name = entity.chn_first_name
     }
-
     if (entity.chn_last_name && entity.chn_last_name != 'undefined')
       individual_form.chn_last_name = entity.chn_last_name
+
     individual_form.dob = new Date(entity.dob)
     individual_form.nationality = entity.nationality
     individual_form.phone = entity.phone

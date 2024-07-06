@@ -13,15 +13,15 @@
     <h3 style="padding-left: 16pt;text-indent: 0pt;line-height: 16pt;text-align: center;">OF</h3>
     <p style="text-indent: 0pt;text-align: left;"><br /></p>
     <p class="s73" style="padding-left: 16pt;text-indent: 0pt;text-align: center;">
-        <span v-if="startCompanyStore?.companyInProgress?.names[0]?.eng_name"> {{ startCompanyStore?.companyInProgress?.names[0]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[0]?.eng_prefix }}</span>   &nbsp;
+        <span v-if="startCompanyStore?.companyInProgress?.names[0]?.eng_name"> {{ startCompanyStore?.companyInProgress?.names[0]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[0]?.eng_prefix }} <br /> </span>   &nbsp;
                 <span v-if="startCompanyStore?.companyInProgress?.names[0].chn_name">  {{ startCompanyStore?.companyInProgress?.names[0]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[0]?.chn_prefix }}<br /> </span>
-                <span v-if="startCompanyStore?.companyInProgress?.names[1]?.eng_name">  {{ startCompanyStore?.companyInProgress?.names[1]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[1]?.eng_prefix }}</span>  &nbsp;
+                <span v-if="startCompanyStore?.companyInProgress?.names[1]?.eng_name">  {{ startCompanyStore?.companyInProgress?.names[1]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[1]?.eng_prefix }}<br /> </span>  &nbsp;
                 <span v-if="startCompanyStore?.companyInProgress?.names[1]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[1]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[1]?.chn_prefix }}<br /> </span>
-                <span v-if="startCompanyStore?.companyInProgress?.names[2]?.eng_name">  {{ startCompanyStore?.companyInProgress?.names[2]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[2]?.eng_prefix }} </span>  &nbsp;
+                <span v-if="startCompanyStore?.companyInProgress?.names[2]?.eng_name">  {{ startCompanyStore?.companyInProgress?.names[2]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[2]?.eng_prefix }}<br />  </span>  &nbsp;
                 <span v-if="startCompanyStore?.companyInProgress?.names[2]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[2]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[2]?.chn_prefix }}<br /> </span>
-                <span v-if="startCompanyStore?.companyInProgress?.names[3]?.eng_name">{{ startCompanyStore?.companyInProgress?.names[3]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[3]?.eng_prefix }} </span>  &nbsp;
+                <span v-if="startCompanyStore?.companyInProgress?.names[3]?.eng_name">{{ startCompanyStore?.companyInProgress?.names[3]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[3]?.eng_prefix }} <br /> </span>  &nbsp;
                 <span v-if="startCompanyStore?.companyInProgress?.names[3]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[3]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[3]?.chn_prefix }}<br /> </span>
-                <span v-if="startCompanyStore?.companyInProgress?.names[4]?.eng_name">{{ startCompanyStore?.companyInProgress?.names[4]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[4]?.eng_prefix }} </span>  &nbsp;
+                <span v-if="startCompanyStore?.companyInProgress?.names[4]?.eng_name">{{ startCompanyStore?.companyInProgress?.names[4]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[4]?.eng_prefix }} <br /> </span>  &nbsp;
                     <span v-if="startCompanyStore?.companyInProgress?.names[4]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[4]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[4]?.chn_prefix }}<br /> </span>
                 
     </p>
@@ -33,15 +33,15 @@
             <p class="s" style="padding-top: 5pt;padding-left: 30pt;text-indent: -12pt;text-align: left;font-size:16px; font-weight:bold">1. Company Name
                 <span class="p">The name of the company is</span></p>
             <p class="s" style="padding-top: 9pt;padding-left: 16pt;text-indent: 0pt;text-align: center; font-size:16px; font-weight:bold">
-                <span v-if="startCompanyStore?.companyInProgress?.names[0]?.eng_name"> {{ startCompanyStore?.companyInProgress?.names[0]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[0]?.eng_prefix }}</span>   &nbsp;
+                <span v-if="startCompanyStore?.companyInProgress?.names[0]?.eng_name"> {{ startCompanyStore?.companyInProgress?.names[0]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[0]?.eng_prefix }}<br /> </span>   &nbsp;
                 <span v-if="startCompanyStore?.companyInProgress?.names[0].chn_name">  {{ startCompanyStore?.companyInProgress?.names[0]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[0]?.chn_prefix }}<br /> </span>
-                <span v-if="startCompanyStore?.companyInProgress?.names[1]?.eng_name">  {{ startCompanyStore?.companyInProgress?.names[1]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[1]?.eng_prefix }}</span>  &nbsp;
+                <span v-if="startCompanyStore?.companyInProgress?.names[1]?.eng_name">  {{ startCompanyStore?.companyInProgress?.names[1]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[1]?.eng_prefix }}<br /> </span>  &nbsp;
                 <span v-if="startCompanyStore?.companyInProgress?.names[1]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[1]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[1]?.chn_prefix }}<br /> </span>
-                <span v-if="startCompanyStore?.companyInProgress?.names[2]?.eng_name">  {{ startCompanyStore?.companyInProgress?.names[2]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[2]?.eng_prefix }} </span>  &nbsp;
+                <span v-if="startCompanyStore?.companyInProgress?.names[2]?.eng_name">  {{ startCompanyStore?.companyInProgress?.names[2]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[2]?.eng_prefix }}<br />  </span>  &nbsp;
                 <span v-if="startCompanyStore?.companyInProgress?.names[2]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[2]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[2]?.chn_prefix }}<br /> </span>
-                <span v-if="startCompanyStore?.companyInProgress?.names[3]?.eng_name">{{ startCompanyStore?.companyInProgress?.names[3]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[3]?.eng_prefix }} </span>  &nbsp;
+                <span v-if="startCompanyStore?.companyInProgress?.names[3]?.eng_name">{{ startCompanyStore?.companyInProgress?.names[3]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[3]?.eng_prefix }} <br /> </span>  &nbsp;
                 <span v-if="startCompanyStore?.companyInProgress?.names[3]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[3]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[3]?.chn_prefix }}<br /> </span>
-                <span v-if="startCompanyStore?.companyInProgress?.names[4]?.eng_name">{{ startCompanyStore?.companyInProgress?.names[4]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[4]?.eng_prefix }} </span>  &nbsp;
+                <span v-if="startCompanyStore?.companyInProgress?.names[4]?.eng_name">{{ startCompanyStore?.companyInProgress?.names[4]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[4]?.eng_prefix }} <br /> </span>  &nbsp;
                     <span v-if="startCompanyStore?.companyInProgress?.names[4]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[4]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[4]?.chn_prefix }}<br /> </span>
                 
             </p>

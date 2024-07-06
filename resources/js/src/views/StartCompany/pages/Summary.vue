@@ -19,20 +19,25 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 2" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[0]"> First
-                                        Choice: {{ data?.company_name[0]?.eng_name }} {{ data?.company_name[0]?.eng_prefix}} {{ data?.company_name[0]?.chn_name }}{{ data?.company_name[0]?.chn_prefix }}
+                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[0]"> First Choice:
+                                        <span v-if="data?.company_name[0]?.eng_name">  {{ data?.company_name[0]?.eng_name }} {{ data?.company_name[0]?.eng_prefix}}&nbsp; </span>
+                                        <span v-if="data?.company_name[0]?.chn_name">    {{ data?.company_name[0]?.chn_name }}{{ data?.company_name[0]?.chn_prefix }} </span>
                                     </div>
-                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[1]"> Second
-                                        Choice: {{ data?.company_name[1]?.eng_name }} {{ data?.company_name[0]?.eng_prefix}}  {{ data?.company_name[1]?.chn_name}}{{ data?.company_name[0]?.chn_prefix }}
+                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[1]"> Second Choice: 
+                                        <span v-if="data?.company_name[1]?.eng_name"> {{ data?.company_name[1]?.eng_name }} {{ data?.company_name[1]?.eng_prefix}}&nbsp; </span>
+                                        <span v-if="data?.company_name[1]?.chn_name">   {{ data?.company_name[1]?.chn_name }}{{ data?.company_name[1]?.chn_prefix }} </span>
                                     </div>
-                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[2]"> Third
-                                        Choice: {{ data?.company_name[2]?.eng_name }} {{ data?.company_name[0]?.eng_prefix}}  {{ data?.company_name[2]?.chn_name}}{{ data?.company_name[0]?.chn_prefix }}
+                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[2]">Third Choice: 
+                                        <span v-if="data?.company_name[2]?.eng_name"> {{ data?.company_name[2]?.eng_name }} {{ data?.company_name[2]?.eng_prefix}}&nbsp; </span>
+                                        <span v-if="data?.company_name[2]?.chn_name">   {{ data?.company_name[2]?.chn_name }}{{ data?.company_name[2]?.chn_prefix }} </span>
                                     </div>
-                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[3]">Forth
-                                        Choice: {{ data?.company_name[3]?.eng_name }} {{ data?.company_name[0]?.eng_prefix}}  {{ data?.company_name[3]?.chn_name }}{{ data?.company_name[0]?.chn_prefix }}
+                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[3]" >Fourth Choice:
+                                        <span v-if="data?.company_name[3]?.eng_name">  {{ data?.company_name[3]?.eng_name }} {{ data?.company_name[3]?.eng_prefix}} &nbsp; </span>
+                                        <span v-if="data?.company_name[3]?.chn_name">   {{ data?.company_name[3]?.chn_name }}{{ data?.company_name[3]?.chn_prefix }} </span>
                                     </div>
-                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[4]">
-                                        Fifth Choice: {{ data?.company_name[4]?.eng_name }} {{ data?.company_name[0]?.eng_prefix}}  {{ data?.company_name[5]?.chn_name }}{{ data?.company_name[0]?.chn_prefix }}
+                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[4]" >Fifth Choice: 
+                                        <span v-if="data?.company_name[4]?.eng_name"> {{ data?.company_name[4]?.eng_name }} {{ data?.company_name[4]?.eng_prefix}}&nbsp; </span>
+                                        <span v-if="data?.company_name[4]?.chn_name">   {{ data?.company_name[4]?.chn_name }}{{ data?.company_name[4]?.chn_prefix }} </span>
                                     </div>
                                 </span>
 
@@ -153,6 +158,19 @@
                             </li>
                             <li class="list-group-item">
                                 <span>
+                                   Capacity
+                                    <span @click="startCompanyStore.currentStage = 5" class="float-end">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </span>
+                                    <div class="small text-mut text-capitalize">
+                                        {{ founder.Shareholder?founder.Shareholder:'' }}
+                                        {{ founder.Director?founder.Director:'' }}
+                                    </div>
+                                </span>
+
+                            </li>
+                            <li class="list-group-item">
+                                <span>
                                     Email
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
@@ -262,8 +280,7 @@
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-mut">
-                                        {{  founder.get_identity.identity_no != 'undefined' ? founder.get_identity.identity_no +
-                                            "-" + founder.get_identity.identity_no_suffix : founder.get_identity.passport_no
+                                        {{  founder.get_identity.passport_no?? founder.get_identity.identity_no +"-" + founder.get_identity.identity_no_suffix  
                                         }}
                                     </div>
                                 </span>
@@ -275,8 +292,7 @@
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-mut">
-                                        {{ founder.get_identity.issueing_country != 'undefined' ?
-                                            founder.get_identity.issueing_country : '' }}
+                                        {{ founder.get_identity.issueing_country??''}}
                                     </div>
                                 </span>
                             </li>
@@ -294,6 +310,19 @@
                 <section v-for="founder in data.founders_corporate" class="card bg-light border-0 section">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <span>
+                                   Capacity
+                                    <span @click="startCompanyStore.currentStage = 5" class="float-end">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </span>
+                                    <div class="small text-mut text-capitalize">
+                                        {{ founder.Shareholder?founder.Shareholder:'' }}
+                                        {{ founder.Director?founder.Director:'' }}
+                                    </div>
+                                </span>
+
+                            </li>
                             <li class="list-group-item">
                                 <span>
                                     Company Name
@@ -764,6 +793,7 @@ interface SummaryInterface {
     business_nature: string,
     website: string,
     phone_number: string,
+    capacity: string
 
     flat: string,
     building: string,
@@ -812,6 +842,7 @@ const data = reactive<SummaryInterface>({
     business_nature: '',
     website: '',
     phone_number: '',
+    capacity: '',
 
     flat: '',
     building: '',
@@ -919,8 +950,11 @@ onMounted(async () => {
             const individuals = entity.filter((x: any) => x.entity_type_id == 1)
             individuals.forEach((el: any) => {
                 const founder = el.individual
+                founder.Shareholder = el.entity_capacity_id.includes(1)?'Shareholder': '';
+                founder.Director = el.entity_capacity_id.includes(2)?'Director': '';
                 console.log(founder, 'get shareholder')
                 // founder.is_founder = el.is_founder == 0 ? 'No' : 'Yes'
+
                 data.founders_individual.push(founder)
                 // if(founder.)
                 if (founder.owner_shares) {
@@ -935,6 +969,8 @@ onMounted(async () => {
             coporates.forEach((el: any) => {
                 const founder = el.corporate
                 // founder.is_founder = el.is_founder == 0 ? 'No' : 'Yes'
+                founder.Shareholder = el.entity_capacity_id.includes(1)?'Shareholder': '';
+                founder.Director = el.entity_capacity_id.includes(2)?'Director': '';
                 data.founders_corporate.push(founder)
 
                 if (founder.owner_shares) {

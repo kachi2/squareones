@@ -174,8 +174,9 @@ const entities = computed(() => {
   const data = startCompanyStore.companyInProgress?.company_entity ?? []
   if (data.length) {
     data.forEach((el: any) => {
+      const founder = el.individual
       const obj = el.individual || el.corporate;
-      if (el.entity_capacity_id.includes(1)) {
+      if (founder && el.entity_capacity_id.includes(1) ) {
         obj.label = el.entity_type_id == 1 ?
           `${obj.first_name ?? obj.chn_first_name} ${obj.last_name ?? obj.chn_last_name}`
           : `${obj.company_name ?? obj.chn_company_name}`
@@ -243,7 +244,7 @@ function getActiveFounder()
 {
   const founder = startCompanyStore.companyInProgress?.company_entity??[]
    const fxs = founder.filter((t:any) =>  t.is_founder == 1 )
-   if(fxs){
+   if(fxs.length > 0){
    const fx = fxs[0];
    founderInfo.name = (fx.individual.first_name?fx.individual.first_name:'') + ' ' + (fx.individual.last_name?fx.individual.last_name:'') 
    founderInfo.signature = fx.signature

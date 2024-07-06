@@ -67,7 +67,7 @@
                 </td>
                 <td
                     style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;padding-left:10px">{{ director?.chn_first_name }}{{ director?.chn_last_name }}<br /></p>
+                    <p style="text-indent: 0pt;text-align: left;padding-left:10px">{{ director?.chn_last_name }}{{ director?.chn_first_name }}<br /></p>
                 </td>
                 <td
                     style="width:20pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">

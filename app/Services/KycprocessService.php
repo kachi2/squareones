@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Interfaces\KycInterface;
+use App\Models\CompanyEntity;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -10,7 +11,6 @@ use App\Models\User;
 class KycProcessService implements KycInterface{
 
     public function InitiateKycProcess($request){
-
         $user = User::where('id', auth_user())->first();
         $name = explode(' ',$user->name);
         $client = new Client();

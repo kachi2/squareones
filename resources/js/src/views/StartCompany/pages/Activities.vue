@@ -181,6 +181,24 @@ onMounted(() => {
     })
 })
 
+const CheckNulleShares:any = computed(() => {
+    const NoShareHolders:any = []
+    let checkFX:boolean = false
+        const entity = startCompanyStore.companyInProgress?.company_entity ?? []
+        if (entity.length) {
+            entity.forEach((el: any) => {
+                const obj = el.individual || el.corporate;
+                  if(el.entity_capacity_id.includes(1)){
+                   NoShareHolders.push(obj)
+                   }
+            })
+            // console.log(NoShareHolders,'NoShareHolders')
+            const nullShares = NoShareHolders.find((t:any) => t.owner_shares == null)
+            checkFX  = nullShares?true:false
+        } 
+        return checkFX 
+});
+
 
 
 const saveAndContinue = form.handleSubmit(async (values) => {
@@ -216,8 +234,14 @@ async function saveFromToApi(formData: FormData) {
 
         toast.success('Data Saved Successfully', { position: 'top-right' });
         form.isSaving = false
-        startCompanyStore.switchStage('+')
         startCompanyStore.getCompanyInProgress()
+        if(!CheckNulleShares.value){
+            startCompanyStore.switchStage('+')
+        }else{
+            toast.info('You cannot access Summary page <br> Please is error on the Ownership  page', { position: 'top-right' });
+            return
+        }
+   
     } catch (error) {
         toast.error('Sorry, Something went wrong', { position: 'top-right' });
         form.isSaving = false

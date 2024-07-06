@@ -27,7 +27,7 @@
         <section class="row g-2 section">
             <div class="col-md-6">
                 <label class="form-label fw-bold">Date of Incorporation <span class="text-danger"> * </span> </label>
-                <VueDatePicker v-bind="form.date_incorporatedAttr" :format="useFxn.dateDisplay" hide-input-icon
+                <VueDatePicker v-bind="form.date_incorporatedAttr" :max-date="new Date()" :format="useFxn.dateDisplay" hide-input-icon
                     :clearable="false" :enable-time-picker="false" auto-apply v-model="form.date_incorporated">
                 </VueDatePicker>
                 <small class=" text-danger">{{ form.errors.date_incorporated }}</small>

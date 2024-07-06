@@ -228,30 +228,22 @@ function autoFillForm() {
 async function retrieveShareHolders() {
     try {
         const resp = await api.retrieveShaheolders(startCompanyStore.companyInProgress?.id)
-
         const entity = resp.data.data;
-        // console.log(entity)
         const arrayOfFounders: any[] = []
         if (entity.length) {
             entity.forEach((el: any) => {
-                // console.log(el)
-
                 const obj = el.individual || el.corporate;
                 if (obj) {
                     obj.entity_name = el.entity_type_id == 1 ?
-                        `${obj.first_name} ${obj.last_name}`
-                        : `${obj.company_name}`
+                        `${obj.first_name??''} ${obj.last_name??''} ${obj.chn_last_name??''}${obj.chn_first_name??''}` 
+                        : `${obj.company_name??''}${obj.chn_company_name }`
                     obj.own_share = el.share?.total_amount ?? 0;
                     arrayOfFounders.push(obj);
                 }
             });
         }
-
         form.shareHolders = arrayOfFounders
-
     } catch (error) {
-        // console.log(error);
-
     }
 }
 

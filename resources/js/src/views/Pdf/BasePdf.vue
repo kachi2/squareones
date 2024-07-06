@@ -106,6 +106,7 @@ const founder = reactive({
     },
 });
 
+
 function createPDF(canvas: any, index: any) {
     var doc = new jsPDF('p', 'mm');
     const maxPageWidth = doc.internal.pageSize.getWidth() - 10;
@@ -176,17 +177,24 @@ async function sendPDFToApi() {
     }
 }
 
+
+
 const shareholders = computed(() => {
     const individualShareholder = startCompanyStore.companyInProgress?.company_entity ?? [];
     const founders: any[] = [];
     individualShareholder.forEach((shares: any) => {
         const obj = shares.individual;
         //  console.log(shares)
-        founder.founder_details.name = individualShareholder[0].individual.first_name + ' ' + individualShareholder[0].individual.last_name+  individualShareholder[0].individual.chn_last_name
-        founder.founder_details.signature = individualShareholder[0]?.signature
-        founder.founder_details.date = individualShareholder[0]?.date_signed
+        const fxs = individualShareholder.filter((t:any) =>  t.is_founder == 1 )
+        if(fxs.length > 0){
+        const fx = fxs[0];
+        founder.founder_details.name = (fx.individual?.first_name) + ' ' + (fx.individual?.last_name) +' '+ (fx.individual?.chn_last_name)+(fx.individual?.chn_first_name) 
+        founder.founder_details.signature = fx.signature
+        founder.founder_details.date = fx.date_signed
+          }
+
         let cp = shares.entity_capacity_id;
-        if (obj && cp.includes(1)) {
+        if (obj && cp.includes(2)) {
             founder.founders_count++
             obj.entity_type_id = shares.entity_type_id,
                 obj.capacity = shares.entity_capacity_id

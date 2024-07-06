@@ -42,7 +42,6 @@ class ProcessFounderKyc implements ShouldQueue
 
         try{
         $user = $request->load('Individual', 'Corporate');
-        //  dd($user);
         if($user['Individual']){
             $firstname = $user['Individual']['first_name']??$user['Individual']['chn_first_name'];
             $lastname = $user['Individual']['last_name']??$user['Individual']['chn_last_name'];
