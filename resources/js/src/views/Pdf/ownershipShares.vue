@@ -40,7 +40,7 @@
                 {{shares?.first_name?shares?.first_name +" "+shares?.last_name:shares.company_name}}</p>
                 <p class="s17"
                 style="padding-top: 6pt;padding-left: 4pt;text-indent: 0pt;line-height: 16pt;text-align: center;">
-                {{shares?.chn_first_name?shares?.chn_first_name +" "+shares?.chn_last_name:shares.chn_company_name}}
+                {{shares?.chn_first_name?shares?.chn_last_name +" "+shares?.chn_first_name:shares.chn_company_name}}
                 </p>
                 <p class="s17"
                 style="padding-top: 6pt;padding-left: 4pt;text-indent: 0pt;line-height: 16pt;text-align: center;">

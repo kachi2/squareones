@@ -13,41 +13,55 @@
                     Aim for a concise overview in one or two sentences.
                 </div>
 
-                <div class="row g-2 mt-1">
+                <div class="row g-3 mt-1">
                     <div class="col-md-12">
-                        <textarea v-bind="form.descriptiontAttr" :class="{ 'error-field': form.errors.description }"
-                            v-model="form.description" class="form-control" rows="5"></textarea>
-                        <small class=" text-danger">{{ form.errors.description }}</small>
-                        <small class="float-end">{{ wordCount }}/{{ maxCharCount }}</small>
+                        <div class="form-floating-custom">
+                            <textarea v-bind="form.descriptiontAttr" :class="{ 'error-field': form.errors.description }"
+                                v-model="form.description" class="form-control" rows="5" id="description"
+                                placeholder=""></textarea>
+                            <small class=" text-danger">{{ form.errors.description }}</small>
+                            <small class="float-end">{{ wordCount }}/{{ maxCharCount }}</small>
+                            <label for="description">Company Description</label>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <section class="section">
+
                 <div class="fw-bold">Nature of business <span class="text-danger"> * </span></div>
                 <div>Choose the primary category that best represents business nature of your company
                 </div>
 
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
-
-                        <v-select @search:blur="form.validateVueSelectOnBlur('business_nature_id')"
-                            v-bind="form.business_nature_idAttr"
-                            :class="{ 'error-field': form.errors.business_nature_id }" v-model="form.business_nature_id"
-                            :clearable="true" :options="startCompanyStore.businessNatures"
-                            :reduce="(item: any) => item.id" label="name" />
+                        <div class="fixed-label-custom">
+                            <v-select id="business_nature_id"
+                                @search:blur="form.validateVueSelectOnBlur('business_nature_id')"
+                                v-bind="form.business_nature_idAttr"
+                                :class="{ 'error-field': form.errors.business_nature_id }"
+                                v-model="form.business_nature_id" :clearable="true"
+                                :options="startCompanyStore.businessNatures" :reduce="(item: any) => item.id"
+                                label="name" variant="outlined" />
+                            <label for="business_nature_id">Nature</label>
+                        </div>
                         <small class=" text-danger">{{ form.errors.business_nature_id }}</small>
                     </div>
+
                 </div>
+
             </section>
 
             <section class="section">
                 <div class="fw-bold">Website or social media</div>
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
-                        <input v-bind="form.websiteAttr" :class="{ 'error-field': form.errors.website }"
-                            v-model="form.website" type="text" class="form-control">
-                        <small class=" text-danger">{{ form.errors.website }}</small>
+                        <div class="form-floating-custom ">
+                            <input v-bind="form.websiteAttr" :class="{ 'error-field': form.errors.website }"
+                                v-model="form.website" type="text" class="form-control" id="website" placeholder="">
+                            <small class=" text-danger">{{ form.errors.website }}</small>
+                            <label for="website">Website </label>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -84,7 +98,7 @@ import { computed, onMounted, watch } from 'vue';
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
 
-const form = descriptionForm()     
+const form = descriptionForm()
 
 onMounted(() => {
     form.resetForm()
@@ -142,4 +156,10 @@ const wordCount = computed(() => {
 });
 
 </script>
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.v-select .vs__dropdown-toggle {
+    /* border: 1px solid #dee2e6;  */
+    border-radius: 5px;
+    border: none;
+}
+</style>

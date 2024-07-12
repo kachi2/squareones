@@ -88,9 +88,9 @@
                 <div class="col-2 d-none d-md-block min-vh-100 sub-menu-panel">
                     <StartCompany_menulist />
                 </div>
-                <div class="col-md-7  min-vh-100 sub-form-panel pt-4">
-                    <div class="car border-">
-                        <div class="card-body pt-0 p-0 px-md-3">
+                <div class="col-md-7  min-vh-100 sub-form-panel pt-4 d-flex justify-content-center">
+                    <div class="car border- middle-panel-fixed-size ">
+                        <div class="card-bod pt-0 p-0 px-md-3">
                             <slot name="main"></slot>
                         </div>
                     </div>
@@ -243,6 +243,11 @@ async function logout() {
 
 .dropdown-toggle::after {
     content: none !important;
+}
+
+.middle-panel-fixed-size {
+    width: 1000px;
+
 }
 
 /* .dropdown-menu {

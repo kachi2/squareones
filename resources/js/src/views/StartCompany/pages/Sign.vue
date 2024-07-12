@@ -59,9 +59,14 @@
       </div>
 
       <div v-if="!founderInfo.signature">
+   
+        <div class="fixed-label-custom">
       <v-select placeholder="select founder.." v-model="selected_entity_id" :clearable="false" :options="entities" />
+      <label class="fw-bold ">      I am, </label>
+      </div>
       <p v-if="!signaturePadModal" style="color:darkred"> {{ msg}}</p>
       <p v-if="founderError" style="color:darkred"> {{  founderError }} </p>
+      <p> <input type="checkbox" checked>  By signing and submitting the online application, I agree to the terms of service and privacy policy.</p>
       <button class="btn btn-primary mt-3" @click="signaturePadModals">Sign Document</button>
       
       <span class="float-end">
@@ -69,9 +74,9 @@
       </span>
       <br>
       <!-- <div class="card w-75 float-end" > -->
-      <p style="margin-top:10px">
-        <span style="color:red; "> Please review and Sign Document</span>
-      </p>
+      <!-- <p style="margin-top:20px">
+        <span style="color:blue; font-weight: 600;"> Please Review and Sign Document</span>
+      </p> -->
     </div>
     <div v-else>
       <div class="card p-3">
@@ -94,29 +99,57 @@
     </div>
       <br>
       <p style="border-bottom: 1px solid #000;">Signature will be applied to the following pages</p>
-      <p>
-        <span class="mr-2">📄</span>
-        Incorporation Form (NNC1) <br>
-        <span>We file this with the Companies Registry.</span>
-      </p>
-      <p>
-        <span class="mr-2">📄</span>
+  <div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <span class="mx-1">📄</span>
+         Incorporation Form (NNC1)
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <strong>  <span>We file this with the Companies Registry.</span></strong>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <span class="mx-1">📄</span>
         Articles of Association (AA)
-      <p class="ml-6 text-gray-600">The Articles of Association is a document that outlines the regulations for a
-        company's operations and the structure of its internal governance.</p>
-
-      </p>
-      <p class="mb-1 flex items-center text-gray-700">
-        <span class="mr-2">✔️</span>
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <p class="ml-6 text-gray-600">The Articles of Association is a document that outlines the regulations for a
+        company's operations and the structure of its internal governance.</p> </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        <span class="mx-1">📄</span>
         Notice to Business Registration Office (IRBR1)
-      <p class="ml-6 text-gray-600">Notify the Inland Revenue for business registration.</p>
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse " aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <p class="ml-6 text-gray-600">Notify the Inland Revenue for business registration.</p>
       <ul class="ml-10 list-inside list-disc text-gray-600">
         <li>This makes application for the purpose of business registration.</li>
         <li>Business registration is renewed on an annual basis if elected to obtain 1-year Business Registration
           Certificate.</li>
         <li>This shows your business address, and the nature of your business.</li>
       </ul>
-      </p>
+     
+    </div>
+    </div>
+  </div>
+</div>
+    
+      
+     
       <!-- </div> -->
 
     </template>
@@ -176,10 +209,11 @@ const entities = computed(() => {
     data.forEach((el: any) => {
       const founder = el.individual
       const obj = el.individual || el.corporate;
-      if (founder && el.entity_capacity_id.includes(1) ) {
+      // console.log(obj, 'founders')
+      if (obj && el.entity_capacity_id.includes(1) ) {
         obj.label = el.entity_type_id == 1 ?
-          `${obj.first_name ?? obj.chn_first_name} ${obj.last_name ?? obj.chn_last_name}`
-          : `${obj.company_name ?? obj.chn_company_name}`
+          `${obj.first_name} ${obj.last_name} ${obj.chn_last_name} ${obj.chn_first_name}`
+          : `${obj.authorized_persons.first_name ?? obj.authorized_persons.last_name}`
         obj.company_entity_id = el.id
         array.push(obj)
       }

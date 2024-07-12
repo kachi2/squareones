@@ -22,22 +22,25 @@
                 <tbody>
                   <tr v-for="(item, index) in foundersAdded" :key="item">
                     <!-- <i class="bi bi-person-circle" style="font-size:20px; padding-left:20px"></i> -->
-                    <td>{{ (index + 1) }}</td>
+                    <!-- <td>{{ (index + 1) }}</td> -->
+                    <span class="p-1"></span>
                     <td class="text-capitalize " v-if="item.entity_type_id == 1">
                       <i class="bi bi-person-circle"></i>
                       {{ item.first_name ? item.first_name : '' }} {{ item.last_name ? item.last_name : '' }}
                       {{ item.chn_last_name ? item.chn_last_name : '' }}{{ item.chn_last_name ? item.chn_first_name : ''
                       }} <br>
                       <small> {{ item.capacity.includes('1') ? 'Shareholder' : '' }}</small>
-                      {{ item.capacity.length > 1 ? " " : " " }}
+                      {{ item.capacity.includes('2') &&  item.capacity.includes('1') ? '|' : ' ' }}
                       <small> {{ item.capacity.includes('2') ? 'Director' : ' ' }}</small>
 
                     </td>
                     <td v-else class="text-capitalize">
-                      <i class="bi bi-person-circle"></i>
+                      <i class="bi bi-people-fill"></i>
                       {{ item.company_name }}
                       {{ item.chn_company_name }} <br>
+                      
                       <small> {{ item.capacity.includes('1') ? 'Shareholder' : ' ' }}</small>
+                      {{ item.capacity.includes('2') &&  item.capacity.includes('1') ? '|' : ' ' }}
                       <small> {{ item.capacity.includes('2') ? ' Director' : ' ' }} </small>
                     </td>
                     <td class="text">

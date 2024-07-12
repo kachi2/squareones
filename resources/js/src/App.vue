@@ -39,6 +39,7 @@ table tr td {
   color: v-bind('templateStore.textColor') !important;
 }
 
+
 .dropdown-menu {
   border: 1px solid v-bind('templateStore.border') !important;
 }
@@ -83,5 +84,98 @@ input[type="text"]:disabled,
 .vs--disabled .vs__selected-options,
 .vs--disabled .vs__selected {
   background-color: v-bind('templateStore.disabledBg') !important;
+}
+
+
+
+
+
+/* form floating custom */
+.form-floating-custom {
+  position: relative;
+}
+
+.form-floating-custom .form-control,
+.form-floating-custom .form-select,
+.form-floating-custom textarea {
+
+  height: auto;
+  padding: 1rem 0.75rem;
+  /* border: 1px solid #ced4da; */
+  /* border-radius: 0.25rem; */
+}
+
+.form-floating-custom label {
+  position: absolute;
+  top: 1rem;
+  left: 0.75rem;
+  transition: all 0.1s ease-in-out;
+  pointer-events: none;
+  padding: 0 0.25rem;
+  background: transparent;
+  border: none;
+  color: #6c757d;
+}
+
+.form-floating-custom .form-control:focus~label,
+.form-floating-custom .form-control:not(:placeholder-shown)~label,
+.form-floating-custom .form-select:focus~label,
+.form-floating-custom .form-select:not([value=""])~label,
+.form-floating-custom textarea:focus~label,
+.form-floating-custom textarea:not(:placeholder-shown)~label {
+  top: -0.75em;
+  left: 0.75rem;
+  font-size: 0.85em;
+  color: #6c757d;
+  background-color: v-bind('templateStore.bgColor');
+  padding: 0 0.25rem;
+  border-radius: 0.25rem;
+  z-index: 1;
+}
+
+.form-floating-custom .form-control:focus,
+.form-floating-custom .form-control:not(:placeholder-shown),
+.form-floating-custom .form-select:focus,
+.form-floating-custom .form-select:not([value=""]),
+.form-floating-custom textarea:focus,
+.form-floating-custom textarea:not(:placeholder-shown) {
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.form-floating-custom .form-select,
+.form-floating-custom textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+
+
+
+.fixed-label-custom {
+  position: relative;
+  /* margin-top: 1.5em; */
+}
+
+.fixed-label-custom label {
+  position: absolute;
+  top: -0.7em;
+  left: 1em;
+  color: #6c757d;
+  background-color: v-bind('templateStore.bgColor');
+  padding: 0 0.5em;
+  font-size: 0.8em;
+  /* z-index: 2; */
+}
+
+.fixed-label-custom .vs__dropdown-toggle {
+  /* padding-left: 0.7em !important; */
+  border-radius: var(--bs-border-radius);
+}
+
+.fixed-label-custom .dp__input,
+.fixed-label-custom .vti__input {
+  line-height: 2.9rem;
 }
 </style>

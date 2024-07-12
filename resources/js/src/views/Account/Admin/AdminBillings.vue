@@ -151,11 +151,11 @@ const computedUserName = (coy: any) => {
     const id = coy.id
     let Name = '';
     const coms = companies.list;
-    console.log(coms)
+    // console.log(coms)
     coms.forEach((com: any) => {
         Name = com.user.name;
     })
-    console.log(Name)
+    // console.log(Name)
     return Name;
 }
 async function getItemsData() {

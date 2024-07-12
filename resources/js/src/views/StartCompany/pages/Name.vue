@@ -12,32 +12,45 @@
                     registration.
                 </div>
 
-                <div class="row g-2 mt-1">
+                <div class="row g-3 mt-1">
                     <div class="col-md-6">
-                        <input v-bind="form.choice_level1_eng_nameAttr"
-                            :class="{ 'error-field': form.errors.choice_level1_eng_name }" v-maska
-                            data-maska-tokens="*:[a-zA-Z0-9]:multiple" v-model="form.choice_level1_eng_name" type="text"
-                            class="form-control" placeholder="This text for English name">
+                        <div class="form-floating-custom">
+                            <input id="choice_level1_eng_name" v-bind="form.choice_level1_eng_nameAttr"
+                                :class="{ 'error-field': form.errors.choice_level1_eng_name }" v-maska
+                                data-maska-tokens="*:[a-zA-Z0-9]:multiple" v-model="form.choice_level1_eng_name"
+                                type="text" class="form-control" placeholder="">
+                            <label for="choice_level1_eng_name">English name</label>
+                        </div>
                         <small class=" text-danger">{{ form.errors.choice_level1_eng_name }}</small>
                     </div>
                     <div class="col-md-6">
-                        <select v-model="form.choice_level1_prefix" class="form-select">
+                        <div class="form-floating-custom">
+                            <select id="choice_level1_prefix" v-model="form.choice_level1_prefix" class="form-select">
+                                <option :value="'Limited'">Limited</option>
+                                <option :value="'LIMITED'">LIMITED</option>
+                            </select>
+                            <label for="choice_level1_prefix">Prefix</label>
+                        </div>
 
-                            <option :value="'Limited'">Limited</option>
-                            <option :value="'LIMITED'">LIMITED</option>
-                        </select>
                     </div>
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.choice_level1_chn_name }"
-                            v-model="form.choice_level1_chn_name" type="text" class="form-control"
-                            placeholder="This text for Chinese name">
+                        <div class="form-floating-custom">
+                            <input id="choice_level1_chn_name"
+                                :class="{ 'error-field': form.errors.choice_level1_chn_name }"
+                                v-model="form.choice_level1_chn_name" type="text" class="form-control" placeholder="">
+                            <label for="choice_level1_chn_name">Chinese Name</label>
+                        </div>
                         <small class=" text-danger">{{ manualErrors.choice_level1_chn_name }}</small>
                     </div>
                     <div class="col-md-6">
-                        <select v-model="form.choice_level1_chn_prefix" class="form-select">
+                        <div class="form-floating-custom">
+                            <select id="choice_level1_chn_prefix" v-model="form.choice_level1_chn_prefix"
+                                class="form-select">
+                                <option :value="'有限公司'">有限公司</option>
+                            </select>
+                            <label for="choice_level1_chn_prefix">Prefix</label>
+                        </div>
 
-                            <option :value="'有限公司'">有限公司</option>
-                        </select>
                     </div>
                 </div>
             </section>
@@ -46,31 +59,46 @@
                 <div class="fw-bolder">Secondary Choices</div>
                 <div>These are alternative names you would consider should your primary choice be unavailable. List
                     them in descending order of preference.</div>
-                <div class="row g-2 mt-1">
+                <div class="row g-3 mt-1">
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.choice_level2_eng_name }" v-maska
-                            data-maska-tokens="*:[a-zA-Z0-9]:multiple" v-model="form.choice_level2_eng_name" type="text"
-                            class="form-control" placeholder="This text for English name">
+                        <div class="form-floating-custom">
+                            <input id="choice_level2_eng_name"
+                                :class="{ 'error-field': form.errors.choice_level2_eng_name }" v-maska
+                                data-maska-tokens="*:[a-zA-Z0-9]:multiple" v-model="form.choice_level2_eng_name"
+                                type="text" class="form-control" placeholder="">
+                            <label for="choice_level2_eng_name">English name</label>
+                        </div>
                         <small class=" text-danger">{{ form.errors.choice_level2_eng_name }}</small>
                     </div>
                     <div class="col-md-6">
-                        <select v-model="form.choice_level2_prefix" class="form-select">
+                        <div class="form-floating-custom">
+                            <select id="choice_level2_prefix" v-model="form.choice_level2_prefix" class="form-select">
+                                <option :value="'Limited'">Limited</option>
+                                <option :value="'LIMITED'">LIMITED</option>
+                            </select>
+                            <label for="choice_level2_prefix">Prefix</label>
+                        </div>
 
-                            <option :value="'Limited'">Limited</option>
-                            <option :value="'LIMITED'">LIMITED</option>
-                        </select>
                     </div>
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.choice_level2_chn_name }"
-                            v-model="form.choice_level2_chn_name" type="text" class="form-control"
-                            placeholder="This text for Chinese name">
+                        <div class="form-floating-custom">
+                            <input id="choice_level2_chn_name"
+                                :class="{ 'error-field': form.errors.choice_level2_chn_name }"
+                                v-model="form.choice_level2_chn_name" type="text" class="form-control" placeholder="">
+                            <label for="choice_level2_chn_name">Chinese name</label>
+                        </div>
+
                         <small class=" text-danger">{{ manualErrors.choice_level2_chn_name }}</small>
                     </div>
                     <div class="col-md-6">
-                        <select v-model="form.choice_level2_chn_prefix" class="form-select">
+                        <div class="form-floating-custom">
+                            <select id="choice_level2_chn_prefix" v-model="form.choice_level2_chn_prefix"
+                                class="form-select">
+                                <option :value="'有限公司'">有限公司</option>
+                            </select>
+                            <label for="choice_level2_chn_prefix">Prefix</label>
+                        </div>
 
-                            <option :value="'有限公司'">有限公司</option>
-                        </select>
                     </div>
                 </div>
                 <div class="p-1 mt-1">
@@ -86,31 +114,47 @@
                     registration.
                 </div>
 
-                <div class="row g-2 mt-1">
+                <div class="row g-3 mt-1">
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.choice_level3_eng_name }" v-maska
-                            data-maska-tokens="*:[a-zA-Z0-9]:multiple" v-model="form.choice_level3_eng_name" type="text"
-                            class="form-control" placeholder="This text for English name">
+                        <div class="form-floating-custom">
+                            <input id="choice_level3_eng_name"
+                                :class="{ 'error-field': form.errors.choice_level3_eng_name }" v-maska
+                                data-maska-tokens="*:[a-zA-Z0-9]:multiple" v-model="form.choice_level3_eng_name"
+                                type="text" class="form-control" placeholder="">
+                            <label for="choice_level3_eng_name">English name</label>
+                        </div>
+
                         <small class=" text-danger">{{ form.errors.choice_level3_eng_name }}</small>
                     </div>
                     <div class="col-md-6">
-                        <select v-model="form.choice_level3_prefix" class="form-select">
+                        <div class="form-floating-custom">
+                            <select id="choice_level3_prefix" v-model="form.choice_level3_prefix" class="form-select">
+                                <option :value="'Limited'">Limited</option>
+                                <option :value="'LIMITED'">LIMITED</option>
+                            </select>
+                            <label for="choice_level3_prefix">Prefix</label>
+                        </div>
 
-                            <option :value="'Limited'">Limited</option>
-                            <option :value="'LIMITED'">LIMITED</option>
-                        </select>
                     </div>
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.choice_level3_chn_name }"
-                            v-model="form.choice_level3_chn_name" type="text" class="form-control"
-                            placeholder="This text for Chinese name">
+                        <div class="form-floating-custom">
+                            <input id="choice_level3_chn_name"
+                                :class="{ 'error-field': form.errors.choice_level3_chn_name }"
+                                v-model="form.choice_level3_chn_name" type="text" class="form-control" placeholder="">
+                            <label for="choice_level3_chn_name">Chinese name</label>
+                        </div>
+
                         <small class=" text-danger">{{ manualErrors.choice_level3_chn_name }}</small>
                     </div>
                     <div class="col-md-6">
-                        <select v-model="form.choice_level3_chn_prefix" class="form-select">
+                        <div class="form-floating-custom">
+                            <select id="choice_level3_chn_prefix" v-model="form.choice_level3_chn_prefix"
+                                class="form-select">
+                                <option :value="'有限公司'">有限公司</option>
+                            </select>
+                            <label for="choice_level3_chn_prefix">Prefix</label>
+                        </div>
 
-                            <option :value="'有限公司'">有限公司</option>
-                        </select>
                     </div>
                 </div>
                 <div class="p-1 mt-1">
@@ -126,31 +170,46 @@
                     registration.
                 </div>
 
-                <div class="row g-2 mt-1">
+                <div class="row g-3 mt-1">
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.choice_level4_eng_name }" v-maska
-                            data-maska-tokens="*:[a-zA-Z0-9]:multiple" v-model="form.choice_level4_eng_name" type="text"
-                            class="form-control" placeholder="This text for English name">
+                        <div class="form-floating-custom">
+                            <input id="choice_level4_eng_name"
+                                :class="{ 'error-field': form.errors.choice_level4_eng_name }" v-maska
+                                data-maska-tokens="*:[a-zA-Z0-9]:multiple" v-model="form.choice_level4_eng_name"
+                                type="text" class="form-control" placeholder="">
+                            <label for="choice_level4_eng_name">English name</label>
+                        </div>
+
                         <small class=" text-danger">{{ form.errors.choice_level4_eng_name }}</small>
                     </div>
                     <div class="col-md-6">
-                        <select v-model="form.choice_level4_prefix" class="form-select">
+                        <div class="form-floating-custom">
+                            <select id="choice_level4_prefix" v-model="form.choice_level4_prefix" class="form-select">
+                                <option :value="'Limited'">Limited</option>
+                                <option :value="'LIMITED'">LIMITED</option>
+                            </select>
+                            <label for="choice_level4_prefix">Prefix</label>
+                        </div>
 
-                            <option :value="'Limited'">Limited</option>
-                            <option :value="'LIMITED'">LIMITED</option>
-                        </select>
                     </div>
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.choice_level4_chn_name }"
-                            v-model="form.choice_level4_chn_name" type="text" class="form-control"
-                            placeholder="This text for Chinese name">
+                        <div class="form-floating-custom">
+                            <input id="choice_level4_chn_name"
+                                :class="{ 'error-field': form.errors.choice_level4_chn_name }"
+                                v-model="form.choice_level4_chn_name" type="text" class="form-control" placeholder="">
+                            <label for="choice_level4_chn_name">Chinese name</label>
+                        </div>
+
                         <small class=" text-danger">{{ manualErrors.choice_level4_chn_name }}</small>
                     </div>
                     <div class="col-md-6">
-                        <select v-model="form.choice_level4_chn_prefix" class="form-select">
-
-                            <option :value="'有限公司'">有限公司</option>
-                        </select>
+                        <div class="form-floating-custom">
+                            <select id="choice_level4_chn_prefix" v-model="form.choice_level4_chn_prefix"
+                                class="form-select">
+                                <option :value="'有限公司'">有限公司</option>
+                            </select>
+                            <label for="choice_level4_chn_prefix">Prefix</label>
+                        </div>
                     </div>
                 </div>
                 <div class="p-1 mt-1">
@@ -165,31 +224,45 @@
                 <div>This is your fifth company name. Ensure it is the legal name intended for
                     registration.
                 </div>
-                <div class="row g-2 mt-1">
+                <div class="row g-3 mt-1">
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.choice_level5_eng_name }" v-maska
-                            data-maska-tokens="*:[a-zA-Z0-9]:multiple" v-model="form.choice_level5_eng_name" type="text"
-                            class="form-control" placeholder="This text for English name">
+                        <div class="form-floating-custom">
+                            <input id="choice_level5_eng_name"
+                                :class="{ 'error-field': form.errors.choice_level5_eng_name }" v-maska
+                                data-maska-tokens="*:[a-zA-Z0-9]:multiple" v-model="form.choice_level5_eng_name"
+                                type="text" class="form-control" placeholder="">
+                            <label for="choice_level5_eng_name">English name</label>
+                        </div>
                         <small class=" text-danger">{{ form.errors.choice_level5_eng_name }}</small>
                     </div>
                     <div class="col-md-6">
-                        <select v-model="form.choice_level5_prefix" class="form-select">
+                        <div class="form-floating-custom">
+                            <select id="choice_level5_prefix" v-model="form.choice_level5_prefix" class="form-select">
+                                <option :value="'Limited'">Limited</option>
+                                <option :value="'LIMITED'">LIMITED</option>
+                            </select>
+                            <label for="choice_level5_prefix">Prefix</label>
+                        </div>
 
-                            <option :value="'Limited'">Limited</option>
-                            <option :value="'LIMITED'">LIMITED</option>
-                        </select>
                     </div>
                     <div class="col-md-6">
-                        <input :class="{ 'error-field': form.errors.choice_level5_chn_name }"
-                            v-model="form.choice_level5_chn_name" type="text" class="form-control"
-                            placeholder="This text for Chinese name">
+                        <div class="form-floating-custom">
+                            <input id="choice_level5_chn_name"
+                                :class="{ 'error-field': form.errors.choice_level5_chn_name }"
+                                v-model="form.choice_level5_chn_name" type="text" class="form-control" placeholder="">
+                            <label for="choice_level5_chn_name">Chinese name</label>
+                        </div>
+
                         <small class=" text-danger">{{ manualErrors.choice_level5_chn_name }}</small>
                     </div>
                     <div class="col-md-6">
-                        <select v-model="form.choice_level5_chn_prefix" class="form-select">
+                        <div id="choice_level5_chn_prefix" class="form-floating-custom">
+                            <select v-model="form.choice_level5_chn_prefix" class="form-select">
+                                <option :value="'有限公司'">有限公司</option>
+                            </select>
+                            <label for="choice_level5_chn_prefix"></label>
+                        </div>
 
-                            <option :value="'有限公司'">有限公司</option>
-                        </select>
                     </div>
                 </div>
                 <div class="p-1 mt-1">

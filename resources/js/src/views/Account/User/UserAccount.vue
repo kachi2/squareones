@@ -486,7 +486,7 @@ async function getNotificationsStatusesApp() {
         formData.append('user_id', paramsStore.currentUserId)
         formData.append('type', 'app')
         const resp = await api.userGetNotificationStatus(formData)
-        console.log('app-status', resp);
+        // console.log('app-status', resp);
         appNotifyStatus.value = resp.data ? true : false;
 
 
@@ -502,10 +502,10 @@ async function setNotificationStatus(type: 'app' | 'email') {
         formData.append('type', type)
         formData.append('status', '1')
         const resp = await api.userToggleNotifications(formData)
-        console.log(resp);
+        // console.log(resp);
 
     } catch (error) {
-        console.log(error);
+        // console.log(error);
 
     }
 }
@@ -563,7 +563,7 @@ function setUserDataAutomatic() {
     detailsForm.email = user?.email ?? ''
     detailsForm.name = user?.name ?? ''
     detailsForm.phone = user?.phone ?? ''
-    console.log(user, 'user');
+    // console.log(user, 'user');
 }
 
 function updateUserDataOnStore() {

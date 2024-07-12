@@ -1,5 +1,5 @@
 @font-face {
-    font-family: "MingLiU";
+    font-family: Inter, "MingLiU";
     src: url("https://db.onlinewebfonts.com/t/23cfc97e0a97d980f87f5780303baf01.eot");
     src: url("https://db.onlinewebfonts.com/t/23cfc97e0a97d980f87f5780303baf01.eot?#iefix")format("embedded-opentype"),
     url("https://db.onlinewebfonts.com/t/23cfc97e0a97d980f87f5780303baf01.woff2")format("woff2"),
@@ -8,7 +8,7 @@
     url("https://db.onlinewebfonts.com/t/23cfc97e0a97d980f87f5780303baf01.svg#MingLiU")format("svg");
 }
 @font-face {
-    font-family: "PMingLiU";
+    font-family: Inter, "PMingLiU";
     src: url("https://db.onlinewebfonts.com/t/b8c332e7b686ba28daebf6524c66aeec.eot");
     src: url("https://db.onlinewebfonts.com/t/b8c332e7b686ba28daebf6524c66aeec.eot?#iefix")format("embedded-opentype"),
     url("https://db.onlinewebfonts.com/t/b8c332e7b686ba28daebf6524c66aeec.woff2")format("woff2"),
@@ -18,7 +18,7 @@
 }
 
 @font-face {
-      font-family: 'cwTeXKai';
+      font-family: Inter, 'cwTeXKai';
       font-style: normal;
       font-weight: 500;
       src: url(https://fonts.gstatic.com/ea/cwtexkai/v3/cwTeXKai-zhonly.ttf) format('truetype');

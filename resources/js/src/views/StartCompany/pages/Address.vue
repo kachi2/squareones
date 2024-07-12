@@ -10,29 +10,41 @@
 
                 <div class="row g-3 mt-1">
                     <div class="col-12">
-                        <label class="form-label">Floor／Block <i class="bi bi-lock-fill"></i></label>
+                        <div class="form-floating-custom ">
+                        <!-- <label class="form-label"> </label> -->
                         <input disabled v-model="form.flat" class="form-control" type="text"
-                            placeholder="Flat／Floor／Block">
+                            placeholder="Flat／Floor／Block" id="address">
                         <small class=" text-danger">{{ form.errors.flat }}</small>
+                        <label for="address"> <i class="bi bi-lock-fill"></i> Floor／Block</label>
+                        </div>
                     </div>
                     <div class="col-12">
-                        <label class="form-label"> Building<i class="bi bi-lock-fill"></i></label>
+                        <div class="form-floating-custom ">
+                      
                         <input disabled v-model="form.building" class="form-control" type="text"
-                            placeholder="Street number">
+                            placeholder="" id="building">
                         <small class=" text-danger">{{ form.errors.building }}</small>
+                        <label class="form-label" for="building"> Building<i class="bi bi-lock-fill"></i></label>
+                        </div>
                     </div>
                     <div class="col-12">
-                        <label class="form-label"> Street／Estate／Lot／Village<i class="bi bi-lock-fill"></i></label>
-
-                        <input disabled v-model="form.street" class="form-control" type="text" placeholder="City">
+                        <div class="form-floating-custom ">
+                      
+                        <input disabled v-model="form.street" id="street" class="form-control" type="text" placeholder="City">
                         <small class=" text-danger">{{ form.errors.street }}</small>
+                        <label class="form-label" for="street"> Street／Estate／Lot／Village<i class="bi bi-lock-fill"></i></label>
+                        </div>
                     </div>
                     <div class="col-12">
-                        <label class="form-label"> District／City／ Province／State／ Postal Code <i
-                                class="bi bi-lock-fill"></i></label>
-                        <input disabled v-model="form.state" class="form-control" type="text" placeholder="State">
+                        <div class="form-floating-custom ">
+                      
+                        <input disabled v-model="form.state" class="form-control" type="text" id="city" placeholder="State">
                         <small class=" text-danger">{{ form.errors.state }}</small>
+                        <label class="form-label" for="city"> District／City／ Province／State／ Postal Code <i
+                                class="bi bi-lock-fill"></i></label>
+                        </div>
                     </div>
+
                     <!-- <div class="col-12">
                         <label class="form-label">Postal Code: <i class="bi bi-lock-fill"></i></label>
                         <input disabled v-model="form.postal_code" class="form-control" type="text"
@@ -40,6 +52,7 @@
                         <small class=" text-danger">{{ form.errors.postal_code }}</small>
                     </div> -->
                     <div class="col-md-12">
+                        
                         <label class="form-label"> Country／Region <i class="bi bi-lock-fill"></i></label>
                         <v-select :disabled="true" placeholder="select country.." v-model="form.country"
                             :clearable="false" :options="startCompanyStore.countries" />

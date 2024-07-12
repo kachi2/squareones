@@ -36,7 +36,7 @@ export const useAdminParamsStore: any = defineStore('useAdminParamsStore', () =>
             const data = resp.data.data
             currentCompanyData.value = data
             idToEdit.value = ''
-            console.log(data);
+            // console.log(data);
         } catch (error) {
             // 
         }

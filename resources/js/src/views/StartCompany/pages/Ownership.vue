@@ -8,38 +8,50 @@
             <section class="section">
                 <div class="row g-3 mt-1">
                     <div class="col-md-6 col-lg-3">
-                        <label class="form-labe fw-bold small">Class of shares: <span class="text-danger"> * </span>
-                        </label>
                         <div class="col-md-12">
-                            <select v-model="form.share_type_id" class="form-select">
+                            <div class="form-floating-custom ">  
+                            <select v-model="form.share_type_id" class="form-select" id="shares">
                                 <option selected value="1">Ordinary</option>
                             </select>
+                            <label class="form-labe fw-bold small" for="shares">Class of shares: <span class="text-danger"> * </span>
+                        </label>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-3">
-                        <label class="form-labe fw-bold small">Total no of shares: <span class="text-danger"> *
-                            </span></label>
                         <div class="col-md-12">
+                            <div class="form-floating-custom ">  
                             <input v-model="form.no_of_share" required placeholder="0" class="form-control" v-maska
-                                data-maska="9,99#" data-maska-tokens="9:[0-9]:repeated" data-maska-reversed>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-3">
-                        <label class="form-labe fw-bold small">Total amount paid:<span class="text-danger"> *
+                                data-maska="9,99#" data-maska-tokens="9:[0-9]:repeated" data-maska-reversed id="total_shares">
+                                <label class="form-labe fw-bold small" for="total_shares">Total no of shares: <span class="text-danger"> *
                             </span></label>
-                        <div class="col-md-12">
-                            <input v-model="form.total_amount_paid" placeholder="0.00" class="form-control" v-maska
-                                data-maska="9,99#" data-maska-tokens="9:[0-9]:repeated" data-maska-reversed>
-                            <span class="small text-danger">{{ errors.total }}</span>
+                        </div>
                         </div>
                     </div>
 
                     <div class="col-md-6 col-lg-3">
-                        <label class="form-labe fw-bold small">Currency: <span class="text-danger"> * </span></label>
                         <div class="col-md-12">
+                            <div class="form-floating-custom ">  
+                            <input v-model="form.total_amount_paid" placeholder="0.00" class="form-control" v-maska
+                                data-maska="9,99#" data-maska-tokens="9:[0-9]:repeated" data-maska-reversed id="paid_amount">
+                            <span class="small text-danger">{{ errors.total }}</span>
+                            <label class="form-labe fw-bold small" for="paid_amount">Total amount paid:<span class="text-danger"> *
+                            </span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3">
+                       
+                        <!-- <label class="form-labe fw-bold small">Currency: <span class="text-danger"> * </span></label> -->
+                   
+                        <div class="col-md-12">
+                            <div class="fixed-label-custom">
                             <v-select v-model="form.currency" :clearable="false"
-                                :options="startCompanyStore.currencies" />
+                                :options="startCompanyStore.currencies" id="currency" />
+                        <label  class="form-labe fw-bold small" for="currency"> Currency<small class="text-danger"> *</small></label>
+                        </div>
+
                         </div>
                     </div>
                 </div>
@@ -61,9 +73,14 @@
                             <i class="bi bi-person-circle me-2"></i> {{ founder.entity_name }} <span
                                 class="text-danger"> * </span>
                             <span class="float-end">
+                                <div class="form-floating-custom ">  
                                 <input v-model="founder.own_share" type="text"
                                     class="form-control form-control-sm text-end" placeholder="0" v-maska
                                     data-maska="9,99#" data-maska-tokens="9:[0-9]:repeated" data-maska-reversed>
+                                    <label class="form-label" for="paid_amount">Shares:<span class="text-danger"> *
+                                   </span></label>
+                                    </div>
+                                
                             </span>
                         </li>
 
@@ -77,7 +94,6 @@
                                 {{ sumError }}
                                 <i class="bi bi-exclamation-circle"></i>
                             </span>
-
 
                         </li>
                     </ul>
@@ -238,7 +254,7 @@ async function retrieveShareHolders() {
                 if (obj) {
                     obj.entity_name = el.entity_type_id == 1 ?
                         `${obj.first_name ?? ''} ${obj.last_name ?? ''} ${obj.chn_last_name ?? ''}${obj.chn_first_name ?? ''}`
-                        : `${obj.company_name ?? ''}${obj.chn_company_name??''}`
+                        : `${obj.company_name ?? ''} ${obj.chn_company_name??''}`
                     obj.own_share = el.share?.total_amount ?? 0;
                     arrayOfFounders.push(obj);
                 }

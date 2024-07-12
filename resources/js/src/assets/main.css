@@ -15,22 +15,31 @@ button:focus,
     border: 1px solid red !important;
 }
 
-.error-field .vs__dropdown-toggle {
+.error-field:focus {
+    box-shadow: none !important;
+}
+
+.error-field .vs__dropdown-toggle, .error-field .vue-tel-input {
     border: 1px solid red !important;
 }
 
 
-.vs__search {
-    line-height: 1.81rem !important;
+/* .vs__search {
+    line-height: 2.9rem !important;
     border: 0px !important;
-}
+} */
 
 .v-select, .v-select * {
-    line-height: 1.7rem !important;
+    line-height: 2.9rem !important;
+    border-radius: var(--bs-border-radius);
 }
 
 .vs__search:focus {
     box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
+}
+
+.error-field .vs__search:focus {
+    box-shadow: none !important;
 }
 
 .vs--single {

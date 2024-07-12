@@ -4,17 +4,23 @@
             <div class="fw-bold fs-5">About you </div>
             <div class="fw-bolder">Your name in English <small class="text-danger">*</small></div>
             <span>Enter your first and last name as they appear on a government ID</span>
-            <div class="row mt-1 g-2">
+            <div class="row mt-1 g-3">
                 <div class="col-12 ">
-                    <input v-bind="form.first_nameAttr" :class="{ 'error-field': form.errors.first_name }" v-maska
-                        data-maska="A a" data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
-                        v-model="form.first_name" type="text" class="form-control" placeholder="First Name..">
+                    <div class="form-floating-custom ">
+                        <input v-bind="form.first_nameAttr" :class="{ 'error-field': form.errors.first_name }" v-maska
+                            data-maska="A a" data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
+                            v-model="form.first_name" type="text" class="form-control" placeholder="" id="first_name">
+                        <label for="first_name" class="form-labe">First Name </label>
+                    </div>
                     <small class=" text-danger">{{ form.errors.first_name }}</small>
                 </div>
                 <div class="col-12 ">
-                    <input v-bind="form.last_nameAttr" :class="{ 'error-field': form.errors.last_name }" v-maska
-                        data-maska="A a" data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
-                        v-model="form.last_name" type="text" class="form-control" placeholder="Last Name..">
+                    <div class="form-floating-custom ">
+                        <input v-bind="form.last_nameAttr" :class="{ 'error-field': form.errors.last_name }" v-maska
+                            data-maska="A a" data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple"
+                            v-model="form.last_name" type="text" class="form-control" placeholder="" id="last_name">
+                        <label for="last_name">Last Name</label>
+                    </div>
                     <small class=" text-danger">{{ form.errors.last_name }}</small>
                 </div>
                 <div class="col-12 ">
@@ -31,69 +37,96 @@
             <span>Enter your first and last name as they appear on a government ID</span>
             <div class="row mt-1 g-2">
                 <div class="col-12 ">
-                    <input v-bind="form.chn_first_nameAttr" :class="{ 'error-field': form.errors.chn_first_name }"
-                        v-model="form.chn_first_name" type="text" class="form-control" placeholder="First Name..">
+                    <div class="form-floating-custom ">
+                        <input v-bind="form.chn_first_nameAttr" :class="{ 'error-field': form.errors.chn_first_name }"
+                            v-model="form.chn_first_name" type="text" class="form-control" placeholder=""
+                            id="chn_first_name">
+                        <label for="chn_first_name">First Name</label>
+                    </div>
                     <small class=" text-danger">{{ form.errors.chn_first_name }}</small>
                 </div>
                 <div class="col-12 ">
-                    <input v-bind="form.chn_last_nameAttr" :class="{ 'error-field': form.errors.chn_last_name }"
-                        v-model="form.chn_last_name" type="text" class="form-control" placeholder="Last Name..">
+                    <div class="form-floating-custom ">
+                        <input v-bind="form.chn_last_nameAttr" :class="{ 'error-field': form.errors.chn_last_name }"
+                            v-model="form.chn_last_name" type="text" class="form-control" placeholder=""
+                            id="chn_last_name">
+                        <label for="chn_last_name">Last Name</label>
+                    </div>
+
                     <small class=" text-danger">{{ form.errors.chn_last_name }}</small>
                 </div>
             </div>
         </section>
 
-        <section class="row g-2 section">
+        <section class="row g-3 section">
             <div class="col-md-6">
-                <label class="form-label fw-bold">Date of Birth <small class="text-danger">*</small></label>
-                <VueDatePicker :start-date="useFxn.yearsAgo(18)" :max-date="new Date()" v-bind="form.dobAttr"
-                    :format="useFxn.dateDisplay" input-class-name="dob-settings-input" :class="{ 'error-field': form.errors.dob??ageError }"   hide-input-icon
-                    :clearable="false" :enable-time-picker="false" auto-apply v-model="form.dob"
-                    placeholder="select date of birth">
-                </VueDatePicker>
+                <div class="fixed-label-custom">
+
+                    <VueDatePicker id="dob" :start-date="useFxn.yearsAgo(18)" :max-date="new Date()"
+                        v-bind="form.dobAttr" :format="useFxn.dateDisplay" input-class-name="dob-settings-input"
+                        :class="{ 'error-field': form.errors.dob ?? ageError }" hide-input-icon :clearable="false"
+                        :enable-time-picker="false" auto-apply v-model="form.dob" placeholder="Date of Birth">
+                    </VueDatePicker>
+                    <label for="dob">Date of Birth <small class="text-danger">*</small></label>
+                </div>
+
+
                 <small class=" text-danger">{{ form.errors.dob }}</small>
                 <small class=" text-danger">{{ ageError }}</small>
             </div>
 
             <div class="col-md-6">
-                <label class="form-label fw-bold">Nationality <small class="text-danger">*</small></label>
                 <!-- <select v-model="form.nationality" class="form-select">
-                <option selected value="Hong Kong"> Hong Kong</option>
-            </select> -->
-                <v-select @search:blur="form.validateVueSelectOnBlur('nationality')" v-bind="form.nationalityAttr"
-                    placeholder="select country.." :class="{ 'error-field': form.errors.nationality }"  v-model="form.nationality" :clearable="false"
-                    :options="startCompanyStore.countries" />
+                    <option selected value="Hong Kong"> Hong Kong</option>
+                </select> -->
+                <div class="fixed-label-custom">
+                    <v-select id="nationality" @search:blur="form.validateVueSelectOnBlur('nationality')"
+                        v-bind="form.nationalityAttr" placeholder="select country.."
+                        :class="{ 'error-field': form.errors.nationality }" v-model="form.nationality"
+                        :clearable="false" :options="startCompanyStore.countries" />
+                    <label for="nationality">Nationality <small class="text-danger">*</small></label>
+                </div>
                 <small class=" text-danger">{{ form.errors.nationality }}</small>
             </div>
         </section>
 
         <section class="section">
             <div class="fw-bolder">Your residential address <small class="text-danger">*</small> </div>
-            <div class="row g-3 mt-1">
+            <div class="row g-3 mt-3">
                 <div class="col-12">
-                    <label class="form-label">Flat／Floor／Block <small class=" text-danger">*</small> </label>
-                    <input v-bind="form.flatAttr" :class="{ 'error-field': form.errors.flat }" v-model="form.flat"
-                        class="form-control" type="text" placeholder="Flat／Floor／Block">
+                    <div class="form-floating-custom ">
+                        <!-- <label class="form-label"> </label> -->
+                        <input v-bind="form.flatAttr" :class="{ 'error-field': form.errors.flat }" v-model="form.flat"
+                            class="form-control" type="text" placeholder="">
+                        <label for="flat">Flat／Floor／Block <small class=" text-danger">*</small> </label>
+                    </div>
                     <small class=" text-danger">{{ form.errors.flat }}</small>
                 </div>
                 <div class="col-12">
-                    <label class="form-label">Building <small class=" text-danger">*</small></label>
-                    <input v-bind="form.buildingAttr" :class="{ 'error-field': form.errors.building }"
-                        v-model="form.building" class="form-control" type="text" placeholder="Street number">
+                    <div class="form-floating-custom ">
+                        <input v-bind="form.buildingAttr" :class="{ 'error-field': form.errors.building }"
+                            v-model="form.building" class="form-control" type="text" placeholder="" id="building">
+                        <label class="form-label" for="building">Building <small class=" text-danger">*</small></label>
+                    </div>
                     <small class=" text-danger">{{ form.errors.building }}</small>
                 </div>
                 <div class="col-12">
-                    <label class="form-label"> Street／Estate／Lot／Village <small class=" text-danger">*</small></label>
-
-                    <input v-bind="form.streetAttr" :class="{ 'error-field': form.errors.street }" v-model="form.street"
-                        class="form-control" type="text" placeholder="Street">
+                    <div class="form-floating-custom ">
+                        <input v-bind="form.streetAttr" :class="{ 'error-field': form.errors.street }"
+                            v-model="form.street" class="form-control" type="text" placeholder="" id="strees">
+                        <label class="form-label" for="streets"> Street／Estate／Lot／Village <small
+                                class=" text-danger">*</small></label>
+                    </div>
                     <small class=" text-danger">{{ form.errors.street }}</small>
                 </div>
                 <div class="col-12">
-                    <label class="form-label">District／City／ Province／State／ Postal Code <small
-                            class=" text-danger">*</small></label>
-                    <input v-bind="form.stateAttr" :class="{ 'error-field': form.errors.state }" v-model="form.state"
-                        class="form-control" type="text" placeholder="State">
+
+                    <div class="form-floating-custom ">
+                        <input v-bind="form.stateAttr" :class="{ 'error-field': form.errors.state }"
+                            v-model="form.state" class="form-control" type="text" placeholder="" id="district">
+                        <label class="form-label" for="district">District／City／ Province／State／ Postal Code <small
+                                class=" text-danger">*</small></label>
+                    </div>
                     <small class=" text-danger">{{ form.errors.state }}</small>
                 </div>
                 <!-- <div class="col-12">
@@ -120,31 +153,42 @@
                     <label class="form-check-label" for="same_address">Same as residential address</label>
                 </div>
             </span>
-            <div v-if="!form.correspondingAddressIsSame" class="row g-2 mt-1">
+            <div v-if="!form.correspondingAddressIsSame" class="row g-3 mt-1">
                 <div class="col-12">
-                    <label class="form-label"> Flat／Floor／Block <small class=" text-danger">*</small> </label>
-                    <input v-bind="form.flat2Attr" :class="{ 'error-field': form.errors.flat2 }" v-model="form.flat2"
-                        class="form-control" type="text" placeholder="Flat／Floor／Block">
+                    <div class="form-floating-custom ">
+                        <input v-bind="form.flat2Attr" :class="{ 'error-field': form.errors.flat2 }"
+                            v-model="form.flat2" class="form-control" type="text" placeholder="" id="block">
+                        <label class="form-label" for="block"> Flat／Floor／Block <small class=" text-danger">*</small>
+                        </label>
+                    </div>
                     <small class=" text-danger">{{ form.errors.flat2 }}</small>
                 </div>
                 <div class="col-12">
-                    <label class="form-label">Building <small class=" text-danger">*</small></label>
-                    <input v-bind="form.building2Attr" :class="{ 'error-field': form.errors.building2 }"
-                        v-model="form.building2" class="form-control" type="text" placeholder="Street number">
+
+                    <div class="form-floating-custom ">
+                        <input v-bind="form.building2Attr" :class="{ 'error-field': form.errors.building2 }"
+                            v-model="form.building2" class="form-control" type="text" placeholder="" id="buidlings">
+                        <label class="form-label" for="buidlings">Building <small class=" text-danger">*</small></label>
+                    </div>
                     <small class=" text-danger">{{ form.errors.building2 }}</small>
                 </div>
                 <div class="col-12">
-                    <label class="form-label"> Street／Estate／Lot／Village <small class=" text-danger">*</small></label>
-
-                    <input v-bind="form.street2Attr" :class="{ 'error-field': form.errors.street2 }"
-                        v-model="form.street2" class="form-control" type="text" placeholder="Street">
+                    <div class="form-floating-custom ">
+                        <input v-bind="form.street2Attr" :class="{ 'error-field': form.errors.street2 }"
+                            v-model="form.street2" class="form-control" type="text" placeholder="" id="Streetss">
+                        <label class="form-label" for="Streetss"> Street／Estate／Lot／Village <small
+                                class=" text-danger">*</small></label>
+                    </div>
                     <small class=" text-danger">{{ form.errors.street2 }}</small>
                 </div>
                 <div class="col-12">
-                    <label class="form-label">District／City／ Province／State／ Postal Code <small
-                            class=" text-danger">*</small></label>
-                    <input v-bind="form.state2Attr" :class="{ 'error-field': form.errors.state2 }" v-model="form.state2"
-                        class="form-control" type="text" placeholder="State">
+                    <div class="form-floating-custom ">
+                        <input v-bind="form.state2Attr" :class="{ 'error-field': form.errors.state2 }"
+                            v-model="form.state2" class="form-control" type="text" placeholder="" id="states">
+
+                        <label class="form-label" for="states">District／City／ Province／State／ Postal Code <small
+                                class=" text-danger">*</small></label>
+                    </div>
                     <small class=" text-danger">{{ form.errors.state2 }}</small>
                 </div>
                 <!-- <div class="col-12">
@@ -154,88 +198,121 @@
                         <small class=" text-danger">{{ form.errors.postal_code }}</small>
                     </div> -->
                 <div class="col-md-12">
-                    <label class="form-label">Country／Region <small class=" text-danger">*</small></label>
-                    <v-select @search:blur="form.validateVueSelectOnBlur('country2')" v-bind="form.country2Attr"
-                        :class="{ 'error-field': form.errors.country2 }" placeholder="select country.."
-                        v-model="form.country2" :clearable="false" :options="startCompanyStore.countries" />
+                    <div class="fixed-label-custom">
+                        <v-select for="country2" @search:blur="form.validateVueSelectOnBlur('country2')"
+                            v-bind="form.country2Attr" :class="{ 'error-field': form.errors.country2 }"
+                            placeholder="select country.." v-model="form.country2" :clearable="false"
+                            :options="startCompanyStore.countries" />
+                        <label for="country2">Country／Region <small class=" text-danger">*</small></label>
+
+                    </div>
+
                     <small class=" text-danger">{{ form.errors.country2 }}</small>
                 </div>
             </div>
         </section>
 
-        <section class="row g-2 section">
+        <section class="row g-3 section">
             <div class="col-md-12">
-                <label class=" fw-bolder">ID type <small class="text-danger">*</small></label>
                 <!-- <select v-bind="form.identity_type_idAttr" class="form-select" v-model="form.identity_type_id"
                 :class="{ 'error-field': form.errors.identity_type_id }">
                 <option></option>
                 <option value="1">Passport</option>
                 <option value="2">ID Card</option>
             </select> -->
-                <v-select @search:blur="form.validateVueSelectOnBlur('indentity_type_id')"
-                    v-bind="form.identity_type_idAttr" :class="{ 'error-field': form.errors.identity_type_id }"
-                    v-model="form.identity_type_id" :clearable="false"
-                    :options="[{ value: 1, label: 'Passport' }, { value: 2, label: 'ID CARD' }]"
-                    :reduce="(val: any) => val.value" />
+                <div class="fixed-label-custom">
+                    <v-select for="indentity_type_id" @search:blur="form.validateVueSelectOnBlur('indentity_type_id')"
+                        v-bind="form.identity_type_idAttr" :class="{ 'error-field': form.errors.identity_type_id }"
+                        v-model="form.identity_type_id" :clearable="false"
+                        :options="[{ value: 1, label: 'Passport' }, { value: 2, label: 'ID CARD' }]"
+                        :reduce="(val: any) => val.value" />
+                    <label for="indentity_type_id">ID type <small class="text-danger">*</small></label>
+                </div>
+
                 <small class="text-danger">{{ form.errors.identity_type_id }}</small>
             </div>
-            <div v-if="form.identity_type_id == '2'" class="col-md-9">
-                <label class=" fw-bolder">HKID No. <small class="text-danger">*</small></label>
-                <input :class="{ 'error-field': form.errors.identity_no }" v-maska data-maska="#################"
-                    data-maska-tokens="#:[0-9a-zA-Z]" v-model="form.identity_no" ype="text" class="form-control"
-                    placeholder="HKID No.">
+            <div v-if="form.identity_type_id == '2'" class="col-md-9" style="margin-top:30px">
+                <div class="form-floating-custom ">
+                    <input :class="{ 'error-field': form.errors.identity_no }" v-maska data-maska="#################"
+                        data-maska-tokens="#:[0-9a-zA-Z]" v-model="form.identity_no" ype="text" class="form-control"
+                        placeholder="" id="hkid">
+
+                    <label class=" " for="hkid">HKID No. <small class="text-danger">*</small></label>
+                </div>
                 <small class=" text-danger">{{ form.errors.identity_no }}</small>
             </div>
             <div v-if="form.identity_type_id == '2'" class="col-md-3" style="margin-top:30px">
                 <!-- <label class="fw-bolder">HKID No. <small class="text-danger">*</small></label> -->
                 <!-- <div class="append"> -->
-                ( <input v-bind="form.identity_no_suffixAttr" :class="{ 'error-field': form.errors.identity_no_suffix }"
-                    v-maska data-maska="##" data-maska-tokens="#:[0-9]" v-model="form.identity_no_suffix" type="text"
-                    class="form-control " placeholder="" style="display: inline !important; width:100px">)
-                <!-- </div> -->
+                <div class="form-floating-custom ">
+                    ( <input v-bind="form.identity_no_suffixAttr"
+                        :class="{ 'error-field': form.errors.identity_no_suffix }" v-maska data-maska="##"
+                        data-maska-tokens="#:[0-9]" v-model="form.identity_no_suffix" type="text" class="form-control "
+                        placeholder="" style="display: inline !important; width:100px">)
+                    <!-- </div> -->
+                </div>
                 <small class=" text-danger">{{ form.errors.identity_no_suffix }}</small>
             </div>
             <div v-if="form.identity_type_id == '1'" class="col-md-12">
-                <label class=" fw-bolder">Passport No. <small class="text-danger">*</small></label>
-                <input v-bind="form.passport_noAttr" :class="{ 'error-field': form.errors.passport_no }" v-maska
-                    data-maska="EEEEEEEEEEEEEEEE" data-maska-tokens="E:[0-9a-zA-Z]" v-model="form.passport_no"
-                    type="text" class="form-control" placeholder="Passport No">
+                <div class="form-floating-custom ">
+                    <input v-bind="form.passport_noAttr" :class="{ 'error-field': form.errors.passport_no }" v-maska
+                        data-maska="EEEEEEEEEEEEEEEE" data-maska-tokens="E:[0-9a-zA-Z]" v-model="form.passport_no"
+                        type="text" class="form-control" placeholder="" id="passport">
+                    <label class=" " for="passprt">Passport No. <small class="text-danger">*</small></label>
+                </div>
                 <small class=" text-danger">{{ form.errors.passport_no }}</small>
             </div>
             <div v-if="form.identity_type_id == '1'" class="col-md-12">
-                <label class=" fw-bolder">Passport issuing Country/Region <small class="text-danger">*</small> </label>
-                <v-select @search:blur="form.validateVueSelectOnBlur('issuing_country')"
-                    v-bind="form.issuing_countryAttr" :class="{ 'error-field': form.errors.issuing_country }"
-                    v-model="form.issuing_country" :clearable="false" :options="startCompanyStore.countries" />
+                <div class="fixed-label-custom">
+                    <v-select id="issuing_country" @search:blur="form.validateVueSelectOnBlur('issuing_country')"
+                        v-bind="form.issuing_countryAttr" :class="{ 'error-field': form.errors.issuing_country }"
+                        v-model="form.issuing_country" :clearable="false" :options="startCompanyStore.countries" />
+
+                    <label for="issuing_country">Passport issuing Country/Region <small class="text-danger">*</small>
+                    </label>
+                </div>
+
                 <small class=" text-danger">{{ form.errors.issuing_country }}</small>
             </div>
             <div class="col-md-12">
-                <label class=" fw-bolder">Phone number <small class="text-danger">*</small></label>
-                <vue-tel-input mode="international" v-bind="form.phoneAttr"
-                    :class="{ 'error-field': form.errors.phone }" :inputOptions="phoneField.input"
-                    :dropdownOptions="phoneField.dropDown" :autoFormat="true" v-model="form.phone"
-                    data-maska-tokens="0:[0-9]:multiple">
-                </vue-tel-input>
+                <div class="fixed-label-custom">
+                    <vue-tel-input mode="international" v-bind="form.phoneAttr"
+                        :class="{ 'error-field': form.errors.phone }" :inputOptions="phoneField.input"
+                        :dropdownOptions="phoneField.dropDown" :autoFormat="true" v-model="form.phone"
+                        data-maska-tokens="0:[0-9]:multiple" id="phone">
+                    </vue-tel-input>
+                    <label for="phone">Phone number <small class="text-danger">*</small></label>
+                </div>
                 <small class=" text-danger">{{ form.errors.phone }}</small>
             </div>
             <div class="col-md-12">
-                <label class=" fw-bolder">Email <small class="text-danger">*</small></label>
-                <input v-bind="form.emailAttr" :class="{ 'error-field': form.errors.email }" v-model="form.email"
-                    type="text" class="form-control" placeholder="email">
+                <div class="form-floating-custom ">
+                    <input v-bind="form.emailAttr" :class="{ 'error-field': form.errors.email }" v-model="form.email"
+                        type="text" class="form-control" placeholder="" id="temail">
+                    <label class="" for="temail">Email <small class="text-danger">*</small></label>
+                </div>
                 <small class=" text-danger">{{ form.errors.email }}</small>
             </div>
             <div class="col-md-12">
-                <label class=" fw-bolder">Confirm email <span class="text-danger"> * </span></label>
-                <input v-bind="form.confirm_emailAttr" :class="{ 'error-field': form.errors.confirm_email }"
-                    v-model="form.confirm_email" type="text" class="form-control" placeholder="confirm email">
+
+                <div class="form-floating-custom ">
+                    <input v-bind="form.confirm_emailAttr" :class="{ 'error-field': form.errors.confirm_email }"
+                        v-model="form.confirm_email" type="text" class="form-control" placeholder="" id="cemail">
+                    <label class="" for="cemail">Confirm email <span class="text-danger"> * </span></label>
+                </div>
                 <small class=" text-danger">{{ form.errors.confirm_email }}</small>
                 <small v-if="emailMatchError" class=" text-danger">emails do no match</small>
             </div>
             <div class="col-md-12">
-                <label class="form-labe fw-bolder">Occupation/Employment <span class="text-danger"> * </span></label>
-                <v-select @search:blur="form.validateVueSelectOnBlur('occupation')" v-bind="form.occupationAttr"
-                    :class="{ 'error-field': form.errors.occupation }" v-model="form.occupation" :clearable="true"
-                    :options="startCompanyStore.employmentStatusList" />
+                <div class="fixed-label-custom">
+                    <v-select id="occupation" @search:blur="form.validateVueSelectOnBlur('occupation')"
+                        v-bind="form.occupationAttr" :class="{ 'error-field': form.errors.occupation }"
+                        v-model="form.occupation" :clearable="true" :options="startCompanyStore.employmentStatusList" />
+                    <label for="occupation" class="form-labe fw-bolder">Occupation/Employment <span class="text-danger">
+                            *
+                        </span></label>
+                </div>
+
                 <small class="text-danger">{{ form.errors.occupation }}</small>
             </div>
 
@@ -288,7 +365,7 @@ watch(() => form, () => { form.saveToLocalStorage() }, { deep: true })
 
 const phoneField = {
     dropDown: {
-        showDialCodeInSelection: true,
+        showDialCodeInSelection: false,
         showFlags: true,
         showSearchBox: true,
         showDialCodeInList: true,
@@ -298,7 +375,7 @@ const phoneField = {
         showDialCode: true,
         placeholder: 'Enter phone',
         styleClasses: 'phone-input-profile',
-        maxlength: 22,
+        maxlength: 22
     }
 
 }

@@ -54,7 +54,7 @@ async function getTwoFactorStatus() {
         const data = resp.data.data
         // twoFactorObj.isActivated = data.google2fa_secret ? true : false
         twoFactorObj.isEnabled = data.enable_2fa_at ? true : false
-        console.log(resp.data);
+        // console.log(resp.data);
     } catch (error: any) {
         console.log(error);
     }

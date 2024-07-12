@@ -151,7 +151,7 @@ async function getLogs() {
     formData.append('shareholder_id', expandedObjArray.id)
     formData.append('page', expandingServerOptions.value.page)
     const response = await api.incoprationLogs(formData)
-    console.log(response);
+    // console.log(response);
 
     const data: any = response.data.data?.RegisterOfShareholderLog ?? null;
     expandedTotal.value = data?.total ?? 0

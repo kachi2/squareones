@@ -183,7 +183,7 @@ const shareholders = computed(() => {
     const individualShareholder = startCompanyStore.companyInProgress?.company_entity ?? [];
     const founders: any[] = [];
     let counts = 0
-    console.log(individualShareholder, 'individualShareholder')
+    // console.log(individualShareholder, 'individualShareholder')
     individualShareholder.forEach((shares: any) => {
         const obj = shares.individual;
         const fxs = individualShareholder.filter((t:any) =>  t.is_founder == 1 )
@@ -201,7 +201,7 @@ const shareholders = computed(() => {
                 obj.capacity = shares.entity_capacity_id
             obj.company_shares = startCompanyStore.companyInProgress?.shares
             founders.push(obj)
-              console.log(counts, 'counts count');
+            //   console.log(counts, 'counts count');
         }
     })
     founder.founders_count = counts

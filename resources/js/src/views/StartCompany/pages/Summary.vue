@@ -460,7 +460,7 @@
                         <ul class="list-group list-group-flush">
 
                             <li class="list-group-item">
-                                <span class="fw-bold">
+                                <span class="">
                                     Share Type
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 6" class="bi bi-pencil-square"></i>
@@ -469,25 +469,25 @@
                                 </span>
                             </li>
                             <li class="list-group-item">
-                                <span class="fw-bold">
+                                <span class="">
                                     No of Shares
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 6" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-mut">{{ data.no_of_share }}</div>
+                                    <div class="small text-mut">   {{ data.no_of_share.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") }}</div>
                                 </span>
                             </li>
                             <li class="list-group-item">
-                                <span class="fw-bold">
+                                <span class="">
                                     Total Amount Paid
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 6" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-mut">{{ data.total_amount_paid }}</div>
+                                    <div class="small text-mut"> {{ data.total_amount_paid.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") }}</div>
                                 </span>
                             </li>
                             <li class="list-group-item">
-                                <span class="fw-bold">
+                                <span class="">
                                     Currency
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 6" class="bi bi-pencil-square"></i>
@@ -529,7 +529,7 @@
                         <ul class="list-group list-group-flush">
 
                             <li class="list-group-item">
-                                <span class="fw-bold">
+                                <span class="">
                                     Name
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
@@ -547,7 +547,7 @@
                                 </span>
                             </li> -->
                             <li class="list-group-item">
-                                <span class="fw-bold">
+                                <span class="">
                                     company Reg No
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
@@ -556,7 +556,7 @@
                                 </span>
                             </li>
                             <li class="list-group-item">
-                                <span class="fw-bold">
+                                <span class="">
                                     Country Registered
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
@@ -565,7 +565,7 @@
                                 </span>
                             </li>
                             <li class="list-group-item">
-                                <span class="fw-bold">
+                                <span class="">
                                     Licence No
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
@@ -574,7 +574,7 @@
                                 </span>
                             </li>
                             <li class="list-group-item">
-                                <span class="fw-bold">
+                                <span class="">
                                     Flat
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
@@ -583,7 +583,7 @@
                                 </span>
                             </li>
                             <li class="list-group-item">
-                                <span class="fw-bold">
+                                <span class="">
                                     Street
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
@@ -592,7 +592,7 @@
                                 </span>
                             </li>
                             <li class="list-group-item">
-                                <span class="fw-bold">
+                                <span class="">
                                     City/State
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
@@ -601,7 +601,7 @@
                                 </span>
                             </li>
                             <li class="list-group-item">
-                                <span class="fw-bold">
+                                <span class="">
                                     Country
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
@@ -959,8 +959,8 @@ onMounted(async () => {
                 // if(founder.)
                 if (founder.owner_shares) {
                     data.ownerShares.push({
-                        name: (founder.first_name?founder.first_name:'') + ' ' + (founder.last_name?founder.last_name:'') +' '+ (founder.chn_last_name?founder.chn_last_name:'')  + (founder.chn_first_name?founder.chn_first_name:''),
-                        amount: founder.owner_shares?.total_amount ?? 0
+                        name: (founder?.first_name?founder.first_name:'') + ' ' + (founder?.last_name?founder?.last_name:'') +' '+ (founder?.chn_last_name?founder?.chn_last_name:'')  + (founder?.chn_first_name?founder?.chn_first_name:''),
+                        amount: founder?.owner_shares?.total_amount ?? 0
                     })
                 }
             });
@@ -975,8 +975,8 @@ onMounted(async () => {
 
                 if (founder.owner_shares) {
                     data.ownerShares.push({
-                        name: founder.company_name??'' +' ' + founder.chn_company_name??'',
-                        amount: founder.owner_shares?.total_amount ?? 0
+                        name: (founder?.company_name?founder.company_name: '') + ' ' + (founder?.chn_company_name?founder?.chn_company_name:''),
+                        amount: founder?.owner_shares?.total_amount ?? 0
                     })
                 }
             });

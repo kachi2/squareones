@@ -316,7 +316,7 @@ function updateProgress() {
 
     }
 
-    console.log(status);
+    // console.log(status);
 
 }
 

@@ -313,7 +313,7 @@ async function getCompanyStats() {
             end_date: useFxn.formatDate(company_end_date.value)
         }
         const resp = await api.getCompanyStats(queryObj)
-        console.log(resp, 'coy_stats');
+        // console.log(resp, 'coy_stats');
 
     } catch (error) {
         // 
@@ -328,7 +328,7 @@ async function getRevenueStats() {
             end_date: useFxn.formatDate(revenue_end_date.value)
         }
         const resp = await api.getRevenueStats(queryObj)
-        console.log(resp, 'rev_stats');
+        // console.log(resp, 'rev_stats');
 
     } catch (error) {
         // 

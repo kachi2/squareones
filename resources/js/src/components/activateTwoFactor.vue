@@ -58,7 +58,7 @@ async function activateTwoFactor() {
     try {
         const resp = await api.activateTwoFactor()
         const data = resp.data[0]
-        console.log(data);
+        // console.log(data);
 
         twoFactorObj.barcode = data.barcode
         twoFactorObj.google2fa_secret = data.google2fa_secret
@@ -97,7 +97,7 @@ async function enableTwoFactor() {
         const formData = new FormData();
         formData.append('secret', twoFactorObj.inputSecret)
         const resp = await api.enableTwoFactor(formData)
-        console.log(resp);
+        // console.log(resp);
 
         twoFactorObj.isVerifying = false
 

@@ -8,42 +8,50 @@
 
             <section class="row g-2">
                 <div class="col-md-12">
-                    <label class=" fw-bolder">Expected source of funds <small class="text-danger">*</small></label>
+                    <div class="fixed-label-custom">
                     <v-select @search:blur="form.validateVueSelectOnBlur('income_expected_source')"
                         :class="{ 'error-field': form.errors.income_expected_source }"
                         v-bind="form.income_expected_sourceAttr" v-model="form.income_expected_source" :clearable="true"
-                        placeholder="select income expected source  " :options="startCompanyStore.sourceOfFunds" />
+                        placeholder="select income expected source  " :options="startCompanyStore.sourceOfFunds"  id="source"/>
+                        <label class=" fw-bolder" for="source">Expected source of funds <small class="text-danger">*</small></label>
+                    </div>
                     <small class="text-danger">{{ form.errors.income_expected_source }}</small>
 
                 </div>
 
                 <div class="col-md-12">
-                    <label class=" fw-bolder">Origin source of funds <small class="text-danger">*</small></label>
+                    <div class="fixed-label-custom">
                     <v-select @search:blur="form.validateVueSelectOnBlur('origin_funds')"
                         :class="{ 'error-field': form.errors.origin_funds }" v-model="form.origin_funds"
                         :clearable="true" :options="startCompanyStore.countries" placeholder="select origin funds" />
+                        <label class=" fw-bolder">Origin source of funds <small class="text-danger">*</small></label>
+                    </div>
                     <small class="text-danger">{{ form.errors.origin_funds }}</small>
                 </div>
 
                 <div class="fw-bolder fs-5">Source of Wealth</div>
 
                 <div class="col-md-12">
-                    <label class=" fw-bolder">Initial source of wealth <small class="text-danger">*</small></label>
+                    <div class="fixed-label-custom">
                     <v-select @search:blur="form.validateVueSelectOnBlur('wealth_initial_source')"
                         :class="{ 'error-field': form.errors.wealth_initial_source }"
                         v-model="form.wealth_initial_source" :clearable="true"
                         :options="startCompanyStore.initialSourceOfWealth" placeholder=" select wealth initialsource" />
+                        <label class=" fw-bolder">Initial source of wealth <small class="text-danger">*</small></label>
+                    </div>
                     <small class="text-danger">{{ form.errors.wealth_initial_source }}</small>
 
                 </div>
 
                 <div class="col-md-12">
-                    <label class="fw-bolder">Ongoing source of wealth <small class="text-danger">*</small></label>
+                    <div class="fixed-label-custom">
                     <v-select @search:blur="form.validateVueSelectOnBlur('income_outgoing_source')"
                         :class="{ 'error-field': form.errors.income_outgoing_source }"
                         v-model="form.income_outgoing_source" :clearable="true"
                         :options="startCompanyStore.ongoingSourceOfIncome"
                         placeholder="select income outgoing source" />
+                        <label class="fw-bolder">Ongoing source of wealth <small class="text-danger">*</small></label>
+                        </div>
                     <small class="text-danger">{{ form.errors.income_outgoing_source }}</small>
                 </div>
 
