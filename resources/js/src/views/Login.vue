@@ -13,7 +13,7 @@
                   <div class="row mt-4 g-3">
                     <div class="col-12">
                       <label class="form-label fw-bold"> Email </label>
-                      <input v-model="email" v-bind="emailAttrs" type="text" class="form-control exemption">
+                      <input v-model="email" v-bind="emailAttrs" type="text"  :class="{ 'error-field': errors.email  }" class="form-control exemption">
                       <span class="small text-danger">{{ errors.email }}</span>
                     </div>
 
@@ -24,7 +24,7 @@
                           <i v-else class="bi bi-eye cursor-pointer"></i>
                         </span>
                       </div>
-                      <input v-model="password" v-bind="passwordAttrs" :type="inputType" class="form-control exemption">
+                      <input v-model="password" v-bind="passwordAttrs" :type="inputType"  :class="{ 'error-field': errors.password  }" class="form-control exemption">
                       <span class="small text-danger">{{ errors.password }}</span>
                     </div>
 
