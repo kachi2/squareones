@@ -212,6 +212,7 @@ class CompanyEntityService implements CompanyEnityInterface
         $entity->update([
             'signature' => null,
             'date_signed'=> null,
+            'is_founder' => 0
         ]);
         return $entity;
     }

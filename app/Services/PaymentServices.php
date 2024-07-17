@@ -16,6 +16,7 @@ use App\Notifications\PaymentCompleted;
 use Illuminate\Support\Carbon;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Illuminate\Support\Facades\DB;
+use Stripe\Checkout\Session;
 
 class PaymentServices implements PaymentInterface
  {
@@ -26,13 +27,32 @@ class PaymentServices implements PaymentInterface
             $plans = Plan::latest()->first();
             $payment_ref = str_replace(['(',')','\\','/','%','#','$','@','!'],'',base64_encode(random_bytes(10)));
 
-        $paymentIntent = Stripe::paymentIntents()->create([
-            'amount' => $plans->amount,
-            'currency' => 'usd',
-            'payment_method_types' => [
-                'card',
-            ],
+        // $paymentIntent = Stripe::paymentIntents()->create([
+        //     'amount' => $plans->amount,
+        //     'currency' => 'usd',
+        //     'payment_method_types' => [
+        //         'card',
+        //     ],
+        // ]);
+        $stripe = new \Stripe\StripeClient("sk_test_51P7LhqRxBSKsFyqbRwW3yHYcBxVldQori1jhWvT2yS8VtNSloJWAlI4bB2Yyqwh1ywjJeU6oMWUkAxSMKbldViKb00SP28Wht2");
+        $session = $stripe->checkout->sessions->create([
+            'payment_method_types' => ['card'],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'usd',
+                    'product_data' => [
+                        'name' => 'T-shirt',
+                    ],
+                    'unit_amount' => $plans->amount*100,
+                ],
+                'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'success_url' => url('/https://squareone.portrec.ng/kcy/verifications'),
+            'cancel_url' => url('/cancel'),
         ]);
+
+   
         $company = Company::where(['user_id' => auth_user(), 'is_complete' => 0])->first();
         if($company){
         Billing::updateOrcreate([
@@ -41,7 +61,7 @@ class PaymentServices implements PaymentInterface
             'user_id' => auth_user(),
             'company_id' => $company->id,
             'amount' => $plans->amount,
-            'payment_intent' => $paymentIntent['id'],
+            'payment_intent' => $session->id,
             'payment_ref' => $payment_ref,
         ]);
         UserSubscription::create([
@@ -51,11 +71,11 @@ class PaymentServices implements PaymentInterface
             'expiry_date' => null, 
             'contact_person' => null,
             'amount_paid' => $plans->amount,
-            'payment_id' => $paymentIntent['id'],
+            'payment_id' => $session->id,
         ]);
       }
       DB::commit();
-        return  $paymentIntent;
+      return response()->json($session);
     }catch(\Exception $e){
     DB::rollBack();
         return $e->getMessage();
