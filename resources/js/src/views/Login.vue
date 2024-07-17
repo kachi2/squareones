@@ -50,7 +50,7 @@
         <div class="container">
           <div class="everything-center overflow-hidden">
             <div class="col-10">
-              <div class="card border-0 shadow-sm bg-light">
+              <div class="card border-0 shadow-sm bg-light exemption">
                 <div class="card-body">
                   <img style="width: 100%;" src="/images/snap_shot.png" alt="">
                 </div>
