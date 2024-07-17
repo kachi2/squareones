@@ -48,8 +48,8 @@ class PaymentServices implements PaymentInterface
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
-            'success_url' => url('/https://squareone.portrec.ng/kcy/verifications'),
-            'cancel_url' => url('/cancel'),
+            'success_url' => url('/kcy/verifications'),
+            'cancel_url' => url('/start_company'),
         ]);
 
         Session::put('session_id',$session->id);
