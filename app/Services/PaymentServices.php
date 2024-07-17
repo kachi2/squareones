@@ -16,7 +16,7 @@ use App\Notifications\PaymentCompleted;
 use Illuminate\Support\Carbon;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Illuminate\Support\Facades\DB;
-use Stripe\Checkout\Session;
+use Illuminate\Support\Facades\Session;
 
 class PaymentServices implements PaymentInterface
  {
@@ -52,7 +52,7 @@ class PaymentServices implements PaymentInterface
             'cancel_url' => url('/cancel'),
         ]);
 
-   
+        Session::put('session_id',$session->id);
         $company = Company::where(['user_id' => auth_user(), 'is_complete' => 0])->first();
         if($company){
         Billing::updateOrcreate([
@@ -85,10 +85,13 @@ class PaymentServices implements PaymentInterface
     public function ProcessPayment(Request $request)
     {  
     try{
-            $billing = Billing::where('payment_intent', $request->payment_intent)->first();
+        $stripe = new \Stripe\StripeClient('sk_test_51NgNdcEAO4xwJMdypdJNh2azXY9H1Aloq1V841Be4kkzTdxDAVRzkmpk1EsNDeyf3TFss6gr2jSG5JP7RTAlOdiL00P6uaN2dx');
+        $session = $stripe->checkout->sessions->retrieve(Session::get('session_id'));
+        if($session->status == 'complete'){
+            $billing = Billing::where('payment_intent', $session->payment_intent)->first();
             if($billing){
            $billing->update([
-            'status' => $request->redirect_status,
+            'status' => $session->status,
            ]);
 
         Notification::create([
@@ -118,7 +121,8 @@ class PaymentServices implements PaymentInterface
         $companies->User->notify(new CompanyFomationCompleted($companies));
         // $companies->User->notify(new PaymentCompleted($billing));
       
-        return $request->all();
+        return $session;
+    }
     }
     }catch(\Exception $e){
         return $e->getMessage();
