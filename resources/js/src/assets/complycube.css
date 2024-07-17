@@ -460,7 +460,7 @@
     --ods-color-border-negative-focus: var(--ods-color-error-600), 1;
     --ods-color-border-inverse-action: var(--ods-color-neutral-white), 1;
     --unit: (1/16) * 1em;
-    --font-family: "Open Sans", sans-serif;
+    --font-family: Inter, "Open Sans", sans-serif;
     --font-size-base: calc(16 * var(--unit));
     --font-size-large: calc(20 * var(--unit));
     --font-size-x-large: calc(30 * var(--unit));

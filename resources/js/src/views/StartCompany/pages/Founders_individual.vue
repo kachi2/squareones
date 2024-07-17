@@ -2,7 +2,7 @@
     <div>
         <section class="section">
             <div class="fw-bold fs-5">About you </div>
-            <div class="fw-bolder">Your name in English <small class="text-danger">*</small></div>
+            <div class="fw-bolder">Your Name in English <small class="text-danger">*</small></div>
             <span>Enter your first and last name as they appear on a government ID</span>
             <div class="row mt-1 g-3">
                 <div class="col-12 ">
@@ -27,13 +27,13 @@
                     <div class="form-check ">
                         <input class="form-check-input exemption" v-model="form.hasChineseName" type="checkbox"
                             id="chinese_name" />
-                        <label class="form-check-label" for="chinese_name">Do you have a Chinese Name?</label>
+                        <label class="form-check-label" for="chinese_name">Do You have a Chinese Name?</label>
                     </div>
                 </div>
             </div>
         </section>
         <section class="section" v-if="form.hasChineseName">
-            <div class="fw-bolder">Your name in Chinese <small class="text-danger">*</small></div>
+            <div class="fw-bolder">Your Name in Chinese <small class="text-danger">*</small></div>
             <span>Enter your first and last name as they appear on a government ID</span>
             <div class="row mt-1 g-2">
                 <div class="col-12 ">
@@ -91,7 +91,7 @@
         </section>
 
         <section class="section">
-            <div class="fw-bolder">Your residential address <small class="text-danger">*</small> </div>
+            <div class="fw-bolder">Your Residential Address <small class="text-danger">*</small> </div>
             <div class="row g-3 mt-3">
                 <div class="col-12">
                     <div class="form-floating-custom ">
@@ -136,21 +136,24 @@
                         <small class=" text-danger">{{ form.errors.postal_code }}</small>
                     </div> -->
                 <div class="col-md-12">
-                    <label class="form-label"> Country／Region <small class=" text-danger">*</small></label>
+                    <div class="fixed-label-custom">
                     <v-select @search:blur="form.validateVueSelectOnBlur('country')" v-bind="form.countryAttr"
                         :class="{ 'error-field': form.errors.country }" placeholder="select country.."
                         v-model="form.country" :clearable="false" :options="startCompanyStore.countries" />
+
+                    <label class="form-label"> Country／Region <small class=" text-danger">*</small></label>
+                        </div>
                     <small class=" text-danger">{{ form.errors.country }}</small>
                 </div>
             </div>
         </section>
         <section class="section">
-            <div class="fw-bolder">Your corresponding address </div>
+            <div class="fw-bolder">Your Corresponding Address </div>
             <span>
                 <div class="form-check ">
                     <input class="form-check-input exemption" type="checkbox" id="same_address"
                         v-model="form.correspondingAddressIsSame" />
-                    <label class="form-check-label" for="same_address">Same as residential address</label>
+                    <label class="form-check-label" for="same_address">Same as residential address?</label>
                 </div>
             </span>
             <div v-if="!form.correspondingAddressIsSame" class="row g-3 mt-1">
@@ -268,7 +271,7 @@
                         v-bind="form.issuing_countryAttr" :class="{ 'error-field': form.errors.issuing_country }"
                         v-model="form.issuing_country" :clearable="false" :options="startCompanyStore.countries" />
 
-                    <label for="issuing_country">Passport issuing Country/Region <small class="text-danger">*</small>
+                    <label for="issuing_country">Passport Issuing Country/Region <small class="text-danger">*</small>
                     </label>
                 </div>
 
@@ -281,7 +284,7 @@
                         :dropdownOptions="phoneField.dropDown" :autoFormat="true" v-model="form.phone"
                         data-maska-tokens="0:[0-9]:multiple" id="phone">
                     </vue-tel-input>
-                    <label for="phone">Phone number <small class="text-danger">*</small></label>
+                    <label for="phone">Phone Number <small class="text-danger">*</small></label>
                 </div>
                 <small class=" text-danger">{{ form.errors.phone }}</small>
             </div>
@@ -298,7 +301,7 @@
                 <div class="form-floating-custom ">
                     <input v-bind="form.confirm_emailAttr" :class="{ 'error-field': form.errors.confirm_email }"
                         v-model="form.confirm_email" type="text" class="form-control" placeholder="" id="cemail">
-                    <label class="" for="cemail">Confirm email <span class="text-danger"> * </span></label>
+                    <label class="" for="cemail">Confirm Email <span class="text-danger"> * </span></label>
                 </div>
                 <small class=" text-danger">{{ form.errors.confirm_email }}</small>
                 <small v-if="emailMatchError" class=" text-danger">emails do no match</small>

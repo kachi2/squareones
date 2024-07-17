@@ -9,8 +9,8 @@
   <script src="https://assets.complycube.com/web-sdk/v1/complycube.min.js"></script>
   <!-- <script src="https://sdk.complycube.com/latest/complycube.js"></script> -->
   <title>Squareone</title>
-  <script type="module" crossorigin src="/assets/index-ChmrdNFY.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-jb-1mTeP.css">
+  <script type="module" crossorigin src="/assets/index-C732JrW5.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-DBY5KZcB.css">
 </head>
 
 <body>

@@ -6,20 +6,20 @@
                 <span>Company secretary details</span>
             </section>
 
-            <section class="row g-2">
+            <section class="row g-3 mt-1">
                 <div class="col-md-12">
                     <div class="form-floating-custom ">
                     <select disabled class="form-select" id="corporate">
                         <option seleted value="corporate">Corporate</option>
                         <option value="individual">Individual</option>
                     </select>
-                    <label class=" fw-bolder" for="corporate">Type <i class="bi bi-lock-fill"></i></label>
+                    <label class=" " for="corporate">Type <i class="bi bi-lock-fill"></i></label>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-floating-custom ">
                     <input disabled v-model="form.name" type="text" class="form-control" placeholder="Name in English">
-                    <label class=" fw-bolder">Name in English <i class="bi bi-lock-fill"></i></label>
+                    <label class=" ">Name in English <i class="bi bi-lock-fill"></i></label>
                     </div>
                 </div>
                 <!-- <div class="col-md-8">
@@ -30,14 +30,14 @@
                     <div class="form-floating-custom ">
                     <input disabled v-model="form.company_reg_no" type="text" class="form-control"
                         placeholder="Company registration no">
-                    <label class=" fw-bolder">Company registration no <i class="bi bi-lock-fill"></i></label>
+                    <label class=" ">Company Registration No <i class="bi bi-lock-fill"></i></label>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-floating-custom">
                     <input disabled v-model="form.licence_no" type="text" class="form-control"
                         placeholder="Company registration no">
-                        <label class=" fw-bolder">Company license no <i class="bi bi-lock-fill"></i></label>
+                        <label class=" ">Company License No <i class="bi bi-lock-fill"></i></label>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -45,7 +45,7 @@
                     <select disabled class="form-select" v-model="form.country_registered">
                         <option selected value="Hong Kong">Hong Kong</option>
                     </select>
-                    <label class=" fw-bolder">Country registered in <i class="bi bi-lock-fill"></i></label>
+                    <label class=" ">Country Registered <i class="bi bi-lock-fill"></i></label>
                     </div>
                 </div>
             </section>
@@ -64,7 +64,6 @@
                         <!-- <small class=" text-danger">{{ form.errors.flat }}</small> -->
                     </div>
                     <div class="col-12">
-
                         <div class="form-floating-custom">
                         <input disabled v-model="form.building" class="form-control" type="text"
                             placeholder="Street number">
@@ -104,7 +103,7 @@
                     <select disabled class="form-select" v-model="form.country_registered">
                         <option selected value="Hong Kong">Hong Kong</option>
                     </select>
-                    <label class=" fw-bolder">Country registered in <i class="bi bi-lock-fill"></i></label>
+                    <label class=" ">Country Registered <i class="bi bi-lock-fill"></i></label>
                     </div>
                 </div>
                 </div>

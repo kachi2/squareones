@@ -4,7 +4,7 @@ import { useDateFormat, useOnline, useTimeAgo } from '@vueuse/core';
 type DebounceFunction<T extends (...args: any[]) => any> = (...args: Parameters<T>) => void;
 
 
-export default {
+export default { 
     isEmail: (email: string) => {
         const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
         return emailRegex.test(email)

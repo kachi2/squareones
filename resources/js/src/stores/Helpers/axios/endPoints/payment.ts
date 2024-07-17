@@ -2,15 +2,15 @@ import { $instance } from '../instances'
 
 export default {
 
-    paymentIntent(items: any) {
-        return $instance.post(`/payment/intent`, JSON.stringify(items))
+    paymentIntent() {
+        return $instance.get(`/payment/intent`,)
     },
 
     paymentConfirm(items: any) {
-        return $instance.post(`/process/payment`,  JSON.stringify(items))
+        return $instance.post(`/process/payment`, JSON.stringify(items))
     },
 
-    ProcessKyc(){
+    ProcessKyc() {
         return $instance.get('/kyc/load');
     }
 

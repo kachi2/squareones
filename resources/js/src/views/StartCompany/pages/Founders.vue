@@ -16,16 +16,20 @@
 
         <section v-if="foundersAdded.length" class="section">
           <div class="card" style="width: 100%">
-            <div class="card-header py-3 fw-bold border-0">Founders / Directors: </div>
+            <div class="card-header  fw-bold border-0">Founders / Directors </div>
             <div class="table-responsive">
               <table class="table table-sm ">
                 <tbody>
-                  <tr v-for="(item, index) in foundersAdded" :key="item">
+                  <tr v-for="(item, index) in foundersAdded" :key="item" class="px-3">
                     <!-- <i class="bi bi-person-circle" style="font-size:20px; padding-left:20px"></i> -->
                     <!-- <td>{{ (index + 1) }}</td> -->
-                    <span class="p-1"></span>
-                    <td class="text-capitalize " v-if="item.entity_type_id == 1">
-                      <i class="bi bi-person-circle"></i>
+                   
+                    <td class="text-capitalize " >
+                      <span class="p-1"></span>
+                       <i class="bi bi-person-circle" style="font-size: 25px;" v-if="item.entity_type_id == 1" ></i>
+                       <i class="bi bi-people-fill" style="font-size: 25px;"  v-else></i>
+                      </td>
+                  <td v-if="item.entity_type_id == 1">
                       {{ item.first_name ? item.first_name : '' }} {{ item.last_name ? item.last_name : '' }}
                       {{ item.chn_last_name ? item.chn_last_name : '' }}{{ item.chn_last_name ? item.chn_first_name : ''
                       }} <br>
@@ -34,11 +38,10 @@
                       <small> {{ item.capacity.includes('2') ? 'Director' : ' ' }}</small>
 
                     </td>
+                    
                     <td v-else class="text-capitalize">
-                      <i class="bi bi-people-fill"></i>
                       {{ item.company_name }}
                       {{ item.chn_company_name }} <br>
-                      
                       <small> {{ item.capacity.includes('1') ? 'Shareholder' : ' ' }}</small>
                       {{ item.capacity.includes('2') &&  item.capacity.includes('1') ? '|' : ' ' }}
                       <small> {{ item.capacity.includes('2') ? ' Director' : ' ' }} </small>

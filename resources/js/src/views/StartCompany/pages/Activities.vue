@@ -7,7 +7,7 @@
             </section>
 
             <section class="section">
-                <div class="fw-bold">Describe your expected business activities <span class="text-danger"> * </span>
+                <div class="fw-bold">Describe Your Expected Business Activities <span class="text-danger"> * </span>
                 </div>
                 <div>Provide a brief but clear description of your anticipated business activities.
                     Be as specific as possible to ensure accurate representation in your business
@@ -24,7 +24,7 @@
             </section>
 
             <section class="section">
-                <div class="fw-bold">Level of activity <span class="text-danger"> * </span></div>
+                <div class="fw-bold">Level of Activity <span class="text-danger"> * </span></div>
                 <div>Select the volume and frequency of transactions your business expects to handle.
                 </div>
 
@@ -44,7 +44,7 @@
             </section>
 
             <section class="section">
-                <div class="fw-bold">Nature of activity <span class="text-danger"> * </span></div>
+                <div class="fw-bold">Nature of Activity <span class="text-danger"> * </span></div>
                 <div>Choose the main industry or sector that best represents your business operations.
                 </div>
 
@@ -65,7 +65,7 @@
             </section>
 
             <section class="section">
-                <div class="fw-bold">Customer location and operation <span class="text-danger"> * </span></div>
+                <div class="fw-bold">Customer Location and Operation <span class="text-danger"> * </span></div>
                 <div>Indicate the primary countries where your company will actively conduct business or serve
                     customers.
                 </div>
@@ -77,7 +77,7 @@
                             :class="{ 'error-field': form.errors.customer_location_operation }" :multiple="true"
                             v-model="form.customer_location_operation" :clearable="true"
                             :options="startCompanyStore.countries" />
-                            <label class="fw-bold ">Customer location and operation <span class="text-danger"> * </span></label>
+                            <label class="fw-bold ">Customer Location and Operation <span class="text-danger"> * </span></label>
                             </div>
                         <small class=" text-danger">{{ form.errors.customer_location_operation }}</small>
                     </div>
@@ -86,7 +86,7 @@
             </section>
 
             <section class="section">
-                <div class="fw-bold">List of countries <span class="text-danger"> * </span></div>
+                <div class="fw-bold">List of Countries <span class="text-danger"> * </span></div>
                 <div>List all additional countries where your company will have business activities or customer
                     interactions.
                 </div>

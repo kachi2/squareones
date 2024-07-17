@@ -56,7 +56,7 @@
             </section>
 
             <section class="section" v-if="form.isSecond">
-                <div class="fw-bolder">Secondary Choices</div>
+                <div class="fw-bolder">Secondary Choice</div>
                 <div>These are alternative names you would consider should your primary choice be unavailable. List
                     them in descending order of preference.</div>
                 <div class="row g-3 mt-1">

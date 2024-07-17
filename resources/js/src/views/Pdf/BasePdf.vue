@@ -1,6 +1,6 @@
 <template>
 
-    <div class="main" style="max-height: 90vh; overflow-y: auto; max-width:100vw">
+    <div class="main" style="max-height: 90vh; overflow-y: auto; max-width:50vw">
         <section>
             <company :companyInfo="data" />
 

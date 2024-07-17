@@ -9,7 +9,6 @@
 
             <section class="section">
                 <div class="fw-bold mb-2">Company</div>
-
                 <section class="card bg-light border-0">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
@@ -55,7 +54,7 @@
                             </li>
                             <li class="list-group-item">
                                 <span>
-                                    Nature of business
+                                    Nature of Business
                                     <span @click="startCompanyStore.currentStage = 3" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
@@ -65,7 +64,7 @@
                             </li>
                             <li class="list-group-item">
                                 <span>
-                                    Website, social media, or app
+                                    Website, Social Media, or App
                                     <span class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
@@ -196,7 +195,7 @@
 
                             <li class="list-group-item">
                                 <span>
-                                    Date of birth
+                                    Date of Birth
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
@@ -287,7 +286,7 @@
                             </li>
                             <li class="list-group-item" v-if="founder.get_identity.identity_no == null">
                                 <span>
-                                    Issueing country
+                                    Issueing Country
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
@@ -349,7 +348,7 @@
 
                             <li class="list-group-item">
                                 <span>
-                                    Date incorporated
+                                    Date Incorporated
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
@@ -744,7 +743,7 @@
         </template>
 
         <template #info>
-            <section class="section">
+            <!-- <section class="section">
                 <div class="fw-bold">
                     What are the basic requirements to be a founder?
                 </div>
@@ -773,7 +772,7 @@
                     No, you must provide a physical
                     residential address as it is mandatory.
                 </div>
-            </section>
+            </section> -->
         </template>
     </StartCompany_template>
 </template>

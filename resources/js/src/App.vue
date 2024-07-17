@@ -100,7 +100,8 @@ input[type="text"]:disabled,
 .form-floating-custom textarea {
 
   height: auto;
-  padding: 1rem 0.75rem;
+  padding: 1rem 0.75rem 0.75rem 1.0rem;
+  
   /* border: 1px solid #ced4da; */
   /* border-radius: 0.25rem; */
 }
@@ -139,8 +140,8 @@ input[type="text"]:disabled,
 .form-floating-custom .form-select:not([value=""]),
 .form-floating-custom textarea:focus,
 .form-floating-custom textarea:not(:placeholder-shown) {
-  padding-top: 1.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .form-floating-custom .form-select,
@@ -178,4 +179,18 @@ input[type="text"]:disabled,
 .fixed-label-custom .vti__input {
   line-height: 2.9rem;
 }
+
+ .vs--single .v__selected{
+  padding-left: .50rem;
+
+  /* border: 1px solid #ced4da; */
+  /* border-radius: 0.25rem; */
+}
+.fixed-label-custom .vue-tel-input{
+  padding-left: .50rem;
+  
+  /* border: 1px solid #ced4da; */
+  /* border-radius: 0.25rem; */
+}
+
 </style>

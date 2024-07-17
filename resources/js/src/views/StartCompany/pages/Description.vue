@@ -8,7 +8,7 @@
             </section>
 
             <section class="section">
-                <div class="fw-bold">Describe your product or service <span class="text-danger"> * </span></div>
+                <div class="fw-bold">Describe your Product or Service <span class="text-danger"> * </span></div>
                 <div>Please briefly describe the product or service you are developing.
                     Aim for a concise overview in one or two sentences.
                 </div>
@@ -29,7 +29,7 @@
 
             <section class="section">
 
-                <div class="fw-bold">Nature of business <span class="text-danger"> * </span></div>
+                <div class="fw-bold">Nature of Business <span class="text-danger"> * </span></div>
                 <div>Choose the primary category that best represents business nature of your company
                 </div>
 
@@ -53,7 +53,7 @@
             </section>
 
             <section class="section">
-                <div class="fw-bold">Website or social media</div>
+                <div class="fw-bold">Website or Social Media</div>
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
                         <div class="form-floating-custom ">

@@ -95,7 +95,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3 d-none d-md-block min-vh-100 sub-info-panel p-3 pt-4 small">
+                <div class="col-3 d-none d-md-block min-vh-100 sub-info-panel p-3 pt-4 small " style="max-width: 500px">
                     <slot name="info"></slot>
                 </div>
             </div>

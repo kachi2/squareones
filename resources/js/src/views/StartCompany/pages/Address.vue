@@ -15,7 +15,7 @@
                         <input disabled v-model="form.flat" class="form-control" type="text"
                             placeholder="Flat／Floor／Block" id="address">
                         <small class=" text-danger">{{ form.errors.flat }}</small>
-                        <label for="address"> <i class="bi bi-lock-fill"></i> Floor／Block</label>
+                        <label for="address"> Floor／Block <i class="bi bi-lock-fill"></i> </label>
                         </div>
                     </div>
                     <div class="col-12">
@@ -52,10 +52,11 @@
                         <small class=" text-danger">{{ form.errors.postal_code }}</small>
                     </div> -->
                     <div class="col-md-12">
-                        
-                        <label class="form-label"> Country／Region <i class="bi bi-lock-fill"></i></label>
+                        <div class="fixed-label-custom">
                         <v-select :disabled="true" placeholder="select country.." v-model="form.country"
                             :clearable="false" :options="startCompanyStore.countries" />
+                            <label class="form-label"> Country／Region <i class="bi bi-lock-fill"></i></label>
+                        </div>
                         <small class=" text-danger">{{ form.errors.country }}</small>
                     </div>
                 </div>

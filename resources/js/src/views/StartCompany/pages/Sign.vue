@@ -2,25 +2,9 @@
   <StartCompany_template>
     <template #main>
 
-      <div>
+   
         <BasePdf />
-      </div>
 
-      <div class="movement-buttons my-5">
-        <!-- <button @click="moveBack" class="btn btn-outline-info me-3">
-          <i class="bi bi-arrow-left"></i> Back
-        </button> -->
-        <button v-if="!startCompanyStore.pdfIsSending" @click="proceed" class="btn btn-primary">
-          Proceed to complete Payment <i class="bi bi-arrow-right"></i>
-        </button>
-
-        <button v-else class="btn btn-primary" type="button" disabled>
-          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-          Processing, Please wait....
-        </button>
-
-
-      </div>
 
     </template>
 
@@ -58,7 +42,66 @@
         </div>
       </div>
 
-      <div v-if="!founderInfo.signature">
+  <div class="accordion" id="accordionExample">
+    <p style="border-bottom: 0px solid #000; font-weight: 500; font-size:small">Signature Will be Applied to the Following Pages</p>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <span class="mx-1">📄</span>
+         Incorporation Form (NNC1)
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body ">
+        <ul style="list-style-type:square;"> 
+      <li>   We file this with the Companies Registry.</li> 
+      <li>   This is the specified form that forms your company.</li> 
+        <li>    This form contains details about the company's proposed name, registered office address, share capital, and information about the directors and shareholders.</li> 
+          <li>  This form appoints a company secretary that is required by the Companies Ordinance.</li> 
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <span class="mx-1">📄</span>
+        Articles of Association (AA)
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+      <div class="accordion-body ">
+        <ul style="list-style-type:square"> 
+      <li>    The Articles of Association is a document that outlines the regulations for a company's operations and the structure of its internal governance.</li> 
+      <li>       Model articles is adopted for simplicity and effectiveness.</li> 
+        <li>        This sets out the roles and powers of directors and the rights of shareholders.</li> 
+          <li>      This sets out the procedures for daily management and administrative operations.</li> 
+        </ul>
+        </div>
+  </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        <span class="mx-1">📄</span>
+        Notice to Business Registration Office (IRBR1)
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+      <ul style="list-style-type:square">
+        <li>Notify the Inland Revenue for business registration. </li>
+        <li>This makes application for the purpose of business registration.</li>
+        <li>Business registration is renewed on an annual basis if elected to obtain 1-year Business Registration Certificate.</li>
+        <li>This shows your business address, and the nature of your business.</li>
+      </ul>
+    </div>
+    </div>
+  </div>
+</div>
+<div class="p-3"> </div>
+      <div v-if="!founderInfo.signature" >
    
         <div class="fixed-label-custom">
       <v-select placeholder="select founder.." v-model="selected_entity_id" :clearable="false" :options="entities" />
@@ -66,9 +109,11 @@
       </div>
       <p v-if="!signaturePadModal" style="color:darkred"> {{ msg}}</p>
       <p v-if="founderError" style="color:darkred"> {{  founderError }} </p>
-      <p> <input type="checkbox" checked>  By signing and submitting the online application, I agree to the terms of service and privacy policy.</p>
-      <button class="btn btn-primary mt-3" @click="signaturePadModals">Sign Document</button>
+      <p> <input type="checkbox" v-model="checkBoxClick">  By signing and submitting the online application,  I agree to the terms of service and <a href=""> privacy policy </a></p>
       
+      <button class="btn btn-primary mt-3 w-100" @click="signaturePadModals" v-if="checkBoxClick">Sign Document</button>
+      <button class="btn btn-primary mt-3 w-100" @click="signaturePadModals" v-else disabled>Sign Document</button>
+
       <span class="float-end">
         <!-- <button class="btn btn-warning" @click="undo">Clear</button> -->
       </span>
@@ -86,7 +131,7 @@
       <img width="100" :src="founderInfo?.signature" alt="">
       <span style="color:red" class="p-1"> Last Updated: {{ founderInfo.date }}</span>
     </div>
-      <button class="btn btn-primary mt-3" @click="DeleteSignature()">Delete Signature</button>
+      <button class="btn btn-primary mt-3 w-100" @click="DeleteSignature()">Delete Signature</button>
       
       <span class="float-end">
         <!-- <button class="btn btn-warning" @click="undo">Clear</button> -->
@@ -97,56 +142,21 @@
         <span style="color:red; "> Please review and Sign Document</span>
       </p> -->
     </div>
-      <br>
-      <p style="border-bottom: 1px solid #000;">Signature will be applied to the following pages</p>
-  <div class="accordion" id="accordionExample">
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingOne">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        <span class="mx-1">📄</span>
-         Incorporation Form (NNC1)
-      </button>
-    </h2>
-    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        <strong>  <span>We file this with the Companies Registry.</span></strong>
-      </div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingTwo">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-        <span class="mx-1">📄</span>
-        Articles of Association (AA)
-      </button>
-    </h2>
-    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        <p class="ml-6 text-gray-600">The Articles of Association is a document that outlines the regulations for a
-        company's operations and the structure of its internal governance.</p> </div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingThree">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-        <span class="mx-1">📄</span>
-        Notice to Business Registration Office (IRBR1)
-      </button>
-    </h2>
-    <div id="collapseThree" class="accordion-collapse " aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        <p class="ml-6 text-gray-600">Notify the Inland Revenue for business registration.</p>
-      <ul class="ml-10 list-inside list-disc text-gray-600">
-        <li>This makes application for the purpose of business registration.</li>
-        <li>Business registration is renewed on an annual basis if elected to obtain 1-year Business Registration
-          Certificate.</li>
-        <li>This shows your business address, and the nature of your business.</li>
-      </ul>
-     
-    </div>
-    </div>
-  </div>
+
+    <div class="pt-5" v-if="founderInfo.signature">
+
+
+<button v-if="!startCompanyStore.pdfIsSending" @click="proceed" class="btn btn-primary">
+    Proceed to complete Payment <i class="bi bi-arrow-right"></i>
+  </button>
+
+  <button v-else class="btn btn-primary" type="button" disabled>
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    Processing, Please wait....
+  </button>
 </div>
+      <br>
+    
     
       
      
@@ -181,6 +191,8 @@ const founderInfo = reactive({
   id: ''
 })
 
+const checkBoxClick = ref(false)
+
  function signaturePadModals()
  {
   if(selected_entity_id.value){
@@ -213,7 +225,7 @@ const entities = computed(() => {
       if (obj && el.entity_capacity_id.includes(1) ) {
         obj.label = el.entity_type_id == 1 ?
           `${obj.first_name} ${obj.last_name} ${obj.chn_last_name} ${obj.chn_first_name}`
-          : `${obj.authorized_persons.first_name ?? obj.authorized_persons.last_name}`
+          : `${obj.authorized_persons.first_name + ' ' + obj.authorized_persons.last_name + ' FOR AND BEHALF OF ' + obj.company_name??obj.chn_company_name} `
         obj.company_entity_id = el.id
         array.push(obj)
       }
@@ -280,7 +292,7 @@ function getActiveFounder()
    const fxs = founder.filter((t:any) =>  t.is_founder == 1 )
    if(fxs.length > 0){
    const fx = fxs[0];
-   founderInfo.name = (fx.individual.first_name?fx.individual.first_name:'') + ' ' + (fx.individual.last_name?fx.individual.last_name:'') 
+   founderInfo.name = (fx.individual?.first_name??fx.corporate?.authorized_persons.first_name) + ' ' + (fx.individual?.last_name??fx.corporate?.authorized_persons.last_name) 
    founderInfo.signature = fx.signature
    founderInfo.date = fx.date_signed
    founderInfo.id = fx.id

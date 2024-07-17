@@ -38,7 +38,7 @@
                 <div class="fixed-label-custom">
                     <VueDatePicker v-bind="form.date_incorporatedAttr" :max-date="new Date()"
                         :format="useFxn.dateDisplay" hide-input-icon :clearable="false" :enable-time-picker="false"
-                        auto-apply v-model="form.date_incorporated" id="Incorporation-label">
+                        auto-apply v-model="form.date_incorporated" id="Incorporation-label" :class="{ 'error-field': form.errors.date_incorporated }">
                     </VueDatePicker>
                     <label for="Incorporation-label">Date of Incorporation <span class="text-danger"> * </span></label>
                 </div>
@@ -74,7 +74,7 @@
                         v-model="form.business_nature_id" :clearable="true" placeholder="select business nature"
                         :options="startCompanyStore.businessNatures" :reduce="(item: any) => item.id" label="name" />
 
-                    <label for="business_nature_id">Business nature <span class="text-danger"> * </span></label>
+                    <label for="business_nature_id">Business Nature <span class="text-danger"> * </span></label>
                 </div>
 
                 <small class=" text-danger">{{ form.errors.business_nature_id }}</small>
@@ -174,7 +174,7 @@
                     <vue-tel-input :class="{ 'error-field': form.errors.phone }" id="phone" v-bind="form.phoneAttr"
                         :inputOptions="phoneField.input" :dropdownOptions="phoneField.dropDown" :autoFormat="true"
                         v-model="form.phone"></vue-tel-input>
-                    <label for="phone">Phone number <span class="text-danger"> * </span></label>
+                    <label for="phone">Phone Number <span class="text-danger"> * </span></label>
                 </div>
                 <small class=" text-danger">{{ form.errors.phone }}</small>
                 <!-- <div class="input-group">
@@ -196,7 +196,7 @@
                 <div class="form-floating-custom ">
                     <input v-bind="form.confirm_emailAttr" :class="{ 'error-field': form.errors.confirm_email }"
                         v-model="form.confirm_email" type="text" class="form-control" placeholder=" " id="confirm">
-                    <label class=" " for="confirm">Confirm email <span class="text-danger"> * </span></label>
+                    <label class=" " for="confirm">Confirm Email <span class="text-danger"> * </span></label>
                 </div>
                 <small class=" text-danger">{{ form.errors.confirm_email }}</small>
                 <small v-if="emailMatchError" class=" text-danger">emails do no match</small>
