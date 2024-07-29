@@ -6,7 +6,7 @@
                     <td style="padding:30px 0">
                         <table style="width:100%;max-width:620px;margin:0 auto">
                             <tbody>
-                                <tr>
+                            <tr>
                                     <td style="text-align:center;padding-bottom:15px">
                                         <img style="max-height:50px;width:auto" src="https://squareone.portrec.ng/icons/sidebar/squareone_main.png"
                                             alt="SquareOne Logo" class="CToWUd">
