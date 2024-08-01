@@ -20,7 +20,7 @@ Route::post('register/signature', [CompanyEntityController::class, 'RegisterEnti
 Route::post('process/payment', [PaymentController::class, 'ProcessPayment']);
 Route::get('/kyc/status/{company_entity_id?}', [KycController::class, 'UpdateKycStatus']);
 
-require __DIR__.'/jetstream.php';
+require __DIR__.'/team.php';
 require __DIR__.'/auth.php';
 
 

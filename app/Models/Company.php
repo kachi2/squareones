@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Company extends Model
 {
     use HasFactory;
 
+    static $team = 'App\Model\Teams';
     protected $fillable = ['user_id', 'business_nature_id', 'description', 'website', 'address','flat', 'building', 'street', 'city', 'state', 'postal_code', 'country', 'is_complete', 'pdf_doc', 'signature', 'date_signed'];
 
 
@@ -109,6 +111,12 @@ class Company extends Model
         return $this->hasMany(RegisteredOfficeContract::class)->latest();
     }
 
- 
-
+    public function teams()
+    {
+        return $this->hasOne(Team::class);
+    }
+    public function hasTeams()
+    {
+       return Team::where('company_id', $this->id)->first();
+    }
 }

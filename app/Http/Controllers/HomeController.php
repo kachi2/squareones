@@ -16,7 +16,7 @@ class HomeController extends Controller
     {
         $company = Company::whereId(1)->first() 
         ->Load([
-            'names' ,'secretary','shares','documents','fundSource','ownerShare','CompanyEntity' 
+            'names' ,'secretary','shares','documents','fundSource','ownerShare','CompanyEntity', 'team'
         ]);
         $data['individual'] = Individual::where(['company_entity_id' => $company->companyEntity->id, 'is_founder' => 0])->get();
         $data['corporate'] = Corporate::where(['company_entity_id' => $company->companyEntity->id, 'is_founder' => 0])->get();
@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function CompanyIncorporation($company_id){
         try{
         $company = Company::where('id', $company_id)->first();
-        $company->load('RegisteredCompany', 'RegisterOfAllotments', 'RegisterOfCharge', 'RegisterOfCompanyName','RegisterOfDirector','RegisterOfSecretary','RegisterOfShareholders','RegisterOfTransfer', 'SignificantController', 'ComplianceReporting', 'DesignatedRepresentative', 'OfficeContract');
+        $company->load('RegisteredCompany', 'RegisterOfAllotments', 'RegisterOfCharge', 'RegisterOfCompanyName','RegisterOfDirector','RegisterOfSecretary','RegisterOfShareholders','RegisterOfTransfer', 'SignificantController', 'ComplianceReporting', 'DesignatedRepresentative', 'OfficeContract', 'team');
         return response()->json(['data' => $company], HttpStatusCode::OK);
     }catch(\Exception $e){
         return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);

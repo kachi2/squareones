@@ -7,18 +7,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Cloudinary\Api\HttpStatusCode;
 use App\Events\FounderKyc;
+use App\Models\User;
+use App\Interfaces\TeamsInterface;
 use App\Models\CompanyEntity;
+use Illuminate\Support\Facades\Auth;
 use App\Jobs\ProcessFounderKyc;
+use App\Models\Company;
 
 class KycController extends Controller
 {
-    //
 
     public function __construct(
-        public readonly KycInterface $KycInterface
+        public readonly KycInterface $KycInterface,
+        public readonly TeamsInterface $teamServices,
     )
     {
-        
     }
     public function loadKyc(Request $request){
         $kyc = $this->KycInterface->InitiateKycProcess($request);
@@ -27,6 +30,9 @@ class KycController extends Controller
 
     public function LoadFounderKyc(Request $request){
 
+        $user = User::where('id', auth_user())->first();
+        $kyc = $this->teamServices->create($request, $user->activeCompany(), $request->role,$user);
+        return $kyc;
         if(!$request->company_id ){
             return response()->json(['error' => 'company_id not found'], HttpStatusCode::BAD_REQUEST);
         }

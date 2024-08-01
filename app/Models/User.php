@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\RoleUsers;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -24,6 +25,7 @@ class User extends Authenticatable
     
     CONST BLOCKED = 2;
     CONST ACTIVE = 1;
+    static $companies = 'App\Model\Company';
 
     /**
      * The attributes that are mass assignable.
@@ -72,22 +74,62 @@ class User extends Authenticatable
         return $this->hasMany(UserDocument::class);
     }
 
-    public function GetTeams(){
-        return $this->hasMany(UserTeam::class, 'id', 'user_id');
+    // public function GetTeams(){
+    //     return $this->hasMany(UserTeam::class, 'id', 'user_id');
+    // }
+
+    // public function createTeam($company_id, $user_id){
+       
+    //     $teams = UserTeam::whereCompanyId($company_id)->first();
+    //     if($teams){
+    //         $team = array_push($teams->members, $user_id);
+    //       $teams->update([
+    //         'members' => $team
+    //       ]);
+    //       return $team;
+    //     }
+    //     $team = new UserTeam();
+    //     $team->user_id = $this->user;
+    
+    // }
+
+    public function activeCompany()
+    {
+        $is_completed = 0;
+       $companies =  collect($this->company)->first(function($company) use ($is_completed){
+            return $company['is_complete']  == $is_completed;
+       });
+        return $companies;
     }
 
-    public function createTeam($company_id, $user_id){
-       
-        $teams = UserTeam::whereCompanyId($company_id)->first();
-        if($teams){
-            $team = array_push($teams->members, $user_id);
-          $teams->update([
-            'members' => $team
-          ]);
-          return $team;
+
+    public function assignUser($role, $team)
+    {
+        if(is_string($role)){
+            $role = Roles::where('name', $role)->first();
+            if($role)
+            {
+                $roles = new TeamUser();
+                $roles->user_id = $this->id;
+                $roles->team_id = $team->id;
+                $roles->role = $role->name;
+                $roles->save();
+                return $roles;
+            }
+            return false;
         }
-        $team = new UserTeam();
-        $team->user_id = $this->user;
-    
+        return false;
+      
     }
+
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class);
+    }
+
+    public function teamMembers()
+    {
+        return $this->belongsToMany(TeamUser::class)->with('teams');
+    }
+
 }

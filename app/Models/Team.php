@@ -29,6 +29,7 @@ class Team extends JetstreamTeam
     protected $fillable = [
         'name',
         'personal_team',
+        'company_id',
     ];
 
     /**
@@ -41,4 +42,16 @@ class Team extends JetstreamTeam
         'updated' => TeamUpdated::class,
         'deleted' => TeamDeleted::class,
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function teamUser()
+    {
+        return $this->belongsToMany(TeamUser::class);
+    }
+
+
 }

@@ -14,6 +14,7 @@ use Laravel\Jetstream\Http\Controllers\Inertia\UserProfileController;
 use Laravel\Jetstream\Http\Controllers\TeamInvitationController;
 use Laravel\Jetstream\Jetstream;
 
+Route::post('/teams', [TeamController::class, 'store'])->name('teams.store');
 
     if (Jetstream::hasTermsAndPrivacyPolicyFeature()) {
         Route::get('/terms-of-service', [TermsOfServiceController::class, 'show'])->name('terms.show');
