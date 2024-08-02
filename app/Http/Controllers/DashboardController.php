@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\userActivity;
 use App\Models\User;
 use App\Models\UserDocument;
+use App\Traits\Teams as TraitTeams;
 use App\Dtos\FileUploadDto;
 use App\Dtos\UserDto;
 use App\Interfaces\DocumentInterface;
@@ -23,6 +24,7 @@ use Illuminate\Support\Facades\Validator;
 class DashboardController extends Controller
 {
     //
+    use TraitTeams;
     public function __construct(
         public readonly DocumentInterface $fileUpload,
         public readonly AuthService $userService
@@ -37,6 +39,8 @@ class DashboardController extends Controller
             $data['companies'] =  $company->load('Names', 'Billing');
             $data['form_completed'] = Company::where('is_complete', 1)->get();
             $data['is_incorporated'] = Company::where('is_incorporated', 1)->get();
+            $data['roles'] = $this->loadRolePermission();
+            $data['teams'] = $this->hasTeams($company);
             return response()->json(['data' => $data], HttpStatusCode::OK);
         }catch(\Exception $e){
             return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
