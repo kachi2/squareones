@@ -132,4 +132,17 @@ class User extends Authenticatable
         return $this->belongsToMany(TeamUser::class)->with('teams');
     }
 
+    public function TokenEmailExist($token)
+    {
+        $invitation = TeamInvitation::whereToken($token)->first();
+        if($invitation ){
+          $checkUser = User::where(function($user) use ($invitation){
+         return $user->where('email', $invitation->email);
+        });
+       if($checkUser) return true;
+       return false;
+    }
+    return false;
+    }
+
 }

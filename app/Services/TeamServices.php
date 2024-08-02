@@ -3,12 +3,12 @@ namespace App\Services;
 use App\Interfaces\TeamsInterface;
 use App\Models\Company;
 use App\Models\Team;
+use App\Models\TeamUser;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class TeamServices implements TeamsInterface
 {
-    
     public function Create($request, $company, $role, $user){
         if(!$company->hasTeams()){
             $team =  tap(new Team(), function($team) use ($company, $user) {
@@ -21,25 +21,29 @@ class TeamServices implements TeamsInterface
                return $user->assignUser($role, $team); 
         }
         return false;
-     
     }
-    public function Edit($request, $team,  $user){
 
+    public function loadMembers($team){
+        $member = TeamUser::whereteamId($team)->get();
+            $member?->load('users');
+            return $member;
     }
-    public function viewMembers($team,  $user){
 
-    }
-    public function deleteMember($team,  $user){
-
-    }
-    public function addMember($team,  $user){
-
-    }
-    public function viewReports($team,  $user,  $company)
+    public function deleteMember($team,  $user)
     {
-
+    if($this->checkIfUserExists($team, $user)) return ['data' => 'User removed from team successfully'];
+    return [ 'error' => 'No member found with this information'];
     }
 
-    
+
+    public function checkIfUserExists($team,  $user)
+    {
+        $team = TeamUser::where(['team_id' => $team, 'user_id' => $user])->first();
+        if($team){
+          return $team->delete();
+        }
+        return false;
+    }
+
 
 }

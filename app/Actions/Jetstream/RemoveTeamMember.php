@@ -17,7 +17,7 @@ class RemoveTeamMember implements RemovesTeamMembers
      */
     public function remove(User $user, Team $team, User $teamMember): void
     {
-        $this->authorize($user, $team, $teamMember);
+        $this->authorize($user, $team, $teamMember); 
 
         $this->ensureUserDoesNotOwnTeam($teamMember, $team);
 

@@ -13,6 +13,8 @@ class TeamInvitation extends JetstreamTeamInvitation
      *
      * @var array<int, string>
      */
+
+     protected $table = "team_invitations";
     protected $fillable = [
         'email',
         'role',
