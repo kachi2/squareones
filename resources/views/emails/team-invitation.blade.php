@@ -12,7 +12,7 @@
 
 {{ __('You may accept this invitation by clicking the button below:') }}
 
-@component('mail::button', ['url' => 'http://127.0.0.1:5173/user/9j7Dr5KxaLNSuEaBZv6a'])
+@component('mail::button', ['url' => 'http://127.0.0.1:5173/user/company/?invite='.$invitation->token])
 {{ __('Accept Invitation') }}
 @endcomponent
 
