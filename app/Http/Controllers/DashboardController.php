@@ -54,10 +54,10 @@ class DashboardController extends Controller
     public function CompanyInfo($company_id){
         try{
             $company = Company::where(['id' => $company_id, 'user_id' => auth_user()])->first();
-            $data['roles'] = $this->loadRolePermission();
-            $data['teams'] = $this->hasTeams($company->id);
             $company->load('RegisteredCompany', 'RegisterOfAllotments', 'RegisterOfCharge', 'RegisterOfCompanyName','RegisterOfDirector','RegisterOfSecretary','RegisterOfShareholders','RegisterOfTransfer', 'SignificantController', 'ComplianceReporting', 'DesignatedRepresentative', 'OfficeContract', 'documents');
-            return response()->json(['data' => $company,$data], HttpStatusCode::OK);
+            $company->roles = $this->loadRolePermission();
+            $company->teams = $this->hasTeams($company->id);
+            return response()->json(['data' => $company], HttpStatusCode::OK);
         }catch(\Exception $e){
             return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
            }
