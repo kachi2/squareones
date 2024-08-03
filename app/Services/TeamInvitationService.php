@@ -30,7 +30,7 @@ class TeamInvitationService
             return $invitation;
         }
 
-        if($this->checkIfUserExist($request['user_id'], $request['team_id']))
+        if(!$this->checkIfUserExist($request['user_id'], $request['team_id']))
         {
             $token = Str::random(20);
             $invitation = TeamInvitation::create([
@@ -79,7 +79,7 @@ class TeamInvitationService
         $team = TeamInvitation::whereToken($token)->first();
         if($team){
             $user = User::whereEmail($team->email)->first();
-            if($this->checkIfUserExist($user->id, $team->id)){
+            if(!$this->checkIfUserExist($user->id, $team->id)){
           $teamUsers =  tap(new TeamUser(), function($teamUser) use ($team, $user){
                 $teamUser->team_id = $team->team_id;
                 $teamUser->user_id = $user->id;
