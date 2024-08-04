@@ -20,7 +20,7 @@ class RemoveTeamMember implements RemovesTeamMembers
         $this->authorize($user, $team, $teamMember); 
 
         $this->ensureUserDoesNotOwnTeam($teamMember, $team);
-
+ 
         $team->removeUser($teamMember);
 
         TeamMemberRemoved::dispatch($team, $teamMember);

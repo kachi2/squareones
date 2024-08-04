@@ -10,6 +10,6 @@ class userActivity extends Model
     use HasFactory;
 
     protected $fillable = [
-        'action', 'name', 'status', 'type', 'user_id'
+        'action', 'name', 'status', 'type', 'user_id','location','ip_address'
     ];
 }

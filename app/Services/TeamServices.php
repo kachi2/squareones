@@ -45,5 +45,15 @@ class TeamServices implements TeamsInterface
         return false;
     }
 
-
+    public function EditTeam($request)
+    {
+       $team = Team::where('id', $request->team)->first();
+       if($team){
+        $team->update([
+            'name' => $request->name
+        ]);
+        return $team;
+       } 
+     return false;
+    }
 }

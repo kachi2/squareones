@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('type')->nullable();
             $table->text('action')->nullable();
+            $table->text('ip_address')->nullable();
+            $table->text('location')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });

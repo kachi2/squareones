@@ -55,20 +55,25 @@ class AuthService  implements AuthInterface{
     }
 
     public function LoginUser($request){
+
+    //  return $request->header();
+
         $check = Auth()->attempt(['email' => $request->email, 'password' => $request->password]);
         if($check){
             $token =  $request->user()->createToken("UserToken")->plainTextToken;
+            $user = User::where('email', $request->email)->first();
+           
+
           $request->user()->update([
                     'last_login' => Carbon::now(),
                     'login_ip' => request()->ip()
                 ]);
-                   userActivity::create([
-                    'user_id' => $request->user()->id,
-                    'action' => 'Login to account on' . Carbon::now(),
-                    'name' => $request->user()->name,
-                    'status' => 'success',
-                    'type' => 'Login Request'
-                ]);
+                $ip = request()->ip();
+                $location = '';
+                if($ip  != '127.0.0.1'){
+               $location = $this->getIpLocation($request->ip());
+                }
+                $this->addActivityLog($request, $location);
             return [
                 'user' => $request->user(),
                 'UserToken' =>$token 
@@ -77,8 +82,10 @@ class AuthService  implements AuthInterface{
         }
         return false;        
     }
+
+
+
     public function UpdateUserDetails(UserDto $request){
-     
         if($request->name){
             $data['name'] = $request->name;
         }
@@ -92,6 +99,9 @@ class AuthService  implements AuthInterface{
         $user->fill($data)->save();
         return response()->json(['data' => 'Account Updated successfully'], HttpStatusCode::OK);
     }
+
+
+
     public function ChangePassword($request){
         $valid = Validator::make($request->all(), [
             'oldPassword' => 'required',
@@ -114,6 +124,38 @@ class AuthService  implements AuthInterface{
             }
     }
 
+
+    public function SendLoginNotificatin($request, $user){
+        if( $request->ip() != $user->login_ip){    
+            $data = [
+                'ip' => $request->ip(),
+                'location' => $this->getIpLocation($request->ip()),
+                'clients' => ''
+
+            ];
+        }
+    }
+
+
+    public function getIpLocation($ip)
+    {
+               $details = json_decode(file_get_contents("http://ipinfo.io/'.$ip.'/json"));
+                $location  = $details->city.", ".$details->country;
+                return $location;
+    }
+
+
+    public function addActivityLog($request, $location) {
+        userActivity::create([
+            'user_id' => $request->user()->id,
+            'action' => 'Login to account on' . Carbon::now(),
+            'name' => $request->user()->name,
+            'status' => 'success',
+            'type' => 'Login Request',
+            'ip_address' =>  request()->ip(),
+            'location' => $location,
+        ]);
+    }
 
 
 
