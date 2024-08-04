@@ -11,7 +11,7 @@ class Company extends Model
     use HasFactory;
 
     static $team = 'App\Model\Teams';
-    protected $fillable = ['user_id', 'business_nature_id', 'description', 'website', 'address','flat', 'building', 'street', 'city', 'state', 'postal_code', 'country', 'is_complete', 'pdf_doc', 'signature', 'date_signed'];
+    protected $fillable = ['user_id', 'business_nature_id', 'description', 'website', 'address','flat', 'building', 'street', 'city', 'state', 'postal_code', 'country', 'is_complete', 'pdf_doc', 'signature', 'date_signed', 'is_published'];
 
 
     public function names(){

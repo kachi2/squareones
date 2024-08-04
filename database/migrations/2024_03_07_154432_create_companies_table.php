@@ -35,8 +35,8 @@ return new class extends Migration
             $table->string('date_incorporated')->nullable();
             $table->string('country_registered')->nullable();
             $table->string('business_classification')->nullable();
+            $table->integer('is_published')->default(0);
             $table->timestamps();
-
             $table->index('user_id');
         });
     }

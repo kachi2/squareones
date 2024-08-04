@@ -16,6 +16,7 @@ class SignificantControllerDto extends BaseDto
         public readonly ?string   $place_of_registration = null,
         public readonly ?string   $nature_of_control_over_the_company= null,
         public readonly ?string   $controllers_id= null,
+        public readonly ?string   $name= null,
     )
     {
         

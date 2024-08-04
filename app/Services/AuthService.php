@@ -50,13 +50,10 @@ class AuthService  implements AuthInterface{
         NotificationSettings::create($ss);
         }
     }
-
         return $user;
     }
 
     public function LoginUser($request){
-
-    //  return $request->header();
 
         $check = Auth()->attempt(['email' => $request->email, 'password' => $request->password]);
         if($check){
@@ -70,9 +67,9 @@ class AuthService  implements AuthInterface{
                 ]);
                 $ip = request()->ip();
                 $location = '';
-                if($ip  != '127.0.0.1'){
-               $location = $this->getIpLocation($request->ip());
-                }
+            //     if($ip  != '127.0.0.1'){
+            //    $location = $this->getIpLocation($request->ip());
+            //     }
                 $this->addActivityLog($request, $location);
             return [
                 'user' => $request->user(),
@@ -99,8 +96,6 @@ class AuthService  implements AuthInterface{
         $user->fill($data)->save();
         return response()->json(['data' => 'Account Updated successfully'], HttpStatusCode::OK);
     }
-
-
 
     public function ChangePassword($request){
         $valid = Validator::make($request->all(), [
@@ -130,7 +125,7 @@ class AuthService  implements AuthInterface{
             $data = [
                 'ip' => $request->ip(),
                 'location' => $this->getIpLocation($request->ip()),
-                'clients' => ''
+                'clients' => $request->header('user_agent'),
 
             ];
         }

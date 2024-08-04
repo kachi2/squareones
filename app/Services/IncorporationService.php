@@ -69,6 +69,7 @@ class IncorporationService implements IncorporationInterface
             'content' => 'Hi, '.$user->Users->name.' Your company ['.$RegisteredCompanyDto->company_registered_name.'] is fully incorporated',
             'user_id'=> $user->Users->id
         ]);
+        Company::whereId($RegisteredCompanyDto->company_id)->update(['is_published' => 1]);
         $user->Users->notify(new CompanyIncorporated($data));
     }
         
@@ -153,7 +154,7 @@ class IncorporationService implements IncorporationInterface
 
         if ($RegisterOfDirectorsDto->directors_id) {
             $director = RegisterOfDirector::whereId($RegisterOfDirectorsDto->directors_id)->first();
-            $dir = $director->toArray();
+            $dir = $director?->toArray();
             $dir['director_id'] = $director->id;
             RegisterOfDirectorLog::create($dir);
             AdminActivityLog::create([
@@ -162,8 +163,8 @@ class IncorporationService implements IncorporationInterface
                 'action_status' => 'COMPLETED',
             ]);
             $director->update($data);
-            return ['recent' => $director,
-                    'old' => $dir];
+            return  $director;
+                    
         }
         $director = RegisterOfDirector::create($data);
         AdminActivityLog::create([
@@ -189,7 +190,7 @@ class IncorporationService implements IncorporationInterface
         ];
         if ($RegisterOfShareholdersDto->shareholders_id) {
             $shareholders = RegisterOfShareholder::whereId($RegisterOfShareholdersDto->shareholders_id)->first();
-            $shard = $shareholders->toArray();
+            $shard = $shareholders?->toArray();
             $shard['shareholder_id'] = $shareholders->id;
             RegisterOfShareholderLog::create($shard);
             AdminActivityLog::create([
@@ -222,7 +223,7 @@ class IncorporationService implements IncorporationInterface
         ];
         if ($RegisterOfSecretaryDto->secretary_id) {
             $secretary = RegisterOfSecretary::whereId($RegisterOfSecretaryDto->secretary_id)->first();
-            $sec = $secretary;
+            $sec = $secretary?->toArray();
             $sec['secretary_id'] = $secretary->id;
             RegisterOfSecretaryLog::create($sec);
             AdminActivityLog::create([
@@ -256,7 +257,7 @@ class IncorporationService implements IncorporationInterface
             ];
         if ($RegisterOfCompanyNameDto->namechange_id) {
             $namechange = RegisterOfCompanyName::whereId($RegisterOfCompanyNameDto->namechange_id)->first();
-            $name = $namechange->toArray();
+            $name = $namechange?->toArray();
             $name['company_name_id'] = $namechange->id;
             RegisterOfCompanyNameLog::create($name);
             AdminActivityLog::create([
@@ -287,7 +288,7 @@ class IncorporationService implements IncorporationInterface
         ];
         if ($RegisterOfTransferDto->transfer_id) {
             $register = RegisterOfTransfer::where('id', $RegisterOfTransferDto->transfer_id)->first();
-            $reg = $register->toArray();
+            $reg = $register?->toArray();
             $reg['transfer_id'] = $register->id;
             RegisterOfTransferLog::create($reg);
             AdminActivityLog::create([
@@ -321,7 +322,7 @@ class IncorporationService implements IncorporationInterface
 
         if ($RegisterOfChargeDto->charges_id) {
             $charges = RegisterOfCharge::where('id', $RegisterOfChargeDto->charges_id)->first();
-            $charge = $charges->toArray(); 
+            $charge = $charges?->toArray(); 
             $charge['charge_id'] = $charges->id;
             RegisterOfChargeLog::create($charge);
             AdminActivityLog::create([
@@ -442,6 +443,10 @@ class IncorporationService implements IncorporationInterface
         ];
         if ($DesignatedRepresentative->representatives_id) {
             $representatives = DesignatedRepresentative::where('id', $DesignatedRepresentative->representatives_id)->first();
+            if(!$representatives) return [
+            'error' => 'Data cannot be found',
+            'error_code' => 404
+            ];
             $particulars = DesignatedParticulars::where('designated_representative_id', $representatives->id)->first();
             $reps = $representatives->toArray();
             $reps['controller_id'] = $representatives->id;
@@ -462,7 +467,9 @@ class IncorporationService implements IncorporationInterface
                 'action_status' => 'COMPLETED',
             ]);
             $representatives = DesignatedRepresentative::Create($data);
+         
         }
+        
         if ($data) {
             $particulars = DesignatedParticulars::updateOrCreate(
                 [
