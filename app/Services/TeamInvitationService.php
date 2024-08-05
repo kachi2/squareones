@@ -81,7 +81,7 @@ class TeamInvitationService
         $company = Team::where('id', $team->team_id)->first();
         if($team){
             $user = User::whereEmail($team->email)->first();
-            if(!$this->checkIfUserExist($user->id, $team->id)){
+            if(!$this->checkIfUserExist($user->id, $team->team_id)){
           $teamUsers =  tap(new TeamUser(), function($teamUser) use ($team, $user){
                 $teamUser->team_id = $team->team_id;
                 $teamUser->user_id = $user->id;
