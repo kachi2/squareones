@@ -31,12 +31,12 @@ class TeamsController extends Controller
     public function acceptInvitation(Request $request)
     {
         $user = User::where('id', auth_user())->first();
-        if(!$user->TokenEmailExist($request->token)) return ['error' => 'Invitation Token cannot be found or  has expired'];
+        if(!$user->TokenEmailExist($request->token))  return response()->json(['error' => 'Invitation Token cannot be found or  has expired'], 203);
       $data =  $this->teamInvitationService->acceptInvitation($request->token);
       if($data['data']){
         return response()->json($data, HttpStatusCode::OK);
       }
-      return response()->json($data, HttpStatusCode::NOT_FOUND);
+      return response()->json($data, 208);
     }
 
     public function removeUser(Request $request)
