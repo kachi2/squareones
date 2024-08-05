@@ -33,7 +33,10 @@ class TeamsController extends Controller
         $user = User::where('id', auth_user())->first();
         if(!$user->TokenEmailExist($request->token)) return ['error' => 'Invitation Token cannot be found or  has expired'];
       $data =  $this->teamInvitationService->acceptInvitation($request->token);
-      return response()->json($data, HttpStatusCode::UNAUTHORIZED);
+      if($data['data']){
+        return response()->json($data, HttpStatusCode::OK);
+      }
+      return response()->json($data, HttpStatusCode::NOT_FOUND);
     }
 
     public function removeUser(Request $request)
