@@ -78,6 +78,7 @@ class TeamInvitationService
     public function AcceptInvitation($token)
     {
         $team = TeamInvitation::whereToken($token)->first();
+        $company = Team::where('id', $team->team_id)->first();
         if($team){
             $user = User::whereEmail($team->email)->first();
             if(!$this->checkIfUserExist($user->id, $team->id)){
@@ -87,12 +88,16 @@ class TeamInvitationService
                 $teamUser->role = $team->role;
                 $teamUser->save();
         });
-        $team->delete();
+        // $team->delete();
+        $teamUsers->companyId =  $company->company_id;
         return [
             'data' => $teamUsers,
             'message' => 'Team Invitation accepted successfully'
            ];
           }
+          return [
+            'error' => 'User already belongs to this team'
+        ];
        }
         return [
             'error' => 'User already belongs to this team'
