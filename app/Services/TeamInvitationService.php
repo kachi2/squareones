@@ -88,7 +88,7 @@ class TeamInvitationService
                 $teamUser->role = $team->role;
                 $teamUser->save();
         });
-        // $team->delete();
+        $team->delete();
         $teamUsers->companyId =  $company->company_id;
         return [
             'data' => $teamUsers,
