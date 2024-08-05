@@ -26,6 +26,7 @@ class TeamInvitationService
             $token = Str::random(20);
             $invitation = TeamInvitation::whereEmail($request['email'])->first();
             $invitation->token = $token;
+            $invitation->update(['token' => $token]);
             Mail::to($request['email'])->send(new TeamInvitations($invitation));
             return $invitation;
         }

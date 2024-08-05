@@ -67,9 +67,9 @@ class AuthService  implements AuthInterface{
                 ]);
                 $ip = request()->ip();
                 $location = '';
-            //     if($ip  != '127.0.0.1'){
-            //    $location = $this->getIpLocation($request->ip());
-            //     }
+                if($ip  != '127.0.0.1'){
+               $location = $this->getIpLocation($request->ip());
+                }
                 $this->addActivityLog($request, $location);
             return [
                 'user' => $request->user(),
