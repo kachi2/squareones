@@ -25,6 +25,9 @@ class TeamsController extends Controller
     public function SendInvitation(TeamInvitationRequest $request)
     {
         $invitation = $this->teamInvitationService->sendInvitation($request->validated());
+        if($invitation['error']){
+            return response()->json([ 'data' => $invitation], 203); 
+        }
         return response()->json([ 'data' => $invitation], HttpStatusCode::OK);
     }
 
