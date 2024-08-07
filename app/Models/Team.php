@@ -52,11 +52,12 @@ class Team extends JetstreamTeam
     {
         return $this->hasMany(TeamUser::class);
     }
-
-    public function Owner()
+    public function teamUsers()
     {
-
+        return $this->hasMany(TeamUser::class)->with('users', 'teams');
     }
+
+  
 
 
 }

@@ -46,6 +46,15 @@ class TeamsController extends Controller
     {
        return $this->teamServices->deleteMember($request->team_id, $request->user_id); 
     }
+
+    public function getAllUserTeam(Request $request)
+    {
+        $team = $this->teamServices->getUserTeams($request->user_id);
+        if($team){
+            return response()->json($team, HttpStatusCode::OK);
+        }
+        return response()->json(['error' => 'No Team found with id provided'], HttpStatusCode::NOT_FOUND);
+    }
     
     public function loadMembers(Request $request)
     {

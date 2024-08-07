@@ -10,6 +10,6 @@ class DesignatedRepresentativeLog extends Model
     use HasFactory;
 
     protected $fillable = [
-        'representative_id','entry_date','name','remarks'
+      'representative_id', 'entry_date', 'name', 'remarks', 'identity_info', 'place_of_registration', 'nature_of_control_over_the_company'
           ];
 }

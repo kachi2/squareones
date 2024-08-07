@@ -20,6 +20,7 @@ use App\Models\{
     ControllersParticulars,
     DesignatedRepresentative,
     DesignatedParticulars,
+    DesignatedRepresentativeLog,
     Notification,
     RegisterOfAllotmentLog,
     RegisterOfChargeLog,
@@ -445,15 +446,14 @@ class IncorporationService implements IncorporationInterface
             $representatives = DesignatedRepresentative::where('id', $DesignatedRepresentative->representatives_id)->first();
             if(!$representatives) return [
             'error' => 'Data cannot be found',
-            'error_code' => 404
             ];
             $particulars = DesignatedParticulars::where('designated_representative_id', $representatives->id)->first();
             $reps = $representatives->toArray();
-            $reps['controller_id'] = $representatives->id;
-            $reps['identiy_info'] = $particulars->identiy_info;
+            $reps['representative_id'] = $representatives->id;
+            $reps['identity_info'] = $particulars->identity_info;
             $reps['place_of_registration'] = $particulars->place_of_registration;
             $reps['nature_of_control_over_the_company'] = $particulars->nature_of_control_over_the_company;
-            DesignatedRepresentative::create($reps);
+            DesignatedRepresentativeLog::create($reps);
             $representatives->update($data);
             AdminActivityLog::create([
                 'type' => 'Update',
@@ -476,7 +476,7 @@ class IncorporationService implements IncorporationInterface
                     'designated_representative_id' => $representatives->id,
                 ],
                 [
-                    'identiy_info' => $DesignatedRepresentative->identiy_info,
+                    'identity_info' => $DesignatedRepresentative->identity_info,
                     'place_of_registration' => $DesignatedRepresentative->place_of_registration,
                     'nature_of_control_over_the_company' => $DesignatedRepresentative->nature_of_control_over_the_company
                 ]

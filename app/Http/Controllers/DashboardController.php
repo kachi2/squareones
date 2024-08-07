@@ -92,7 +92,7 @@ class DashboardController extends Controller
 
     public function UserActivityLog(){
         try{
-            $activity = userActivity::whereUserId(auth_user())->paginate(20);
+            $activity = userActivity::whereUserId(auth_user())->latest()->paginate(20);
             return response()->json(['data' => $activity], HttpStatusCode::OK);
         }catch(\Exception $e){
             return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);

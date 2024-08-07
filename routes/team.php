@@ -8,3 +8,4 @@ Route::post('/team/invitation/accept', [TeamsController::class, 'acceptInvitatio
 Route::post('/team/remove/member', [TeamsController::class, 'removeUser']);
 Route::post('/team/load/members', [TeamsController::class, 'loadMembers']);
 Route::post('/team/roles/', [TeamsController::class, 'loadRolePermission']);
+Route::post('/team/get/users', [TeamsController::class,'getAllUserTeam']);

@@ -24,7 +24,7 @@ class TeamServices implements TeamsInterface
     }
 
     public function loadMembers($team){
-        $member = TeamUser::whereteamId($team)->get();
+        $member = TeamUser::whereteamId($team)->paginate(10);
             $member?->load('users');
             return $member;
     }
@@ -55,5 +55,14 @@ class TeamServices implements TeamsInterface
         return $team;
        } 
      return false;
+    }
+
+    public function getUserTeams($user_id)
+    {
+            $userTeams = TeamUser::whereHas('teams', function($teams) use ($user_id){
+               return  $teams->where('user_id', $user_id);
+            })->paginate(10);
+        if($userTeams) return $userTeams->load('teams', 'users');
+        return false;
     }
 }
