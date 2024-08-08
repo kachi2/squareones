@@ -63,12 +63,13 @@ class AuthService  implements AuthInterface{
                     'last_login' => Carbon::now(),
                     'login_ip' => request()->ip()
                 ]);
-                $ip = request()->ip();
-                $location = '';
-                if($ip  != '127.0.0.1'){
-               $location = $this->getIpLocation($request->ip());
-                }
-                $this->addActivityLog($request, $location);
+            //     $ip = request()->ip();
+            //     $location = '';
+            //     if($ip  != '127.0.0.1'){
+            //    $location = $this->getIpLocation($request->ip());
+            //    $this->addActivityLog($request, $location);
+            //     }
+                
             return [
                 'user' => $request->user(),
                 'UserToken' =>$token 
