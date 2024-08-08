@@ -26,7 +26,7 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
         country_registered: yup.string().required('Company date of registration is required'),
         business_nature_id: yup.string().required('Business nature Id is required'),
         flat: yup.string().required(' Flat is required'),
-        building: yup.string().required(' building is required '),
+        building: yup.string(),
         street: yup.string().required(' Street is required'),
         state: yup.string().required('State/City is required'),
         country: yup.string().required('country is required'),

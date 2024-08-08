@@ -533,7 +533,7 @@
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-mut">{{ data.secretary_name }}</div>
+                                    <div class="small text-mut" style="text-transform:capitalize">{{ data.secretary_name }}</div>
                                 </span>
                             </li>
                             <!-- <li class="list-group-item">
@@ -547,7 +547,7 @@
                             </li> -->
                             <li class="list-group-item">
                                 <span class="">
-                                    company Reg No
+                                    Company Reg No
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
                                     </span>

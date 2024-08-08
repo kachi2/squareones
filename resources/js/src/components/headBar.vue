@@ -29,10 +29,11 @@
                             <ul v-else class="list-group list-group-flush  ">
                                 <li v-for="noti in notifications" :key="noti"
                                     class="dropdown-item list-group-item small">
-                                    <strong>{{ noti.title }} <span
-                                            style="color:red; border:1px solid #fef; border-radius: 10%;" class="p-1">
-                                            X</span> </strong>
-                                    <div class="small text-mut">
+                                    <strong clas="p-2">{{ noti.title }} 
+                                        <!-- <span style="color:red; border:1px solid #fef; border-radius: 10%;" class="p-1">
+                                            X</span>  -->
+                                        </strong>
+                                    <div class="small text-mut p-2">
                                         {{ noti.content }}
                                         <br>
                                         {{ useFunctions.dateDisplay(noti.created_at) }}

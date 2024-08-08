@@ -80,25 +80,25 @@ import { reactive, ref, watch } from 'vue';
 
 
 const masterTableHeaders = [
-    { text: "NAME", value: "name" },
-    { text: "CREATION DATE", value: "charge_creation_date" },
-    { text: "ACCOUNT SECURED BY CHARGE", value: "account_secured_by_charge" },
-    { text: "TYPE OF CHARGE", value: "type_of_charge" },
-    { text: "DESCRIPTION", value: "charge_description" },
-    { text: "TERMS", value: "terms_of_charge" },
-    { text: "REG. DETAILS", value: "registration_details" },
-    { text: "DATE CREATED", value: "created_at" },
+    { text: "Charge Creation Date", value: "charge_creation_date" },
+    { text: "Amount Secured by the Charge HKD", value: "account_secured_by_charge" },
+    { text: "Type of Charge", value: "type_of_charge" },
+    { text: "Description  of Charge", value: "charge_description" },
+    { text: "Name of  Chargee", value: "names_of_charge" },
+    { text: "Terms of  Charge", value: "terms_of_charge" },
+    { text: "Registration Details", value: "registration_details" },
+    { text: "Date Created", value: "created_at" },
     // { text: "ACTION", value: "action" },
 ];
 
 const expandedHeaders = [
-    { text: "NAME", value: "name" },
-    { text: "CREATION DATE", value: "charge_creation_date" },
-    { text: "ACCOUNT SECURED BY CHARGE", value: "account_secured_by_charge" },
-    { text: "TYPE OF CHARGE", value: "type_of_charge" },
-    { text: "DESCRIPTION", value: "charge_description" },
-    { text: "TERMS", value: "terms_of_charge" },
-    { text: "REG. DETAILS", value: "registration_details" },
+{ text: "Charge Creation Date", value: "charge_creation_date" },
+    { text: "Amount Secured by the Charge HKD", value: "account_secured_by_charge" },
+    { text: "Type of Charge", value: "type_of_charge" },
+    { text: "Description  of Charge", value: "charge_description" },
+    { text: "Name of  Chargee", value: "names_of_charge" },
+    { text: "Terms of  Charge", value: "terms_of_charge" },
+    { text: "Registration Details", value: "registration_details" },
     { text: "DATE MODIFIED", value: "created_at" },
 ];
 

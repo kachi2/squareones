@@ -223,9 +223,9 @@ const entities = computed(() => {
       const obj = el.individual || el.corporate;
       // console.log(obj, 'founders')
       if (obj && el.entity_capacity_id.includes(1) ) {
-        obj.label = el.entity_type_id == 1 ?
-          `${obj.first_name} ${obj.last_name} ${obj.chn_last_name} ${obj.chn_first_name}`
-          : `${obj.authorized_persons.first_name + ' ' + obj.authorized_persons.last_name + ' FOR AND BEHALF OF ' + obj.company_name??obj.chn_company_name} `
+        obj.label = el?.entity_type_id == 1 ?
+          `${obj.first_name??''} ${obj?.last_name??'' } ${obj?.chn_last_name??''}${obj?.chn_first_name??''}`
+          : `${obj?.authorized_persons?.first_name + ' ' + obj?.authorized_persons?.last_name  + ' FOR AND BEHALF OF ' + obj?.company_name??obj?.chn_company_name} `
         obj.company_entity_id = el.id
         array.push(obj)
       }
@@ -292,7 +292,7 @@ function getActiveFounder()
    const fxs = founder.filter((t:any) =>  t.is_founder == 1 )
    if(fxs.length > 0){
    const fx = fxs[0];
-   founderInfo.name = (fx.individual?.first_name??fx.corporate?.authorized_persons.first_name) + ' ' + (fx.individual?.last_name??fx.corporate?.authorized_persons.last_name) 
+   founderInfo.name = (fx.individual?.first_name??fx.corporate?.authorized_persons?.first_name) + ' ' + (fx.individual?.last_name??fx.corporate?.authorized_persons?.last_name) 
    founderInfo.signature = fx.signature
    founderInfo.date = fx.date_signed
    founderInfo.id = fx.id

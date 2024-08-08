@@ -36,7 +36,7 @@ class NotificationController extends Controller
     public function UserNotification()
     {
         try{
-        $notify = Notification::whereUserId(auth_user())->get();
+        $notify = Notification::whereUserId(auth_user())->take(4)->latest()->get();
         return response()->json(['data' => $notify], HttpStatusCode::OK);
     }catch(\Exception $e){
         return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);

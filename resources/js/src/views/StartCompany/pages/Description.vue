@@ -36,7 +36,7 @@
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
                         <div class="fixed-label-custom">
-                            <v-select id="business_nature_id"
+                            <v-select  append-to-body :calculate-position="useFxn.vueSelectPositionCalc" id="business_nature_id"
                                 @search:blur="form.validateVueSelectOnBlur('business_nature_id')"
                                 v-bind="form.business_nature_idAttr"
                                 :class="{ 'error-field': form.errors.business_nature_id }"
@@ -93,7 +93,9 @@ import { useStartCompanyStore } from '../StartCompany_store';
 import api from '@/stores/Helpers/axios'
 import { useToast } from 'vue-toast-notification';
 import { descriptionForm } from './formsStore/Description'
-import { computed, onMounted, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
+import useFxn from '@/stores/Helpers/useFunctions';
+
 
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
@@ -147,6 +149,11 @@ async function saveFromToApi(formData: FormData) {
         toast.error('Sorry, Something went wrong', { position: 'top-right' });
     }
 }
+
+
+
+
+
 
 
 // counting characters

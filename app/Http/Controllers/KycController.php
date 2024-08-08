@@ -29,10 +29,6 @@ class KycController extends Controller
     }
 
     public function LoadFounderKyc(Request $request){
-
-        $user = User::where('id', auth_user())->first();
-        $kyc = $this->teamServices->create($request, $user->activeCompany(), $request->role,$user);
-        return $kyc;
         if(!$request->company_id ){
             return response()->json(['error' => 'company_id not found'], HttpStatusCode::BAD_REQUEST);
         }
@@ -50,6 +46,7 @@ class KycController extends Controller
         $data['company_id'] = $request->company_id;
         $data['company_entity_id'] = $founders->id;
         ProcessFounderKyc::dispatch($data);
+        
         return response()->json(['data' => $founders], HttpStatusCode::OK);
         }
         // $res = event(new FounderKyc($data));

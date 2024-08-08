@@ -44,7 +44,7 @@ class CompanyController extends Controller
             $progress = RegisteredCompany::where('id', $request->company_id)->first();
             if($progress){
                 $progress->update([
-                    'registration_progress_id' => $request->registration_progress_id
+                    'registration_progress_id' => $request->registration_progress_id,
                 ]);
             }
             return response()->json(['data' => $progress], HttpStatusCode::OK);

@@ -81,21 +81,20 @@ import { computed, reactive, ref, watch } from 'vue';
 
 // table
 const masterTableHeaders = [
-    { text: "NAME", value: "name" },
-    { text: "ALLOTMENT DATE", value: "allotment_date" },
-    { text: "ADDRESS", value: "address" },
-    { text: "NO OF SHARES ALLOCATED", value: "no_of_shares_allocated" },
+{ text: "Date of Allotment", value: "allotment_date" },
+    { text: "Name and Address", value: "name" },
+    { text: "Class of Shares", value: "class_of_shares" },
+    { text: "Number of Shares Allotted", value: "no_of_shares_allocated" },
     { text: "DATE CREATED", value: "created_at" },
     // { text: "REMARKS", value: "remarks" },
     // { text: "ACTION", value: "action" },
 ];
 
 const expandedHeaders = [
-    { text: "NAME", value: "name" },
-    { text: "ALLOTMENT DATE", value: "allotment_date" },
-    { text: "ADDRESS", value: "address" },
-    { text: "NO OF SHARES ALLOCATED", value: "no_of_shares_allocated" },
-
+{ text: "Date of Allotment", value: "allotment_date" },
+    { text: "Name and Address", value: "name" },
+    { text: "Class of Shares", value: "class_of_shares" },
+    { text: "Number of Shares Allotted", value: "no_of_shares_allocated" },
     { text: "DATE MODIFIED", value: "created_at" },
 ];
 

@@ -12,9 +12,10 @@
             </div>
 
             <div v-else class="d-flex justify-content-center mt-3">
-                <button :disabled="proceeding" class="btn btn-primary w-100" @click="goToPaymentPage">
+               <PageLoadingComponent />
+                <!-- <button :disabled="proceeding" class="btn btn-primary w-100" @click="goToPaymentPage">
                    Proceed to Payment
-                </button>
+                </button> -->
             </div>
         </template>
         <template #info>
@@ -26,6 +27,7 @@ import StartCompany_template from '../StartCompany_template.vue';
 import { useStartCompanyStore } from '../StartCompany_store';
 import api from '@/stores/Helpers/axios'
 import { ref, onMounted, computed } from 'vue';
+import PageLoadingComponent from '@/components/pageLoadingComponent.vue'; 
 
 const startCompanyStore = useStartCompanyStore()
 const paymentStatus = computed(() => {

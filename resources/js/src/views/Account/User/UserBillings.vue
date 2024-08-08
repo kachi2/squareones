@@ -81,7 +81,7 @@
                 </div>
             </div> -->
 
-            <div class="col-lg-8 mb-4">
+            <div class="col-lg-6 mb-4">
                 <div class="card shadow-sm p- border-1 h-100">
                     <div class="card-body">
                         <div class="table-responsive">

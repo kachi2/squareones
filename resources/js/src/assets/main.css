@@ -1,27 +1,33 @@
 @import './base.css';
 
-/* input:focus, */
+input:focus,
 select:focus,
-/* textarea:focus, */
+textarea:focus,
 button:focus,
 .vue-tel-input,
 .page-link:focus {
     outline: none !important;
     box-shadow: none !important;
-    border-color: #dee2e6 !important;
+    /* border-color: #dee2e6 !important; */
 }
 
-.error-field {
+input:focus,
+textarea:focus,
+.vs__dropdown-toggle:focus-within {
+    border: 1px solid var(--bs-primary);
+}
+
+.error-field,
+.error-field .vs__dropdown-toggle,
+.error-field .vue-tel-input {
     border: 1px solid red !important;
 }
 
+
+/* .error-field .vs__search:focus,
 .error-field:focus {
     box-shadow: none !important;
-}
-
-.error-field .vs__dropdown-toggle, .error-field .vue-tel-input {
-    border: 1px solid red !important;
-}
+} */
 
 
 /* .vs__search {
@@ -29,18 +35,14 @@ button:focus,
     border: 0px !important;
 } */
 
-.v-select, .v-select * {
+.v-select,
+.v-select * {
     line-height: 2.9rem !important;
     border-radius: var(--bs-border-radius);
 }
 
-
-.vs__search:focus {
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
-}
-
-.error-field .vs__search:focus {
-    box-shadow: none !important;
+.vs__selected {
+    padding-left: 10px;
 }
 
 .vs--single {
@@ -72,12 +74,12 @@ button:focus,
 
 
 /* remove tiny mark at bottom left of textareas */
+
 textarea {
     resize: none;
     /* -webkit-appearance: none;
     -moz-appearance: none; */
 }
-
 
 .section {
     margin-bottom: 20px;
@@ -92,6 +94,7 @@ textarea {
     /* padding-right: 10px; */
 }
 
+
 /* th {
     background-color: var(--bs-gray-200) !important;
 } */
@@ -103,17 +106,18 @@ textarea {
     justify-content: center;
 }
 
+
 /* nav tabs ############################################### */
+
 .nav-link {
     border: none !important;
     /* background-color: transparent !important; */
 }
 
-.nav-link, .nav-link:hover {
+.nav-link,
+.nav-link:hover {
     color: #7C8493;
 }
-
-
 
 @media (max-width: 767px) {
     .nav-link {
@@ -129,10 +133,10 @@ textarea {
     --easy-table-body-row-hover-background-color: transparent;
 }
 
+
 /* .vue3-easy-data-table__body td.expand[data-v-32683533] {
     background-color: #eee !important;
 } */
-
 
 .buttons-pagination .item.button.active {
     background-color: var(--bs-secondary) !important;

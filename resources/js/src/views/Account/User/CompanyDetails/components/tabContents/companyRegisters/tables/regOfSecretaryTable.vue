@@ -3,7 +3,7 @@
     <div class="col-12">
         <div class="card shadow-sm">
             <div class="card-header fw-bold border-0 bg-transparent">
-                Secretary’s Register
+                Register of Secretaries
                 <!-- <span class="float-end">
                     <button @click="paramsStore.openModalForm('regOfSecretaryModal')" class="btn btn-primary btn-sm">
                         Add New <i class="bi bi-plus-lg"></i>
@@ -91,23 +91,23 @@ import { reactive, ref, watch } from 'vue';
 
 // table
 const masterTableHeaders = [
-    { text: "NAME", value: "name" },
-    { text: "DATE OF APPOINTMENT", value: "appointment_date" },
-    { text: "IDENTITY INFO", value: "identity_info" },
-    { text: "CEASE ACT", value: "cease_to_act" },
-    { text: "REMARKS", value: "remarks" },
-    { text: "DATE CREATED", value: "created_at" },
-    // { text: "ACTION", value: "action" },
+    { text: "Date of Appointment ", value: "appointment_date" },
+    { text: "Name", value: "name" },
+    { text: "ID/ Passport / Registration No", value: "identity_info" },
+    { text: "Residential Address / Registered  Office", value: "address" },
+    { text: "Ceasing to Act", value: "cease_to_act" },
+    { text: "Remarks", value: "remarks" },
+    { text: "Date Created", value: "created_at" },
 ];
 
 const expandedHeaders = [
-    { text: "NAME", value: "name" },
-    { text: "DATE OF APPOINTMENT", value: "appointment_date" },
-    { text: "IDENTITY INFO", value: "identity_info" },
-    { text: "CEASE ACT", value: "cease_to_act" },
-    { text: "REMARKS", value: "remarks" },
-    { text: "ACTION", value: "action" },
-    { text: "DATE MODIFIED", value: "created_at" },
+    { text: "Date of Appointment", value: "appointment_date" },
+    { text: "Name", value: "name" },
+    { text: "ID/ Passport / Registration No", value: "identity_info" },
+    { text: "Residential Address / Registered  Office", value: "address" },
+    { text: "Ceasing to Act", value: "cease_to_act" },
+    { text: "Remarks", value: "remarks" },
+    { text: "Date Modified", value: "created_at" },
 ];
 
 const expandingServerOptions = ref<ServerOptions | any>({

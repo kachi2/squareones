@@ -13,7 +13,7 @@
                 </div>
                 <div class="card-body">
                     <isLoadingComponent v-if="itemsLoading" />
-                    <EasyDataTable v-else class="easy-data-table" show-index :headers="headers" :items="items"
+                    <EasyDataTable v-else class="easy-data-table"  :headers="headers" :items="items"
                         buttons-pagination v-model:server-options="serverOptions" :server-items-length="total">
 
                         <template #header="header">

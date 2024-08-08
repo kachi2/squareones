@@ -54,5 +54,24 @@ export default {
         return $instance.get(`user/notifications`)
     },
 
+    userGetCompany(company_id: any) {
+        return $instance.get(`user/account/company/${company_id}`)
+    },
 
+    userTeamMembers(formData: FormData) {
+        return $instanceForm.post(`team/load/members`, formData)
+    },
+
+    userTeamsInvitation(formData: FormData) {
+        return $instanceForm.post(`teams/invitation`, formData)
+    },
+
+    userTeamsInvitationAccept(formData: FormData) {
+        return $instanceForm.post(`team/invitation/accept`, formData)
+    },
+
+    removeUserfromTeam(formData: FormData)
+    {
+        return $instanceForm.post('team/remove/member', formData)
+    }
 }

@@ -1,6 +1,6 @@
 <template>
 
-    <div class="main" style="max-height: 90vh; overflow-y: auto; max-width:50vw">
+    <div class="main">
         <section>
             <company :companyInfo="data" />
 
@@ -16,26 +16,25 @@
 
             <corporate_directors v-for="corporates in CorporateDirectors" :corporate="corporates" />
 
-            <founder_statement  :founder="founder"/>
+            <founder_statement :founder="founder" />
 
             <pi_ncc_secretary v-for="directors in IndividualDirectors" :director="directors" />
 
             <notice_to_business />
             <company_ordinance />
             <class_of_shares />
-            <ownershipShares  />
+            <ownershipShares />
             <articles />
-            <articles_last />
         </section>
 
     </div>
 
-    <div class="off-screen" ref="PDFsection" hidden id="print_item">     
-            <company :companyInfo="data" />
-            <!-- <company_info :companyInfo="data" /> -->
-            <!-- <individual_shareholder v-for="shares in shareholders" :shareholder="shares" /> -->
-            <!-- <corporate_shareholder v-for="coshare in CorporateShareholder" :corporateShare="coshare" /> -->
-            <!-- <company_secretary />
+    <div class="off-screen" ref="PDFsection" hidden id="print_item">
+        <company :companyInfo="data" />
+        <!-- <company_info :companyInfo="data" /> -->
+        <!-- <individual_shareholder v-for="shares in shareholders" :shareholder="shares" /> -->
+        <!-- <corporate_shareholder v-for="coshare in CorporateShareholder" :corporateShare="coshare" /> -->
+        <!-- <company_secretary />
             <individual_directors v-for="directors in IndividualDirectors" :director="directors" />
             <corporate_directors v-for="corporates in CorporateDirectors" :corporate="corporates" />
             <founder_statement :founders_counts="founders_counts.value"/>
@@ -43,23 +42,23 @@
             <notice_to_business />
             <company_ordinance />
             <class_of_shares /> -->
-            <!-- <ownershipShares /> -->
-            <!-- <articles /> -->
-             <!--    <articles_last /> -->
-       
+        <!-- <ownershipShares /> -->
+        <!-- <articles /> -->
+        <!--    <articles_last /> -->
+
     </div>
 
     <div class="off-screen" ref="PDFsection2">
-        
+
         <!-- <articles_last />   -->
-        
+
     </div>
 
 </template>
 
 <script setup lang="ts">
 import { useStartCompanyStore } from "../StartCompany/StartCompany_store";
-import { ref, computed, onMounted, watch, reactive} from 'vue'
+import { ref, computed, onMounted, watch, reactive } from 'vue'
 
 import company from './company.vue'
 import company_info from './company_info.vue'
@@ -75,8 +74,6 @@ import company_ordinance from './company_ordinance.vue'
 import class_of_shares from './class_of_shares.vue'
 import ownershipShares from './ownershipShares.vue'
 import articles from './articles.vue'
-import articles_last from './articles_last.vue'
-
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
@@ -163,12 +160,13 @@ function proceedToPayment() {
 
 async function sendPDFToApi() {
     try {
-         await api.buildPDF(formData)
+        await api.buildPDF(formData)
         startCompanyStore.pdfIsSending = false
         toast.success('Data Saved Successfully', { position: 'top-right' });
-            //@ts-ignore
-    document.getElementById('print_item').hidden = true
+        //@ts-ignore
+        document.getElementById('print_item').hidden = true
         startCompanyStore.switchStage('+')
+        goToPaymentPage()
 
     } catch (error) {
         toast.error('Sorry, Something went wrong', { position: 'top-right' });
@@ -183,19 +181,19 @@ const shareholders = computed(() => {
     const individualShareholder = startCompanyStore.companyInProgress?.company_entity ?? [];
     const founders: any[] = [];
     let counts = 0
-    // console.log(individualShareholder, 'individualShareholder')
+    console.log(individualShareholder, 'individualShareholder')
     individualShareholder.forEach((shares: any) => {
         const obj = shares.individual;
-        const fxs = individualShareholder.filter((t:any) =>  t.is_founder == 1 )
-        if(fxs.length > 0){
-        const fx = fxs[0];
-        founder.founder_details.name = (fx.individual?.first_name??'') + ' ' + (fx.individual?.last_name??'') +' '+ (fx.individual?.chn_last_name??'')+(fx.individual?.chn_first_name??'') 
-        founder.founder_details.signature = fx.signature
-        founder.founder_details.date = fx.date_signed
-          }
+        const fxs = individualShareholder.filter((t: any) => t.is_founder == 1)
+        if (fxs.length > 0) {
+            const fx = fxs[0];
+            founder.founder_details.name = (fx.individual?.first_name ?? '') + ' ' + (fx.individual?.last_name ?? '') + ' ' + (fx.individual?.chn_last_name ?? '') + (fx.individual?.chn_first_name ?? '')
+            founder.founder_details.signature = fx.signature
+            founder.founder_details.date = fx.date_signed
+        }
 
         let cp = shares.entity_capacity_id;
-        if (obj && cp.includes(2)) {
+        if (obj && cp.includes(1)) {
             counts++
             obj.entity_type_id = shares.entity_type_id,
                 obj.capacity = shares.entity_capacity_id
@@ -220,7 +218,7 @@ const IndividualDirectors = computed(() => {
             obj.entity_type_id = dir.entity_type_id,
                 obj.capacity = dir.entity_capacity_id
             obj.address = obj.cor_address ?? obj.res_address
-            obj.signature = dir.signature??''
+            obj.signature = dir.signature ?? ''
             director.push(obj)
 
             // console.log(director, 'directors list')
@@ -241,7 +239,7 @@ const CorporateDirectors = computed(() => {
         if (objs && cps.includes(2)) {
             objs.entity_type_id = cdir.entity_type_id,
                 objs.capacity = cdir.entity_capacity_id
-                objs.signature = cdir.signature??''
+            objs.signature = cdir.signature ?? ''
             Corporate.push(objs)
             //   console.log(Corporate, 'corporate list')
             // founders_counts.value + 1
@@ -268,6 +266,17 @@ const CorporateShareholder = computed(() => {
 
     return sh;
 })
+
+
+
+const goToPaymentPage = async () => {
+    try {
+        const { data } = await api.paymentIntent()
+        window.location.href = data.original
+    } catch (error) {
+        console.log(error)
+    }
+}
 </script>
 
 <style scoped>

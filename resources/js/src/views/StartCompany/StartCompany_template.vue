@@ -51,7 +51,11 @@
                         data-bs-target="#startMobileOffcanvas" aria-controls="startMobileOffcanvas">
                         <i class="bi bi-justify fs-3"></i>
                     </button>
-                    Start your Company
+                    <router-link to="/user/dashboard">
+                     <button style="padding:0px 8px; margin:5px; border: 0px solid #eee;  color:#888; background: #fff;"> 
+                     <span style=" font-size:20px">X </span> </button>
+                   </router-link> 
+                   Start your Company
                     <span class="small fw-bold d-none d-md-inline" v-if="activeCompanyName">
                         ({{ activeCompanyName }})
                     </span>
@@ -95,7 +99,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3 d-none d-md-block min-vh-100 sub-info-panel p-3 pt-4 small " style="max-width: 500px">
+                <div class="col-3 d-none d-md-block min-vh-100 sub-info-panel p-3 pt-4 small " style="max-width: 400px">
                     <slot name="info"></slot>
                 </div>
             </div>
@@ -246,7 +250,7 @@ async function logout() {
 }
 
 .middle-panel-fixed-size {
-    width: 1000px;
+    width: 800px;
 
 }
 

@@ -18,7 +18,8 @@ class RegisteredCompany extends Model
     'company_registered', 
     'business_classification',
      'tax_id',
-     'registration_progress_id'
+     'registration_progress_id',
+     'renewal_date'
      ];
 
      public function company()

@@ -310,7 +310,8 @@
                 <div class="fixed-label-custom">
                     <v-select id="occupation" @search:blur="form.validateVueSelectOnBlur('occupation')"
                         v-bind="form.occupationAttr" :class="{ 'error-field': form.errors.occupation }"
-                        v-model="form.occupation" :clearable="true" :options="startCompanyStore.employmentStatusList" />
+                        v-model="form.occupation" :clearable="true" :options="startCompanyStore.employmentStatusList"
+                        />
                     <label for="occupation" class="form-labe fw-bolder">Occupation/Employment <span class="text-danger">
                             *
                         </span></label>

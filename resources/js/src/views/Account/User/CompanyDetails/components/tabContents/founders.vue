@@ -4,8 +4,8 @@
             <div class="card shadow-sm">
                 <div class="card-body">
 
-                    <EasyDataTable class="easy-data-table" show-index :headers="headers" :items="items"
-                        buttons-pagination v-model:server-options="serverOptions" :server-items-length="totalItems">
+                    <EasyDataTable class="easy-data-table" :headers="headers" :items="items" buttons-pagination
+                        v-model:server-options="serverOptions" :server-items-length="totalItems">
 
                         <template #header="header">
                             <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
@@ -16,22 +16,23 @@
                         </template> -->
 
                         <template #item-kyc_status="item">
-                            <span v-if="!item.kyc_status" class="alert alert-warning py-1 border-0">Not
+                            <span v-if="!item.kyc_status" class="alert alert-warning py-1 border-0 text-nowrap">Not
                                 Verified</span>
                             <span v-else class="alert alert-success py-1 border-0">Verified</span>
                         </template>
 
                         <template #item-signature="item">
-                            <span v-if="!item.signature" class="alert alert-warning py-1 border-0">Not Signed</span>
+                            <span v-if="!item.signature" class="alert alert-warning py-1 border-0 text-nowrap">Not
+                                Signed</span>
                             <span v-else class="alert alert-success py-1 border-0">Signed</span>
                         </template>
 
                         <template #item-action="item">
-                            <button v-if="!isSendingEmail" @click="resendEmail(item.company_entity_id)"
-                                class="btn btn-primary btn-sm">
+                            <button v-if="!item.isSendingEmail" @click="resendEmail(item.company_entity_id)"
+                                class="btn btn-primary btn-sm text-nowrap">
                                 <i class="bi bi-arrow-clockwise"></i> Resend Email
                             </button>
-                            <button v-else disabled class="btn btn-primary btn-sm">
+                            <button v-else disabled class="btn btn-primary btn-sm text-nowrap">
                                 <i class="bi bi-arrow-clockwise"></i> Sending ..
                             </button>
                         </template>
@@ -89,11 +90,14 @@ async function getItems() {
                     : 'Director';
 
                 if (obj) {
+
                     obj.name = el.entity_type_id == 1 ? `${obj.first_name} ${obj.last_name}` : `${obj.company_name}`
                     obj.copOrInd = el.entity_type_id == 1 ? 'Individual' : 'Corporate'
                     obj.shareOrDir = shareOrDir
-                    obj.email = el.entity_type_id == 1 ? obj.email : el?.authorized_persons?.email
-                    obj.phone = el.entity_type_id == 1 ? obj.phone : el?.authorized_persons?.phone
+                    obj.email = el.entity_type_id == 1 ? obj.email : ''
+                    obj.phone = el.entity_type_id == 1 ? obj.phone : ''
+                    obj.authorizedPersonEmail = el.entity_type_id == 1 ? '' : el?.corporate?.authorized_persons.email
+                    obj.authorizedPersonPhone = el.entity_type_id == 1 ? '' : el?.corporate?.authorized_persons.phone
                     obj.kyc_status = el.kyc_status
                     obj.signature = el.signature
 
@@ -118,6 +122,8 @@ const headers = [
     { text: "TYPE", value: "copOrInd" },
     { text: "CAPACITY", value: "shareOrDir" },
     { text: "EMAIL", value: "email" },
+    { text: "AUTHORIZED PERSON'S EMAIL", value: "authorizedPersonEmail" },
+    { text: "AUTHORIZED PERSON'S PHONE", value: "authorizedPersonPhone" },
     { text: "PHONE", value: "phone" },
     { text: "KYC STATUS", value: "kyc_status" },
     { text: "SIGNATURE", value: "signature" },
@@ -129,18 +135,25 @@ const headers = [
 // resending email
 const isSendingEmail = ref<boolean>(false)
 async function resendEmail(id: string) {
-    isSendingEmail.value = true;
+    const lineItem = items.value.find(x => x.company_entity_id == id)
+    lineItem.isSendingEmail = true
     try {
         const formData = new FormData();
         formData.append('company_id', paramsStore.currentCompanyId)
         formData.append('company_entity_id', id)
-        await api.userResendEmail(formData)
-        isSendingEmail.value = false;
-        useFxn.toastShort('Email Sent')
-        // console.log(resp);
+        const resp = await api.userResendEmail(formData)
+        if (resp.status == 200) {
+            useFxn.toast('Email Sent', 'success')
+            lineItem.isSendingEmail = null
+        }
+        else {
+            useFxn.toast('Email not sent, something went wrong', 'error')
+            lineItem.isSendingEmail = null
+        }
 
     } catch (error) {
-        isSendingEmail.value = false;
+        useFxn.toast('Network error, something went wrong', 'error')
+        lineItem.isSendingEmail = null
     }
 }
 

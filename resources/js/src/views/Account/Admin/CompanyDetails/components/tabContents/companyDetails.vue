@@ -39,14 +39,16 @@
                             Incorporation Date:
                             <span class="float-end">
                                 {{
-                                            useFxn.dateDisplay(paramsStore.currentCompanyData?.registered_company[0]?.incorporated_date)
-                                        }}
+                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.registered_company[0]?.incorporated_date)
+                                }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Company Structure:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.registered_company[0]?.company_structure }}
+                                {{ paramsStore.currentCompanyData?.registered_company[0]?.company_structure ?
+                                    paramsStore.currentCompanyData?.registered_company[0]?.company_structure.replaceAll('_',
+                                        ' ') : '' }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
@@ -224,24 +226,24 @@
                             Business Registration Renewal:
                             <span class="float-end">
                                 {{
-                                            useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting[0]?.business_registration_renewal_date)
-                                        }}
+                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting[0]?.business_registration_renewal_date)
+                                }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Accounting Reference Date:
                             <span class="float-end">
                                 {{
-                                                useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting[0]?.accounting_reference_date)
-                                            }}
+                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting[0]?.accounting_reference_date)
+                                }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Annual Return Date:
                             <span class="float-end">
                                 {{
-                                                useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting[0]?.annual_return_date)
-                                            }}
+                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting[0]?.annual_return_date)
+                                }}
                             </span>
                         </li>
                     </ul>

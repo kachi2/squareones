@@ -33,7 +33,9 @@
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-label">Company Structure:</div>
-                                <input v-model="company_structure" type="text" class="form-control">
+                                <select v-model="company_structure" class="form-select">
+                                    <option value="Private_Limited_Company">Private Limited Company</option>
+                                </select>
                                 <small class=" text-danger">{{ errors.company_structure }}</small>
                             </div>
                             <div class="col-12 col-md-6">

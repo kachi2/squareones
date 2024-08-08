@@ -39,8 +39,8 @@
                             Incorporation Date:
                             <span class="float-end">
                                 {{
-            useFxn.dateDisplay(paramsStore.currentCompanyData?.registered_company[0]?.incorporated_date)
-        }}
+                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.registered_company[0]?.incorporated_date)
+                                }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
@@ -152,7 +152,7 @@
                 </div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item ps-0">
+                        <li class="list-group-item ps-0 ">
                             Director:
                             <span class="float-end">
                                 {{ paramsStore.currentCompanyData?.office_contract[0]?.directors }}
@@ -225,23 +225,23 @@
                             Business Registration Renewal:
                             <span class="float-end">
                                 {{
-            useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting[0]?.business_registration_renewal_date)
-        }}
+                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting[0]?.business_registration_renewal_date)
+                                }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Accounting Reference Date:
                             <span class="float-end">
                                 {{
-                useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting[0]?.accounting_reference_date)
-            }}
+                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting[0]?.accounting_reference_date)
+                                }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Annual Return Date:
                             <span class="float-end">
                                 {{
-                useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting[0]?.annual_return_date)
+                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting[0]?.annual_return_date)
                                 }}
                             </span>
                         </li>
@@ -324,6 +324,8 @@ function updateProgress() {
 </script>
 
 <style lang="css" scoped>
+
+
 /* .card{
     background-color: #212935;
     color:#fff;

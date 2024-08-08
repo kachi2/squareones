@@ -1,27 +1,29 @@
 <template>
   <div class="container">
     <h5 class="fw-bold page-title mb-2">Dashboard Overview</h5>
-    <div class="mb-3">Have a Glance of this company Informaiton</div>
+    <div class="">Have a Glance of this company Information.</div>
+    <p>Manage your company in a single clicks, click on the
+      navigation to view individual company details</p>
     <div class="row g-3">
-      <div class="col-lg-7">
+      <!-- <div class="col-lg-12">
         <div class="card border-0 shadow-sm h-100">
           <div class="card-body">
             <div class="row g-3">
               <div class="col-md-9">
-                <strong>Welcom back
+                <strong>
+                 
                   {{ authStore.profileDataName.toUpperCase() }},</strong>
                 <p>
                   Manage your company in a single clicks, click on the
                   navigation to view individual company details
                 </p>
-                <!-- <button class="btn btn-light mt-3">Learn More..</button> -->
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <div class="col-lg-5">
+      <!-- <div class="col-lg-5">
         <div class="card border-0 shadow-sm h-100">
           <div class="card-header border-0 bg-transparent fw-bold">
             <i class="fw-bold bi bi-bell"></i> NOTIFICATIONS
@@ -44,9 +46,9 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      
+
       <div class="col-lg-4">
         <div class="card border-0 shadow-sm h-100">
           <div class="card-body py-4">
@@ -73,16 +75,15 @@
           <div class="card-body py-4">
             <div class="d-flex justify-content-between align-items-cente">
               <div class="col-8">
-                Incorporated Companies
+                <span class="fs-4 fw-bold text-mute">{{ daysLeftFrom360Days }} Days</span><small> remaining</small>
                 <div>
-                  <span class="fs-4 fw-bold text-mute">{{ companies.is_incorporated.length }}</span>
-                  <span class="small"></span>
+                  <span class="small">Annual Return</span>
                 </div>
+                <p> Next Renewal is 5th Dec, 2025</p>
               </div>
-              <div class="col-4">
-                <div class="round bg-warning-subtle">
-                  <i class="bi bi-house text-warning"></i>
-                </div>
+              <div class="col-5">
+                <apexchart type="pie" :options="pieChartOptions" :series="pieChartSeries">
+                </apexchart>
               </div>
             </div>
           </div>
@@ -93,16 +94,16 @@
           <div class="card-body py-4">
             <div class="d-flex justify-content-between align-items-cente">
               <div class="col-8">
-                Pending Renewals
+                <span class="fs-4 fw-bold text-mute">{{ daysLeftFrom360Days }} Days</span>  <small> remaining</small>
+                
                 <div>
-                  <span class="fs-4 fw-bold text-mute">0</span>
-                  <span class="small"> from this year</span>
+                  <span class="small">Next Payment in Jan 10th, 2025</span>
                 </div>
+                <p>Business Registration Renewal</p>
               </div>
-              <div class="col-4">
-                <div class="round bg-primary-subtle">
-                  <i class="bi bi-cash text-primary"></i>
-                </div>
+              <div class="col-5">
+                <apexchart type="pie" :options="pieChartOptions" :series="pieChartSeries">
+                </apexchart>
               </div>
             </div>
           </div>
@@ -110,19 +111,19 @@
       </div>
 
       <!-- <div class="col-md-8">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-header border-0 bg-transparent">
-                        Sales this month
-                        <span class="float-end">
-                            <i class="bi bi-three-dots-vertical cursor-pointer"></i>
-                        </span>
-                    </div>
-                    <div class="card-body">
-                        <apexchart type="bar" :options="chartOptions1" :series="chartOptions1.series">
-                        </apexchart>
-                    </div>
-                </div>
-            </div> -->
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-header border-0 bg-transparent">
+            Sales this month
+            <span class="float-end">
+              <i class="bi bi-three-dots-vertical cursor-pointer"></i>
+            </span>
+          </div>
+          <div class="card-body">
+            <apexchart type="line" :options="chartOptions1" :series="chartOptions1.series">
+            </apexchart>
+          </div>
+        </div>
+      </div> -->
 
       <div class="col-md-12 ">
         <div class="card border-0 shadow-sm  h-100">
@@ -204,19 +205,19 @@
         </div>
         <div class="row g-3">
           <!-- <div class="col-12">
-                        <div class="card border-0 shadow-sm">
-                            <div class="card-header border-0 bg-transparent">
-                                Contact Statuses
-                                <span class="float-end">
-                                    <i class="bi bi-three-dots-vertical cursor-pointer"></i>
-                                </span>
-                            </div>
-                            <div class="card-body">
-                                <apexchart type="donut" :options="chartOptions2.options" :series="chartOptions2.series">
-                                </apexchart>
-                            </div>
-                        </div>
-                    </div> -->
+            <div class="card border-0 shadow-sm">
+              <div class="card-header border-0 bg-transparent">
+                Contact Statuses
+                <span class="float-end">
+                  <i class="bi bi-three-dots-vertical cursor-pointer"></i>
+                </span>
+              </div>
+              <div class="card-body">
+                <apexchart type="pie" :options="pieChartOptions" :series="pieChartSeries">
+                </apexchart>
+              </div>
+            </div>
+          </div> -->
           <div class="col-12">
             <!-- <div class="card border-0 shadow-sm">
                             <div class="card-header border-0 bg-transparent">
@@ -240,7 +241,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { onMounted, reactive, ref, watch } from "vue";
+import { computed, onMounted, reactive, ref, watch } from "vue";
 import api from "@/stores/Helpers/axios";
 import { useParamsStore } from "./CompanyDetails/paramsStore";
 import { onBeforeRouteLeave } from "vue-router";
@@ -262,12 +263,12 @@ const companies = reactive<any>({
   isLoading: true,
 });
 async function getNotifications() {
-    try {
-        const resp = await api.userNotifications()
-        notifications.value = resp.data?.data ?? []
-    } catch (error) {
+  try {
+    const resp = await api.userNotifications()
+    notifications.value = resp.data?.data ?? []
+  } catch (error) {
 
-    }
+  }
 
 }
 const computedCoyName = (coy: any) => {
@@ -288,6 +289,9 @@ onMounted(() => {
   getCompanies();
   getNotifications()
   getUserActivities();
+
+
+  loadPieChartOptions()
 });
 
 async function getCompanies() {
@@ -317,11 +321,14 @@ const headers = [
 // chart
 const chartOptions1 = {
   chart: {
-    type: "bar",
+    type: "line",
     // stacked: true,
   },
   dataLabels: {
-    enabled: true,
+    enabled: false,
+  },
+  stroke: {
+    curve: 'smooth'
   },
   states: {
     hover: {
@@ -333,7 +340,7 @@ const chartOptions1 = {
   },
   responsive: [
     {
-      breakpoint: 480,
+      // breakpoint: 480,
       options: {
         legend: {
           position: "bottom",
@@ -344,75 +351,72 @@ const chartOptions1 = {
     },
   ],
   xaxis: {
-    categories: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+    categories: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct"],
   },
-  colors: ["#FFB836", "#7B61FF"],
-  series: [
-    {
-      data: [0, 0, 0, 1, 0, 0, 1],
-    },
-    {
-      data: [0, 0, 0, 2, 0, 0, 0],
-    },
-  ],
+  colors: ["#7B61FF"],
+  series: [{
+    name: "Desktops",
+    data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+  }],
+  legend: {
+    show: false,
+  },
+  tooltip: {
+    enabled: true,
+  },
+};
+
+
+const dateOfIncop = ref('2023-11-24')
+
+const daysLeftFrom360Days = computed(() => {
+  const dateString = dateOfIncop.value;
+  const today: any = new Date();
+  const nextDate: any = new Date(dateString);
+  nextDate.setTime(nextDate.getTime() + (360 * 24 * 60 * 60 * 1000));
+
+  const diffInMs = nextDate - today;
+  const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+  console.log(diffInDays);
+
+  return diffInDays;
+})
+
+
+
+const pieChartOptions = {
+  colors: ["#92b3d5", "#16497c"],
+  chart: {
+    type: "pie",
+  },
+  dataLabels: {
+    enabled: false,
+  },
   legend: {
     show: false,
   },
   tooltip: {
     enabled: false,
   },
-};
-
-const chartOptions2 = {
-  series: [44, 55, 41, 17, 15],
-  options: {
-    chart: {
-      type: "donut",
-    },
-    responsive: [
-      {
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 200,
-          },
-          legend: {
-            position: "bottom",
-          },
+  responsive: [
+    {
+      // breakpoint: 480,
+      options: {
+        chart: {
+          // width: 200,
+        },
+        legend: {
+          position: "bottom",
         },
       },
-    ],
-  },
-};
-
-const chartOptions3 = {
-  series: [
-    {
-      data: ["1", "2", "3", "4", "5", "6", "7"],
     },
   ],
-  options: {
-    chart: {
-      type: "bar",
-      height: 350,
-    },
-    plotOptions: {
-      bar: {
-        borderRadius: 4,
-        borderRadiusApplication: "end",
-        // horizontal: true,
-      },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    xaxis: {
-      categories: ["", "", "", "", "", "", ""],
-    },
-  },
-};
+}
+const pieChartSeries = ref<any>([])
 
-
+const loadPieChartOptions = () => {
+  pieChartSeries.value = [daysLeftFrom360Days.value, 360 - daysLeftFrom360Days.value]
+}
 
 
 // Activities ##########################

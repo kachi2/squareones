@@ -54,8 +54,8 @@
 
                     <div v-else class="card-body">
 
-                        <EasyDataTable style="border:1px solid #eee" class="easy-data-table" show-index
-                            :headers="headers" :items="companies.list" buttons-pagination>
+                        <EasyDataTable style="border:1px solid #eee" class="easy-data-table" :headers="headers"
+                            :items="companies.list" buttons-pagination>
                             <template #header="header">
                                 <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
                             </template>
@@ -64,25 +64,34 @@
                                 {{ computedCoyName(item) }}
                             </template>
 
-                            <template #item-is_complete="item">
-                                <span v-if="item.is_complete" class="badge bg-success">Complete</span>
-                                <span v-else class="badge bg-warning-subtle text-dark">Not Complete</span>
-                            </template>
+                            <template #item-incorporation_statuses="item">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <span>FORM FILLING STATUS: </span>
+                                        <span v-if="item.is_complete"
+                                            class="badge bg-success-subtle text-dark">Complete</span>
+                                        <span v-else class="badge bg-warning-subtle text-dark">Not Complete</span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span>PAYMENT STATUS: </span>
+                                        <span v-if="item.billing"
+                                            class="badge bg-success-subtle text-dark">Complete</span>
+                                        <span v-else class="badge bg-warning-subtle text-dark">Not Complete</span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span>INCOPRATION STATUS: </span>
+                                        <span v-if="item.is_incorporated"
+                                            class="badge bg-success-subtle text-dark">Incorporated</span>
+                                        <span v-else class="badge bg-warning-subtle text-dark">Not Incorporated</span>
+                                    </li>
+                                </ul>
 
-                            <template #item-billing="item">
-                                <span v-if="item.billing" class="badge bg-success">Complete</span>
-                                <span v-else class="badge bg-warning-subtle text-dark">Not Complete</span>
-                            </template>
-
-                            <template #item-is_incorporated="item">
-                                <span v-if="item.is_incorporated" class="badge bg-success">Incorporated</span>
-                                <span v-else class="badge bg-warning-subtle text-dark">Not Incorporated</span>
                             </template>
 
                             <template #item-action="item">
                                 <router-link @click="paramsStore.currentCompanyId = item.id"
                                     class="text-decoration-none" to="/admin/company">
-                                    <i class="bi bi-exclamation-circle"></i> View Details
+                                    <i class="bi bi-exclamation-circle"></i> Details
                                 </router-link>
                             </template>
                         </EasyDataTable>
@@ -148,9 +157,12 @@ async function getCompanies() {
 // table
 const headers = [
     { text: "COMPANY NAME", value: "name" },
-    { text: "FORM FILLING STATUS", value: "is_complete" },
-    { text: "PAYMENT STATUS", value: "billing" },
-    { text: "INCOPRATION STATUS", value: "is_incorporated" },
+    { text: "REGISTRATION NUMBER", value: "business_reg_no" },
+    { text: "INCORPORATION STATUSES", value: "incorporation_statuses" },
+    { text: "MAIN CONTACT", value: "contact" },
+    { text: "SERVICE", value: "company_services" },
+    { text: "PAYMENT STATUS", value: "payment_status" },
+    // { text: "INCOPRATION STATUS", value: "is_incorporated" },
     { text: "ACTION", value: "action" },
 ];
 

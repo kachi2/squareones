@@ -13,7 +13,8 @@
                   <div class="row mt-4 g-3">
                     <div class="col-12">
                       <label class="form-label fw-bold"> Email </label>
-                      <input v-model="email" v-bind="emailAttrs" type="text"  :class="{ 'error-field': errors.email  }" class="form-control exemption">
+                      <input v-model="email" v-bind="emailAttrs" type="text" :class="{ 'error-field': errors.email }"
+                        class="form-control exemption">
                       <span class="small text-danger">{{ errors.email }}</span>
                     </div>
 
@@ -24,7 +25,8 @@
                           <i v-else class="bi bi-eye cursor-pointer"></i>
                         </span>
                       </div>
-                      <input v-model="password" v-bind="passwordAttrs" :type="inputType"  :class="{ 'error-field': errors.password  }" class="form-control exemption">
+                      <input v-model="password" v-bind="passwordAttrs" :type="inputType"
+                        :class="{ 'error-field': errors.password }" class="form-control exemption">
                       <span class="small text-danger">{{ errors.password }}</span>
                     </div>
 
@@ -93,10 +95,10 @@ const { errors, handleSubmit, defineField, setFieldValue } = useForm({
     email: yup.string().email().required(),
     password: yup.string().min(6).required(),
   }),
-  // initialValues: {
-  //   email: 'jesmikky@gmail.com',
-  //   password: 'mikky123',
-  // },
+  initialValues: {
+    email: 'jesmikky@gmail.com',
+    password: 'mikky123',
+  },
 });
 
 const [email, emailAttrs] = defineField('email');
@@ -107,7 +109,6 @@ const submitForm = handleSubmit(async (values) => {
   try {
     const resp = await api.login(values)
     const data = resp.data.data
-    // console.log(data);
 
     authStore.login(data)
 
@@ -121,6 +122,9 @@ const submitForm = handleSubmit(async (values) => {
       isSaving.value = false
       return;
     }
+    toast.error('Sorry Something went wrong, try again', { position: 'top-right' })
+    isSaving.value = false
+
   }
 
 });

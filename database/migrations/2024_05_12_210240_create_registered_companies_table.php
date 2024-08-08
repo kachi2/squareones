@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('business_classification')->nullable();
             $table->string('tax_id')->nullable();
             $table->string('registration_progress_id')->nullable();
+            $table->string('renewal_date')->nullable();
             $table->timestamps();
         });
     }

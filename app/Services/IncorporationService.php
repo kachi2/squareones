@@ -61,19 +61,19 @@ class IncorporationService implements IncorporationInterface
             $subscription = UserSubscription::where('company_id', $RegisteredCompanyDto->company_id)->first();
             if($subscription){
             $subscription->update([
-                'expiry_date' => Carbon::now(),
+                'expiry_date' => Carbon::now()->addMonth(12),
             ]);
+            $data->update(['renewal_date' => Carbon::now()->addDays(364)]);
         }
-        $user = Company::where('id',  $RegisteredCompanyDto->company_id)->first();
+        $companyUser = Company::where('id',  $RegisteredCompanyDto->company_id)->first();
        Notification::create([
             'title' => 'Company Incorporated',
-            'content' => 'Hi, '.$user->Users->name.' Your company ['.$RegisteredCompanyDto->company_registered_name.'] is fully incorporated',
-            'user_id'=> $user->Users->id
+            'content' => 'Hi, '.$companyUser->Users->name.' Your company ['.$RegisteredCompanyDto->company_registered_name.'] is fully incorporated',
+            'user_id'=> $companyUser->Users->id
         ]);
         Company::whereId($RegisteredCompanyDto->company_id)->update(['is_published' => 1]);
-        $user->Users->notify(new CompanyIncorporated($data));
+        $companyUser->Users->notify(new CompanyIncorporated($data));
     }
-        
         return $data;
         // } catch (\Exception $e) {
         //     return $e->getMessage();

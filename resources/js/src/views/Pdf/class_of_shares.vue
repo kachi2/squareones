@@ -1,139 +1,134 @@
 <template style="page-break-after: always">
-    <div>
+    <hr style="width: 100%; font-weight: 800;">
+    <div style="padding-top: 50px;"> </div>
 
-        <div style="padding-top: 40px">
-</div>
+    <div class="row">
+        <div class="col-6">
+            <p style="text-indent: 0pt;text-align: left;"> </p>
+            <p style="padding-left: 11pt;text-indent: 0pt;line-height: 142%;text-align: left;">Class of Shares</p>
+            <p style="padding-top: 50px; padding-left: 11pt;text-indent: 0pt;line-height: 142%;text-align: left;">The
+                total number of
+                shares that the company proposes to issue</p>
+            <p style="padding-left: 11pt;text-indent: 0pt;line-height: 142%;text-align: left;">The total amount of share
+                capital to be subscribed by the company’s founder members</p>
+            <ol id="l19">
+                <li data-list-text="(i)">
+                    <p style="padding-left: 63pt;text-indent: -19pt;line-height: 142%;text-align: left;">The amount to
+                        be paid up or to be regarded as paid up</p>
+                </li>
+                <li data-list-text="(ii)">
+                    <p style="padding-left: 64pt;text-indent: -20pt;line-height: 142%;text-align: left;">The amount to
+                        remain unpaid or to be regarded as remaining unpaid</p>
+                </li>
+            </ol>
+        </div>
 
-<hr>
+        <div class="col-6">
+            <table style="border-collapse:collapse;margin-left:20pt" cellspacing="0">
+                <tr style="height:36pt">
+                    <td
+                        style="width:209pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s17" style="padding-top: 3pt;text-indent: 0pt;text-align: center;">Orindary</p>
+                    </td>
+                </tr>
+                <tr style="height:36pt">
+                    <td
+                        style="width:209pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s17" style="padding-top: 3pt;text-indent: 0pt;text-align: center;">
+                            {{ startCompanyStore?.companyInProgress?.shares[0].currency }}
+                            {{ startCompanyStore?.companyInProgress?.shares[0].total_amount_paid.replace(/(\d)(?=(\d{3})+(?!\d))/g,
+                            "$1,") }} </p>
+                    </td>
+                </tr>
+                <tr style="height:36pt">
+                    <td
+                        style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s17" style="padding-left: 24pt;text-indent: 0pt;text-align: left;">
+                            {{ startCompanyStore?.companyInProgress?.shares[0].currency }} <span
+                                style="float:right; padding-right: 50px;">
+                                {{ startCompanyStore?.companyInProgress?.shares[0].total_amount_paid.replace(/(\d)(?=(\d{3})+(?!\d))/g,
+                                "$1,") }} </span> </p>
+                    </td>
 
-<p style="text-indent: 0pt;text-align: left; padding-top:20px;" > </p>
-<p style="padding-top: 4pt;padding-left: 30pt;text-indent: 0pt;text-align: left;">Class of Shares</p>
-<p style="padding-top: 11pt;text-indent: 0pt;text-align: left;"><br /></p>
-<table style="border-collapse:collapse;margin-left:30pt" cellspacing="0">
-    <tr style="height:36pt">
-        <td>
-     
-        </td>
-        <td
-            style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s17" style="padding-top: 3pt;text-indent: 0pt;text-align: center;">ORDINARY</p>
-        </td>
-    </tr>
-    <tr style="height:36pt">
-        <td>
-            The total number of
-            shares that the company proposes to issue
-
-        </td>
-        <td
-            style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s17" style="padding-top: 3pt;text-indent: 0pt;text-align: center;">
-                {{startCompanyStore?.companyInProgress?.shares[0].currency}}    {{startCompanyStore?.companyInProgress?.shares[0].no_of_shares}} </p>
-        </td>
-    </tr>
-    <tr style="height:36pt">
-        <td>
-            The total amount of share
-    capital to be subscribed by the <br> company’s founder members
-        </td>
-
-        <td
-            style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s17" style="padding-left: 24pt;text-indent: 0pt;text-align: left;">                           {{startCompanyStore?.companyInProgress?.shares[0].currency}}    {{startCompanyStore?.companyInProgress?.shares[0].total_amount_paid}} </p>
-        </td>
-    </tr>
-    <tr style="height:20pt">
-        <td style=" width:400px;" >
-            <p style="padding-left:20px"> (I) The amount to
-            be paid up or to be regarded as paid up </p>
-
-        </td>
-        <td
-            style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s17" style="padding-top: 1pt;padding-left: 23pt;text-indent: 0pt;text-align: left;">
-                {{startCompanyStore?.companyInProgress?.shares[0].currency}}    {{startCompanyStore?.companyInProgress?.shares[0].total_amount_paid}} </p>
-        </td>
-    </tr>
-    <tr style="height:10pt; " >
-        <td  style=" width:400px;" >
-
-             <p style="padding-left:20px"> (II)The amount to  remain unpaid or to be regarded as remaining unpaid</p>
-        </td>
-        <td
-            style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s17" style="padding-left: 24pt;text-indent: 0pt;text-align: left;">HKD 0</p>
-        </td>
-    </tr>
-</table>
-
-
-
-<p style="text-indent: 0pt;text-align: left; padding-top:40px;" ></p>
-<p style="padding-top: 4pt;padding-left: 30pt;text-indent: 0pt;text-align: left;">Class of Shares</p>
-<p style="padding-top: 11pt;text-indent: 0pt;text-align: left;"><br /></p>
-<table style="border-collapse:collapse;margin-left:30pt" cellspacing="0">
-    <tr style="height:36pt">
-        <td>
-     
-        </td>
-        <td
-            style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s17" style="padding-top: 3pt;text-indent: 0pt;text-align: center;"></p>
-        </td>
-    </tr>
-    <tr style="height:36pt">
-        <td>
-            The total number of
-            shares that the company proposes to issue
-
-        </td>
-        <td
-            style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s17" style="padding-top: 3pt;text-indent: 0pt;text-align: center;">
-                <!-- {{startCompanyStore?.companyInProgress?.shares[0].currency}}    {{startCompanyStore?.companyInProgress?.shares[0].no_of_shares}} -->
-             </p>
-        </td>
-    </tr>
-    <tr style="height:36pt">
-        <td>
-            The total amount of share
-    capital to be subscribed by the <br> company’s founder members
-        </td>
-
-        <td
-            style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s17" style="padding-left: 24pt;text-indent: 0pt;text-align: left;">          
-                                 <!-- {{startCompanyStore?.companyInProgress?.shares[0].currency}}    {{startCompanyStore?.companyInProgress?.shares[0].total_amount_paid}}  -->
-                                </p>
-        </td>
-    </tr>
-    <tr style="height:20pt">
-        <td style=" width:400px;" >
-            <p style="padding-left:20px"> (I) The amount to
-            be paid up or to be regarded as paid up </p>
-
-        </td>
-        <td
-            style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s17" style="padding-top: 1pt;padding-left: 23pt;text-indent: 0pt;text-align: left;">
-                <!-- {{startCompanyStore?.companyInProgress?.shares[0].currency}}    {{startCompanyStore?.companyInProgress?.shares[0].total_amount_paid}} -->
-             </p>
-        </td>
-    </tr>
-    <tr style="height:10pt; " >
-        <td  style=" width:400px;" >
-
-             <p style="padding-left:20px"> (II)The amount to  remain unpaid or to be regarded as remaining unpaid</p>
-        </td>
-        <td
-            style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s17" style="padding-left: 24pt;text-indent: 0pt;text-align: left;"></p>
-        </td>
-    </tr>
-</table>
-        
+                </tr>
+                <tr style="height:37pt">
+                    <td
+                        style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s17" style="padding-left: 24pt;text-indent: 0pt;text-align: left;">
+                            {{ startCompanyStore?.companyInProgress?.shares[0].currency }} <span
+                                style="float:right; padding-right: 50px;">
+                                {{ startCompanyStore?.companyInProgress?.shares[0].total_amount_paid.replace(/(\d)(?=(\d{3})+(?!\d))/g,
+                                "$1,") }} </span> </p>
+                    </td>
+                </tr>
+                <tr style="height:36pt">
+                    <td
+                        style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s17" style="padding-left: 24pt;text-indent: 0pt;text-align: left;">HKD <span
+                                style="float:right; padding-right: 50px;">0</span> </p>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 
+    <div class="row" style="padding-top: 50px;">
+        <div class="col-6">
+            <p style="text-indent: 0pt;text-align: left;"> </p>
+            <p style="padding-left: 11pt;text-indent: 0pt;line-height: 142%;text-align: left;">Class of Shares</p>
+            <p style="padding-top: 50px; padding-left: 11pt;text-indent: 0pt;line-height: 142%;text-align: left;">The
+                total number of
+                shares that the company proposes to issue</p>
+            <p style="padding-left: 11pt;text-indent: 0pt;line-height: 142%;text-align: left;">The total amount of share
+                capital to be subscribed by the company’s founder members</p>
+            <ol id="l19">
+                <li data-list-text="(i)">
+                    <p style="padding-left: 63pt;text-indent: -19pt;line-height: 142%;text-align: left;">The amount to
+                        be paid up or to be regarded as paid up</p>
+                </li>
+                <li data-list-text="(ii)">
+                    <p style="padding-left: 64pt;text-indent: -20pt;line-height: 142%;text-align: left;">The amount to
+                        remain unpaid or to be regarded as remaining unpaid</p>
+                </li>
+            </ol>
+        </div>
+
+        <div class="col-6">
+            <table style="border-collapse:collapse;margin-left:20pt" cellspacing="0">
+                <tr style="height:36pt">
+                    <td
+                        style="width:209pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <!-- <p class="s17" style="padding-top: 3pt;text-indent: 0pt;text-align: center;">Orindary</p> -->
+                    </td>
+                </tr>
+                <tr style="height:36pt">
+                    <td
+                        style="width:209pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s17" style="padding-top: 3pt;text-indent: 0pt;text-align: center;"></p>
+                    </td>
+                </tr>
+                <tr style="height:36pt">
+                    <td
+                        style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <!-- <p class="s17" style="padding-left: 24pt;text-indent: 0pt;text-align: left;">HKD <span style="float:right; padding-right: 50px;">10000</span> </p> -->
+                    </td>
+
+                </tr>
+                <tr style="height:37pt">
+                    <td
+                        style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <!-- <p class="s17" style="padding-left: 24pt;text-indent: 0pt;text-align: left;">HKD <span style="float:right; padding-right: 50px;">10000</span> </p> -->
+                    </td>
+                </tr>
+                <tr style="height:36pt">
+                    <td
+                        style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <!-- <p class="s17" style="padding-left: 24pt;text-indent: 0pt;text-align: left;">HKD <span style="float:right; padding-right: 50px;">10000</span> </p> -->
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
 
 </template>
 

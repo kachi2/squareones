@@ -3,102 +3,306 @@
         <div class="col-12">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <div class="ro g-3 mb-4">
-                        <div class="col-lg-5">
-                            <div class="form-label">Team Invitation</div>
-                            <input v-model="searchUserMail" type="text" class="form-control"
-                                placeholder="search user by email">
-                        </div>
-
-                        <div class="col-lg-5 mt-3" v-if="searchUserMail">
-                            <div class="card">
+                    <div class="row g-3 mb-4">
+                        <div class="col-lg-6">
+                            <div class="card border-0 h-100">
                                 <div class="card-body">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item px-0">Micheal Kachi
-                                            <button class="btn btn-secondary btn-sm m-0 float-end">Send
-                                                Invitation</button>
-                                        </li>
-                                        <li class="list-group-item px-0"> Kachi Kimmy
-                                            <button class="btn btn-secondary btn-sm m-0 float-end">Send
-                                                Invitation</button>
+                                    <div class="form-label">Team Invitation</div>
+                                    <input v-model="searchUserMail" type="text" class="form-control"
+                                        placeholder="search user by email">
+
+                                    <ul class="list-group list-group-flush mt-3">
+                                        <li class="list-group-item px-0" v-for="x in filteredUsersBySearch">
+                                            <div class="row justify-content-between align-items-center">
+                                                <div @click="selectUser(x)"
+                                                    class="col-lg-7 text-info-emphasis fw-bold small cursor-pointer">
+                                                    <i v-if="x.isSelected" class="me-3 bi bi-check-circle-fill"></i>
+                                                    <i v-else class="me-3 bi bi-circle"></i>
+                                                    {{ x.email }}
+                                                </div>
+
+
+                                            </div>
+
                                         </li>
                                     </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="row g-3">
+                                <div class="col-12" v-if="selectedUser && filteredUsersBySearch.length">
+                                    <select v-model="selectedRole" class="form-select form-select-sm text-capitalize">
+                                        <option value="" selected disabled>Select Role</option>
+                                        <option v-for="i in company.roles" :value="i.name">{{ i.name }}
+                                        </option>
+                                    </select>
+                                </div>
 
+                                <div class="col-12" v-if="infomationOfSelectedRole && filteredUsersBySearch.length">
+
+                                    <div class="card h-100 exemptio border-0 bg-light-subtle text-capitalize">
+                                        <div class="card-header">{{ infomationOfSelectedRole.description }}
+                                            <div class="float-end">
+                                                <button @click="sendInvitation" v-if="!isSendingInvitation"
+                                                    class="btn btn-sm btn-secondary ">
+                                                    Invite User <i class="bi bi-send"></i>
+                                                </button>
+                                                <button v-else class="btn btn-secondary btn-sm " type="button" disabled>
+                                                    <span class="spinner-border spinner-border-sm" role="status"
+                                                        aria-hidden="true"></span>
+                                                    Sending
+                                                </button>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="card-body" style="height: 280px; overflow-y: scroll;">
+                                            <ul class="list-group list-group-flush small">
+                                                <li v-for="x in infomationOfSelectedRole.permission"
+                                                    class="list-group-item ps-0">
+                                                    <strong>{{ x.name }}</strong>
+                                                    <div>{{ x.description }}</div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="div fw-bold mb-3">Team Members:</div>
-                    <EasyDataTable class="easy-data-table" show-index :headers="headers" :items="items"
-                        buttons-pagination v-model:server-options="serverOptions" :server-items-length="totalItems">
+                    <EasyDataTable class="easy-data-table" :headers="headers" :items="items" buttons-pagination
+                        v-model:server-options="serverOptions" :server-items-length="totalItems">
 
                         <template #header="header">
-                            <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
+                            <span class="fw-bold text-muted">{{ header.text }}</span>
                         </template>
 
-                        <!-- <template #item-updated_at="item">
-                            {{ useFxn.dateDisplay(item.updated_at, 'm,y,t') }}
+                        <template #item-created_at="item">
+                            {{ useFxn.dateDisplay(item.created_at, 'm,y,t') }}
+                        </template>
+                        <template #item-action_status="item">
+                            <span v-if="item.users?.status == 1"> <span class="badge bg-success">Active</span> </span>
+                            <span v-else> <span class="badge bg-danger">Blocked </span> </span>
+                        </template>
+
+                        <!-- <template #item-created_at="item">
+                            {{ new Date(item.created_at).toLocaleString() }}
                         </template> -->
 
-                        <template #item-updated_at="item">
-                            {{ new Date(item.updated_at).toLocaleString() }}
+                        <template #item-action="item">
+                            <span class="dropdown">
+                                <span class=" cursor-pointer bell dropdown-toggle" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <i class="bi bi-three-dots text-primary"></i>
+                                    <div class="dropdown-menu dropdown-menu-start">
+                                        <ul class="list-group list-group-flush  ">
+                                            <li @click="removeFromTeam(item.user_id)" class="dropdown-item text-danger"
+                                                style="background-color: transparent !important;">
+                                                <i class="bi bi-exclamation-circle-fill"></i> Remove from Team
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </span>
+                            </span>
                         </template>
 
                     </EasyDataTable>
                 </div>
             </div>
         </div>
-
-
     </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, computed } from 'vue';
 import { useParamsStore } from '../../paramsStore'
 import type { Header, Item, ServerOptions } from "vue3-easy-data-table";
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
-
-
-const searchUserMail = ref('')
-
+import { useToast } from 'vue-toast-notification';
 
 const paramsStore = useParamsStore()
-const totalItems = ref(0)
-const items = ref<any[]>([])
-const serverOptions = ref<ServerOptions | any>({
-    page: 1,
-    rowsPerPage: 15,
-});
+const toast = useToast()
 
 
 onMounted(() => {
-    getItems()
+    userGetCompany()
+    getUsers()
+    userTeamMembers()
 })
 
-async function getItems() {
+
+// searching
+const teams = ref<any>('')
+const selectedRole = ref<any>('')
+const company = ref<any>([])
+const users = ref([])
+const searchUserMail = ref('')
+const filteredUsersBySearch = computed(() => {
+    let filtered: any[] = []
+    if (searchUserMail.value) {
+        filtered = users.value.filter((x: any) => x.email.includes(searchUserMail.value))
+        if (filtered.length) {
+            filtered.forEach(x => {
+                x.isSelected = false
+            })
+        }
+
+        console.log(filtered);
+
+    }
+    else {
+        selectedRole.value = ''
+        selectedUser.value = null
+    }
+    return filtered
+})
+
+const selectedUser = ref<any>(null)
+const selectUser = (x: any) => {
+    selectedUser.value = x
+    users.value.forEach((x: any) => {
+        x.isSelected = false
+    })
+    x.isSelected = true
+}
+
+async function removeFromTeam(user_id: any) {
+    const formData = new FormData();
+    const team_id = company.value.teams.id
+    formData.append('team_id', team_id);
+    formData.append('user_id', user_id);
+    const resp = await api.removeUserfromTeam(formData)
+    items.value = resp.data.data
+    userTeamMembers()
+    console.log(items)
+}
+
+
+const infomationOfSelectedRole = computed(() => {
+    let info = null
+    if (selectedRole.value) {
+        info = company.value.roles.find((x: any) => x.name.toLowerCase() === selectedRole.value.toLowerCase())
+    }
+    return info;
+})
+
+
+
+// Sending Invitation
+const isSendingInvitation = ref<boolean>(false)
+async function sendInvitation() {
+    isSendingInvitation.value = true
+
     try {
-        const queryString = new URLSearchParams(serverOptions.value).toString();
-        const resp = await api.activityLog(queryString)
-        // const data = resp.data.data
-        // totalItems.value = data.total
-        // items.value = data.data
+        const formData = new FormData();
+        const user = filteredUsersBySearch.value[0]
+        const team_id = company.value.teams.id //'1'
+        // console.log(user);
+
+        formData.append('company_id', paramsStore.currentCompanyId);
+        formData.append('user_id', user.id);
+        formData.append('email', selectedUser.value.email);
+        formData.append('role', selectedRole.value);
+        formData.append('team_id', team_id);
+        const resp = await api.userTeamsInvitation(formData)
+        console.log(resp);
+
+        if (resp.status == 200) {
+            toast.info('Invitation Sent Sucessfully', { position: 'top-right' });
+            searchUserMail.value = '';
+            isSendingInvitation.value = false
+        }
+        else if (resp.status == 203) {
+            toast.info('User already exist in the team', { position: 'top-right' });
+            isSendingInvitation.value = false
+        }
+    } catch (error) {
+        isSendingInvitation.value = false
+        toast.error('Something went Wrong', { position: 'top-right' });
+    }
+
+}
+
+
+
+
+
+
+async function userGetCompany() {
+    try {
+        const resp: any = await api.userGetCompany(paramsStore.currentCompanyId)
+        // console.log(resp, 'company');
+        company.value = resp.data.data
+        // console.log(company.value);
+
+        // roles.value = resp.data.data.roles
+        // console.log(roles.value);
+
     } catch (error) {
         // 
     }
 }
 
-watch(serverOptions, (value) => { getItems(); }, { deep: true });
+async function getUsers() {
+    try {
+        const resp = await api.getUsers(`?page=1`)
+        users.value = resp.data.data.data
+        // console.log(users.value, 'users');
+
+    } catch (error) {
+        // 
+    }
+}
+
+
+
+
+
+
+async function userTeamMembers() {
+    try {
+        const formData = new FormData();
+        formData.append('company_id', paramsStore.currentCompanyId);
+        formData.append('team_id', '23');
+        const resp = await api.userTeamMembers(formData)
+        //  console.log(resp.data.data, 'team members ');
+
+        const data = resp.data.data
+        total.value = data.total
+        items.value = data
+        itemsLoading.value = false
+    } catch (error) {
+        // 
+    }
+}
+
+const totalItems = ref(0)
+const items = ref<any[]>([])
+const total = ref(0)
+const itemsLoading = ref(true)
+const serverOptions = ref<ServerOptions | any>({
+    page: 1,
+    rowsPerPage: 15,
+});
+
+watch(serverOptions, (value) => { userTeamMembers(); }, { deep: true });
+
+
+
+
 
 
 
 const headers = [
-    { text: "NAME", value: "name" },
+    { text: "NAME", value: "users.name" },
     // { text: "CATEGORY", value: "category" },
     { text: "STATUS", value: "action_status" },
-    { text: "DATE ADDED", value: "updated_at" },
-    // { text: "ACTION", value: "action" },
+    { text: "ROLE", value: "role" },
+    { text: "DATE ADDED", value: "created_at" },
+    { text: "ACTION", value: "action" },
 ];
 
 </script>

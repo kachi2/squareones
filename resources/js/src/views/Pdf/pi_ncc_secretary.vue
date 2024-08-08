@@ -1,442 +1,390 @@
 <template>
-    <div>
-
-
-        <div style="margin-top:30px">
-        </div>
-        <hr>
-        <h1 style="padding-top: 10pt;padding-left: 56pt;text-indent: 0pt;text-align: left;">PI-NNC1</h1>
-        <p class="s69" style="padding-top: 1pt;padding-left: 55pt;text-indent: 0pt;text-align: left;">
-            建議採用的公司英文<u>或</u>中文名稱 <span class="h3">Proposed English </span><span class="s71">OR</span><span class="h3">
-                Chinese Company Name</span></p>
-        <table style="border-collapse:collapse;margin-left:55.964pt" cellspacing="0">
-            <tr style="height:42pt">
-                <td
-
-                    style="width:489pt; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                    <p style=" padding-left:0px; text-indent: 0pt;text-align: center;">
-                <span v-if="startCompanyStore?.companyInProgress?.names[0]">Choice Level One:
-                <span v-if="startCompanyStore?.companyInProgress?.names[0]?.eng_name">  {{ startCompanyStore?.companyInProgress?.names[0]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[0]?.eng_prefix }}</span>   &nbsp;
-                <span v-if="startCompanyStore?.companyInProgress?.names[0].chn_name">  {{ startCompanyStore?.companyInProgress?.names[0]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[0]?.chn_prefix }} <br /></span>
+     <hr style="width: 100%; font-weight: 800;">
+            <div style="padding-top: 50px;"> </div>
+            <div class="row">
+                <div class="col-12">
+                    <h1 style="padding-top: 3pt;padding-left: 32pt;text-indent: 0pt;text-align: left;">PI-NNC1</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                <p class="s4" style="padding-top: 1pt;padding-left: 32pt;text-indent: 0pt;text-align: left;">建議採用的公司英文<u>或</u>中文名稱
+                    <span class="s55">Proposed English </span><span class="s56">OR</span><span class="s55"> Chinese Company
+                        Name</span></p>
+                        <div class="textbox" style="margin-left: 32pt; border:1.0pt solid #000000;display:block;min-height:48.2pt;width:440.1pt;">
+                            <p class="s8" style="text-indent: 0pt;">
+                 <span v-if="startCompanyStore?.companyInProgress?.names[0]" >Choice  1:
+                <span v-if="startCompanyStore?.companyInProgress?.names[0]?.eng_name">  {{ startCompanyStore?.companyInProgress?.names[0]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[0]?.eng_prefix }}   </span>  
+                 <span v-if="startCompanyStore?.companyInProgress?.names[0].chn_name"> &nbsp; {{ startCompanyStore?.companyInProgress?.names[0]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[0]?.chn_prefix }} </span> 
+                 <br />
             </span>
-            <span v-if="startCompanyStore?.companyInProgress?.names[1]">Choice Level Two: 
-                <span v-if="startCompanyStore?.companyInProgress?.names[1]?.eng_name">  {{ startCompanyStore?.companyInProgress?.names[1]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[1]?.eng_prefix }}</span>  &nbsp;
-                <span v-if="startCompanyStore?.companyInProgress?.names[1]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[1]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[1]?.chn_prefix }} <br /></span>
+            <span v-if="startCompanyStore?.companyInProgress?.names[1]">Choice 2: 
+                <span v-if="startCompanyStore?.companyInProgress?.names[1]?.eng_name" >  {{ startCompanyStore?.companyInProgress?.names[1]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[1]?.eng_prefix }}  </span> 
+                <span v-if="startCompanyStore?.companyInProgress?.names[1]?.chn_name">  &nbsp;{{ startCompanyStore?.companyInProgress?.names[1]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[1]?.chn_prefix }}</span>
+                <br />
             </span>
-            <span v-if="startCompanyStore?.companyInProgress?.names[2]">Choice Level Three: 
-                <span v-if="startCompanyStore?.companyInProgress?.names[2]?.eng_name">  {{ startCompanyStore?.companyInProgress?.names[2]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[2]?.eng_prefix }} <br /> </span> &nbsp;
-                <span v-if="startCompanyStore?.companyInProgress?.names[2]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[2]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[2]?.chn_prefix }} <br /> </span>
-                </span>
-                <span v-if="startCompanyStore?.companyInProgress?.names[3]"> Choice Level Four:
-                <span v-if="startCompanyStore?.companyInProgress?.names[3]?.eng_name"> {{ startCompanyStore?.companyInProgress?.names[3]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[3]?.eng_prefix }} <br /> </span>  &nbsp;
-                <span v-if="startCompanyStore?.companyInProgress?.names[3]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[3]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[3]?.chn_prefix }} <br /></span>
-                </span>
-                <span v-if="startCompanyStore?.companyInProgress?.names[4]">Choice Level Five:
-                <span v-if="startCompanyStore?.companyInProgress?.names[4]?.eng_name">{{ startCompanyStore?.companyInProgress?.names[4]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[4]?.eng_prefix }}</span>  &nbsp;
-                    <span v-if="startCompanyStore?.companyInProgress?.names[4]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[4]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[4]?.chn_prefix }} </span>
-                </span>
-                        <br />
-                    </p>
-                </td>
-            </tr>
-        </table>
-
-        <p class="s72" style="padding-top: 3pt;padding-left: 56pt;text-indent: 0pt;line-height: 22pt;text-align: left;">
-            首任公司秘書<span class="s73">／</span>董事<span class="h2">(</span>自然人<span class="h2">) </span><span
-                class="s74"></span><span class="s75"> </span>受保護資料</p>
-        <h2 style="padding-left: 56pt;text-indent: 0pt;line-height: 21pt;text-align: left;">First Company
-            Secretary<span class="s72">／</span>Director (Natural Person) –</h2>
-        <h2 style="padding-left: 56pt;text-indent: 0pt;line-height: 18pt;text-align: left;">Protected Information
-        </h2>
-        <p style="padding-top: 2pt;padding-left: 2pt;text-indent: 0pt;text-align: left;"><span
-                style=" color: #FFF; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 7pt;"></span>
-        </p>
-        <table style="border-collapse:collapse; margin-left:70px" cellspacing="0">
-            <tr style="height:24pt">
-                <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt"
-                    rowspan="2">
-                    <p class="s76" style="padding-left: 10pt;text-indent: 0pt;line-height: 41pt;text-align: left;">X
-                    </p>
-                </td>
-                <td style="width:438pt;border-right-style:solid;border-right-width:1pt" bgcolor="#000000">
-                    <p class="s77"
-                        style="padding-left: 82pt;padding-right: 92pt;text-indent: 0pt;line-height: 22pt;text-align: center;">
-                        公 眾 紀 錄 不 會 顯 示 此 頁</p>
-                </td>
-            </tr>
-            <tr style="height:19pt">
-                <td style="width:438pt; border-bottom-style:solid;border-bottom-width:2pt;border-right-style:solid;border-right-width:1pt"
-                    bgcolor="#0B0B0B">
-                    <p class="s78" style="padding-left: 33pt;text-indent: 0pt;line-height: 17pt;text-align: left;">
-                        This page will not be shown on the public record</p>
-                </td>
-            </tr>
-        </table>
-
-        <ul id="l3">
-            <li data-list-text="-">
-                <p class="s14" style="padding-left: 69pt;text-indent: -10pt;line-height: 13pt;text-align: left;">
-                    請於本頁申報首任公司秘書的香港身分證或護照的<u>完整號碼</u>。</p>
-                <h4 style="padding-left: 66pt;text-indent: 0pt;text-align: left;">The <u>full number</u> of Hong
-                    Kong Identity Card or passport of the <br> cfirstompany secretary should be reported on this page.
-                </h4>
-            </li>
-            <li data-list-text="-">
-                <p class="s14"
-                    style="padding-top: 5pt;padding-left: 69pt;text-indent: -10pt;line-height: 15pt;text-align: left;">
-                    請於本頁申報首任董事的香港身分證或護照的<u>完整號碼</u>及<u>通常住址</u>。</p>
-            </li>
-        </ul>
-
-        <h4 style="padding-left: 65pt;text-indent: 0pt;text-align: left;">The <u>full number</u> of Hong Kong
-            Identity Card or passport and <u>usual residential address</u> <br> of the first director should be reported
-            on this page.</h4>
-        <p class="s18" style="padding-top: 3pt;padding-left: 56pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
-            (<span class="s15">每一頁 </span>PI-NNC1 <span class="s15">只可填報一名自然人的受保護資料。如超過一名自然人資料，請另加 </span>PI-NNC1 <span
-                class="s15">頁填報。</span></p>
-        <p class="s18" style="padding-left: 56pt;text-indent: 0pt;text-align: left;">Each PI-NNC1 sheet can only
-            report the protected information of <br> 1 natural person. If there is information for more than 1 natural
-            person, please report separately on additional PI-NNC1 sheet(s).)</p>
-        <p class="s15" style="padding-left: 57pt;text-indent: 0pt;text-align: left;">請在適用的空格內加上 <span
-                class="s16"></span><span class="s17"> </span>號 <span class="s18">Please tick the relevant
-                box(es)</span></p>
-
-        <p style="padding-top: 1pt;padding-left: 2pt;text-indent: 0pt;text-align: left;"><span
-                style=" color: #FFF; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 7pt;">17</span>
-        </p>
-        <p style="text-indent: 0pt;text-align: left;"><span>
-                <table border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td><img width="16" height="16"
-                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA8UlEQVQ4ja2TsW3DMBBFTzRSEJAqqeEAUga4WyENN9AQgYoMcmNoAZca4TiAmNqp0gXuRJwbM3AC24jkfOCX7/NI3i9UFS4VY2zHcexDCCgiBABARIKIoe/7seu69x+AqoKqQkrJMPNgrT0CgF6ztfbIzENKqcjcN+y9398Cf9t7v88hoKrAzMNf4WxmHlQVYJ7n9t7Y964TY2x3TdO8TtP0Aiu1LMtTXdefu7Is32KMz2sDAACqqvoC59zH2vGznXMHs+XkSxlElK0wEYkhorA1ABHDw9/4+CL9yypvKJPJXHGrziJCIQQ6P5YQkVyr8wkB5QlgguzbuQAAAABJRU5ErkJgggAA" />
-                        </td>
-                    </tr>
-                </table>
-            </span></p>
-
-
-        <table style="border-collapse:collapse;margin-left:60.884pt" cellspacing="0">
-            <tr style="height:3pt">
-                <td style="width:80pt">
-                    <p class="s8" style="padding-left: 2pt;text-indent: 0pt;line-height: 10pt;text-align: left;">身 分
-
-                    </p>
-                    <p class="s9" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">Capacity </p>
-                </td>
-                <td>
-
-                </td>
-                <td>
-                    <input type="checkbox" disabled> 
-                    <span style="font-size:10px">公 司 秘 書</span>
-                    <p style="font-size:10px">Company Secretary </p>
-                </td>
-                <td>
-                    <input type="checkbox" checked disabled>
-                    <span style="font-size:10px">董 事</span>
-                    <p style="font-size:10px">Director </p>
-
-
-                </td>
-                <td></td>
-
-                <td></td>
-            </tr>
-
-            <tr style="height:10pt;">
-
-            </tr>
-            <tr style="height:33pt">
-                <td style="width:80pt">
-                    <p class="s8" style="padding-left: 2pt;text-indent: 0pt;line-height: 10pt;text-align: left;">中文姓名
-                    </p>
-                    <p class="s9" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">Name in Chinese</p>
-                </td>
-                <td style="width:49pt;border-right-style:solid;border-right-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br /></p>
-                </td>
-                <td
-                    style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"> {{
-                            director?.chn_last_name }}{{ director?.chn_first_name }}<br /></p>
-                </td>
-                <td
-                    style="width:87pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br /></p>
-                </td>
-                <td
-                    style="width:57pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br /> </p>
-                </td>
-                <td
-                    style="width:96pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br /></p>
-                </td>
-            </tr>
-            <tr style="height:10pt; ">
-
-            </tr>
-
-
-            <tr style="height:33pt; padding-top:5px">
-                <td style="width:80pt">
-                    <p class="s8" style="padding-left: 2pt;text-indent: 0pt;line-height: 10pt;text-align: left;">英 文姓 名
-                    </p>
-                    <p class="s9" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">Name in English</p>
-                </td>
-                <td style="width:49pt;border-right-style:solid;border-right-width:1pt">
-                    <p class="s8" style="padding-left: 27pt;text-indent: 0pt;line-height: 10pt;text-align: left;">姓氏
-                    </p>
-                    <p class="s29" style="padding-left: 14pt;text-indent: 0pt;line-height: 9pt;text-align: left;">
-                        Surname
-                    </p>
-                </td>
-
-                <td
-                    style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;padding-left:10px">{{ director?.last_name }} <br /></p>
-                </td>
-                <td
-                    style="width:87pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br /></p>
-                </td>
-                <td
-                    style="width:57pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br /></p>
-                </td>
-                <td
-                    style="width:96pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br /></p>
-                </td>
-
-            </tr>
-            <tr style="height:10pt; ">
-
-            </tr>
-
-
-            <tr style="height:33pt; padding-top:5px">
-                <td style="width:80pt">
-
-                </td>
-                <td style="width:49pt;border-right-style:solid;border-right-width:1pt">
-                    <p class="s8" style="padding-left: 15pt;text-indent: 0pt;line-height: 10pt;text-align: left;">名 字
-                    </p>
-                    <p class="s29" style="padding-left: pt;text-indent: 0pt;line-height: 9pt;text-align: left;">
-                        Other Names
-                    </p>
-                </td>
-                <td
-                    style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;padding-left:10px">{{ director?.first_name }} <br /></p>
-                </td>
-
-                <td
-                    style="width:87pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br /></p>
-                </td>
-                <td
-                    style="width:57pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br /></p>
-                </td>
-                <td
-                    style="width:96pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br /></p>
-                </td>
-
-            </tr>
-
-        </table>
-        <div style="padding-top: 20px;  "></div>
-        <table style="border-collapse:collapse; margin-left:40.67145pt " cellspacing="0">
-            <tr style="height:13pt">
-                <td style="width:481pt" colspan="8">
-                    <p class="s28" style="padding-left: 2pt;text-indent: 0pt;line-height: 11pt;text-align: left;">
-                        身分識別 <span class="s2">Identification</span></p>
-                </td>
-            </tr>
-            <tr style="height:33pt">
-                <td style="width:253pt" colspan="2">
-                    <p class="s29"
-                        style="padding-top: 2pt;padding-left: 2pt;text-indent: 0pt;line-height: 11pt;text-align: left;">
-                        (a) <span class="s8"> 香 港 身 分 證 </span><span class="s34">(完 整 號 碼 )</span></p>
-                    <p class="s35" style="padding-left: 19pt;text-indent: 0pt;line-height: 9pt;text-align: left;">
-
-                        Hong Kong Identity Card <span class="s9"> </span><span class="s29">(Full Number)</span>
-                    </p>
-                </td>
-                <td
-                    style="width:258pt;border:1px solid #000;  border:1px solid #000; border-right-style:solid;border-right-width:1pt">
-                    <p class="s46"
-                        style="padding-left:20px; padding-top: 8pt;padding-right: 10pt;text-indent: 0pt;text-align: left;">
-                        <!-- {{ director?.get_identity.identity_no }} -->
-                        {{ director.get_identity.identity_no??''}} ( {{ director?.get_identity?.identity_no_suffix??''}} )
-                    </p>
-                </td>
-            </tr>
-
-            <tr style="height:28pt">
-                <td style="width:54pt">
-                    <p class="s29" style="padding-left: 2pt; text-indent: 0pt;line-height: 11pt;text-align: left;">
-                        (b) <span class="s8">護照 </span></p>
-                    <p class="s29" style="padding-left: 19pt;text-indent: 0pt;line-height: 9pt;text-align: left;">
-                        Passport</p>
-                </td>
-                <td style="" colspan="1">
-                    <p class="s8" style="padding-left: 53pt;text-indent: 0pt;line-height: 10pt;text-align: left;">簽
-                        發國 家／ 地 區</p>
-                    <p class="s29" style="padding-left: 34pt;text-indent: 0pt;line-height: 11pt;text-align: left;">
-                        Issuing Country<span class="s36">／</span>Region</p>
-                </td>
-                <td
-                    style="width:258pt;border:1px solid #000;  border:1px solid #000; border-right-style:solid;border-right-width:1pt">
-                    <p class="s46"
-                        style="padding-top: 8pt; padding-left:20px; padding-right: 10pt;text-indent: 0pt;text-align: left;">
-                        <span style="text-align: right; color:rgb(3, 27, 27); "> 
-                            <!-- {{ director?.get_identity.passport_no }} -  -->
-                            {{ director?.get_identity?.issueing_country??''   }}
-                         </span>
-                    </p>
-                </td>
-            </tr>
-
-            <tr style="height:28pt">
-                <td style="width:54pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br /></p>
-                </td>
-                <td style="" colspan="1">
-                    <p class="s34" style="padding-left: 83pt;text-indent: 0pt;line-height: 11pt;text-align: left;">
-                        部分號碼 </p>
-                    <p class="s35" style="padding-left: 66pt;text-indent: 0pt;line-height: 9pt;text-align: left;">
-                        Full Number</p>
-                </td>
-
-                <!-- {{-- use this for forms  --}} -->
-                <td
-                    style="width:258pt;border:1px solid #000;  border:1px solid #000; border-right-style:solid;border-right-width:1pt">
-                    <p class="s46"
-                        style="padding-top: 8pt; padding-left:20px; padding-right: 10pt;text-indent: 0pt;text-align: left;">
-                        {{ director?.get_identity?.passport_no?? '' }}
-                    </p>
-                </td>
-
-            </tr>
-
-        </table>
-
-        <li data-list-text="3">
-            <p class="s14"
-                style="padding-left: 50px; padding-top:20px; text-indent: 0px;line-height: 15px;text-align: left;">
-            </p>
-            <h4 style="padding-left: 50px;text-indent: 0px;line-height: 12pt;text-align: left;">
-                董事的通 常 住 址 Usual Residential Address of Director</h4>
-            <p class="s18" style="padding-left: 67px;text-indent: 0px;text-align: left;">
-            </p>
-
-            <div class="row" style="float: right; margin-top:20px">
-                <table style="border-collapse:collapse" cellspacing="0">
-                    <tr style="height:25px; ">
-                        <td
-                            style="width:355pt; padding-left:20px; padding-top:10px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                            <p style="text-indent: 0px;text-align: left;"> {{ director?.res_address?.flat }} <br /> </p>
-                        </td>
-
-                    </tr>
-                    <tr style="height:16px; ">
-                    </tr>
-                    <tr style="height:26pt">
-                        <td
-                            style="width:355pt;padding-left:20px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                            <p style="text-indent: 0px;text-align: left;">{{ director?.res_address?.building }} </p>
-                        </td>
-                    </tr>
-
-                    <tr style="height:16px; ">
-                    </tr>
-                    <tr style="height:26pt">
-                        <td
-                            style="width:355pt;padding-left:20px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                            <p style="text-indent: 0px;text-align: left;">{{ director?.res_address?.street }} </p>
-                        </td>
-                    </tr>
-
-                    <tr style="height:16px; ">
-                    </tr>
-                    <tr style="height:26pt">
-                        <td
-                            style="width:355pt;padding-left:20px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                            <p style="text-indent: 0px;text-align: left;">{{
-                                director?.res_address?.state}} </p>
-                        </td>
-                    </tr>
-
-                    <tr style="height:16px; ">
-                    </tr>
-                    <tr style="height:23pt">
-                        <td
-                            style="width:355pt;padding-left:20px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                            <p class="s23"
-                                style="padding-top: 1pt;padding-left: 1pt;text-indent: 0px;text-align: left;">
-                                <span class="">{{director?.res_address?.country}}</span>
+            <span v-if="startCompanyStore?.companyInProgress?.names[2]">Choice 3: 
+                <span v-if="startCompanyStore?.companyInProgress?.names[2]?.eng_name">  {{ startCompanyStore?.companyInProgress?.names[2]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[2]?.eng_prefix }} </span> 
+                <span v-if="startCompanyStore?.companyInProgress?.names[2]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[2]?.chn_name }} &nbsp; {{ startCompanyStore?.companyInProgress?.names[2]?.chn_prefix }} </span>
+                <br />
+            </span>
+             <span v-if="startCompanyStore?.companyInProgress?.names[3]">Choice 4:
+                <span v-if="startCompanyStore?.companyInProgress?.names[3]?.eng_name"> {{ startCompanyStore?.companyInProgress?.names[3]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[3]?.eng_prefix }}  </span> 
+                <span v-if="startCompanyStore?.companyInProgress?.names[3]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[3]?.chn_name }} &nbsp;{{ startCompanyStore?.companyInProgress?.names[3]?.chn_prefix }} </span>
+                <br />
+            </span>
+             <span v-if="startCompanyStore?.companyInProgress?.names[4]">Choice 5:
+                <span v-if="startCompanyStore?.companyInProgress?.names[4]?.eng_name"> {{ startCompanyStore?.companyInProgress?.names[4]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[4]?.eng_prefix }}</span> 
+                 <span v-if="startCompanyStore?.companyInProgress?.names[4]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[4]?.chn_name }}&nbsp; {{ startCompanyStore?.companyInProgress?.names[4]?.chn_prefix }} </span>
+            </span>
                             </p>
-                        </td>
-
-                    </tr>
-
-                    <tr style="height:16px; ">
-                    </tr>
-                    <tr style="height:23pt">
-                        <td
-                            style="width:355pt;padding-left:20px; border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                            <p class="s23"
-                                style="padding-top: 1pt;padding-left: 1pt;text-indent: 0px;text-align: left;">
-                                <span class="s25"></span>
-                            </p>
-                        </td>
-
-                    </tr>
-                </table>
+                            </div>
+                </div>
             </div>
 
-            <div style="margin-top:20px">
-                <p style="text-indent: 0px;text-align: left;"></p>
-                <p class="s21"
-                    style="padding-top: 10px;padding-left: 50px;text-indent: 0px;line-height: 11pt;text-align: left;">
-                    室／樓／座等
-                </p>
-                <p class="s22" style="padding-left: 50px; text-indent: 0px;line-height: 11pt;text-align: left;">
-                    Flat<span class="s26">／</span>Floor<span class="s26">／</span>Block etc.</p>
-                <p class="s21"
-                    style="padding-top: 18px;padding-left: 50px;text-indent: 0px;line-height: 11pt;text-align: left;">大廈
-                </p>
-                <p class="s22" style="padding-left: 50px;text-indent: 0px;line-height: 11pt;text-align: left;">Building
-                </p>
-                <p class="s21"
-                    style="padding-top: 18px;padding-left: 50px;text-indent: 0px;line-height: 11pt;text-align: left;">
-                    街道／屋苑／地段／村等</p>
-                <p class="s22" style="padding-left: 50px;text-indent: 0px;line-height: 11pt;text-align: left;">
-                    Street<span class="s26">／</span>Estate<span class="s26">／</span>Lot<span class="s26">／</span>Village
-                    etc<span class="s27">.</span></p>
-                <p class="s21"
-                    style="padding-top: 15pt;padding-left: 50px;text-indent: 0px;line-height: 11px;text-align: left;">區
-                </p>
-                <p class="s22" style="padding-left: 50px;  text-indent: 0px;line-height: 9pt;text-align: left;">District
-                </p>
-                <p class="s21"
-                    style="padding-top: 6px;padding-left: 50px;text-indent: 0px;text-align: left; padding-top:20px">地區
-                </p>
-                <p class="s22"
-                    style="padding-top: 2px;padding-left: 50px; padding-top: 1pt; text-indent: 0px;text-align: left;">
-                    Region</p>
-                <p class="s21"
-                    style="padding-top: 1px;padding-left: 50px;text-indent: 0px;text-align: left; padding-top:20px">地區
-                </p>
-                <p class="s22" style="padding-top: 2px;padding-left: 50px;text-indent: 0px;text-align: left;">Email
-                    Address</p>
-                <p style="padding-left: 70px;text-indent: 0px;line-height: 9pt;text-align: left;"> </p>
+            <div class="row">
+                <div class="col-12">
+                    <p class="s57" style="padding-top: 2pt;padding-left: 32pt;text-indent: 0pt;line-height: 22pt;text-align: left;">
+                        首任公司秘書／董事<span class="h2">(</span>自然人<span class="h2">) </span><span class="s58"></span><span class="s59">
+                        </span>受保護資料</p>
+                        <h2 style="padding-left: 32pt;padding-right: 57pt;text-indent: 0pt;text-align: left;">First Company Secretary<span
+                            class="s3">／</span>Director (Natural Person) – Protected Information</h2>
+                </div>
             </div>
-        </li>
-    </div>
+            <div class="row">
+                <div style="width: 100px; padding-left: 43px;">
+                    <p style="padding-left: 9pt;text-indent: 0pt;line-height: 27pt;text-align: left; border: 1px solid #000; padding-top: 8px;"><span
+                        style=" color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 42pt;">X</span>
+                    </p>
+                </div>
+                <div class="col-8">
+                    <div class="textbox"
+                    style="margin-left: 0px; background:#040404;display:block;left:0.2pt;min-height:43.0pt;top:48.8pt;width:400.1pt;">
+                    <p style="text-indent: 0pt;line-height: 23pt;text-align: center; ">
+                        <span style=" color: #FFF; font-family:MingLiU, monospace; font-style: normal; font-weight: normal; text-decoration: none; font-size: 17pt;">公
+                            眾 紀 錄 不 會 顯 示 此 頁</span></p>
+                    <p style="padding-left: 4pt;text-indent: 0pt;line-height: 18pt;text-align: left;"><span
+                            style=" color: #FFF; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 16pt;">This
+                            page will not be shown on the public record</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <ul id="l16">
+                        <li data-list-text="-">
+                            <p class="s60"
+                                style="padding-top: 10pt;padding-left: 48pt;text-indent: -9pt;line-height: 15pt;text-align: left;">
+                                請於本頁申報首任公司秘書的香港身分證或護照的<u>完整號碼</u>。</p>
+                            <p class="s7" style="padding-left: 42pt;text-indent: 0pt;text-align: left;">The <u>full number</u> of Hong
+                                Kong Identity Card or passport of the first company secretary should be reported on this page.</p>
+                        </li>
+                        <li data-list-text="-">
+                            <p class="s60"
+                                style="padding-top: 5pt;padding-left: 48pt;text-indent: -9pt;line-height: 15pt;text-align: left;">
+                                請於本頁申報首任董事的香港身分證或護照的<u>完整號碼</u>及<u>通常住址</u>。</p>
+                        </li>
+                        </ul>
+                        
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12" style="padding-top: 20px;">
+                    <p class="s9" style="padding-left: 49pt;text-indent: 0pt;text-align: left;">請在適用的空格內加上 <span
+                        class="s10"></span><span class="s11"> </span>號 <span class="s12">Please tick the relevant box(es)</span>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <p class="s30" style="padding-top: 7pt;padding-left: 32pt;text-indent: 0pt;text-align: left;">身分 <span
+                        class="s2">Capacity</span></p>
+                </div>
+           
+                <div class="col-8">
+                   <div class="row">
+                    <div class="row">
+                        <div class="col-4">
+                            <p class="s16" style="padding-left: 20pt;text-indent: 0pt;line-height: 9pt;text-align: left;">  <input type="checkbox" style="width: 20px; height: 20px;">  董事 <br>Company Secretary </p>
+                            <p class="s30" style="padding-top: 6pt;padding-left: 33pt;text-indent: 0pt;line-height: 12pt;text-align: left;"> </p>
+                        </div>
+                        <div class="col-4">     
+                            <p class="s16" style="padding-left: 20pt;text-indent: 0pt;line-height: 9pt;text-align: left;">  <input type="checkbox" style="width: 20px; height: 20px;" checked disabled>  董 事  <br>Director</p>
+                            <p class="s30" style="padding-top: 6pt;padding-left: 33pt;text-indent: 0pt;line-height: 12pt;text-align: left;"> </p>
+                      
+                        </div>
+                        <div class="col-2">
+
+                        </div>
+                    </div>
+            </div>
+            </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-3">
+                    <p class="s30" style="padding-top: 0pt;padding-left: 32pt;text-indent: 0pt;line-height: 12pt;text-align: left;">中文姓名
+                    </p>
+                  <p class="s2" style="padding-left: 32pt;text-indent: 0pt;line-height: 9pt;text-align: left;">Name in Chinese</p>
+                
+                </div>
+                <div class="col-9">
+                   <div class="row">
+                    <div class="row" style="padding-top: px;">
+                        <div class="col-2">
+                            <p class="s15"
+                                style="padding-top: 7pt;padding-left: 0pt;text-indent: 0pt;line-height: 11pt;text-align: right;">
+                              </p>
+                            <p class="s16" style="padding-left: 0pt;text-indent: 0pt;line-height: 9pt;text-align: right;">
+                                </p>
+                        </div>
+                        <div class="col-8">
+                            <div class="textbox" style="border:1.0pt solid #000000;display:block;min-height:28.0pt; min-width: 400px;">
+                                <p class="s17" style="text-indent: 0pt;line-height: 17pt;;"> {{ director?.chn_last_name }}{{ director?.chn_first_name }}</p>
+                            </div>
+        
+                        </div>
+                    </div>
+
+                    
+            </div>
+            </div>
+            </div>
+
+            <div class="row">
+                <div class="col-3">
+                    <p class="s30" style="padding-top: 5pt;padding-left: 32pt;text-indent: 0pt;line-height: 12pt;text-align: left;">中文姓名
+                    </p>
+                    <p class="s2" style="padding-left: 32pt;text-indent: 0pt;line-height: 10pt;text-align: left;">Name in English</p>
+                    <p style="text-indent: 0pt;text-align: left;"><br /></p> 
+                </div>
+                <div class="col-9">
+                    <div class="row" style="padding-top: 5px;">
+                        <div class="col-2">
+                            <p class="s15"
+                                style="padding-top: 0pt;padding-left: 0pt;text-indent: 0pt;line-height: 11pt;text-align: right;">
+                                英文姓名 </p>
+                            <p class="s16" style="padding-left: 7pt;text-indent: 0pt;line-height: 9pt;text-align: right;">
+                                Surname</p>
+                        </div>
+                        <div class="col-9">
+                            <div class="textbox" style="border:1.0pt solid #000000;display:block;min-height:28.0pt; min-width: 400px;">
+                                <p class="s8" style="text-indent: 0pt;line-height: 17pt;">{{ director?.last_name }}</p>
+                            </div>
+        
+                        </div>
+                 
+            </div>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                </div>
+                <div class="col-9">
+                    <div class="row" style="padding-top: 5px;">
+                        <div class="col-2">
+                            <p class="s15"
+                                style="padding-top: 0pt;padding-left: 0pt;text-indent: 0pt;line-height: 11pt;text-align: right;">
+                                名 字 </p>
+                            <p class="s16" style="padding-left: 7pt;text-indent: 0pt;line-height: 9pt;text-align: right;">
+                                Other Names</p>
+                        </div>
+                        <div class="col-9">
+                            <div class="textbox" style="border:1.0pt solid #000000;display:block;min-height:28.0pt; min-width: 400px;">
+                                <p class="s8" style="text-indent: 0pt;line-height: 17pt;">{{ director?.first_name }} </p>
+                            </div>
+                        </div>
+            </div>
+            </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="s30" style="padding-top: pt;padding-left: 32pt;text-indent: 0pt;line-height: 13pt;text-align: left;">身分識別
+                                <span class="s2">Identification</span></p>
+                                <p class="s15" style="padding-left: 32pt;text-indent: 0pt;line-height: 8pt;text-align: left;"><span class="s16">(a )
+                                </span>香港身分證 <span class="s27">( </span><u>完整 </u> 號碼 <span class="s27">)</span></p>
+                                <p class="s16" style="padding-left: 65pt;text-indent: 0pt;line-height: 12pt;text-align: left;">Hong Kong Identity
+                                Card (<u><b>Full</b></u><b> </b>Number) <span class="s63"></span></p>
+                               
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="s16" style="padding-top: 8pt;padding-left: 32pt;text-indent: 0pt;line-height: 11pt;text-align: left;">(b )
+                                <span class="s15">護照 </span></p>
+                            <p class="s16" style="padding-left: 65pt;text-indent: 0pt;line-height: 9pt;text-align: left;">Passport</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="s15" style="padding-top: 5pt;text-indent: 0pt;line-height: 11pt;text-align: right;">簽發國家
+                                ／地區 </p>
+                            <p class="s16" style="padding-top: 0pt;text-indent: 0pt;line-height: 11pt;text-align: right;">Issuing Country<span
+                                class="s15">／</span>Region</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                        </div>
+                        <div class="col-6">
+                            <p class="s15" style="padding-top: 5pt;text-indent: 0pt;line-height: 11pt;text-align: right;">
+                                完 整 號 碼 </p>
+                            <p class="s16" style="padding-top: 0pt;text-indent: 0pt;line-height: 11pt;text-align: right;"> <span class="s27"><u>Full</u> </span>  Number</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6" style="padding-top:20px;">
+                    <div class="row">
+                        <div class="col-9">
+
+                            <div class="textbox" style=" border:1.0pt solid #000000; display:block;min-height:22.7pt;width:182.4pt;">
+                                <p class="s17" style="padding-top: 4pt;text-indent: 0pt;text-align: center;">   
+                                    {{ director.get_identity.identity_no  == 'undefined' ||  director.get_identity.identity_no  == null?'': director.get_identity.identity_no}}    
+                                </p>
+                                </div>
+                        </div>
+                        <div class="col-3">
+                            <label for="" style="display: inline-flex; align-items: center; position: relative;">
+                                <span style="position: relative;">(&nbsp; </span>
+                                <div class="textbox" style="border:1.0pt solid #000000; display:inline-block; min-height:22.7pt; width:32.4pt; margin: 0 2px;">
+                                  <p class="s17" style="margin: 0; padding-top: 4pt; text-indent: 0pt; text-align: center;">{{  director?.get_identity?.identity_no_suffix == 'undefined' && director?.get_identity?.identity_no_suffix == null ?'':director?.get_identity?.identity_no_suffix  }}</p>
+                                </div>
+                                <span style="position: relative;"> &nbsp; )</span>
+                              </label>
+                        </div>
+                    </div>
+                        <p style="padding-top:5px;"></p>
+                        <div class="textbox" style="border:1.0pt solid #000000;display:block;min-height:22.7pt;width:242.4pt;">
+                            <p class="s8" style="padding-top: 4pt;text-indent: 0pt;">{{ director?.get_identity?.issueing_country == 'undefined'?'':director?.get_identity?.issueing_country   }}</p>
+                            </div>
+                            <p style="padding-top:5px;"></p>
+                            <div class="textbox" style="border:1.0pt solid #000000;display:block;min-height:22.7pt;width:242.4pt;">
+                                <p class="s8" style="padding-top: 4pt;text-indent: 0pt;">       {{ director?.get_identity?.passport_no == 'undefined' || director?.get_identity?.passport_no == null? ' ':director?.get_identity?.passport_no }} </p>
+                                </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-12">
+                    <p class="s1" style="padding-top: 4pt;padding-left: 32pt;text-indent: 0pt;text-align: left;">董事的通常住址 <span
+                        class="s5">Usual Residential Address of Director</span></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <p class="s15" style="padding-left: 32pt;text-indent: 0pt;line-height: 11pt;text-align: left;">室 ／樓 ／座 等  </p>
+                    <p class="s16" style="padding-left: 32pt;text-indent: 0pt;line-height: 9pt;text-align: left;">Flat／Floor／Block etc.</p>
+                    <p style="padding-top: 3pt;text-indent: 0pt;text-align: left;"><br /></p>
+                </div>
+                <div class="col-8">
+                    <div class="textbox" style="border:1.0pt solid #000000;display:block;min-height:28.4pt;width:320.8pt;">
+                        <p class="s8" style="text-indent: 0pt;line-height: 17pt;">{{ director?.res_address?.flat }}
+                            </p>
+                        </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-4">
+                    <p class="s15" style="padding-left: 32pt;text-indent: 0pt;line-height: 11pt;text-align: left;">大廈 </p>
+                    <p class="s16" style="padding-left: 32pt;text-indent: 0pt;line-height: 9pt;text-align: left;">Building</p>
+                    <p style="padding-top: 3pt;text-indent: 0pt;text-align: left;"><br /></p>
+                </div>
+                <div class="col-8">
+                    <div class="textbox" style="border:1.0pt solid #000000;display:block;min-height:28.4pt;width:320.8pt;">
+                        <p class="s8" style="text-indent: 0pt;line-height: 17pt;">{{ director?.res_address?.building }}
+                            </p>
+                        </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <p class="s15" style="padding-left: 32pt;text-indent: 0pt;line-height: 11pt;text-align: left;">街道 ／屋苑 ／地段 ／村 等</p>
+                    <p class="s16" style="padding-left: 32pt;text-indent: 0pt;line-height: 11pt;text-align: left;">Street<span
+                        class="s15">／</span>Estate<span class="s15">／</span>Lot<span class="s15">／</span>Village etc<span
+                        class="s18">.</span></p>
+                        <p style="padding-top: 3pt;text-indent: 0pt;text-align: left;"><br /></p>
+                </div>
+                <div class="col-8">
+                    <div class="textbox" style="border:1.0pt solid #000000;display:block;min-height:28.4pt;width:320.8pt;">
+                        <p class="s8" style="text-indent: 0pt;line-height: 17pt;">{{ director?.res_address?.street }}
+                            </p>
+                        </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <p class="s16" style="padding-left: 32pt; text-indent: 0pt;line-height: 82%;text-align: left;"><span
+                        class="s15">區／市／省／ 州／ 郵遞區號等 </span>District<span class="s21">／</span>City<span class="s21">／
+                    </span>Province<span class="s21">／ </span>State<span class="s15">／ </span>Postal Code etc.</p>
+                    <p style="padding-top: 3pt;text-indent: 0pt;text-align: left;"><br /></p>
+                </div>
+                <div class="col-8">
+                    <div class="textbox" style="border:1.0pt solid #000000;display:block;min-height:28.4pt;width:320.8pt;">
+                        <p class="s8" style="text-indent: 0pt;line-height: 17pt;">{{ director?.res_address?.state }}
+                            </p>
+                        </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <p class="s15" style="padding-left: 32pt;text-indent: 0pt;line-height: 11pt;text-align: left;">國家
+                        ／地區 </p>
+                        <p class="s16" style="padding-left: 32pt;text-indent: 0pt;line-height: 11pt;text-align: left;">Country <span
+                            class="s21">／</span>Region</p>
+                            <p style="padding-top: 3pt;text-indent: 0pt;text-align: left;"><br /></p>
+                </div>
+                <div class="col-8">
+                    <div class="textbox" style="border:1.0pt solid #000000;display:block;min-height:28.4pt;width:320.8pt;">
+                        <p class="s8" style="text-indent: 0pt;line-height: 17pt;">{{ director?.res_address?.country }}
+                            </p>
+                        </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <p class="s15" style="padding-left: 32pt;text-indent: 0pt;line-height: 11pt;text-align: left;">室 ／樓
+                        ／座等 </p>
+                        <p class="s16" style="padding-left: 32pt;text-indent: 0pt;line-height: 11pt;text-align: left;">Flat<span
+                            class="s15">／</span>Floor<span class="s15">／</span>Block etc.</p>
+                            <p style="padding-top: 3pt;text-indent: 0pt;text-align: left;"><br /></p>
+                </div>
+                <div class="col-8">
+                    <div class="textbox" style="border:1.0pt solid #000000;display:block;min-height:28.4pt;width:320.8pt;">
+                        <p class="s17" style="padding-left: 1pt;text-indent: 0pt;line-height: 17pt;text-align: left;">Wanchai Commercial
+                            Centre</p>
+                        </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <p style="text-indent: 0pt;text-align: right; float: right;"><span>
+                        <img width="62" height="62"
+                        src="data:image/png;base64,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" />
+                
+                    </span></p>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 20px;">
+                <div class=" col-10 col-md-10">
+                    <p class="s19" style="padding-top: 4pt;padding-left: 35pt;text-indent: 0pt;text-align: left;">指明編號
+                        <span class="s20">1/2023(2023 </span>年 <span class="s20">12 </span>月<span class="s20">)
+                            Specification No.
+                            1/2023 (December 2023)</span>
+                    </p>
+                </div>
+                <div class="col-2 col-md-2">
+                    <p class="s21" style="padding-top: 4pt;padding-left: 35pt;text-indent: 0pt;text-align: right;">Page
+                        2/9頁</p>
+                </div>
+            </div>
 </template>
 
 <script setup lang="ts">

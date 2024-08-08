@@ -106,4 +106,9 @@ export default {
     updateUserStatus(formData: FormData) {
         return $instanceForm.post(`manage/update/users/status`, formData)
     },
+
+    getUsersTeam(formData: FormData)
+    {
+        return $instanceForm.post('/team/get/users', formData);
+    }
 }

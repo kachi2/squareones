@@ -8,7 +8,7 @@ import { useTemplateStore } from './stores/templateStore';
 const templateStore = useTemplateStore()
 
 watchEffect(() => {
-  document.body.style.backgroundColor = templateStore.appMode === 'light' ? '#fff' : '#212935f2';
+  document.body.style.backgroundColor = templateStore.appMode === 'light' ? '#eee' : '#212935f2';
 });
 </script>
 
@@ -16,9 +16,14 @@ watchEffect(() => {
 .card:not(.exemption) {
   background-color: v-bind('templateStore.cardBg') !important;
   color: v-bind('templateStore.cardTextColor');
-  border: 1px solid v-bind('templateStore.borderInDark') !important;
+  /* border: 1px solid v-bind('templateStore.borderInDark') !important; */
+  border:  1px solid #cccccc3b !important
 }
 
+.py-4 {
+  background:v-bind('templateStore.cardBg') !important;
+  padding:8px;
+}
 
 input:not(.exemption),
 select,
@@ -177,7 +182,7 @@ input[type="text"]:disabled,
 
 .fixed-label-custom .dp__input,
 .fixed-label-custom .vti__input {
-  line-height: 2.9rem;
+  line-height: 3.2rem;
 }
 
  .vs--single .v__selected{

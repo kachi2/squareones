@@ -2,12 +2,13 @@
     <div class="container min-vh-100">
 
         <div class="row g-3">
-            <h5 class="fw-bold page-title mb-4"> Team Members</h5>
+            <h5 class="fw-bold page-title mb-1"> Team Members</h5>
+        <p class="p"> Team members of all the company you own or belong</p>
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <isLoadingComponent v-if="itemsLoading" />
-                        <EasyDataTable v-else class="easy-data-table" show-index :headers="headers" :items="items"
+                        <EasyDataTable v-else class="easy-data-table"  :headers="headers" :items="items"
                             buttons-pagination v-model:server-options="serverOptions" :server-items-length="total">
 
                             <template #header="header">
@@ -22,11 +23,9 @@
                                 {{ useFxn.dateDisplay(item.created_at) }}
                             </template>
 
-                            <template #item-team="item">
-                                Emeka Limited
-                            </template>
+                           
 
-                            <template #item-action="item">
+                            <!-- <template #item-action="item">
                                 <span class="dropdown">
                                     <span class=" cursor-pointer bell dropdown-toggle" data-bs-toggle="dropdown"
                                         aria-expanded="false">
@@ -42,7 +41,7 @@
                                         </div>
                                     </span>
                                 </span>
-                            </template>
+                            </template> -->
 
                         </EasyDataTable>
                     </div>
@@ -67,22 +66,38 @@ const paramsStore = useParamsStore()
 const router = useRouter()
 
 onMounted(() => {
-    getUsers()
+    // getUsers()
+    getTeamUsers()
 })
 
-async function getUsers() {
-    try {
-        const queryString = new URLSearchParams(serverOptions.value).toString();
-        const resp = await api.getUsers(queryString)
-        const data = resp.data.data
-        total.value = data.total
-        items.value = data.data
-        itemsLoading.value = false
-        // console.log('users:', data);
-    } catch (error) {
+// async function getUsers() {
+//     try {
+//         const queryString = new URLSearchParams(serverOptions.value).toString();
+//         const resp = await api.getUsers(queryString)
+//         const data = resp.data.data
+//         total.value = data.total
+//         items.value = data.data
+//         itemsLoading.value = false
+//         // console.log('users:', data);
+//     } catch (error) {
 
-    }
+//     }
+// }
+
+async function getTeamUsers()
+{
+    const formData = new FormData();
+    formData.append('user_id', '1')
+    const resp = await api.getUsersTeam(formData);
+     console.log(resp.data, 'users with their teams',  paramsStore.currentUserId)
+    total.value = resp.data.total
+    itemsLoading.value = false
+    items.value = resp.data
+
 }
+
+
+
 
 
 const serverOptions = ref<ServerOptions | any>({
@@ -96,15 +111,16 @@ const total = ref(0)
 const items = ref([])
 const itemsLoading = ref(true)
 const headers = [
-    { text: "NAME", value: "name" },
-    { text: "EMAIL", value: "email" },
-    { text: "TEAM", value: "team" },
+    { text: "NAME", value: "users.name" },
+    { text: "EMAIL", value: "users.email" },
+    { text: "USER'S ROLES", value: "role" },
+    { text: "TEAM NAME", value: "teams.name" },
     { text: "DATE ADDED", value: "created_at" },
-    { text: "LAST LOGIN", value: "last_login" },
-    { text: "ACTION", value: "action" },
+    { text: "LAST LOGIN", value: "users.last_login" },
+    // { text: "ACTION", value: "action" },
 ];
 
-watch(serverOptions, (value) => { getUsers(); }, { deep: true });
+watch(serverOptions, (value) => { getTeamUsers(); }, { deep: true });
 
 function goToUserCompanies(id: any) {
     paramsStore.currentUserId = id

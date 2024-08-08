@@ -57,7 +57,7 @@
             </div>
             <div class="col-md-12">
                 <div class="fixed-label-custom">
-                    <v-select id="country_registered" @search:blur="form.validateVueSelectOnBlur('country_registered')"
+                    <v-select  append-to-body :calculate-position="useFxn.vueSelectPositionCalc" id="country_registered" @search:blur="form.validateVueSelectOnBlur('country_registered')"
                         v-bind="form.country_registeredAttr" :class="{ 'error-field': form.errors.country_registered }"
                         placeholder="select country.." v-model="form.country_registered" :clearable="false"
                         :options="startCompanyStore.countries" />
@@ -69,7 +69,7 @@
             </div>
             <div class="col-12">
                 <div class="fixed-label-custom">
-                    <v-select id="business_nature_id" @search:blur="form.validateVueSelectOnBlur('business_nature_id')"
+                    <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"  id="business_nature_id" @search:blur="form.validateVueSelectOnBlur('business_nature_id')"
                         v-bind="form.business_nature_idAttr" :class="{ 'error-field': form.errors.business_nature_id }"
                         v-model="form.business_nature_id" :clearable="true" placeholder="select business nature"
                         :options="startCompanyStore.businessNatures" :reduce="(item: any) => item.id" label="name" />
@@ -128,7 +128,7 @@
             </div> -->
                 <div class="col-md-12">
                     <div class="fixed-label-custom">
-                        <v-select id="country" @search:blur="form.validateVueSelectOnBlur('country')"
+                        <v-select  append-to-body :calculate-position="useFxn.vueSelectPositionCalc"  id="country" @search:blur="form.validateVueSelectOnBlur('country')"
                             v-bind="form.countryAttr" :class="{ 'error-field': form.errors.country }"
                             placeholder="select country.." v-model="form.country" :clearable="false"
                             :options="startCompanyStore.countries" />
@@ -170,10 +170,10 @@
             </div>
             <div class="col-md-12">
 
-                <div class="fixed-label-custom">
+                <div class="fixed-label-custom" >
                     <vue-tel-input :class="{ 'error-field': form.errors.phone }" id="phone" v-bind="form.phoneAttr"
                         :inputOptions="phoneField.input" :dropdownOptions="phoneField.dropDown" :autoFormat="true"
-                        v-model="form.phone"></vue-tel-input>
+                        v-model="form.phone" required></vue-tel-input>
                     <label for="phone">Phone Number <span class="text-danger"> * </span></label>
                 </div>
                 <small class=" text-danger">{{ form.errors.phone }}</small>
@@ -288,17 +288,18 @@ function resetForm() {
 
 const phoneField = {
     dropDown: {
-        showDialCodeInSelection: false,
+        showDialCodeInSelection: true,
         showFlags: true,
         showSearchBox: true,
-        showDialCodeInList: true,
+        showDialCodeInList: false,
 
     },
     input: {
-        showDialCode: true,
-        placeholder: 'Enter phone',
+        showDialCode: false,
+        placeholder: ' Phone Number',
         styleClasses: 'phone-input-profile',
-        maxlength: 21
+        maxlength: 21,
+        required:true
     }
 }
 watchEffect(() => {

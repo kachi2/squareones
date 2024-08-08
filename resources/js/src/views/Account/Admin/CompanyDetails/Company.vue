@@ -1,6 +1,25 @@
 <template>
     <div class="card">
-        <div class="card-body">
+        <div class="card-header bg-transparent border-0">
+            <div @click="togglePopulateData" class="float-end">
+                <button v-if="!isPopulatingData" class="btn btn-primary btn-sm">
+                    Populate Data <i class="bi bi-pencil"></i>
+                </button>
+                <div v-else> 
+                    <button  class="btn btn-primary btn-sm">
+                    <i class="bi bi-x"></i> Publish Data
+                </button> 
+                &nbsp;    &nbsp;    &nbsp;
+                <button  class="btn btn-secondary btn-sm">
+                    <i class="bi bi-x"></i> Cancel
+                </button>
+            </div>
+            </div>
+        </div>
+        <div v-if="isPopulatingData" class="card-body">
+            <Editing @done="togglePopulateData" />
+        </div>
+        <div v-else class="card-body">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1"
@@ -78,10 +97,16 @@ import companyRegistersTabContent from './components/tabContents/companyRegister
 import documentsTabContent from './components/tabContents/documents.vue'
 // import foundersTabContent from './components/tabContents/founders.vue'
 import logsTabContent from './components/tabContents/logs.vue'
+import Editing from './components/editing/editing.vue';
 
 const paramsStore = useAdminParamsStore()
 
 const companyIsLoading = ref<boolean>(true)
+const isPopulatingData = ref<boolean>(false)
+
+function togglePopulateData() {
+    isPopulatingData.value = !isPopulatingData.value
+}
 
 onMounted(async () => {
     await paramsStore.getCompanyDetails()
