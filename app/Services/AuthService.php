@@ -59,7 +59,7 @@ class AuthService  implements AuthInterface{
         if($check){
             $token =  $request->user()->createToken("UserToken")->plainTextToken;
           User::where('email', $request->email)->first();
-          $request->user()->update([
+                  $request->user()->update([
                     'last_login' => Carbon::now(),
                     'login_ip' => request()->ip()
                 ]);
