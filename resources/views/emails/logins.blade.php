@@ -4,7 +4,7 @@
 </head>
 <body>
 <html>
-<div class="">
+<div class="" >
     <div class="aHl"></div>
     <div id=":n9" tabindex="-1"></div>
     <div id=":nj" class="ii gt"
@@ -23,7 +23,7 @@
                         <div class="adM">
                         </div>
                         <table style="width:100%" role="presentation" border="0" cellspacing="0" cellpadding="0"
-                            align="center">
+                            align="center" >
                             <tbody>
                                 <tr>
                                     <td style="direction:ltr;font-size:0px;padding:0;text-align:center">
@@ -48,14 +48,22 @@
                                                                                     role="presentation" border="0"
                                                                                     cellspacing="0" cellpadding="0">
                                                                                     <tbody>
-                                                                                        <tr>
-                                                                                            <td><img style="border:0;display:block;outline:none;text-decoration:none;height:auto;min-width:100%;width:100%;max-width:100%;font-size:13px"
+                                                                                        <tr style="background:">
+                                                                                            <td style="width: 170px"> 
+
+                                                                                            </td>
+                                                                                            <td style="background: #030c3e65">
+                                                                                            <img style="border:0;display:block;outline:none;text-decoration:none;width:160px;font-size:13px"
                                                                                                     src="https://squareone.portrec.ng/icons/sidebar/squareone_main.png"
                                                                                                     width="150px"
                                                                                                     height="auto"
                                                                                                     class="CToWUd"
                                                                                                     data-bit="iit"></td>
+                                                                                            <td >
+
+                                                                                            </td>
                                                                                         </tr>
+
                                                                                     </tbody>
                                                                                 </table>
                                                                             </td>
