@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('country')->nullable();
             $table->string('postal_code')->nullable();
+            $table->string('login_ip')->nullable();
+            $table->string('last_login')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

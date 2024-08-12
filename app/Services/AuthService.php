@@ -2,22 +2,17 @@
 namespace App\Services;
 use App\Models\User;
 use App\Dtos\UserDto;
-use Laravel\Jetstream\Jetstream;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\UserRequest;
 use App\Interfaces\AuthInterface;
 use App\Mail\LoginNotificationMail;
+use App\Models\Admin;
+use App\Models\AdminActivity;
 use App\Models\NotificationSettings;
 use App\Models\userActivity;
 use Cloudinary\Api\HttpStatusCode;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
-
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-
-use App\Models\Team;
 use Illuminate\Support\Facades\Mail;
 
 class AuthService  implements AuthInterface{
@@ -59,32 +54,26 @@ class AuthService  implements AuthInterface{
         $check = Auth()->attempt(['email' => $request->email, 'password' => $request->password]);
         if($check){
             $token =  $request->user()->createToken("UserToken")->plainTextToken;
-        $user =   User::where('email', $request->email)->first();
+               $user =   User::where('email', $request->email)->first();
                   $request->user()->update([
                     'last_login' => Carbon::now(),
                     'login_ip' => request()->ip()
                 ]);
                 $ip = request()->ip();
-                $location = '';
-                try { 
-                $this->SendLoginNotification($request, $user);
-                }catch(\Exception $e){
-                    return $e;
-                }
-                // if($ip  != '127.0.0.1'){
-               $location = $this->getIpLocation($request->ip());
-               $this->addActivityLog($request, $location);
-                // }
-                // if($user->login_ip != $ip){
-                
-                // }
-                
+                 if($user->login_ip != $ip  && $ip != '127.0.0.1'){
+                    $location = $this->getIpLocation($request->ip());
+                    $this->SendLoginNotification($request, $user,  $location);
+                  }
             return [
+                'status' => 'success',
                 'user' => $request->user(),
-                'UserToken' =>$token 
+                'UserToken' =>$token,
             ];
         }
-        return false;        
+        return [
+            'status' => 'error',
+            'message' => 'Email or password is incorrect'
+        ];        
     }
 
 
@@ -127,39 +116,34 @@ class AuthService  implements AuthInterface{
     }
 
 
-    public function SendLoginNotification($request, $user){ 
+    public function SendLoginNotification($request, $user, $location):void
+    { 
             $data = [
                 'ip' => $request->ip(),
-                'location' => $this->getIpLocation($request->ip())??null,
+                'location' => $location??null,
                 'client' => $request->header('user_agent'),
                 'subject' => 'Login Attempted from New IP address '.$request->ip() .' - '. Carbon::now(),
                 'email' => $user->email,
                 'name' => $user->name,
                 'date' => Carbon::now()
             ];
-        
              $data = Mail::to($user->email)->send( new LoginNotificationMail($data));
-             return $data;
-          
-            
     }
 
 
     public function getIpLocation($ip)
     {
-        // if($ip != '127.0.0.1'){
-            $ip = '102.89.40.38';
-               $details = json_decode(file_get_contents("http://ipinfo.io/102.89.40.38/json"));
+        if($ip != '127.0.0.1'){
+               $details = json_decode(file_get_contents("http://ipinfo.io/$ip/json"));
                 $location  = $details->city.", ".$details->country;
-
-                // dd($location);
                 return $location;
-        // }
+        }
         return back();
     }
 
 
-    public function addActivityLog($request, $location) {
+    public function addActivityLog($request, $location):void
+     {
         userActivity::create([
             'user_id' => $request->user()->id,
             'action' => 'Login to account on' . Carbon::now(),
@@ -171,6 +155,34 @@ class AuthService  implements AuthInterface{
         ]);
     }
 
+    public function LoginAdmin($request){
+
+        $check = Auth('admin')->attempt(['email' => $request->email, 'password' => $request->password]);
+        if($check){
+            $token =  $request->user('admin')->createToken("AdminToken")->plainTextToken;
+               $admin =   Admin::where('email', $request->email)->first();
+                  $request->user('admin')->update([
+                    'last_login' => Carbon::now(),
+                    'login_ip' => request()->ip()
+                ]);
+                $ip = request()->ip();
+                AdminActivity::create([
+                    'admin_id' => $admin->id, 
+                    'login_ip' => $ip, 
+                    'login_date' => Carbon::now(),
+                     'activity' => 'New Login Request'
+                ]);
+            return [
+                'status' => 'success',
+                'user' => $request->user('admin'),
+                'AdminToken' =>$token,
+            ];
+        }
+        return [
+            'status' => 'error',
+            'message' => 'Email or password is incorrect'
+        ];        
+    }
 
 
 }

@@ -74,6 +74,11 @@ class User extends Authenticatable
         return $this->hasMany(UserDocument::class);
     }
 
+    public function billing()
+    {
+        return $this->hasMany(Billing::class);
+    }
+
     // public function GetTeams(){
     //     return $this->hasMany(UserTeam::class, 'id', 'user_id');
     // }

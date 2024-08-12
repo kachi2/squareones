@@ -24,13 +24,15 @@ trait Teams {
 
      public function belongsToTeam($user_id)
      {
-        $user = TeamUser::whereUserId($user_id)->first();
-        $team_id = $user->team_id;
-        $teams = $user->whereHas('teams', function($teams) use ($team_id)  {
-           return $teams->where('id', 90);
-        });
-        dd($teams);
-        return $teams;
-
+        $teamUser = TeamUser::whereUserId($user_id)->first();
+        if($teamUser){
+         $team_id = $teamUser->team_id;
+         $teams = $teamUser->whereHas('teams', function($teams) use ($team_id)  {
+            return $teams->where('id', $team_id);
+         })->first();
+         return $teams;
+        }
+        return false;
+       
      }  
 }

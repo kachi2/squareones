@@ -34,14 +34,14 @@ class DashboardController extends Controller
     }
 
     public function GetAllCompany(){
+
         try{
-            // $team = $this->belongsToTeam(auth_user());
-            // if($team){
-            //     $company = Company::whereUserId($team->user_id)->get();
-            // }else{ 
-               
-            // }
-            $company = Company::whereUserId(auth_user())->get();
+            $team = $this->belongsToTeam(auth_user());
+            if($team){
+                $company = Company::whereUserId($team->user_id)->get();
+            }else{ 
+                $company = Company::whereUserId(auth_user())->get();
+            }
             $data['companies'] =  $company->load('Names', 'Billing');
             $data['form_completed'] = Company::where('is_complete', 1)->get();
             $data['is_incorporated'] = Company::where('is_incorporated', 1)->get();
@@ -53,7 +53,7 @@ class DashboardController extends Controller
 
     public function CompanyInfo($company_id){
         try{
-            $company = Company::where(['id' => $company_id, 'user_id' => auth_user()])->first();
+            $company = Company::where(['id' => $company_id])->first();
             $company->load('RegisteredCompany', 'RegisterOfAllotments', 'RegisterOfCharge', 'RegisterOfCompanyName','RegisterOfDirector','RegisterOfSecretary','RegisterOfShareholders','RegisterOfTransfer', 'SignificantController', 'ComplianceReporting', 'DesignatedRepresentative', 'OfficeContract', 'documents');
             $company->roles = $this->loadRolePermission();
             $company->teams = $this->hasTeams($company->id);

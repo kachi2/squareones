@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -46,6 +47,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             // '2fa' => \App\Http\Middleware\TwoFactoreMiddleware::class
+           
         ],
     ];
 
@@ -68,6 +70,7 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        '2fa' => \App\Http\Middleware\TwoFactoreMiddleware::class
+        '2fa' => \App\Http\Middleware\TwoFactoreMiddleware::class,
+        'admin.sanctum' => AdminMiddleware::class,
     ];
 }

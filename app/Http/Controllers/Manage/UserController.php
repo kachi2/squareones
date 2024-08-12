@@ -14,7 +14,7 @@ class UserController extends Controller
     public function getUsers(){
         try{
             $users = User::latest()->paginate(20);
-            $users->load('company', 'getUserDocuments');
+            $users->load('company', 'getUserDocuments', 'billing');
             return response()->json(['data' => $users], HttpStatusCode::OK);
         }catch(\Exception $e){
             return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
@@ -44,6 +44,16 @@ class UserController extends Controller
              return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
             }
          }
+         
+     public function UsersBilling(){
+            try{
+                 $billing = Billing::paginate(20);
+                 $billing->load('company','user');
+                 return response()->json(['data' => $billing], HttpStatusCode::OK);
+                }catch(\Exception $e){
+                 return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+                }
+             }
 
     public function UpdateUserStatus(Request $request){
     try{
