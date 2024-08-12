@@ -23,14 +23,14 @@ class PaymentController extends Controller
     }
 
     public function PaymentIntent(Request $request){
+        $user = User::where('id', auth_user())->first();
         $paymentIntent = $this->PaymentInterface->PaymentIntent($request);
+        $this->teamServices->create($request, $user->activeCompany(), $request->role,$user);
        return response()->json($paymentIntent, 200);
     }
 
     public function ProcessPayment(Request $request){
-        $user = User::where('id', auth_user())->first();
         $procespayment = $this->PaymentInterface->ProcessPayment($request);
-        $this->teamServices->create($request, $user->activeCompany(), $request->role,$user);
     return response()->json([
         $procespayment
     ]);
