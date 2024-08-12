@@ -135,28 +135,30 @@ function setValuesOnFields() {
 
 
 const save = handleSubmit(async (values) => {
-    isSaving.value = true
-    const formData = new FormData()
-    formData.append('company_id', paramsStore.currentCompanyId)
-    formData.append('company_registered_name', values.company_registered_name ?? '')
-    formData.append('business_registered_number', values.business_registered_number ?? '')
-    formData.append('incorporated_date', values.incorporated_date ? useFxn.formatDate(values.incorporated_date) : '')
-    formData.append('company_structure', values.company_structure ?? '')
-    formData.append('company_registered', values.company_registered ?? '')
-    formData.append('business_classification', values.business_classification ?? '')
-    // formData.append('registration_progress_id', values.registration_progress_id)
+    useFxn.confirm("Continue submit?", "Continue").then(async (confirmed) => {
+        if (confirmed.value == true) {
+            isSaving.value = true
+            const formData = new FormData()
+            formData.append('company_id', paramsStore.currentCompanyId)
+            formData.append('company_registered_name', values.company_registered_name ?? '')
+            formData.append('business_registered_number', values.business_registered_number ?? '')
+            formData.append('incorporated_date', values.incorporated_date ? useFxn.formatDate(values.incorporated_date) : '')
+            formData.append('company_structure', values.company_structure ?? '')
+            formData.append('company_registered', values.company_registered ?? '')
+            formData.append('business_classification', values.business_classification ?? '')
+            // formData.append('registration_progress_id', values.registration_progress_id)
 
 
-    try {
-        await api.registeredCompany(formData)
+            try {
+                await api.registeredCompany(formData)
+                isSaving.value = false
+                paramsStore.getCompanyDetails()
+                closeModal.value.click()
 
-
-        isSaving.value = false
-        paramsStore.getCompanyDetails()
-        closeModal.value.click()
-
-    } catch (error) {
-        console.log(error);
-    }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    })
 })
 </script>

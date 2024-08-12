@@ -15,31 +15,40 @@
 
             <div class="d-none d-md-block">
                 <!-- <appModeToggler /> -->
+
                 <span class="mx-4 dropdown">
-                    <span class="position-relative  cursor-pointer bell dropdown-toggle" data-bs-toggle="dropdown"
+                    <span @click="notificationsBellClicked = true"
+                        class="position-relative  cursor-pointer bell dropdown-toggle" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        <i class="bi bi-bell "></i>
-                        <span v-if="notifications.length"
+                        <i class="bi bi-bell " style="font-size:16px; font-weight:700; color:blue"></i>
+                        <span v-if="!notificationsBellClicked"
                             class="position-absolute top-0 start-100 translate-middle p-1 mt-2 bg-danger border border-light rounded-circle">
                             <span class="visually-hidden"></span>
                         </span>
 
                         <div class="dropdown-menu dropdown-menu-end">
                             <div v-if="!notifications.length" class="dropdown-item"> No Notificatons</div>
-                            <ul v-else class="list-group list-group-flush  ">
-                                <li v-for="noti in notifications" :key="noti"
-                                    class="dropdown-item list-group-item small">
-                                    <strong clas="p-2">{{ noti.title }} 
-                                        <!-- <span style="color:red; border:1px solid #fef; border-radius: 10%;" class="p-1">
-                                            X</span>  -->
-                                        </strong>
-                                    <div class="small text-mut p-2">
-                                        {{ noti.content }}
-                                        <br>
-                                        {{ useFunctions.dateDisplay(noti.created_at) }}
-                                    </div>
-                                </li>
-                            </ul>
+                            <div v-else>
+                                <!-- <div class="noti-header">
+                                    Notifications <span class="badge rounded-pill text-bg-light small">{{
+                                        notifications.length }}</span>
+
+                                </div> -->
+                                <ul class="list-group list-group-flush " >
+                                    <li v-for="noti in notifications" :key="noti"
+                                        class="dropdown-item list-group-ite small text-wrap" style="border-bottom:1px solid #eee" >
+                                        <!-- <strong>{{ noti.title }}
+                                            <i class="bi bi-x-lg text-danger cursor-pointer float-end"></i>
+                                        </strong> -->
+                                        <div class="small text-mut">
+                                            {{ noti.content }}
+                                            <p class="text-danger-emphasis fst-italic">{{
+                                                useFunctions.timeAgo(noti.created_at) }}
+                                            </p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </span>
 
@@ -85,6 +94,8 @@ const authStore = useAuthStore()
 const router = useRouter()
 const templateStore = useTemplateStore()
 
+
+const notificationsBellClicked = ref(false)
 async function getNotifications() {
     try {
         const resp = await api.userNotifications()
@@ -131,6 +142,17 @@ async function logout() {
 }
 
 .dropdown-menu {
-    border-radius: 0px;
+    border-radius: 10px;
+    width: 350px;
+    padding-top: 0px;
+}
+
+.noti-header {
+    background-color: #cecdc8;
+    border-radius: 10px 10px 0px 0px;
+    padding-block: 10px;
+    font-weight: bold;
+    text-align: center;
+    color: #000;
 }
 </style>

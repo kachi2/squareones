@@ -133,28 +133,32 @@ function setValuesOnFields() {
 
 
 const save = handleSubmit(async (values) => {
-    isSaving.value = true
-    const formData = new FormData()
-    formData.append('company_id', paramsStore.currentCompanyId)
-    formData.append('registered_office', values.registered_office ?? '')
-    formData.append('directors', values.directors ?? '')
-    formData.append('business_address', values.business_address ?? '')
-    formData.append('shareholders', values.shareholders ?? '')
-    formData.append('company_secretary', values.company_secretary ?? '')
-    formData.append('scr_designated_representative', values.scr_designated_representative ?? '')
-    // if (paramsStore.idToEdit)
-    //     formData.append('officecontract_id', paramsStore.idToEdit)
+    useFxn.confirm("Continue submit?", "Continue").then(async (confirmed) => {
+        if (confirmed.value == true) {
+            isSaving.value = true
+            const formData = new FormData()
+            formData.append('company_id', paramsStore.currentCompanyId)
+            formData.append('registered_office', values.registered_office ?? '')
+            formData.append('directors', values.directors ?? '')
+            formData.append('business_address', values.business_address ?? '')
+            formData.append('shareholders', values.shareholders ?? '')
+            formData.append('company_secretary', values.company_secretary ?? '')
+            formData.append('scr_designated_representative', values.scr_designated_representative ?? '')
+            // if (paramsStore.idToEdit)
+            //     formData.append('officecontract_id', paramsStore.idToEdit)
 
 
-    try {
-        await api.officeContract(formData)
-        isSaving.value = false
-        resetForm()
-        paramsStore.getCompanyDetails()
-        closeModal.value.click()
+            try {
+                await api.officeContract(formData)
+                isSaving.value = false
+                resetForm()
+                paramsStore.getCompanyDetails()
+                closeModal.value.click()
 
-    } catch (error) {
-        console.log(error);
-    }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    })
 })
 </script>

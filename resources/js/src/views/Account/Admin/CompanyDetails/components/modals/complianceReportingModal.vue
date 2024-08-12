@@ -123,22 +123,26 @@ function setValuesOnFields() {
 
 
 const save = handleSubmit(async (values) => {
-    isSaving.value = true
-    const formData = new FormData()
-    formData.append('company_id', paramsStore.currentCompanyId)
-    formData.append('auditor_name', values.auditor_name ?? '')
-    formData.append('accounting_reference_date', values.accounting_reference_date ? useFxn.formatDate(values.accounting_reference_date) : '')
-    formData.append('business_registration_renewal_date', values.business_registration_renewal_date ? useFxn.formatDate(values.business_registration_renewal_date) : '')
-    formData.append('annual_return_date', values.annual_return_date ? useFxn.formatDate(values.annual_return_date) : '')
+    useFxn.confirm("Continue submit?", "Continue").then(async (caonfirmed) => {
+        if (caonfirmed.value) {
+            isSaving.value = true
+            const formData = new FormData()
+            formData.append('company_id', paramsStore.currentCompanyId)
+            formData.append('auditor_name', values.auditor_name ?? '')
+            formData.append('accounting_reference_date', values.accounting_reference_date ? useFxn.formatDate(values.accounting_reference_date) : '')
+            formData.append('business_registration_renewal_date', values.business_registration_renewal_date ? useFxn.formatDate(values.business_registration_renewal_date) : '')
+            formData.append('annual_return_date', values.annual_return_date ? useFxn.formatDate(values.annual_return_date) : '')
 
-    try {
-        await api.complianceReporting(formData)
-        isSaving.value = false
-        paramsStore.getCompanyDetails()
-        closeModal.value.click()
+            try {
+                await api.complianceReporting(formData)
+                isSaving.value = false
+                paramsStore.getCompanyDetails()
+                closeModal.value.click()
 
-    } catch (error) {
-        console.log(error);
-    }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    })
 })
 </script>

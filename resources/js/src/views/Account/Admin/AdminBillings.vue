@@ -4,7 +4,7 @@
         <div class="row g-4">
 
 
-            <div class="col-lg-4 mb-4">
+            <!-- <div class="col-lg-4 mb-4">
                 
                 <div class="card shadow-sm p-2 border-0 h-100">
                     <div class="fw-bold mb-2">Subscription Plan</div>
@@ -75,12 +75,12 @@
                         </table>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
 
-            <div class="col-12 mt-4">
-                <div class="card " style="border: none;">
-                    <div class="card-body" >
+            <div class="col-12 mt-4 ">
+                <div class="card min-vh-100" style="border: none;">
+                    <div class="card-body">
                         <isLoadingComponent v-if="itemsLoading" />
                         <EasyDataTable v-else class="easy-data-table" show-index :headers="headers" :items="items"
                             buttons-pagination v-model:server-options="serverOptions" :server-items-length="total">

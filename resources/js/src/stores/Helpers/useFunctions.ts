@@ -244,6 +244,11 @@ export default {
         })
 
         return () => popper.destroy()
+    },
+
+
+    generateRandomNumbers: (length: any) => {
+        return Array.from({ length }, () => Math.floor(Math.random() * 100)); // Adjust max value as needed
     }
 
 }

@@ -16,9 +16,14 @@ watchEffect(() => {
 .card:not(.exemption) {
   background-color: v-bind('templateStore.cardBg') !important;
   color: v-bind('templateStore.cardTextColor');
-  /* border: 1px solid v-bind('templateStore.borderInDark') !important; */
-  border:  1px solid #cccccc3b !important
+  border: 1px solid v-bind('templateStore.borderInDark') !important;
 }
+
+.bg-dynamic {
+  color: v-bind('templateStore.cardTextColor');
+  background-color: v-bind('templateStore.cardBg') !important;
+}
+
 
 .py-4 {
   background:v-bind('templateStore.cardBg') !important;
@@ -60,10 +65,20 @@ table tr td {
   color: v-bind('templateStore.textColor') !important;
 }
 
+.vue3-easy-data-table {
+  border: none !important;
+}
+
 .vue3-easy-data-table__main,
-.vue3-easy-data-table__footer,
-.vue3-easy-data-table__header .text-muted {
+.vue3-easy-data-table__footer {
   background-color: v-bind('templateStore.cardBg') !important;
+  color: v-bind('templateStore.cardTextColor') !important;
+  border: none !important;
+}
+
+.vue3-easy-data-table__header,
+.vue3-easy-data-table__header .text-muted {
+  background-color: v-bind('templateStore.easyTableHeaderBG') !important;
   color: v-bind('templateStore.cardTextColor') !important;
 }
 
@@ -79,8 +94,13 @@ textarea::placeholder,
   color: v-bind('templateStore.textColor') !important;
 }
 
-.dropdown-item:hover {
-  background-color: var(--bs-info) !important;
+
+/* .dropdown-item:hover {
+  background-color: red !important;
+} */
+
+.dropdown-item:hover:not(.exemption) {
+  background-color: #92b3d5 !important;
 }
 
 
@@ -106,7 +126,7 @@ input[type="text"]:disabled,
 
   height: auto;
   padding: 1rem 0.75rem 0.75rem 1.0rem;
-  
+
   /* border: 1px solid #ced4da; */
   /* border-radius: 0.25rem; */
 }
@@ -185,17 +205,17 @@ input[type="text"]:disabled,
   line-height: 3.2rem;
 }
 
- .vs--single .v__selected{
+.vs--single .v__selected {
   padding-left: .50rem;
 
   /* border: 1px solid #ced4da; */
   /* border-radius: 0.25rem; */
 }
-.fixed-label-custom .vue-tel-input{
+
+.fixed-label-custom .vue-tel-input {
   padding-left: .50rem;
-  
+
   /* border: 1px solid #ced4da; */
   /* border-radius: 0.25rem; */
 }
-
 </style>

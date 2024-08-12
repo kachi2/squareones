@@ -179,31 +179,35 @@ function setValuesOnFields() {
 }
 
 const save = handleSubmit(async (values) => {
-    isSaving.value = true
-    const formData = new FormData()
-    formData.append('company_id', paramsStore.currentCompanyId)
-    formData.append('entry_date', values.entry_date ?? '')
-    // formData.append('name', values.name)
-    formData.append('legal_entity_name', values.legal_entity_name ?? '')
-    formData.append('date_becoming_rep_person', values.date_becoming_rep_person ? useFxn.formatDate(values.date_becoming_rep_person) : '')
-    formData.append('date_ceased_to_be_rep_person', values.date_ceased_to_be_rep_person ? useFxn.formatDate(values.date_ceased_to_be_rep_person) : '')
-    formData.append('corresponding_address', values.corresponding_address ?? '')
-    formData.append('resdential_address', values.resdential_address ?? '')
-    formData.append('identiy_info', values.identiy_info ?? '')
-    formData.append('place_of_registration', values.place_of_registration ?? '')
-    formData.append('nature_of_control_over_the_company', values.nature_of_control_over_the_company ?? '')
-    if (paramsStore.idToEdit)
-        formData.append('controllers_id', paramsStore.idToEdit)
+    useFxn.confirm("Continue submit?", "Continue").then(async (confirmed) => {
+        if (confirmed.value == true) {
+            isSaving.value = true
+            const formData = new FormData()
+            formData.append('company_id', paramsStore.currentCompanyId)
+            formData.append('entry_date', values.entry_date ?? '')
+            // formData.append('name', values.name)
+            formData.append('legal_entity_name', values.legal_entity_name ?? '')
+            formData.append('date_becoming_rep_person', values.date_becoming_rep_person ? useFxn.formatDate(values.date_becoming_rep_person) : '')
+            formData.append('date_ceased_to_be_rep_person', values.date_ceased_to_be_rep_person ? useFxn.formatDate(values.date_ceased_to_be_rep_person) : '')
+            formData.append('corresponding_address', values.corresponding_address ?? '')
+            formData.append('resdential_address', values.resdential_address ?? '')
+            formData.append('identiy_info', values.identiy_info ?? '')
+            formData.append('place_of_registration', values.place_of_registration ?? '')
+            formData.append('nature_of_control_over_the_company', values.nature_of_control_over_the_company ?? '')
+            if (paramsStore.idToEdit)
+                formData.append('controllers_id', paramsStore.idToEdit)
 
 
-    try {
-        await api.significantControllers(formData)
-        isSaving.value = false
-        resetForm()
-        paramsStore.getCompanyDetails()
-        closeModal.value.click()
-    } catch (error) {
-        console.log(error);
-    }
+            try {
+                await api.significantControllers(formData)
+                isSaving.value = false
+                resetForm()
+                paramsStore.getCompanyDetails()
+                closeModal.value.click()
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    })
 })
-</script>../../adminParamsStore
+</script>

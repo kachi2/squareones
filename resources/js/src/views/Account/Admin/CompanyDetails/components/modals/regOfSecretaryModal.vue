@@ -129,27 +129,31 @@ function setValuesOnFields() {
 
 
 const save = handleSubmit(async (values) => {
-    isSaving.value = true
-    const formData = new FormData()
-    formData.append('company_id', paramsStore.currentCompanyId)
-    formData.append('appointment_date', values.appointment_date ? useFxn.formatDate(values.appointment_date) : '')
-    formData.append('name', values.name ?? '')
-    formData.append('identity_info', values.identity_info ?? '')
-    formData.append('cease_to_act', values.cease_to_act ? useFxn.formatDate(values.cease_to_act) : '')
-    formData.append('remarks', values.remarks ?? '')
-    if (paramsStore.idToEdit)
-        formData.append('secretary_id', paramsStore.idToEdit)
+    useFxn.confirm('Confirm submit?', 'Continue').then(async (confirmed) => {
+        if (confirmed.value == true) {
+            isSaving.value = true
+            const formData = new FormData()
+            formData.append('company_id', paramsStore.currentCompanyId)
+            formData.append('appointment_date', values.appointment_date ? useFxn.formatDate(values.appointment_date) : '')
+            formData.append('name', values.name ?? '')
+            formData.append('identity_info', values.identity_info ?? '')
+            formData.append('cease_to_act', values.cease_to_act ? useFxn.formatDate(values.cease_to_act) : '')
+            formData.append('remarks', values.remarks ?? '')
+            if (paramsStore.idToEdit)
+                formData.append('secretary_id', paramsStore.idToEdit)
 
 
-    try {
-        await api.registerOfSecretaries(formData)
-        isSaving.value = false
-        resetForm()
-        paramsStore.getCompanyDetails()
-        closeModal.value.click()
+            try {
+                await api.registerOfSecretaries(formData)
+                isSaving.value = false
+                resetForm()
+                paramsStore.getCompanyDetails()
+                closeModal.value.click()
 
-    } catch (error) {
-        console.log(error);
-    }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    })
 })
 </script>

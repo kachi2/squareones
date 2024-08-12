@@ -139,27 +139,30 @@ function setValuesOnFields() {
 }
 
 const save = handleSubmit(async (values) => {
-    isSaving.value = true
-    const formData = new FormData()
-    formData.append('company_id', paramsStore.currentCompanyId)
-    formData.append('charge_creation_date', values.charge_creation_date ? useFxn.formatDate(values.charge_creation_date) : '')
-    formData.append('account_secured_by_charge', values.account_secured_by_charge ?? '')
-    formData.append('type_of_charge', values.type_of_charge ?? '')
-    formData.append('charge_description', values.charge_description ?? '')
-    formData.append('terms_of_charge', values.terms_of_charge ?? '')
-    formData.append('registration_details', values.registration_details ?? '')
-    if (paramsStore.idToEdit)
-        formData.append('charges_id', paramsStore.idToEdit)
+    useFxn.confirm('Confirm submit?', 'Continue').then(async (confirmed) => {
+        if (confirmed.value == true) {
+            isSaving.value = true
+            const formData = new FormData()
+            formData.append('company_id', paramsStore.currentCompanyId)
+            formData.append('charge_creation_date', values.charge_creation_date ? useFxn.formatDate(values.charge_creation_date) : '')
+            formData.append('account_secured_by_charge', values.account_secured_by_charge ?? '')
+            formData.append('type_of_charge', values.type_of_charge ?? '')
+            formData.append('charge_description', values.charge_description ?? '')
+            formData.append('terms_of_charge', values.terms_of_charge ?? '')
+            formData.append('registration_details', values.registration_details ?? '')
+            if (paramsStore.idToEdit)
+                formData.append('charges_id', paramsStore.idToEdit)
 
-
-    try {
-        await api.registerOfCharge(formData)
-        isSaving.value = false
-        resetForm()
-        paramsStore.getCompanyDetails()
-        closeModal.value.click()
-    } catch (error) {
-        console.log(error);
-    }
+            try {
+                await api.registerOfCharge(formData)
+                isSaving.value = false
+                resetForm()
+                paramsStore.getCompanyDetails()
+                closeModal.value.click()
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    })
 })
 </script>

@@ -6,7 +6,7 @@ use App\Http\Controllers\Manage\{AuthController, DashboardController, DocumentCo
 
 Route::prefix('manage')->group(function() {
     Route::post('/login', [AuthController::class, 'LoginAdmin']);
-    Route::middleware('admin.sanctum')->group(function() { 
+    Route::middleware('auth:sanctum')->group(function() { 
         require __DIR__.'/CompanyIncorporation.php';
     Route::controller(DashboardController::class)->group(function(){
         Route::get('/activitylog', 'AdminActivityLog');

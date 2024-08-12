@@ -45,6 +45,7 @@ import { ref, watch, onMounted } from 'vue';
 import { onBeforeRouteLeave } from 'vue-router';
 import api from "@/stores/Helpers/axios"
 import { useAdminParamsStore } from '../../adminParamsStore';
+import useFunctions from '@/stores/Helpers/useFunctions';
 
 const openModal = ref<any>(null)
 const closeModal = ref<any>(null)
@@ -68,25 +69,29 @@ const registration_progress_id = ref('')
 const isSaving = ref(false)
 
 async function save() {
-    isSaving.value = true
-    console.log(registration_progress_id.value);
+    useFunctions.confirm("Continue submit?", "Continue").then(async (confirmed) => {
+        if (confirmed.value) {
+            isSaving.value = true
+            console.log(registration_progress_id.value);
 
 
-    const formData = new FormData();
-    formData.append('company_id', paramsStore.currentCompanyId)
-    formData.append('registration_progress_id', registration_progress_id.value)
+            const formData = new FormData();
+            formData.append('company_id', paramsStore.currentCompanyId)
+            formData.append('registration_progress_id', registration_progress_id.value)
 
-    try {
-        await api.incoprationStatusUpdate(formData)
-        isSaving.value = false
+            try {
+                await api.incoprationStatusUpdate(formData)
+                isSaving.value = false
 
-        await paramsStore.getCompanyDetails()
-        closeModal.value.click()
-        paramsStore.hasUpdatedProgress = !paramsStore.hasUpdatedProgress
+                await paramsStore.getCompanyDetails()
+                closeModal.value.click()
+                paramsStore.hasUpdatedProgress = !paramsStore.hasUpdatedProgress
 
-    } catch (error) {
-        console.log(error);
-    }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    })
 }
 
 async function getProgressData() {

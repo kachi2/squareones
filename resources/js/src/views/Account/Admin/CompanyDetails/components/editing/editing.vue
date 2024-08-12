@@ -1,17 +1,19 @@
 <template>
     <div class="row g-3">
         <div class="col-lg-3">
-            <ul class="list-group list-group-flush">
-                <li v-for="i in menuList" @click="goToNextStage(i.stage)" class="list-group-item"
-                    :class="{ 'activee': currentStage == i.stage }">
-                    {{ i.name }}
-                </li>
-            </ul>
+            <div class="card exemption bg-dynamic shadow-sm">
+                <ul class="list-group list-group-flush">
+                    <li v-for="i in menuList" @click="goToNextStage(i.stage)" class="list-group-item border-0"
+                        :class="{ 'activee': currentStage == i.stage }">
+                        {{ i.name }}
+                    </li>
+                </ul>
+            </div>
 
         </div>
         <div class="col-lg-9">
-            <div class="cardd  h-100 ">
-                <div class="card-header fw-bold bg-transparent">
+            <div class="card exemption bg-dynamic shadow-sm  h-100 ">
+                <div class="card-header fw-bold bg-transparent border-0">
                     {{ menuList.find(x => x.stage == currentStage)?.name }}
                 </div>
                 <div class="card-body">

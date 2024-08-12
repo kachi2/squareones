@@ -36,8 +36,8 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="card p-0">
-                                            <apexchart type="bar" :options="chartOptions_2"
-                                                :series="chartOptions_1.series">
+                                            <apexchart type="area" :options="chartOptionsRegCoys"
+                                                :series="chartOptionsRegCoysSeries">
                                             </apexchart>
                                         </div>
                                     </div>
@@ -97,70 +97,28 @@
 
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive small">
-                            <table class="table table-sm text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th>User</th>
-                                        <th>Action</th>
-                                        <th>Date</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                        <EasyDataTable class="easy-data-table border-0" show-index :headers="activitiiesHeaders"
+                            :items="activityLogs" buttons-pagination v-model:server-options="serverOptionsActivities"
+                            :server-items-length="totalActivities">
 
-                                    <tr v-for="i in 1">
-                                        <td class="text-primary cursor-pointer">#Michael</td>
-                                        <td>New Signin Request</td>
-                                        <td>01/6/2024</td>
-                                        <td><span class="text-success fw-bold">Succeed</span> </td>
-                                    </tr>
-                                    <tr v-for="i in 1">
-                                        <td class="text-primary cursor-pointer">#Michael</td>
-                                        <td>Registered New Company</td>
-                                        <td>02/6/2024</td>
-                                        <td><span class="text-success fw-bold">Succeed</span> </td>
-                                    </tr>
-                                    <tr v-for="i in 1">
-                                        <td class="text-primary cursor-pointer">#Michael</td>
-                                        <td>Completed KYC Verfication</td>
-                                        <td>03/6/2024</td>
-                                        <td><span class="text-success fw-bold">Succeed</span> </td>
-                                    </tr>
-                                    <tr v-for="i in 1">
-                                        <td class="text-primary cursor-pointer">#Michael</td>
-                                        <td>New Signin Request</td>
-                                        <td>04/6/2024</td>
-                                        <td><span class="text-success fw-bold">Succeed</span> </td>
-                                    </tr>
-                                    <tr v-for="i in 1">
-                                        <td class="text-primary cursor-pointer">#Kachi</td>
-                                        <td>Registered Company</td>
-                                        <td>02/5/2024</td>
-                                        <td><span class="text-success fw-bold">Succeed</span> </td>
-                                    </tr>
-                                    <tr v-for="i in 1">
-                                        <td class="text-primary cursor-pointer">#Michael</td>
-                                        <td>Completed Signature Signing</td>
-                                        <td>03/5/2024</td>
-                                        <td><span class="text-success fw-bold">Succeed</span> </td>
-                                    </tr>
-                                    <tr v-for="i in 1">
-                                        <td class="text-primary cursor-pointer">#Michael</td>
-                                        <td>Send Team Invitation</td>
-                                        <td>06/6/2024</td>
-                                        <td><span class="text-success fw-bold">Succeed</span> </td>
-                                    </tr>
-                                    <tr v-for="i in 1">
-                                        <td class="text-primary cursor-pointer">#Michael</td>
-                                        <td>New Signin Request</td>
-                                        <td>06/6/2024</td>
-                                        <td><span class="text-success fw-bold">Succeed</span> </td>
-                                    </tr>
+                            <template #header="header">
+                                <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
+                            </template>
 
-                                </tbody>
-                            </table>
-                        </div>
+                            <template #item-action_status="item">
+                                <span v-if="item.action_status == 'COMPLETED'">
+                                    <span class="badge rounded-pill text-bg-success">{{ item.action_status }}</span>
+                                </span>
+                                <span v-else>
+                                    <span class="badge rounded-pill text-bg-warning">{{ item.action_status }}</span>
+                                </span>
+                            </template>
+
+                            <template #item-updated_at="item">
+                                {{ new Date(item.updated_at).toLocaleString() }}
+                            </template>
+
+                        </EasyDataTable>
                     </div>
                     <!-- <div class="card-body">
                         <ul class="list-group list-group-flush">
@@ -268,9 +226,10 @@
 <script lang="ts" setup>
 import { useRoute } from 'vue-router';
 import api from '@/stores/Helpers/axios'
-import { onMounted, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref, watch } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions';
 import { useDateFormat } from '@vueuse/core';
+import type { ServerOptions } from 'vue3-easy-data-table';
 
 const route = useRoute()
 
@@ -278,6 +237,9 @@ onMounted(() => {
     setDateRanges()
     getCompanyStats()
     getRevenueStats()
+
+    getActivityLogs()
+    setChartOptions()
 })
 
 
@@ -290,7 +252,7 @@ const revenue_start_date = ref(new Date())
 const revenue_end_date = ref(new Date())
 
 
-const companyStats = ref()
+const companyStats = ref<any>([])
 const revenueStats = ref()
 
 const date_display = (date: Date[]) => {
@@ -301,8 +263,105 @@ const date_display = (date: Date[]) => {
 
 function setDateRanges() {
     const endDate = new Date();
-    const startDate = new Date(new Date().setDate(endDate.getDate() - 30));
+    const startDate = new Date(new Date().setDate(endDate.getDate() - 7));
     companyStats.value = revenueStats.value = [startDate, endDate];
+}
+
+const dagesRangesArray = computed(() => {
+    const startDate = new Date(companyStats.value[0]);
+    const endDate = new Date(companyStats.value[1]);
+
+    const dateArray = [];
+    while (startDate <= endDate) {
+        const formattedDate = startDate.toISOString().split('T')[0];
+        dateArray.push(formattedDate);
+        startDate.setDate(startDate.getDate() + 1);
+    }
+    return dateArray;
+})
+
+watch(() => companyStats.value, () => {
+    setChartOptions()
+})
+const chartOptionsRegCoys = ref<any>({})
+const chartOptionsRegCoysSeries = ref<any>([{ name: 'Companies', data: [2, 3, 4, 5, 0, 3] }])
+function setChartOptions() {
+    chartOptionsRegCoys.value = {
+        chart: {
+            type: 'area',
+            zoom: {
+                enabled: false,
+            },
+            // stacked: true,
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            // curve: ['smooth', 'straight', 'stepline'],
+            show: true,
+            curve: 'smooth',
+            lineCap: 'round', //butt, square
+            // colors: undefined,
+            width: 1,
+            dashArray: 0,
+        },
+        fill: {
+            type: "gradient",
+            gradient: {
+                // shade: 'light',
+                gradientToColors: ['#ccc'],
+                shadeIntensity: 0,
+                inverseColors: true,
+                opacityFrom: 0.5,
+                opacityTo: 0,
+                stops: [0, 75],
+            },
+        },
+        states: {
+            hover: {
+                enabled: true,
+            }
+        },
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                legend: {
+                    position: 'bottom',
+                    offsetX: -10,
+                    offsetY: 0
+                }
+            }
+        }],
+        xaxis: {
+            categories: dagesRangesArray.value,
+            type: "datetime",
+            labels: {
+                datetimeFormatter: {
+                    year: 'yyyy',
+                    month: 'MMM \'yyyy',
+                    day: 'dd MMM',
+                    hour: 'HH:mm'
+                }
+            }
+        },
+        // yaxis: {
+        //     labels: {
+        //         style: {
+        //             colors: '#ccc',
+        //         }
+        //     }
+        // },
+        colors: ['#0d6efd', '#7B61FF'],
+        legend: {
+            show: false
+        },
+        tooltip: {
+            enabled: true,
+        },
+    }
+
+    chartOptionsRegCoysSeries.value = [{ name: 'Companies', data: useFxn.generateRandomNumbers(dagesRangesArray.value.length) }]
 }
 
 
@@ -378,47 +437,42 @@ const chartOptions_1 = {
     },
 }
 
-const chartOptions_2 = {
-    chart: {
-        type: 'bar',
-        // stacked: true,
-    },
-    dataLabels: {
-        enabled: false
-    },
-    states: {
-        hover: {
-            enabled: false,
-        }
-    },
-    zoom: {
-        enabled: false
-    },
-    responsive: [{
-        breakpoint: 480,
-        options: {
-            legend: {
-                position: 'bottom',
-                offsetX: -10,
-                offsetY: 0
-            }
-        }
-    }],
-    xaxis: {
-        categories: ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun']
-    },
-    colors: ['#FFB836', '#7B61FF'],
-    series: [{
-        name: 'Job Viewed',
-        data: [8, 0, 0, 0, 0, 0, 2]
-    }],
-    legend: {
-        show: false
-    },
-    tooltip: {
-        enabled: false,
-    },
+
+
+
+
+
+
+// activity logs
+const totalActivities = ref(0)
+const activityLogs = ref<any[]>([])
+const serverOptionsActivities = ref<ServerOptions | any>({
+    page: 1,
+    rowsPerPage: 15,
+});
+
+async function getActivityLogs() {
+    try {
+        const queryString = new URLSearchParams(serverOptionsActivities.value).toString();
+        const resp = await api.activityLog(queryString)
+        const data = resp.data.data
+        totalActivities.value = data.total
+        activityLogs.value = data.data
+    } catch (error) {
+        // 
+    }
 }
+
+watch(serverOptionsActivities, (value) => { getActivityLogs(); }, { deep: true });
+
+
+
+const activitiiesHeaders = [
+    { text: "ACTIVITY", value: "activity" },
+    { text: "TYPE", value: "type" },
+    { text: "STATUS", value: "action_status" },
+    { text: "DATE", value: "updated_at" },
+];
 
 </script>
 <style lang="css" scoped>

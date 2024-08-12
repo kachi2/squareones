@@ -127,7 +127,7 @@
 
       <div class="col-md-12 ">
         <div class="card border-0 shadow-sm  h-100">
-          <div class="card-header bg-transparent fw-bold py-4">
+          <div class="card-header bg-transparent fw-bold py-4 border-0">
             Recent Activities
             <!-- <span style="float:right">Filter</span> -->
           </div>
@@ -365,6 +365,10 @@ const chartOptions1 = {
     enabled: true,
   },
 };
+
+
+
+
 
 
 const dateOfIncop = ref('2023-11-24')

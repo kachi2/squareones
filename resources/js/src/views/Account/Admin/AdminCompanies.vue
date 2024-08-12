@@ -5,34 +5,59 @@
         <div class="row g-3 mb-5">
 
             <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h2 class="fw-bold">{{ companies.list.length }}
-                            <span class="float-end small"><i class="bi bi-journal-check"></i></span>
-                        </h2>
-                        <div class="text-mute"> {{ companies.list.length == 1 ? 'company' : 'companies' }}
-                            registered
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body py-4">
+                        <div class="d-flex justify-content-between align-items-cente">
+                            <div class="col-7">
+                                <span class="fs-4 fw-bold text-mute">1/10</span>
+                                <div>
+                                    <span class="small">Active Companies</span>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <apexchart type="pie" :options="pieChartOptionsActiveCoys"
+                                    :series="pieChartSeriesActiveCoys">
+                                </apexchart>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h2 class="fw-bold">0
-                            <span class="float-end small"><i class="bi bi-house"></i></span>
-                        </h2>
-                        <div class="text-mute">companies Pending Incorporation</div>
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body py-4">
+                        <div class="d-flex justify-content-between align-items-cente">
+                            <div class="col-7">
+                                <span class="fs-4 fw-bold text-mute">8/10</span>
+                                <div>
+                                    <span class="small">Pending incopration</span>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <apexchart type="pie" :options="pieChartOptionsPendingIncop"
+                                    :series="pieChartSeriesPendingIncop">
+                                </apexchart>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h2 class="fw-bold">0
-                            <span class="float-end small"><i class="bi bi-cash"></i></span>
-                        </h2>
-                        <div class="text-mute">companies Incorporated</div>
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body py-4">
+                        <div class="d-flex justify-content-between align-items-cente">
+                            <div class="col-7">
+                                <span class="fs-4 fw-bold text-mute">3/10</span>
+                                <div>
+                                    <span class="small">Companies Incorporated</span>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <apexchart type="pie" :options="pieChartOptionsIncomporated"
+                                    :series="pieChartSeriesIncoporated">
+                                </apexchart>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -166,6 +191,115 @@ const headers = [
     { text: "ACTION", value: "action" },
 ];
 
+
+
+
+
+// active coys chart
+const pieChartOptionsActiveCoys = {
+    colors: ["#064608", "#b1f5b3"],
+    chart: {
+        type: "pie",
+    },
+    dataLabels: {
+        enabled: false,
+    },
+    legend: {
+        show: false,
+    },
+    tooltip: {
+        enabled: false,
+    },
+    responsive: [
+        {
+            // breakpoint: 480,
+            options: {
+                chart: {
+                    // width: 200,
+                },
+                legend: {
+                    position: "bottom",
+                },
+            },
+        },
+    ],
+}
+const pieChartSeriesActiveCoys = ref<any>([1, 9])
+
+
+
+
+
+
+
+
+// Pending incop chart
+const pieChartOptionsPendingIncop = {
+    colors: ["#16497c", "#92b3d5"],
+    chart: {
+        type: "pie",
+    },
+    dataLabels: {
+        enabled: false,
+    },
+    legend: {
+        show: false,
+    },
+    tooltip: {
+        enabled: false,
+    },
+    responsive: [
+        {
+            // breakpoint: 480,
+            options: {
+                chart: {
+                    // width: 200,
+                },
+                legend: {
+                    position: "bottom",
+                },
+            },
+        },
+    ],
+}
+const pieChartSeriesPendingIncop = ref<any>([8, 2])
+
+
+
+
+
+//  incop chart
+const pieChartOptionsIncomporated = {
+    colors: ["#463206", "#ecd29c"],
+    chart: {
+        type: "pie",
+    },
+    dataLabels: {
+        enabled: false,
+    },
+    legend: {
+        show: false,
+    },
+    tooltip: {
+        enabled: false,
+    },
+    responsive: [
+        {
+            // breakpoint: 480,
+            options: {
+                chart: {
+                    // width: 200,
+                },
+                legend: {
+                    position: "bottom",
+                },
+            },
+        },
+    ],
+}
+const pieChartSeriesIncoporated = ref<any>([3, 7])
+
+
 </script>
 <style lang="css" scoped>
 .list-group-item {
@@ -190,7 +324,6 @@ const headers = [
 }
 
 .card {
-    border: 1px solid #0000000f
+    border: 1px solid #0000000f;
 }
 </style>
-<!-- ./CompanyDetails/adminParamsStore -->

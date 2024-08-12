@@ -1,19 +1,19 @@
 <template>
-    <div class="card">
+    <div class="card exemption border-0">
         <div class="card-header bg-transparent border-0">
             <div @click="togglePopulateData" class="float-end">
                 <button v-if="!isPopulatingData" class="btn btn-primary btn-sm">
                     Populate Data <i class="bi bi-pencil"></i>
                 </button>
-                <div v-else> 
-                    <button  class="btn btn-primary btn-sm">
-                    <i class="bi bi-x"></i> Publish Data
-                </button> 
-                &nbsp;    &nbsp;    &nbsp;
-                <button  class="btn btn-secondary btn-sm">
-                    <i class="bi bi-x"></i> Cancel
-                </button>
-            </div>
+                <div v-else>
+                    <button class="btn btn-primary btn-sm">
+                        <i class="bi bi-x"></i> Publish Data
+                    </button>
+                    &nbsp; &nbsp; &nbsp;
+                    <button class="btn btn-secondary btn-sm">
+                        <i class="bi bi-x-lg"></i> Cancel
+                    </button>
+                </div>
             </div>
         </div>
         <div v-if="isPopulatingData" class="card-body">

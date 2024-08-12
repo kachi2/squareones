@@ -42,6 +42,7 @@ class DashboardController extends Controller
             }else{ 
                 $company = Company::whereUserId(auth_user())->get();
             }
+            $company = Company::whereUserId(auth_user())->get();
             $data['companies'] =  $company->load('Names', 'Billing');
             $data['form_completed'] = Company::where('is_complete', 1)->get();
             $data['is_incorporated'] = Company::where('is_incorporated', 1)->get();

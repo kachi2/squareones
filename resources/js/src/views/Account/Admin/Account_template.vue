@@ -3,7 +3,7 @@
     <headBar />
     <div class="main-content">
         <div class="container">
-            <div class="card border-0 exemption">
+            <div class="card  border-0 exemption">
                 <div class="card-body">
                     <RouterView />
                 </div>

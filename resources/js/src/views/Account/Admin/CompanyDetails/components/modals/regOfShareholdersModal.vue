@@ -156,30 +156,34 @@ function setValuesOnFields() {
 
 
 const save = handleSubmit(async (values) => {
-    isSaving.value = true
-    const formData = new FormData()
-    formData.append('company_id', paramsStore.currentCompanyId)
-    formData.append('name', values.name ?? '')
-    formData.append('address', values.address ?? '')
-    formData.append('class_of_shares', values.class_of_shares ?? '')
-    formData.append('denomination', values.denomination ?? '')
-    formData.append('current_holding', values.current_holding ?? '')
-    formData.append('total_consideration', values.total_consideration ?? '')
-    formData.append('date_entered_as_member', values.date_entered_as_member ? useFxn.formatDate(values.date_entered_as_member) : '')
-    formData.append('date_cease_to_be_member', values.date_cease_to_be_member ? useFxn.formatDate(values.date_cease_to_be_member) : '')
-    if (paramsStore.idToEdit)
-        formData.append('shareholders_id', paramsStore.idToEdit)
+    useFxn.confirm("Confirm submit?", 'Continue').then(async (confirmed) => {
+        if (confirmed.value == true) {
+            isSaving.value = true
+            const formData = new FormData()
+            formData.append('company_id', paramsStore.currentCompanyId)
+            formData.append('name', values.name ?? '')
+            formData.append('address', values.address ?? '')
+            formData.append('class_of_shares', values.class_of_shares ?? '')
+            formData.append('denomination', values.denomination ?? '')
+            formData.append('current_holding', values.current_holding ?? '')
+            formData.append('total_consideration', values.total_consideration ?? '')
+            formData.append('date_entered_as_member', values.date_entered_as_member ? useFxn.formatDate(values.date_entered_as_member) : '')
+            formData.append('date_cease_to_be_member', values.date_cease_to_be_member ? useFxn.formatDate(values.date_cease_to_be_member) : '')
+            if (paramsStore.idToEdit)
+                formData.append('shareholders_id', paramsStore.idToEdit)
 
 
-    try {
-        await api.registerOfShareholders(formData)
-        isSaving.value = false
-        resetForm()
-        paramsStore.getCompanyDetails()
-        closeModal.value.click()
+            try {
+                await api.registerOfShareholders(formData)
+                isSaving.value = false
+                resetForm()
+                paramsStore.getCompanyDetails()
+                closeModal.value.click()
 
-    } catch (error) {
-        console.log(error);
-    }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    })
 })
 </script>

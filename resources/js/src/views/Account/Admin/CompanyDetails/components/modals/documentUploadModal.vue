@@ -127,32 +127,35 @@ onBeforeRouteLeave(() => {
 const isSaving = ref<boolean>(false)
 
 const save = (async () => {
+    useFxn.confirm("Continue submit?", "Continue").then(async (confirmed) => {
+        if (confirmed.value == true) {
+            if (!documentTitle.value) {
+                useFxn.toast('Please Document(s) title', 'warning');
+                return;
+            }
 
-    if (!documentTitle.value) {
-        useFxn.toast('Please Document(s) title', 'warning');
-        return;
-    }
+            const formData = new FormData()
+            formData.append('company_id', paramsStore.currentCompanyId)
+            formData.append('title', documentTitle.value)
+            formData.append('document_type_id', '1')
+            uploadedFiles.value.forEach((file, index) => {
+                formData.append(`document[${index}]`, file)
+            });
 
-    const formData = new FormData()
-    formData.append('company_id', paramsStore.currentCompanyId)
-    formData.append('title', documentTitle.value)
-    formData.append('document_type_id', '1')
-    uploadedFiles.value.forEach((file, index) => {
-        formData.append(`document[${index}]`, file)
-    });
+            isSaving.value = true
 
-    isSaving.value = true
+            try {
+                await api.uploadCompanyDocuments(formData)
+                isSaving.value = false
+                // paramsStore.getCompanyDetails()
+                emit('done')
+                closeModal.value.click()
 
-    try {
-        await api.uploadCompanyDocuments(formData)
-        isSaving.value = false
-        // paramsStore.getCompanyDetails()
-        emit('done')
-        closeModal.value.click()
-
-    } catch (error) {
-        console.log(error);
-    }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    })
 })
 </script>
 

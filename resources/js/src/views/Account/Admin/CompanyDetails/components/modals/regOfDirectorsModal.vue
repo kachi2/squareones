@@ -137,28 +137,32 @@ function setValuesOnFields() {
 
 
 const save = handleSubmit(async (values) => {
-    isSaving.value = true
-    const formData = new FormData()
-    formData.append('company_id', paramsStore.currentCompanyId)
-    formData.append('date_of_appointment', values.date_of_appointment ? useFxn.formatDate(values.date_of_appointment) : '')
-    formData.append('name', values.name ?? '')
-    formData.append('reg_no', values.reg_no ?? '')
-    formData.append('registered_office', values.registered_office ?? '')
-    formData.append('ceasing_of_act', values.ceasing_of_act ? useFxn.formatDate(values.ceasing_of_act) : '')
-    formData.append('remarks', values.remarks ?? '')
-    if (paramsStore.idToEdit)
-        formData.append('directors_id', paramsStore.idToEdit)
+    useFxn.confirm('Confirm submit?', 'Continue').then(async (confirmed) => {
+        if (confirmed.value == true) {
+            isSaving.value = true
+            const formData = new FormData()
+            formData.append('company_id', paramsStore.currentCompanyId)
+            formData.append('date_of_appointment', values.date_of_appointment ? useFxn.formatDate(values.date_of_appointment) : '')
+            formData.append('name', values.name ?? '')
+            formData.append('reg_no', values.reg_no ?? '')
+            formData.append('registered_office', values.registered_office ?? '')
+            formData.append('ceasing_of_act', values.ceasing_of_act ? useFxn.formatDate(values.ceasing_of_act) : '')
+            formData.append('remarks', values.remarks ?? '')
+            if (paramsStore.idToEdit)
+                formData.append('directors_id', paramsStore.idToEdit)
 
 
-    try {
-        await api.registerOfDirectors(formData)
-        isSaving.value = false
-        resetForm()
-        paramsStore.getCompanyDetails()
-        closeModal.value.click()
+            try {
+                await api.registerOfDirectors(formData)
+                isSaving.value = false
+                resetForm()
+                paramsStore.getCompanyDetails()
+                closeModal.value.click()
 
-    } catch (error) {
-        console.log(error);
-    }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    })
 })
 </script>

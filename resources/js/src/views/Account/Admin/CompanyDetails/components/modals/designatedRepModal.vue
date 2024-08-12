@@ -139,27 +139,31 @@ function setValuesOnFields() {
 }
 
 const save = handleSubmit(async (values) => {
-    isSaving.value = true
-    const formData = new FormData()
-    formData.append('company_id', paramsStore.currentCompanyId)
-    formData.append('entry_date', values.entry_date ? useFxn.formatDate(values.entry_date) : '')
-    formData.append('name', values.name ?? '')
-    formData.append('remarks', values.remarks ?? '')
-    formData.append('identiy_info', values.identiy_info ?? '')
-    formData.append('place_of_registration', values.place_of_registration ?? '')
-    formData.append('nature_of_control_over_the_company', values.nature_of_control_over_the_company ?? '')
-    if (paramsStore.idToEdit)
-        formData.append('representatives_id', paramsStore.idToEdit)
+    useFxn.confirm("Continue submit?", 'Continue').then(async (confirmed) => {
+        if (confirmed.value == true) {
+            isSaving.value = true
+            const formData = new FormData()
+            formData.append('company_id', paramsStore.currentCompanyId)
+            formData.append('entry_date', values.entry_date ? useFxn.formatDate(values.entry_date) : '')
+            formData.append('name', values.name ?? '')
+            formData.append('remarks', values.remarks ?? '')
+            formData.append('identiy_info', values.identiy_info ?? '')
+            formData.append('place_of_registration', values.place_of_registration ?? '')
+            formData.append('nature_of_control_over_the_company', values.nature_of_control_over_the_company ?? '')
+            if (paramsStore.idToEdit)
+                formData.append('representatives_id', paramsStore.idToEdit)
 
 
-    try {
-        await api.designatedRepresentatives(formData)
-        isSaving.value = false
-        resetForm()
-        paramsStore.getCompanyDetails()
-        closeModal.value.click()
-    } catch (error) {
-        console.log(error);
-    }
+            try {
+                await api.designatedRepresentatives(formData)
+                isSaving.value = false
+                resetForm()
+                paramsStore.getCompanyDetails()
+                closeModal.value.click()
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    })
 })
 </script>
