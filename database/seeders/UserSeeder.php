@@ -18,13 +18,13 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'michael kachi',
             'email' => 'jesmikky@gmail.com',
-            'password' => Hash::make('mikky123')
+            'password' => bcrypt('mikky123')
         ]);
 
         User::create([
             'name' => 'Steve Luk',
             'email' => 'steven@squareone.com.hk',
-            'password' => Hash::make('Steve123')
+            'password' => bcrypt('Steve123')
         ]);
 
     }
