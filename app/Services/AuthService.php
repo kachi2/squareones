@@ -62,7 +62,7 @@ class AuthService  implements AuthInterface{
 
                     $location = $this->getIpLocation($request->ip());
                    $this->SendLoginNotification($request, $user,  $location);
-                    dd(self::addActivityLog($request, $location));
+                    self::addActivityLog($request, $location);
 
             return [
                 'status' => 'success',
@@ -134,6 +134,7 @@ class AuthService  implements AuthInterface{
 
     public function getIpLocation($ip)
     {
+        // $ip = "102.89.43.195";
         if($ip != '127.0.0.1'){
                $details = json_decode(file_get_contents("http://ipinfo.io/$ip/json"));
                 $location  = $details->city.", ".$details->country;
