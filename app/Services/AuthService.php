@@ -133,9 +133,9 @@ class AuthService  implements AuthInterface{
     public function getIpLocation($ip)
     {
                 
-                $details = json_decode(file_get_contents("http://ipinfo.io/$ip/json"));
-                // $location  = $details?->city.", ".$details?->country;
-                return $details;
+                $details = json_decode(file_get_contents("http://ipinfo.io/".$ip."/json"));
+                $location  = $details?->city.", ".$details?->country;
+                return $location;
     }
 
 
