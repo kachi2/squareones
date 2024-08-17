@@ -54,8 +54,8 @@ class PaymentServices implements PaymentInterface
                 ]],
                 'mode' => 'payment',
                 'saved_payment_method_options' => ['payment_method_save' => 'enabled'],
-                'success_url' => route('process.payment'),
-                'cancel_url' => url('http://127.0.0.1:5173/start_company'),
+                'success_url' => url('/kcy/verifications'),
+                'cancel_url' => url('/start_company'),
             ]);
 
             $company = Company::where(['user_id' => 1, 'is_complete' => 0])->first();
@@ -80,7 +80,7 @@ class PaymentServices implements PaymentInterface
                 ]);
             }
             DB::commit();
-            return response()->json(['url' => $session->url, 'intent' =>  $session->id]);
+            return response()->json($session->url);
         } catch (\Exception $e) {
             DB::rollBack();
             return $e->getMessage();
