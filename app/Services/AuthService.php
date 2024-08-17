@@ -59,6 +59,7 @@ class AuthService  implements AuthInterface{
                     'login_ip' => request()->ip()
                 ]);
                 $ip = "102.89.43.195";
+                dd(request()->ip());
                     dd($this->getIpLocation(request()->ip()));
                     $this->SendLoginNotification($request, $user,  $location);
                     self::addActivityLog($request, $location);
