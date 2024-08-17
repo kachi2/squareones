@@ -46,6 +46,7 @@ class AuthController extends Controller
             return response()->json(['error' => 'You account temporary Blocked, please contact support'], HttpStatusCode::FORBIDDEN);
         }
          $usr =   $this->authInterface->LoginUser($request);
+         return $user;
         if($usr['status'] == 'success'){
             $user->update(['2fa_verified' => twoFactor::UN_VERIFIED]);
             return response()->json(['data' =>  $usr], HttpStatusCode::OK);
