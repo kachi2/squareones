@@ -59,12 +59,10 @@ class AuthService  implements AuthInterface{
                     'last_login' => Carbon::now(),
                     'login_ip' => request()->ip()
                 ]);
-                $ip = request()->ip();
-                 if($ip != '127.0.0.1'){
+
                     $location = $this->getIpLocation($request->ip());
-                    $this->SendLoginNotification($request, $user,  $location);
-                    self::addActivityLog($request, $location);
-                  }
+                   $this->SendLoginNotification($request, $user,  $location);
+                    dd(self::addActivityLog($request, $location));
 
             return [
                 'status' => 'success',
@@ -118,7 +116,7 @@ class AuthService  implements AuthInterface{
     }
 
 
-    public function SendLoginNotification($request, $user, $location):void
+    public function SendLoginNotification($request, $user, $location)
     { 
             $data = [
                 'ip' => $request->ip(),
@@ -130,6 +128,7 @@ class AuthService  implements AuthInterface{
                 'date' => Carbon::now()
             ];
              $data = Mail::to($user->email)->send( new LoginNotificationMail($data));
+             return $data;
     }
 
 
@@ -140,13 +139,13 @@ class AuthService  implements AuthInterface{
                 $location  = $details->city.", ".$details->country;
                 return $location;
         }
-        return back();
+        return '';
     }
 
 
-    public function addActivityLog($request, $location):void
+    public function addActivityLog($request, $location)
      {
-        userActivity::create([
+       $acr = userActivity::create([
             'user_id' => $request->user()->id,
             'action' => 'Login to account on' . Carbon::now(),
             'name' => $request->user()->name,
@@ -155,6 +154,7 @@ class AuthService  implements AuthInterface{
             'ip_address' =>  request()->ip(),
             'location' => $location,
         ]);
+        return $acr;
     }
 
     public function LoginAdmin($request){
