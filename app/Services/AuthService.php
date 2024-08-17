@@ -50,7 +50,6 @@ class AuthService  implements AuthInterface{
     }
 
     public function LoginUser($request){
-
         $check = Auth()->attempt(['email' => $request->email, 'password' => $request->password]);
         if($check){
             $token =  $request->user()->createToken("UserToken")->plainTextToken;
@@ -59,9 +58,9 @@ class AuthService  implements AuthInterface{
                     'last_login' => Carbon::now(),
                     'login_ip' => request()->ip()
                 ]);
-
-                    $location = $this->getIpLocation($request->ip());
-                   $this->SendLoginNotification($request, $user,  $location);
+                $ip = "102.89.43.195";
+                    dd($this->getIpLocation(request()->ip()));
+                    $this->SendLoginNotification($request, $user,  $location);
                     self::addActivityLog($request, $location);
 
             return [
@@ -75,8 +74,6 @@ class AuthService  implements AuthInterface{
             'message' => 'Email or password is incorrect'
         ];        
     }
-
-
 
     public function UpdateUserDetails(UserDto $request){
         if($request->name){
@@ -92,6 +89,7 @@ class AuthService  implements AuthInterface{
         $user->fill($data)->save();
         return response()->json(['data' => 'Account Updated successfully'], HttpStatusCode::OK);
     }
+
 
     public function ChangePassword($request){
         $valid = Validator::make($request->all(), [
@@ -122,7 +120,7 @@ class AuthService  implements AuthInterface{
                 'ip' => $request->ip(),
                 'location' => $location??null,
                 'client' => $request->header('user_agent'),
-                'subject' => 'Login Attempted from New IP address '.$request->ip() .' - '. Carbon::now(),
+                'subject' => 'Login Attempted from New IP address '.request()->ip() .' - '. Carbon::now(),
                 'email' => $user->email,
                 'name' => $user->name,
                 'date' => Carbon::now()
@@ -134,13 +132,10 @@ class AuthService  implements AuthInterface{
 
     public function getIpLocation($ip)
     {
-        // $ip = "102.89.43.195";
-        if($ip != '127.0.0.1'){
-               $details = json_decode(file_get_contents("http://ipinfo.io/$ip/json"));
-                $location  = $details->city.", ".$details->country;
-                return $location;
-        }
-        return '';
+                
+                $details = json_decode(file_get_contents("http://ipinfo.io/$ip/json"));
+                // $location  = $details?->city.", ".$details?->country;
+                return $details;
     }
 
 
@@ -153,7 +148,7 @@ class AuthService  implements AuthInterface{
             'status' => 'success',
             'type' => 'Login Request',
             'ip_address' =>  request()->ip(),
-            'location' => $location,
+            'location' => $location??'',
         ]);
         return $acr;
     }
