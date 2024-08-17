@@ -199,8 +199,8 @@
                 </div>
                 <div class="col-2 col-md-2">
                     <div class="textbox"
-                        style="margin-left: 3pt;border:1.0pt solid #000000; display:block; min-height:29.6pt; width:48.9pt; margin-top: 10px;">
-                        <p class="s39" style="text-indent: 0pt;line-height: 11pt;text-align: left;"> </p>
+                        style="margin-left: 3pt;border:1.0pt solid #000000; display:block; min-height:29.6pt; width:70.9pt; margin-top: 10px; padding-top:5px">
+                        <p class="s8" style="text-indent: 0pt;line-height: 11pt;text-align: left;"> {{ data?.secretary?.licence_no }} </p>
                     </div>
                 </div>
                 <div style="width: 20px;">
@@ -218,9 +218,9 @@
 
                 <div class="col-5">
                     <div class="textbox"
-                        style="border:1.0pt solid #000000;display:block;min-height:59.6pt;width:220.9pt; margin-top: 10px;">
-                        <p class="s39" style="text-indent: 0pt;line-height: 11pt;text-align: left;">原因 <span
-                                class="s40">Reason:</span></p>
+                        style="border:1.0pt solid #000000;display:block;min-height:59.6pt;width:220.9pt; margin-top: 10px; padding-top:10px">
+                        <p class="s8" style="text-indent: 0pt;line-height: 11pt;text-align: left;">原因 <span
+                                class="s8">Reason:</span></p>
                     </div>
 
                 </div>
@@ -237,8 +237,8 @@
                     </p>
                 </div>
                 <div class="col-2">
-                    <p class="s21" style="padding-top: 4pt;padding-left: 35pt;text-indent: 0pt;text-align: right;">Page
-                        5/9頁</p>
+                    <!-- <p class="s21" style="padding-top: 4pt;padding-left: 35pt;text-indent: 0pt;text-align: right;">Page
+                        5/9頁</p> -->
                 </div>
             </div>
 

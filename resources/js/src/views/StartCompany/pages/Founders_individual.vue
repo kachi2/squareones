@@ -61,11 +61,10 @@
         <section class="row g-3 section">
             <div class="col-md-6">
                 <div class="fixed-label-custom">
-
-                    <VueDatePicker id="dob" :start-date="useFxn.yearsAgo(18)" :max-date="new Date()"
-                        v-bind="form.dobAttr" :format="useFxn.dateDisplay" input-class-name="dob-settings-input"
+                    <VueDatePicker id="dob" :start-date="useFxn.yearsAgo(18)" :max-date="new Date()" 
+                        v-bind="form.dobAttr" :format="useFxn.dateDisplay" input-class-name="dob-settings-input" 
                         :class="{ 'error-field': form.errors.dob ?? ageError }" hide-input-icon :clearable="false"
-                        :enable-time-picker="false" auto-apply v-model="form.dob" placeholder="Date of Birth">
+                        :enable-time-picker="false"  v-model="form.dob" placeholder="Date of Birth">
                     </VueDatePicker>
                     <label for="dob">Date of Birth <small class="text-danger">*</small></label>
                 </div>
@@ -202,7 +201,7 @@
                     </div> -->
                 <div class="col-md-12">
                     <div class="fixed-label-custom">
-                        <v-select for="country2" @search:blur="form.validateVueSelectOnBlur('country2')"
+                        <v-select for="country2"  append-to-body :calculate-position="useFxn.vueSelectPositionCalc"  @search:blur="form.validateVueSelectOnBlur('country2')"
                             v-bind="form.country2Attr" :class="{ 'error-field': form.errors.country2 }"
                             placeholder="select country.." v-model="form.country2" :clearable="false"
                             :options="startCompanyStore.countries" />
@@ -281,7 +280,7 @@
                 <div class="fixed-label-custom">
                     <vue-tel-input mode="international" v-bind="form.phoneAttr"
                         :class="{ 'error-field': form.errors.phone }" :inputOptions="phoneField.input"
-                        :dropdownOptions="phoneField.dropDown" :autoFormat="true" v-model="form.phone"
+                        :dropdownOptions="phoneField.dropDown" :autoFormat="false" v-model="form.phone"
                         data-maska-tokens="0:[0-9]:multiple" id="phone">
                     </vue-tel-input>
                     <label for="phone">Phone Number <small class="text-danger">*</small></label>
@@ -308,7 +307,7 @@
             </div>
             <div class="col-md-12">
                 <div class="fixed-label-custom">
-                    <v-select id="occupation" @search:blur="form.validateVueSelectOnBlur('occupation')"
+                    <v-select id="occupation"  append-to-body :calculate-position="useFxn.vueSelectPositionCalc"  @search:blur="form.validateVueSelectOnBlur('occupation')"
                         v-bind="form.occupationAttr" :class="{ 'error-field': form.errors.occupation }"
                         v-model="form.occupation" :clearable="true" :options="startCompanyStore.employmentStatusList"
                         />
@@ -379,7 +378,7 @@ const phoneField = {
         showDialCode: true,
         placeholder: 'Enter phone',
         styleClasses: 'phone-input-profile',
-        maxlength: 22
+        autoFormat: false
     }
 
 }
@@ -462,12 +461,12 @@ const saveAndContinue = form.handleSubmit((values: any) => {
     }
 
 
-    if (form.phone.length < 14) {
-        // form.errors.phone = "Phone number is not complete"
-        toast.error("Phone number is not complete", { position: 'top-right' });
-        return;
+    // if (form.phone.length < 14) {
+    //      form.errors.phone = "Phone number is not complete"
+    //     toast.error("Phone number is not complete", { position: 'top-right' });
+    //     return;
 
-    }
+    // }
     if (!useFxn.isEmail(form.email)) {
         toast.error('Invalid email format', { position: 'top-right' })
         return;

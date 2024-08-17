@@ -68,7 +68,7 @@ class DashboardController extends Controller
             $billing = Billing::whereUserId(auth_user())->paginate(20);
             return response()->json(['data' => $billing], HttpStatusCode::OK);
         }catch(\Exception $e){
-            return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+            return response()->json(['error' => $e->getMessage()], 203);
            }
     }
 

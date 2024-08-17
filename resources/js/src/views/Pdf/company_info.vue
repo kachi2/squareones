@@ -148,7 +148,7 @@
                         <tr style="height:28pt">
                             <td
                                 style="width:70pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                                <p class="s17" style="padding-left: 30pt;text-indent: 0pt;text-align: left;">ORDINARY
+                                <p class="s8" style="padding-left: 30pt;text-indent: 0pt;text-align: left;">ORDINARY
                                 </p>
                             </td>
                             <td
@@ -203,7 +203,7 @@
                         <tr style="height:28pt">
                             <td style="width:102pt;border-top-style:solid;border-top-width:1pt;border-right-style:solid;border-right-width:1pt"
                                 rowspan="2">
-                                <p class="s22"
+                                <p class="s8"
                                     style="padding-top: 7pt;padding-left: 51pt;text-indent: 0pt;text-align: left;">總值
                                     <span class="s23">Total</span>
                                 </p>
@@ -339,8 +339,8 @@
                     </p>
                 </div>
                 <div class="col-2">
-                    <p class="s21" style="padding-top: 4pt;padding-left: 35pt;text-indent: 0pt;text-align: right;">Page
-                        3/9頁</p>
+                    <!-- <p class="s21" style="padding-top: 4pt;padding-left: 35pt;text-indent: 0pt;text-align: right;">Page
+                        3/9頁</p> -->
                 </div>
             </div>
 </template>

@@ -286,7 +286,7 @@
                             </li>
                             <li class="list-group-item" v-if="founder.get_identity.identity_no == null">
                                 <span>
-                                    Issueing Country
+                                    Issuing Country
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>

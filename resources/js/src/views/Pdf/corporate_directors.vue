@@ -319,8 +319,8 @@
                     </p>
                 </div>
                 <div class="col-2 col-md-2">
-                    <p class="s21" style="padding-top: 4pt;padding-left: 35pt;text-indent: 0pt;text-align: right;">Page
-                        2/9頁</p>
+                    <!-- <p class="s21" style="padding-top: 4pt;padding-left: 35pt;text-indent: 0pt;text-align: right;">Page
+                        2/9頁</p> -->
                 </div>
             </div>
 </template>

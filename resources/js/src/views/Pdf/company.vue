@@ -48,22 +48,22 @@
                     <div class="textbox"
                         style="border:1.0pt solid #000000;display:block;min-height:53.9pt; min-width: 600px;">
                         <p class="s8" style="text-indent: 0pt;text-align: left; padding-left:10px">                
-                <span v-if="companyInfo?.names[0]?.eng_name"> Choice 1:  {{ companyInfo?.names[0]?.eng_name }} {{ companyInfo?.names[0]?.eng_prefix }} <br /></span> 
-                <span v-if="companyInfo?.names[1]?.eng_name"> Choice  2: {{ companyInfo?.names[1]?.eng_name }} {{ companyInfo?.names[1]?.eng_prefix }}<br /></span> 
-                <span v-if="companyInfo?.names[2]?.eng_name" > Choice 3: {{ companyInfo?.names[2]?.eng_name }} {{ companyInfo?.names[2]?.eng_prefix }} <br /></span> 
-                 <span v-if="companyInfo?.names[3]?.eng_name"> Choice 4: {{ companyInfo?.names[3]?.eng_name }} {{ companyInfo?.names[3]?.eng_prefix }} <br /></span> 
-                <span v-if="companyInfo?.names[4]?.eng_name"> Choice 5: {{ companyInfo?.names[4]?.eng_name }} {{ companyInfo?.names[4]?.eng_prefix }} <br /></span> </p>
+                Choice 1:  <span v-if="companyInfo?.names[0]?.eng_name">  {{ companyInfo?.names[0]?.eng_name }} {{ companyInfo?.names[0]?.eng_prefix }} </span><br /> 
+                Choice  2: <span v-if="companyInfo?.names[1]?.eng_name"> {{ companyInfo?.names[1]?.eng_name }} {{ companyInfo?.names[1]?.eng_prefix }}</span> <br />
+                Choice 3:  <span v-if="companyInfo?.names[2]?.eng_name" >{{ companyInfo?.names[2]?.eng_name }} {{ companyInfo?.names[2]?.eng_prefix }} </span> <br />
+                Choice 4: <span v-if="companyInfo?.names[3]?.eng_name"> {{ companyInfo?.names[3]?.eng_name }} {{ companyInfo?.names[3]?.eng_prefix }}</span>  <br />
+                Choice 5:  <span v-if="companyInfo?.names[4]?.eng_name"> {{ companyInfo?.names[4]?.eng_name }} {{ companyInfo?.names[4]?.eng_prefix }} </span> </p>
                     </div>
                     <p class="s1" style="padding-top: 3pt;text-indent: 0pt;text-align: left;">建議採用的公司中文名稱 <span
                             class="s5">Proposed Chinese Company Name</span></p>
                     <div class="textbox"
                         style="border:1.0pt solid #000000;display:block;min-height:53.9pt; min-width: 600px;">
                         <p class="s8" style="text-indent: 0pt;text-align: left; padding-left: 10px">
-                    <span v-if="companyInfo?.names[0]"> Choice 1: {{ companyInfo?.names[0]?.chn_name }}{{ companyInfo?.names[0]?.chn_prefix }}<br /> </span>
-                    <span v-if="companyInfo?.names[1]?.chn_name">Choice  2: {{ companyInfo?.names[1]?.chn_name }}{{ companyInfo?.names[1]?.chn_prefix }}<br /> </span>
-                    <span v-if="companyInfo?.names[2]?.chn_name">Choice  3: {{ companyInfo?.names[2]?.chn_name }}{{ companyInfo?.names[2]?.chn_prefix }}<br /> </span>
-                    <span v-if="companyInfo?.names[3]?.chn_name">Choice  4: {{ companyInfo?.names[3]?.chn_name }}{{ companyInfo?.names[3]?.chn_prefix }}<br /> </span>
-                    <span v-if="companyInfo?.names[4]?.chn_name"> Choice 5:  {{ companyInfo?.names[4]?.chn_name }}{{ companyInfo?.names[4]?.chn_prefix }}<br /> </span>
+                    Choice 1:<span v-if="companyInfo?.names[0]">  {{ companyInfo?.names[0]?.chn_name }}{{ companyInfo?.names[0]?.chn_prefix }} </span><br />
+                    Choice 2:<span v-if="companyInfo?.names[1]?.chn_name"> {{ companyInfo?.names[1]?.chn_name }}{{ companyInfo?.names[1]?.chn_prefix }}</span><br /> 
+                    Choice 3:<span v-if="companyInfo?.names[2]?.chn_name"> {{ companyInfo?.names[2]?.chn_name }}{{ companyInfo?.names[2]?.chn_prefix }} </span><br />
+                    Choice 4:<span v-if="companyInfo?.names[3]?.chn_name"> {{ companyInfo?.names[3]?.chn_name }}{{ companyInfo?.names[3]?.chn_prefix }} </span><br />
+                    Choice 5:<span v-if="companyInfo?.names[4]?.chn_name">  {{ companyInfo?.names[4]?.chn_name }}{{ companyInfo?.names[4]?.chn_prefix }} </span><br />
                         </p>
                     </div>
                 </div>
@@ -228,8 +228,8 @@
                             Specification No. 1/2023
                             (December 2023)</span>
                     </p>
-                    <p style="text-indent: 0pt;text-align: left;"><br /></p>
-                    <p class="s21" style="text-indent: 0pt;text-align: right;">Page 1/9頁</p>
+                    <!-- <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    <p class="s21" style="text-indent: 0pt;text-align: right;">Page 1/9頁</p> -->
                 </div>
             </div>
 </template>

@@ -56,7 +56,7 @@
               <div class="col-8">
                 Total Companies
                 <div>
-                  <span class="fs-4 fw-bold text-mute"> {{ companies.list.length }}</span>
+                  <span class="fs-4 fw-bold text-mute"> {{ CompanyCount }}</span>
                   <span class="small"></span>
                 </div>
               </div>
@@ -73,18 +73,21 @@
       <div class="col-lg-4">
         <div class="card border-0 shadow-sm h-100">
           <div class="card-body py-4">
-            <div class="d-flex justify-content-between align-items-cente">
+            <div class="d-flex justify-content-between align-items-cente"  v-if="daysLeftFrom360Days != 0">
               <div class="col-8">
                 <span class="fs-4 fw-bold text-mute">{{ daysLeftFrom360Days }} Days</span><small> remaining</small>
                 <div>
                   <span class="small">Annual Return</span>
                 </div>
-                <p> Next Renewal is 5th Dec, 2025</p>
+                <p> Next Renewal is {{ companyDetails.renewal_date}}</p>
               </div>
               <div class="col-5">
                 <apexchart type="pie" :options="pieChartOptions" :series="pieChartSeries">
                 </apexchart>
               </div>
+            </div>
+            <div v-else> 
+              No Active company found
             </div>
           </div>
         </div>
@@ -92,12 +95,12 @@
       <div class="col-lg-4">
         <div class="card border-0 shadow-sm h-100">
           <div class="card-body py-4">
-            <div class="d-flex justify-content-between align-items-cente">
+            <div class="d-flex justify-content-between align-items-cente" v-if="daysLeftFrom360Days != 0">
               <div class="col-8">
                 <span class="fs-4 fw-bold text-mute">{{ daysLeftFrom360Days }} Days</span>  <small> remaining</small>
                 
                 <div>
-                  <span class="small">Next Payment in Jan 10th, 2025</span>
+                  <span class="small">Next Payment in {{ companyDetails.renewal_date}}</span>
                 </div>
                 <p>Business Registration Renewal</p>
               </div>
@@ -105,6 +108,9 @@
                 <apexchart type="pie" :options="pieChartOptions" :series="pieChartSeries">
                 </apexchart>
               </div>
+            </div>
+            <div v-else> 
+              No Active company found
             </div>
           </div>
         </div>
@@ -262,6 +268,14 @@ const companies = reactive<any>({
   is_incorporated: [],
   isLoading: true,
 });
+
+const companyDetails =  reactive<any>({
+  incorporated_date: '',
+  renewal_date: '',
+});
+const CompanyCount = ref(0);
+
+
 async function getNotifications() {
   try {
     const resp = await api.userNotifications()
@@ -271,6 +285,27 @@ async function getNotifications() {
   }
 
 }
+
+async function companyReturn(){
+  const annualReturns = await api.getCompanyReturn();
+  const data = annualReturns.data.data;
+  companyDetails.incorporated_date = data.date_incorporated
+  companyDetails.renewal_date = data.date_incorporated
+  console.log( companyDetails.incorporated_date, 'company incoprated');
+  return annualReturns
+}
+
+
+async function companyCounts(){
+  const companies = await api.getCompanyCount();
+  CompanyCount.value = companies.data.data
+  console.log(  CompanyCount.value, 'company counts');
+  return companies
+}
+
+
+
+
 const computedCoyName = (coy: any) => {
   const id = coy.id;
   const names = companies.list.find((x: any) => x.id == id).names;
@@ -286,26 +321,27 @@ const computedCoyName = (coy: any) => {
 };
 
 onMounted(() => {
-  getCompanies();
+  // getCompanies();
   getNotifications()
   getUserActivities();
-
-
   loadPieChartOptions()
+  companyReturn()
+  companyCounts()
 });
 
-async function getCompanies() {
-  try {
-    const resp = await api.getCompaniesByUserID(paramsStore.currentUserId);
-
-    const data = resp.data.data;
-    // console.log(data, 'compannnn');
-    companies.list = data.companies;
-    companies.form_completed = data.form_completed;
-    companies.is_incorporated = data.is_incorporated;
-    companies.isLoading = false;
-  } catch (error) { }
-}
+// async function getCompanies() {
+//   try {
+//     const resp = await api.getCompaniesByUserID(paramsStore.currentUserId);
+//     const data = resp.data.data;
+//      console.log(data, 'compannnn');
+//     companies.list = data.companies;
+//     companies.form_completed = data.form_completed;
+//     companies.is_incorporated = data.is_incorporated;
+//     companies.isLoading = false;
+//   } catch (error) { 
+//     console.log(error, 'errors')
+//   }
+// }
 
 
 
@@ -371,7 +407,7 @@ const chartOptions1 = {
 
 
 
-const dateOfIncop = ref('2023-11-24')
+const dateOfIncop = ref(companyDetails.incorporated_date)
 
 const daysLeftFrom360Days = computed(() => {
   const dateString = dateOfIncop.value;
@@ -383,7 +419,11 @@ const daysLeftFrom360Days = computed(() => {
   const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
   console.log(diffInDays);
 
+  if(diffInDays < 0){
+    return 0;
+  }
   return diffInDays;
+
 })
 
 

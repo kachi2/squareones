@@ -24,6 +24,7 @@ use App\Services\PaymentServices;
 use App\Services\SharesService;
 use App\Services\SecretaryService;
 use App\Services\TeamServices;
+use App\Services\UserMetricsService;
 use UserService;
 
 class AppServiceProvider extends ServiceProvider

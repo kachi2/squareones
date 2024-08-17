@@ -5,6 +5,8 @@ import Cookies from 'js-cookie';
 
 const hostURL = '';
 
+// const hostURL = 'http://127.0.0.1:8000';
+
 const apiURL = `${hostURL}/api/`;
 
 const contentHeaders = (type: 'form' | 'json') => {
@@ -20,7 +22,6 @@ const setAuthorization = (config: any) => {
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
-
     return config;
 };
 

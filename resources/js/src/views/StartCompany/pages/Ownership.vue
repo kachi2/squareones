@@ -72,8 +72,8 @@
                             class="list-group-item text-capitalize">
                             <div class="d-lg-flex justify-content-between align-items-center">
                                 <span class="mt-">    
-                                    <i class="bi bi-person-circle" style="font-size: 25px;" v-if="founder.entity_type_id == 1" ></i>
-                                   <i class="bi bi-people-fill" style="font-size: 25px;"  v-else></i>
+                                    <i class="bi bi-person-circle" style="font-size: 15px;" v-if="founder.entity_type_id == 1" ></i>
+                                   <i class="bi bi-people-fill" style="font-size: 15px;"  v-else></i>
                                     {{ founder.entity_name }} <span
                                 class="text-danger"> * </span></span>
                             <span class="float-en">

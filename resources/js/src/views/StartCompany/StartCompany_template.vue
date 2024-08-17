@@ -92,7 +92,7 @@
                 <div class="col-2 d-none d-md-block min-vh-100 sub-menu-panel">
                     <StartCompany_menulist />
                 </div>
-                <div class="col-md-7  min-vh-100 sub-form-panel pt-4 d-flex justify-content-center">
+                <div class="col-md-7  min-vh-100 sub-form-panel pt-2  d-flex justify-content-center">
                     <div class="car border- middle-panel-fixed-size ">
                         <div class="card-bod pt-0 p-0 px-md-3">
                             <slot name="main"></slot>
@@ -205,9 +205,9 @@ async function logout() {
     background-color: v-bind('templateStore.bgColor');
     color: v-bind('templateStore.textColor');
     min-height: 100vh;
-    /* margin: 25px 25px 25px 75px; */
-    margin:0px auto;
-    max-width:1200px;
+    /* margin: 10px 25px 25px 75px; */
+    margin: 20px auto;
+    max-width:1300px;
 }
 
 .head-panel {

@@ -48,7 +48,11 @@ const goToPaymentPage = async ()=>{
     }
 }
 
+function moveBack() {
+    startCompanyStore.switchStage('-')
+}
 onMounted(async () => {
+    moveBack()
     // checkStatus()
 })
 

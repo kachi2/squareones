@@ -31,18 +31,18 @@
 
     <div class="off-screen" ref="PDFsection" hidden id="print_item">
         <company :companyInfo="data" />
-        <!-- <company_info :companyInfo="data" /> -->
-        <!-- <individual_shareholder v-for="shares in shareholders" :shareholder="shares" /> -->
-        <!-- <corporate_shareholder v-for="coshare in CorporateShareholder" :corporateShare="coshare" /> -->
-        <!-- <company_secretary />
-            <individual_directors v-for="directors in IndividualDirectors" :director="directors" />
+        <company_info :companyInfo="data" />
+       <individual_shareholder v-for="shares in shareholders" :shareholder="shares" />
+        <corporate_shareholder v-for="coshare in CorporateShareholder" :corporateShare="coshare" />
+         <company_secretary />
+        <!--      <individual_directors v-for="directors in IndividualDirectors" :director="directors" />
             <corporate_directors v-for="corporates in CorporateDirectors" :corporate="corporates" />
-            <founder_statement :founders_counts="founders_counts.value"/>
+            <founder_statement :founder="founder"/>
             <pi_ncc_secretary v-for="directors in IndividualDirectors" :director="directors" />
             <notice_to_business />
             <company_ordinance />
-            <class_of_shares /> -->
-        <!-- <ownershipShares /> -->
+            <class_of_shares /> 
+        <ownershipShares /> -->
         <!-- <articles /> -->
         <!--    <articles_last /> -->
 
@@ -103,6 +103,7 @@ const founder = reactive({
     },
 });
 
+watch(()=>startCompanyStore, ()=> {startCompanyStore.companyInProgress}, {deep:true});
 
 function createPDF(canvas: any, index: any) {
     var doc = new jsPDF('p', 'mm');
@@ -131,7 +132,7 @@ function createPDF(canvas: any, index: any) {
         doc.rect(0, 0, 210, 295);
         heightLeft -= pageHeight;
     }
-    // doc.save("public_docs.pdf")
+     doc.save("companyInfo.pdf")
     const pdfBlob = doc.output('blob');
     formData.append(`documents[${index}]`, pdfBlob);
 }
@@ -181,20 +182,22 @@ const shareholders = computed(() => {
     const individualShareholder = startCompanyStore.companyInProgress?.company_entity ?? [];
     const founders: any[] = [];
     let counts = 0
-    console.log(individualShareholder, 'individualShareholder')
+    // console.log(individualShareholder, 'individualShareholder')
     individualShareholder.forEach((shares: any) => {
         const obj = shares.individual;
         const fxs = individualShareholder.filter((t: any) => t.is_founder == 1)
         if (fxs.length > 0) {
             const fx = fxs[0];
-            founder.founder_details.name = (fx.individual?.first_name ?? '') + ' ' + (fx.individual?.last_name ?? '') + ' ' + (fx.individual?.chn_last_name ?? '') + (fx.individual?.chn_first_name ?? '')
+            founder.founder_details.name = (fx.individual?.first_name ?? '' + fx.corporate?.authorized_persons?.first_name?? '' ) + ' ' + (fx.individual?.last_name ?? '' + fx.corporate?.authorized_persons?.last_name?? '') + ' ' + (fx.individual?.chn_last_name ?? '') + (fx.individual?.chn_first_name ?? '')
             founder.founder_details.signature = fx.signature
             founder.founder_details.date = fx.date_signed
         }
 
         let cp = shares.entity_capacity_id;
-        if (obj && cp.includes(1)) {
+        if (obj && cp.includes(2)) {
             counts++
+        }
+        if (obj && cp.includes(1)) {
             obj.entity_type_id = shares.entity_type_id,
                 obj.capacity = shares.entity_capacity_id
             obj.company_shares = startCompanyStore.companyInProgress?.shares
@@ -220,9 +223,6 @@ const IndividualDirectors = computed(() => {
             obj.address = obj.cor_address ?? obj.res_address
             obj.signature = dir.signature ?? ''
             director.push(obj)
-
-            // console.log(director, 'directors list')
-            // founders_counts.value + 1
         }
     })
 

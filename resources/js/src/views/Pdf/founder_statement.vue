@@ -134,7 +134,7 @@
                                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
                                 <p class="s13"
                                     style="border-bottom:1px solid #000;background:yellow; padding-left: 6pt;text-indent: 0pt;text-align: left;">:
-                                    <img width="100" :src="founder?.founder_details?.signature" alt="">
+                                    <img width="100" :src="SignatureStore?.founderSignature" alt="">
             
             
                                 </p>
@@ -153,7 +153,7 @@
                                 <p style="text-indent: 0pt;text-align: left;"> <br /></p>
                                 <p class="dataInput"
                                     style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;" >:
-                                    {{founder?.founder_details?.name}}
+                                    {{SignatureStore.founderName}}
                                 </p>
                             </td>
                             <td style="width:55pt">
@@ -186,7 +186,7 @@
                                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
                                 <p class="dataInput"
                                     style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;" >
-                                    {{founder.founder_details.date}}
+                                    {{SignatureStore.signatureDate}}
                                 </p>
                                 <span>(日 DD / 月 MM / 年 YYYY)</span>
                             </td>
@@ -207,16 +207,19 @@
                     </p>
                 </div>
                 <div class="col-2 col-md-2">
-                    <p class="s21" style="padding-top: 4pt;padding-left: 35pt;text-indent: 0pt;text-align: right;">Page
-                        2/9頁</p>
+                    <!-- <p class="s21" style="padding-top: 4pt;padding-left: 35pt;text-indent: 0pt;text-align: right;">Page
+                        2/9頁</p> -->
                 </div>
             </div>
 
 </template>
 <script setup lang="ts">
 import { useStartCompanyStore } from '../StartCompany/StartCompany_store';
+import { useFounderSignatureStore } from '../StartCompany/FoundersSignature_store';
 const startCompanyStore = useStartCompanyStore();
 
+
+const SignatureStore = useFounderSignatureStore()
 const props = defineProps<{
     founder: any
 }>()

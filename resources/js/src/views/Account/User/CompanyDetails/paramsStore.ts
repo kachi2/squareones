@@ -43,7 +43,7 @@ export const useParamsStore: any = defineStore('useParamsStore', () => {
             const data = resp.data.data
             currentCompanyData.value = data
             idToEdit.value = ''
-             console.log(data, 'getCompanyDetails');
+            //  console.log(data, 'getCompanyDetails');
         } catch (error) {
             // 
         }

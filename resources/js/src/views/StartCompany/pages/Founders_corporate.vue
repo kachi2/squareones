@@ -36,7 +36,7 @@
         <section class="row g-3 section">
             <div class="col-md-6">
                 <div class="fixed-label-custom">
-                    <VueDatePicker v-bind="form.date_incorporatedAttr" :max-date="new Date()"
+                    <VueDatePicker v-bind="form.date_incorporatedAttr" :max-date="new Date()" placeholder="Select Date"
                         :format="useFxn.dateDisplay" hide-input-icon :clearable="false" :enable-time-picker="false"
                         auto-apply v-model="form.date_incorporated" id="Incorporation-label" :class="{ 'error-field': form.errors.date_incorporated }">
                     </VueDatePicker>
@@ -172,7 +172,7 @@
 
                 <div class="fixed-label-custom" >
                     <vue-tel-input :class="{ 'error-field': form.errors.phone }" id="phone" v-bind="form.phoneAttr"
-                        :inputOptions="phoneField.input" :dropdownOptions="phoneField.dropDown" :autoFormat="true"
+                        :inputOptions="phoneField.input" :dropdownOptions="phoneField.dropDown" :autoFormat="false"
                         v-model="form.phone" required></vue-tel-input>
                     <label for="phone">Phone Number <span class="text-danger"> * </span></label>
                 </div>
@@ -282,24 +282,22 @@ function resetForm() {
     form.confirm_email = ''
     form.first_name = ''
     form.last_name = ''
-
     startCompanyStore.checkedEntityCapacity = []
 }
 
 const phoneField = {
     dropDown: {
-        showDialCodeInSelection: true,
+        showDialCodeInSelection: false,
         showFlags: true,
         showSearchBox: true,
         showDialCodeInList: false,
-
     },
     input: {
-        showDialCode: false,
+        showDialCode: true,
         placeholder: ' Phone Number',
         styleClasses: 'phone-input-profile',
-        maxlength: 21,
-        required:true
+        required:true,
+        autoFormat: false
     }
 }
 watchEffect(() => {
@@ -327,11 +325,11 @@ const saveAndContinue = form.handleSubmit((values: any) => {
         return;
     }
 
-    if (form.phone.length < 12) {
-        toast.error("Error on the phone input <br> must be 12 digits and above", { position: 'top-right' });
-        return;
+    // if (form.phone.length < 12) {
+    //     toast.error("Error on the phone input <br> must be 12 digits and above", { position: 'top-right' });
+    //     return;
 
-    }
+    // }
     if (Object.keys(form.errors).length > 0) {
         console.log(form.errors)
         toast.error("Some fields still have errors", { position: 'top-right' });

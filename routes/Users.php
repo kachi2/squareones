@@ -37,7 +37,9 @@ Route::controller(TwofactorController::class)->group(function() {
 });
 
 Route::controller(UserMetricsController::class)->group(function() {
-Route::post('get/company/returns', 'getCompanyAnnualReturn');
-Route::get('get/company/counts', 'getCompanyAnnualCounts');
+Route::get('get/company/returns', 'getCompanyAnnualReturn');
+Route::get('get/company/counts', 'getCompanyCount');
+Route::get('get/payment/info', 'BillingInformation');
+Route::get('get/user/subscription', 'UserSubscription');
 });
 });

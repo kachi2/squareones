@@ -91,13 +91,12 @@ async function getItems() {
 
                 if (obj) {
 
-                    obj.name = el.entity_type_id == 1 ? `${obj.first_name} ${obj.last_name}` : `${obj.company_name}`
+                    obj.name = el.entity_type_id == 1 ? `${obj.first_name} ${obj.last_name} ${obj.chn_last_name??''} ${obj.chn_first_name??''}` : `${obj.company_name}`
                     obj.copOrInd = el.entity_type_id == 1 ? 'Individual' : 'Corporate'
                     obj.shareOrDir = shareOrDir
-                    obj.email = el.entity_type_id == 1 ? obj.email : ''
-                    obj.phone = el.entity_type_id == 1 ? obj.phone : ''
-                    obj.authorizedPersonEmail = el.entity_type_id == 1 ? '' : el?.corporate?.authorized_persons.email
-                    obj.authorizedPersonPhone = el.entity_type_id == 1 ? '' : el?.corporate?.authorized_persons.phone
+                    obj.email = el.entity_type_id == 1 ? obj.email : el?.corporate?.authorized_persons.email
+                    obj.phone = el.entity_type_id == 1 ? obj.phone : el?.corporate?.authorized_persons.phone
+                    obj.authorizedPersonName = el.entity_type_id == 1 ? '' : el?.corporate?.authorized_persons.first_name + " " + el?.corporate?.authorized_persons.last_name
                     obj.kyc_status = el.kyc_status
                     obj.signature = el.signature
 
@@ -119,11 +118,10 @@ watch(serverOptions, (value) => { getItems(); }, { deep: true });
 
 const headers = [
     { text: "NAME", value: "name" },
+    { text: "AUTHORIZED PERSON'S NAME", value: "authorizedPersonName" },
     { text: "TYPE", value: "copOrInd" },
     { text: "CAPACITY", value: "shareOrDir" },
     { text: "EMAIL", value: "email" },
-    { text: "AUTHORIZED PERSON'S EMAIL", value: "authorizedPersonEmail" },
-    { text: "AUTHORIZED PERSON'S PHONE", value: "authorizedPersonPhone" },
     { text: "PHONE", value: "phone" },
     { text: "KYC STATUS", value: "kyc_status" },
     { text: "SIGNATURE", value: "signature" },

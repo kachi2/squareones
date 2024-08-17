@@ -179,11 +179,11 @@ h1 {
 
 .s8 {
     color: black;
-    font-family: PMingLiU, serif;
+    font-family:Arial, PMingLiU, serif;
     font-style: normal;
     font-weight: normal;
     text-decoration: none;
-    font-size: 14pt;
+    font-size: 12pt;
     padding-left:10px;
     text-align: left;
 }

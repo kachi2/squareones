@@ -36,12 +36,12 @@
                                     style="width:288pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                                     <p class="s8"
                                         style="padding-top: 6pt;padding-left: 4pt;text-indent: 0pt;line-height: 16pt;text-align: center;">
-                                        {{shares?.first_name?shares?.first_name +" "+shares?.last_name:shares.company_name}} </p>
+                                        {{shares?.first_name??''}} {{shares?.last_name??''}}  {{shares?.authorized_persons?.first_name??''}} {{shares?.authorized_persons?.last_name??''}}  </p>
                                     <p class="s17" style="padding-left: 4pt;text-indent: 0pt;line-height: 16pt;text-align: center;">
-                                        {{shares?.chn_first_name?shares?.chn_last_name +" "+shares?.chn_first_name:shares.chn_company_name}}
+                                        {{shares?.chn_last_name}}{{shares?.chn_first_name}}
                                     </p>
                                     <p class="s8"
-                                            style="padding-top: 6pt;padding-left: 4pt;text-indent: 0pt;line-height: 16pt;text-align: center;">
+                                            style="padding-top: 6pt;padding-left: 4pt;text-indent: 0pt;line-height: 16pt;text-align: center">
                                                 <img width="100" :src="shares?.signature" alt="">
                                             </p>
                                 </td>
@@ -118,7 +118,7 @@ const shareholders = computed(() => {
                 obj.capacity = shares.entity_capacity_id
             obj.company_shares = startCompanyStore.companyInProgress?.shares
             founders.push(obj)
-            // console.log(founders)
+             console.log(founders, 'shareholders signature')
         }
     })
 

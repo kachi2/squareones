@@ -7,67 +7,77 @@
                 <div class="card shadow-sm p- border-1 h-100">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <div class="fw-bold mb-2">Subscription Plan</div>
+                            <div class="fw-bold mb-2">Billing Plan</div>
                             <table class="table table-borderless table-sm ">
-                                <tbody>
+                                <tbody v-if="Subscription.plan_name">
                                     <tr class="">
-                                        <td>Subscription:</td>
-                                        <td class="">Annual Plan</td>
+                                        <td>Billing Plan:</td>
+                                        <td class="">{{  Subscription.plan_name }}</td>
                                     </tr>
                                     <tr class="">
                                         <td>Billing Price:</td>
-                                        <td class="">5000HKD billed Annually</td>
-                                    </tr>
-                                    <tr class="">
-                                        <td>Contact person:</td>
-                                        <td class="">John Doe</td>
+                                        <td class="">{{  Subscription.amount_paid }} HKD</td>
                                     </tr>
                                     <tr class="">
                                         <td>Renewal date:</td>
-                                        <td class="">17 August 2024 (365 days left) </td>
+                                        <td class="">{{  Subscription.plan_name }}</td>
                                     </tr>
+                                    <tr>
+                                        <td> Duration</td>
+                                        <td>{{Subscription.duration}}</td>
+                                        </tr>
 
+
+                                </tbody>
+                                <tbody v-else>
+                                    <tr>
+                                        <td> No Billing plan information found</td>
+                                    </tr>
                                 </tbody>
                             </table>
 
                         </div>
                     </div>
-                    <div class="card-footer border-0 bg-transparent py-3">
+                    <!-- <div class="card-footer border-0 bg-transparent py-3">
 
                         <button type="button" class="float-end btn-outline-secondary btn btn-sm"> Renew Now</button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
 
-            <!-- <div class="col-lg-6 mb-4">
+             <div class="col-lg-6 mb-4">
 
-                <div class="card shadow-sm p- border-1 h-100">
+                <div class="card shadow-sm p- border-1 h-100" >
                     <div class="card-body">
                         <div class="table-responsive">
-                            <div class="fw-bold mb-2">Payment details</div>
-                            <table class="table table-borderless table-sm">
-                                <tbody>
+                            <div class="fw-bold mb-2">Billing information</div>
+                            <table class="table table-borderless table-sm" >
+                                <tbody v-if="paymentData.card_no">
                                     <tr class="">
                                         <td>Payment method:</td>
-                                        <td class="">VISA Credit Card </td>
+                                        <td class=""><i class="bi bi-credit-card"></i> {{paymentData.card_name??'VISA'}} Credit Card </td>
                                     </tr>
                                     <tr class="">
                                         <td>Card Number:</td>
-                                        <td class=""> **** **** ***** 1890 </td>
+                                        <td class=""> **** **** ***** {{paymentData.card_no}} </td>
                                     </tr>
                                     <tr class="">
                                         <td>Card Holder Name:</td>
-                                        <td class="">Michael Ozoudeh</td>
+                                        <td class="">{{paymentData.name}}</td>
+                                    </tr>
+                                    <tr class="">
+                                        <td>Card Holder Email:</td>
+                                        <td class="">{{paymentData.email}}</td>
                                     </tr>
                                     <tr class="">
                                         <td>Expiry Date:</td>
-                                        <td class="">0/2025</td>
+                                        <td class="">{{paymentData.expiry}}</td>
                                     </tr>
-
-                                    <tr class="">
-                                        <td>Upcoming bill:</td>
-                                        <td class="">17 August 2024 </td>
+                                </tbody>
+                                <tbody v-else>
+                                    <tr>
+                                        <td> No Billing Information Found</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -75,13 +85,13 @@
                     </div>
                     <div class="card-footer border-0 bg-transparent py-3">
 
-                        <button type="button" class="float-end btn-outline-secondary btn  btn-sm"> Update
-                            Details</button>
+                        <!-- <button type="button" class="float-end btn-outline-secondary btn  btn-sm"> Update
+                            Details</button> -->
                     </div>
                 </div>
-            </div> -->
+            </div> 
 
-            <div class="col-lg-6 mb-4">
+            <!-- <div class="col-lg-6 mb-4">
                 <div class="card shadow-sm p- border-1 h-100">
                     <div class="card-body">
                         <div class="table-responsive">
@@ -121,10 +131,10 @@
 
                     </div>
                 </div>
-            </div>
+            </div> -->
 
 
-            <div class="col-12 mt-4">
+            <div class="col-12 mt-4" >
 
                 <div class="card ">
                     <div class="fw-bold mb-2 p-3">Billing History</div>
@@ -138,8 +148,8 @@
                                 <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
                             </template>
 
-                            <template #item-last_login="item">
-                                {{ useFxn.dateDisplay(item.last_login) }}
+                            <template #item-date_paid="item">
+                                {{ useFxn.dateDisplay(item.date_paid) }}
                             </template>
 
                             <template #item-action="item">
@@ -176,14 +186,70 @@ const paramsStore = useParamsStore()
 
 onMounted(() => {
     getItemsData()
+    getPaymentInfo()
+    getSubscription()
 })
 
+const paymentData = reactive<any>({
+    card_name: '',
+    card_no: '',
+    country: '',
+    expiry: '',
+    email: '',
+    name: ''
+
+})
+
+const Subscription = reactive<any>({
+    plan_name: '',
+    expiry_date: '',
+    amount_paid: '',
+    payment_id: '',
+    duration: ''
+
+})
+
+async function getPaymentInfo()
+{
+    try{
+        const resp = await api.getPaymentInfo()
+        const data = resp.data
+        paymentData.card_name = data.card_name
+        paymentData.card_no = data.card_no
+        paymentData.country = data.country
+        paymentData.expiry = data.expiry
+        paymentData.email = data.email
+        paymentData.name = data.name
+        // console.log(paymentData, 'payment Information Data')
+    }catch(err)
+    {
+
+    }
+}
+
+async function getSubscription()
+{
+    try{
+        const resp = await api.getUserSubscription()
+        const data = resp.data;
+        Subscription.plan_name = data.plans.plan,
+        Subscription.expiry_date =data.expiry_date,
+        Subscription.amount_paid = data.amount_paid,
+        Subscription.payment_id =data.payment_id,
+        Subscription.duration = data.plans.duration+' Days'
+        console.log(data, 'getUserSubscription')
+    }catch(err)
+    {
+
+    }
+}
 async function getItemsData() {
     try {
         const resp = await api.userBillings()
         const data = resp.data.data
-        // total.value = data.total
-        // items.value = data.data
+        total.value = data.total
+        items.value = data.data
+        // console.log(data, 'billings')
         itemsLoading.value = false
 
     } catch (error) {
@@ -206,11 +272,11 @@ const headers = [
     // { text: "NAME", value: "name" },
     // { text: "COMPANY NAME", value: "email" },
     // { text: "REGISTERED DATE", value: "reg_date" },
+    { text: "PAYMENT STATUS", value: "status" },
+    { text: "PAYMENT REFERENCE", value: "payment_ref" },
+    { text: "AMOUNT PAID", value: "amount" },
+    { text: "PAYMENT ID", value: "payment_intent" },
     { text: "DATE", value: "date_paid" },
-    { text: "PAYMENT STATUS", value: "payment_status" },
-    { text: "PAYMENT REFERENCE", value: "reference" },
-    { text: "AMOUNT PAID", value: "amount_paid" },
-    { text: "PAYMENT ID", value: "payment_id" },
 ];
 
 watch(serverOptions, (value) => { getItemsData(); }, { deep: true });

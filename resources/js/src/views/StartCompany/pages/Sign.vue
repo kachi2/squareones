@@ -101,7 +101,7 @@
   </div>
 </div>
 <div class="p-3"> </div>
-      <div v-if="!founderInfo.signature" >
+      <div v-if="!SignatureStore.founderSignature" >
    
         <div class="fixed-label-custom">
       <v-select placeholder="select founder.." v-model="selected_entity_id" :clearable="false" :options="entities" />
@@ -125,11 +125,11 @@
     </div>
     <div v-else>
       <div class="card p-3">
-        <span> {{ founderInfo?.name }}</span>
+        <span> {{  SignatureStore.founderName }}</span>
         <hr>
 
-      <img width="100" :src="founderInfo?.signature" alt="">
-      <span style="color:red" class="p-1"> Last Updated: {{ founderInfo.date }}</span>
+      <img width="100" :src="SignatureStore?.founderSignature" alt="">
+      <span style="color:red" class="p-1"> Last Updated: {{  SignatureStore?.signatureDate }}</span>
     </div>
       <button class="btn btn-primary mt-3 w-100" @click="DeleteSignature()">Delete Signature</button>
       
@@ -143,7 +143,7 @@
       </p> -->
     </div>
 
-    <div class="pt-5" v-if="founderInfo.signature">
+    <div class="pt-5" v-if="SignatureStore.founderSignature">
 
 
 <button v-if="!startCompanyStore.pdfIsSending" @click="proceed" class="btn btn-primary">
@@ -175,9 +175,12 @@ import BasePdf from '../../Pdf/BasePdf.vue'
 import { useToast } from 'vue-toast-notification';
 import api from '@/stores/Helpers/axios'
 import useFxn from "@/stores/Helpers/useFunctions";
+import { useFounderSignatureStore } from '../FoundersSignature_store';
 
 const startCompanyStore = useStartCompanyStore()
+const SignatureStore = useFounderSignatureStore()
 
+console.log(SignatureStore.founderId, 'SignatureStore')
 const toast = useToast()
 const signaturePadModal = ref<boolean>(false)
 const signatureIsSaving = ref<boolean>(false)
@@ -225,7 +228,7 @@ const entities = computed(() => {
       if (obj && el.entity_capacity_id.includes(1) ) {
         obj.label = el?.entity_type_id == 1 ?
           `${obj.first_name??''} ${obj?.last_name??'' } ${obj?.chn_last_name??''}${obj?.chn_first_name??''}`
-          : `${obj?.authorized_persons?.first_name + ' ' + obj?.authorized_persons?.last_name  + ' FOR AND BEHALF OF ' + obj?.company_name??obj?.chn_company_name} `
+          : `${obj?.authorized_persons?.first_name + ' ' + obj?.authorized_persons?.last_name  + ' FOR AND BEHALF OF ' + obj?.company_name + ' ' +  obj?.chn_company_name} `
         obj.company_entity_id = el.id
         array.push(obj)
       }
@@ -292,11 +295,12 @@ function getActiveFounder()
    const fxs = founder.filter((t:any) =>  t.is_founder == 1 )
    if(fxs.length > 0){
    const fx = fxs[0];
-   founderInfo.name = (fx.individual?.first_name??fx.corporate?.authorized_persons?.first_name) + ' ' + (fx.individual?.last_name??fx.corporate?.authorized_persons?.last_name) 
-   founderInfo.signature = fx.signature
-   founderInfo.date = fx.date_signed
-   founderInfo.id = fx.id
+   SignatureStore.founderName = (fx.individual?.first_name??'' + fx.corporate?.authorized_persons?.first_name?? '') + ' ' + (fx.individual?.last_name??'' + fx.corporate?.authorized_persons?.last_name?? '') 
+   SignatureStore.founderSignature = fx.signature
+   SignatureStore.signatureDate = fx.date_signed
+   SignatureStore.founderId = fx.id
    }
+   return founder;
   }
 
 
@@ -309,14 +313,14 @@ async function DeleteSignature()
   if (resp.isConfirmed) {
   const formData = new FormData()
   formData.append('company_id', startCompanyStore.companyInProgress.id)
-  formData.append('company_entity_id',  founderInfo.id)
+  formData.append('company_entity_id',  SignatureStore.founderId)
   await api.deleteSignature(formData)
-   founderInfo.name = ''
-   founderInfo.signature = ''
-   founderInfo.date = ''
-   founderInfo.id = ''
+  SignatureStore.founderName  = ''
+  SignatureStore.founderSignature = ''
+  SignatureStore.signatureDate = ''
+  SignatureStore.founderId = ''
    startCompanyStore.getCompanyInProgress()
-  //  getActiveFounder()
+    // getActiveFounder()
   toast.error('Signature removed successfully', { position: 'top-right' });
   }
 })

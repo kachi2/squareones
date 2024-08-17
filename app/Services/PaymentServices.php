@@ -119,7 +119,7 @@ class PaymentServices implements PaymentInterface
                 
                     $data = [
                         'user_id' => 1,
-                        'name' => $paymentInfo['card']['brand'],
+                        'card_name' => $paymentInfo['card']['brand'],
                         'card_no' => $paymentInfo['card']['last4'],
                         'email' => $paymentInfo['billing_details']['email'],
                         'name' => $paymentInfo['billing_details']['name'],

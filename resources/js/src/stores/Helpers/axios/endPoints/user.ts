@@ -73,5 +73,18 @@ export default {
     removeUserfromTeam(formData: FormData)
     {
         return $instanceForm.post('team/remove/member', formData)
+    },
+    getCompanyReturn(){
+        return $instance.get('user/get/company/returns');
+    },
+    getCompanyCount(){
+        return $instance.get('user/get/company/counts');
+    },
+    getPaymentInfo(){
+        return $instance.get('user/get/payment/info');
+    },
+    getUserSubscription(){
+        return $instance.get('user/get/user/subscription');
     }
+
 }

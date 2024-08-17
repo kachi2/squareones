@@ -51,14 +51,16 @@
                             placeholder=" ">
                         <small class=" text-danger">{{ form.errors.postal_code }}</small>
                     </div> -->
+
                     <div class="col-md-12">
-                        <div class="fixed-label-custom">
-                        <v-select :disabled="true" placeholder="select country.." v-model="form.country"
-                            :clearable="false" :options="startCompanyStore.countries" />
-                            <label class="form-label"> Country／Region <i class="bi bi-lock-fill"></i></label>
-                        </div>
-                        <small class=" text-danger">{{ form.errors.country }}</small>
+                    <div class="form-floating-custom">
+                    <select disabled class="form-select"  placeholder="select country.." v-model="form.country">
+                        <option selected value="Hong Kong">Hong Kong</option>
+                    </select>
+                    <label class=" ">Country Registered <i class="bi bi-lock-fill"></i></label>
+                    <small class=" text-danger">{{ form.errors.country }}</small>
                     </div>
+                </div>
                 </div>
             </section>
 

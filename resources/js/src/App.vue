@@ -202,7 +202,7 @@ input[type="text"]:disabled,
 
 .fixed-label-custom .dp__input,
 .fixed-label-custom .vti__input {
-  line-height: 3.2rem;
+  line-height: 2.70rem;
 }
 
 .vs--single .v__selected {

@@ -298,7 +298,7 @@ watch(serverOptions, (value) => { userTeamMembers(); }, { deep: true });
 
 const headers = [
     { text: "NAME", value: "users.name" },
-    // { text: "CATEGORY", value: "category" },
+     { text: "EMAIL", value: "user.email" },
     { text: "STATUS", value: "action_status" },
     { text: "ROLE", value: "role" },
     { text: "DATE ADDED", value: "created_at" },

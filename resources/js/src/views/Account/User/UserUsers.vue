@@ -87,7 +87,7 @@ onMounted(() => {
 async function getTeamUsers()
 {
     const formData = new FormData();
-    formData.append('user_id', '1')
+    formData.append('user_id', paramsStore.currentUserId)
     const resp = await api.getUsersTeam(formData);
      console.log(resp.data, 'users with their teams',  paramsStore.currentUserId)
     total.value = resp.data.total

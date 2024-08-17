@@ -28,7 +28,7 @@ class PaymentController extends Controller
     }
 
     public function ProcessPayment(Request $request){
-        $user = User::where('id',1)->first();
+        $user = User::where('id',auth_user())->first();
         $procespayment = $this->PaymentInterface->ProcessPayment($request);
         $this->teamServices->create($request, $user->activeCompany(), $request->role,$user);
     return response()->json([

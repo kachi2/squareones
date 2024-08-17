@@ -13,27 +13,27 @@
                         Name</span></p>
                         <div class="textbox" style="margin-left: 32pt; border:1.0pt solid #000000;display:block;min-height:48.2pt;width:440.1pt;">
                             <p class="s8" style="text-indent: 0pt;">
-                 <span v-if="startCompanyStore?.companyInProgress?.names[0]" >Choice  1:
-                <span v-if="startCompanyStore?.companyInProgress?.names[0]?.eng_name">  {{ startCompanyStore?.companyInProgress?.names[0]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[0]?.eng_prefix }}   </span>  
+                 Choice  1: <span v-if="startCompanyStore?.companyInProgress?.names[0]" >
+                <span v-if="startCompanyStore?.companyInProgress?.names[0]?.eng_name">  {{ startCompanyStore?.companyInProgress?.names[0]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[0]?.eng_prefix }}   </span>   
                  <span v-if="startCompanyStore?.companyInProgress?.names[0].chn_name"> &nbsp; {{ startCompanyStore?.companyInProgress?.names[0]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[0]?.chn_prefix }} </span> 
-                 <br />
-            </span>
-            <span v-if="startCompanyStore?.companyInProgress?.names[1]">Choice 2: 
+               
+            </span>  <br />
+            Choice 2: <span v-if="startCompanyStore?.companyInProgress?.names[1]">
                 <span v-if="startCompanyStore?.companyInProgress?.names[1]?.eng_name" >  {{ startCompanyStore?.companyInProgress?.names[1]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[1]?.eng_prefix }}  </span> 
                 <span v-if="startCompanyStore?.companyInProgress?.names[1]?.chn_name">  &nbsp;{{ startCompanyStore?.companyInProgress?.names[1]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[1]?.chn_prefix }}</span>
-                <br />
-            </span>
-            <span v-if="startCompanyStore?.companyInProgress?.names[2]">Choice 3: 
+              
+            </span>  <br />
+       Choice 3:      <span v-if="startCompanyStore?.companyInProgress?.names[2]">
                 <span v-if="startCompanyStore?.companyInProgress?.names[2]?.eng_name">  {{ startCompanyStore?.companyInProgress?.names[2]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[2]?.eng_prefix }} </span> 
                 <span v-if="startCompanyStore?.companyInProgress?.names[2]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[2]?.chn_name }} &nbsp; {{ startCompanyStore?.companyInProgress?.names[2]?.chn_prefix }} </span>
-                <br />
-            </span>
-             <span v-if="startCompanyStore?.companyInProgress?.names[3]">Choice 4:
+              
+            </span>  <br />
+            Choice 4: <span v-if="startCompanyStore?.companyInProgress?.names[3]">
                 <span v-if="startCompanyStore?.companyInProgress?.names[3]?.eng_name"> {{ startCompanyStore?.companyInProgress?.names[3]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[3]?.eng_prefix }}  </span> 
                 <span v-if="startCompanyStore?.companyInProgress?.names[3]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[3]?.chn_name }} &nbsp;{{ startCompanyStore?.companyInProgress?.names[3]?.chn_prefix }} </span>
-                <br />
-            </span>
-             <span v-if="startCompanyStore?.companyInProgress?.names[4]">Choice 5:
+              
+            </span>  <br />
+            Choice 5: <span v-if="startCompanyStore?.companyInProgress?.names[4]">
                 <span v-if="startCompanyStore?.companyInProgress?.names[4]?.eng_name"> {{ startCompanyStore?.companyInProgress?.names[4]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[4]?.eng_prefix }}</span> 
                  <span v-if="startCompanyStore?.companyInProgress?.names[4]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[4]?.chn_name }}&nbsp; {{ startCompanyStore?.companyInProgress?.names[4]?.chn_prefix }} </span>
             </span>
@@ -107,7 +107,7 @@
                    <div class="row">
                     <div class="row">
                         <div class="col-4">
-                            <p class="s16" style="padding-left: 20pt;text-indent: 0pt;line-height: 9pt;text-align: left;">  <input type="checkbox" style="width: 20px; height: 20px;">  董事 <br>Company Secretary </p>
+                            <p class="s16" style="padding-left: 20pt;text-indent: 0pt;line-height: 9pt;text-align: left;">  <input type="checkbox" style="width: 20px; height: 20px;">  公司秘書 <br>Company Secretary </p>
                             <p class="s30" style="padding-top: 6pt;padding-left: 33pt;text-indent: 0pt;line-height: 12pt;text-align: left;"> </p>
                         </div>
                         <div class="col-4">     
@@ -347,21 +347,7 @@
                         </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-4">
-                    <p class="s15" style="padding-left: 32pt;text-indent: 0pt;line-height: 11pt;text-align: left;">室 ／樓
-                        ／座等 </p>
-                        <p class="s16" style="padding-left: 32pt;text-indent: 0pt;line-height: 11pt;text-align: left;">Flat<span
-                            class="s15">／</span>Floor<span class="s15">／</span>Block etc.</p>
-                            <p style="padding-top: 3pt;text-indent: 0pt;text-align: left;"><br /></p>
-                </div>
-                <div class="col-8">
-                    <div class="textbox" style="border:1.0pt solid #000000;display:block;min-height:28.4pt;width:320.8pt;">
-                        <p class="s17" style="padding-left: 1pt;text-indent: 0pt;line-height: 17pt;text-align: left;">Wanchai Commercial
-                            Centre</p>
-                        </div>
-                </div>
-            </div>
+            
 
             <div class="row">
                 <div class="col-12">
@@ -381,8 +367,8 @@
                     </p>
                 </div>
                 <div class="col-2 col-md-2">
-                    <p class="s21" style="padding-top: 4pt;padding-left: 35pt;text-indent: 0pt;text-align: right;">Page
-                        2/9頁</p>
+                    <!-- <p class="s21" style="padding-top: 4pt;padding-left: 35pt;text-indent: 0pt;text-align: right;">Page
+                        2/9頁</p> -->
                 </div>
             </div>
 </template>

@@ -283,7 +283,7 @@
                             </td>
                             <td
                                 style="width:57pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                                <p class="s17" style="padding-top: 6pt;text-indent: 0pt;text-align: center;"> {{corporateShare?.owner_shares?.total_amount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")  }}</p>
+                                <p class="s17" style="padding-top: 6pt;text-indent: 0pt;text-align: center;"> {{corporateShare?.company_shares[0]?.currency }}</p>
                             </td>
                             <td
                                 style="width:96pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -316,8 +316,8 @@
                     </p>
                 </div>
                 <div class="col-2 col-md-2">
-                    <p class="s21" style="padding-top: 4pt;padding-left: 35pt;text-indent: 0pt;text-align: right;">Page
-                        2/9頁</p>
+                    <!-- <p class="s21" style="padding-top: 4pt;padding-left: 35pt;text-indent: 0pt;text-align: right;">Page
+                        2/9頁</p> -->
                 </div>
             </div>
             

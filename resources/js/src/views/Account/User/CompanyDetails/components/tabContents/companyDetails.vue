@@ -302,15 +302,15 @@ function updateProgress() {
     status.a = false; status.b = false; status.c = false; status.d = false; status.e = false
     registered_company = paramsStore.currentCompanyData?.registered_company[0]
     // console.log(registered_company.registration_progress_id, 'registered_company')
-    if (registered_company.registration_progress_id == 5) {
+    if (registered_company?.registration_progress_id == 5) {
         status.a = true; status.b = true; status.c = true; status.d = true; status.e = true
-    } else if (registered_company.registration_progress_id == 4) {
+    } else if (registered_company?.registration_progress_id == 4) {
         status.a = true; status.b = true; status.c = true; status.d = true
-    } else if (registered_company.registration_progress_id == 3) {
+    } else if (registered_company?.registration_progress_id == 3) {
         status.a = true; status.b = true; status.c = true
-    } else if (registered_company.registration_progress_id == 2) {
+    } else if (registered_company?.registration_progress_id == 2) {
         status.a = true; status.b = true
-    } else if (registered_company.registration_progress_id == 1) {
+    } else if (registered_company?.registration_progress_id == 1) {
         status.a = true
     } else {
 
