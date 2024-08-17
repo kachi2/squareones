@@ -96,8 +96,8 @@ const { errors, handleSubmit, defineField, setFieldValue } = useForm({
     password: yup.string().min(6).required(),
   }),
   initialValues: {
-    email: 'jesmikky@gmail.com',
-    password: 'mikky123',
+    email: '',
+    password: '',
   },
 });
 
