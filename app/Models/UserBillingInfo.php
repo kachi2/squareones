@@ -9,7 +9,7 @@ class UserBillingInfo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'card_name', 'card_no', 'billing_info', 'payment_id'];
+    protected $fillable = ['user_id', 'card_name', 'card_no', 'billing_info', 'payment_id', 'email', 'name', 'expiry', 'country', ];
     protected $table = 'user_billing_infos';
 }
 

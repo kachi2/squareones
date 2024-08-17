@@ -18,6 +18,10 @@ return new class extends Migration
             $table->string('card_no')->nullable();
             $table->text('billing_info')->nullable();
             $table->string('payment_id')->nullable();
+            $table->string('email')->nullable();
+            $table->string('name')->nullable();
+            $table->string('expiry')->nullable();
+            $table->string('country')->nullable();
             $table->timestamps();
         });
     }

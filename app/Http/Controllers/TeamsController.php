@@ -53,7 +53,7 @@ class TeamsController extends Controller
         if($team){
             return response()->json($team, HttpStatusCode::OK);
         }
-        return response()->json(['error' => 'No Team found with id provided'], HttpStatusCode::NOT_FOUND);
+        return response()->json(['error' => 'No Team found with id provided'], 204);
     }
     
     public function loadMembers(Request $request)
@@ -63,6 +63,6 @@ class TeamsController extends Controller
         {
             return response()->json($member, HttpStatusCode::OK);
         }
-        return response()->json(['error' => 'No Team found with id provided'], HttpStatusCode::NOT_FOUND);
+        return response()->json(['error' => 'No Team found with id provided'], 204);
     }
 }

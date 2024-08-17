@@ -60,10 +60,12 @@ class AuthService  implements AuthInterface{
                     'login_ip' => request()->ip()
                 ]);
                 $ip = request()->ip();
-                 if($user->login_ip != $ip  && $ip != '127.0.0.1'){
+                 if($ip != '127.0.0.1'){
                     $location = $this->getIpLocation($request->ip());
                     $this->SendLoginNotification($request, $user,  $location);
+                    self::addActivityLog($request, $location);
                   }
+
             return [
                 'status' => 'success',
                 'user' => $request->user(),

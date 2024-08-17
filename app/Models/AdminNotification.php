@@ -10,5 +10,5 @@ class AdminNotification extends Model
     use HasFactory;
 
     protected $fillable = ['title', 'content', 'admin_id'];
-    protected $table = ['admin_notifications'];
+    protected $table = 'admin_notifications';
 }

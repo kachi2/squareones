@@ -87,7 +87,7 @@ class CompanyEntityService implements CompanyEnityInterface
             ],[
                 'individual_id' => $individual->id,
                 'flat'=>  $address['flat']??null,
-                'building'=>  $address['building']??null,
+                'building'=>  $address['building'] != 'undefined'? $address['building']  : '',
                 'street' => $address['street']??null,
                 'city'=>  $address['city']??null,
                 'state'=>  $address['state']??null,
@@ -102,7 +102,7 @@ class CompanyEntityService implements CompanyEnityInterface
                 ],[
                     'individual_id' => $individual->id,
                     'flat'=>  $addressCor['flat']??null,
-                    'building'=>  $addressCor['building']??null,
+                    'building'=> $address['building'] != 'undefined'? $address['building']  : '',
                     'street' => $addressCor['street']??null,
                     'city'=>  $addressCor['city']??null,
                     'state'=>  $addressCor['state']??null,
@@ -122,11 +122,11 @@ class CompanyEntityService implements CompanyEnityInterface
         'company_entity_id' => $entity->id,
        ],[
             'company_name' =>  $request->company_name =='undefined'? '': $request->company_name,
-            'chn_company_name'=>  $request->chn_company_name=='undefined'? '': $request->chn_company_name,
+            'chn_company_name'=>  $request->chn_company_name =='undefined'? '': $request->chn_company_name,
             'date_incorporated'=>  $request->date_incorporated,
             'country_registered'=>  $request->country_registered,
             'flat'=>  $request->flat,
-            'building'=>  $request->building,
+            'building'=>  $request->building != 'undefined'? $request->building  : '',
             'street' => $request->street,
             'city'=>  $request->city,
             'state'=>  $request->state,

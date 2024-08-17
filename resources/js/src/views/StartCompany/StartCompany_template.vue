@@ -205,7 +205,9 @@ async function logout() {
     background-color: v-bind('templateStore.bgColor');
     color: v-bind('templateStore.textColor');
     min-height: 100vh;
-    margin: 25px 25px 25px 75px;
+    /* margin: 25px 25px 25px 75px; */
+    margin:0px auto;
+    max-width:1200px;
 }
 
 .head-panel {

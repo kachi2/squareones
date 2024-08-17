@@ -17,6 +17,7 @@ use App\Dtos\UserDto;
 use App\Interfaces\DocumentInterface;
 use App\Models\Notification;
 use App\Services\AuthService;
+use App\Services\UserServices;
 use Cloudinary\Api\HttpStatusCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -27,7 +28,8 @@ class DashboardController extends Controller
     use TraitTeams;
     public function __construct(
         public readonly DocumentInterface $fileUpload,
-        public readonly AuthService $userService
+        public readonly AuthService $userService,
+        public readonly UserServices $UserServices
     )
     {
         
@@ -36,16 +38,7 @@ class DashboardController extends Controller
     public function GetAllCompany(){
 
         try{
-            $team = $this->belongsToTeam(auth_user());
-            if($team){
-                $company = Company::whereUserId($team->user_id)->get();
-            }else{ 
-                $company = Company::whereUserId(auth_user())->get();
-            }
-            $company = Company::whereUserId(auth_user())->get();
-            $data['companies'] =  $company->load('Names', 'Billing');
-            $data['form_completed'] = Company::where('is_complete', 1)->get();
-            $data['is_incorporated'] = Company::where('is_incorporated', 1)->get();
+           $data = $this->UserServices->UserCompanies();
             return response()->json(['data' => $data], HttpStatusCode::OK);
         }catch(\Exception $e){
             return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
@@ -54,10 +47,7 @@ class DashboardController extends Controller
 
     public function CompanyInfo($company_id){
         try{
-            $company = Company::where(['id' => $company_id])->first();
-            $company->load('RegisteredCompany', 'RegisterOfAllotments', 'RegisterOfCharge', 'RegisterOfCompanyName','RegisterOfDirector','RegisterOfSecretary','RegisterOfShareholders','RegisterOfTransfer', 'SignificantController', 'ComplianceReporting', 'DesignatedRepresentative', 'OfficeContract', 'documents');
-            $company->roles = $this->loadRolePermission();
-            $company->teams = $this->hasTeams($company->id);
+             $company = $this->UserServices->companyInfo($company_id);
             return response()->json(['data' => $company], HttpStatusCode::OK);
         }catch(\Exception $e){
             return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
@@ -103,10 +93,7 @@ class DashboardController extends Controller
 
     public function ListFounders($company_id){
         try{
-            $company_entities = CompanyEntity::whereCompanyId($company_id)->paginate(20);
-            if($company_entities){
-                $company_entities->load('Individual', 'Corporate');
-            }
+            $company_entities = $this->UserServices->Listfounders($company_id);
             return response()->json(['data' => $company_entities], HttpStatusCode::OK);
         }catch(\Exception $e){
             return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);

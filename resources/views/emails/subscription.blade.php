@@ -19,7 +19,7 @@
                                 <tr>
                                     <td style="padding:10px 30px 10px">
                                         Hello 
-                                        {{ $company->Users->name}} 
+                                        {{-- {{ $company->company->Users->name}}  --}}
                                     </td>
                                 </tr>
 
@@ -29,17 +29,13 @@
                                         <table width="100%">
                                             <tbody>
                                                 <tr>
-                                                    <td width="150">Selected Company Names</td>
-                                                    <td width="25"> 
-                                                       @foreach ($compnay->names as  $name)
-                                                           <p> {{$name->eng_name}} {{$name->chn_eng_name}} </p>
-                                                       @endforeach
-                                                    </td>
-                                                   
+                                                    <td width="150">Selected Company Name</td>
+                                                    <td width="25">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+                                                    <td> </td>
                                                 </tr>
                                                 <tr>
                                                     <td width="150">Company Shares Information</td>
-                                                    <td width="25">  <p> Share Type: ORDINARY</p> <P>Share Amount: {{$company->Shares[0]->}}</P>  </td>
+                                                    <td width="25">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
