@@ -22,5 +22,17 @@ if(!function_exists('auth_name')){
 			
 			});
 			return $query;
-		}
+}
+
+if(!function_exists('filter_vars'))
+{
+    function filter_vars($text)
+    {
+        if($text == 'undefined' || $text == 'null')
+    {
+        return null;
+    }
+    return $text;
+    }
+}
 	

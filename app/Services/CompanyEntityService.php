@@ -12,9 +12,7 @@ use App\Models\IdentityInfo;
 use App\Models\Individual;
 use App\Models\IndividualCorAddress;
 use App\Models\IndividualResAddress;
-use App\Events\FounderKyc;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class CompanyEntityService implements CompanyEnityInterface
 
@@ -64,10 +62,10 @@ class CompanyEntityService implements CompanyEnityInterface
         ],[
             'individual_id' =>  $individualData->id,
             'identity_type' =>  $IndividualDto->identity_type_id, 
-            'passport_no' =>$IndividualDto->passport_no == 'undefined'? null :$IndividualDto->passport_no , 
-            'issueing_country' => $IndividualDto->issuing_country == 'undefined'? null : $IndividualDto->issuing_country, 
-            'identity_no' => $IndividualDto->identity_no== 'undefined'?null:$IndividualDto->identity_no,
-            'identity_no_suffix' => $IndividualDto->identity_no_suffix== 'undefined'?null:$IndividualDto->identity_no_suffix,
+            'passport_no' => filter_vars($IndividualDto->passport_no), 
+            'issueing_country' => filter_vars($IndividualDto->issuing_country), 
+            'identity_no' => filter_vars($IndividualDto->identity_no),
+            'identity_no_suffix' => filter_vars($IndividualDto->identity_no_suffix),
         ]);
 
       $res =  $this->processResidentialAddress($IndividualDto, $individualData);
@@ -87,7 +85,7 @@ class CompanyEntityService implements CompanyEnityInterface
             ],[
                 'individual_id' => $individual->id,
                 'flat'=>  $address['flat']??null,
-                'building'=>  $address['building'] != 'undefined'? $address['building']  : '',
+                'building'=>  filter_vars($address['building']),
                 'street' => $address['street']??null,
                 'city'=>  $address['city']??null,
                 'state'=>  $address['state']??null,
@@ -102,7 +100,7 @@ class CompanyEntityService implements CompanyEnityInterface
                 ],[
                     'individual_id' => $individual->id,
                     'flat'=>  $addressCor['flat']??null,
-                    'building'=> $address['building'] != 'undefined'? $address['building']  : '',
+                    'building'=> filter_vars($addressCor['building']),
                     'street' => $addressCor['street']??null,
                     'city'=>  $addressCor['city']??null,
                     'state'=>  $addressCor['state']??null,
@@ -121,12 +119,12 @@ class CompanyEntityService implements CompanyEnityInterface
        $corporate = Corporate::updateOrcreate([
         'company_entity_id' => $entity->id,
        ],[
-            'company_name' =>  $request->company_name =='undefined'? '': $request->company_name,
-            'chn_company_name'=>  $request->chn_company_name =='undefined'? '': $request->chn_company_name,
+            'company_name' =>  filter_vars($request->company_name),
+            'chn_company_name'=>  filter_vars($request->chn_company_name),
             'date_incorporated'=>  $request->date_incorporated,
             'country_registered'=>  $request->country_registered,
             'flat'=>  $request->flat,
-            'building'=>  $request->building != 'undefined'? $request->building  : '',
+            'building'=>  filter_vars($request->building) ,
             'street' => $request->street,
             'city'=>  $request->city,
             'state'=>  $request->state,

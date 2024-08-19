@@ -114,9 +114,6 @@ class PaymentServices implements PaymentInterface
                         'content' => `The payment of  $billing->amount  was received from $user?->name  for their company registration`,
                         'admin_id' => 1
                     ]);
-
-                    // dd( $paymentInfo);
-                
                     $data = [
                         'user_id' => 1,
                         'card_name' => $paymentInfo['card']['brand'],
