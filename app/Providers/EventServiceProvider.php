@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Events\FounderKyc;
+use App\Events\GenerateCompanyData;
 use App\Events\GeneratePDF;
 use App\Events\KycEvents;
 use App\Listeners\FounderKycListener;
+use App\Listeners\GenerateIncoporatedData;
 use App\Listeners\GeneratePDFListener;
 use App\Listeners\KycListener;
 use Illuminate\Auth\Events\Registered;
@@ -30,6 +32,10 @@ class EventServiceProvider extends ServiceProvider
      ],
   FounderKyc::class => [
     FounderKycListener::class
+  ],
+  GenerateCompanyData::class => 
+  [
+    GenerateIncoporatedData::class
   ]
 
      

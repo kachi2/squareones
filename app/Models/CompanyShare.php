@@ -19,7 +19,7 @@ class CompanyShare extends Model
     }
 
     public function shareType(){
-        return $this->belongsTo(ShareType::class);
+        return $this->belongsTo(ShareType::class, 'share_type_id','id',);
     }
 
     public function Ownershares(){

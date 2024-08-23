@@ -23,7 +23,7 @@ class UserServices
     }
 
     public function companyInfo($company_id)
-    {
+    { 
         $company = Company::where(['id' => $company_id, 'is_published' => 1])->first();
         if($company){
             $company?->load('RegisteredCompany', 'RegisterOfAllotments', 'RegisterOfCharge', 'RegisterOfCompanyName','RegisterOfDirector','RegisterOfSecretary','RegisterOfShareholders','RegisterOfTransfer', 'SignificantController', 'ComplianceReporting', 'DesignatedRepresentative', 'OfficeContract', 'documents');

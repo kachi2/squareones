@@ -14,6 +14,7 @@ use App\Models\UserDocument;
 use App\Traits\Teams as TraitTeams;
 use App\Dtos\FileUploadDto;
 use App\Dtos\UserDto;
+use App\Events\GenerateCompanyData;
 use App\Interfaces\DocumentInterface;
 use App\Models\Notification;
 use App\Services\AuthService;
@@ -135,7 +136,10 @@ class DashboardController extends Controller
     }
 
 
-        
+    public function generateIncorporatedData(Request $request)
+    {
+        GenerateCompanyData::dispatch($request->all());
+    }
   
     
 }

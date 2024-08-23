@@ -9,5 +9,5 @@ class RegisterOfAllotment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['company_id', 'allotment_date', 'name', 'address', 'class_of_shares', 'no_of_shares_allocated', 'denomination', 'total_consideration', 'remarks'];
+    protected $fillable = ['company_id', 'company_entity_id', 'allotment_date', 'name', 'address', 'class_of_shares', 'no_of_shares_allocated', 'denomination', 'total_consideration', 'remarks'];
 }

@@ -48,6 +48,13 @@ class CompanyEntity extends Model
         return $this->hasOne(OwnershipShare::class, 'company_entity_id', 'id');
     }
 
+    public function CompanyShare()
+    {
+        return $this->belongsTo(CompanyShare::class, 'company_share_id', 'id');
+    }
+
+    
+
     // public function resAddress(){
     //     return $this->hasOneThrough(IndividualResAddress::class, Individual::class, 'company_entity_id', 'individual_id', 'id', 'id'); 
     // }
