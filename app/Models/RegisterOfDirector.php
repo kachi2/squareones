@@ -9,5 +9,5 @@ class RegisterOfDirector extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['company_id',  'company_entity_id','date_of_appointment', 'name', 'reg_no', 'registered_office', 'ceasing_of_act', 'remarks'];
+    protected $fillable = ['company_id', 'date_of_appointment', 'name', 'reg_no', 'registered_office', 'ceasing_of_act', 'remarks'];
 }

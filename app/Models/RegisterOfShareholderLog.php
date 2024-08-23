@@ -10,6 +10,6 @@ class RegisterOfShareholderLog extends Model
     use HasFactory;
     protected $fillable = [
 
-        'shareholder_id', 'name', 'address', 'company_entity_id', 'class_of_shares', 'denomination', 'current_holding', 'total_consideration', 'date_entered_as_member', 'date_cease_to_be_member'
+        'shareholder_id', 'name', 'address', 'class_of_shares', 'denomination', 'current_holding', 'total_consideration', 'date_entered_as_member', 'date_cease_to_be_member'
     ];
 }
