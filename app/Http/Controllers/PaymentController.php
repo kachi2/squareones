@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\GenerateCompanyData;
 use App\Interfaces\PaymentInterface;
 
 use App\Interfaces\KycInterface;
@@ -31,6 +32,7 @@ class PaymentController extends Controller
         $user = User::where('id',auth_user())->first();
         $procespayment = $this->PaymentInterface->ProcessPayment($request);
         $this->teamServices->create($request, $user->activeCompany(), $request->role,$user);
+        GenerateCompanyData::dispatch($request->all());
     return response()->json([
         $procespayment
     ]);

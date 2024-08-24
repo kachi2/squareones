@@ -20,7 +20,7 @@ Route::post('register/signature', [CompanyEntityController::class, 'RegisterEnti
 Route::post('process/payment', [PaymentController::class, 'ProcessPayment']);
 Route::get('/kyc/status/{company_entity_id?}', [KycController::class, 'UpdateKycStatus']);
 
-Route::post('generate/incorporated/data', [DashboardController::class, 'generateIncorporatedData']);
+Route::post('generate/incorporated/data', [DashboardController::class, 'generateIncorporatedData']); //FOR TEST ONLY
 
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';

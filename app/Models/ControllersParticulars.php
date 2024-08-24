@@ -10,6 +10,6 @@ class ControllersParticulars extends Model
     use HasFactory;
 
     protected $fillable = [
-      'significant_controller_id', 'corresponding_address', 'resdential_address','identiy_info','place_of_registration','nature_of_control_over_the_company'
+      'significant_controller_id', 'corresponding_address', 'resdential_address','identity_info','place_of_registration','nature_of_control_over_the_company'
     ];
 }
