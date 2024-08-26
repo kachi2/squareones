@@ -77,5 +77,18 @@ class CompanyController extends Controller
             DB::rollback();
             return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
            }
+        }
+    public function PublishUserContent($company_id)
+    {
+        $check = Company::where('id', $company_id)->first();
+        if($check) 
+        {$check->update(['is_published' => 1]);
+            return response()->json(['data' => $check], HttpStatusCode::OK);
+        }
+        return response()->json(['error' =>'company not found'],203);
+
     }
-}
+
+
+ }
+

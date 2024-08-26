@@ -5,6 +5,7 @@ use App\Http\Controllers\CompanyEntityController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\FounderController;
 use App\Http\Controllers\CompanySharesController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentSignController;
 use App\Http\Controllers\FundSourceController;
 use App\Http\Controllers\HomeController;
@@ -56,6 +57,8 @@ Route::get('payment/intent', [PaymentController::class, 'PaymentIntent']);
 Route::get('kyc/load', [KycController::class, 'loadKyc']);
 
 Route::post('load/founder/kyc', [KycController::class, 'LoadFounderKyc']);
+Route::post('generate/incorporated/data', [DashboardController::class, 'generateIncorporatedData']);
+
 
 
 

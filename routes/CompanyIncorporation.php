@@ -10,6 +10,7 @@ Route::get('/get/company/{id}', 'getCompany');
 Route::get('/incorporation/{company_id}', 'CompanyIncorporation');
 Route::get('/incorporations/statuses', 'GetIncorporationStatuses');
 Route::post('/incorporations/update', 'UpdateIncorporationStatus');
+Route::get('/publish/company/{id}', 'PublishUserContent');
 });
 
 Route::post('/officecontract', [RegisterOfficeAndContract::class, 'RegisterOfficeAndContract']);
