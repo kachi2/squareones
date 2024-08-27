@@ -71,8 +71,8 @@ class IncorporationService implements IncorporationInterface
             'content' => 'Hi, '.$companyUser->Users->name.' Your company ['.$RegisteredCompanyDto->company_registered_name.'] is fully incorporated',
             'user_id'=> $companyUser->Users->id
         ]);
-        Company::whereId($RegisteredCompanyDto->company_id)->update(['is_published' => 1]);
-        $companyUser->Users->notify(new CompanyIncorporated($data));
+        // Company::whereId($RegisteredCompanyDto->company_id)->update(['is_published' => 1]);
+        // $companyUser->Users->notify(new CompanyIncorporated($data));
     }
         return $data;
         // } catch (\Exception $e) {
@@ -81,7 +81,6 @@ class IncorporationService implements IncorporationInterface
     }
 
     public function RegisterOfficeContract($RegisteredOfficeContractDto)
-
     {
         $contract = RegisteredOfficeContract::updateOrcreate(
             [
@@ -395,7 +394,7 @@ class IncorporationService implements IncorporationInterface
             $contrl['controller_id'] = $controllers->id;
             $contrl['corresponding_address'] = $particulars->corresponding_address;
             $contrl['resdential_address'] = $particulars->resdential_address;
-            $contrl['identiy_info'] = $particulars->identiy_info;
+            $contrl['identity_info'] = $particulars->identity_info;
             $contrl['place_of_registration'] = $particulars->place_of_registration;
             $contrl['nature_of_control_over_the_company'] = $particulars->nature_of_control_over_the_company;
             SignificantControllerLog::create($contrl);
@@ -423,7 +422,7 @@ class IncorporationService implements IncorporationInterface
                     'significant_controller_id' =>  $controllers->id,
                     'corresponding_address' => $SignificantControllersDto->corresponding_address,
                     'resdential_address' => $SignificantControllersDto->resdential_address,
-                    'identiy_info' => $SignificantControllersDto->identiy_info,
+                    'identity_info' => $SignificantControllersDto->identity_info,
                     'place_of_registration' => $SignificantControllersDto->place_of_registration,
                     'nature_of_control_over_the_company' => $SignificantControllersDto->nature_of_control_over_the_company,
                 ]

@@ -8,6 +8,7 @@ use Cloudinary\Api\HttpStatusCode;
 use App\Models\RegistrationProgress;
 use App\Models\Company;
 use App\Models\RegisteredCompany;
+use App\Notifications\CompanyIncorporated;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -83,6 +84,8 @@ class CompanyController extends Controller
         $check = Company::where('id', $company_id)->first();
         if($check) 
         {$check->update(['is_published' => 1]);
+            $data = RegisteredCompany::where('company_id', $company_id)->first();
+            $check->Users->notify(new CompanyIncorporated($data));
             return response()->json(['data' => $check], HttpStatusCode::OK);
         }
         return response()->json(['error' =>'company not found'],203);
