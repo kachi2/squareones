@@ -69,6 +69,12 @@ class DocumentServices  implements DocumentInterface{
     }
 }
     if($company){
+          Document::create([
+            'company_id' => $company->id,
+            'document' => $fileNames,
+            'title' => 'Company Formation Document',
+            'document_type_id' => 1
+        ]);
         $company->update([
             'pdf_doc' => $fileNames,
             'date_signed' => $request->date_signed
