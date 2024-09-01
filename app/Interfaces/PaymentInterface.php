@@ -8,6 +8,7 @@ interface PaymentInterface
 
 public function PaymentIntent(Request $request);
 public function ProcessPayment(Request $request);
+public function InitiateSubscriptionPayment(Request $request);
 
 
 }

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Manage\{AuthController, DashboardController, DocumentController, UserController};
+use App\Http\Controllers\Manage\{AuthController, DashboardController, DocumentController, PaymentController, UserController};
 
 Route::prefix('manage')->group(function() {
     Route::post('/login', [AuthController::class, 'LoginAdmin']);
@@ -27,5 +27,11 @@ Route::prefix('manage')->group(function() {
             Route::get('/users/billing/', 'UsersBilling');
             Route::post('/update/users/status/', 'UpdateUserStatus');
         });
-});
+
+    Route::controller(PaymentController::class)->group(function() {
+        Route::post('/create/stripe/product', 'CreateStripeProduct');
+        Route::post('/update/stripe/product', 'UpdateStripeProduct');
+        Route::get('/get/plans', 'getActivePlan');
+        });
+    });
 });

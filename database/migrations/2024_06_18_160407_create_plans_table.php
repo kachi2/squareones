@@ -16,6 +16,10 @@ return new class extends Migration
             $table->string('plan')->nullable();
             $table->double('amount')->nullable();
             $table->integer('duration')->nullable();
+            $table->integer('string')->nullable();
+            $table->string('stripe_product_id')->nullable();
+            $table->string('default_price_id')->nullable();
+            $table->string('recurring')->nullable();
             $table->timestamps();
         });
     }

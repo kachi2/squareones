@@ -3,7 +3,8 @@
 if(!function_exists('auth_user')){
 
     function auth_user(){
-         return auth()->user()->id;
+        //  return auth()->user()->id;
+        return 1;
     }
 }
 
@@ -33,6 +34,14 @@ if(!function_exists('filter_vars'))
         return null;
     }
     return $text;
+    }
+}
+
+if(!function_exists('generateRef'))
+{
+    function generateRef($length)
+    {
+        return str_replace(['(', ')', '\\', '/', '%', '#', '$', '@', '!'], '', base64_encode(random_bytes($length)));
     }
 }
 	

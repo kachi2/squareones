@@ -22,7 +22,7 @@ class TeamInvitationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required',
+            'user_id' => 'nullable',
             'team_id' => 'required',
             'email' => 'required',
             'role' => 'required'

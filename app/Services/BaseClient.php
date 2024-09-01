@@ -1,5 +1,6 @@
 <?php 
 namespace App\Services;
+use Stripe\Stripe;
 use GuzzleHttp\Client;
 
 class BaseClient {
@@ -25,5 +26,6 @@ class BaseClient {
         ]);
         return $req;
     }
+
 
 }

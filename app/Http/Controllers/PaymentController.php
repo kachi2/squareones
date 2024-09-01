@@ -16,27 +16,33 @@ use Cartalyst\Stripe\Laravel\Facades\Stripe;
 class PaymentController extends Controller
 {
     public function __construct(
-        public readonly PaymentInterface $PaymentInterface,
-        public readonly KycInterface $KycInterface,
+        public readonly PaymentInterface $paymentInterface,
+        public readonly KycInterface $kycInterface,
         public readonly TeamServices $teamServices
     )
     {  
     }
 
+    public function PaymentIntents(Request $request){
+     return $this->paymentInterface->InitiateSubscriptionPayment($request);
+    
+    }
+
     public function PaymentIntent(Request $request){
-        $paymentIntent = $this->PaymentInterface->PaymentIntent($request);
+        $paymentIntent = $this->paymentInterface->PaymentIntent($request);
        return response()->json($paymentIntent, 200);
     }
 
     public function ProcessPayment(Request $request){
-        $user = User::where('id',auth_user())->first();
-        $procespayment = $this->PaymentInterface->ProcessPayment($request);
-        $this->teamServices->create($request, $user->activeCompany(), $request->role,$user);
-        // GenerateCompanyData::dispatch($request->all());
+        $user = User::where('id', auth_user())->first();
+       $procespayment = $this->paymentInterface->ProcessPayment($request);
+       GenerateCompanyData::dispatch(['company_id' => $user->activeCompany()->id]);
+        $this->teamServices->create($user->activeCompany(), $request->role, $user);
     return response()->json([
         $procespayment
     ]);
 }
+
 
 
 

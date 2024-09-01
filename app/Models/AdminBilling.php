@@ -5,10 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Notification extends Model
+class AdminBilling extends Model
 {
     use HasFactory;
-
-    protected $fillable = ['title', 'content', 'user_id', 'link'];
-    protected $table = 'notifications';
 }

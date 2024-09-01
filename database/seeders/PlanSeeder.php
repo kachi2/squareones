@@ -16,7 +16,8 @@ class PlanSeeder extends Seeder
         Plan::create([
             'plan' => 'Annual Plan',
             'amount' => '5000',
-            'duration' => '365'
+            'duration' => '365',
+            'currency' => 'usd'
         ]);
     }
 }

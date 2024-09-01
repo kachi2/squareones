@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Cashier\Billable;
 
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
@@ -21,6 +22,7 @@ class User extends Authenticatable
     use HasTeams;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use Billable;
  
     
     CONST BLOCKED = 2;
@@ -100,9 +102,9 @@ class User extends Authenticatable
 
     public function activeCompany()
     {
-        $is_completed = 0;
-       $companies =  collect($this->company)->first(function($company) use ($is_completed){
-            return $company['is_complete']  == $is_completed;
+        $is_complete = 0;
+       $companies =  collect($this->company)->first(function($company) use ($is_complete){
+            return $company['is_complete']  == $is_complete;
        });
         return $companies;
     }
@@ -150,6 +152,17 @@ class User extends Authenticatable
     return false;
     }
 
+
+    public function Subscriptions()
+    {
+        return $this->hasMany(UserSubscription::class, 'user_id', 'id');
+
+    }
+
+    public function cards()
+    {
+        return $this->hasMany(UserBillingInfo::class, 'user_id', 'id');
+    }
     
 
 }

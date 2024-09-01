@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class TeamServices implements TeamsInterface
 {
-    public function Create($request, $company, $role, $user){
+    public function Create($company, $user, $role='owner'){
         if(!$company->hasTeams()){
             $team =  tap(new Team(), function($team) use ($company, $user) {
                 $team->company_id = $company->id;
@@ -18,6 +18,7 @@ class TeamServices implements TeamsInterface
                 $team->user_id = $user->id;
                 $team->save();
                });
+               $company->update(['is_complete' => 1]);
                return $user->assignUser($role, $team); 
         }
         return false;
