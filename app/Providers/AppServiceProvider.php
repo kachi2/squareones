@@ -15,7 +15,6 @@ use App\Interfaces\TeamsInterface;
 use App\Services\AuthService;
 use Illuminate\Support\ServiceProvider;
 use App\Services\CompanyServices;
-use Laravel\Cashier\Cashier;
 use App\Services\DocumentServices;
 use App\Services\CompanyEntityService;
 use App\Services\IncorporationService;
@@ -51,6 +50,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Cashier::calculateTaxes();
+        
     }
 }

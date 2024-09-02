@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\AdminBilling;
+use App\Models\Billing;
+use App\Models\Invoices;
 use App\Models\Plan;
 use Stripe\Stripe;
 use App\Models\UserSubscription;
@@ -44,7 +46,7 @@ class StripePayment
 
     public function PlanTable($stripe)
     {
-           Plan::UpdateOrcreate(
+        Plan::UpdateOrcreate(
             [
                 'plan' => $stripe->name
             ],
@@ -79,22 +81,17 @@ class StripePayment
         $invoices = \Stripe\Invoice::all([]);
         $amount = 0;
         $count = 0;
-        foreach($invoices as $invoice)
-        {
-                $amount += $invoice->amount_due/100;
-                $count++;
-            
+        foreach ($invoices as $invoice) {
+            $amount += $invoice->amount_due / 100;
+            $count++;
         }
-      $billing = AdminBilling::latest()->first();
-      if($billing)
-      {
-        $billing->update(['total_invoices' => $count, 'total_invoice_amount' => $amount]);
-      }else
-      {
-        AdminBilling::create(['total_invoices' => $count, 'total_invoice_amount' => $amount]);
-      }
-        return $billing;
-
+        $billing = AdminBilling::latest()->first();
+        if ($billing) {
+            $billing->update(['total_invoices' => $count, 'total_invoice_amount' => $amount]);
+        } else {
+            AdminBilling::create(['total_invoices' => $count, 'total_invoice_amount' => $amount]);
+        }
+        return $invoices;
     }
 
     public function GetPaidInvoices()
@@ -104,17 +101,14 @@ class StripePayment
         ]);
         $amount = 0;
         $count = 0;
-        foreach($invoices as $invoice)
-        {
-                $amount += $invoice->amount_due/100;
-                $count++;
-            
+        foreach ($invoices as $invoice) {
+            $amount += $invoice->amount_due / 100;
+            $count++;
         }
-      $billing = AdminBilling::latest()->first();
-      if($billing)
-      {
-        $billing->update(['paid_invoice' => $count, 'paid_invoice_amount' => $amount]);
-      }
+        $billing = AdminBilling::latest()->first();
+        if ($billing) {
+            $billing->update(['paid_invoice' => $count, 'paid_invoice_amount' => $amount]);
+        }
 
         return $billing;
     }
@@ -129,61 +123,82 @@ class StripePayment
         $overdue_invoices = [];
         $overDue_amount = 0;
 
-        foreach($invoices as $invoice)
-        {
-                $amount += $invoice->amount_due/100;
-                $count++;
-                if (isset($invoice->due_date) && $invoice->due_date < time()) {
-                    $overdue_invoices[] = $invoice;
-                }
-            
+        foreach ($invoices as $invoice) {
+            $amount += $invoice->amount_due / 100;
+            $count++;
+            if (isset($invoice->due_date) && $invoice->due_date < time()) {
+                $overdue_invoices[] = $invoice;
+            }
         }
-      $billing = AdminBilling::latest()->first();
-      if($billing)
-      {
-        foreach($overdue_invoices as $overdus)
-        {
-            $overDue_amount += $overdus->amount_due/100;
-        }
-        $billing->update([
-            'unpaid_invoice' => $count,
-             'unpaid_invoice_amount' => $amount,
-             'overdue_invoices' => count($overdue_invoices),
-             'overdue_invoices_amount' => $overDue_amount
+        $billing = AdminBilling::latest()->first();
+        if ($billing) {
+            foreach ($overdue_invoices as $overdus) {
+                $overDue_amount += $overdus->amount_due / 100;
+            }
+            $billing->update([
+                'unpaid_invoice' => $count,
+                'unpaid_invoice_amount' => $amount,
+                'overdue_invoices' => count($overdue_invoices),
+                'overdue_invoices_amount' => $overDue_amount
             ]);
-      }
-      
+        }
+
         return $billing;
     }
 
     public function getActiveSubsribers()
     {
-        $active = []; $inactive = [];
-        $subscribers =\Stripe\Subscription::all([]);
-        if(!empty($subscribers))
-        { 
-            foreach($subscribers as $subs)
-            {
-                if($subs->status == "active")
-                {
+        $active = [];
+        $inactive = [];
+        $subscribers = \Stripe\Subscription::all([]);
+        if (!empty($subscribers)) {
+            foreach ($subscribers as $subs) {
+                if ($subs->status == "active") {
                     $active[] = $subs;
-                }else
-                {
-                   $inactive[] = $subs; 
+                } else {
+                    $inactive[] = $subs;
                 }
             }
         }
-      $billing = AdminBilling::latest()->first();
-    
+        $billing = AdminBilling::latest()->first();
+
         $billing->update([
             'active_subscriptions' => count($active),
             'cancelled_subscriptions' => count($inactive)
-            ]);
-      
+        ]);
+
         return $billing;
-
     }
-    
 
 
+    public function UpdateInvoiceTable()
+    {
+        $invoices = \Stripe\Invoice::all([
+            'status' => 'paid'
+        ]);
+        $amount = 0;
+        $count = 0;
+        foreach ($invoices as $invoice) {
+            $bill = Billing::where('customer', $invoice->customer)->first();
+
+            Invoices::create([
+                'user_id' => $bill->user_id,
+                'customer' => $invoice->customer,
+                'customer_email'=> $invoice->customer_email,
+                'invoice_id'=> $invoice->id,
+                'amount_due'=> $invoice->amount_due/100,
+                'amount_paid'=> $invoice->amount_paid/100 ,
+                'amount_remaining'=> $invoice->amount_remaining/100,
+                'currency'=> $invoice->customer,
+                'customer_name'=> $invoice->customer,
+                'hosted_invoice_url'=> $invoice->customer,
+                'invoice_pdf'=> $invoice->customer,
+                'description'=> $invoice->customer,
+                'invoice_date'=> $invoice->customer,
+                'due_date'=> $invoice->customer,
+                'total' => $invoice->customer,
+
+            ]);
+        }
+    }
 }
