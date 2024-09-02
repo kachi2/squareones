@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('invoice_date')->nullable();
             $table->string('due_date')->nullable();
             $table->string('total')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

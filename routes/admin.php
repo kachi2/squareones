@@ -36,6 +36,7 @@ Route::prefix('manage')->group(function() {
         Route::get('/get/stripe/paid/invoices', 'PaidInvoice');
         Route::get('/get/stripe/unpaid/invoices', 'UnpaidInvoice');
         Route::get('/get/subscribers', 'Subscribers');
+        Route::get('sync/invoices', 'updateInvoices');
         });
     });
 });

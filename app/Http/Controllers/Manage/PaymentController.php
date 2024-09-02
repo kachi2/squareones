@@ -85,5 +85,11 @@ class PaymentController extends Controller
         return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
        }
     }
+
+    public function updateInvoices() 
+    {
+        $invoice = $this->stripePayment->UpdateInvoiceTable();
+        return $invoice;
+    }
     
 }

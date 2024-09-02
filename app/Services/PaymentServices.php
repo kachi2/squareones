@@ -80,7 +80,6 @@ class PaymentServices implements PaymentInterface
 
     public function ProcessPayment($request)
     {
-        
         try {
             $user = User::where('id', auth_user())->first();
             $company = Company::where(['is_complete' => 0])->first();

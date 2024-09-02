@@ -8,6 +8,7 @@ use App\Models\Invoices;
 use App\Models\Plan;
 use Stripe\Stripe;
 use App\Models\UserSubscription;
+use Carbon\Carbon;
 
 class StripePayment
 {
@@ -109,7 +110,6 @@ class StripePayment
         if ($billing) {
             $billing->update(['paid_invoice' => $count, 'paid_invoice_amount' => $amount]);
         }
-
         return $billing;
     }
 
@@ -176,29 +176,27 @@ class StripePayment
         $invoices = \Stripe\Invoice::all([
             'status' => 'paid'
         ]);
-        $amount = 0;
-        $count = 0;
         foreach ($invoices as $invoice) {
-            $bill = Billing::where('customer', $invoice->customer)->first();
-
+            $bill = UserSubscription::where('customer', $invoice->customer)->first();
             Invoices::create([
-                'user_id' => $bill->user_id,
+                'user_id' => $bill?->user_id,
                 'customer' => $invoice->customer,
                 'customer_email'=> $invoice->customer_email,
                 'invoice_id'=> $invoice->id,
                 'amount_due'=> $invoice->amount_due/100,
                 'amount_paid'=> $invoice->amount_paid/100 ,
                 'amount_remaining'=> $invoice->amount_remaining/100,
-                'currency'=> $invoice->customer,
-                'customer_name'=> $invoice->customer,
-                'hosted_invoice_url'=> $invoice->customer,
-                'invoice_pdf'=> $invoice->customer,
-                'description'=> $invoice->customer,
-                'invoice_date'=> $invoice->customer,
-                'due_date'=> $invoice->customer,
-                'total' => $invoice->customer,
-
+                'currency'=> $invoice->currency,
+                'customer_name'=> $invoice->customer_name,
+                'hosted_invoice_url'=> $invoice->hosted_invoice_url,
+                'invoice_pdf'=> $invoice->invoice_pdf,
+                'description'=> $invoice->description,
+                'invoice_date'=> date('d-m-Y', $invoice->created),
+                'due_date'=> date('d-m-Y',$invoice->due_date),
+                'total' => $invoice->total/100,
+                'status' => $invoice->status
             ]);
         }
+        return Invoices::latest()->get();
     }
 }
