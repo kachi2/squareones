@@ -32,6 +32,10 @@ Route::prefix('manage')->group(function() {
         Route::post('/create/stripe/product', 'CreateStripeProduct');
         Route::post('/update/stripe/product', 'UpdateStripeProduct');
         Route::get('/get/plans', 'getActivePlan');
+        Route::get('get/stripe/invoices', 'getInvoices');
+        Route::get('/get/stripe/paid/invoices', 'PaidInvoice');
+        Route::get('/get/stripe/unpaid/invoices', 'UnpaidInvoice');
+        Route::get('/get/subscribers', 'Subscribers');
         });
     });
 });

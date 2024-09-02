@@ -2,15 +2,26 @@
 
 namespace App\Services;
 
+use App\Models\AdminBilling;
 use App\Models\Plan;
+use Stripe\Stripe;
 use App\Models\UserSubscription;
 
 class StripePayment
 {
+    protected $stripe;
+    protected $stripeClient;
+    protected $stripeKey;
 
+
+    public function __construct()
+    {
+        $this->stripeKey =  Stripe::setApiKey('sk_test_51P7LhqRxBSKsFyqbRwW3yHYcBxVldQori1jhWvT2yS8VtNSloJWAlI4bB2Yyqwh1ywjJeU6oMWUkAxSMKbldViKb00SP28Wht2');
+        $this->stripeClient = new \Stripe\StripeClient('sk_test_51P7LhqRxBSKsFyqbRwW3yHYcBxVldQori1jhWvT2yS8VtNSloJWAlI4bB2Yyqwh1ywjJeU6oMWUkAxSMKbldViKb00SP28Wht2');
+    }
     public function createPlan($request)
     {
-        $stripe = new \Stripe\StripeClient('sk_test_51P7LhqRxBSKsFyqbRwW3yHYcBxVldQori1jhWvT2yS8VtNSloJWAlI4bB2Yyqwh1ywjJeU6oMWUkAxSMKbldViKb00SP28Wht2');
+        $stripe =   $this->stripeClient;
         $stripes = $stripe->products->create([
             'name' => $request->name,
             'default_price_data' => [
@@ -51,7 +62,7 @@ class StripePayment
 
     public function UpdatePlan($request)
     {
-        $stripe = new \Stripe\StripeClient('sk_test_51P7LhqRxBSKsFyqbRwW3yHYcBxVldQori1jhWvT2yS8VtNSloJWAlI4bB2Yyqwh1ywjJeU6oMWUkAxSMKbldViKb00SP28Wht2');
+        $stripe =  $this->stripeClient;
         $stripes = $stripe->products->update($request->stripe_product_id, ['name' => $request->name]);
         return $stripes;
     }
@@ -62,5 +73,117 @@ class StripePayment
         $plan = Plan::latest()->first();
         return $plan;
     }
+
+    public function GetStripeInvoicesTotal()
+    {
+        $invoices = \Stripe\Invoice::all([]);
+        $amount = 0;
+        $count = 0;
+        foreach($invoices as $invoice)
+        {
+                $amount += $invoice->amount_due/100;
+                $count++;
+            
+        }
+      $billing = AdminBilling::latest()->first();
+      if($billing)
+      {
+        $billing->update(['total_invoices' => $count, 'total_invoice_amount' => $amount]);
+      }else
+      {
+        AdminBilling::create(['total_invoices' => $count, 'total_invoice_amount' => $amount]);
+      }
+        return $billing;
+
+    }
+
+    public function GetPaidInvoices()
+    {
+        $invoices = \Stripe\Invoice::all([
+            'status' => 'paid'
+        ]);
+        $amount = 0;
+        $count = 0;
+        foreach($invoices as $invoice)
+        {
+                $amount += $invoice->amount_due/100;
+                $count++;
+            
+        }
+      $billing = AdminBilling::latest()->first();
+      if($billing)
+      {
+        $billing->update(['paid_invoice' => $count, 'paid_invoice_amount' => $amount]);
+      }
+
+        return $billing;
+    }
+
+    public function GetUnPaidInvoices()
+    {
+        $invoices = \Stripe\Invoice::all([
+            'status' => 'open'
+        ]);
+        $amount = 0;
+        $count = 0;
+        $overdue_invoices = [];
+        $overDue_amount = 0;
+
+        foreach($invoices as $invoice)
+        {
+                $amount += $invoice->amount_due/100;
+                $count++;
+                if (isset($invoice->due_date) && $invoice->due_date < time()) {
+                    $overdue_invoices[] = $invoice;
+                }
+            
+        }
+      $billing = AdminBilling::latest()->first();
+      if($billing)
+      {
+        foreach($overdue_invoices as $overdus)
+        {
+            $overDue_amount += $overdus->amount_due/100;
+        }
+        $billing->update([
+            'unpaid_invoice' => $count,
+             'unpaid_invoice_amount' => $amount,
+             'overdue_invoices' => count($overdue_invoices),
+             'overdue_invoices_amount' => $overDue_amount
+            ]);
+      }
+      
+        return $billing;
+    }
+
+    public function getActiveSubsribers()
+    {
+        $active = []; $inactive = [];
+        $subscribers =\Stripe\Subscription::all([]);
+        if(!empty($subscribers))
+        { 
+            foreach($subscribers as $subs)
+            {
+                if($subs->status == "active")
+                {
+                    $active[] = $subs;
+                }else
+                {
+                   $inactive[] = $subs; 
+                }
+            }
+        }
+      $billing = AdminBilling::latest()->first();
+    
+        $billing->update([
+            'active_subscriptions' => count($active),
+            'cancelled_subscriptions' => count($inactive)
+            ]);
+      
+        return $billing;
+
+    }
+    
+
 
 }
