@@ -78,79 +78,27 @@ class StripePayment
         return $plan;
     }
 
-    public function GetStripeInvoicesTotal()
+    public function GetStripeInvoices($amount = 0, $count = 0, $total_open=0, $open_amount = 0, $paid_amount = 0,$overDue_amount = 0, $active = [], $inactive = [], $overdue_invoice=0)
     {
         $invoices = \Stripe\Invoice::all([]);
-        $amount = 0;
-        $count = 0;
         foreach ($invoices as $invoice) {
             $amount += $invoice->amount_due / 100;
-            $count++;
-        }
-        $billing = AdminBilling::latest()->first();
-        if ($billing) {
-            $billing->update(['total_invoices' => $count, 'total_invoice_amount' => $amount]);
-        } else {
-            AdminBilling::create(['total_invoices' => $count, 'total_invoice_amount' => $amount]);
-        }
-        return $billing;
-    }
-
-    public function GetPaidInvoices()
-    {
-        $invoices = \Stripe\Invoice::all([
-            'status' => 'paid'
-        ]);
-        $amount = 0;
-        $count = 0;
-        foreach ($invoices as $invoice) {
-            $amount += $invoice->amount_due / 100;
-            $count++;
-        }
-        $billing = AdminBilling::latest()->first();
-        if ($billing) {
-            $billing->update(['paid_invoice' => $count, 'paid_invoice_amount' => $amount]);
-        }
-        return $billing;
-    }
-
-    public function GetUnPaidInvoices()
-    {
-        $invoices = \Stripe\Invoice::all([
-            'status' => 'open'
-        ]);
-        $amount = 0;
-        $count = 0;
-        $overdue_invoices = [];
-        $overDue_amount = 0;
-
-        foreach ($invoices as $invoice) {
-            $amount += $invoice->amount_due / 100;
-            $count++;
+            if($invoice->status == 'paid')
+            {
+                $total_paid = count($invoice);
+                $paid_amount += $invoice->amount_due/100;
+            }
+            if($invoice->status == 'open')
+            {
+                $total_open = count($invoice);
+                $open_amount += $invoice->amount_due/100;
+            }
             if (isset($invoice->due_date) && $invoice->due_date < time()) {
-                $overdue_invoices[] = $invoice;
+                $overdue_invoice = count($invoice);
+                $overDue_amount += $invoice->amount_due / 100;
             }
+            $count++;
         }
-        $billing = AdminBilling::latest()->first();
-        if ($billing) {
-            foreach ($overdue_invoices as $overdus) {
-                $overDue_amount += $overdus->amount_due / 100;
-            }
-            $billing->update([
-                'unpaid_invoice' => $count,
-                'unpaid_invoice_amount' => $amount,
-                'overdue_invoices' => count($overdue_invoices),
-                'overdue_invoices_amount' => $overDue_amount
-            ]);
-        }
-
-        return $billing;
-    }
-
-    public function getActiveSubsribers()
-    {
-        $active = [];
-        $inactive = [];
         $subscribers = \Stripe\Subscription::all([]);
         if (!empty($subscribers)) {
             foreach ($subscribers as $subs) {
@@ -161,55 +109,67 @@ class StripePayment
                 }
             }
         }
-        $billing = AdminBilling::latest()->first();
-
-        $billing->update([
-            'active_subscriptions' => count($active),
-            'cancelled_subscriptions' => count($inactive)
-        ]);
-
-        return $billing;
+        $this->TapInvoice($invoices);
+        $this->processBilling($count, $amount, $total_paid, $paid_amount, $total_open, $open_amount, $overdue_invoice, $overDue_amount,$active, $inactive);
+           $data['subscription_summary'] = AdminBilling::latest()->first();
+           $data['monthly_invoice'] = Invoices::whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(7)->endOfDay()])->count();
+           $data['total_invoice'] = Invoices::count();
+           $data['total_paid'] = Invoices::where('status', 'paid')->count();
+           $data['paid_monthly'] = Invoices::where('status', 'paid')->whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(1)->endOfDay()])->count();
+           $data['total_unpaid'] = Invoices::where('status', 'open')->count();
+           $data['unpaid_monthly'] = Invoices::where('status', 'open')->whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(1)->endOfDay()])->count();
+            $data['invoices'] = Invoices::latest()->get();
+            return $data;
     }
 
 
-    public function UpdateInvoiceTable()
+    protected function TapInvoice($invoices)
     {
-        $invoices = \Stripe\Invoice::all([
-            'status' => 'paid'
-        ]);
         foreach ($invoices as $invoice) {
             $bill = UserSubscription::where('customer', $invoice->customer)->first();
-            Invoices::create([
-                'user_id' => $bill?->user_id,
-                'customer' => $invoice->customer,
-                'customer_email'=> $invoice->customer_email,
+            Invoices::updateOrcreate([
                 'invoice_id'=> $invoice->id,
-                'amount_due'=> $invoice->amount_due/100,
-                'amount_paid'=> $invoice->amount_paid/100 ,
-                'amount_remaining'=> $invoice->amount_remaining/100,
-                'currency'=> $invoice->currency,
-                'customer_name'=> $invoice->customer_name,
-                'hosted_invoice_url'=> $invoice->hosted_invoice_url,
-                'invoice_pdf'=> $invoice->invoice_pdf,
-                'description'=> $invoice->description,
-                'invoice_date'=> date('d-m-Y', $invoice->created),
-                'due_date'=> date('d-m-Y',$invoice->due_date),
-                'total' => $invoice->total/100,
-                'status' => $invoice->status
-            ]);
-        }
-        return Invoices::latest()->get();
+            ],
+          [
+            'user_id' => $bill?->user_id,
+            'customer' => $invoice->customer,
+            'customer_email'=> $invoice->customer_email,
+            'invoice_id'=> $invoice->id,
+            'amount_due'=> $invoice->amount_due/100,
+            'amount_paid'=> $invoice->amount_paid/100 ,
+            'amount_remaining'=> $invoice->amount_remaining/100,
+            'currency'=> $invoice->currency,
+            'customer_name'=> $invoice->customer_name,
+            'hosted_invoice_url'=> $invoice->hosted_invoice_url,
+            'invoice_pdf'=> $invoice->invoice_pdf,
+            'description'=> $invoice->description,
+            'invoice_date'=> date('d-m-Y', $invoice->created),
+            'due_date'=> date('d-m-Y',$invoice->due_date),
+            'total' => $invoice->total/100,
+            'status' => $invoice->status
+        ]);
+    }
     }
 
-    public function InvoiceMatrics()
+    protected function processBilling($count, $amount, $total_paid, $paid_amount, $total_open, $open_amount, $overdue_invoice, $overDue_amount,$active, $inactive)
     {
-        $Monthlyinvoice = Invoices::whereBetween('create_at', Carbon::now(),  Carbon::now()->addDays(31))->count();
-        $Total_invoice = Invoices::count();
-        $total_paid = Invoices::where('status', 'paid')->get();
-        $paid_monthly = Invoices::where('status', 'paid')->wherBetween('created_at', Carbon::now(),  Carbon::now()->addDays(31))->count();
-        $total_unpaid = Invoices::where('status', 'open')->get();
-        $unpaid_monthly = Invoices::where('status', 'open')->wherBetween('created_at', Carbon::now(),  Carbon::now()->addDays(31))->count();
-        
-
+        AdminBilling::updateOrcreate(
+            [
+                'id' => 1
+            ],
+            [    
+            'total_invoices' => $count??0,
+             'total_invoice_amount' => $amount??0,
+             'paid_invoice' => $total_paid??0,
+             'paid_invoice_amount' => $paid_amount??0,
+             'unpaid_invoice' => $total_open??0,
+             'unpaid_invoice_amount' => $open_amount??0,
+             'overdue_invoices' =>$overdue_invoice??0,
+             'overdue_invoices_amount' => $overDue_amount??0,
+             'active_subscriptions' => count($active),
+             'cancelled_subscriptions' => count($inactive)
+        ]);
     }
+
+
 }

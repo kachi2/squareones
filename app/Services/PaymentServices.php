@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Models\Billing;
 use App\Models\CompanyEntity;
+use App\Models\Invoices;
 use App\Models\Notification;
 use App\Models\Plan;
 use App\Models\User;
@@ -22,6 +23,7 @@ use App\Services\BaseClient;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Stripe\Invoice;
 
 class PaymentServices implements PaymentInterface
 {
@@ -89,7 +91,7 @@ class PaymentServices implements PaymentInterface
             if ($session->status == 'complete') {
                 if ($billing ) {
                     $billing->update(['status' => $session->status, 'date_paid' => Carbon::now()]);
-                    // $this->SendNotification($user,$billing,$company, $paymentInfo, $session);
+                    $this->SendNotification($user,$billing,$company, $paymentInfo, $session);
                      $Subs = $this->AddBillingInfo($paymentInfo, $billing);
                     $companies = CompanyEntity::where('company_id', $billing->company_id)->get();
                     foreach ($companies as $companyEntity) {
@@ -97,8 +99,8 @@ class PaymentServices implements PaymentInterface
                         $datas['company_entity_id'] = $companyEntity->id;
                         ProcessFounderKyc::dispatch($datas);
                     }
-                    //  $user->notify(new CompanyFomationCompleted($company));
-                    //  $user->notify(new PaymentCompleted($Subs));
+                     $user->notify(new CompanyFomationCompleted($company));
+                     $user->notify(new PaymentCompleted($Subs));
 
                     return $company;
                 }
@@ -170,12 +172,10 @@ class PaymentServices implements PaymentInterface
             'title' => 'New Incoming Payment',
             'content' => `The payment of  $billing->amount  was received from $user?->name  for their company registration`,
             'admin_id' => 1
-        ]);
-       
-        
+        ]);  
     }
 
-    public function processStripeRequest($billing,) 
+    public function processStripeRequest($billing) 
     {
         $stripe = $this->stripeClient;
         $session = $stripe->checkout->sessions->retrieve($billing->payment_intent);
@@ -184,39 +184,34 @@ class PaymentServices implements PaymentInterface
         return [$session, $stripe, $paymentInfo];
     }
 
-   
+   public function getUserInvoice()
+   {
+    $data['invoice'] = Invoices::where('user_id', auth_user())->get();
+    $data['unpaid'] = Invoices::where(['user_id' => auth_user(), 'status' => 'open'])->get();
+    $data['paid'] = Invoices::where(['user_id' => auth_user(), 'status' => 'paid'])->get();
+    $data['monthly_paid'] = Invoices::whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(7)->endOfDay()])->where(['user_id' => auth_user(), 'status' => 'paid'])->get();
+    $data['monthly_unpaid'] = Invoices::whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(7)->endOfDay()])->where(['user_id' => auth_user(), 'status' => 'open'])->get();
+    return $data;
+   }
 
-    public function InitiateSubscriptionPayment($request)
-    {
-        $user = User::where('id',auth_user())->first();
-        $plan = Plan::latest()->first();
-        $checkout = $user
-                 ->newSubscription($plan->stripe_product_id, $plan->default_price_id)
-                ->checkout([
-                    'success_url' => route('ProcessPayment'),
-                    'cancel_url' => url('/start_company'),
-        ]);
-
-        return response()->json([
-             "headers" => "",
-           "original" =>   $checkout->url,
-            "exception" => ''
-        ]);
-
-    }
+   public function getSubcriptionStatus()
+   {
+    $data['subscription'] = UserSubscription::where('user_id', auth_user())->latest()->get();
+    $data['active_subs'] = UserSubscription::where(['user_id' => auth_user(), 'status' => 'active'])->latest()->get();
+    $data['cancelled_subs'] = UserSubscription::where(['user_id' => auth_user(), 'status' => 'active'])->latest()->get();
+  return $data;
+}
 
 
-    public function CreateSubscription($customer)
-    {
-         $customer = UserSubscription::where('customer', $customer)->first();
-        $strp = $this->stripeClient ->subscriptions->create([
-            'customer' => $customer->customer,
-            'items' => [['price' => $customer->default_price_id]],
-          ]);
-        dd($strp);
 
-    }
+   //turn on subscription
+   //turn off  subscriotion
 
+   //view unpaid invoice
+   //link to pay
+   //view invoice 
+   //view payment history
+   //issues are : how to get user id for webhook invoices, and when there two customer id for a particular user, how to manage that
 
 
 }

@@ -50,46 +50,13 @@ class PaymentController extends Controller
     public function getInvoices()
     {
         try{
-        $stripe = $this->stripePayment->GetStripeInvoicesTotal();
+        $stripe = $this->stripePayment->GetStripeInvoices();
         return response()->json(['data' => $stripe], HttpStatusCode::OK);
     }catch(\Exception $e){
         return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
        }
     }
 
-    public function PaidInvoice()
-    {
-        try{
-        $stripe = $this->stripePayment->GetPaidInvoices();
-        return response()->json(['data' => $stripe], HttpStatusCode::OK);
-    }catch(\Exception $e){
-        return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
-       }
-    }
-    public function UnpaidInvoice()
-    {
-        try{
-        $stripe = $this->stripePayment->GetUnPaidInvoices();
-        return response()->json(['data' => $stripe], HttpStatusCode::OK);
-    }catch(\Exception $e){
-        return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
-       }
-    }
 
-    public function Subscribers()
-    {
-        try{
-        $stripe = $this->stripePayment->getActiveSubsribers();
-        return response()->json(['data' => $stripe], HttpStatusCode::OK);
-    }catch(\Exception $e){
-        return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
-       }
-    }
-
-    public function updateInvoices() 
-    {
-        $invoice = $this->stripePayment->UpdateInvoiceTable();
-        return $invoice;
-    }
     
 }
