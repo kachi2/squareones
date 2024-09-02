@@ -37,10 +37,10 @@ class StripePayment
         ]);
 
         if ($stripes) {
-            $this->PlanTable($stripes);
+           $str = $this->PlanTable($stripes);
         }
 
-        return $stripes;
+        return $str;
     }
 
 
@@ -111,16 +111,11 @@ class StripePayment
         }
         $this->TapInvoice($invoices);
         $this->processBilling($count, $amount, $total_paid, $paid_amount, $total_open, $open_amount, $overdue_invoice, $overDue_amount,$active, $inactive);
-           $data['subscription_summary'] = AdminBilling::latest()->first();
-           $data['monthly_invoice'] = Invoices::whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(7)->endOfDay()])->count();
-           $data['total_invoice'] = Invoices::count();
-           $data['total_paid'] = Invoices::where('status', 'paid')->count();
-           $data['paid_monthly'] = Invoices::where('status', 'paid')->whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(1)->endOfDay()])->count();
-           $data['total_unpaid'] = Invoices::where('status', 'open')->count();
-           $data['unpaid_monthly'] = Invoices::where('status', 'open')->whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(1)->endOfDay()])->count();
-            $data['invoices'] = Invoices::latest()->get();
+         $data = $this->generateData();
             return $data;
     }
+
+
 
 
     protected function TapInvoice($invoices)
@@ -151,6 +146,8 @@ class StripePayment
     }
     }
 
+
+
     protected function processBilling($count, $amount, $total_paid, $paid_amount, $total_open, $open_amount, $overdue_invoice, $overDue_amount,$active, $inactive)
     {
         AdminBilling::updateOrcreate(
@@ -169,6 +166,20 @@ class StripePayment
              'active_subscriptions' => count($active),
              'cancelled_subscriptions' => count($inactive)
         ]);
+    }
+
+    
+    protected function generateData()
+    {
+        $data['subscription_summary'] = AdminBilling::latest()->first();
+        $data['monthly_invoice'] = Invoices::whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(7)->endOfDay()])->count();
+        $data['total_invoice'] = Invoices::count();
+        $data['total_paid'] = Invoices::where('status', 'paid')->count();
+        $data['paid_monthly'] = Invoices::where('status', 'paid')->whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(1)->endOfDay()])->count();
+        $data['total_unpaid'] = Invoices::where('status', 'open')->count();
+        $data['unpaid_monthly'] = Invoices::where('status', 'open')->whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(1)->endOfDay()])->count();
+         $data['invoices'] = Invoices::latest()->get();
+         return $data;
     }
 
 
