@@ -9,6 +9,7 @@ use App\Models\Plan;
 use Stripe\Stripe;
 use App\Models\UserSubscription;
 use Carbon\Carbon;
+use Stripe\Invoice;
 
 class StripePayment
 {
@@ -92,7 +93,7 @@ class StripePayment
         } else {
             AdminBilling::create(['total_invoices' => $count, 'total_invoice_amount' => $amount]);
         }
-        return $invoices;
+        return $billing;
     }
 
     public function GetPaidInvoices()
@@ -198,5 +199,17 @@ class StripePayment
             ]);
         }
         return Invoices::latest()->get();
+    }
+
+    public function InvoiceMatrics()
+    {
+        $Monthlyinvoice = Invoices::whereBetween('create_at', Carbon::now(),  Carbon::now()->addDays(31))->count();
+        $Total_invoice = Invoices::count();
+        $total_paid = Invoices::where('status', 'paid')->get();
+        $paid_monthly = Invoices::where('status', 'paid')->wherBetween('created_at', Carbon::now(),  Carbon::now()->addDays(31))->count();
+        $total_unpaid = Invoices::where('status', 'open')->get();
+        $unpaid_monthly = Invoices::where('status', 'open')->wherBetween('created_at', Carbon::now(),  Carbon::now()->addDays(31))->count();
+        
+
     }
 }
