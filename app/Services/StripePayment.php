@@ -25,6 +25,8 @@ class StripePayment
     }
     public function createPlan($request)
     {
+        $plan = Plan::first();
+        if($plan->stripe_product_id){
         $stripe =   $this->stripeClient;
         $stripes = $stripe->products->create([
             'name' => $request->name,
@@ -35,12 +37,16 @@ class StripePayment
             ],
             'expand' => ['default_price'],
         ]);
-
         if ($stripes) {
            $str = $this->PlanTable($stripes);
         }
 
+
         return $str;
+    }
+    return [
+        'error' => 'Product already exist'
+    ];
     }
 
 
@@ -48,10 +54,7 @@ class StripePayment
 
     public function PlanTable($stripe)
     {
-        Plan::UpdateOrcreate(
-            [
-                'plan' => $stripe->name
-            ],
+       $plan = Plan::create(
             [
                 'plan'  => $stripe->name,
                 'amount' => $stripe->default_price->unit_amount,
@@ -62,6 +65,7 @@ class StripePayment
                 'recurring' => $stripe->default_price->recurring->interval,
             ]
         );
+        return $plan;
     }
 
     public function UpdatePlan($request)

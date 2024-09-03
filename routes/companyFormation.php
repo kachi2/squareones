@@ -53,6 +53,10 @@ Route::post('/build/pdf/', 'BuildPDF');
 
 Route::post('/retrieve/shareholders/{company_id}', [CompanySharesController::class,'RetrieveShareholders']);
 Route::get('payment/intent', [PaymentController::class, 'PaymentIntent']);
+Route::get('/get/user/subscription', [PaymentController::class,'getSubcription']);
+Route::get('create/subscription', [PaymentController::class, 'createSubscription']);
+Route::get('subscription/cancel/{subscriptionId?}', [PaymentController::class, 'cancelSubscription']);
+// Route::get('subscription/resume/{subscriptionId?}', [PaymentController::class, 'resumeSubscription']);
 // Route::get('/process/payment', [PaymentController::class, 'ProcessPayment'])->name('process.payment'); 
 Route::get('kyc/load', [KycController::class, 'loadKyc']);
 

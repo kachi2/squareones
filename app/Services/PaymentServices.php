@@ -20,7 +20,7 @@ use Stripe\Stripe;
 use App\Notifications\CompanyFomationCompleted;
 use Carbon\Carbon;
 use App\Services\BaseClient;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Stripe\Invoice;
@@ -50,19 +50,19 @@ class PaymentServices implements PaymentInterface
             $payment_ref = generateRef(10);
             $stripe = $this->stripeClient;
             $session = $stripe->checkout->sessions->create([
-                'payment_method_types' => ['card'],
-                'line_items' => [[
-                    'price' => $plans->default_price_id, 
-                    // 'price_data' => [
-                    //     'currency' => $plans->currency,
-                    //     'product_data' => [
-                    //         'name' => $plans->plan,
-                    //     ],
-                    //     'unit_amount' => $plans->amount * 100,
-                    // ],
-                    'quantity' => 1,
-                ]],
-                'mode' => 'subscription',
+            'payment_method_types' => ['card'],
+            'customer_creation' => 'always',
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => $plans->currency,
+                    'product_data' => [
+                        'name' => $plans->plan,
+                    ],
+                    'unit_amount' => $plans->amount * 100,
+                ],
+                'quantity' => 1,
+            ]],
+                'mode' => 'payment',
                 'saved_payment_method_options' => ['payment_method_save' => 'enabled'],
                 // 'success_url' => url('/kcy/verifications'),
                 'success_url' => route('ProcessPayment'),
@@ -99,15 +99,21 @@ class PaymentServices implements PaymentInterface
                         $datas['company_entity_id'] = $companyEntity->id;
                         ProcessFounderKyc::dispatch($datas);
                     }
-                     $user->notify(new CompanyFomationCompleted($company));
-                     $user->notify(new PaymentCompleted($Subs));
+                    //  $user->notify(new CompanyFomationCompleted($company));
+                    //  $user->notify(new PaymentCompleted($Subs));
 
                     return $company;
                 }
-                return false;
+                return 
+                [
+                    "error" => "No company active found", 203
+                ];
             }
         }
-        return false;
+        return 
+        [
+            'error' => 'Payment link expired or broken, please contact support', 203
+        ];
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -155,7 +161,7 @@ class PaymentServices implements PaymentInterface
             $sub->update([
                 'contact_person' => $data['name'],
                 'customer' => $paymentInfo['customer'],
-                'default_payment_method' => $paymentInfo['type'],
+                'default_payment_method' => $paymentInfo['id'],
                 'charge_automatically' => 1
             ]);
         }
@@ -168,18 +174,18 @@ class PaymentServices implements PaymentInterface
             'content' => `Hi,  $user?->name   Your payment  $billing?->amount for compamy registration is completed`,
             'user_id' => $user->id
         ]);
-        AdminNotification::create([
-            'title' => 'New Incoming Payment',
-            'content' => `The payment of  $billing->amount  was received from $user?->name  for their company registration`,
-            'admin_id' => 1
-        ]);  
+        // AdminNotification::create([
+        //     'title' => 'New Incoming Payment',
+        //     'content' => `The payment of  $billing->amount  was received from $user?->name  for their company registration`,
+        //     'admin_id' => 1
+        // ]);  
     }
 
     public function processStripeRequest($billing) 
     {
         $stripe = $this->stripeClient;
         $session = $stripe->checkout->sessions->retrieve($billing->payment_intent);
-        $intent =  \Stripe\PaymentIntent::all(['limit' => 10, 'customer' => $session['customer']]);
+        $intent =  \Stripe\PaymentIntent::all(['limit' => 2, 'customer' => $session['customer']]);
         $paymentInfo = $stripe?->paymentMethods?->retrieve($intent['data']['0']['payment_method'], []);
         return [$session, $stripe, $paymentInfo];
     }
@@ -200,7 +206,56 @@ class PaymentServices implements PaymentInterface
     $data['active_subs'] = UserSubscription::where(['user_id' => auth_user(), 'status' => 'active'])->latest()->get();
     $data['cancelled_subs'] = UserSubscription::where(['user_id' => auth_user(), 'status' => 'active'])->latest()->get();
   return $data;
-}
+  } 
+
+  public function createSubscription()
+  {
+    $user = User::where('id', auth_user())->first();
+    $plan = Plan::latest()->first();
+    $subsc = UserSubscription::where(['user_id' => auth_user(), 'company_id' => $user->activeCompany()->id])->first();
+    $stripe = $this->stripeClient;
+     \Stripe\Customer::update(
+        $subsc->customer,
+        [
+            'invoice_settings' => [
+                'default_payment_method' => $subsc->default_payment_method,
+            ]
+        ]
+      );
+    $subscription = $stripe->subscriptions->create([
+        'customer' => $subsc->customer,
+        'items' => [['price' => $plan->default_price_id]],
+        ]);
+    
+    $subsc->update([
+        'subscription_id' => $subscription->id,
+        'status' => 'active'
+    ]);
+
+    return $subsc;
+  }
+
+  public function cancelSubscription($subscription)
+  {
+    $stripe = $this->stripeClient;
+    $userSub = UserSubscription::where('subscription_id',$subscription)->first();
+     $stripe->subscriptions->cancel($subscription, []);
+    $userSub->update(['status' => 'cancelled']);
+    return $userSub; 
+
+  }
+
+
+// public function resumeSubscription($subscription)
+// {
+//     $stripe = $this->stripeClient;
+//     $stripe->subscriptions->resume($subscription,['billing_cycle_anchor' => 'now']);
+//    $userSub = UserSubscription::where('subscription_id',$subscription)->first();
+//   $userSub->update(['status' => 'active']);
+//   return $userSub;
+// }
+
+
 
 
 

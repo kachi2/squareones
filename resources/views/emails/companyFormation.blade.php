@@ -31,7 +31,7 @@
                                                 <tr>
                                                     <td width="150">Selected Company Names</td>
                                                     <td width="25"> 
-                                                       @foreach ($compnay->names as  $name)
+                                                       @foreach ($company->names as  $name)
                                                            <p> {{$name->eng_name}} {{$name->chn_eng_name}} </p>
                                                        @endforeach
                                                     </td>
@@ -39,7 +39,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td width="150">Company Shares Information</td>
-                                                    <td width="25">  <p> Share Type: ORDINARY</p> <P>Share Amount: {{$company->Shares[0]->}}</P>  </td>
+                                                    <td width="25">  <p> Share Type: ORDINARY</p> <P>Share Amount: {{$company->Shares[0]->amount}}</P>  </td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>

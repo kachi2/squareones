@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
             $table->string('plan')->nullable();
-            $table->double('amount')->nullable();
+            $table->string('amount')->nullable();
             $table->string('duration')->nullable();
             $table->string('currency')->nullable();
             $table->string('stripe_product_id')->nullable();

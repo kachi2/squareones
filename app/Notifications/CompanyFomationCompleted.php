@@ -40,7 +40,7 @@ class CompanyFomationCompleted extends Notification
         return (new MailMessage)
                     ->subject('Company Formation Completed')
                     ->from('support@portrec.ng', 'SquareOne')
-                    ->view('emails.companyFormation', ['incorporated' =>$this->company]);
+                    ->view('emails.companyFormation', ['company' =>$this->company]);
     }
 
     /**

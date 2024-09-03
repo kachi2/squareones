@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('plan_id')->nullable();
             $table->dateTime('expiry_date')->nullable();
             $table->string('contact_person')->nullable();
+            $table->string('subscription_id')->nullable();
             $table->double('amount_paid')->nullable();
             $table->string('payment_id')->nullable();
             $table->string('customer')->nullable();

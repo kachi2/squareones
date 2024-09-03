@@ -23,10 +23,6 @@ class PaymentController extends Controller
     {  
     }
 
-    public function PaymentIntents(Request $request){
-     return $this->paymentInterface->InitiateSubscriptionPayment($request);
-    
-    }
 
     public function PaymentIntent(Request $request){
         $paymentIntent = $this->paymentInterface->PaymentIntent($request);
@@ -42,6 +38,25 @@ class PaymentController extends Controller
         $procespayment
     ]);
 }
+
+public function getSubcription()
+{
+    return $this->paymentInterface->getSubcriptionStatus();
+}
+public function createSubscription()
+{
+    return $this->paymentInterface->createSubscription();
+}
+
+public function cancelSubscription($subcription_id)
+{
+    return $this->paymentInterface->cancelSubscription($subcription_id);
+}
+
+// public function resumeSubscription($subcription_id)
+// {
+//     return $this->paymentInterface->resumeSubscription($subcription_id);
+// }
 
 
 

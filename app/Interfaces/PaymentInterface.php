@@ -12,6 +12,10 @@ public function processStripeRequest($billing);
 public function SendNotification($user,$billing);
 public function AddBillingInfo($paymentInfo, $billing);
 public function AddSubscriptionInfo($company,$session, $payment_ref, $plans);
+public function createSubscription();
+public function getSubcriptionStatus();
+public function cancelSubscription($subscription);
+// public function resumeSubscription($subscription);
 
 
 }
