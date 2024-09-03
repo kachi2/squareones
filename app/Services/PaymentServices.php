@@ -204,7 +204,7 @@ class PaymentServices implements PaymentInterface
    {
     $data['subscription'] = UserSubscription::where('user_id', auth_user())->latest()->get();
     $data['active_subs'] = UserSubscription::where(['user_id' => auth_user(), 'status' => 'active'])->latest()->get();
-    $data['cancelled_subs'] = UserSubscription::where(['user_id' => auth_user(), 'status' => 'active'])->latest()->get();
+    $data['cancelled_subs'] = UserSubscription::where(['user_id' => auth_user(), 'status' => 'cancelled'])->latest()->get();
   return $data;
   } 
 
@@ -245,6 +245,7 @@ class PaymentServices implements PaymentInterface
 
   }
 
+  //update user payment method
 
 // public function resumeSubscription($subscription)
 // {
@@ -256,16 +257,6 @@ class PaymentServices implements PaymentInterface
 // }
 
 
-
-
-
-   //turn on subscription
-   //turn off  subscriotion
-
-   //view unpaid invoice
-   //link to pay
-   //view invoice 
-   //view payment history
    //issues are : how to get user id for webhook invoices, and when there two customer id for a particular user, how to manage that
 
 
