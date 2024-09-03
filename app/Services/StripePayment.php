@@ -184,13 +184,11 @@ class StripePayment
     protected function generateData()
     {
         $data['subscription_summary'] = AdminBilling::latest()->first();
-        $data['monthly_invoice'] = Invoices::whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(7)->endOfDay()])->count();
-        $data['total_invoice'] = Invoices::count();
-        $data['total_paid'] = Invoices::where('status', 'paid')->count();
-        $data['paid_monthly'] = Invoices::where('status', 'paid')->whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(1)->endOfDay()])->count();
-        $data['total_unpaid'] = Invoices::where('status', 'open')->count();
-        $data['unpaid_monthly'] = Invoices::where('status', 'open')->whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(1)->endOfDay()])->count();
-         $data['invoices'] = Invoices::latest()->get();
+        $data['invoice_paid_this_monthly'] = Invoices::where('status', 'paid')->whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(1)->endOfDay()])->count();
+        $data['invoice_paid_monthly_amount'] = Invoices::where('status', 'paid')->whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(1)->endOfDay()])->sum('amount_due');
+        $data['invoice_unpaid_monthly'] = Invoices::where('status', 'open')->whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(1)->endOfDay()])->count();
+        $data['invoice_unpaid_monthly_amount'] = Invoices::where('status', 'open')->whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(1)->endOfDay()])->sum('amount_due');
+        $data['invoices'] = Invoices::latest()->get();
          return $data;
     }
 

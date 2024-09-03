@@ -246,6 +246,11 @@ class PaymentServices implements PaymentInterface
   }
 
   //update user payment method
+  //add monthly items on invoices
+  //add company on invoices
+
+
+  
 
 // public function resumeSubscription($subscription)
 // {
@@ -255,9 +260,5 @@ class PaymentServices implements PaymentInterface
 //   $userSub->update(['status' => 'active']);
 //   return $userSub;
 // }
-
-
-   //issues are : how to get user id for webhook invoices, and when there two customer id for a particular user, how to manage that
-
 
 }
