@@ -72,9 +72,15 @@ class StripePayment
     {
         $stripe =  $this->stripeClient;
         $stripes = $stripe->products->update($request->stripe_product_id, ['name' => $request->name]);
-        $plan = Plan::first();
+        if($stripes){
+        $plan = Plan::where('stripe_product_id', $request->stripe_product_id)->first();
         $plan?->update(['name' => $request->name]);
         return $stripes;
+        }
+        return [
+            'error'=>'request failed',
+        ];
+
     }
 
 
