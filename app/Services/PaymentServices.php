@@ -64,8 +64,8 @@ class PaymentServices implements PaymentInterface
             ]],
                 'mode' => 'payment',
                 'saved_payment_method_options' => ['payment_method_save' => 'enabled'],
-                // 'success_url' => url('/kcy/verifications'),
-                'success_url' => route('ProcessPayment'),
+                'success_url' => url('/kcy/verifications'),
+                // 'success_url' => route('ProcessPayment'),
                 'cancel_url' => url('/start_company'),
             ]);
             $company = Company::where(['user_id' => 1, 'is_complete' => 0])->first();
