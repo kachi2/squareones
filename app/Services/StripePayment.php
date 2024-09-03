@@ -45,7 +45,7 @@ class StripePayment
         return $str;
     }
     return [
-        'error' => 'Product already exist'
+        'error' => 'You already have an existing plan, you can only  update plan  at this time'
     ];
     }
 
@@ -72,6 +72,8 @@ class StripePayment
     {
         $stripe =  $this->stripeClient;
         $stripes = $stripe->products->update($request->stripe_product_id, ['name' => $request->name]);
+        $plan = Plan::first();
+        $plan?->update(['name' => $request->name]);
         return $stripes;
     }
 
