@@ -192,7 +192,7 @@ class PaymentServices implements PaymentInterface
 
    public function getUserInvoice()
    {
-    $data['invoice'] = Invoices::where('user_id', auth_user())->paginate(10);
+    $data['invoice'] = Invoices::where('user_id', auth_user())->paginate(10)->with('subscription');
     $data['unpaid'] = Invoices::where(['user_id' => auth_user(), 'status' => 'open'])->get();
     $data['paid'] = Invoices::where(['user_id' => auth_user(), 'status' => 'paid'])->get();
     $data['monthly_paid'] = Invoices::whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(7)->endOfDay()])->where(['user_id' => auth_user(), 'status' => 'paid'])->get();

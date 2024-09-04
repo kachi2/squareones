@@ -13,5 +13,8 @@ class Invoices extends Model
             'user_id', 'customer', 'customer_email', 'invoice_id', 'amount_due', 'amount_paid', 'amount_remaining', 'currency', 'customer_name', 'hosted_invoice_url', 'invoice_pdf', 'description', 'invoice_date', 'due_date', 'total', 'status'
     ];
 
-    
+    public function subscription()
+    {
+        return $this->belongsTo(UserSubscription::class, 'customer', 'customer');
+    }
 }
