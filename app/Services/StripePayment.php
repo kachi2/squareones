@@ -124,7 +124,7 @@ class StripePayment
         $this->TapInvoice($invoices);
         $this->processBilling($count, $amount, $total_paid, $paid_amount, $total_open, $open_amount, $overdue_invoice, $overDue_amount,$active, $inactive);
          $data = $this->generateData();
-         
+
             return $data;
     }
 
@@ -189,7 +189,7 @@ class StripePayment
         $data['invoice_paid_monthly_amount'] = Invoices::where('status', 'paid')->whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(1)->endOfDay()])->sum('amount_due');
         $data['invoice_unpaid_monthly'] = Invoices::where('status', 'open')->whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(1)->endOfDay()])->count();
         $data['invoice_unpaid_monthly_amount'] = Invoices::where('status', 'open')->whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(1)->endOfDay()])->sum('amount_due');
-        $data['invoices'] = Invoices::latest()->paginate(10);
+        $data['invoices'] = Invoices::latest()->paginate(10)->load('subscription');
          return $data;
     }
 
