@@ -193,18 +193,18 @@ class PaymentServices implements PaymentInterface
    public function getUserInvoice()
    {
     $data['invoice'] = Invoices::where('user_id', auth_user())->paginate(10);
-    $data['unpaid'] = Invoices::where(['user_id' => auth_user(), 'status' => 'open'])->paginate(10);
-    $data['paid'] = Invoices::where(['user_id' => auth_user(), 'status' => 'paid'])->paginate(10);
-    $data['monthly_paid'] = Invoices::whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(7)->endOfDay()])->where(['user_id' => auth_user(), 'status' => 'paid'])->paginate(10);
-    $data['monthly_unpaid'] = Invoices::whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(7)->endOfDay()])->where(['user_id' => auth_user(), 'status' => 'open'])->paginate(10);
+    $data['unpaid'] = Invoices::where(['user_id' => auth_user(), 'status' => 'open'])->get();
+    $data['paid'] = Invoices::where(['user_id' => auth_user(), 'status' => 'paid'])->get();
+    $data['monthly_paid'] = Invoices::whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(7)->endOfDay()])->where(['user_id' => auth_user(), 'status' => 'paid'])->get();
+    $data['monthly_unpaid'] = Invoices::whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(7)->endOfDay()])->where(['user_id' => auth_user(), 'status' => 'open'])->get();
     return $data;
    }
 
    public function getSubcriptionStatus()
    {
-    $data['subscription'] = UserSubscription::where('user_id', auth_user())->latest()->paginate(10);
-    $data['active_subs'] = UserSubscription::where(['user_id' => auth_user(), 'status' => 'active'])->latest()->paginate(10);
-    $data['cancelled_subs'] = UserSubscription::where(['user_id' => auth_user(), 'status' => 'cancelled'])->latest()->paginate(10);
+    $data['subscription'] = UserSubscription::where('user_id', auth_user())->latest()->get();
+    $data['active_subs'] = UserSubscription::where(['user_id' => auth_user(), 'status' => 'active'])->latest()->get();
+    $data['cancelled_subs'] = UserSubscription::where(['user_id' => auth_user(), 'status' => 'cancelled'])->latest()->get();
   return $data;
   } 
 
@@ -232,7 +232,7 @@ class PaymentServices implements PaymentInterface
         'status' => 'active'
     ]);
 
-    return $subsc;
+    return $subscription;
   }
 
   public function cancelSubscription($subscription)
