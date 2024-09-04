@@ -15,6 +15,8 @@ public function AddSubscriptionInfo($company,$session, $payment_ref, $plans);
 public function createSubscription();
 public function getSubcriptionStatus();
 public function cancelSubscription($subscription);
+public function updatePaymentDetails($request);
+public function MakeDefaultPayment($payment_id);
 // public function resumeSubscription($subscription);
 
 

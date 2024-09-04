@@ -53,6 +53,21 @@ public function cancelSubscription($subcription_id)
     return $this->paymentInterface->cancelSubscription($subcription_id);
 }
 
+public function updatePaymentDetails(Request $request)
+{
+    return $this->paymentInterface->updatePaymentDetails($request);
+}
+
+
+public function MakeDefaultPayment($payment_id)
+{
+   return $this->paymentInterface->MakeDefaultPayment($payment_id);
+}
+public function UpdateCard()
+{
+    return view('payment');
+
+}
 // public function resumeSubscription($subcription_id)
 // {
 //     return $this->paymentInterface->resumeSubscription($subcription_id);

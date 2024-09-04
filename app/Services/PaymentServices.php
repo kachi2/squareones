@@ -64,8 +64,8 @@ class PaymentServices implements PaymentInterface
             ]],
                 'mode' => 'payment',
                 'saved_payment_method_options' => ['payment_method_save' => 'enabled'],
-                'success_url' => url('/kcy/verifications'),
-                // 'success_url' => route('ProcessPayment'),
+                // 'success_url' => url('/kcy/verifications'),
+                'success_url' => route('ProcessPayment'),
                 'cancel_url' => url('/start_company'),
             ]);
             $company = Company::where(['user_id' => 1, 'is_complete' => 0])->first();
@@ -242,15 +242,40 @@ class PaymentServices implements PaymentInterface
      $stripe->subscriptions->cancel($subscription, []);
     $userSub->update(['status' => 'cancelled']);
     return $userSub; 
+  }
 
+  public function updatePaymentDetails($request)
+  {
+    $user = UserSubscription::where('user_id', auth_user())->first();
+    $paymentIntent = \Stripe\PaymentIntent::create([
+        'amount' => 100, 
+        'currency' => 'usd',
+        'customer' => $user->customer,
+        'setup_future_usage' => 'off_session', 
+    ]);
+   return ['client_secret' => $paymentIntent->client_secret];
+  }
+
+  public function MakeDefaultPayment($payment_id)
+  {
+   $user = UserSubscription::where('user_id', auth_user())->first();
+   $pays = \Stripe\Customer::update(
+        $user->customer,
+        [
+            'invoice_settings' => [
+                'default_payment_method' => $payment_id,
+            ]
+        ]
+      );
+      $user->update(['default_payment_method' => $payment_id]);
+      return $pays;
   }
 
   //update user payment method
-  //add monthly items on invoices
   //add company on invoices
 
 
-  
+
 
 // public function resumeSubscription($subscription)
 // {
