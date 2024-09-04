@@ -73,10 +73,17 @@ public function getUserInvoice()
 {
     return $this->paymentInterface->getUserInvoice();
 }
-// public function resumeSubscription($subcription_id)
-// {
-//     return $this->paymentInterface->resumeSubscription($subcription_id);
-// }
+
+public function suspendSubscription($subcription_id)
+{
+    return $this->paymentInterface->suspendSubscription($subcription_id);
+}
+
+
+public function resumeSubscription($subcription_id)
+{
+    return $this->paymentInterface->resumeSubscription($subcription_id);
+}
 
 
 

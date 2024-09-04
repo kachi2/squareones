@@ -192,19 +192,19 @@ class PaymentServices implements PaymentInterface
 
    public function getUserInvoice()
    {
-    $data['invoice'] = Invoices::where('user_id', auth_user())->get();
-    $data['unpaid'] = Invoices::where(['user_id' => auth_user(), 'status' => 'open'])->get();
-    $data['paid'] = Invoices::where(['user_id' => auth_user(), 'status' => 'paid'])->get();
-    $data['monthly_paid'] = Invoices::whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(7)->endOfDay()])->where(['user_id' => auth_user(), 'status' => 'paid'])->get();
-    $data['monthly_unpaid'] = Invoices::whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(7)->endOfDay()])->where(['user_id' => auth_user(), 'status' => 'open'])->get();
+    $data['invoice'] = Invoices::where('user_id', auth_user())->paginate(10);
+    $data['unpaid'] = Invoices::where(['user_id' => auth_user(), 'status' => 'open'])->paginate(10);
+    $data['paid'] = Invoices::where(['user_id' => auth_user(), 'status' => 'paid'])->paginate(10);
+    $data['monthly_paid'] = Invoices::whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(7)->endOfDay()])->where(['user_id' => auth_user(), 'status' => 'paid'])->paginate(10);
+    $data['monthly_unpaid'] = Invoices::whereBetween('created_at', [Carbon::now()->subDays(7)->startOfDay(),  Carbon::now()->addDays(7)->endOfDay()])->where(['user_id' => auth_user(), 'status' => 'open'])->paginate(10);
     return $data;
    }
 
    public function getSubcriptionStatus()
    {
-    $data['subscription'] = UserSubscription::where('user_id', auth_user())->latest()->get();
-    $data['active_subs'] = UserSubscription::where(['user_id' => auth_user(), 'status' => 'active'])->latest()->get();
-    $data['cancelled_subs'] = UserSubscription::where(['user_id' => auth_user(), 'status' => 'cancelled'])->latest()->get();
+    $data['subscription'] = UserSubscription::where('user_id', auth_user())->latest()->get(10);
+    $data['active_subs'] = UserSubscription::where(['user_id' => auth_user(), 'status' => 'active'])->latest()->paginate(10);
+    $data['cancelled_subs'] = UserSubscription::where(['user_id' => auth_user(), 'status' => 'cancelled'])->latest()->get(10);
   return $data;
   } 
 
@@ -276,24 +276,31 @@ class PaymentServices implements PaymentInterface
 public function SuspendSubscription($subscription_id)
 {
     $user = UserSubscription::where('subscription_id', $subscription_id)->first();
+    $stripe = $this->stripeClient;
     if($user)
     {
-        
+        $stripe->subscriptions->update(
+            $subscription_id,
+            ['pause_collection' => ['behavior' => 'keep_as_draft']]
+          );
     }
+    $user->update(['status' => 'Suspended']);
 
+
+}
+
+public function resumeSubscription($subscription)
+{
+    $stripe = $this->stripeClient;
+    $stripe->subscriptions->resume($subscription,['billing_cycle_anchor' => 'now']);
+   $userSub = UserSubscription::where('subscription_id',$subscription)->first();
+  $userSub->update(['status' => 'active']);
+  return $userSub;
 }
   //add company on invoices
 
 
 
 
-// public function resumeSubscription($subscription)
-// {
-//     $stripe = $this->stripeClient;
-//     $stripe->subscriptions->resume($subscription,['billing_cycle_anchor' => 'now']);
-//    $userSub = UserSubscription::where('subscription_id',$subscription)->first();
-//   $userSub->update(['status' => 'active']);
-//   return $userSub;
-// }
 
 }

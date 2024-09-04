@@ -18,7 +18,8 @@ public function cancelSubscription($subscription);
 public function updatePaymentDetails($request);
 public function MakeDefaultPayment($payment_id);
 public function getUserInvoice();
-// public function resumeSubscription($subscription);
+public function SuspendSubscription($subscription_id);
+public function resumeSubscription($subscription);
 
 
 }
