@@ -74,9 +74,9 @@ public function getUserInvoice()
     return $this->paymentInterface->getUserInvoice();
 }
 
-public function suspendSubscription($subcription_id)
+public function pauseSubscription($subcription_id)
 {
-    return $this->paymentInterface->suspendSubscription($subcription_id);
+    return $this->paymentInterface->PauseSubscription($subcription_id);
 }
 
 

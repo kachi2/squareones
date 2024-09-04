@@ -204,7 +204,7 @@ class PaymentServices implements PaymentInterface
    {
     $data['subscription'] = UserSubscription::where('user_id', auth_user())->latest()->get(10);
     $data['active_subs'] = UserSubscription::where(['user_id' => auth_user(), 'status' => 'active'])->latest()->paginate(10);
-    $data['cancelled_subs'] = UserSubscription::where(['user_id' => auth_user(), 'status' => 'cancelled'])->latest()->get(10);
+    $data['cancelled_subs'] = UserSubscription::where(['user_id' => auth_user(), 'status' => 'cancelled'])->latest()->paginate(10);
   return $data;
   } 
 
@@ -273,7 +273,7 @@ class PaymentServices implements PaymentInterface
 
 
 
-public function SuspendSubscription($subscription_id)
+public function PauseSubscription($subscription_id)
 {
     $user = UserSubscription::where('subscription_id', $subscription_id)->first();
     $stripe = $this->stripeClient;
@@ -284,7 +284,8 @@ public function SuspendSubscription($subscription_id)
             ['pause_collection' => ['behavior' => 'keep_as_draft']]
           );
     }
-    $user->update(['status' => 'Suspended']);
+    $user?->update(['status' => 'paused']);
+    return $user;
 
 
 }
