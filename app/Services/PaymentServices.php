@@ -293,7 +293,9 @@ public function PauseSubscription($subscription_id)
 public function resumeSubscription($subscription)
 {
     $stripe = $this->stripeClient;
-    $stripe->subscriptions->resume($subscription,['billing_cycle_anchor' => 'now']);
+    $stripe->subscriptions->update($subscription, [
+        'pause_collection' => '', 
+    ]);
    $userSub = UserSubscription::where('subscription_id',$subscription)->first();
   $userSub->update(['status' => 'active']);
   return $userSub;
