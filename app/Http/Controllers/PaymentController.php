@@ -68,6 +68,11 @@ public function UpdateCard()
     return view('payment');
 
 }
+
+public function getUserInvoice()
+{
+    return $this->paymentInterface->getUserInvoice();
+}
 // public function resumeSubscription($subcription_id)
 // {
 //     return $this->paymentInterface->resumeSubscription($subcription_id);

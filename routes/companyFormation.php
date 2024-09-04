@@ -58,6 +58,7 @@ Route::get('create/subscription', [PaymentController::class, 'createSubscription
 Route::get('subscription/cancel/{subscriptionId?}', [PaymentController::class, 'cancelSubscription']);
 Route::post('update/payment/info', [PaymentController::class,'updatePaymentDetails']);
 Route::get('/payment/make/default/{paymentId?}', [PaymentController::class,'MakeDefaultPayment']);
+Route::get('get/user/invoices', [PaymentController::class,'getUserInvoice']);
 
 // Route::get('subscription/resume/{subscriptionId?}', [PaymentController::class, 'resumeSubscription']);
 // Route::get('/process/payment', [PaymentController::class, 'ProcessPayment'])->name('process.payment'); 

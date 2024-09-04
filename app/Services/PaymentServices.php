@@ -271,7 +271,17 @@ class PaymentServices implements PaymentInterface
       return $pays;
   }
 
-  //update user payment method
+
+
+public function SuspendSubscription($subscription_id)
+{
+    $user = UserSubscription::where('subscription_id', $subscription_id)->first();
+    if($user)
+    {
+        
+    }
+
+}
   //add company on invoices
 
 
