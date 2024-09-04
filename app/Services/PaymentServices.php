@@ -202,7 +202,7 @@ class PaymentServices implements PaymentInterface
 
    public function getSubcriptionStatus()
    {
-    $data['subscription'] = UserSubscription::where('user_id', auth_user())->latest()->get(10);
+    $data['subscription'] = UserSubscription::where('user_id', auth_user())->latest()->paginate(10);
     $data['active_subs'] = UserSubscription::where(['user_id' => auth_user(), 'status' => 'active'])->latest()->paginate(10);
     $data['cancelled_subs'] = UserSubscription::where(['user_id' => auth_user(), 'status' => 'cancelled'])->latest()->paginate(10);
   return $data;
