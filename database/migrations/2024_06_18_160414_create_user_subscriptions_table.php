@@ -26,6 +26,9 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('charge_automatically')->nullable();
             $table->string('latest_invoice')->nullable();
+            $table->string('company_name')->nullable();
+            $table->string('next_billing_cycle')->nullable();
+            $table->string('current_period_start')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });

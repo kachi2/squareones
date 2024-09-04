@@ -227,12 +227,16 @@ class PaymentServices implements PaymentInterface
         'items' => [['price' => $plan->default_price_id]],
         ]);
     
+        // return $subsc->company->names[0]->eng_name . $subsc->company->names[0]->chn_name ;
     $subsc->update([
         'subscription_id' => $subscription->id,
-        'status' => 'active'
+        'status' => 'active',
+        'next_billing_cycle' => Date('d-m-Y', $subscription->current_period_end),
+        'current_billing_cycle' => Date('d-m-Y', $subscription->current_period_start),
+        'company_name' => $subsc->company->names[0]->eng_name . $subsc->company->names[0]->chn_name 
     ]);
 
-    return $subscription;
+    return $subsc;
   }
 
   public function cancelSubscription($subscription)

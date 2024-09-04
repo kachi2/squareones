@@ -63,11 +63,6 @@ public function MakeDefaultPayment($payment_id)
 {
    return $this->paymentInterface->MakeDefaultPayment($payment_id);
 }
-public function UpdateCard()
-{
-    return view('payment');
-
-}
 
 public function getUserInvoice()
 {
