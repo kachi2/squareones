@@ -260,19 +260,20 @@ class PaymentServices implements PaymentInterface
    return ['client_secret' => $paymentIntent->client_secret];
   }
 
-  public function MakeDefaultPayment($payment_id)
+  public function MakeDefaultPayment($paymentIntent)
   {
+    $paymentIntent = \Stripe\PaymentIntent::retrieve($paymentIntent);
    $user = UserSubscription::where('user_id', auth_user())->first();
    $pays = \Stripe\Customer::update(
         $user->customer,
         [
             'invoice_settings' => [
-                'default_payment_method' => $payment_id,
+                'default_payment_method' => $paymentIntent->payment_method,
             ]
         ]
       );
-      $user->update(['default_payment_method' => $payment_id]);
-      return $pays;
+      $user->update(['default_payment_method' => $paymentIntent->payment_method]);
+      return $user;
   }
 
 
