@@ -56,7 +56,7 @@ Route::get('payment/intent', [PaymentController::class, 'PaymentIntent']);
 Route::get('/get/user/subscription', [PaymentController::class,'getSubcription']);
 Route::get('create/subscription', [PaymentController::class, 'createSubscription']);
 Route::get('subscription/cancel/{subscriptionId?}', [PaymentController::class, 'cancelSubscription']);
-Route::post('update/payment/info', [PaymentController::class,'updatePaymentDetails']);
+Route::get('update/payment/info', [PaymentController::class,'updatePaymentDetails']);
 Route::get('/payment/make/default/{paymentId?}', [PaymentController::class,'MakeDefaultPayment']);
 Route::get('get/user/invoices', [PaymentController::class,'getUserInvoice']);
 Route::get('/pause/subscription/{subscription?}',[PaymentController::class,'pauseSubscription']);
