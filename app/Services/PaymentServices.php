@@ -262,6 +262,8 @@ class PaymentServices implements PaymentInterface
 
   public function MakeDefaultPayment($paymentIntent)
   {
+    try{
+    $stripe = $this->stripeClient;
     $paymentIntent = \Stripe\PaymentIntent::retrieve($paymentIntent);
    $user = UserSubscription::where('user_id', auth_user())->first();
    $pays = \Stripe\Customer::update(
@@ -273,7 +275,23 @@ class PaymentServices implements PaymentInterface
         ]
       );
       $user->update(['default_payment_method' => $paymentIntent->payment_method]);
-      return $user;
+      $paymentInfo = $stripe?->paymentMethods?->retrieve($pays['invoice_settings']['default_payment_method'], []);
+     $billing = UserBillingInfo::where('user_id', auth_user())->first();
+      $data = [
+        'card_name' => $paymentInfo['card']['brand'],
+        'card_no' => $paymentInfo['card']['last4'],
+        'email' => $paymentInfo['billing_details']['email'],
+        'name' => $paymentInfo['billing_details']['name'],
+        'country' => $paymentInfo['billing_details']['address']['country'],
+        'expiry' => $paymentInfo['card']['exp_month'].'/'.$paymentInfo['card']['exp_year'],
+        'payment_id' => $paymentIntent
+    ];
+            $billing->update($data);
+      return $paymentInfo;
+    }catch(\Exception $e)
+    {
+        return false;
+    }
   }
 
 
