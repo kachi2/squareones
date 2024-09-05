@@ -107,8 +107,8 @@
                         {{ useFxn.dateDisplay(item.date_ceased_to_be_rep_person) }}
                     </template>
                     <template #item-created_at="item">
-                                    {{ useFxn.dateDisplay(item.created_at) }}
-                                </template>
+                        {{ useFxn.dateDisplay(item.created_at) }}
+                    </template>
 
                     <template #expand="item">
                         <div v-if="!item.expandLoading" class="my-3">
@@ -202,8 +202,8 @@
                         {{ useFxn.dateDisplay(item.entry_date) }}
                     </template>
                     <template #item-created_at="item">
-                                    {{ useFxn.dateDisplay(item.created_at) }}
-                                </template>
+                        {{ useFxn.dateDisplay(item.created_at) }}
+                    </template>
 
 
                     <template #expand="item">
@@ -287,10 +287,10 @@ const masterTableHeaders1 = [
 ];
 
 const expandedHeaders = [
-{ text: "Date of Entry", value: "entry_date" },
+    { text: "Date of Entry", value: "entry_date" },
     { text: "Name of Registrable Person / Legal Entity", value: "legal_entity_name" },
     { text: "Corresponding Address", value: "corresponding_address" },
-    { text: "ID/Passport/Registration No", value: "identiy_info" },
+    { text: "ID/Passport/Registration No", value: "identity_info" },
     { text: "Residential Address", value: "resdential_address" },
     { text: "Place of Registration.", value: "place_of_registration" },
     { text: "Nature of Control Over the Company", value: "nature_of_control_over_the_company" },
@@ -300,7 +300,7 @@ const expandedHeaders = [
 ];
 
 const expandedHeaders1 = [
-{ text: " Date of Entry", value: "entry_date" },
+    { text: " Date of Entry", value: "entry_date" },
     { text: "Name (Capacity)", value: "name" },
     { text: "ID/Passport/Registration No.", value: "identity_info" },
     { text: "Place of Registration", value: "place_of_registration" },

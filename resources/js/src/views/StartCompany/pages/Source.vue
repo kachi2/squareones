@@ -23,7 +23,8 @@
 
                 <div class="col-md-12">
                     <div class="fixed-label-custom">
-                        <v-select @search:blur="form.validateVueSelectOnBlur('origin_funds')"
+                        <v-select append-to-body :calculate-position="useFunctions.vueSelectPositionCalc"
+                            @search:blur="form.validateVueSelectOnBlur('origin_funds')"
                             :class="{ 'error-field': form.errors.origin_funds }" v-model="form.origin_funds"
                             :clearable="true" :options="startCompanyStore.countries"
                             placeholder="select origin funds" />
@@ -36,7 +37,8 @@
 
                 <div class="col-md-12">
                     <div class="fixed-label-custom">
-                        <v-select @search:blur="form.validateVueSelectOnBlur('wealth_initial_source')"
+                        <v-select append-to-body :calculate-position="useFunctions.vueSelectPositionCalc"
+                            @search:blur="form.validateVueSelectOnBlur('wealth_initial_source')"
                             :class="{ 'error-field': form.errors.wealth_initial_source }"
                             v-model="form.wealth_initial_source" :clearable="true"
                             :options="startCompanyStore.initialSourceOfWealth"
@@ -49,7 +51,8 @@
 
                 <div class="col-md-12">
                     <div class="fixed-label-custom">
-                        <v-select @search:blur="form.validateVueSelectOnBlur('income_outgoing_source')"
+                        <v-select append-to-body :calculate-position="useFunctions.vueSelectPositionCalc"
+                            @search:blur="form.validateVueSelectOnBlur('income_outgoing_source')"
                             :class="{ 'error-field': form.errors.income_outgoing_source }"
                             v-model="form.income_outgoing_source" :clearable="true"
                             :options="startCompanyStore.ongoingSourceOfIncome"
@@ -118,6 +121,7 @@ import api from '@/stores/Helpers/axios'
 import { useToast } from 'vue-toast-notification';
 import { sourceForm } from './formsStore/Source'
 import { onMounted, watch } from 'vue';
+import useFunctions from '@/stores/Helpers/useFunctions';
 
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()

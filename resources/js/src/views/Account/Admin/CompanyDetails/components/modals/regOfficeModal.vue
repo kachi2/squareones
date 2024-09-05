@@ -13,36 +13,48 @@
                         <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                     </div>
                     <div class="modal-body">
-                        <div class="row g-3">
+                        <div class="row g-3"> 
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Director:</div>
-                                <input v-model="directors" type="text" class="form-control">
+                                <div class="form-floating-custom">
+                                <input v-model="directors" type="text" class="form-control" placeholder="">
+                                <label class="" for="eng_name">Director:</label>
+                                </div>
                                 <small class=" text-danger">{{ errors.directors }}</small>
                             </div>
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Shareholders:</div>
-                                <input v-model="shareholders" type="text" class="form-control">
+                                <div class="form-floating-custom">
+                                <input v-model="shareholders" type="text" class="form-control" placeholder="">
+                                <label class="" for="eng_name">Shareholders:</label>
+                                </div>
                                 <small class=" text-danger">{{ errors.shareholders }}</small>
                             </div>
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Company Secretary:</div>
-                                <input v-model="company_secretary" type="text" class="form-control">
+                                <div class="form-floating-custom">
+                                <input v-model="company_secretary" type="text" class="form-control" placeholder="">
+                                <label class="" for="eng_name">Company Secretary:</label>
+                                </div>
                                 <small class=" text-danger">{{ errors.company_secretary }}</small>
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Registered Office:</div>
-                                <input v-model="registered_office" type="text" class="form-control">
+                                <div class="form-floating-custom">
+                                <input v-model="registered_office" type="text" class="form-control" placeholder="">
+                                <label class="" for="eng_name">Registered Office:</label>
+                                </div>
                                 <small class=" text-danger">{{ errors.registered_office }}</small>
                             </div>
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Businness Adress:</div>
-                                <input v-model="business_address" type="text" class="form-control">
+                                <div class="form-floating-custom">
+                                <input v-model="business_address" type="text" class="form-control" placeholder="">
+                                <label class="" for="eng_name">Businness Adress:</label>
+                                </div>
                                 <small class=" text-danger">{{ errors.business_address }}</small>
                             </div>
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Designated Representative:</div>
-                                <input v-model="scr_designated_representative" type="text" class="form-control">
+                                <div class="form-floating-custom">
+                                <input v-model="scr_designated_representative" type="text" class="form-control" placeholder="">
+                                <label class="" for="eng_name">Designated Representative:</label>
+                                </div>
                                 <small class=" text-danger">{{ errors.scr_designated_representative }}</small>
                             </div>
                         </div>

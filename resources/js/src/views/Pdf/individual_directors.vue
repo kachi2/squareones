@@ -244,9 +244,8 @@
                 </div>
                 <div class="col-8">
                     <div class="textbox" style="border:1.0pt solid #000000;display:block;min-height:34.0pt; ">
-                        <p class="s17" style="text-indent: 0pt;line-height: 17pt;">  {{ director?.address?.country }}</p>
+                        <p class="s8" style="text-indent: 0pt;line-height: 17pt;">  {{ director?.address?.country }}</p>
                     </div>
-
                 </div>
             </div>
             <div class="row" style="padding-top: 5px;">

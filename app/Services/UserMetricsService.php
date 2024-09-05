@@ -25,7 +25,7 @@ class UserMetricsService
 
     public function getPaymentInfo()
     {
-        $data = UserBillingInfo::where('user_id', auth_user())->latest()->first();
+        $data = UserBillingInfo::where(['user_id' => auth_user(), 'is_default' => 1])->latest()->first();
         return $data;
     }
 

@@ -68,7 +68,7 @@ const templateStore = useTemplateStore()
 .list-group-item {
     background: transparent;
     border: none;
-    padding-bottom: 15px;
+    padding-bottom: 5px;
 }
 
 .list-group-item a {

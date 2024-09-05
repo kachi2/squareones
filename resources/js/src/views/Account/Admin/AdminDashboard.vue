@@ -5,27 +5,28 @@
             <div class="col-lg-6">
                 <div class="row g-3">
                     <div class="col-md-12">
-                        <div class="card h-100">
-                            <div
-                                class="card-header bg-transparent border-0 fw-bold d-flex justify-content-lg-between align-items-center">
-                                Registered Companies
-                                <span class="float-en m-0">
-                                    <VueDatePicker class="small" :format="date_display" range multi-calendars
-                                        :clearable="false" :max-date="new Date()" :enable-time-picker="false" auto-apply
-                                        v-model="companyStats">
-                                    </VueDatePicker>
-                                </span>
-                            </div>
+                        <div class="card shadow-sm h-100">
                             <div class="card-body">
-
+                                <h5 class="card-header bg-transparent border-0 fw-bold py-4 ">
+                                    <h5>Registered Companies</h5>
+                                    <div class="float-en m-0">
+                                        <VueDatePicker class="small" :format="date_display" range multi-calendars
+                                            :clearable="false" :enable-time-picker="false" auto-apply
+                                            v-model="companyStatsDates">
+                                        </VueDatePicker>
+                                    </div>
+                                </h5>
                                 <div class="fw-bold">
                                     <span class="samll text-mute">Total Company Registered since
-                                        {{ companyStats ? date_display(companyStats) : '' }}
+                                        {{ companyStatsDates ? date_display(companyStatsDates) : '' }}
                                     </span>
                                 </div>
                                 <div class="row g-3">
                                     <div class="col-lg-12">
-                                        <div class="small text-mute"> 2 Companies</div>
+                                        <div class="smal fw-bold ">
+                                            {{ comapaniesList.length }}
+                                            {{ comapaniesList.length == 1 ? 'company' : 'companies' }}
+                                        </div>
                                         <div class="small text-mute">
                                             <!-- <span class="text-danger me-3">
                                                 <i class="bi bi-arrow-down"></i>
@@ -36,8 +37,8 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="card p-0">
-                                            <apexchart type="area" :options="chartOptionsRegCoys"
-                                                :series="chartOptionsRegCoysSeries">
+                                            <apexchart type="area" :options="chartOptionsRegisteredCompanies"
+                                                :series="chartOptionsRegisteredCompaniesSeries">
                                             </apexchart>
                                         </div>
                                     </div>
@@ -90,14 +91,15 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="card h-100">
-                    <div class="card-header bg-transparent fw-bold py-4">
-                        Recent Activities
-                        <!-- <span style="float:right">Filter</span> -->
+                <div class="card shadow-sm h-100">
 
-                    </div>
                     <div class="card-body">
-                        <EasyDataTable class="easy-data-table border-0" show-index :headers="activitiiesHeaders"
+                        <h5 class="card-header bg-transparent border-0  py-4">
+                            Recent Activities
+                            <!-- <span style="float:right">Filter</span> -->
+
+                        </h5>
+                        <EasyDataTable class="easy-data-table border-0" :headers="activitiiesHeaders"
                             :items="activityLogs" buttons-pagination v-model:server-options="serverOptionsActivities"
                             :server-items-length="totalActivities">
 
@@ -176,44 +178,43 @@
 
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header fw-bold bg-transparent py-3">
-                        Transaction History
-                    </div>
+
                     <div class="card-body">
-                        <div class="table-responsive small">
-                            <table class="table table-sm text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th>Order No.</th>
-                                        <th>Customer</th>
-                                        <th>Date</th>
-                                        <th>Ref</th>
-                                        <th>Amount</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="i in 2">
-                                        <td class="text-primary cursor-pointer">#987653</td>
-                                        <td>Michael</td>
-                                        <td>04/6/2024</td>
-                                        <td>SUB-2340981</td>
-                                        <td><span class="fw-bold">5000</span> HKD</td>
-                                        <td v-if="i == 1" class="text-warning fw-bold">
-                                            <i class="bi bi-dot"></i> Due
-                                        </td>
-                                        <td v-else-if="i % 2 == 0" class="text-success fw-bold">
-                                            <i class="bi bi-dot"></i> Paid
-                                        </td>
-                                        <td v-else class="text-danger fw-bold">
-                                            <i class="bi bi-dot"></i> Cancelled
-                                        </td>
-                                    </tr>
+                        <div class="card-header fw-bold bg-transparent border-0 py-3">
+                            <div class="d-lg-flex justify-content-center g-3 align-items-center">
+                                <div class="col-md-8">
+                                    <h5>Transaction History</h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <VueDatePicker :format="date_display" range multi-calendars :clearable="false"
+                                        :enable-time-picker="false" auto-apply v-model="revenueDates">
+                                    </VueDatePicker>
 
-
-                                </tbody>
-                            </table>
+                                </div>
+                            </div>
                         </div>
+                        <EasyDataTable class="easy-data-table border-0" show-index :headers="revenueHeader"
+                            :items="revenueLogs" buttons-pagination v-model:server-options="serverOptionsRevenues"
+                            :server-items-length="totalRevenues">
+
+                            <template #header="header">
+                                <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
+                            </template>
+
+                            <template #item-action_status="item">
+                                <span v-if="item.action_status == 'COMPLETED'">
+                                    <span class="badge rounded-pill text-bg-success">{{ item.action_status }}</span>
+                                </span>
+                                <span v-else>
+                                    <span class="badge rounded-pill text-bg-warning">{{ item.action_status }}</span>
+                                </span>
+                            </template>
+
+                            <template #item-updated_at="item">
+                                {{ new Date(item.updated_at).toLocaleString() }}
+                            </template>
+
+                        </EasyDataTable>
                     </div>
                 </div>
             </div>
@@ -234,7 +235,7 @@ import type { ServerOptions } from 'vue3-easy-data-table';
 const route = useRoute()
 
 onMounted(() => {
-    setDateRanges()
+    autoSetDateRanges()
     getCompanyStats()
     getRevenueStats()
 
@@ -243,33 +244,28 @@ onMounted(() => {
 })
 
 
-// date picker
-
-const company_start_date = ref(new Date())
-const company_end_date = ref(new Date())
-
-const revenue_start_date = ref(new Date())
-const revenue_end_date = ref(new Date())
-
-
-const companyStats = ref<any>([])
-const revenueStats = ref()
-
 const date_display = (date: Date[]) => {
     const dateMe1 = useDateFormat(date[0], 'MMM D, YYYY')
     const dateMe2 = useDateFormat(date[1], 'MMM D, YYYY')
     return `${dateMe1.value} - ${dateMe2.value}`;
 }
 
-function setDateRanges() {
+function autoSetDateRanges() {
     const endDate = new Date();
     const startDate = new Date(new Date().setDate(endDate.getDate() - 7));
-    companyStats.value = revenueStats.value = [startDate, endDate];
+    companyStatsDates.value = revenueDates.value = [startDate, endDate];
 }
 
-const dagesRangesArray = computed(() => {
-    const startDate = new Date(companyStats.value[0]);
-    const endDate = new Date(companyStats.value[1]);
+
+
+
+
+// chart
+const companyStatsDates = ref<any>([])
+const comapaniesList = ref<any>([])
+const generatedDatesRanges = computed(() => {
+    const startDate = new Date(companyStatsDates.value[0]);
+    const endDate = new Date(companyStatsDates.value[1]);
 
     const dateArray = [];
     while (startDate <= endDate) {
@@ -280,13 +276,14 @@ const dagesRangesArray = computed(() => {
     return dateArray;
 })
 
-watch(() => companyStats.value, () => {
+watch(() => companyStatsDates.value, async () => {
+    await getCompanyStats()
     setChartOptions()
 })
-const chartOptionsRegCoys = ref<any>({})
-const chartOptionsRegCoysSeries = ref<any>([{ name: 'Companies', data: [2, 3, 4, 5, 0, 3] }])
+const chartOptionsRegisteredCompanies = ref<any>({})
+const chartOptionsRegisteredCompaniesSeries = ref<any>([{ name: 'Companies', data: [] }])
 function setChartOptions() {
-    chartOptionsRegCoys.value = {
+    chartOptionsRegisteredCompanies.value = {
         chart: {
             type: 'area',
             zoom: {
@@ -334,7 +331,7 @@ function setChartOptions() {
             }
         }],
         xaxis: {
-            categories: dagesRangesArray.value,
+            categories: generatedDatesRanges.value,
             type: "datetime",
             labels: {
                 datetimeFormatter: {
@@ -361,84 +358,30 @@ function setChartOptions() {
         },
     }
 
-    chartOptionsRegCoysSeries.value = [{ name: 'Companies', data: useFxn.generateRandomNumbers(dagesRangesArray.value.length) }]
+    const numberOfCompaniesArray: any[] = []
+
+    generatedDatesRanges.value.forEach(range => {
+        const count = comapaniesList.value.filter((x: any) => new Date(x.created_at).toDateString() == new Date(range).toDateString())
+        numberOfCompaniesArray.push(count.length)
+    });
+
+    chartOptionsRegisteredCompaniesSeries.value = [{ name: 'Companies', data: numberOfCompaniesArray }]
+
 }
 
 
 async function getCompanyStats() {
     try {
         const queryObj = {
-            start_date: useFxn.formatDate(company_start_date.value),
-            end_date: useFxn.formatDate(company_end_date.value)
+            start_date: useFxn.formatDate(companyStatsDates.value[0]),
+            end_date: useFxn.formatDate(companyStatsDates.value[1])
         }
         const resp = await api.getCompanyStats(queryObj)
-        // console.log(resp, 'coy_stats');
-
+        comapaniesList.value = resp.data?.data ?? []
     } catch (error) {
         // 
     }
 }
-
-
-async function getRevenueStats() {
-    try {
-        const queryObj = {
-            start_date: useFxn.formatDate(revenue_start_date.value),
-            end_date: useFxn.formatDate(revenue_end_date.value)
-        }
-        const resp = await api.getRevenueStats(queryObj)
-        // console.log(resp, 'rev_stats');
-
-    } catch (error) {
-        // 
-    }
-}
-
-// chart
-const chartOptions_1 = {
-    chart: {
-        type: 'bar',
-        stacked: true,
-    },
-    dataLabels: {
-        enabled: true
-    },
-    states: {
-        hover: {
-            enabled: false,
-        }
-    },
-    zoom: {
-        enabled: false
-    },
-    responsive: [{
-        breakpoint: 480,
-        options: {
-            legend: {
-                position: 'bottom',
-                offsetX: -10,
-                offsetY: 0
-            }
-        }
-    }],
-    xaxis: {
-        categories: ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun']
-    },
-    colors: ['#FFB836', '#7B61FF'],
-    series: [{
-        name: 'Job Viewed',
-        data: [0, 0, 2, 1, 0, 0, 0]
-    }],
-    legend: {
-        show: false
-    },
-    tooltip: {
-        enabled: false,
-    },
-}
-
-
-
 
 
 
@@ -465,14 +408,54 @@ async function getActivityLogs() {
 
 watch(serverOptionsActivities, (value) => { getActivityLogs(); }, { deep: true });
 
-
-
 const activitiiesHeaders = [
-    { text: "ACTIVITY", value: "activity" },
-    { text: "TYPE", value: "type" },
-    { text: "STATUS", value: "action_status" },
+    { text: "Name", value: "name" },
+    // { text: "Activity   ", value: "type" },
+    { text: "Action", value: "action" },
+    { text: "IP Address", value: "ip_address" },
+    { text: "Location", value: "location" },
     { text: "DATE", value: "updated_at" },
 ];
+
+
+
+
+
+// transaction/revenue logs
+const revenueDates = ref<any>([])
+const totalRevenues = ref(0)
+const revenueLogs = ref<any[]>([])
+const serverOptionsRevenues = ref<ServerOptions | any>({
+    page: 1,
+    rowsPerPage: 15,
+});
+
+async function getRevenueStats() {
+    try {
+        const queryObj = {
+            start_date: useFxn.formatDate(revenueDates.value[0]),
+            end_date: useFxn.formatDate(revenueDates.value[1])
+        }
+        const resp = await api.getRevenueStats(queryObj)
+        // const data = resp.data.data
+        // totalRevenues.value = data.total
+        // revenueLogs.value = data.data
+    } catch (error) {
+        // 
+    }
+}
+
+watch(serverOptionsRevenues, (value) => { getRevenueStats(); }, { deep: true });
+watch(revenueDates, (value) => { getRevenueStats(); }, { deep: true });
+
+const revenueHeader = [
+    { text: "ORDER NO.", value: "payment_ref" },
+    { text: "CUSTOMER", value: "user.name" },
+    { text: "DATE", value: "date_paid" },
+    { text: "AMOUNT", value: "amount" },
+    { text: "SATUS", value: "status" },
+];
+
 
 </script>
 <style lang="css" scoped>

@@ -51,6 +51,14 @@ export default {
         return $instanceForm.post(`manage/charges`, formData)
     },
 
+    registerOfAllotments(formData: FormData) {
+        return $instanceForm.post(`manage/allotments`, formData)
+    },
+
+    registerOfTransfer(formData: FormData) {
+        return $instanceForm.post(`manage/transfer`, formData)
+    },
+
     significantControllers(formData: FormData) {
         return $instanceForm.post(`manage/controllers`, formData)
     },
@@ -107,8 +115,52 @@ export default {
         return $instanceForm.post(`manage/update/users/status`, formData)
     },
 
-    getUsersTeam(formData: FormData)
-    {
+    getUsersTeam(formData: FormData) {
         return $instanceForm.post('/team/get/users', formData);
+    },
+
+
+    publishCompany(company_id: string | number) {
+        return $instanceForm.get(`manage/publish/company/${company_id}`);
+    },
+
+    getInvoices() {
+        return $instance.get(`manage/get/stripe/invoices`);
+    },
+
+
+    totalPaidInvoices() {
+        return $instance.get(`manage/get/stripe/paid/invoices`);
+    },
+
+
+    totalUnpaidInvoices() {
+        return $instance.get(`manage/get/stripe/unpaid/invoices`);
+    },
+
+    getPlans() {
+        return $instance.get(`manage/get/plans`);
+    },
+
+    getSubscribers() {
+        return $instance.get(`manage/get/subscribers`);
+    },
+
+
+    generateInvoiceTable() {
+        return $instance.get(`manage/sync/invoices`);
+    },
+
+
+    createStripeProduct(formData: FormData) {
+        return $instanceForm.post('manage/create/stripe/product', formData);
+    },
+
+    updateStripeProduct(formData: FormData) {
+        return $instanceForm.post('manage/update/stripe/product', formData);
     }
+
+    // populateData(formData: FormData) {
+    //     return $instanceForm.post(`/generate/incorporated/data`, formData);
+    // }
 }

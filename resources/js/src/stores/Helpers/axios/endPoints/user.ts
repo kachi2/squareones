@@ -70,21 +70,40 @@ export default {
         return $instanceForm.post(`team/invitation/accept`, formData)
     },
 
-    removeUserfromTeam(formData: FormData)
-    {
+    removeUserfromTeam(formData: FormData) {
         return $instanceForm.post('team/remove/member', formData)
     },
-    getCompanyReturn(){
+    getCompanyReturn() {
         return $instance.get('user/get/company/returns');
     },
-    getCompanyCount(){
+    getCompanyCount() {
         return $instance.get('user/get/company/counts');
     },
-    getPaymentInfo(){
+    getPaymentInfo() {
         return $instance.get('user/get/payment/info');
     },
-    getUserSubscription(){
+    getUserSubscription() {
         return $instance.get('user/get/user/subscription');
+    },
+
+    getUserSubscriptionPlan() {
+        return $instance.get('get/user/subscription');
+    },
+
+    userInvoices() {
+        return $instance.get('get/user/invoices');
+    },
+
+    pauseSubscriptionPlan(id: string) {
+        return $instance.get(`/pause/subscription/${id}`);
+    },
+
+    resumeSubscriptionPlan(id: string) {
+        return $instance.get(`/resume/subscription/${id}`);
+    },
+
+    upateCardInfo() {
+        return $instance.get(`/update/payment/info`);
     }
 
 }

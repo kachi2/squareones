@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('payment_id')->nullable();
             $table->string('email')->nullable();
             $table->string('name')->nullable();
+            $table->string('is_default')->default(0);
             $table->string('expiry')->nullable();
             $table->string('country')->nullable();
             $table->timestamps();

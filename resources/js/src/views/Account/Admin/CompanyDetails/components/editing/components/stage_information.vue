@@ -31,7 +31,12 @@
                 </div>
                 <div class="col-12 col-md-6">
                     <div class="form-label">Company Registered In:</div>
-                    <input v-model="company_registered" type="text" class="form-control">
+                    <!-- <input v-model="company_registered" type="text" class="form-control"> -->
+                    <select v-model="company_registered" class="form-select">
+                        <option v-for="country in paramsStore.countries" :value="country" :key="country">{{ country }}
+                        </option>
+                    </select>
+
                     <small class=" text-danger">{{ errors.company_registered }}</small>
                 </div>
                 <div class="col-12 col-md-6">
@@ -50,7 +55,7 @@
             </button>
 
             <button v-else @click="save" type="button" class="btn btn-primary">
-                Save and Continue
+                Update Data
             </button>
         </div>
     </div>
@@ -113,26 +118,31 @@ function setValuesOnFields() {
 
 
 const save = handleSubmit(async (values) => {
-    isSaving.value = true
-    const formData = new FormData()
-    formData.append('company_id', paramsStore.currentCompanyId)
-    formData.append('company_registered_name', values.company_registered_name ?? '')
-    formData.append('business_registered_number', values.business_registered_number ?? '')
-    formData.append('incorporated_date', values.incorporated_date ? useFxn.formatDate(values.incorporated_date) : '')
-    formData.append('company_structure', values.company_structure ?? '')
-    formData.append('company_registered', values.company_registered ?? '')
-    formData.append('business_classification', values.business_classification ?? '')
-    // formData.append('registration_progress_id', values.registration_progress_id)
+    useFxn.confirm('Update Data?', 'Continue').then(async (confirmed) => {
+        if (confirmed.value == true) {
+            isSaving.value = true
+            const formData = new FormData()
+            formData.append('company_id', paramsStore.currentCompanyId)
+            formData.append('company_registered_name', values.company_registered_name ?? '')
+            formData.append('business_registered_number', values.business_registered_number ?? '')
+            formData.append('incorporated_date', values.incorporated_date ? useFxn.formatDate(values.incorporated_date) : '')
+            formData.append('company_structure', values.company_structure ?? '')
+            formData.append('company_registered', values.company_registered ?? '')
+            formData.append('business_classification', values.business_classification ?? '')
+            // formData.append('registration_progress_id', values.registration_progress_id)
 
 
-    try {
-        await api.registeredCompany(formData)
-        isSaving.value = false
-        paramsStore.getCompanyDetails()
-        emit('done')
+            try {
+                await api.registeredCompany(formData)
+                isSaving.value = false
+                useFxn.toast('Updated', 'success')
+                paramsStore.getCompanyDetails()
+                // emit('done')
 
-    } catch (error) {
-        console.log(error);
-    }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    })
 })
 </script>

@@ -36,7 +36,7 @@
                                     style="width:288pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                                     <p class="s8"
                                         style="padding-top: 6pt;padding-left: 4pt;text-indent: 0pt;line-height: 16pt;text-align: center;">
-                                        {{shares?.first_name??''}} {{shares?.last_name??''}}  {{shares?.authorized_persons?.first_name??''}} {{shares?.authorized_persons?.last_name??''}}  </p>
+                                        {{shares?.first_name??''}} {{shares?.last_name??''}}  {{shares?.company_name??''}} {{shares?.chn_company_name??''}}  </p>
                                     <p class="s17" style="padding-left: 4pt;text-indent: 0pt;line-height: 16pt;text-align: center;">
                                         {{shares?.chn_last_name}}{{shares?.chn_first_name}}
                                     </p>
@@ -47,13 +47,13 @@
                                 </td>
                                 <td
                                     style="width:203pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                                    <p class="s17"
+                                    <p class="s8"
                                         style="padding-top: 7pt;padding-left: 2pt;padding-right: 2pt;text-indent: 0pt;text-align: center;">
                                         {{shares?.owner_shares?.total_amount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") }}</p>
-                                    <p class="s17"
+                                    <p class="s8"
                                         style="padding-top: 12pt;padding-left: 2pt;padding-right: 3pt;text-indent: 0pt;text-align: center;">
                                         Ordinary</p>
-                                    <p class="s17"
+                                    <p class="s8"
                                         style="padding-top: 11pt;padding-left: 2pt;padding-right: 5pt;text-indent: 0pt;text-align: center;">
                                         {{shares?.company_shares[0]?.currency}} {{shares?.owner_shares?.total_amount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") }}</p>
                                 </td>
@@ -85,13 +85,13 @@
                                 </td>
                                 <td
                                     style="width:203pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                                    <p class="s17"
+                                    <p class="s8"
                                         style="padding-top: 4pt;padding-left: 4pt;padding-right: 2pt;text-indent: 0pt;text-align: center;">
                                         {{shareholders?shareholders[0]?.company_shares[0]?.no_of_share:''}} </p>
-                                    <p class="s17"
+                                    <p class="s8"
                                         style="padding-top: 12pt;padding-left: 3pt;padding-right: 2pt;text-indent: 0pt;text-align: center;">
                                         Ordinary</p>
-                                    <p class="s17"
+                                    <p class="s8"
                                         style="padding-top: 11pt;padding-left: 4pt;padding-right: 2pt;text-indent: 0pt;text-align: center;">
                                         {{shareholders?shareholders[0]?.company_shares[0]?.currency:''}}  {{shareholders?shareholders[0]?.company_shares[0]?.total_amount_paid:''}}</p>
                                 </td>
@@ -130,5 +130,5 @@ const shareholders = computed(() => {
 
 
 <style scoped>
-@import '@/assets/pdf2.css';
+@import '@/assets/pdf.css';
 </style>

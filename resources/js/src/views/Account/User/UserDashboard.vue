@@ -51,7 +51,7 @@
 
       <div class="col-lg-4">
         <div class="card border-0 shadow-sm h-100">
-          <div class="card-body py-4">
+          <div class="card-body">
             <div class="d-flex justify-content-between align-items-cente">
               <div class="col-8">
                 Total Companies
@@ -72,21 +72,25 @@
 
       <div class="col-lg-4">
         <div class="card border-0 shadow-sm h-100">
-          <div class="card-body py-4">
-            <div class="d-flex justify-content-between align-items-cente"  v-if="daysLeftFrom360Days != 0">
+          <div v-if="!companyDetails.incorporated_date"
+            class="card-body p-5 text-muted d-flex justify-content-center align-items-center">
+            No Incorporated company available
+          </div>
+          <div v-else class="card-body">
+            <div class="d-flex justify-content-between align-items-cente" v-if="daysLeftFrom360Days != 0">
               <div class="col-8">
                 <span class="fs-4 fw-bold text-mute">{{ daysLeftFrom360Days }} Days</span><small> remaining</small>
                 <div>
                   <span class="small">Annual Return</span>
                 </div>
-                <p> Next Renewal is {{ companyDetails.renewal_date}}</p>
+                <p> Next Renewal is {{ companyDetails.renewal_date }}</p>
               </div>
               <div class="col-5">
                 <apexchart type="pie" :options="pieChartOptions" :series="pieChartSeries">
                 </apexchart>
               </div>
             </div>
-            <div v-else> 
+            <div v-else>
               No Active company found
             </div>
           </div>
@@ -94,13 +98,17 @@
       </div>
       <div class="col-lg-4">
         <div class="card border-0 shadow-sm h-100">
-          <div class="card-body py-4">
+          <div v-if="!companyDetails.incorporated_date"
+            class="card-body p-5 text-muted d-flex justify-content-center align-items-center">
+            No Incorporated company available
+          </div>
+          <div v-else class="card-body">
             <div class="d-flex justify-content-between align-items-cente" v-if="daysLeftFrom360Days != 0">
               <div class="col-8">
-                <span class="fs-4 fw-bold text-mute">{{ daysLeftFrom360Days }} Days</span>  <small> remaining</small>
-                
+                <span class="fs-4 fw-bold text-mute">{{ daysLeftFrom360Days }} Days</span> <small> remaining</small>
+
                 <div>
-                  <span class="small">Next Payment in {{ companyDetails.renewal_date}}</span>
+                  <span class="small">Next Payment in {{ companyDetails.renewal_date }}</span>
                 </div>
                 <p>Business Registration Renewal</p>
               </div>
@@ -109,7 +117,7 @@
                 </apexchart>
               </div>
             </div>
-            <div v-else> 
+            <div v-else>
               No Active company found
             </div>
           </div>
@@ -269,7 +277,7 @@ const companies = reactive<any>({
   isLoading: true,
 });
 
-const companyDetails =  reactive<any>({
+const companyDetails = reactive<any>({
   incorporated_date: '',
   renewal_date: '',
 });
@@ -286,20 +294,20 @@ async function getNotifications() {
 
 }
 
-async function companyReturn(){
+async function companyReturn() {
   const annualReturns = await api.getCompanyReturn();
+  console.log(annualReturns, 'annualReturns');
   const data = annualReturns.data.data;
-  companyDetails.incorporated_date = data.date_incorporated
-  companyDetails.renewal_date = data.date_incorporated
-  console.log( companyDetails.incorporated_date, 'company incoprated');
+  companyDetails.incorporated_date = data?.date_incorporated
+  companyDetails.renewal_date = data?.date_incorporated
   return annualReturns
 }
 
 
-async function companyCounts(){
+async function companyCounts() {
   const companies = await api.getCompanyCount();
   CompanyCount.value = companies.data.data
-  console.log(  CompanyCount.value, 'company counts');
+  console.log(CompanyCount.value, 'company counts');
   return companies
 }
 
@@ -327,6 +335,9 @@ onMounted(() => {
   loadPieChartOptions()
   companyReturn()
   companyCounts()
+
+  console.log(companyDetails.incorporated_date, 'dateee');
+
 });
 
 // async function getCompanies() {
@@ -419,7 +430,7 @@ const daysLeftFrom360Days = computed(() => {
   const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
   console.log(diffInDays);
 
-  if(diffInDays < 0){
+  if (diffInDays < 0) {
     return 0;
   }
   return diffInDays;

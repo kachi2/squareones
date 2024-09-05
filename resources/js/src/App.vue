@@ -17,7 +17,10 @@ watchEffect(() => {
   background-color: v-bind('templateStore.cardBg') !important;
   color: v-bind('templateStore.cardTextColor');
   border: 1px solid v-bind('templateStore.borderInDark') !important;
+  border: none !important;
 }
+
+
 
 .bg-dynamic {
   color: v-bind('templateStore.cardTextColor');
@@ -26,8 +29,8 @@ watchEffect(() => {
 
 
 .py-4 {
-  background:v-bind('templateStore.cardBg') !important;
-  padding:8px;
+  background: v-bind('templateStore.cardBg') !important;
+  padding: 8px;
 }
 
 input:not(.exemption),
@@ -73,18 +76,26 @@ table tr td {
 .vue3-easy-data-table__footer {
   background-color: v-bind('templateStore.cardBg') !important;
   color: v-bind('templateStore.cardTextColor') !important;
-  border: none !important;
+  /* border: none !important; */
+  text-transform: capitalize;
 }
 
 .vue3-easy-data-table__header,
 .vue3-easy-data-table__header .text-muted {
-  background-color: v-bind('templateStore.easyTableHeaderBG') !important;
-  color: v-bind('templateStore.cardTextColor') !important;
+  /* background-color: v-bind('templateStore.easyTableHeaderBG') !important; */
+  background-color: transparent !important;
+  /* color: v-bind('templateStore.cardTextColor') !important; */
+  color: grey !important;
 }
 
 .easy-data-table__rows-selector ul.select-items li {
   background-color: v-bind('templateStore.bgColor') !important;
   color: v-bind('templateStore.textColor') !important;
+}
+
+.vue3-easy-data-table__main.fixed-header th,
+.vue3-easy-data-table__body td {
+  /* border: none !important; */
 }
 
 .vue3-easy-data-table__message,
@@ -123,12 +134,12 @@ input[type="text"]:disabled,
 .form-floating-custom .form-control,
 .form-floating-custom .form-select,
 .form-floating-custom textarea {
-
-  height: auto;
   padding: 1rem 0.75rem 0.75rem 1.0rem;
+}
 
-  /* border: 1px solid #ced4da; */
-  /* border-radius: 0.25rem; */
+.form-floating-custom .form-control:not(textarea),
+.form-floating-custom .form-select {
+  height: 60px !important;
 }
 
 .form-floating-custom label {
@@ -203,10 +214,16 @@ input[type="text"]:disabled,
 .fixed-label-custom .dp__input,
 .fixed-label-custom .vti__input {
   line-height: 2.70rem;
+  height: 60px !important;
+  padding-left: 15px;
+  border-radius: 5px;
+
+
 }
 
 .vs--single .v__selected {
   padding-left: .50rem;
+
 
   /* border: 1px solid #ced4da; */
   /* border-radius: 0.25rem; */

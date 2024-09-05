@@ -1,37 +1,65 @@
 <template>
     <div class="row g-3">
         <div class="col-12">
-            <div class="card shadow-sm">
+            <div class="card shadow-s">
                 <div class="card-body">
                     <div class="row g-3 mb-4">
                         <div class="col-lg-6">
-                            <div class="card border-0 h-100">
+                            <div class="card h-100">
+                                <div class="card-header border-0 bg-transparent">Team Invitation</div>
                                 <div class="card-body">
-                                    <div class="form-label">Team Invitation</div>
+                                    <!-- Nav tabs -->
+                                    <!-- <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <li @click="sendingType = 'search'" class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="Search-tab" data-bs-toggle="tab"
+                                                data-bs-target="#Search" type="button" role="tab" aria-controls="Search"
+                                                aria-selected="true">
+                                                Search from Users
+                                            </button>
+                                        </li>
+                                        <li @click="sendingType = 'email'" class="nav-item" role="presentation">
+                                            <button class="nav-link" id="TypeEmail-tab" data-bs-toggle="tab"
+                                                data-bs-target="#TypeEmail" type="button" role="tab"
+                                                aria-controls="TypeEmail" aria-selected="false">
+                                                Send To Email
+                                            </button>
+                                        </li>
+
+                                    </ul> -->
+
+                                    <!-- Tab panes -->
+                                    <!-- <div class="tab-content">
+                                        <div class="tab-pane active" id="Search" role="tabpanel"
+                                            aria-labelledby="Search-tab"> -->
                                     <input v-model="searchUserMail" type="text" class="form-control"
-                                        placeholder="search user by email">
+                                        placeholder="search by name or email">
 
                                     <ul class="list-group list-group-flush mt-3">
                                         <li class="list-group-item px-0" v-for="x in filteredUsersBySearch">
                                             <div class="row justify-content-between align-items-center">
                                                 <div @click="selectUser(x)"
-                                                    class="col-lg-7 text-info-emphasis fw-bold small cursor-pointer">
+                                                    class="col-lg-12 text-info-emphasis fw-bold small cursor-pointer">
                                                     <i v-if="x.isSelected" class="me-3 bi bi-check-circle-fill"></i>
                                                     <i v-else class="me-3 bi bi-circle"></i>
-                                                    {{ x.email }}
+                                                    {{ x.name }} ({{ x.email }})
                                                 </div>
-
-
                                             </div>
-
                                         </li>
                                     </ul>
+                                    <!-- </div> -->
+                                    <!-- <div class="tab-pane" id="TypeEmail" role="tabpanel"
+                                            aria-labelledby="TypeEmail-tab">
+                                            <input v-model="userEmailToSend" type="text" class="form-control"
+                                                placeholder="enter email">
+                                        </div> -->
+                                    <!-- </div> -->
+
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="row g-3">
-                                <div class="col-12" v-if="selectedUser && filteredUsersBySearch.length">
+                                <div class="col-12">
                                     <select v-model="selectedRole" class="form-select form-select-sm text-capitalize">
                                         <option value="" selected disabled>Select Role</option>
                                         <option v-for="i in company.roles" :value="i.name">{{ i.name }}
@@ -39,10 +67,10 @@
                                     </select>
                                 </div>
 
-                                <div class="col-12" v-if="infomationOfSelectedRole && filteredUsersBySearch.length">
+                                <div class="col-12" v-if="infomationOfSelectedRole">
 
                                     <div class="card h-100 exemptio border-0 bg-light-subtle text-capitalize">
-                                        <div class="card-header">{{ infomationOfSelectedRole.description }}
+                                        <div class="card-header border-0">{{ infomationOfSelectedRole.description }}
                                             <div class="float-end">
                                                 <button @click="sendInvitation" v-if="!isSendingInvitation"
                                                     class="btn btn-sm btn-secondary ">
@@ -143,14 +171,14 @@ const searchUserMail = ref('')
 const filteredUsersBySearch = computed(() => {
     let filtered: any[] = []
     if (searchUserMail.value) {
-        filtered = users.value.filter((x: any) => x.email.includes(searchUserMail.value))
+        filtered = users.value.filter((x: any) => x.email.includes(searchUserMail.value) || x.name.includes(searchUserMail.value))
         if (filtered.length) {
             filtered.forEach(x => {
                 x.isSelected = false
             })
         }
 
-        console.log(filtered);
+        // console.log(filtered);
 
     }
     else {
@@ -194,19 +222,32 @@ const infomationOfSelectedRole = computed(() => {
 // Sending Invitation
 const isSendingInvitation = ref<boolean>(false)
 async function sendInvitation() {
+    if (!selectedUser.value && !useFxn.isEmail(searchUserMail.value)) {
+        toast.info('Select a user or enter a valid email address', { position: 'top-right' });
+    }
+
     isSendingInvitation.value = true
+    // console.log(company.value, 'coy');
+
 
     try {
         const formData = new FormData();
-        const user = filteredUsersBySearch.value[0]
         const team_id = company.value.teams.id //'1'
         // console.log(user);
 
         formData.append('company_id', paramsStore.currentCompanyId);
-        formData.append('user_id', user.id);
-        formData.append('email', selectedUser.value.email);
-        formData.append('role', selectedRole.value);
         formData.append('team_id', team_id);
+        formData.append('role', selectedRole.value);
+
+        if (selectedUser.value) {
+            formData.append('user_id', selectedUser.value.id);
+            formData.append('email', selectedUser.value.email);
+        }
+        else {
+            formData.append('user_id', '');
+            formData.append('email', searchUserMail.value);
+
+        }
         const resp = await api.userTeamsInvitation(formData)
         console.log(resp);
 
@@ -229,18 +270,10 @@ async function sendInvitation() {
 
 
 
-
-
 async function userGetCompany() {
     try {
         const resp: any = await api.userGetCompany(paramsStore.currentCompanyId)
-        // console.log(resp, 'company');
         company.value = resp.data.data
-        // console.log(company.value);
-
-        // roles.value = resp.data.data.roles
-        // console.log(roles.value);
-
     } catch (error) {
         // 
     }
@@ -298,7 +331,7 @@ watch(serverOptions, (value) => { userTeamMembers(); }, { deep: true });
 
 const headers = [
     { text: "NAME", value: "users.name" },
-     { text: "EMAIL", value: "user.email" },
+    { text: "EMAIL", value: "user.email" },
     { text: "STATUS", value: "action_status" },
     { text: "ROLE", value: "role" },
     { text: "DATE ADDED", value: "created_at" },

@@ -13,13 +13,13 @@
                         <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                     </div>
                     <div class="modal-body">
-
+                        <div class="fixed-label-custom">
                         <div class="col-12 col-md-12">
-                            <div class="form-label">Update Incorporation Status</div>
                             <v-select v-model="registration_progress_id" :clearable="true" :options="progressData"
-                                :reduce="(item: any) => item.id" label="description" />
-
+                                :reduce="(item: any) => item.id" label="description"  placeholder="change statuses"/>
+                                <label class="" for="eng_name">Update Incorporation Status:</label>
                         </div>
+                       </div>
                     </div>
                     <div class="modal-footer border-0">
                         <button ref="closeModal" type="button" class="btn btn-secondary" data-bs-dismiss="modal">

@@ -21,6 +21,7 @@ textarea:focus,
 .error-field .vs__dropdown-toggle,
 .error-field .vue-tel-input {
     border: 1px solid red !important;
+    border-radius: 7px;
 }
 
 
@@ -44,6 +45,11 @@ textarea:focus,
 .vs__selected {
     padding-left: 10px;
 }
+
+.vs__search, .vs__search:focus {
+    padding-left: 15px;
+}
+
 
 .vs--single {
     &:not(.vs--open) .vs__selected+.vs__search {
@@ -154,7 +160,8 @@ tbody tr:hover {
 }
 
 
-.vue3-easy-data-table__main.fixed-header th,
-.vue3-easy-data-table__body td {
-    border: none !important;
+
+
+.text-grey {
+    color: grey !important;
 }

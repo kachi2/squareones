@@ -13,7 +13,7 @@
                 </div>
                 <div class="card-body">
                     <isLoadingComponent v-if="itemsLoading" />
-                    <EasyDataTable v-else class="easy-data-table" show-index :headers="headers" :items="items"
+                    <EasyDataTable v-else class="easy-data-table"  :headers="headers" :items="items"
                         buttons-pagination v-model:server-options="serverOptions" :server-items-length="total">
 
                         <template #header="header">
@@ -114,9 +114,10 @@ const headers = [
     { text: "DOCUMENT TITLE", value: "title" },
     // { text: "ADDED BY", value: "added_by" },
     { text: "DOCUMENT", value: "document" },
-    { text: "DATE ADDED", value: "created_at" },
-    // { text: "DATE MODIFIED", value: "updated_at" },
+     { text: "DOCUMENT TYPE", value: "type" },
+     { text: "DATE ADDED", value: "created_at" },
     { text: "ACTION", value: "action" },
+    
 ];
 
 async function deleteDocument(id: any) {

@@ -24,17 +24,17 @@
         </div>
 
         <div class="col-6">
-            <table style="border-collapse:collapse;margin-left:20pt" cellspacing="0">
+            <table style="border-collapse:collapse;margin-left:20pt; width:300px" cellspacing="0">
                 <tr style="height:36pt">
                     <td
                         style="width:209pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                        <p class="s17" style="padding-top: 3pt;text-indent: 0pt;text-align: center;">Orindary</p>
+                        <p class="s8" style="padding-top: 3pt;text-indent: 0pt;text-align: center;">Orindary</p>
                     </td>
                 </tr>
                 <tr style="height:36pt">
                     <td
                         style="width:209pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                        <p class="s17" style="padding-top: 3pt;text-indent: 0pt;text-align: center;">
+                        <p class="s8" style="padding-top: 3pt;text-indent: 0pt;text-align: center;">
                             {{ startCompanyStore?.companyInProgress?.shares[0].currency }}
                             {{ startCompanyStore?.companyInProgress?.shares[0].total_amount_paid.replace(/(\d)(?=(\d{3})+(?!\d))/g,
                             "$1,") }} </p>
@@ -43,7 +43,7 @@
                 <tr style="height:36pt">
                     <td
                         style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                        <p class="s17" style="padding-left: 24pt;text-indent: 0pt;text-align: left;">
+                        <p class="s8" style="padding-left: 24pt;text-indent: 0pt;text-align: left;">
                             {{ startCompanyStore?.companyInProgress?.shares[0].currency }} <span
                                 style="float:right; padding-right: 50px;">
                                 {{ startCompanyStore?.companyInProgress?.shares[0].total_amount_paid.replace(/(\d)(?=(\d{3})+(?!\d))/g,
@@ -54,7 +54,7 @@
                 <tr style="height:37pt">
                     <td
                         style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                        <p class="s17" style="padding-left: 24pt;text-indent: 0pt;text-align: left;">
+                        <p class="s8" style="padding-left: 24pt;text-indent: 0pt;text-align: left;">
                             {{ startCompanyStore?.companyInProgress?.shares[0].currency }} <span
                                 style="float:right; padding-right: 50px;">
                                 {{ startCompanyStore?.companyInProgress?.shares[0].total_amount_paid.replace(/(\d)(?=(\d{3})+(?!\d))/g,
@@ -64,7 +64,7 @@
                 <tr style="height:36pt">
                     <td
                         style="width:189pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                        <p class="s17" style="padding-left: 24pt;text-indent: 0pt;text-align: left;">HKD <span
+                        <p class="s8" style="padding-left: 24pt;text-indent: 0pt;text-align: left;">HKD <span
                                 style="float:right; padding-right: 50px;">0</span> </p>
                     </td>
                 </tr>
@@ -139,5 +139,5 @@ const startCompanyStore = useStartCompanyStore();
 </script>
 
 <style scoped>
-@import '@/assets/pdf2.css';
+@import '@/assets/pdf.css';
 </style>

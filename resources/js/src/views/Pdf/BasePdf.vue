@@ -110,7 +110,8 @@ function createPDF(canvas: any, index: any) {
     const maxPageWidth = doc.internal.pageSize.getWidth() - 10;
     const scaleFactor = maxPageWidth / canvas.width;
     const imgWidth = canvas.width * scaleFactor;
-    var pageHeight = 290;
+    // var pageHeight = 290;
+    var pageHeight = 350;
     var imgHeight = canvas.height * imgWidth / canvas.width;
     var heightLeft = imgHeight;
     var position = 0;

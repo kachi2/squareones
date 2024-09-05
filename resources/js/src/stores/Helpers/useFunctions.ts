@@ -105,7 +105,8 @@ export default {
         })
     },
 
-    addCommas: (numb: number) => {
+    addCommas: (numb: any) => {
+        if (!numb) return null;
         const str = !numb ? ['0'] : numb.toString().split(".");
         str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         return str.join(".");
@@ -144,7 +145,7 @@ export default {
     },
 
     dateDisplay: (date: Date, options?: string) => {
-        if (date || date != null || date != undefined) {
+        if (date) {
             if (options) {
                 if (options == 'm,y') {
                     const dd = useDateFormat(date, 'MMM, YYYY')
@@ -158,7 +159,7 @@ export default {
             const dd = useDateFormat(date, 'MMM D, YYYY')
             return dd.value
         }
-        else return ''
+        else return '-'
     },
 
     formatDate: (date: Date, format = 'YYYY-MM-DD') => {
@@ -249,6 +250,11 @@ export default {
 
     generateRandomNumbers: (length: any) => {
         return Array.from({ length }, () => Math.floor(Math.random() * 100)); // Adjust max value as needed
-    }
+    },
+
+    arrayPropSum(array: any[], prop: string) {
+        return array.reduce((total: number, array: any) => total + parseFloat(array[prop]), 0)
+    },
+
 
 }

@@ -142,9 +142,51 @@
         "Educational Services",
         "Healthcare and Medical Services"
     ],
-
     "IDType": [
-        {"id" :"1", "name": "Passport"},
-        {"id" :"2", "name":  "ID Card"}
+        {
+            "id": "1",
+            "name": "Passport"
+        },
+        {
+            "id": "2",
+            "name": "ID Card"
+        }
+    ],
+    "currencyCodes": [
+        "AED",
+        "AUD",
+        "BHD",
+        "BRL",
+        "CAD",
+        "CHF",
+        "CNY",
+        "CZK",
+        "DKK",
+        "EUR",
+        "GBP",
+        "HKD",
+        "HUF",
+        "IDR",
+        "ILS",
+        "INR",
+        "JPY",
+        "KRW",
+        "MXN",
+        "MYR",
+        "NGN",
+        "NZD",
+        "NOK",
+        "PHP",
+        "PLN",
+        "QAR",
+        "RUB",
+        "SAR",
+        "SEK",
+        "SGD",
+        "THB",
+        "TRY",
+        "TWD",
+        "USD",
+        "ZAR"
     ]
 }

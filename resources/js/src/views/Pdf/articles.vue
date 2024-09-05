@@ -3501,5 +3501,5 @@
 
 
 <style scoped>
-@import '@/assets/pdf2.css';
+@import '@/assets/pdf.css';
 </style>

@@ -116,7 +116,7 @@
                 <div class="col-4">
                     <div class="textbox"
                         style="border:1.0pt solid #000000;display:block;min-height:34.8pt;width:164.8pt;">
-                        <p class="s17" style="padding-top: 10pt;text-indent: 0pt;text-align: center;">{{ founder.founders_count }}</p>
+                        <p class="s8" style="padding-top: 10pt;text-indent: 0pt;text-align: center;">{{ founder.founders_count }}</p>
                     </div>
                 </div>
             </div>
@@ -132,7 +132,7 @@
                             </td>
                             <td style="width:350pt">
                                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
-                                <p class="s13"
+                                <p class="s8"
                                     style="border-bottom:1px solid #000;background:yellow; padding-left: 6pt;text-indent: 0pt;text-align: left;">:
                                     <img width="100" :src="SignatureStore?.founderSignature" alt="">
             
@@ -151,7 +151,7 @@
                             </td>
                             <td style="width:350pt">
                                 <p style="text-indent: 0pt;text-align: left;"> <br /></p>
-                                <p class="dataInput"
+                                <p class="s8"
                                     style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;" >:
                                     {{SignatureStore.founderName}}
                                 </p>
@@ -168,7 +168,7 @@
                             </td>
                             <td style="width:350pt">
                                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
-                                <p class="dataInput"
+                                <p class="s8"
                                     style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;">:
                                     創辦成員 Founder Member </p>
                             </td>
@@ -184,7 +184,7 @@
                             </td>
                             <td style="width:30pt">
                                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
-                                <p class="dataInput"
+                                <p class="s8"
                                     style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;" >
                                     {{SignatureStore.signatureDate}}
                                 </p>

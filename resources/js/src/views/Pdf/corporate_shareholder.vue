@@ -232,22 +232,22 @@
                         <tr style="height:28pt">
                             <td
                                 style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                                <p class="s17"
+                                <p class="s8"
                                     style="padding-left: 39pt;text-indent: 0pt;line-height: 17pt;text-align: left;">
                                     Ordinary
                                 </p>
                             </td>
                             <td
                                 style="width:87pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                                <p class="s17" style="text-indent: 0pt;line-height: 17pt;text-align: center;">{{corporateShare?.owner_shares?.total_amount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")   }}</p>
+                                <p class="s8" style="text-indent: 0pt;line-height: 17pt;text-align: center;">{{corporateShare?.owner_shares?.total_amount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")   }}</p>
                             </td>
                             <td
                                 style="width:57pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                                <p class="s17" style="padding-top: 6pt;text-indent: 0pt;text-align: center;">{{corporateShare?.company_shares[0]?.currency }}</p>
+                                <p class="s8" style="padding-top: 6pt;text-indent: 0pt;text-align: center;">{{corporateShare?.company_shares[0]?.currency }}</p>
                             </td>
                             <td
                                 style="width:96pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                                <p class="s17"
+                                <p class="s8"
                                     style="padding-left: 1pt;text-indent: 0pt;line-height: 17pt;text-align: center;">
                                     {{corporateShare?.owner_shares?.total_amount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")  }}</p>
                             </td>
@@ -279,15 +279,15 @@
                             </td>
                             <td style="width:87pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
                                 rowspan="2">
-                                <p class="s17" style="text-indent: 0pt;line-height: 17pt;text-align: center;"> {{corporateShare?.owner_shares?.total_amount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")   }}</p>
+                                <p class="s8" style="text-indent: 0pt;line-height: 17pt;text-align: center;"> {{corporateShare?.owner_shares?.total_amount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")   }}</p>
                             </td>
                             <td
                                 style="width:57pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                                <p class="s17" style="padding-top: 6pt;text-indent: 0pt;text-align: center;"> {{corporateShare?.company_shares[0]?.currency }}</p>
+                                <p class="s8" style="padding-top: 6pt;text-indent: 0pt;text-align: center;"> {{corporateShare?.company_shares[0]?.currency }}</p>
                             </td>
                             <td
                                 style="width:96pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                                <p class="s17"
+                                <p class="s8"
                                     style="padding-left: 1pt;text-indent: 0pt;line-height: 17pt;text-align: center;">
                                     {{ corporateShare?.owner_shares?.total_amount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")  }}</p>
                             </td>

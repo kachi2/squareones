@@ -1,8 +1,20 @@
 <template>
     <div>
-
         <div class="modal-body">
             <div class="row g-3">
+                <!-- <div class=" col-md-6"> </div> -->
+                <div class=" col-md-12">
+                    <div class="mb-3">
+                        <label for="" class="form-label">Select Director</label>
+                        <select @change="populateFieldWithDetails" v-model="selectedEntity" class="form-select">
+                            <option value="" selected disabled>--Select Director--</option>
+                            <option v-for="entity in selectOptions" :key="entity" :value="entity">{{
+                                entity.name }}</option>
+
+                        </select>
+                    </div>
+
+                </div>
                 <div class="col-12 col-md-6">
                     <div class="form-label">Name:</div>
                     <input v-model="name" type="text" class="form-control">
@@ -16,12 +28,12 @@
                     <small class=" text-danger">{{ errors.date_of_appointment }}</small>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Registration No:</div>
+                    <div class="form-label">ID/ Passport / Registration No:</div>
                     <input v-model="reg_no" type="text" class="form-control">
                     <small class=" text-danger">{{ errors.reg_no }}</small>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Registered Office:</div>
+                    <div class="form-label">Residential Address / Registered Office:</div>
                     <input v-model="registered_office" type="text" class="form-control">
                     <small class=" text-danger">{{ errors.registered_office }}</small>
                 </div>
@@ -48,8 +60,8 @@
                 Saving data..
             </button>
 
-            <button v-else @click="save" type="button" class="btn btn-primary">
-                Save and Continue
+            <button :disabled="!selectedEntity" v-else @click="save" type="button" class="btn btn-primary">
+                Update Data
             </button>
         </div>
     </div>
@@ -57,11 +69,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { onBeforeRouteLeave } from 'vue-router';
 import api from "@/stores/Helpers/axios"
 import useFxn from '@/stores/Helpers/useFunctions';
 import { useAdminParamsStore } from '../../../adminParamsStore';
+import { storeToRefs } from 'pinia'
 
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
@@ -70,6 +83,22 @@ const paramsStore = useAdminParamsStore()
 const emit = defineEmits(['done'])
 
 
+
+const selectOptions = computed(() => {
+    return paramsStore.currentCompanyData?.register_of_director ?? []
+})
+const selectedEntity = ref<any>('')
+function populateFieldWithDetails() {
+    if (selectedEntity.value) {
+        name.value = selectedEntity.value.name
+        date_of_appointment.value = selectedEntity.value.date_of_appointment
+        reg_no.value = selectedEntity.value.reg_no
+        registered_office.value = selectedEntity.value.registered_office
+        ceasing_of_act.value = selectedEntity.value.ceasing_of_act
+        remarks.value = selectedEntity.value.remarks
+    }
+
+}
 
 // form and validation
 const rules = {
@@ -110,28 +139,34 @@ function setValuesOnFields() {
 
 
 const save = handleSubmit(async (values) => {
-    isSaving.value = true
-    const formData = new FormData()
-    formData.append('company_id', paramsStore.currentCompanyId)
-    formData.append('date_of_appointment', values.date_of_appointment ? useFxn.formatDate(values.date_of_appointment) : '')
-    formData.append('name', values.name ?? '')
-    formData.append('reg_no', values.reg_no ?? '')
-    formData.append('registered_office', values.registered_office ?? '')
-    formData.append('ceasing_of_act', values.ceasing_of_act ? useFxn.formatDate(values.ceasing_of_act) : '')
-    formData.append('remarks', values.remarks ?? '')
-    if (paramsStore.idToEdit)
-        formData.append('directors_id', paramsStore.idToEdit)
+    useFxn.confirm('Update Data?', 'Continue').then(async (confirmed) => {
+        if (confirmed.value == true) {
+            isSaving.value = true
+            const formData = new FormData()
+            formData.append('company_id', paramsStore.currentCompanyId)
+            formData.append('date_of_appointment', values.date_of_appointment ? useFxn.formatDate(values.date_of_appointment) : '')
+            formData.append('name', values.name ?? '')
+            formData.append('reg_no', values.reg_no ?? '')
+            formData.append('registered_office', values.registered_office ?? '')
+            formData.append('ceasing_of_act', values.ceasing_of_act ? useFxn.formatDate(values.ceasing_of_act) : '')
+            formData.append('remarks', values.remarks ?? '')
+
+            formData.append('directors_id', selectedEntity.value.id)
 
 
-    try {
-        await api.registerOfDirectors(formData)
-        isSaving.value = false
-        resetForm()
-        paramsStore.getCompanyDetails()
-        emit('done')
+            try {
+                await api.registerOfDirectors(formData)
+                isSaving.value = false
+                useFxn.toast('Updated', 'success')
+                paramsStore.getCompanyDetails()
+                resetForm()
+                selectedEntity.value = ''
+                // emit('done')
 
-    } catch (error) {
-        console.log(error);
-    }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    })
 })
 </script>

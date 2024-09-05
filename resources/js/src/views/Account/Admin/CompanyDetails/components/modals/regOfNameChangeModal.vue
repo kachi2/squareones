@@ -15,27 +15,44 @@
                     <div class="modal-body">
                         <div class="row g-3">
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Name:</div>
-                                <input v-model="name" type="text" class="form-control">
+                                <div class="form-floating-custom">
+                                <input v-model="name" type="text" class="form-control" placeholder="">
+                                <label class="" for="eng_name">Name:</label>
+                                </div>
                                 <small class=" text-danger">{{ errors.name }}</small>
                             </div>
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Allotment Date:</div>
+                                <div class="fixed-label-custom">
                                 <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
-                                    :enable-time-picker="false" auto-apply v-model="allotment_date">
+                                    :enable-time-picker="false" auto-apply v-model="allotment_date" placeholder="select date">
                                 </VueDatePicker>
+                                <label class="" for="eng_name">Allotment Date:</label>
+                                </div>
                                 <small class=" text-danger">{{ errors.allotment_date }}</small>
                             </div>
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Address:</div>
-                                <input v-model="address" type="text" class="form-control">
+                                <div class="form-floating-custom">
+                                <input v-model="address" type="text" class="form-control" placeholder="">
+                                <label class="" for="eng_name">Address:</label>
+                                </div>
                                 <small class=" text-danger">{{ errors.address }}</small>
                             </div>
-
                             <div class="col-12 col-md-6">
-                                <div class="form-label">No of shares allocated:</div>
-                                <input v-model="no_of_shares_allocated" placeholder="0" class="form-control" v-maska
+                                <div class="form-floating-custom">
+                                <select v-model="class_of_shares" class="form-select">
+                                    <option selected value="ordinary">Ordinary</option>
+                                </select>
+                                <label class="" for="eng_name">Class of Shares:</label>
+                                </div>
+                                <small class=" text-danger">{{ errors.class_of_shares }}</small>
+                            </div>
+
+                            <div class="col-12 col-md-12">
+                                <div class="form-floating-custom">
+                                <input v-model="no_of_shares_allocated" placeholder="" class="form-control" v-maska
                                     data-maska="9,99#" data-maska-tokens="9:[0-9]:repeated" data-maska-reversed>
+                                    <label class="" for="eng_name">No of shares allocated:</label>
+                                </div>
                                 <small class="text-danger">{{ errors.no_of_shares_allocated }}</small>
                             </div>
 
@@ -100,7 +117,7 @@ const rules = {
     name: yup.string().required('Field is required'),
     address: yup.string().required('Field is required'),
     no_of_shares_allocated: yup.string().required('Field is required'),
-    // remarks: yup.string().required('Field is required'),
+    class_of_shares: yup.string().required('Field is required'),
 };
 
 const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({
@@ -111,7 +128,7 @@ const [allotment_date] = defineField('allotment_date');
 const [name] = defineField('name');
 const [address] = defineField('address');
 const [no_of_shares_allocated] = defineField('no_of_shares_allocated');
-// const [remarks] = defineField('remarks');
+ const [class_of_shares] = defineField('class_of_shares');
 const isSaving = ref<boolean>(false)
 
 function setValuesOnFields() {
@@ -123,7 +140,7 @@ function setValuesOnFields() {
             setFieldValue('name', register_of_company_name.name)
             setFieldValue('address', register_of_company_name.address)
             setFieldValue('no_of_shares_allocated', register_of_company_name.no_of_shares_allocated)
-            // setFieldValue('remarks', register_of_company_name.remarks)
+             setFieldValue('class_of_shares', register_of_company_name.class_of_shares)
         }
     }
 }
@@ -139,11 +156,9 @@ const save = handleSubmit(async (values) => {
             formData.append('name', values.name ?? '')
             formData.append('address', values.address ?? '')
             formData.append('no_of_shares_allocated', values.no_of_shares_allocated ?? '')
-            // formData.append('remarks', values.remarks)
+             formData.append('class_of_shares', values.class_of_shares)
             if (paramsStore.idToEdit)
                 formData.append('namechange_id', paramsStore.idToEdit)
-
-
             try {
                 await api.registerOfChangeOfName(formData)
                 isSaving.value = false

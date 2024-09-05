@@ -260,7 +260,7 @@
                         <p style="text-indent: 0pt;text-align: left;"><br /></p>
                         <p class="s16"
                             style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;">
-                            <!-- {{ corporate?.authorized_persons.first_name }} {{ corporate?.authorized_persons.last_name }} -->
+                            {{ corporate?.authorized_persons.first_name }} {{ corporate?.authorized_persons.last_name }} FOR AND ON BEHALF OF {{ corporate?.company_name }} {{ corporate?.chn_company_name }}
                         </p>
                     </td>
                     <td style="width:55pt">

@@ -31,10 +31,11 @@
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
                         <div class="fixed-label-custom">
-                        <v-select @search:blur="form.validateVueSelectOnBlur('activity_level')"
-                            v-bind="form.activity_levelAttr" :class="{ 'error-field': form.errors.activity_level }"
-                            v-model="form.activity_level" :clearable="true"
-                            :options="startCompanyStore.levelOfActivity" />
+                            <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                                @search:blur="form.validateVueSelectOnBlur('activity_level')"
+                                v-bind="form.activity_levelAttr" :class="{ 'error-field': form.errors.activity_level }"
+                                v-model="form.activity_level" :clearable="true"
+                                :options="startCompanyStore.levelOfActivity" />
                             <label class="fw-bold">Level of activity <span class="text-danger"> * </span></label>
                         </div>
                         <small class=" text-danger">{{ form.errors.activity_level }}</small>
@@ -51,12 +52,13 @@
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
                         <div class="fixed-label-custom">
-                        <v-select @search:blur="form.validateVueSelectOnBlur('activity_nature')"
-                            v-bind="form.activity_natureAttr" :class="{ 'error-field': form.errors.activity_nature }"
-                            v-model="form.activity_nature" :clearable="true"
-                            :options="startCompanyStore.natureOfActivity" />
-                            <label class="fw-bold">Nature of activity  <span class="text-danger"> * </span></label>
-                            </div>
+                            <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                                @search:blur="form.validateVueSelectOnBlur('activity_nature')"
+                                v-bind="form.activity_natureAttr"
+                                :class="{ 'error-field': form.errors.activity_nature }" v-model="form.activity_nature"
+                                :clearable="true" :options="startCompanyStore.natureOfActivity" />
+                            <label class="fw-bold">Nature of activity <span class="text-danger"> * </span></label>
+                        </div>
 
                         <small class=" text-danger">{{ form.errors.activity_nature }}</small>
                     </div>
@@ -73,12 +75,15 @@
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
                         <div class="fixed-label-custom">
-                        <v-select v-bind="form.customer_location_operationAttr"
-                            :class="{ 'error-field': form.errors.customer_location_operation }" :multiple="true"
-                            v-model="form.customer_location_operation" :clearable="true"
-                            :options="startCompanyStore.countries" />
-                            <label class="fw-bold ">Customer Location and Operation <span class="text-danger"> * </span></label>
-                            </div>
+                            <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                                @search:blur="form.validateVueSelectOnBlur('customer_location_operation')"
+                                v-bind="form.customer_location_operationAttr"
+                                :class="{ 'error-field': form.errors.customer_location_operation }" :multiple="true"
+                                v-model="form.customer_location_operation" :clearable="true"
+                                :options="startCompanyStore.countries" />
+                            <label class="fw-bold ">Customer Location and Operation <span class="text-danger"> *
+                                </span></label>
+                        </div>
                         <small class=" text-danger">{{ form.errors.customer_location_operation }}</small>
                     </div>
 
@@ -94,10 +99,12 @@
                 <div class="row g-2 mt-1">
                     <div class="col-md-12">
                         <div class="fixed-label-custom">
-                        <v-select :class="{ 'error-field': form.errors.country }" :multiple="true"
-                            v-model="form.country" :clearable="true" :options="startCompanyStore.countries" />
+                            <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                                @search:blur="form.validateVueSelectOnBlur('countries')"
+                                :class="{ 'error-field': form.errors.country }" :multiple="true" v-model="form.country"
+                                :clearable="true" :options="startCompanyStore.countries" />
                             <label class="fw-bold ">List of countries<span class="text-danger"> * </span></label>
-                            </div>
+                        </div>
                         <small class=" text-danger">{{ form.errors.country }}</small>
                     </div>
 
@@ -161,7 +168,7 @@
 import { computed, onMounted, watch, watchEffect } from 'vue';
 import StartCompany_template from '../StartCompany_template.vue';
 import { useStartCompanyStore } from '../StartCompany_store';
-
+import useFxn from '@/stores/Helpers/useFunctions';
 import api from '@/stores/Helpers/axios'
 import { useToast } from 'vue-toast-notification';
 import { activitiesForm } from './formsStore/Activities'
@@ -194,22 +201,22 @@ onMounted(() => {
     })
 })
 
-const CheckNulleShares:any = computed(() => {
-    const NoShareHolders:any = []
-    let checkFX:boolean = false
-        const entity = startCompanyStore.companyInProgress?.company_entity ?? []
-        if (entity.length) {
-            entity.forEach((el: any) => {
-                const obj = el.individual || el.corporate;
-                  if(el.entity_capacity_id.includes(1)){
-                   NoShareHolders.push(obj)
-                   }
-            })
-            // console.log(NoShareHolders,'NoShareHolders')
-            const nullShares = NoShareHolders.find((t:any) => t.owner_shares == null)
-            checkFX  = nullShares?true:false
-        } 
-        return checkFX 
+const CheckNulleShares: any = computed(() => {
+    const NoShareHolders: any = []
+    let checkFX: boolean = false
+    const entity = startCompanyStore.companyInProgress?.company_entity ?? []
+    if (entity.length) {
+        entity.forEach((el: any) => {
+            const obj = el.individual || el.corporate;
+            if (el.entity_capacity_id.includes(1)) {
+                NoShareHolders.push(obj)
+            }
+        })
+        // console.log(NoShareHolders,'NoShareHolders')
+        const nullShares = NoShareHolders.find((t: any) => t.owner_shares == null)
+        checkFX = nullShares ? true : false
+    }
+    return checkFX
 });
 
 
@@ -248,13 +255,13 @@ async function saveFromToApi(formData: FormData) {
         toast.success('Data Saved Successfully', { position: 'top-right' });
         form.isSaving = false
         startCompanyStore.getCompanyInProgress()
-        if(!CheckNulleShares.value){
+        if (!CheckNulleShares.value) {
             startCompanyStore.switchStage('+')
-        }else{
-            toast.info('You cannot access Summary page <br> Please is error on the Ownership  page', { position: 'top-right' });
+        } else {
+            toast.info('You cannot access Summary page <br> There is error on the Ownership  page', { position: 'top-right' });
             return
         }
-   
+
     } catch (error) {
         toast.error('Sorry, Something went wrong', { position: 'top-right' });
         form.isSaving = false

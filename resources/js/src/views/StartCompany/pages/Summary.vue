@@ -14,30 +14,34 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <span>
-                                    Name
+                                    Names
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 2" class="bi bi-pencil-square"></i>
                                     </span>
-                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[0]"> First Choice:
+                                <div class="small text-mut text-capitalize" v-if="data?.company_name[0]">   Choice 1:
                                         <span v-if="data?.company_name[0]?.eng_name">  {{ data?.company_name[0]?.eng_name }} {{ data?.company_name[0]?.eng_prefix}}&nbsp; </span>
                                         <span v-if="data?.company_name[0]?.chn_name">    {{ data?.company_name[0]?.chn_name }}{{ data?.company_name[0]?.chn_prefix }} </span>
                                     </div>
-                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[1]"> Second Choice: 
+                                     <div v-else>  Choice 1: - </div>
+                                   
+                                    
+                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[1]">  Choice 2: 
                                         <span v-if="data?.company_name[1]?.eng_name"> {{ data?.company_name[1]?.eng_name }} {{ data?.company_name[1]?.eng_prefix}}&nbsp; </span>
                                         <span v-if="data?.company_name[1]?.chn_name">   {{ data?.company_name[1]?.chn_name }}{{ data?.company_name[1]?.chn_prefix }} </span>
-                                    </div>
-                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[2]">Third Choice: 
+                                    </div><div v-else> Choice 2: - </div>
+                                    
+                                     <div class="small text-mut text-capitalize" v-if="data?.company_name[2]">Choice 3: 
                                         <span v-if="data?.company_name[2]?.eng_name"> {{ data?.company_name[2]?.eng_name }} {{ data?.company_name[2]?.eng_prefix}}&nbsp; </span>
                                         <span v-if="data?.company_name[2]?.chn_name">   {{ data?.company_name[2]?.chn_name }}{{ data?.company_name[2]?.chn_prefix }} </span>
-                                    </div>
-                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[3]" >Fourth Choice:
+                                    </div><div v-else>Choice 3: - </div>
+                                     <div class="small text-mut text-capitalize" v-if="data?.company_name[3]" >Choice 4:
                                         <span v-if="data?.company_name[3]?.eng_name">  {{ data?.company_name[3]?.eng_name }} {{ data?.company_name[3]?.eng_prefix}} &nbsp; </span>
                                         <span v-if="data?.company_name[3]?.chn_name">   {{ data?.company_name[3]?.chn_name }}{{ data?.company_name[3]?.chn_prefix }} </span>
-                                    </div>
-                                    <div class="small text-mut text-capitalize" v-if="data?.company_name[4]" >Fifth Choice: 
+                                    </div><div v-else>Choice 4: - </div>
+                                      <div class="small text-mut text-capitalize" v-if="data?.company_name[4]" > Choice 5: 
                                         <span v-if="data?.company_name[4]?.eng_name"> {{ data?.company_name[4]?.eng_name }} {{ data?.company_name[4]?.eng_prefix}}&nbsp; </span>
                                         <span v-if="data?.company_name[4]?.chn_name">   {{ data?.company_name[4]?.chn_name }}{{ data?.company_name[4]?.chn_prefix }} </span>
-                                    </div>
+                                    </div> <div v-else>Choice 5:  - </div>
                                 </span>
 
                             </li>

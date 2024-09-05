@@ -9,11 +9,11 @@
                     <strong>Information Alert!</strong> You should check out this information details.
                 </div>
             </div>
-            <div class="card border-0 exemption">
-                <div class="card-body">
-                    <RouterView />
-                </div>
-            </div>
+            <!-- <div class="card border-0 exemption"> -->
+            <!-- <div class="card-body"> -->
+            <RouterView />
+            <!-- </div> -->
+            <!-- </div> -->
         </div>
     </div>
 </template>

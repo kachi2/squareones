@@ -15,39 +15,55 @@
                     <div class="modal-body">
                         <div class="row g-3">
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Company Name:</div>
-                                <input v-model="company_registered_name" type="text" class="form-control">
+                                <div class="form-floating-custom">
+                                <input v-model="company_registered_name" type="text" class="form-control"
+                                v-maska data-maska="" data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple 0:[0-9]" placeholder="">
+                                <label class="" for="eng_name">Company Name </label>
+                                </div>
                                 <small class=" text-danger">{{ errors.company_registered_name }}</small>
                             </div>
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Business Registration Number (BRN):</div>
-                                <input v-model="business_registered_number" type="text" class="form-control">
+                                <div class="form-floating-custom">
+                                <input v-model="business_registered_number" type="text" class="form-control" 
+                                v-maska data-maska="" data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple 0:[0-9]" placeholder="">
+                                <label class="" for="eng_name">Business Registration Number (BRN):</label>
+                            </div>
                                 <small class=" text-danger">{{ errors.business_registered_number }}</small>
                             </div>
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Incorporation Date:</div>
+                                <div class="fixed-label-custom">
                                 <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
-                                    :enable-time-picker="false" auto-apply v-model="incorporated_date">
+                                    :enable-time-picker="false" auto-apply v-model="incorporated_date" placeholder="select date">
                                 </VueDatePicker>
-                                <small class=" text-danger">{{ errors.incorporated_date }}</small>
+                                <label class="" for="eng_name">Incorporation Date:</label>
                             </div>
+                            <small class=" text-danger">{{ errors.incorporated_date }}</small>
+                        </div>
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Company Structure:</div>
-                                <select v-model="company_structure" class="form-select">
-                                    <option value="Private_Limited_Company">Private Limited Company</option>
-                                </select>
-                                <small class=" text-danger">{{ errors.company_structure }}</small>
+                                <div class="fixed-label-custom">
+                                    <v-select placeholder="Private Limited Company" v-model="company_structure"
+                            :clearable="false"   />
+                                <label class="" for="eng_name">Company Structure:</label>
                             </div>
+                            <small class=" text-danger">{{ errors.company_structure }}</small>
+                            </div>
+              
+                        <div class="col-md-6">
+                            <div class="fixed-label-custom">
+                        <v-select placeholder="select country.." v-model="company_registered"
+                            :clearable="false" :options="paramsStore.countries" />
+                            <label class="form-label">Country／Region <i class="bi bi-lock-fill"></i></label>
+                    </div>
+                    <small class=" text-danger">{{ errors.company_registered }}</small>
+                          </div>
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Company Registered In:</div>
-                                <input v-model="company_registered" type="text" class="form-control">
-                                <small class=" text-danger">{{ errors.company_registered }}</small>
+                                <div class="form-floating-custom">
+                                <input v-model="business_classification" type="text" class="form-control"
+                                v-maska data-maska="" data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple 0:[0-9]" placeholder="">
+                                <label class="" for="eng_name">Business Classification:</label>
                             </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-label">Business Classification:</div>
-                                <input v-model="business_classification" type="text" class="form-control">
-                                <small class=" text-danger">{{ errors.business_classification }}</small>
-                            </div>
+                            <small class=" text-danger">{{ errors.business_classification }}</small>
+                        </div>
                         </div>
 
                     </div>
@@ -77,7 +93,7 @@ import { onBeforeRouteLeave } from 'vue-router';
 import api from "@/stores/Helpers/axios"
 import useFxn from '@/stores/Helpers/useFunctions';
 import { useAdminParamsStore } from '../../adminParamsStore';
-
+import { vMaska } from "maska"
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
 

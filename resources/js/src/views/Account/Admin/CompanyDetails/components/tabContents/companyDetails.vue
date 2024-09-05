@@ -116,11 +116,12 @@
                                         :class="status.e ? 'bi  bi-check-circle-fill text-success phase phase-5' : 'bi  bi-circle text-warning phase phase-5'"></i>
 
                                     <div class="phase-label phase-1">Set up <br> company</div>
-                                    <div class="phase-label phase-2">Preparing <br> Incorporation
+                                    <div class="phase-label phase-2"> Sorting out <br> &nbsp;incorporation <br> details
+                                        &nbsp;
                                     </div>
-                                    <div class="phase-label phase-3">Filling<br>Documents</div>
-                                    <div class="phase-label phase-4">Company<br>Incorporated</div>
-                                    <div class="phase-label phase-5">Tax ID<br>Ready</div>
+                                    <div class="phase-label phase-3">Handling <br> the <br> paperwork</div>
+                                    <div class="phase-label phase-4">Your company<br> is incorporated</div>
+                                    <div class="phase-label phase-5">Certificates <br>Ready</div>
                                 </div>
                             </div>
 
@@ -242,7 +243,7 @@
                             Annual Return Date:
                             <span class="float-end">
                                 {{
-                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting[0]?.annual_return_date)
+                                    dispMonthAndDay(paramsStore.currentCompanyData?.compliance_reporting[0]?.annual_return_date)
                                 }}
                             </span>
                         </li>
@@ -270,6 +271,7 @@ import regOfficeModal from '../modals/regOfficeModal.vue';
 import ComplianceReportingModal from '../modals/complianceReportingModal.vue';
 import { ref, onMounted, reactive, watch } from 'vue';
 import api from '@/stores/Helpers/axios'
+import { useDateFormat } from '@vueuse/core';
 
 const paramsStore = useAdminParamsStore()
 
@@ -281,6 +283,7 @@ const status = reactive({
 
 onMounted(async () => {
     updateProgress()
+    await paramsStore.getCountries()
 })
 
 watch(() => paramsStore.hasUpdatedProgress, () => {
@@ -291,15 +294,15 @@ function updateProgress() {
     status.a = false; status.b = false; status.c = false; status.d = false; status.e = false
     registered_company = paramsStore.currentCompanyData?.registered_company[0]
     // console.log(registered_company.registration_progress_id, 'registered_company')
-    if (registered_company.registration_progress_id == 5) {
+    if (registered_company?.registration_progress_id == 5) {
         status.a = true; status.b = true; status.c = true; status.d = true; status.e = true
-    } else if (registered_company.registration_progress_id == 4) {
+    } else if (registered_company?.registration_progress_id == 4) {
         status.a = true; status.b = true; status.c = true; status.d = true
-    } else if (registered_company.registration_progress_id == 3) {
+    } else if (registered_company?.registration_progress_id == 3) {
         status.a = true; status.b = true; status.c = true
-    } else if (registered_company.registration_progress_id == 2) {
+    } else if (registered_company?.registration_progress_id == 2) {
         status.a = true; status.b = true
-    } else if (registered_company.registration_progress_id == 1) {
+    } else if (registered_company?.registration_progress_id == 1) {
         status.a = true
     } else {
 
@@ -307,6 +310,16 @@ function updateProgress() {
 
     console.log(status);
 
+}
+
+
+function dispMonthAndDay(date: any) {
+    if (!date)
+        return '-'
+    else {
+        const dd = useDateFormat(date, 'MMM, DD')
+        return dd.value
+    }
 }
 
 

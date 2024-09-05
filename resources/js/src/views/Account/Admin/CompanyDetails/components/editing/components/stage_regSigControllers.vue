@@ -18,13 +18,13 @@
                             </div> -->
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Legal Entity:</div>
+                    <div class="form-label">Name of Registrable Person / Legal Entity:</div>
                     <input v-model="legal_entity_name" type="text" class="form-control">
                     <small class=" text-danger">{{ errors.legal_entity_name }}</small>
                 </div>
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Date Becoming Rep Person:</div>
+                    <div class="form-label">Date Becoming a Registrable Person:</div>
                     <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
                         :enable-time-picker="false" auto-apply v-model="date_becoming_rep_person">
                     </VueDatePicker>
@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Date Ceased to be Rep Person:</div>
+                    <div class="form-label">Date Cease to Be a Registrable Person:</div>
                     <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
                         :enable-time-picker="false" auto-apply v-model="date_ceased_to_be_rep_person">
                     </VueDatePicker>
@@ -46,15 +46,15 @@
                 </div>
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Corresponding Address:</div>
+                    <div class="form-label">Corresponding Address/Residential Address::</div>
                     <input v-model="corresponding_address" type="text" class="form-control">
                     <small class=" text-danger">{{ errors.corresponding_address }}</small>
                 </div>
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Identity Infomation:</div>
-                    <input v-model="identiy_info" type="text" class="form-control">
-                    <small class=" text-danger">{{ errors.identiy_info }}</small>
+                    <div class="form-label">ID/ Passport / Registration No:</div>
+                    <input v-model="identity_info" type="text" class="form-control">
+                    <small class=" text-danger">{{ errors.identity_info }}</small>
                 </div>
 
                 <div class="col-12 col-md-6">
@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Nature of Control:</div>
+                    <div class="form-label">Nature of control over company::</div>
                     <input v-model="nature_of_control_over_the_company" type="text" class="form-control">
                     <small class=" text-danger">{{ errors.nature_of_control_over_the_company }}</small>
                 </div>
@@ -80,7 +80,7 @@
             </button>
 
             <button v-else @click="save" type="button" class="btn btn-primary">
-                Save and Continue
+                Update Data
             </button>
         </div>
     </div>
@@ -88,7 +88,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { onBeforeRouteLeave } from 'vue-router';
 import api from "@/stores/Helpers/axios"
 import useFxn from '@/stores/Helpers/useFunctions';
@@ -103,6 +103,10 @@ const paramsStore = useAdminParamsStore()
 const emit = defineEmits(['done'])
 
 
+onMounted(() => {
+    setValuesOnFields()
+})
+
 // form and validation
 const rules = {
     entry_date: yup.date().required('Field is required'),
@@ -112,7 +116,7 @@ const rules = {
     date_ceased_to_be_rep_person: yup.date().required('Field is required'),
     corresponding_address: yup.string().required('Field is required'),
     resdential_address: yup.string().required('Field is required'),
-    identiy_info: yup.string().required('Field is required'),
+    identity_info: yup.string().required('Field is required'),
     place_of_registration: yup.string().required('Field is required'),
     nature_of_control_over_the_company: yup.string().required('Field is required'),
 };
@@ -128,56 +132,57 @@ const [date_becoming_rep_person] = defineField('date_becoming_rep_person');
 const [date_ceased_to_be_rep_person] = defineField('date_ceased_to_be_rep_person');
 const [corresponding_address] = defineField('corresponding_address');
 const [resdential_address] = defineField('resdential_address');
-const [identiy_info] = defineField('identiy_info');
+const [identity_info] = defineField('identity_info');
 const [place_of_registration] = defineField('place_of_registration');
 const [nature_of_control_over_the_company] = defineField('nature_of_control_over_the_company');
 const isSaving = ref<boolean>(false)
 
 function setValuesOnFields() {
-    if (paramsStore.idToEdit) {
-        const significant_controllers = paramsStore.currentCompanyData?.significant_controller
-        const significant_controller = significant_controllers.find((x: { id: string; }) => x.id == paramsStore.idToEdit)
-        if (significant_controller) {
-            setFieldValue('entry_date', significant_controller.entry_date)
-            // setFieldValue('name', significant_controller.name)
-            setFieldValue('legal_entity_name', significant_controller.legal_entity_name)
-            setFieldValue('date_becoming_rep_person', significant_controller.date_becoming_rep_person)
-            setFieldValue('date_ceased_to_be_rep_person', significant_controller.date_ceased_to_be_rep_person)
-            setFieldValue('corresponding_address', significant_controller.controllers_particulars.corresponding_address)
-            setFieldValue('resdential_address', significant_controller.controllers_particulars.resdential_address)
-            setFieldValue('identiy_info', significant_controller.controllers_particulars.identiy_info)
-            setFieldValue('place_of_registration', significant_controller.controllers_particulars.place_of_registration)
-            setFieldValue('nature_of_control_over_the_company', significant_controller.controllers_particulars.nature_of_control_over_the_company)
-        }
+    const significant_controller = paramsStore.currentCompanyData?.significant_controller[0]
+    if (significant_controller) {
+        setFieldValue('entry_date', significant_controller.entry_date)
+        // setFieldValue('name', significant_controller.name)
+        setFieldValue('legal_entity_name', significant_controller?.legal_entity_name)
+        setFieldValue('date_becoming_rep_person', significant_controller?.date_becoming_rep_person)
+        setFieldValue('date_ceased_to_be_rep_person', significant_controller?.date_ceased_to_be_rep_person)
+        setFieldValue('corresponding_address', significant_controller?.controllers_particulars?.corresponding_address)
+        setFieldValue('resdential_address', significant_controller?.controllers_particulars?.resdential_address)
+        setFieldValue('identity_info', significant_controller?.controllers_particulars?.identity_info)
+        setFieldValue('place_of_registration', significant_controller?.controllers_particulars?.place_of_registration)
+        setFieldValue('nature_of_control_over_the_company', significant_controller?.controllers_particulars?.nature_of_control_over_the_company)
     }
 }
 
 const save = handleSubmit(async (values) => {
-    isSaving.value = true
-    const formData = new FormData()
-    formData.append('company_id', paramsStore.currentCompanyId)
-    formData.append('entry_date', values.entry_date ?? '')
-    // formData.append('name', values.name)
-    formData.append('legal_entity_name', values.legal_entity_name ?? '')
-    formData.append('date_becoming_rep_person', values.date_becoming_rep_person ? useFxn.formatDate(values.date_becoming_rep_person) : '')
-    formData.append('date_ceased_to_be_rep_person', values.date_ceased_to_be_rep_person ? useFxn.formatDate(values.date_ceased_to_be_rep_person) : '')
-    formData.append('corresponding_address', values.corresponding_address ?? '')
-    formData.append('resdential_address', values.resdential_address ?? '')
-    formData.append('identiy_info', values.identiy_info ?? '')
-    formData.append('place_of_registration', values.place_of_registration ?? '')
-    formData.append('nature_of_control_over_the_company', values.nature_of_control_over_the_company ?? '')
-    if (paramsStore.idToEdit)
-        formData.append('controllers_id', paramsStore.idToEdit)
+    useFxn.confirm('Update Data?', 'Continue').then(async (confirmed) => {
+        if (confirmed.value == true) {
+            isSaving.value = true
+            const formData = new FormData()
+            formData.append('company_id', paramsStore.currentCompanyId)
+            formData.append('entry_date', values.entry_date ?? '')
+            // formData.append('name', values.name)
+            formData.append('legal_entity_name', values.legal_entity_name ?? '')
+            formData.append('date_becoming_rep_person', values.date_becoming_rep_person ? useFxn.formatDate(values.date_becoming_rep_person) : '')
+            formData.append('date_ceased_to_be_rep_person', values.date_ceased_to_be_rep_person ? useFxn.formatDate(values.date_ceased_to_be_rep_person) : '')
+            formData.append('corresponding_address', values.corresponding_address ?? '')
+            formData.append('resdential_address', values.resdential_address ?? '')
+            formData.append('identity_info', values.identity_info ?? '')
+            formData.append('place_of_registration', values.place_of_registration ?? '')
+            formData.append('nature_of_control_over_the_company', values.nature_of_control_over_the_company ?? '')
+
+            // formData.append('controllers_id', paramsStore.idToEdit)
 
 
-    try {
-        await api.significantControllers(formData)
-        isSaving.value = false
-        resetForm()
-        paramsStore.getCompanyDetails()
-        emit('done')
-    } catch (error) {
-        console.log(error);
-    }
+            try {
+                await api.significantControllers(formData)
+                isSaving.value = false
+                useFxn.toast('Updated', 'success')
+                paramsStore.getCompanyDetails()
+                // emit('done')
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    })
 })
 </script>

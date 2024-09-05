@@ -1,24 +1,29 @@
 <template>
     <div class="card exemption border-0">
         <div class="card-header bg-transparent border-0">
-            <div @click="togglePopulateData" class="float-end">
-                <button v-if="!isPopulatingData" class="btn btn-primary btn-sm">
+            <div class="float-end">
+                <button @click="changeDataShowingStatus('populate')" v-if="dataShowingStatus == 'details'"
+                    class="btn btn-primary btn-sm">
                     Populate Data <i class="bi bi-pencil"></i>
                 </button>
                 <div v-else>
-                    <button class="btn btn-primary btn-sm">
-                        <i class="bi bi-x"></i> Publish Data
-                    </button>
+                    <!-- <button @click="changeDataShowingStatus('summary')" class="btn btn-info btn-sm">
+                        <i class="bi bi-list-task"></i> View Summary
+                    </button> -->
                     &nbsp; &nbsp; &nbsp;
-                    <button class="btn btn-secondary btn-sm">
+                    <button @click="changeDataShowingStatus('details')" class="btn btn-secondary btn-sm">
                         <i class="bi bi-x-lg"></i> Cancel
                     </button>
                 </div>
             </div>
         </div>
-        <div v-if="isPopulatingData" class="card-body">
-            <Editing @done="togglePopulateData" />
+        <div v-if="dataShowingStatus == 'populate'" class="card-body">
+            <Editing @done="changeDataShowingStatus('details')" />
         </div>
+        <!-- <div v-else-if="dataShowingStatus == 'summary'" class="card-body min-vh-100 overflow-auto">
+            <h4 class=" mb-4">Summary</h4>
+            <CompanySummary @done="changeDataShowingStatus('details')" />
+        </div> -->
         <div v-else class="card-body">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -98,14 +103,23 @@ import documentsTabContent from './components/tabContents/documents.vue'
 // import foundersTabContent from './components/tabContents/founders.vue'
 import logsTabContent from './components/tabContents/logs.vue'
 import Editing from './components/editing/editing.vue';
+import CompanySummary from './CompanySummary.vue';
 
 const paramsStore = useAdminParamsStore()
 
 const companyIsLoading = ref<boolean>(true)
 const isPopulatingData = ref<boolean>(false)
 
+type DataShowingStatusTypes = 'summary' | 'populate' | 'details';
+
+const dataShowingStatus = ref<DataShowingStatusTypes>('details')
+
 function togglePopulateData() {
     isPopulatingData.value = !isPopulatingData.value
+}
+
+function changeDataShowingStatus(string: DataShowingStatusTypes) {
+    dataShowingStatus.value = string
 }
 
 onMounted(async () => {
@@ -125,4 +139,4 @@ onMounted(async () => {
     border: 1px solid rgb(0 0 0 / 5%);
     border-radius: 10px;
 }
-</style>./adminParamsStore
+</style>

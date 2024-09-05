@@ -6,15 +6,17 @@
 
             <div class="col-md-4">
                 <div class="card border-0 shadow-sm h-100">
-                    <div class="card-body py-4">
+                    <div class="card-body">
                         <div class="d-flex justify-content-between align-items-cente">
-                            <div class="col-7">
-                                <span class="fs-4 fw-bold text-mute">1/10</span>
+                            <div class="col-6">
+                                <span class="fs-4 fw-bold text-mute">{{ companies.list.length }}/{{
+                                    companies.list.length
+                                }}</span>
                                 <div>
                                     <span class="small">Active Companies</span>
                                 </div>
                             </div>
-                            <div class="col-5">
+                            <div class="col-6">
                                 <apexchart type="pie" :options="pieChartOptionsActiveCoys"
                                     :series="pieChartSeriesActiveCoys">
                                 </apexchart>
@@ -25,15 +27,18 @@
             </div>
             <div class="col-md-4">
                 <div class="card border-0 shadow-sm h-100">
-                    <div class="card-body py-4">
+                    <div class="card-body ">
                         <div class="d-flex justify-content-between align-items-cente">
-                            <div class="col-7">
-                                <span class="fs-4 fw-bold text-mute">8/10</span>
+                            <div class="col-6">
+                                <span class="fs-4 fw-bold text-mute">
+                                    {{ companies.list.length - companies.is_incorporated.length }}/{{
+                                        companies.list.length }}
+                                </span>
                                 <div>
                                     <span class="small">Pending incopration</span>
                                 </div>
                             </div>
-                            <div class="col-5">
+                            <div class="col-6">
                                 <apexchart type="pie" :options="pieChartOptionsPendingIncop"
                                     :series="pieChartSeriesPendingIncop">
                                 </apexchart>
@@ -44,15 +49,16 @@
             </div>
             <div class="col-md-4">
                 <div class="card border-0 shadow-sm h-100">
-                    <div class="card-body py-4">
+                    <div class="card-body ">
                         <div class="d-flex justify-content-between align-items-cente">
-                            <div class="col-7">
-                                <span class="fs-4 fw-bold text-mute">3/10</span>
+                            <div class="col-6">
+                                <span class="fs-4 fw-bold text-mute">
+                                    {{ companies.is_incorporated.length }}/{{ companies.list.length }} </span>
                                 <div>
                                     <span class="small">Companies Incorporated</span>
                                 </div>
                             </div>
-                            <div class="col-5">
+                            <div class="col-6">
                                 <apexchart type="pie" :options="pieChartOptionsIncomporated"
                                     :series="pieChartSeriesIncoporated">
                                 </apexchart>
@@ -64,13 +70,14 @@
 
 
             <div class="col-12 mt-5">
-                <div class="card">
+                <div class="card shadow-sm">
                     <div class="card-header bg-transparent fw-bold py-3 border-0">
                         Registered Companies ({{ companies.list.length }})<br>
                         <small> List of all registered company using the company formation</small>
 
                         <span style="float:right">
-                            <input placeholder="Search Item" style="border:1px solid #eee" class="form-control">
+                            <input v-model="searchCompany" placeholder="Search Item" style="border:1px solid #eee"
+                                class="form-control">
                         </span>
                     </div>
 
@@ -79,8 +86,8 @@
 
                     <div v-else class="card-body">
 
-                        <EasyDataTable style="border:1px solid #eee" class="easy-data-table" :headers="headers"
-                            :items="companies.list" buttons-pagination>
+                        <EasyDataTable :search-value="searchCompany" style="border:1px solid #eee"
+                            class="easy-data-table" :headers="headers" :items="companies.list" buttons-pagination>
                             <template #header="header">
                                 <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
                             </template>
@@ -137,6 +144,7 @@ import { onBeforeRouteLeave } from 'vue-router';
 
 const paramsStore = useAdminParamsStore()
 
+const searchCompany = ref('')
 const companies = reactive<any>({
     list: [],
     form_completed: [],
@@ -174,6 +182,8 @@ async function getCompanies() {
         companies.form_completed = data.form_completed
         companies.is_incorporated = data.is_incorporated
         companies.isLoading = false
+
+        loadChartSeries()
     } catch (error) {
 
     }
@@ -192,12 +202,21 @@ const headers = [
 ];
 
 
+const pieChartSeriesActiveCoys = ref<any>([1, 1])
+const pieChartSeriesPendingIncop = ref<any>([1, 1])
+const pieChartSeriesIncoporated = ref<any>([1, 1])
 
+
+function loadChartSeries() {
+    pieChartSeriesActiveCoys.value = [companies.list.length, companies.list.length]
+    pieChartSeriesPendingIncop.value = [companies.list.length - companies.is_incorporated.length, companies.list.length - (companies.list.length - companies.is_incorporated.length)]
+    pieChartSeriesIncoporated.value = [companies.is_incorporated.length, companies.list.length - companies.is_incorporated.length]
+}
 
 
 // active coys chart
 const pieChartOptionsActiveCoys = {
-    colors: ["#064608", "#b1f5b3"],
+    colors: ["#064608", "#46320633"],
     chart: {
         type: "pie",
     },
@@ -224,7 +243,6 @@ const pieChartOptionsActiveCoys = {
         },
     ],
 }
-const pieChartSeriesActiveCoys = ref<any>([1, 9])
 
 
 
@@ -235,7 +253,7 @@ const pieChartSeriesActiveCoys = ref<any>([1, 9])
 
 // Pending incop chart
 const pieChartOptionsPendingIncop = {
-    colors: ["#16497c", "#92b3d5"],
+    colors: ["#16497c", "#46320633"],
     chart: {
         type: "pie",
     },
@@ -262,7 +280,7 @@ const pieChartOptionsPendingIncop = {
         },
     ],
 }
-const pieChartSeriesPendingIncop = ref<any>([8, 2])
+
 
 
 
@@ -270,7 +288,7 @@ const pieChartSeriesPendingIncop = ref<any>([8, 2])
 
 //  incop chart
 const pieChartOptionsIncomporated = {
-    colors: ["#463206", "#ecd29c"],
+    colors: ["#463206", "#46320633"],
     chart: {
         type: "pie",
     },
@@ -297,7 +315,7 @@ const pieChartOptionsIncomporated = {
         },
     ],
 }
-const pieChartSeriesIncoporated = ref<any>([3, 7])
+
 
 
 </script>

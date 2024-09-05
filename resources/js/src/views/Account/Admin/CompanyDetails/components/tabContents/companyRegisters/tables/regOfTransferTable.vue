@@ -1,29 +1,29 @@
 <template>
+
     <div class="col-12">
         <div class="card shadow-sm">
             <div class="card-header fw-bold border-0 bg-transparent">
-                Register of Shareholders
-                <!-- <span class="float-end">
-                    <button @click="paramsStore.openModalForm('regOfShareholdersModal')" class="btn btn-primary btn-sm">
+                Register of Transfers
+                <span class="float-end">
+                    <button @click="paramsStore.openModalForm('regOfTransferModal')" class="btn btn-primary btn-sm">
                         Add New <i class="bi bi-plus-lg"></i>
                     </button>
-                </span> -->
+                </span>
             </div>
             <div class="card-body">
                 <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
-                    :items="paramsStore.currentCompanyData.register_of_shareholders" buttons-pagination
+                    :items="paramsStore.currentCompanyData.register_of_transfer" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
                         <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
                     </template>
 
-
-                    <template #item-date_entered_as_member="item">
-                        {{ useFxn.dateDisplay(item.date_entered_as_member) }}
+                    <template #item-cease_to_act="item">
+                        {{ useFxn.dateDisplay(item.cease_to_act) }}
                     </template>
 
-                    <template #item-date_cease_to_be_member="item">
-                        {{ useFxn.dateDisplay(item.date_cease_to_be_member) }}
+                    <template #item-appointment_date="item">
+                        {{ useFxn.dateDisplay(item.appointment_date) }}
                     </template>
                     <template #item-created_at="item">
                         {{ useFxn.dateDisplay(item.created_at) }}
@@ -33,31 +33,33 @@
                         <div v-if="!item.expandLoading" class="my-3">
                             <div class="fw-bold text-center mb-2">LOGS</div>
                             <EasyDataTable class="easy-data-table" show-index :headers="expandedHeaders"
-                                :items="expandedItems(item.id)" buttons-pagination
+                                :items="expandedObjArray.data" buttons-pagination
                                 v-model:server-options="expandingServerOptions" :server-items-length="expandedTotal">
 
-                                <template #item-date_entered_as_member="item">
-                                    {{ useFxn.dateDisplay(item.date_entered_as_member) }}
+                                <template #item-cease_to_act="item">
+                                    {{ useFxn.dateDisplay(item.cease_to_act) }}
                                 </template>
 
-                                <template #item-date_cease_to_be_member="item">
-                                    {{ useFxn.dateDisplay(item.date_cease_to_be_member) }}
+                                <template #item-appointment_date="item">
+                                    {{ useFxn.dateDisplay(item.appointment_date) }}
                                 </template>
                                 <template #item-created_at="item">
                                     {{ useFxn.dateDisplay(item.created_at) }}
                                 </template>
+
                             </EasyDataTable>
                         </div>
                     </template>
 
-                    <!-- <template #item-action="item">
+
+                    <template #item-action="item">
                         <span class="dropdown">
                             <span class=" cursor-pointer bell dropdown-toggle" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 <i class="bi bi-three-dots text-primary"></i>
                                 <div class="dropdown-menu dropdown-menu-start">
                                     <ul class="list-group list-group-flush  ">
-                                        <li @click="paramsStore.openModalForm('regOfShareholdersModal', item.id)"
+                                        <li @click="paramsStore.openModalForm('regOfTransferModal', item.id)"
                                             class="dropdown-item" style="background-color: transparent !important;">
                                             <i class="bi bi-pencil"></i> update
                                         </li>
@@ -65,51 +67,44 @@
                                 </div>
                             </span>
                         </span>
-                    </template> -->
+                    </template>
                 </EasyDataTable>
             </div>
         </div>
     </div>
 
     <!-- modals -->
-    <!-- <regOfShareholdersModal /> -->
-
+    <regOfTransferModal />
 </template>
 
 <script lang="ts" setup>
 import useFxn from '@/stores/Helpers/useFunctions';
 import api from "@/stores/Helpers/axios"
-import { useParamsStore } from '@/views/Account/User/CompanyDetails/paramsStore';
-// import regOfShareholdersModal from '@/views/Account/Admin/CompanyDetails/components/modals/regOfShareholdersModal.vue';
+import { useAdminParamsStore } from '@/views/Account/Admin/CompanyDetails/adminParamsStore';
+import regOfTransferModal from '@/views/Account/Admin/CompanyDetails/components/modals/regOfTransferModal.vue';
 
-const paramsStore = useParamsStore()
+const paramsStore = useAdminParamsStore()
 
 import type { Header, Item, ServerOptions } from "vue3-easy-data-table";
 import { reactive, ref, watch } from 'vue';
 
-
+// table
 const masterTableHeaders = [
-    { text: "Name and Address", value: "name" },
-    // { text: "DATE OF APPOINTMENT", value: "address" },
-    { text: "Class of Shares", value: "class_of_shares" },
-    { text: "Denomination", value: "denomination" },
-    { text: "Current Holding", value: "current_holding" },
-    { text: "Total Consideration HKD", value: "total_consideration" },
-    { text: "Date Entered As a Member", value: "date_entered_as_member" },
-    { text: "Date Ceases to Be a Member", value: "date_cease_to_be_member" },
+    { text: "Date of Registration", value: "registration_date" },
+    { text: "Transferee", value: "transferee" },
+    { text: "Number of Shares  Transferred", value: "no_of_shares_transfered" },
+    { text: "Total  Consideration HKD", value: "total_consideration" },
+    { text: "Transferred/Disposal  Method", value: "transfer_method" },
     { text: "Date Created", value: "created_at" },
-    // { text: "ACTION", value: "action" },
+    { text: "ACTION", value: "action" },
 ];
 
 const expandedHeaders = [
-    { text: "Name and Address", value: "name" },
-    // { text: "DATE OF APPOINTMENT", value: "address" },
-    { text: "Class of Shares", value: "class_of_shares" },
-    { text: "Denomination", value: "denomination" },
-    { text: "Current Holding", value: "current_holding" },
-    { text: "Total Consideration HKD", value: "total_consideration" },
-    { text: "Date Entered As a Member", value: "date_entered_as_member" },
-    { text: "Date Ceases to Be a Member", value: "date_cease_to_be_member" },
+    { text: "Date of Registration", value: "registration_date" },
+    { text: "Transferee", value: "transferee" },
+    { text: "Number of Shares  Transferred", value: "no_of_shares_transfered" },
+    { text: "Total  Consideration HKD", value: "total_consideration" },
+    { text: "Transferred/Disposal  Method", value: "transfer_method" },
     { text: "Date Modified", value: "created_at" },
 ];
 
@@ -127,13 +122,9 @@ const expandedObjArray = reactive({
     data: []
 })
 
-const expandedItems = (itemId: number | string) => {
-    return expandedObjArray.id == itemId ? expandedObjArray.data : []
-}
-
 const expandLogs = async (index: any, prop_name: string,) => {
     expandedObjArray.data = []
-    const items = paramsStore.currentCompanyData.register_of_shareholders
+    const items = paramsStore.currentCompanyData.register_of_transfer
     const expandedItem: any = items[index];
     expandedObjArray.id = expandedItem.id
 
@@ -148,18 +139,17 @@ const expandLogs = async (index: any, prop_name: string,) => {
 
 async function getLogs() {
     const formData = new FormData()
-    formData.append('shareholder_id', expandedObjArray.id)
+    formData.append('transfer_id', expandedObjArray.id)
     formData.append('page', expandingServerOptions.value.page)
     const response = await api.incoprationLogs(formData)
-    // console.log(response);
+    console.log(response, 'expandedItem');
 
-    const data: any = response.data.data?.RegisterOfShareholderLog ?? null;
+    const data: any = response.data.data?.RegisterOfTransferLog ?? null;
     expandedTotal.value = data?.total ?? 0
     expandedObjArray.data = data?.data ?? []
 }
 
 watch(expandingServerOptions, (value) => { getLogs(); }, { deep: true });
-
 </script>
 
 <style lang="css" scoped>

@@ -43,7 +43,7 @@ class PaymentServices implements PaymentInterface
         $plans = Plan::latest()->first();
         if(empty($plans))
         {
-        return response()->json(['error' => 'Payment information is not set'], 500);
+        return response()->json(['error' => 'Payment information is not set'], 203);
         }
         try {
             DB::beginTransaction();
@@ -64,8 +64,7 @@ class PaymentServices implements PaymentInterface
             ]],
                 'mode' => 'payment',
                 'saved_payment_method_options' => ['payment_method_save' => 'enabled'],
-                // 'success_url' => url('/kcy/verifications'),
-                'success_url' => route('ProcessPayment'),
+                 'success_url' => url('/kcy/verifications'),
                 'cancel_url' => url('/start_company'),
             ]);
             $company = Company::where(['user_id' => 1, 'is_complete' => 0])->first();
@@ -145,11 +144,15 @@ class PaymentServices implements PaymentInterface
 
     public function AddBillingInfo($paymentInfo, $billing)
     {
+        $biling = UserBillingInfo::whereUserId(auth_user())->get();
+        if($biling) foreach($biling as $b) $b->update(['is_default' => 0]);
+     
         $data = [
             'user_id' => auth_user(),
-            'card_name' => $paymentInfo['card']['brand'],
+            'card_name' => strtoupper($paymentInfo['card']['brand']),
             'card_no' => $paymentInfo['card']['last4'],
             'email' => $paymentInfo['billing_details']['email'],
+            'is_default' => 1,
             'name' => $paymentInfo['billing_details']['name'],
             'country' => $paymentInfo['billing_details']['address']['country'],
             'expiry' => $paymentInfo['card']['exp_month'].'/'.$paymentInfo['card']['exp_year'],
@@ -250,6 +253,7 @@ class PaymentServices implements PaymentInterface
 
   public function updatePaymentDetails($request)
   {
+    try{
     $user = UserSubscription::where('user_id', auth_user())->first();
     $paymentIntent = \Stripe\PaymentIntent::create([
         'amount' => 100, 
@@ -258,13 +262,17 @@ class PaymentServices implements PaymentInterface
         'setup_future_usage' => 'off_session', 
     ]);
    return ['client_secret' => $paymentIntent->client_secret];
+}catch(\Exception $e)
+{
+    return $e->getMessage();
+}
   }
 
-  public function MakeDefaultPayment($paymentIntent)
+  public function MakeDefaultPayment($paymentIntentId)
   {
     try{
     $stripe = $this->stripeClient;
-    $paymentIntent = \Stripe\PaymentIntent::retrieve($paymentIntent);
+    $paymentIntent = \Stripe\PaymentIntent::retrieve($paymentIntentId);
    $user = UserSubscription::where('user_id', auth_user())->first();
    $pays = \Stripe\Customer::update(
         $user->customer,
@@ -276,21 +284,24 @@ class PaymentServices implements PaymentInterface
       );
       $user->update(['default_payment_method' => $paymentIntent->payment_method]);
       $paymentInfo = $stripe?->paymentMethods?->retrieve($pays['invoice_settings']['default_payment_method'], []);
-     $billing = UserBillingInfo::where('user_id', auth_user())->first();
-      $data = [
-        'card_name' => $paymentInfo['card']['brand'],
+      $biling = UserBillingInfo::whereUserId(auth_user())->get();
+      if($biling) foreach($biling as $b) $b->update(['is_default' => 0]);
+     $data = [
+        'user_id' => auth_user(),
+        'card_name' => strtoupper($paymentInfo['card']['brand']),
         'card_no' => $paymentInfo['card']['last4'],
         'email' => $paymentInfo['billing_details']['email'],
+        'is_default' => 1,
         'name' => $paymentInfo['billing_details']['name'],
         'country' => $paymentInfo['billing_details']['address']['country'],
         'expiry' => $paymentInfo['card']['exp_month'].'/'.$paymentInfo['card']['exp_year'],
-        'payment_id' => $paymentIntent
+        'payment_id' => $paymentIntentId
     ];
-            $billing->update($data);
-      return $paymentInfo;
+        UserBillingInfo::create($data);
+      return $user;
     }catch(\Exception $e)
     {
-        return false;
+        return $e->getMessage();
     }
   }
 
@@ -298,6 +309,7 @@ class PaymentServices implements PaymentInterface
 
 public function PauseSubscription($subscription_id)
 {
+    try{
     $user = UserSubscription::where('subscription_id', $subscription_id)->first();
     $stripe = $this->stripeClient;
     if($user)
@@ -309,7 +321,10 @@ public function PauseSubscription($subscription_id)
     }
     $user?->update(['status' => 'paused']);
     return $user;
-
+}catch(\Exception $e)
+{
+    return $e->getMessage();
+}
 
 }
 

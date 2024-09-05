@@ -19,7 +19,9 @@ export const useAdminParamsStore: any = defineStore('useAdminParamsStore', () =>
         regOfChargeModal: ref<boolean>(false),
         sigControllerModal: ref<boolean>(false),
         designatedRepModal: ref<boolean>(false),
-        documentUploadModal: ref<boolean>(false)
+        documentUploadModal: ref<boolean>(false),
+        regOfAllotmentsModal: ref<boolean>(false),
+        regOfTransferModal: ref<boolean>(false),
     }
 
     // params
@@ -27,6 +29,7 @@ export const useAdminParamsStore: any = defineStore('useAdminParamsStore', () =>
     const isCompaniesByUser = useStorage('squre1-coyUserId', '')
     const currentCompanyData = ref<any>('')
     const idToEdit: any = ref<any>('')
+    const countries = ref<any[]>([])
     const hasUpdatedProgress = ref<boolean>(false)
 
     // functions
@@ -42,6 +45,16 @@ export const useAdminParamsStore: any = defineStore('useAdminParamsStore', () =>
         }
     }
 
+    const getCountries = async () => {
+        const response = await fetch('https://restcountries.com/v3.1/all');
+        if (response.ok) {
+            const data = await response.json();
+            let names = data.map((country: { name: any; }) => country.name.common)
+            countries.value = names.sort()
+        } else {
+            console.error('', response.statusText);
+        }
+    }
 
 
     function openModalForm(modalName: string, id?: any) {
@@ -59,9 +72,11 @@ export const useAdminParamsStore: any = defineStore('useAdminParamsStore', () =>
         idToEdit,
         hasUpdatedProgress,
         isCompaniesByUser,
+        countries,
 
         getCompanyDetails,
         openModalForm,
+        getCountries,
 
         ...modals,
     }

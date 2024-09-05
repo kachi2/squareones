@@ -16,7 +16,7 @@
                     <template #header="header">
                         <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
                     </template>
-
+ 
 
                     <template #item-date_entered_as_member="item">
                         {{ useFxn.dateDisplay(item.date_entered_as_member) }}
@@ -83,27 +83,30 @@ import { reactive, ref, watch } from 'vue';
 
 
 const masterTableHeaders = [
-    { text: "NAME", value: "name" },
-    { text: "DATE OF APPOINTMENT", value: "address" },
-    { text: "CLASS OF SHARES", value: "class_of_shares" },
-    { text: "DENOMINATION", value: "denomination" },
-    { text: "CURREN HOLDING", value: "current_holding" },
-    { text: "TOTAL CONSIDERATION", value: "total_consideration" },
-    { text: "ENTERED AS MEMBER", value: "date_entered_as_member" },
-    { text: "CEASE TO BE MEMBER", value: "date_cease_to_be_member" },
+    { text: "Name and Address", value: "name" },
+    // { text: "DATE OF APPOINTMENT", value: "address" },
+    { text: "Class of Shares", value: "class_of_shares" },
+    { text: "Denomination", value: "denomination" },
+    { text: "Current Holding", value: "current_holding" },
+    { text: "Total Consideration HKD", value: "total_consideration" },
+    { text: "Date Entered As a Member", value: "date_entered_as_member" },
+    { text: "Date Ceases to Be a Member", value: "date_cease_to_be_member" },
+    { text: "Date Created", value: "created_at" },
     { text: "ACTION", value: "action" },
 ];
 
 const expandedHeaders = [
-    { text: "NAME", value: "name" },
-    { text: "DATE OF APPOINTMENT", value: "address" },
-    { text: "CLASS OF SHARES", value: "class_of_shares" },
-    { text: "DENOMINATION", value: "denomination" },
-    { text: "CURREN HOLDING", value: "current_holding" },
-    { text: "TOTAL CONSIDERATION", value: "total_consideration" },
-    { text: "ENTERED AS MEMBER", value: "date_entered_as_member" },
-    { text: "CEASE TO BE MEMBER", value: "date_cease_to_be_member" },
+    { text: "Name and Address", value: "name" },
+    // { text: "DATE OF APPOINTMENT", value: "address" },
+    { text: "Class of Shares", value: "class_of_shares" },
+    { text: "Denomination", value: "denomination" },
+    { text: "Current Holding", value: "current_holding" },
+    { text: "Total Consideration HKD", value: "total_consideration" },
+    { text: "Date Entered As a Member", value: "date_entered_as_member" },
+    { text: "Date Ceases to Be a Member", value: "date_cease_to_be_member" },
+    { text: "Date Modified", value: "created_at" },
 ];
+
 
 const expandingServerOptions = ref<ServerOptions | any>({
     page: 1,

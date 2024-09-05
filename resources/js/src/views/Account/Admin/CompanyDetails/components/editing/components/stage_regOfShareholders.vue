@@ -3,6 +3,19 @@
 
         <div class="modal-body">
             <div class="row g-3">
+                <!-- <div class=" col-md-6"> </div> -->
+                <div class=" col-md-12">
+                    <div class="mb-3">
+                        <label for="" class="form-label">Select Shareholder</label>
+                        <select @change="populateFieldWithDetails" v-model="selectedEntity" class="form-select">
+                            <option value="" selected disabled>--Select Shareholder--</option>
+                            <option v-for="entity in selectOptions" :key="entity" :value="entity">{{
+                                entity.name }}</option>
+
+                        </select>
+                    </div>
+
+                </div>
                 <div class="col-12 col-md-6">
                     <div class="form-label">Name:</div>
                     <input v-model="name" type="text" class="form-control">
@@ -31,13 +44,13 @@
                     <small class=" text-danger">{{ errors.current_holding }}</small>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Total Consideration:</div>
+                    <div class="form-label">Total Consideration HKD:</div>
                     <input v-model="total_consideration" type="text" class="form-control">
                     <small class=" text-danger">{{ errors.total_consideration }}</small>
                 </div>
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Date Entered as Member:</div>
+                    <div class="form-label">Date Entered As a Member:</div>
                     <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
                         :enable-time-picker="false" auto-apply v-model="date_entered_as_member">
                     </VueDatePicker>
@@ -45,7 +58,7 @@
                 </div>
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Ceased to be Member:</div>
+                    <div class="form-label">Date Ceases to Be a Member:</div>
                     <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
                         :enable-time-picker="false" auto-apply v-model="date_cease_to_be_member">
                     </VueDatePicker>
@@ -62,8 +75,8 @@
                 Saving data..
             </button>
 
-            <button v-else @click="save" type="button" class="btn btn-primary">
-                Save and Continue
+            <button :disabled="!selectedEntity" v-else @click="save" type="button" class="btn btn-primary">
+                Update Data
             </button>
         </div>
     </div>
@@ -71,7 +84,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { computed, ref, watch, onMounted } from 'vue';
 import { onBeforeRouteLeave } from 'vue-router';
 import api from "@/stores/Helpers/axios"
 import useFxn from '@/stores/Helpers/useFunctions';
@@ -82,6 +95,31 @@ import * as yup from 'yup';
 
 const paramsStore = useAdminParamsStore()
 const emit = defineEmits(['done'])
+
+
+
+onMounted(() => {
+    class_of_shares.value = 'ordinary'
+})
+
+
+const selectOptions = computed(() => {
+    return paramsStore.currentCompanyData?.register_of_shareholders ?? []
+})
+const selectedEntity = ref<any>('')
+function populateFieldWithDetails() {
+    if (selectedEntity.value) {
+        name.value = selectedEntity.value.name
+        address.value = selectedEntity.value.address
+        class_of_shares.value = selectedEntity.value.class_of_shares
+        denomination.value = selectedEntity.value.denomination
+        current_holding.value = selectedEntity.value.current_holding
+        total_consideration.value = selectedEntity.value.total_consideration
+        date_entered_as_member.value = selectedEntity.value.date_entered_as_member
+        date_cease_to_be_member.value = selectedEntity.value.date_cease_to_be_member
+    }
+
+}
 
 
 
@@ -131,30 +169,36 @@ function setValuesOnFields() {
 
 
 const save = handleSubmit(async (values) => {
-    isSaving.value = true
-    const formData = new FormData()
-    formData.append('company_id', paramsStore.currentCompanyId)
-    formData.append('name', values.name ?? '')
-    formData.append('address', values.address ?? '')
-    formData.append('class_of_shares', values.class_of_shares ?? '')
-    formData.append('denomination', values.denomination ?? '')
-    formData.append('current_holding', values.current_holding ?? '')
-    formData.append('total_consideration', values.total_consideration ?? '')
-    formData.append('date_entered_as_member', values.date_entered_as_member ? useFxn.formatDate(values.date_entered_as_member) : '')
-    formData.append('date_cease_to_be_member', values.date_cease_to_be_member ? useFxn.formatDate(values.date_cease_to_be_member) : '')
-    if (paramsStore.idToEdit)
-        formData.append('shareholders_id', paramsStore.idToEdit)
+    useFxn.confirm('Update Data?', 'Continue').then(async (confirmed) => {
+        if (confirmed.value == true) {
+            isSaving.value = true
+            const formData = new FormData()
+            formData.append('company_id', paramsStore.currentCompanyId)
+            formData.append('name', values.name ?? '')
+            formData.append('address', values.address ?? '')
+            formData.append('class_of_shares', values.class_of_shares ?? '')
+            formData.append('denomination', values.denomination ?? '')
+            formData.append('current_holding', values.current_holding ?? '')
+            formData.append('total_consideration', values.total_consideration ?? '')
+            formData.append('date_entered_as_member', values.date_entered_as_member ? useFxn.formatDate(values.date_entered_as_member) : '')
+            formData.append('date_cease_to_be_member', values.date_cease_to_be_member ? useFxn.formatDate(values.date_cease_to_be_member) : '')
+
+            formData.append('shareholders_id', selectedEntity.value.id)
 
 
-    try {
-        await api.registerOfShareholders(formData)
-        isSaving.value = false
-        resetForm()
-        paramsStore.getCompanyDetails()
-        emit('done')
+            try {
+                await api.registerOfShareholders(formData)
+                isSaving.value = false
+                useFxn.toast('Updated', 'success')
+                paramsStore.getCompanyDetails()
+                resetForm()
+                selectedEntity.value = ''
+                // emit('done')
 
-    } catch (error) {
-        console.log(error);
-    }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    })
 })
 </script>

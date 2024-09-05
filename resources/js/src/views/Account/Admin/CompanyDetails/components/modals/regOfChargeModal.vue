@@ -16,39 +16,51 @@
                         <div class="row g-3">
 
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Creation Date:</div>
+                                <div class="fixed-label-custom">
                                 <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
-                                    :enable-time-picker="false" auto-apply v-model="charge_creation_date">
+                                    :enable-time-picker="false" auto-apply v-model="charge_creation_date" placeholder="select date">
                                 </VueDatePicker>
+                                <label class="" for="eng_name">Creation Date</label>
+                                </div>
                                 <small class=" text-danger">{{ errors.charge_creation_date }}</small>
                             </div>
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Account Secured by Charge:</div>
-                                <input v-model="account_secured_by_charge" type="text" class="form-control">
+                                <div class="form-floating-custom">
+                                <input v-model="account_secured_by_charge" type="text" class="form-control" placeholder="">
+                                <label class="" for="eng_name">Account Secured by Charge</label>
+                                </div>
                                 <small class=" text-danger">{{ errors.account_secured_by_charge }}</small>
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Type of Charge:</div>
-                                <input v-model="type_of_charge" type="text" class="form-control">
+                                <div class="form-floating-custom">
+                                <input v-model="type_of_charge" type="text" class="form-control" placeholder="">
+                                <label class="" for="eng_name">Type of Charge</label>
+                                </div>
                                 <small class=" text-danger">{{ errors.type_of_charge }}</small>
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Desciption:</div>
-                                <input v-model="charge_description" type="text" class="form-control">
+                                <div class="form-floating-custom">
+                                <input v-model="charge_description" type="text" class="form-control" placeholder="">
+                                <label class="" for="eng_name">Desciption</label>
+                                </div>
                                 <small class=" text-danger">{{ errors.charge_description }}</small>
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Terms of Charge:</div>
-                                <input v-model="terms_of_charge" type="text" class="form-control">
+                                <div class="form-floating-custom">
+                                <input v-model="terms_of_charge" type="text" class="form-control" placeholder="">
+                                <label class="" for="eng_name">Terms of Charge</label>
+                                </div>
                                 <small class=" text-danger">{{ errors.terms_of_charge }}</small>
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Registration details:</div>
-                                <input v-model="registration_details" type="text" class="form-control">
+                                <div class="form-floating-custom">
+                                <input v-model="registration_details" type="text" class="form-control" placeholder="">
+                                <label class="" for="eng_name">Registration details</label>
+                                </div>
                                 <small class=" text-danger">{{ errors.registration_details }}</small>
                             </div>
 

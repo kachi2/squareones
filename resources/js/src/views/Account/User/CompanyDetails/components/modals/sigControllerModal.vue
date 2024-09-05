@@ -64,8 +64,8 @@
 
                             <div class="col-12 col-md-6">
                                 <div class="form-label">Identity Infomation:</div>
-                                <input v-model="identiy_info" type="text" class="form-control">
-                                <small class=" text-danger">{{ errors.identiy_info }}</small>
+                                <input v-model="identity_info" type="text" class="form-control">
+                                <small class=" text-danger">{{ errors.identity_info }}</small>
                             </div>
 
                             <div class="col-12 col-md-6">
@@ -138,7 +138,7 @@ const rules = {
     date_ceased_to_be_rep_person: yup.date().required('Field is required'),
     corresponding_address: yup.string().required('Field is required'),
     resdential_address: yup.string().required('Field is required'),
-    identiy_info: yup.string().required('Field is required'),
+    identity_info: yup.string().required('Field is required'),
     place_of_registration: yup.string().required('Field is required'),
     nature_of_control_over_the_company: yup.string().required('Field is required'),
 };
@@ -154,7 +154,7 @@ const [date_becoming_rep_person] = defineField('date_becoming_rep_person');
 const [date_ceased_to_be_rep_person] = defineField('date_ceased_to_be_rep_person');
 const [corresponding_address] = defineField('corresponding_address');
 const [resdential_address] = defineField('resdential_address');
-const [identiy_info] = defineField('identiy_info');
+const [identity_info] = defineField('identity_info');
 const [place_of_registration] = defineField('place_of_registration');
 const [nature_of_control_over_the_company] = defineField('nature_of_control_over_the_company');
 const isSaving = ref<boolean>(false)
@@ -171,7 +171,7 @@ function setValuesOnFields() {
             setFieldValue('date_ceased_to_be_rep_person', significant_controller.date_ceased_to_be_rep_person)
             setFieldValue('corresponding_address', significant_controller.controllers_particulars.corresponding_address)
             setFieldValue('resdential_address', significant_controller.controllers_particulars.resdential_address)
-            setFieldValue('identiy_info', significant_controller.controllers_particulars.identiy_info)
+            setFieldValue('identity_info', significant_controller.controllers_particulars.identity_info)
             setFieldValue('place_of_registration', significant_controller.controllers_particulars.place_of_registration)
             setFieldValue('nature_of_control_over_the_company', significant_controller.controllers_particulars.nature_of_control_over_the_company)
         }
@@ -189,7 +189,7 @@ const save = handleSubmit(async (values) => {
     formData.append('date_ceased_to_be_rep_person', values.date_ceased_to_be_rep_person ? useFxn.formatDate(values.date_ceased_to_be_rep_person) : '')
     formData.append('corresponding_address', values.corresponding_address ?? '')
     formData.append('resdential_address', values.resdential_address ?? '')
-    formData.append('identiy_info', values.identiy_info ?? '')
+    formData.append('identity_info', values.identity_info ?? '')
     formData.append('place_of_registration', values.place_of_registration ?? '')
     formData.append('nature_of_control_over_the_company', values.nature_of_control_over_the_company ?? '')
     if (paramsStore.idToEdit)

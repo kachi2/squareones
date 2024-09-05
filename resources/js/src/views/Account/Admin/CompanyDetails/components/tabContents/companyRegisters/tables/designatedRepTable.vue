@@ -1,95 +1,94 @@
 <template>
-    <div class="col-12">
-        <div class="card shadow-sm">
-            <div class="card-header fw-bold border-0 bg-transparent">
-                Designated Representative
-                <span class="float-end">
-                    <button @click="paramsStore.openModalForm('designatedRepModal')" class="btn btn-primary btn-sm">
-                        Add New <i class="bi bi-plus-lg"></i>
-                    </button>
-                </span>
-            </div>
-            <div class="card-body">
-                <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
-                    :items="paramsStore.currentCompanyData.designated_representative" buttons-pagination
-                    @expand-row="expandLogs">
-                    <template #header="header">
-                        <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
-                    </template>
+    <!-- <div class="col-12"> -->
+    <!-- <div class="card shadow-sm"> -->
+    <div class="card-header fw-bold border-0 bg-transparent">
+        Designated Representative
+        <span class="float-end">
+            <button @click="paramsStore.openModalForm('designatedRepModal')" class="btn btn-primary btn-sm">
+                Add New <i class="bi bi-plus-lg"></i>
+            </button>
+        </span>
+    </div>
+    <div class="card-body">
+        <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
+            :items="paramsStore.currentCompanyData.designated_representative" buttons-pagination
+            @expand-row="expandLogs">
+            <template #header="header">
+                <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
+            </template>
 
-                    <template #item-particulars="item">
-                        <div class="card p-2 my-2">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item p-0">
-                                    <div class="text-secondary fw-bold">ID/Passport/
-                                        Registration No:</div>
-                                    <span>
-                                        {{ item?.designated_particulars?.indentity_info ?? '-' }}
-                                    </span>
-                                </li>
-                                <li class="list-group-item p-0">
-                                    <div class="text-secondary fw-bold">ID/Passport/
-                                        Place of Registration:</div>
-                                    <span>
-                                        {{ item?.designated_particulars?.place_of_registration ?? '-' }}
-                                    </span>
-                                </li>
+            <template #item-particulars="item">
+                <div class="card p-2 my-2">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item p-0">
+                            <div class="text-secondary fw-bold">ID/Passport/
+                                Registration No:</div>
+                            <span>
+                                {{ item?.designated_particulars?.indentity_info ?? '-' }}
+                            </span>
+                        </li>
+                        <li class="list-group-item p-0">
+                            <div class="text-secondary fw-bold">ID/Passport/
+                                Place of Registration:</div>
+                            <span>
+                                {{ item?.designated_particulars?.place_of_registration ?? '-' }}
+                            </span>
+                        </li>
 
-                                <li class="list-group-item p-0">
-                                    <div class="text-secondary fw-bold">ID/Passport/
-                                        Nature of control over company:</div>
-                                    <span>
-                                        {{ item?.designated_particulars?.nature_of_control_over_the_company ?? '-' }}
-                                    </span>
+                        <li class="list-group-item p-0">
+                            <div class="text-secondary fw-bold">
+                                Nature of control over company:</div>
+                            <span>
+                                {{ item?.designated_particulars?.nature_of_control_over_the_company ?? '-' }}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </template>
+
+
+
+            <template #item-entry_date="item">
+                {{ useFxn.dateDisplay(item.entry_date) }}
+            </template>
+
+
+            <template #expand="item">
+                <div v-if="!item.expandLoading" class="my-3">
+                    <div class="fw-bold text-center mb-2">LOGS</div>
+                    <EasyDataTable class="easy-data-table" show-index :headers="expandedHeaders"
+                        :items="expandedObjArray.data" buttons-pagination
+                        v-model:server-options="expandingServerOptions" :server-items-length="expandedTotal">
+
+                        <template #item-entry_date="item">
+                            {{ useFxn.dateDisplay(item.entry_date) }}
+                        </template>
+
+                    </EasyDataTable>
+                </div>
+            </template>
+
+
+
+            <template #item-action="item">
+                <span class="dropdown">
+                    <span class=" cursor-pointer bell dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-three-dots text-primary"></i>
+                        <div class="dropdown-menu dropdown-menu-start">
+                            <ul class="list-group list-group-flush  ">
+                                <li @click="paramsStore.openModalForm('designatedRepModal', item.id)"
+                                    class="dropdown-item" style="background-color: transparent !important;">
+                                    <i class="bi bi-pencil"></i> update
                                 </li>
                             </ul>
                         </div>
-                    </template>
-
-
-
-                    <template #item-entry_date="item">
-                        {{ useFxn.dateDisplay(item.entry_date) }}
-                    </template>
-
-
-                    <template #expand="item">
-                        <div v-if="!item.expandLoading" class="my-3">
-                            <div class="fw-bold text-center mb-2">LOGS</div>
-                            <EasyDataTable class="easy-data-table" show-index :headers="expandedHeaders"
-                                :items="expandedObjArray.data" buttons-pagination
-                                v-model:server-options="expandingServerOptions" :server-items-length="expandedTotal">
-
-                                <template #item-entry_date="item">
-                                    {{ useFxn.dateDisplay(item.entry_date) }}
-                                </template>
-
-                            </EasyDataTable>
-                        </div>
-                    </template>
-
-
-
-                    <template #item-action="item">
-                        <span class="dropdown">
-                            <span class=" cursor-pointer bell dropdown-toggle" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <i class="bi bi-three-dots text-primary"></i>
-                                <div class="dropdown-menu dropdown-menu-start">
-                                    <ul class="list-group list-group-flush  ">
-                                        <li @click="paramsStore.openModalForm('designatedRepModal', item.id)"
-                                            class="dropdown-item" style="background-color: transparent !important;">
-                                            <i class="bi bi-pencil"></i> update
-                                        </li>
-                                    </ul>
-                                </div>
-                            </span>
-                        </span>
-                    </template>
-                </EasyDataTable>
-            </div>
-        </div>
+                    </span>
+                </span>
+            </template>
+        </EasyDataTable>
     </div>
+    <!-- </div> -->
+    <!-- </div> -->
     <designatedRepModal />
 </template>
 
@@ -109,6 +108,7 @@ const masterTableHeaders = [
     { text: "NAME", value: "name" },
     { text: "PARTICULARS", value: "particulars" },
     { text: "REMARKS", value: "remarks" },
+    { text: "DATE CREATED", value: "created_at" },
     { text: "ACTION", value: "action" },
 
 ];
@@ -120,6 +120,7 @@ const expandedHeaders = [
     { text: "PLACE OF REGISTRATION", value: "place_of_registration" },
     { text: "NATURE OF CONTROL", value: "nature_of_control_over_the_company" },
     { text: "REMARKS", value: "remarks" },
+    { text: "DATE MODIFIED", value: "created_at" },
 ];
 
 const expandingServerOptions = ref<ServerOptions | any>({

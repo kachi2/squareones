@@ -61,11 +61,11 @@
         <section class="row g-3 section">
             <div class="col-md-6">
                 <div class="fixed-label-custom">
-                    <VueDatePicker id="dob" :start-date="useFxn.yearsAgo(18)" :max-date="new Date()" 
-                        v-bind="form.dobAttr" :format="useFxn.dateDisplay" input-class-name="dob-settings-input" 
-                        :class="{ 'error-field': form.errors.dob ?? ageError }" hide-input-icon :clearable="false"
-                        :enable-time-picker="false"  v-model="form.dob" placeholder="Date of Birth">
-                    </VueDatePicker>
+                    <VueDatePicker id="dob" :start-date="useFxn.yearsAgo(18)" :max-date="new Date()"
+                        v-bind="form.dobAttr" :format="useFxn.dateDisplay" input-class-name="dob-settings-input"
+                        :class="{ 'error-field': form.errors.dob ?? ageError }"  auto-apply hide-input-icon :clearable="false"
+                        :enable-time-picker="false" v-model="form.dob" placeholder="Date of Birth">
+                    </VueDatePicker> 
                     <label for="dob">Date of Birth <small class="text-danger">*</small></label>
                 </div>
 
@@ -79,10 +79,10 @@
                     <option selected value="Hong Kong"> Hong Kong</option>
                 </select> -->
                 <div class="fixed-label-custom">
-                    <v-select id="nationality" @search:blur="form.validateVueSelectOnBlur('nationality')"
-                        v-bind="form.nationalityAttr" placeholder="select country.."
-                        :class="{ 'error-field': form.errors.nationality }" v-model="form.nationality"
-                        :clearable="false" :options="startCompanyStore.countries" />
+                    <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc" id="nationality"
+                        @search:blur="form.validateVueSelectOnBlur('nationality')" v-bind="form.nationalityAttr"
+                        placeholder="select country.." :class="{ 'error-field': form.errors.nationality }"
+                        v-model="form.nationality" :clearable="false" :options="startCompanyStore.countries" />
                     <label for="nationality">Nationality <small class="text-danger">*</small></label>
                 </div>
                 <small class=" text-danger">{{ form.errors.nationality }}</small>
@@ -136,12 +136,13 @@
                     </div> -->
                 <div class="col-md-12">
                     <div class="fixed-label-custom">
-                    <v-select @search:blur="form.validateVueSelectOnBlur('country')" v-bind="form.countryAttr"
-                        :class="{ 'error-field': form.errors.country }" placeholder="select country.."
-                        v-model="form.country" :clearable="false" :options="startCompanyStore.countries" />
+                        <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                            @search:blur="form.validateVueSelectOnBlur('country')" v-bind="form.countryAttr"
+                            :class="{ 'error-field': form.errors.country }" placeholder="select country.."
+                            v-model="form.country" :clearable="false" :options="startCompanyStore.countries" />
 
-                    <label class="form-label"> Country／Region <small class=" text-danger">*</small></label>
-                        </div>
+                        <label class="form-label"> Country／Region <small class=" text-danger">*</small></label>
+                    </div>
                     <small class=" text-danger">{{ form.errors.country }}</small>
                 </div>
             </div>
@@ -201,10 +202,10 @@
                     </div> -->
                 <div class="col-md-12">
                     <div class="fixed-label-custom">
-                        <v-select for="country2"  append-to-body :calculate-position="useFxn.vueSelectPositionCalc"  @search:blur="form.validateVueSelectOnBlur('country2')"
-                            v-bind="form.country2Attr" :class="{ 'error-field': form.errors.country2 }"
-                            placeholder="select country.." v-model="form.country2" :clearable="false"
-                            :options="startCompanyStore.countries" />
+                        <v-select for="country2" append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                            @search:blur="form.validateVueSelectOnBlur('country2')" v-bind="form.country2Attr"
+                            :class="{ 'error-field': form.errors.country2 }" placeholder="select country.."
+                            v-model="form.country2" :clearable="false" :options="startCompanyStore.countries" />
                         <label for="country2">Country／Region <small class=" text-danger">*</small></label>
 
                     </div>
@@ -223,7 +224,8 @@
                 <option value="2">ID Card</option>
             </select> -->
                 <div class="fixed-label-custom">
-                    <v-select for="indentity_type_id" @search:blur="form.validateVueSelectOnBlur('indentity_type_id')"
+                    <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc" for="indentity_type_id"
+                        @search:blur="form.validateVueSelectOnBlur('indentity_type_id')"
                         v-bind="form.identity_type_idAttr" :class="{ 'error-field': form.errors.identity_type_id }"
                         v-model="form.identity_type_id" :clearable="false"
                         :options="[{ value: 1, label: 'Passport' }, { value: 2, label: 'ID CARD' }]"
@@ -266,9 +268,10 @@
             </div>
             <div v-if="form.identity_type_id == '1'" class="col-md-12">
                 <div class="fixed-label-custom">
-                    <v-select id="issuing_country" @search:blur="form.validateVueSelectOnBlur('issuing_country')"
-                        v-bind="form.issuing_countryAttr" :class="{ 'error-field': form.errors.issuing_country }"
-                        v-model="form.issuing_country" :clearable="false" :options="startCompanyStore.countries" />
+                    <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc" id="issuing_country"
+                        @search:blur="form.validateVueSelectOnBlur('issuing_country')" v-bind="form.issuing_countryAttr"
+                        :class="{ 'error-field': form.errors.issuing_country }" v-model="form.issuing_country"
+                        :clearable="false" :options="startCompanyStore.countries" />
 
                     <label for="issuing_country">Passport Issuing Country/Region <small class="text-danger">*</small>
                     </label>
@@ -307,10 +310,10 @@
             </div>
             <div class="col-md-12">
                 <div class="fixed-label-custom">
-                    <v-select id="occupation"  append-to-body :calculate-position="useFxn.vueSelectPositionCalc"  @search:blur="form.validateVueSelectOnBlur('occupation')"
-                        v-bind="form.occupationAttr" :class="{ 'error-field': form.errors.occupation }"
-                        v-model="form.occupation" :clearable="true" :options="startCompanyStore.employmentStatusList"
-                        />
+                    <v-select id="occupation" append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                        @search:blur="form.validateVueSelectOnBlur('occupation')" v-bind="form.occupationAttr"
+                        :class="{ 'error-field': form.errors.occupation }" v-model="form.occupation" :clearable="true"
+                        :options="startCompanyStore.employmentStatusList" />
                     <label for="occupation" class="form-labe fw-bolder">Occupation/Employment <span class="text-danger">
                             *
                         </span></label>
@@ -361,15 +364,19 @@ const form = foundersIdividualForm()
 onMounted(() => {
     form.updateFields(startCompanyStore.companyInProgress)
     console.log(form.identity_type_id, 'idtype')
+
 })
 
 
-watch(() => form, () => { form.saveToLocalStorage() }, { deep: true })
+watch(() => form, () => {
+    form.saveToLocalStorage()
+    if (!form.dob && form.errors?.dob) form.resetField('dob')
+}, { deep: true })
 
 const phoneField = {
     dropDown: {
-        showDialCodeInSelection: false,
-        showFlags: true,
+        showDialCodeInSelection: true,
+        showFlags: false,
         showSearchBox: true,
         showDialCodeInList: true,
 

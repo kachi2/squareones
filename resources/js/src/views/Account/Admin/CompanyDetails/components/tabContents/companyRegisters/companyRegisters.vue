@@ -5,14 +5,15 @@
         <regOfShareholdersTable />
 
         <regOfSecretaryTable />
-
+        <regOfAllotmentsTable />
+        <regOfTransferTable />
         <regOfNameChangeTable />
 
         <regOfChargeTable />
 
         <sigControllerTable />
 
-        <designatedRepTable />
+        <!-- <designatedRepTable /> -->
     </div>
 
 </template>
@@ -25,6 +26,8 @@ import regOfShareholdersTable from './tables/regOfShareholdersTable.vue';
 import sigControllerTable from './tables/sigControllerTable.vue';
 import regOfNameChangeTable from './tables/regOfNameChangeTable.vue';
 import regOfSecretaryTable from './tables/regOfSecretaryTable.vue';
+import regOfAllotmentsTable from './tables/regOfAllotmentsTable.vue';
+import regOfTransferTable from './tables/regOfTransferTable.vue';
 </script>
 
 <style lang="css" scoped>

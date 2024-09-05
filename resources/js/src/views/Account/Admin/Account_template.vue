@@ -3,11 +3,11 @@
     <headBar />
     <div class="main-content">
         <div class="container">
-            <div class="card  border-0 exemption">
-                <div class="card-body">
-                    <RouterView />
-                </div>
-            </div>
+            <!-- <div class="card p-0  border-0 exemption"> -->
+            <!-- <div class="card-body p-0"> -->
+            <RouterView />
+            <!-- </div> -->
+            <!-- </div> -->
         </div>
     </div>
 </template>
@@ -31,6 +31,7 @@ const templateStore = useTemplateStore()
 
 .card {
     background-color: v-bind('templateStore.cardBg') !important;
+    background-color: transparent !important;
     color: v-bind('templateStore.cardTextColor');
 }
 

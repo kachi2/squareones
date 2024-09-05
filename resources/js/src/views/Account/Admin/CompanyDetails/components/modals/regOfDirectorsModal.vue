@@ -15,39 +15,51 @@
                     <div class="modal-body">
                         <div class="row g-3">
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Name:</div>
-                                <input v-model="name" type="text" class="form-control">
+                                <div class="form-floating-custom">
+                                <input v-model="name" type="text" class="form-control" placeholder="">
+                                <label class="" for="eng_name">Name:</label>
+                                </div>
                                 <small class=" text-danger">{{ errors.name }}</small>
                             </div>
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Date of Appointment:</div>
+                                <div class="fixed-label-custom">
                                 <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
-                                    :enable-time-picker="false" auto-apply v-model="date_of_appointment">
+                                    :enable-time-picker="false" auto-apply v-model="date_of_appointment" placeholder="select date">
                                 </VueDatePicker>
+                                <label class="" for="eng_name">Date of Appointment:</label>
+                                </div>
                                 <small class=" text-danger">{{ errors.date_of_appointment }}</small>
                             </div>
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Registration No:</div>
-                                <input v-model="reg_no" type="text" class="form-control">
+                                <div class="form-floating-custom">
+                                <input v-model="reg_no" type="text" class="form-control" placeholder="">
+                                <label class="" for="eng_name">ID/ Passport / Registration No:</label>
+                                </div>
                                 <small class=" text-danger">{{ errors.reg_no }}</small>
                             </div>
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Registered Office:</div>
-                                <input v-model="registered_office" type="text" class="form-control">
+                                <div class="form-floating-custom">
+                                <input v-model="registered_office" type="text" class="form-control" placeholder="">
+                                <label class="" for="eng_name">Residential Address / Registered Office</label>
+                                </div>
                                 <small class=" text-danger">{{ errors.registered_office }}</small>
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Ceasing of Act:</div>
+                                <div class="fixed-label-custom">
                                 <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
-                                    :enable-time-picker="false" auto-apply v-model="ceasing_of_act">
+                                    :enable-time-picker="false" auto-apply v-model="ceasing_of_act" placeholder="select date">
                                 </VueDatePicker>
+                                <label class="" for="eng_name">Ceasing to Act: </label>
+                                </div>
                                 <small class=" text-danger">{{ errors.ceasing_of_act }}</small>
                             </div>
                             <div class="col-12 col-md-6">
-                                <div class="form-label">Remarks:</div>
-                                <input v-model="remarks" type="text" class="form-control">
+                                <div class="form-floating-custom">
+                                <input v-model="remarks" type="text" class="form-control" placeholder="">
                                 <small class=" text-danger">{{ errors.remarks }}</small>
+                                <label class="" for="eng_name">Remarks:</label>
+                                </div>
                             </div>
 
                         </div>

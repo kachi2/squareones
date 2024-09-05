@@ -295,7 +295,9 @@ function getActiveFounder()
    const fxs = founder.filter((t:any) =>  t.is_founder == 1 )
    if(fxs.length > 0){
    const fx = fxs[0];
-   SignatureStore.founderName = (fx.individual?.first_name??'' + fx.corporate?.authorized_persons?.first_name?? '') + ' ' + (fx.individual?.last_name??'' + fx.corporate?.authorized_persons?.last_name?? '') 
+  //  SignatureStore.founderName = (fx.individual?.first_name??'' + fx.corporate?.authorized_persons?.first_name?? '') + ' ' + (fx.individual?.last_name??'' + fx.corporate?.authorized_persons?.last_name?? '') 
+   //@ts-ignore
+  SignatureStore.founderName = fx?.entity_type_id == 1 ? `${fx.individual.first_name??''} ${fx.individual.last_name??'' } ${fx.individual.chn_last_name??''}${fx.individual.chn_first_name??''}`  : `${fx.corporate?.authorized_persons?.first_name + ' ' + fx.corporate?.authorized_persons?.last_name  + ' FOR AND BEHALF OF ' + fx.corporate?.company_name??'' + ' ' +  fx.corporate?.chn_company_name??''}`
    SignatureStore.founderSignature = fx.signature
    SignatureStore.signatureDate = fx.date_signed
    SignatureStore.founderId = fx.id

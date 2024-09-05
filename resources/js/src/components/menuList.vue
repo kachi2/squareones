@@ -27,23 +27,25 @@ onMounted(async () => {
         <li class="list-group-item" v-if="!templateStore.sidebarIsCollapsed">
             <div class="accordion" id="accordionMenuCaompany">
                 <div class="accordion-item ">
-                    <span class="accordion-header_" id="menu1Heading"  >
-                        <a class="accordion-button collapsed " type="button" style="padding:0px" data-bs-toggle="collapse"
-                            data-bs-target="#accordionMenuCompanyCollapse" aria-expanded="true"
-                            aria-controls="accordionMenuCompanyCollapse" >
+                    <span class="accordion-header_" id="menu1Heading">
+                        <a class="accordion-button collapsed " type="button" style="padding:0px"
+                            data-bs-toggle="collapse" data-bs-target="#accordionMenuCompanyCollapse"
+                            aria-expanded="true" aria-controls="accordionMenuCompanyCollapse">
                             <!-- <img class="side-icon" src="/icons/sidebar/main-component.png" alt=""> -->
                             <i class="bi bi-building me-2"></i>
-                            <span v-if="!templateStore.sidebarIsCollapsed" class="single-list-item">Company</span> &nbsp;
+                            <span v-if="!templateStore.sidebarIsCollapsed" class="single-list-item">Company</span>
+                            &nbsp;
                             <!-- <i data-v-35aba22b="" class="bi bi-chevron-down"></i> -->
-                    </a>
-                </span>
-                    
+                        </a>
+                    </span>
+
                     <div id="accordionMenuCompanyCollapse" class="accordion-collapse collapse "
                         aria-labelledby="menu1Heading" data-bs-parent="#accordionMenuCaompany">
                         <div class="accordion-body">
                             <ul class="nav flex-column mt-2" v-if="paramsStore.companies.list.length">
-                                <li v-for="item in paramsStore.companies.list" :key="item" class="nav-item single-list-items">
-                                    <router-link @click="paramsStore.currentCompanyId = item.id" to="/user/company"  >
+                                <li v-for="item in paramsStore.companies.list" :key="item"
+                                    class="nav-item single-list-items">
+                                    <router-link @click="paramsStore.currentCompanyId = item.id" to="/user/company">
                                         {{ paramsStore.computedCoyName(item) }}
                                     </router-link>
                                 </li>
@@ -55,7 +57,7 @@ onMounted(async () => {
         </li>
 
         <li class="list-group-item">
-            <router-link to="/user/users"   class="single-list-items">
+            <router-link to="/user/users" class="single-list-items">
                 <i class="bi bi-people me-2"></i>
                 <span v-if="!templateStore.sidebarIsCollapsed">My Team</span>
 
@@ -82,7 +84,7 @@ onMounted(async () => {
                 <router-link to="/user/billings" class="single-list-items">
                     <!-- <img class="side-icon" src="/icons/sidebar/money.png" alt=""> -->
                     <i class="bi bi-cash-stack"></i>
-                    <span v-if="!templateStore.sidebarIsCollapsed" > Billings</span>
+                    <span v-if="!templateStore.sidebarIsCollapsed"> Billings</span>
                 </router-link>
             </li>
 
@@ -97,7 +99,6 @@ onMounted(async () => {
 </template>
 
 <style lang="css" scoped>
-
 /* .nav-item:hover {
     background:#eee;
     padding: 5px 5px 5px 5px;
@@ -105,19 +106,19 @@ onMounted(async () => {
     transition:  padding 0.5s
 } */
 
-.single-list-items:hover{
-    background:#eee;
+.single-list-items:hover {
+    background: #eee;
     padding: 5px 5px 5px 5px;
     border-radius: 5px;
-    transition:  padding 0.5s;
+    transition: padding 0.5s;
     color: #000;
 }
 
 .list-group-item {
     background: transparent;
     border: none;
-    padding-bottom: 15px;
-    
+    padding-bottom: 5px;
+
 }
 
 .list-group-item a {
@@ -166,6 +167,7 @@ onMounted(async () => {
     margin-block: 0px;
     font-size: 14px;
 }
+
 .accordion-body {
     padding-bottom: 0px !important;
     padding-top: 3px !important;
@@ -182,6 +184,4 @@ onMounted(async () => {
     color: v-bind('templateStore.textColor');
     font-weight: 450;
 }
-
-
 </style>

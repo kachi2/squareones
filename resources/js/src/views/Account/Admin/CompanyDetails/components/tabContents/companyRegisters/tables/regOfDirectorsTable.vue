@@ -85,23 +85,28 @@ const paramsStore = useAdminParamsStore()
 
 // table
 const masterTableHeaders = [
-    { text: "NAME", value: "name" },
-    { text: "DATE OF APPOINTMENT", value: "date_of_appointment" },
-    { text: "REGISTRATION NO", value: "reg_no" },
-    { text: "REGISTERED OFFICE", value: "registered_office" },
-    { text: "CEASING OF ACT", value: "ceasing_of_act" },
-    { text: "REMARKS", value: "remarks" },
+{ text: "Date of Appointment", value: "date_of_appointment" },
+    { text: "Name", value: "name" },
+    { text: "ID/ Passport / Registration No", value: "reg_no" },
+    { text: "Residential Address / Registered  Office", value: "registered_office" },
+    { text: "Ceasing to Act", value: "ceasing_of_act" },
+    { text: "Remarks", value: "remarks" },
+    { text: "Date Created", value: "created_at" },
     { text: "ACTION", value: "action" },
 ];
 
 const expandedHeaders = [
-    { text: "NAME", value: "name" },
-    { text: "DATE OF APPOINTMENT", value: "date_of_appointment" },
-    { text: "REGISTRATION NO", value: "reg_no" },
-    { text: "REGISTERED OFFICE", value: "registered_office" },
-    { text: "CEASING OF ACT", value: "ceasing_of_act" },
-    { text: "REMARKS", value: "remarks" },
+{ text: "Date of Appointment", value: "date_of_appointment" },
+    { text: "Name", value: "name" },
+    { text: "ID/ Passport / Registration No", value: "reg_no" },
+    { text: "Residential Address / Registered  Office", value: "registered_office" },
+    { text: "Ceasing to Act", value: "ceasing_of_act" },
+    { text: "Remarks", value: "remarks" },
+    { text: "Date Modified", value: "created_at" },
+
+    
 ];
+
 
 
 const expandingServerOptions = ref<ServerOptions | any>({

@@ -22,14 +22,14 @@ export const foundersIdividualForm = defineStore("foundersIdividual", () => {
     chn_last_name: yup.string().test("chineseCheck", "Please input only Chinese characters", chineseCheck),
 
     flat: yup.string().required("Flat is required"),
-    building: yup.string(),
+    building: yup.string().nullable(),
     street: yup.string().required("Street is required"),
     state: yup.string().required("State is required"),
     // city: yup.string(),
     country: yup.string().required("Country is required"),
 
     flat2: yup.string().test("correspondingAddressCheck", "This field is required", correspondingAddressCheck),
-    building2: yup.string(),
+    building2: yup.string().nullable(),
     street2: yup.string().test("correspondingAddressCheck", "This field is required", correspondingAddressCheck),
     state2: yup.string().test("correspondingAddressCheck", "This field is required", correspondingAddressCheck),
     // city2: yup.string().test("correspondingAddressCheck", "This field is required", correspondingAddressCheck),
@@ -50,7 +50,7 @@ export const foundersIdividualForm = defineStore("foundersIdividual", () => {
   };
 
 
-  const { errors, handleSubmit, defineField, setFieldValue, resetForm, validateField } = useForm({
+  const { errors, handleSubmit, defineField, setFieldValue, resetForm, validateField, resetField } = useForm({
     validationSchema: yup.object(rules),
 
     // initialValues: {
@@ -317,6 +317,7 @@ export const foundersIdividualForm = defineStore("foundersIdividual", () => {
     clearLocalStorage,
     saveToLocalStorage,
     resetForm,
-    validateVueSelectOnBlur
+    validateVueSelectOnBlur,
+    resetField,
   };
 });

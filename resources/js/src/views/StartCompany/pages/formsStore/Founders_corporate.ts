@@ -26,7 +26,7 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
         country_registered: yup.string().required('Company date of registration is required'),
         business_nature_id: yup.string().required('Business nature Id is required'),
         flat: yup.string().required(' Flat is required'),
-        building: yup.string(),
+        building: yup.string().nullable(),
         street: yup.string().required(' Street is required'),
         state: yup.string().required('State/City is required'),
         country: yup.string().required('country is required'),
@@ -43,7 +43,7 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
     };
 
 
-    const { errors, handleSubmit, defineField, setFieldValue, resetForm, validateField } = useForm({
+    const { errors, handleSubmit, defineField, setFieldValue, resetForm, validateField, resetField } = useForm({
         validationSchema: yup.object(rules),
         // initialValues: {
         //     date_incorporated: new Date('2006-5-4'),
@@ -228,6 +228,7 @@ export const foundersCorporateForm = defineStore('foundersCorporate', () => {
         saveToLocalStorage,
         resetForm,
         clearLocalStorage,
-        validateVueSelectOnBlur
+        validateVueSelectOnBlur,
+        resetField,
     }
 })

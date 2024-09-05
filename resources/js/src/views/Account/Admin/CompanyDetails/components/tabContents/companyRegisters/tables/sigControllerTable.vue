@@ -10,6 +10,7 @@
                 </span>
             </div>
             <div class="card-body">
+                Significant Controllers
                 <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
                     :items="paramsStore.currentCompanyData.significant_controller" buttons-pagination
                     @expand-row="expandLogs">
@@ -30,6 +31,12 @@
                                     <div class="text-secondary fw-bold"> Residential Address:</div>
                                     <span>
                                         {{ item?.controllers_particulars?.resdential_address ?? '-' }}
+                                    </span>
+                                </li>
+                                <li class="list-group-item p-0">
+                                    <div class="text-secondary fw-bold"> ID/ Passport / Registration No:</div>
+                                    <span>
+                                        {{ item?.controllers_particulars?.identity_info ?? '-' }}
                                     </span>
                                 </li>
                                 <li class="list-group-item p-0">
@@ -151,6 +158,8 @@
                     </template>
                 </EasyDataTable>
             </div>
+
+            <DesignatedRepTable />
         </div>
     </div>
 
@@ -170,29 +179,60 @@ const paramsStore = useAdminParamsStore()
 
 import type { Header, Item, ServerOptions } from "vue3-easy-data-table";
 import { reactive, ref, watch } from 'vue';
+import DesignatedRepTable from './designatedRepTable.vue';
 
 const masterTableHeaders = [
-    { text: "ENTRY DATE", value: "entry_date" },
-    { text: "LEGAL ENTITY NAME", value: "legal_entity_name" },
-    { text: "PARTICULARS", value: "particulars" },
-    { text: "DATE BECOMMING REP", value: "date_becoming_rep_person" },
-    { text: "DATE CEASED TO BE REP", value: "date_ceased_to_be_rep_person" },
+    { text: "Date of Entry", value: "entry_date" },
+    { text: "Name of Registrable Person / Legal Entity", value: "legal_entity_name" },
+    { text: "Particulars", value: "particulars" },
+    { text: "Date  Becoming a Registrable Person", value: "date_becoming_rep_person" },
+    { text: "Date Cease  to Be a Registrable Person", value: "date_ceased_to_be_rep_person" },
+    { text: "Date Created", value: "created_at" },
     { text: "ACTION", value: "action" },
 
 ];
 
+const masterTableHeaders1 = [
+    { text: " Date of Entry", value: "entry_date" },
+    { text: "Name (Capacity)", value: "name" },
+    { text: "Particulars", value: "particulars" },
+    { text: "Remarks", value: "remarks" },
+    { text: "Date Created", value: "created_at" },
+    // { text: "ACTION", value: "action" },
+
+];
+
 const expandedHeaders = [
-    { text: "ENTRY DATE", value: "entry_date" },
-    { text: "LEGAL ENTITY NAME", value: "legal_entity_name" },
-    { text: "CORRESPONDING ADDRESS", value: "corresponding_address" },
-    { text: "RESIDENTIAL ADDRESS", value: "resdential_address" },
-    { text: "PLACE OF REGISTRATION", value: "place_of_registration" },
-    { text: "NATURE OF CONTROL", value: "nature_of_control_over_the_company" },
-    { text: "DATE BECOMMING REP", value: "date_becoming_rep_person" },
-    { text: "DATE CEASED TO BE REP", value: "date_ceased_to_be_rep_person" },
+    { text: "Date of Entry", value: "entry_date" },
+    { text: "Name of Registrable Person / Legal Entity", value: "legal_entity_name" },
+    { text: "Corresponding Address", value: "corresponding_address" },
+    { text: "ID/Passport/Registration No", value: "identity_info" },
+    { text: "Residential Address", value: "resdential_address" },
+    { text: "Place of Registration.", value: "place_of_registration" },
+    { text: "Nature of Control Over the Company", value: "nature_of_control_over_the_company" },
+    { text: "Date  Becoming a Registrable Person", value: "date_becoming_rep_person" },
+    { text: "Date Cease  to Be a Registrable Person", value: "date_ceased_to_be_rep_person" },
+    { text: "Date MOdified", value: "created_at" },
+];
+
+const expandedHeaders1 = [
+    { text: " Date of Entry", value: "entry_date" },
+    { text: "Name (Capacity)", value: "name" },
+    { text: "ID/Passport/Registration No.", value: "identity_info" },
+    { text: "Place of Registration", value: "place_of_registration" },
+    { text: "Nature of Control Over the Company", value: "nature_of_control_over_the_company" },
+    { text: "Remarks", value: "remarks" },
+    { text: "Date Created", value: "created_at" },
 ];
 
 const expandingServerOptions = ref<ServerOptions | any>({
+    page: 1,
+    rowsPerPage: 15,
+    // sortType: 'desc',
+    // sortBy: ''
+});
+
+const expandingServerOptions1 = ref<ServerOptions | any>({
     page: 1,
     rowsPerPage: 15,
     // sortType: 'desc',
@@ -206,9 +246,30 @@ const expandedObjArray = reactive({
     data: []
 })
 
+const expandedTotal1 = ref(0)
+const expandedObjArray1 = reactive({
+    id: '',
+    data: []
+})
+
 const expandLogs = async (index: any, prop_name: string,) => {
     expandedObjArray.data = []
     const items = paramsStore.currentCompanyData.significant_controller
+    const expandedItem: any = items[index];
+    expandedObjArray.id = expandedItem.id
+
+    if (!expandedItem.logs) {
+        expandedItem.expandLoading = true;
+        await getLogs()
+        expandedItem.logs = expandedItem.data
+        expandedItem.expandLoading = false;
+
+    }
+}
+
+const expandLogs1 = async (index: any, prop_name: string,) => {
+    expandedObjArray1.data = []
+    const items = paramsStore.currentCompanyData.designated_representative
     const expandedItem: any = items[index];
     expandedObjArray.id = expandedItem.id
 
@@ -231,8 +292,18 @@ async function getLogs() {
     expandedObjArray.data = data?.data ?? []
 }
 
-watch(expandingServerOptions, (value) => { getLogs(); }, { deep: true });
+async function getLogs1() {
+    const formData = new FormData()
+    formData.append('representative_id', expandedObjArray1.id)
+    formData.append('page', expandingServerOptions1.value.page)
+    const response = await api.incoprationLogs(formData)
+    const data: any = response.data.data?.DesignatedRepresentativeLog ?? null;
+    expandedTotal1.value = data?.total ?? 0
+    expandedObjArray1.data = data?.data ?? []
+}
 
+watch(expandingServerOptions, (value) => { getLogs(); }, { deep: true });
+watch(expandingServerOptions1, (value) => { getLogs1(); }, { deep: true });
 </script>
 
 <style lang="css" scoped>

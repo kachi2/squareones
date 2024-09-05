@@ -3,19 +3,27 @@
 
         <div class="modal-body">
             <div class="row g-3">
-                <div class="col-12 col-md-6">
-                    <div class="form-label">Director:</div>
-                    <input v-model="directors" type="text" class="form-control">
+                <div class="col-12">
+                    <div class="form-label">Directors:</div>
+                    <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc" :multiple="true"
+                        v-model="directors" :clearable="true" :options="directorsDropDown" />
+                    <!-- <input v-model="directors" type="text" class="form-control"> -->
                     <small class=" text-danger">{{ errors.directors }}</small>
                 </div>
-                <div class="col-12 col-md-6">
+                <div class="col-12">
                     <div class="form-label">Shareholders:</div>
-                    <input v-model="shareholders" type="text" class="form-control">
+                    <!-- <input v-model="shareholders" type="text" class="form-control"> -->
+                    <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc" :multiple="true"
+                        v-model="shareholders" :clearable="true" :options="shareholdersDropDown" />
                     <small class=" text-danger">{{ errors.shareholders }}</small>
                 </div>
                 <div class="col-12 col-md-6">
                     <div class="form-label">Company Secretary:</div>
-                    <input v-model="company_secretary" type="text" class="form-control">
+                    <!-- <input v-model="company_secretary" type="text" class="form-control"> -->
+                    <select v-model="company_secretary" class="form-select">
+                        <option selected :value="company_secretary">{{ company_secretary }}
+                        </option>
+                    </select>
                     <small class=" text-danger">{{ errors.company_secretary }}</small>
                 </div>
 
@@ -45,7 +53,7 @@
             </button>
 
             <button v-else @click="save" type="button" class="btn btn-primary">
-                Save and Continue
+                Update Data
             </button>
         </div>
     </div>
@@ -92,45 +100,55 @@ const [company_secretary] = defineField('company_secretary');
 const [scr_designated_representative] = defineField('scr_designated_representative');
 const isSaving = ref<boolean>(false)
 
+const directorsDropDown = ref([])
+const shareholdersDropDown = ref([])
 function setValuesOnFields() {
-    // if (paramsStore.idToEdit) {
     const office_contract = paramsStore.currentCompanyData?.office_contract[0]
-    // econst office_contract = office_contracts.find((x: { id: string; }) => x.id == paramsStore.idToEdit)
     if (office_contract) {
+
+        try {
+            directorsDropDown.value = JSON.parse(office_contract.directors)
+            shareholdersDropDown.value = JSON.parse(office_contract.shareholders)
+            setFieldValue('directors', JSON.parse(office_contract.directors))
+            setFieldValue('shareholders', JSON.parse(office_contract.shareholders))
+        } catch (error) {
+
+        }
         setFieldValue('registered_office', office_contract.registered_office)
-        setFieldValue('directors', office_contract.directors)
         setFieldValue('business_address', office_contract.business_address)
-        setFieldValue('shareholders', office_contract.shareholders)
         setFieldValue('company_secretary', office_contract.company_secretary)
         setFieldValue('scr_designated_representative', office_contract.scr_designated_representative)
     }
-    // }
 }
 
 
 const save = handleSubmit(async (values) => {
-    isSaving.value = true
-    const formData = new FormData()
-    formData.append('company_id', paramsStore.currentCompanyId)
-    formData.append('registered_office', values.registered_office ?? '')
-    formData.append('directors', values.directors ?? '')
-    formData.append('business_address', values.business_address ?? '')
-    formData.append('shareholders', values.shareholders ?? '')
-    formData.append('company_secretary', values.company_secretary ?? '')
-    formData.append('scr_designated_representative', values.scr_designated_representative ?? '')
-    // if (paramsStore.idToEdit)
-    //     formData.append('officecontract_id', paramsStore.idToEdit)
+    useFxn.confirm('Update Data?', 'Continue').then(async (confirmed) => {
+        if (confirmed.value == true) {
+            isSaving.value = true
+            const formData = new FormData()
+            formData.append('company_id', paramsStore.currentCompanyId)
+            formData.append('registered_office', values.registered_office ?? '')
+            formData.append('directors', values.directors ?? '')
+            formData.append('business_address', values.business_address ?? '')
+            formData.append('shareholders', values.shareholders ?? '')
+            formData.append('company_secretary', values.company_secretary ?? '')
+            formData.append('scr_designated_representative', values.scr_designated_representative ?? '')
+
+            //     formData.append('officecontract_id', paramsStore.idToEdit)
 
 
-    try {
-        await api.officeContract(formData)
-        isSaving.value = false
-        resetForm()
-        paramsStore.getCompanyDetails()
-        emit('done')
+            try {
+                await api.officeContract(formData)
+                isSaving.value = false
+                useFxn.toast('Updated', 'success')
+                paramsStore.getCompanyDetails()
+                // emit('done')
 
-    } catch (error) {
-        console.log(error);
-    }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    })
 })
 </script>
