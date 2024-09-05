@@ -11,7 +11,7 @@
             </div>
             <div class="card-body">
                 <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
-                    :items="paramsStore.currentCompanyData.register_of_shareholders" buttons-pagination
+                    :items="paramsStore.currentCompanyData?.register_of_shareholders" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
                         <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
@@ -133,7 +133,7 @@ const expandedItems = (itemId: number | string) => {
 
 const expandLogs = async (index: any, prop_name: string,) => {
     expandedObjArray.data = []
-    const items = paramsStore.currentCompanyData.register_of_shareholders
+    const items = paramsStore.currentCompanyData?.register_of_shareholders
     const expandedItem: any = items[index];
     expandedObjArray.id = expandedItem.id
 

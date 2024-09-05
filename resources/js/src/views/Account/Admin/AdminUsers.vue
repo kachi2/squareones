@@ -7,7 +7,7 @@
                     <div class="card-body ">
                         <div class="d-flex justify-content-between align-items-cente">
                             <div class="col-6">
-                                <span class="fs-4 fw-bold text-mute">20</span>
+                                <span class="fs-4 fw-bold text-mute">2</span>
                                 <div>
                                     <span class="small">Registered Users</span>
                                 </div>
@@ -26,7 +26,7 @@
                     <div class="card-body ">
                         <div class="d-flex justify-content-between align-items-cente">
                             <div class="col-6">
-                                <span class="fs-4 fw-bold text-mute">8/20</span>
+                                <span class="fs-4 fw-bold text-mute">2/2</span>
                                 <div>
                                     <span class="small">Active Users</span>
                                 </div>
@@ -45,7 +45,7 @@
                     <div class="card-body ">
                         <div class="d-flex justify-content-between align-items-cente">
                             <div class="col-7">
-                                <span class="fs-4 fw-bold text-mute">5</span>
+                                <span class="fs-4 fw-bold text-mute">2</span>
                                 <div>
                                     <span class="small">New Users</span> <br>
                                     <small style="color:green"> 2 this week</small>
@@ -65,7 +65,7 @@
                     <div class="card-body ">
                         <div class="row justify-content-between align-items-cente">
                             <div class="col-6">
-                                <span class="fs-4 fw-bold text-mute">5</span>
+                                <span class="fs-4 fw-bold text-mute">2</span>
                                 <div>
                                     <span class="small">Total Verified Users</span> <br>
 
@@ -77,7 +77,7 @@
                                 </apexchart>
                             </div>
                             <div class="col-12">
-                                <small style="color:red"> 10 pending unverified </small>
+                                <small style="color:red"> 2 pending unverified </small>
                             </div>
                         </div>
                     </div>

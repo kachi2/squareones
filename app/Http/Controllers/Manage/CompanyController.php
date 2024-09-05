@@ -22,8 +22,8 @@ class CompanyController extends Controller
 
     public function CompanyIncorporation($company_id){
         try{
-        $company = Company::where('id', $company_id)->first();
-        $company->load('RegisteredCompany', 'RegisterOfAllotments', 'RegisterOfCharge', 'RegisterOfCompanyName','RegisterOfDirector','RegisterOfSecretary','RegisterOfShareholders','RegisterOfTransfer', 'SignificantController', 'ComplianceReporting', 'DesignatedRepresentative', 'OfficeContract');
+        $company = Company::where(['id' => $company_id])->first();
+            $company?->load('RegisteredCompany', 'RegisterOfAllotments', 'RegisterOfCharge', 'RegisterOfCompanyName','RegisterOfDirector','RegisterOfSecretary','RegisterOfShareholders','RegisterOfTransfer', 'SignificantController', 'ComplianceReporting', 'DesignatedRepresentative', 'OfficeContract');
         return response()->json(['data' => $company], HttpStatusCode::OK);
     }catch(\Exception $e){
         return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);

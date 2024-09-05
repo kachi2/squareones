@@ -12,7 +12,7 @@
             </div>
             <div class="card-body">
                 <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
-                    :items="paramsStore.currentCompanyData.register_of_transfer" buttons-pagination
+                    :items="paramsStore.currentCompanyData?.register_of_transfer" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
                         <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
@@ -123,7 +123,7 @@ const expandedObjArray = reactive({
 
 const expandLogs = async (index: any, prop_name: string,) => {
     expandedObjArray.data = []
-    const items = paramsStore.currentCompanyData.register_of_transfer
+    const items = paramsStore.currentCompanyData?.register_of_transfer
     const expandedItem: any = items[index];
     expandedObjArray.id = expandedItem.id
 

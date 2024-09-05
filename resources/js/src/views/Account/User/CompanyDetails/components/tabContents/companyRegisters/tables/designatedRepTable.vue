@@ -11,7 +11,7 @@
             </div>
             <div class="card-body">
                 <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
-                    :items="paramsStore.currentCompanyData.designated_representative" buttons-pagination
+                    :items="paramsStore.currentCompanyData?.designated_representative" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
                         <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
@@ -64,10 +64,10 @@
                                 v-model:server-options="expandingServerOptions" :server-items-length="expandedTotal">
 
                                 <template #item-entry_date="item">
-                                    {{ useFxn.dateDisplay(item.entry_date) }}
+                                    {{ useFxn.dateDisplay(item?.entry_date) }}
                                 </template>
                                 <template #item-created_at="item">
-                                    {{ useFxn.dateDisplay(item.created_at) }}
+                                    {{ useFxn.dateDisplay(item?.created_at) }}
                                 </template>
 
 
@@ -147,8 +147,8 @@ const expandedObjArray = reactive({
 
 const expandLogs = async (index: any, prop_name: string,) => {
     expandedObjArray.data = []
-    const items = paramsStore.currentCompanyData.designated_representative
-    const expandedItem: any = items[index];
+    const items = paramsStore.currentCompanyData?.designated_representative
+    const expandedItem: any = items[index]??[];
     expandedObjArray.id = expandedItem.id
 
     if (!expandedItem.logs) {

@@ -8,9 +8,10 @@
   <script src="https://js.stripe.com/v3/"></script>
   <script src="https://assets.complycube.com/web-sdk/v1/complycube.min.js"></script>
   <!-- <script src="https://sdk.complycube.com/latest/complycube.js"></script> -->
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;700&display=swap" rel="stylesheet" />
   <title>Squareone</title>
-  <script type="module" crossorigin src="/assets/index-DRAmyg4x.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-BzDhAg5e.css">
+  <script type="module" crossorigin src="/assets/index-bJf0D_xI.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-BsYB3ULh.css">
 </head>
 
 <body>

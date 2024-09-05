@@ -13,7 +13,7 @@
             <div class="card-body">
 
                 <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
-                    :items="paramsStore.currentCompanyData.register_of_director" buttons-pagination
+                    :items="paramsStore.currentCompanyData?.register_of_director" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
                         <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
@@ -21,14 +21,14 @@
 
 
                     <template #item-date_of_appointment="item">
-                        {{ useFxn.dateDisplay(item.date_of_appointment) }}
+                        {{ useFxn.dateDisplay(item?.date_of_appointment) }}
                     </template>
 
                     <template #item-ceasing_of_act="item">
-                        {{ useFxn.dateDisplay(item.ceasing_of_act) }}
+                        {{ useFxn.dateDisplay(item?.ceasing_of_act) }}
                     </template>
                     <template #item-created_at="item">
-                        {{ useFxn.dateDisplay(item.created_at) }}
+                        {{ useFxn.dateDisplay(item?.created_at) }}
                     </template>
 
                     <template #expand="item">
@@ -39,14 +39,14 @@
                                 v-model:server-options="expandingServerOptions" :server-items-length="expandedTotal">
 
                                 <template #item-date_of_appointment="item">
-                                    {{ useFxn.dateDisplay(item.date_of_appointment) }}
+                                    {{ useFxn.dateDisplay(item?.date_of_appointment) }}
                                 </template>
 
                                 <template #item-ceasing_of_act="item">
-                                    {{ useFxn.dateDisplay(item.ceasing_of_act) }}
+                                    {{ useFxn.dateDisplay(item?.ceasing_of_act) }}
                                 </template>
                                 <template #item-created_at="item">
-                                    {{ useFxn.dateDisplay(item.created_at) }}
+                                    {{ useFxn.dateDisplay(item?.created_at) }}
                                 </template>
                             </EasyDataTable>
                         </div>
@@ -131,7 +131,7 @@ const expandedObjArray = reactive({
 
 const expandLogs = async (index: any, prop_name: string,) => {
     expandedObjArray.data = []
-    const items = paramsStore.currentCompanyData.register_of_director
+    const items = paramsStore.currentCompanyData?.register_of_director
     const expandedItem: any = items[index];
     expandedObjArray.id = expandedItem.id
 
