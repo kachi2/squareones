@@ -67,7 +67,7 @@ class PaymentServices implements PaymentInterface
                  'success_url' => url('/kcy/verifications'),
                 'cancel_url' => url('/start_company'),
             ]);
-            $company = Company::where(['user_id' => 1, 'is_complete' => 0])->first();
+            $company = Company::where(['user_id' => auth_user(), 'is_complete' => 0])->first();
             if ($company) {
               $this->AddSubscriptionInfo($company,$session, $payment_ref, $plans);
             }
@@ -123,10 +123,10 @@ class PaymentServices implements PaymentInterface
     public function AddSubscriptionInfo($company,$session, $payment_ref, $plans)
     {
         Billing::updateOrcreate([
-            'company_id' => $company->id,
+            'company_id' => $company?->id,
         ], [
             'user_id' => auth_user(),
-            'company_id' => $company->id,
+            'company_id' => $company?->id,
             'amount' => $plans->amount,
             'payment_intent' => $session->id,
             'payment_ref' => $payment_ref,
