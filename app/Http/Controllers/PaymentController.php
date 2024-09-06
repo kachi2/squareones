@@ -34,7 +34,6 @@ class PaymentController extends Controller
        $procespayment = $this->paymentInterface->ProcessPayment($request);
        GenerateCompanyData::dispatch(['company_id' => $user->activeCompany()->id]);
        $ss = $this->teamServices->create($user->activeCompany(), $request->role, $user);
-       return $ss;
     return response()->json([
         $procespayment
     ]);
