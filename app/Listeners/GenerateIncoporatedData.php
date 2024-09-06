@@ -188,7 +188,6 @@ class GenerateIncoporatedData implements ShouldQueue
 
     public function ProcessRegisterOfDesignatedParticulars($resource)
     {
-
             $secretary = $resource['secretary'];
             if($secretary){
                 $Controller = DesignatedRepresentative::Create(
