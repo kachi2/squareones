@@ -10,6 +10,7 @@ Route::prefix('manage')->group(function() {
         require __DIR__.'/CompanyIncorporation.php';
     Route::controller(DashboardController::class)->group(function(){
         Route::get('/activitylog', 'AdminActivityLog');
+        Route::get('/user/activities', 'UserActivities');
         Route::post('company/stats/', 'GetCompanyStats');
         Route::post('/revenue/stats', 'getRevenueStats');
     });
