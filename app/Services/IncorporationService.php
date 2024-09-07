@@ -266,7 +266,8 @@ class IncorporationService implements IncorporationInterface
             'transferee' => $RegisterOfTransferDto->transferee,
             'no_of_shares_transfered' => $RegisterOfTransferDto->no_of_shares_transfered,
             'total_consideration' => $RegisterOfTransferDto->total_consideration,
-            'transfer_method' => $RegisterOfTransferDto->transfer_method
+            'transfer_method' => $RegisterOfTransferDto->transfer_method,
+            'transferor' => $RegisterOfTransferDto->Transferor
         ];
         if ($RegisterOfTransferDto->transfer_id) {
             $register = RegisterOfTransfer::where('id', $RegisterOfTransferDto->transfer_id)->first();

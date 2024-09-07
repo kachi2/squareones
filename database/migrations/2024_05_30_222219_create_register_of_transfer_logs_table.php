@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('transfer_id');
             $table->string('registration_date')->nullable();
             $table->string('transferee')->nullable();
+            $table->string('transferor')->nullable();
             $table->string('no_of_shares_transfered')->nullable();
             $table->string('total_consideration')->nullable();
             $table->string('transfer_method')->nullable();
