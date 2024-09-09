@@ -13,6 +13,7 @@ Route::prefix('manage')->group(function() {
         Route::get('/user/activities', 'UserActivities');
         Route::post('company/stats/', 'GetCompanyStats');
         Route::post('/revenue/stats', 'getRevenueStats');
+        Route::get('document/types', 'getDocType');
     });
 
     Route::controller(DocumentController::class)->group(function (){

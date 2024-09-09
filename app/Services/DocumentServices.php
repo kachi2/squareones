@@ -9,6 +9,7 @@ use App\Models\UserDocument;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 
 class DocumentServices  implements DocumentInterface{
@@ -16,37 +17,47 @@ class DocumentServices  implements DocumentInterface{
   
     public function upload($request)
     {
+        $docs = [];
         foreach($request->document as $files){
             if($files['docs'] instanceof UploadedFile){
-                $base64Image = base64_encode(file_get_contents($files['docs']->getRealPath()));
+             $name = \pathinfo($files->getClientOriginalName(), PATHINFO_FILENAME);
+                $file =  UploadFiles($request->document, '/documents', $name);
             }
-              $documents =  Document::create([
-                'company_id' => $request->company_id,
-                'document' => $base64Image,
-                'title' => $request?->title,
-                'document_type_id' => $files['document_type_id']
-            ]);
-            $docs[] =  $documents;
+            $docs[] =  $file;
         }
-        return  $docs;
+        return $name;
+
+        $documents =  Document::create([
+            'company_id' => $request->company_id,
+            'document' => json_encode($docs),
+            'title' => $request?->title,
+            'year' => $request->year,
+            'document_type_id' => $files['document_type_id']
+        ]);
+        return  $documents;
     }
 
     public function uploadDoc($request)
     {
         $docs = [];
+        return $request;
         foreach($request->document as $files){
                 // $base64Image = base64_encode(file_get_contents($files->getRealPath()));
                 $name = \pathinfo($files->getClientOriginalName(), PATHINFO_FILENAME);
-                $ext = $files->getClientOriginalExtension();
+                // $ext = $files->getClientOriginalExtension();
                 // $fileName = str_replace("['/', '(', ')', ' ']","", $name).'.'.'pdf';
-                $fileName = $name.'.'.$ext;
-                $files->move('documents',  $fileName);
-                $docs[] =  $fileName;
+                // $fileName = $name.'.'.$ext;
+                // $files->move('documents',  $fileName);
+           
+                return $files;
+                $file =  UploadFiles($files,'/documents', $name);
+                $docs[] =  $file;
         }
               $documents =  Document::create([
                 'company_id' => $request->company_id,
                 'document' => json_encode($docs),
                 'title' => $request?->title,
+                'year' => $request?->year,
                 'document_type_id' => $request->document_type_id
             ]);
            
@@ -63,16 +74,19 @@ class DocumentServices  implements DocumentInterface{
     if($document instanceof UploadedFile){ 
         // $name = \pathinfo($document->getClientOriginalName(), PATHINFO_FILENAME);
         // $fileName = str_replace("['/', '(', ')', ' ']","", $name).'.'.'pdf';
-        $fileName = $company->names[0]->eng_name?$company->names[0]->eng_name.'.pdf':$company->names[0]->chn_name.'.pdf';
-        $document->move('documents', $fileName );
-        $fileNames[] = $fileName;
+        // $document->move('documents', $fileName );
+        $fileName = $company->names[0]->eng_name?$company->names[0]->eng_name.'.pdf':'documents.pdf';
+        $file =  UploadFiles($document, '/documents',$fileName);
+        $fileNames[] = $file;
     }
 }
     if($company){
           Document::create([
             'company_id' => $company->id,
+            'user_id' => auth_user(),
             'document' => json_encode($fileNames),
-            'title' => 'Company Formation Document',
+            'title' => 'IRBR1',
+            'year' => $request->year,
             'document_type_id' => 1
         ]);
         $company->update([
@@ -82,6 +96,7 @@ class DocumentServices  implements DocumentInterface{
         return $company;
     }
 
+    return [];
     }
 
     public function RenderPagePDF($company_id){
@@ -135,7 +150,8 @@ class DocumentServices  implements DocumentInterface{
                 $base64Image = base64_encode(file_get_contents($files->getRealPath()));
                 $docs[] =  $base64Image;
             }
-              $documents =  UserDocument::create([
+              $documents =  
+              UserDocument::create([
                 'user_id' => auth_user(),
                 'document' => json_encode($docs),
                 'title' => $request->title,

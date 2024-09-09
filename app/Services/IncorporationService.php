@@ -57,16 +57,23 @@ class IncorporationService implements IncorporationInterface
                 'tax_id' => $RegisteredCompanyDto->tax_id,
             ]
         );
-        if($RegisteredCompanyDto->company_registered){
+        if($RegisteredCompanyDto->company_registered || $RegisteredCompanyDto->tax_id){
             $subscription = UserSubscription::where('company_id', $RegisteredCompanyDto->company_id)->first();
             if($subscription){
             $subscription->update([
                 'expiry_date' => Carbon::now()->addMonth(12),
             ]);
-            $data->update(['renewal_date' => Carbon::now()->addDays(364)]);
+            $data->update(
+            ['renewal_date' => Carbon::now()->addDays(365),
+             'incorporated_date' => Carbon::now()
+            ]);
         }
-        $companyUser = Company::where('id',  $RegisteredCompanyDto->company_id)->first();
-       Notification::create([
+         $companyUser = Company::where('id',  $RegisteredCompanyDto->company_id)->first();
+         $companyUser->update([
+            'is_incorporated' => 1,
+            'date_incorporated' => Carbon::now()
+         ]);
+         Notification::create([
             'title' => 'Company Incorporated',
             'content' => 'Hi, '.$companyUser->Users->name.' Your company ['.$RegisteredCompanyDto->company_registered_name.'] is fully incorporated',
             'user_id'=> $companyUser->Users->id
@@ -264,10 +271,11 @@ class IncorporationService implements IncorporationInterface
             'company_id' => $RegisterOfTransferDto->company_id,
             'registration_date' => $RegisterOfTransferDto->registration_date,
             'transferee' => $RegisterOfTransferDto->transferee,
+            'transferor' => $RegisterOfTransferDto->Transferor,
             'no_of_shares_transfered' => $RegisterOfTransferDto->no_of_shares_transfered,
             'total_consideration' => $RegisterOfTransferDto->total_consideration,
             'transfer_method' => $RegisterOfTransferDto->transfer_method,
-            'transferor' => $RegisterOfTransferDto->Transferor
+           
         ];
         if ($RegisterOfTransferDto->transfer_id) {
             $register = RegisterOfTransfer::where('id', $RegisterOfTransferDto->transfer_id)->first();
@@ -278,12 +286,16 @@ class IncorporationService implements IncorporationInterface
             $type = "Update";
             $this->SendNotification($msg, $type);
             $register->update($data);
+            $this->transferee($RegisterOfTransferDto->transferee, $RegisterOfTransferDto->no_of_shares_transfered, $RegisterOfTransferDto->total_consideration);
+            $this->transferor($RegisterOfTransferDto->transferee, $RegisterOfTransferDto->no_of_shares_transfered, $RegisterOfTransferDto->total_consideration);
             return $register;
         }
         $register = RegisterOfTransfer::create($data);
         $msg = auth_name() . 'Added new entry on the Register Of Transfer  table with the following details: ' .$RegisterOfTransferDto->registration_date.', ' . $RegisterOfTransferDto->transferee . ', ' .$RegisterOfTransferDto->no_of_shares_transfered. ', ' . $RegisterOfTransferDto->total_consideration.', '.$RegisterOfTransferDto->transfer_method;
         $type = "New Entry";
         $this->SendNotification($msg, $type);
+        $this->transferee($RegisterOfTransferDto->transferee, $RegisterOfTransferDto->no_of_shares_transfered, $RegisterOfTransferDto->total_consideration);
+        $this->transferor($RegisterOfTransferDto->transferee, $RegisterOfTransferDto->no_of_shares_transfered, $RegisterOfTransferDto->total_consideration);
         return $register;
     }
     public function RegisterOfCharges($RegisterOfChargeDto)
@@ -458,6 +470,32 @@ class IncorporationService implements IncorporationInterface
 
     }
 
+
+    public function transferee($transferee, $no_of_shares_transfered, $total_consideration)
+    {
+        $shareholder = RegisterOfShareholder::where('id', $transferee)->first();
+        if($shareholder)
+        {
+           $shareholder->update([
+            'current_holding' => $shareholder->current_holding - $no_of_shares_transfered,
+            'total_consideration' => $shareholder->total_consideration - $total_consideration,
+           ]);
+
+        }
+    }
+
+    public function transferor($transferee, $no_of_shares_transfered, $total_consideration)
+    {
+        $shareholder = RegisterOfShareholder::where('id', $transferee)->first();
+        if($shareholder)
+        {
+           $shareholder->update([
+            'current_holding' => $shareholder->current_holding + $no_of_shares_transfered,
+            'total_consideration' => $shareholder->total_consideration + $total_consideration,
+           ]);
+
+        }
+    }
     
    
 }

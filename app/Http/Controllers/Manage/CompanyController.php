@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Cloudinary\Api\HttpStatusCode;
 use App\Models\RegistrationProgress;
 use App\Models\Company;
+use App\Models\DocumentType;
 use App\Models\RegisteredCompany;
 use App\Notifications\CompanyIncorporated;
 use Illuminate\Http\Request;

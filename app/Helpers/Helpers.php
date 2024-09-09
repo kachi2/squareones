@@ -44,4 +44,17 @@ if(!function_exists('generateRef'))
         return str_replace(['(', ')', '\\', '/', '%', '#', '$', '@', '!'], '', base64_encode(random_bytes($length)));
     }
 }
+
+
+if(!function_exists('UploadFiles'))
+{
+    function UploadFiles($request, $path, $fileName)
+    {
+            $image_url = cloudinary()->uploadFile($request->getRealPath(), [
+                'folder' => $path,
+                'public_id' => $fileName
+            ])->getSecurePath();
+       return $image_url;
+    }
+}
 	

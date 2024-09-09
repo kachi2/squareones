@@ -140,6 +140,9 @@ class DashboardController extends Controller
     {
         GenerateCompanyData::dispatch($request->all());
     }
+
+
+    
   
     
 }

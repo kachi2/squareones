@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AdminActivityLog;
 use App\Models\Billing;
 use App\Models\Company;
+use App\Models\DocumentType;
 use App\Models\userActivity;
 use Cartalyst\Stripe\Api\Cards;
 use Cloudinary\Api\HttpStatusCode;
@@ -62,5 +63,9 @@ class DashboardController extends Controller
     }
 
     
-
+    public function getDocType()
+    {
+        $type = DocumentType::get();
+        return response()->json(['data' => $type], HttpStatusCode::OK);
+    }
 }

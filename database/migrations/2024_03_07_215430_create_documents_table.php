@@ -18,6 +18,7 @@ return new class extends Migration
             $table->longText('document')->nullable();
             $table->string('status')->nullable();
             $table->string('title')->nullable();
+            $table->string('year')->nullable();
             $table->string('is_verified')->nullable();
             $table->string('is_signed')->nullable();
             $table->timestamps();

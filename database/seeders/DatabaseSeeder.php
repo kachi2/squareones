@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
                 RegistrationProgress::class,
                 IdentityTypeSeeder::class,
                 PlanSeeder::class,
+                DocumentTypeSeeder::class
             ]);
 
         }catch(\Exception $e){

@@ -49,56 +49,56 @@ class GenerateIncoporatedData implements ShouldQueue
             'company_structure' =>  $resource->businessNature->name,
             'registration_progress_id' => 1
         ]);
-        $this->ProcessRegisterOfAllotments($resource);
+        // $this->ProcessRegisterOfAllotments($resource);
     }
 
-    public function ProcessRegisterOfAllotments($resource)
-    {
-        foreach($resource['CompanyEntity'] as $entity)
-        {
-            $data = json_decode($entity['entity_capacity_id']);
-            if(in_array('1',$data)){
-            $entities = $entity['individual']??$entity['corporate'];
-            if($entities){
-                $allotment = RegisterOfAllotment::Create(
-                [
-                    'company_id' => $resource->id,
-                    'name' => $entity->entity_type_id == 1? ($entities['first_name'].' ' .$entities['last_name']. ' '.$entities['chn_last_name'].' ' .$entities['chn_first_name'] ) :$entities['company_name']. ' '.$entities['chn_company_name'],
-                    'address' => $this->prepareAddress($entities, $entity),
-                    'class_of_shares' => $entities?->ownerShares?->companyShares?->shareType?->name,
-                    'no_of_shares_allocated' => $entities['ownerShares']['total_amount'],
-                    'denomination' => $entities?->ownerShares?->companyShares['currency'],
-                    'total_consideration'  => $entities?->ownerShares?->companyShares['total_amount_paid']
+    // public function ProcessRegisterOfAllotments($resource)
+    // {
+    //     foreach($resource['CompanyEntity'] as $entity)
+    //     {
+    //         $data = json_decode($entity['entity_capacity_id']);
+    //         if(in_array('1',$data)){
+    //         $entities = $entity['individual']??$entity['corporate'];
+    //         if($entities){
+    //             $allotment = RegisterOfAllotment::Create(
+    //             [
+    //                 'company_id' => $resource->id,
+    //                 'name' => $entity->entity_type_id == 1? ($entities['first_name'].' ' .$entities['last_name']. ' '.$entities['chn_last_name'].' ' .$entities['chn_first_name'] ) :$entities['company_name']. ' '.$entities['chn_company_name'],
+    //                 'address' => $this->prepareAddress($entities, $entity),
+    //                 'class_of_shares' => $entities?->ownerShares?->companyShares?->shareType?->name,
+    //                 'no_of_shares_allocated' => $entities['ownerShares']['total_amount'],
+    //                 'denomination' => $entities?->ownerShares?->companyShares['currency'],
+    //                 'total_consideration'  => $entities?->ownerShares?->companyShares['total_amount_paid']
                     
-                ]);
-            }
-            }
-        }
-        $this->ProcessRegisterOfCompanyNames($resource);
-    }
+    //             ]);
+    //         }
+    //         }
+    //     }
+    //     $this->ProcessRegisterOfCompanyNames($resource);
+    // }
 
-    public function ProcessRegisterOfCompanyNames($resource) 
-    {
-        foreach($resource['CompanyEntity'] as $entity)
-        {
-            $data = json_decode($entity['entity_capacity_id']);
-            if(in_array('1',$data)){
-            $entities = $entity['corporate'];
-            if($entities){
-                $CompanyName = RegisterOfCompanyName::Create(
-                [
-                    'company_id' => $resource->id,
-                    'name' => $entities['company_name']. ' '.$entities['chn_company_name'],
-                    'address' => $this->prepareAddress($entities, $entity),
-                    'class_of_shares' => $entities?->ownerShares?->companyShares?->shareType?->name,
-                    'no_of_shares_allocated' => $entities['ownerShares']['total_amount'],
+    // public function ProcessRegisterOfCompanyNames($resource) 
+    // {
+    //     foreach($resource['CompanyEntity'] as $entity)
+    //     {
+    //         $data = json_decode($entity['entity_capacity_id']);
+    //         if(in_array('1',$data)){
+    //         $entities = $entity['corporate'];
+    //         if($entities){
+    //             $CompanyName = RegisterOfCompanyName::Create(
+    //             [
+    //                 'company_id' => $resource->id,
+    //                 'name' => $entities['company_name']. ' '.$entities['chn_company_name'],
+    //                 'address' => $this->prepareAddress($entities, $entity),
+    //                 'class_of_shares' => $entities?->ownerShares?->companyShares?->shareType?->name,
+    //                 'no_of_shares_allocated' => $entities['ownerShares']['total_amount'],
                     
-                ]);
-            }
-            }
-        }
-        $this->ProcessRegisterOfDirectors($resource);
-    }
+    //             ]);
+    //         }
+    //         }
+    //     }
+    //     $this->ProcessRegisterOfDirectors($resource);
+    // }
 
 
     public function ProcessRegisterOfDirectors($resource) 
@@ -132,7 +132,7 @@ class GenerateIncoporatedData implements ShouldQueue
             if(in_array('1',$data)){
             $entities = $entity['individual']??$entity['corporate'];
             if($entities){
-                $Shareholder = RegisterOfShareholder::Create(
+                 RegisterOfShareholder::Create(
                 [
                     'company_id' => $resource->id,
                     'name' => $entity->entity_type_id == 1? ($entities['first_name'].' ' .$entities['last_name']. ' '.$entities['chn_last_name'].' ' .$entities['chn_first_name'] ) :$entities['company_name']. ' '.$entities['chn_company_name'],
@@ -154,7 +154,7 @@ class GenerateIncoporatedData implements ShouldQueue
 
             $secretary = $resource['secretary'];
             if($secretary){
-                $Secretary = RegisterOfSecretary::Create(
+               RegisterOfSecretary::Create(
                 [
                     'company_id' => $resource->id,
                     'name' => $secretary['name'].' '.$secretary['chn_name'],
@@ -208,8 +208,6 @@ class GenerateIncoporatedData implements ShouldQueue
 
     public function ProcessRegisteredOfficeContracts($resource)
     {
-
-        //first lets get the directors nd shareholders 
         $secretary = $resource['secretary'];
         foreach($resource['CompanyEntity'] as $entity)
         {
@@ -235,16 +233,6 @@ class GenerateIncoporatedData implements ShouldQueue
 
 
     }
-
-
-
-
-
-
-
-
-
-
 
     public function prepareAddress($address, $entity_type)
     {
