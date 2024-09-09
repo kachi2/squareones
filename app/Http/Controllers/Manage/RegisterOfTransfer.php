@@ -17,7 +17,7 @@ class RegisterOfTransfer extends Controller
     )
     {
         
-    }
+    } 
 
     public function RegisterOfTransfer(RegisterOfTransferRequest $req){
         try{
