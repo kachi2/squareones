@@ -26,7 +26,7 @@ class StripePayment
     public function createPlan($request)
     {
         $plan = Plan::first();
-        if(!$plan->stripe_product_id){
+        if(!isset($plan->stripe_product_id)){
         $stripe =   $this->stripeClient;
         $stripes = $stripe->products->create([
             'name' => $request->name,
@@ -40,8 +40,6 @@ class StripePayment
         if ($stripes) {
            $str = $this->PlanTable($stripes);
         }
-
-
         return $str;
     }
     return [

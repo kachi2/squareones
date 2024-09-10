@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
                 NamePrefixSeeder::class,
                 RegistrationProgress::class,
                 IdentityTypeSeeder::class,
-                PlanSeeder::class,
+                // PlanSeeder::class,
                 DocumentTypeSeeder::class
             ]);
 
