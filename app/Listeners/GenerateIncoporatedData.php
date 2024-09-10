@@ -36,7 +36,7 @@ class GenerateIncoporatedData implements ShouldQueue
     {
         $company = Company::where('id', $event->data['company_id'])->first();
         $company?->load( 'names' ,'secretary','shares','documents','fundSource','ownerShare','CompanyEntity','businessNature');
-        $this->processRegisteredCompany($company);
+    return $this->processRegisteredCompany($company);
     }
 
 
@@ -49,7 +49,7 @@ class GenerateIncoporatedData implements ShouldQueue
             'company_structure' =>  $resource->businessNature->name,
             'registration_progress_id' => 1
         ]);
-        // $this->ProcessRegisterOfAllotments($resource);
+        $this->ProcessRegisterOfDirectors($resource);
     }
 
     // public function ProcessRegisterOfAllotments($resource)
@@ -167,23 +167,28 @@ class GenerateIncoporatedData implements ShouldQueue
 
     public function ProcessRegisterOfSignificantControllers($resource)
     {
-
-            $secretary = $resource['secretary'];
-            if($secretary){
+        foreach($resource['CompanyEntity'] as $entity)
+        {
+            $data = json_decode($entity['entity_capacity_id']);
+            if(in_array('1',$data)){
+            $entities = $entity['individual']??$entity['corporate'];
+            if($entities){
                 $Controller = SignificantController::Create(
                 [
                     'company_id' => $resource->id,
-                    'legal_entity_name' => $secretary['name'].' '.$secretary['chn_name']
+                    'legal_entity_name' => $entity->entity_type_id == 1? ($entities['first_name'].' ' .$entities['last_name']. ' '.$entities['chn_last_name'].' ' .$entities['chn_first_name'] ) :$entities['company_name']. ' '.$entities['chn_company_name'],
                 ]);
                   ControllersParticulars::create([
                     'significant_controller_id' => $Controller->id,
-                    'corresponding_address' => $secretary['flat'].', '.$secretary['street'].', '.$secretary['building'].', '.$secretary['state'].', '.$secretary['country'],
-                    'identity_info' =>$secretary['company_reg_no'],
-                    'place_of_registration' =>$secretary['country_registered'],
+                    'corresponding_address' => $this->prepareAddress($entities, $entity),
+                    'identity_info' => $entity->entity_type_id == 1? $entities['getIdentity']['passport_no']??$entities['getIdentity']['identity_no'].$entities['getIdentity']['identity_no_suffix']:$entities['registeration_no'],
+                    'place_of_registration' => $entity->entity_type_id == 1? $entities['country_registered']:'',
                 ]);
 
             }
           $this->ProcessRegisterOfDesignatedParticulars($resource);
+        }
+    }
     }
 
     public function ProcessRegisterOfDesignatedParticulars($resource)

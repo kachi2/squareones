@@ -298,7 +298,10 @@ class IncorporationService implements IncorporationInterface
                 $this->SendNotification($msg, $type);
                 return $register;
             }
-            return [];
+            return [
+                'error' => 'failed',
+                'message' => 'Transferor cannot be found'
+            ];
         }
         $transferor = $this->transferor($RegisterOfTransferDto->transferor, $RegisterOfTransferDto->no_of_shares_transfered, $RegisterOfTransferDto->total_consideration);
         if($transferor){
@@ -318,7 +321,10 @@ class IncorporationService implements IncorporationInterface
             $this->SendNotification($msg, $type);
             return $transferor;
         }
-        return [];
+        return [
+            'error' => 'failed',
+            'message' => 'Transferor does not exist or Transfer balance is too low'
+        ];
     }
 
 

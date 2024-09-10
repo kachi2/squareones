@@ -23,6 +23,7 @@ class RegisterOfTransfer extends Controller
         try{
         $transferDto = RegisterOfTransferDto::fromRequest($req->validated());
         $data = $this->IncorporationInterface->RegisterOfTransfer($transferDto);
+        if($data['error']) return response()->json(['message' => $data['message']],203);
         return response()->json(['data' => $data], HttpStatusCode::OK);
     }catch(\Exception $e){
         DB::rollback();
