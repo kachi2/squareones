@@ -302,9 +302,17 @@ class IncorporationService implements IncorporationInterface
         }
         $transferor = $this->transferor($RegisterOfTransferDto->transferor, $RegisterOfTransferDto->no_of_shares_transfered, $RegisterOfTransferDto->total_consideration);
         if($transferor){
-            $nameExist = RegisterOfTransfer::where('transferee', $RegisterOfTransferDto->transferee)->exists();
+            $transfr = RegisterOfTransfer::where('transferee', $RegisterOfTransferDto->transferee)->first();
             $this->transferee($RegisterOfTransferDto->transferee, $RegisterOfTransferDto->no_of_shares_transfered, $RegisterOfTransferDto->total_consideration, $RegisterOfTransferDto->company_id);
-            if(!$nameExist)RegisterOfTransfer::create($data);
+            if(!isset($transfr))
+            {
+            RegisterOfTransfer::create($data);
+            }else{
+                $trns = $transfr?->toArray();
+                $trns['transfer_id'] = $transfr->id;
+                RegisterOfTransferLog::create($trns);
+       
+              }
             $msg = auth_name() . 'Added new entry on the Register Of Transfer  table with the following details: ' . $RegisterOfTransferDto->registration_date . ', ' . $RegisterOfTransferDto->transferee . ', ' . $RegisterOfTransferDto->no_of_shares_transfered . ', ' . $RegisterOfTransferDto->total_consideration . ', ' . $RegisterOfTransferDto->transfer_method;
             $type = "New Entry";
             $this->SendNotification($msg, $type);
