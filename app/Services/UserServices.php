@@ -11,9 +11,9 @@ class UserServices
     public function UserCompanies(){
         $team = $this->belongsToTeam(auth_user());
         if($team){
-            $company = Company::whereUserId($team->user_id)->get();
+            $company = Company::where('user_id', $team->user_id)->get();
         }else{ 
-            $company = Company::whereUserId(auth_user())->get();
+            $company = Company::where('user_id', auth_user())->get();
         }
         // $company = Company::whereUserId(auth_user())->get();
         $data['companies'] =  $company->load('Names', 'Billing');
