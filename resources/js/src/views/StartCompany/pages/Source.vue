@@ -9,7 +9,8 @@
             <section class="row g-3">
                 <div class="col-md-12">
                     <div class="fixed-label-custom">
-                        <v-select @search:blur="form.validateVueSelectOnBlur('income_expected_source')"
+                        <v-select append-to-body :calculate-position="useFunctions.vueSelectPositionCalc" 
+                             @search:blur="form.validateVueSelectOnBlur('income_expected_source')"
                             :class="{ 'error-field': form.errors.income_expected_source }"
                             v-bind="form.income_expected_sourceAttr" v-model="form.income_expected_source"
                             :clearable="true" placeholder=" " :options="startCompanyStore.sourceOfFunds" id="source" />

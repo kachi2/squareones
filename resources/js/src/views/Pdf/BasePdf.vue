@@ -167,8 +167,8 @@ async function sendPDFToApi() {
         toast.success('Data Saved Successfully', { position: 'top-right' });
         //@ts-ignore
         document.getElementById('print_item').hidden = true
-        // startCompanyStore.switchStage('+')
-        // goToPaymentPage()
+        startCompanyStore.switchStage('+')
+        goToPaymentPage()
         console.log(asas);
     } catch (error) {
         toast.error('Sorry, Something went wrong', { position: 'top-right' });

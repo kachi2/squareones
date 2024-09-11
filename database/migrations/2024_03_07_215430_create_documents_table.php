@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('status')->nullable();
             $table->string('title')->nullable();
             $table->string('year')->nullable();
+            $table->integer('user_id')->nullable();
             $table->string('is_verified')->nullable();
             $table->string('is_signed')->nullable();
             $table->timestamps();
