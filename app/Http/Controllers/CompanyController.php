@@ -36,7 +36,7 @@ public function getActiveCompany($company_id = null){
         if($company_id){
             $company = Company::where('id', $company_id)->first();
         }else{
-            $company = Company::where([ 'is_complete' => 0, 'user_id' => auth_user()])->first();
+            $company = Company::where(['is_complete' => 0, 'user_id' => auth_user()])->first();
         }
    
     if($company){
