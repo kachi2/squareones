@@ -9,16 +9,16 @@ class UserServices
     use Teams;
 
     public function UserCompanies(){
-        $team = $this->belongsToTeam(auth_user());
-        if($team){
-            $company = Company::where('user_id', $team->user_id)->get();
-        }else{ 
-            $company = Company::where('user_id', auth_user())->get();
-        }
-        // $company = Company::whereUserId(auth_user())->get();
-        $data['companies'] =  $company->load('Names', 'Billing');
-        $data['form_completed'] = Company::where('is_complete', 1)->get();
-        $data['is_incorporated'] = Company::where('is_incorporated', 1)->get();
+        // $team = $this->belongsToTeam(auth_user());
+        // if($team){
+        //     $company = Company::where('user_id', $team->user_id)->get();
+        // }else{ 
+        //     $company = Company::where('user_id', auth_user())->get();
+        // }
+         $company = Company::where('user_id', auth_user())->get();
+        $data['companies'] =  $company?->load('Names', 'Billing');
+        $data['form_completed'] = Company::where(['user_id' => auth_user(), 'is_complete' => 1])->get();
+        $data['is_incorporated'] = Company::where(['user_id' => auth_user(), 'is_incorporated' => 1])->get();
         return $data;
     }
 
