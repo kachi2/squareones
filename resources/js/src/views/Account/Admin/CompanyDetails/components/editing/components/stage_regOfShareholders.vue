@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-12 col-md-6">
                     <div class="form-label">Name:</div>
-                    <input v-model="name" type="text" class="form-control">
+                    <input disabled v-model="name" type="text" class="form-control">
                     <small class=" text-danger">{{ errors.name }}</small>
                 </div>
                 <div class="col-12 col-md-6">
@@ -59,7 +59,7 @@
 
                 <div class="col-12 col-md-6">
                     <div class="form-label">Date Ceases to Be a Member:</div>
-                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
+                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="true"
                         :enable-time-picker="false" auto-apply v-model="date_cease_to_be_member">
                     </VueDatePicker>
                     <small class=" text-danger">{{ errors.date_cease_to_be_member }}</small>
@@ -111,7 +111,7 @@ function populateFieldWithDetails() {
     if (selectedEntity.value) {
         name.value = selectedEntity.value.name
         address.value = selectedEntity.value.address
-        class_of_shares.value = selectedEntity.value.class_of_shares
+        // class_of_shares.value = selectedEntity.value.class_of_shares
         denomination.value = selectedEntity.value.denomination
         current_holding.value = selectedEntity.value.current_holding
         total_consideration.value = selectedEntity.value.total_consideration
@@ -133,11 +133,11 @@ const rules = {
     current_holding: yup.string().required('Field is required'),
     total_consideration: yup.string().required('Field is required'),
     date_entered_as_member: yup.date().required('Field is required'),
-    date_cease_to_be_member: yup.date().required('Field is required'),
+    // date_cease_to_be_member: yup.date().required('Field is required'),
 };
 
 const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({
-    // validationSchema: yup.object(rules),
+    validationSchema: yup.object(rules),
 });
 
 const [name] = defineField('name');

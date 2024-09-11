@@ -5,37 +5,38 @@
             <div class="row g-3">
                 <div class="col-12">
                     <div class="form-label">Directors:</div>
-                    <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc" :multiple="true"
-                        v-model="directors" :clearable="true" :options="directorsDropDown" />
+                    <v-select v-bind="directorsAttr" append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                        :multiple="true" v-model="directors" :clearable="true" :options="directorsDropDown" />
                     <!-- <input v-model="directors" type="text" class="form-control"> -->
                     <small class=" text-danger">{{ errors.directors }}</small>
                 </div>
                 <div class="col-12">
                     <div class="form-label">Shareholders:</div>
                     <!-- <input v-model="shareholders" type="text" class="form-control"> -->
-                    <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc" :multiple="true"
-                        v-model="shareholders" :clearable="true" :options="shareholdersDropDown" />
+                    <v-select v-bind="shareholdersAttr" append-to-body
+                        :calculate-position="useFxn.vueSelectPositionCalc" :multiple="true" v-model="shareholders"
+                        :clearable="true" :options="shareholdersDropDown" />
                     <small class=" text-danger">{{ errors.shareholders }}</small>
+                </div>
+
+
+                <div class="col-12">
+                    <div class="form-label">Registered Office:</div>
+                    <textarea v-model="registered_office" class="form-control" rows="2"></textarea>
+                    <small class=" text-danger">{{ errors.registered_office }}</small>
+                </div>
+                <div class="col-12">
+                    <div class="form-label">Businness Adress:</div>
+                    <textarea v-model="business_address" class="form-control" rows="2"></textarea>
+                    <small class=" text-danger">{{ errors.business_address }}</small>
                 </div>
                 <div class="col-12 col-md-6">
                     <div class="form-label">Company Secretary:</div>
-                    <!-- <input v-model="company_secretary" type="text" class="form-control"> -->
                     <select v-model="company_secretary" class="form-select">
                         <option selected :value="company_secretary">{{ company_secretary }}
                         </option>
                     </select>
                     <small class=" text-danger">{{ errors.company_secretary }}</small>
-                </div>
-
-                <div class="col-12 col-md-6">
-                    <div class="form-label">Registered Office:</div>
-                    <input v-model="registered_office" type="text" class="form-control">
-                    <small class=" text-danger">{{ errors.registered_office }}</small>
-                </div>
-                <div class="col-12 col-md-6">
-                    <div class="form-label">Businness Adress:</div>
-                    <input v-model="business_address" type="text" class="form-control">
-                    <small class=" text-danger">{{ errors.business_address }}</small>
                 </div>
                 <div class="col-12 col-md-6">
                     <div class="form-label">Designated Representative:</div>
@@ -61,7 +62,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, ref, watch, watchEffect } from 'vue';
 import { onBeforeRouteLeave } from 'vue-router';
 import api from "@/stores/Helpers/axios"
 import useFxn from '@/stores/Helpers/useFunctions';
@@ -69,8 +70,10 @@ import { useAdminParamsStore } from '../../../adminParamsStore';
 
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
+import { useToast } from 'vue-toast-notification';
 
 const paramsStore = useAdminParamsStore()
+const toast = useToast()
 
 const emit = defineEmits(['done'])
 onMounted(() => {
@@ -82,20 +85,20 @@ onMounted(() => {
 const rules = {
     registered_office: yup.string().required('Field is required'),
     business_address: yup.string().required('Field is required'),
-    directors: yup.string().required('Field is required'),
-    shareholders: yup.string().required('Field is required'),
+    directors: yup.array().required('Please select an option'),
+    shareholders: yup.array().required('Please select an option'),
     company_secretary: yup.string().required('Field is required'),
     scr_designated_representative: yup.string().required('Field is required'),
 };
 
 const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({
-    // validationSchema: yup.object(rules),
+    validationSchema: yup.object(rules),
 });
 
 const [registered_office] = defineField('registered_office');
-const [directors] = defineField('directors');
+const [directors, directorsAttr] = defineField('directors');
 const [business_address] = defineField('business_address');
-const [shareholders] = defineField('shareholders');
+const [shareholders, shareholdersAttr] = defineField('shareholders');
 const [company_secretary] = defineField('company_secretary');
 const [scr_designated_representative] = defineField('scr_designated_representative');
 const isSaving = ref<boolean>(false)
@@ -121,8 +124,26 @@ function setValuesOnFields() {
     }
 }
 
+watchEffect(() => {
+
+    if (directors.value && directors.value.length < 1) {
+        errors.value.directors = 'Please select an option'
+    }
+
+    if (shareholders.value && shareholders.value.length < 1) {
+        errors.value.shareholders = 'Please select an option'
+    }
+})
+
 
 const save = handleSubmit(async (values) => {
+
+    if (Object.keys(errors.value).length > 0) {
+        toast.default("Some fields still have errors", { position: 'top-right' });
+        return;
+    }
+
+
     useFxn.confirm('Update Data?', 'Continue').then(async (confirmed) => {
         if (confirmed.value == true) {
             isSaving.value = true

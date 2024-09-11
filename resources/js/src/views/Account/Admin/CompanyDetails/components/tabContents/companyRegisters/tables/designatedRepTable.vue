@@ -1,7 +1,7 @@
 <template>
     <!-- <div class="col-12"> -->
     <!-- <div class="card shadow-sm"> -->
-    <div class="card-header fw-bold border-0 bg-transparent">
+    <div class="card-header  border-0 bg-transparent">
         Designated Representative
         <span class="float-end">
             <button @click="paramsStore.openModalForm('designatedRepModal')" class="btn btn-primary btn-sm">
@@ -18,7 +18,8 @@
             </template>
 
             <template #item-particulars="item">
-                <div class="card p-2 my-2">
+                {{ item?.corresponding_address ?? '-' }}
+                <!-- <div class="card p-2 my-2">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item p-0">
                             <div class="text-secondary fw-bold">ID/Passport/
@@ -43,7 +44,7 @@
                             </span>
                         </li>
                     </ul>
-                </div>
+                </div> -->
             </template>
 
 

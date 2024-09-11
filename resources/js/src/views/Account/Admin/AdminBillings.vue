@@ -190,11 +190,13 @@
                             </template>
 
                             <template #item-invoice_pdf="item">
-                                <span class="text-nowrap" v-if="item.invoice_pdf"> <a :href="item.invoice_pdf"
-                                        target="_blank">
+                                <span class="text-nowrap" v-if="item.invoice_pdf">
+                                    <a :href="item.invoice_pdf" target="_blank">
                                         <i class="bi bi-file-arrow-down-fill"></i>
+
+                                        <strong> DOWNLOAD</strong>
                                     </a>
-                                    Download Invoive</span>
+                                </span>
                                 <span v-else>-</span>
                             </template>
                         </EasyDataTable>
@@ -435,21 +437,21 @@ async function getInvoices() {
     try {
         const { data } = await api.getInvoices()
 
-        const invoiceObj = data.data.subscription_summary;
+        const invoiceObj = data.data?.subscription_summary;
         const invoices = data?.data?.invoices;
         invoice.billingsTable = invoices?.data ?? [];
         invoice.totalInvoices = invoices?.total ?? 0;
 
-        invoice.total_invoices = invoiceObj.total_invoices;
-        invoice.total_invoice_amount = invoiceObj.total_invoice_amount;
-        invoice.unpaid_invoice = invoiceObj.unpaid_invoice;
-        invoice.unpaid_invoice_amount = invoiceObj.unpaid_invoice_amount;
-        invoice.paid_invoice = invoiceObj.paid_invoice;
-        invoice.paid_invoice_amount = invoiceObj.paid_invoice_amount;
-        invoice.overdue_invoices = invoiceObj.overdue_invoices;
-        invoice.overdue_invoices_amount = invoiceObj.overdue_invoices_amount;
-        invoice.active_subscriptions = invoiceObj.active_subscriptions;
-        invoice.cancelled_subscriptions = invoiceObj.cancelled_subscriptions;
+        invoice.total_invoices = invoiceObj?.total_invoices;
+        invoice.total_invoice_amount = invoiceObj?.total_invoice_amount;
+        invoice.unpaid_invoice = invoiceObj?.unpaid_invoice;
+        invoice.unpaid_invoice_amount = invoiceObj?.unpaid_invoice_amount;
+        invoice.paid_invoice = invoiceObj?.paid_invoice;
+        invoice.paid_invoice_amount = invoiceObj?.paid_invoice_amount;
+        invoice.overdue_invoices = invoiceObj?.overdue_invoices;
+        invoice.overdue_invoices_amount = invoiceObj?.overdue_invoices_amount;
+        invoice.active_subscriptions = invoiceObj?.active_subscriptions;
+        invoice.cancelled_subscriptions = invoiceObj?.cancelled_subscriptions;
         invoice.isLoading = false
     } catch (error) {
         console.log(error);
@@ -544,8 +546,8 @@ async function saveUpdatePlan() {
     else {
         try {
             form.append('name', plans.formName)
-            // form.append('stripe_product_id', plans?.data?.stripe_product_id) //prod_QmYaYdjTcgOOPt
-            form.append('stripe_product_id', 'prod_QmYaYdjTcgOOPt') //
+            form.append('stripe_product_id', plans?.data?.stripe_product_id) //prod_QmYaYdjTcgOOPt
+            // form.append('stripe_product_id', 'prod_QmYaYdjTcgOOPt') //
             const resp = await api.updateStripeProduct(form)
             toast.success('Plan Updated', { position: 'top-right' })
             modalClose.value.click()

@@ -29,8 +29,7 @@ export default {
         }
     },
 
-    toast: (text: string, icon: any) => {
-        // @ts-expect-error
+    toast: (text: string, icon: 'success' | 'warning' | 'error') => {
         Swal.fire({
             toast: true,
             icon: `${icon}`,

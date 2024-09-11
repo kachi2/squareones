@@ -20,19 +20,17 @@ class DocumentServices  implements DocumentInterface{
         $docs = [];
         foreach($request->document as $files){
             if($files['docs'] instanceof UploadedFile){
-             $name = \pathinfo($files->getClientOriginalName(), PATHINFO_FILENAME);
-                $file =  UploadFiles($request->document, '/documents', $name);
+             $name = \pathinfo($files['docs']->getClientOriginalName(), PATHINFO_FILENAME);
+                $file =  UploadFiles($files['docs'], 'documents', $name);
             }
             $docs[] =  $file;
         }
-        return $name;
-
         $documents =  Document::create([
             'company_id' => $request->company_id,
             'document' => json_encode($docs),
             'title' => $request?->title,
             'year' => $request->year,
-            'document_type_id' => $files['document_type_id']
+            // 'document_type_id' => $files['document_type_id']
         ]);
         return  $documents;
     }
@@ -40,19 +38,19 @@ class DocumentServices  implements DocumentInterface{
     public function uploadDoc($request)
     {
         $docs = [];
-        return $request;
         foreach($request->document as $files){
+          
+            if($files['docs'] instanceof UploadedFile){
                 // $base64Image = base64_encode(file_get_contents($files->getRealPath()));
-                $name = \pathinfo($files->getClientOriginalName(), PATHINFO_FILENAME);
+                $name = \pathinfo($$files['docs']->getClientOriginalName(), PATHINFO_FILENAME);
                 // $ext = $files->getClientOriginalExtension();
                 // $fileName = str_replace("['/', '(', ')', ' ']","", $name).'.'.'pdf';
                 // $fileName = $name.'.'.$ext;
                 // $files->move('documents',  $fileName);
-           
-                return $files;
                 $file =  UploadFiles($files,'/documents', $name);
                 $docs[] =  $file;
         }
+    }
               $documents =  Document::create([
                 'company_id' => $request->company_id,
                 'document' => json_encode($docs),
@@ -66,8 +64,7 @@ class DocumentServices  implements DocumentInterface{
     }
 
 
-    public function DocumentToPDF(Request $request){
-
+    public function DocumentToPDF($request){
     $company = Company::whereId($request->company_id)->first();
     $fileNames = [];
     foreach($request->documents as $document){
@@ -75,11 +72,11 @@ class DocumentServices  implements DocumentInterface{
         // $name = \pathinfo($document->getClientOriginalName(), PATHINFO_FILENAME);
         // $fileName = str_replace("['/', '(', ')', ' ']","", $name).'.'.'pdf';
         // $document->move('documents', $fileName );
-        $fileName = $company->names[0]->eng_name?$company->names[0]->eng_name.'.pdf':'documents.pdf';
-        $file =  UploadFiles($document, '/documents',$fileName);
+        $fileName = $company->names[0]->eng_name?$company->names[0]->eng_name:'documents';
+         $file =  UploadFiles($document,'/documents', $fileName);
         $fileNames[] = $file;
     }
-}
+   }
     if($company){
           Document::create([
             'company_id' => $company->id,
@@ -93,9 +90,8 @@ class DocumentServices  implements DocumentInterface{
             'pdf_doc' => json_encode($fileNames),
             'date_signed' => $request->date_signed
         ]);
-        return $company;
+        return $fileNames;
     }
-
     return [];
     }
 

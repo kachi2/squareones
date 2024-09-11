@@ -47,6 +47,14 @@
                                     {{ useFxn.dateDisplay(item.created_at) }}
                                 </template>
 
+                                <template #item-no_of_shares_allocated="item">
+                                    {{ useFxn.addCommas(item.no_of_shares_allocated) }}
+                                </template>
+
+                                <template #item-total_consideration="item">
+                                    {{ useFxn.addCommas(item.total_consideration) }}
+                                </template>
+
                             </EasyDataTable>
                         </div>
                     </template>

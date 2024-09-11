@@ -17,38 +17,41 @@
                         <div class="row g-3">
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="auditor_name" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name">Auditor Name:</label>
+                                    <input v-model="auditor_name" type="text" class="form-control" placeholder="">
+                                    <label class="" for="eng_name">Auditor Name:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.auditor_name }}</small>
                             </div>
 
                             <div class="col-12 col-md-6">
-                        <div class="fixed-label-custom">
-                                <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
-                                    :enable-time-picker="false" auto-apply v-model="business_registration_renewal_date" placeholder="select date">
-                                </VueDatePicker>
-                                <label class="" for="eng_name">Business Registration Renewal:</label>
+                                <div class="fixed-label-custom">
+                                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
+                                        :enable-time-picker="false" auto-apply
+                                        v-model="business_registration_renewal_date" placeholder="select date">
+                                    </VueDatePicker>
+                                    <label class="" for="eng_name">Business Registration Renewal:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.business_registration_renewal_date }}</small>
                             </div>
 
                             <div class="col-12 col-md-6">
-                        <div class="fixed-label-custom">
-                                <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
-                                    :enable-time-picker="false" auto-apply v-model="accounting_reference_date" placeholder="select date">
-                                </VueDatePicker>
-                                <label class="" for="eng_name">Accounting Reference Date:</label>
+                                <div class="fixed-label-custom">
+                                    <VueDatePicker disable-year-select :format="dispMonthAndDay" hide-input-icon
+                                        :clearable="false" :enable-time-picker="false" auto-apply
+                                        v-model="accounting_reference_date" placeholder="select date">
+                                    </VueDatePicker>
+                                    <label class="" for="eng_name">Accounting Reference Date:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.accounting_reference_date }}</small>
                             </div>
                             <div class="col-12 col-md-6">
 
-                        <div class="fixed-label-custom">
-                                <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
-                                    :enable-time-picker="false" auto-apply v-model="annual_return_date" placeholder="select date">
-                                </VueDatePicker>
-                                <label class="" for="eng_name">Annual Return Date:</label>
+                                <div class="fixed-label-custom">
+                                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
+                                        :enable-time-picker="false" auto-apply v-model="annual_return_date"
+                                        placeholder="select date">
+                                    </VueDatePicker>
+                                    <label class="" for="eng_name">Annual Return Date:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.annual_return_date }}</small>
                             </div>
@@ -86,6 +89,7 @@ import { useAdminParamsStore } from '../../adminParamsStore';
 
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
+import { useDateFormat } from '@vueuse/core';
 
 const paramsStore = useAdminParamsStore()
 
@@ -154,4 +158,16 @@ const save = handleSubmit(async (values) => {
         }
     })
 })
+
+
+function dispMonthAndDay(date: any) {
+    if (!date)
+        return '-'
+    else {
+        const dd = useDateFormat(date, 'MMM, DD')
+        return dd.value
+    }
+}
+
+
 </script>

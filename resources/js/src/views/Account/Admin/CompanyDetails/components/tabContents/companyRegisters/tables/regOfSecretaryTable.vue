@@ -27,6 +27,10 @@
                         {{ useFxn.dateDisplay(item.appointment_date) }}
                     </template>
 
+                    <template #item-created_at="item">
+                        {{ useFxn.dateDisplay(item.created_at) }}
+                    </template>
+
                     <template #expand="item">
                         <div v-if="!item.expandLoading" class="my-3">
                             <div class="fw-bold text-center mb-2">LOGS</div>

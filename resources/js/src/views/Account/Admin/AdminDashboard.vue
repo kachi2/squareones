@@ -2,6 +2,73 @@
     <div class="container">
         <h5 class="fw-bold page-title mb-4"> Overview</h5>
         <div class="row g-3">
+           <div class="col-md-4 pb-3">
+                <div class="card  border-0  shadow-sm h-70">
+                    <div class="card-body ">
+                        <div class="d-flex justify-content-between align-items-cente">
+                            <div class="col-12">
+                                <span class="fs-4 fw-bold text-primary">{{comapaniesList?.total}}</span>
+                                <div>
+                                    <span class="small fw-bold">Total Companies</span> &nbsp;
+                                    <small style="font-size:10px;" class=""> <span class=" text-info fw-bold">{{comapaniesList?.data?.thismonth}}</span> added this month</small>
+                                </div>
+                                <div>
+                                    <span class="small badge bg-success">{{comapaniesList?.data?.active}} active </span> &nbsp;
+                                    <span class="small badge bg-danger">{{comapaniesList?.data?.inactive}}  Inactive </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-70">
+                    <div class="card-body ">
+                        <div class="d-flex justify-content-between align-items-cente">
+                            <div class="col-12">
+                                <span class="fs-4 fw-bold text-warning">{{comapaniesList?.data?.Unincorporated}}</span>
+                                <div>
+                                    <span class="small fw-bold">Pending Incorporation</span>
+                                </div>
+                                <div>
+                                    <span class="small"> <span class="text-primary fw-bold">{{comapaniesList?.data?.thisMonthUnIncorporated}}</span> new company added this month</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-70">
+                    <div class="card-body ">
+                        <div class="d-flex justify-content-between align-items-cente">
+                            <div class="col-12">
+                                <span class="fs-4 fw-bold text-success">{{comapaniesList?.data?.incorporated??'0'}}</span>
+                                <div>
+                                    <span class="small fw-bold">Incorporated</span> 
+                                </div>
+                                <div>
+                                    <span class="small"> <span class="text-primary fw-bold">{{comapaniesList?.data?.thisMonthIncorporated??'0'}}</span> new companies added this month</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-md-3">
+                <div class="card border-0 shadow-sm h-70">
+                    <div class="card-body ">
+                        <div class="d-flex justify-content-between align-items-cente">
+                            <div class="col-12">
+                                <span class="fs-4 fw-bold text-mute">5</span>
+                                <div>
+                                    <span class="small"></span> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
             <div class="col-lg-6">
                 <div class="row g-3">
                     <div class="col-md-12">
@@ -46,58 +113,15 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="col-md-12">
-                        <div class="card">
-                            <div
-                                class="card-header bg-transparent border-0 fw-bold d-flex justify-content-lg-between align-items-center">
-                                Total Revenue
-                                <span class="float-en m-0">
-                                    <VueDatePicker class="fw-bold small" :format="date_display" range multi-calendars
-                                        :clearable="false" :max-date="new Date()" :enable-time-picker="false" auto-apply
-                                        v-model="revenueStats">
-                                    </VueDatePicker>
-                                </span>
-                            </div>
-                            <div class="card-body">
-
-                                <div class="fw-bold">
-                                    <span class="samll text-muted">Paid amount
-
-                                        from {{ revenueStats ? date_display(revenueStats) : '' }}
-                                    </span>
-                                </div>
-                                <div class="row g-3">
-                                    <div class="col-lg-12">
-                                        <div class="big-text"> 5,000 HKD </div>
-                                        <div class="small text-muted">
-                                            <span class="text-danger me-3">
-                                                <i class="bi bi-arrow-down"></i>
-                                                1.93 %
-                                            </span>
-                                            <span>since last month</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="card p-0">
-                                            <apexchart type="bar" :options="chartOptions_2"
-                                                :series="chartOptions_2.series">
-                                            </apexchart>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
+                  
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="card shadow-sm h-100">
 
-                    <div class="card-body">
+                    <!-- <div class="card-body">
                         <h5 class="card-header bg-transparent border-0  py-4">
                             Recent Activities
-                            <!-- <span style="float:right">Filter</span> -->
-
                         </h5>
                         <EasyDataTable class="easy-data-table border-0" :headers="activitiiesHeaders"
                             :items="activityLogs" buttons-pagination v-model:server-options="serverOptionsActivities"
@@ -119,52 +143,27 @@
                             <template #item-updated_at="item">
                                 {{ new Date(item.updated_at).toLocaleString() }}
                             </template>
-
                         </EasyDataTable>
-                    </div>
-                    <!-- <div class="card-body">
+                    </div> -->
+                    <div class="card-body">
+                        <h5 class="card-header bg-transparent border-1  py-1">
+                            Recent Activities
+                        </h5>
                         <ul class="list-group list-group-flush">
-                            <li v-for="i in 1" class="list-group-item px-0">
-                                <div class="row justify-content-center align-items-center">
-                                    <div class="col-2 col-lg-1 pe-0">
-                                        <div class="img-cirle float-end">
+                            <li v-for="activty in activityLogs" class="list-group-item px-0">
+                                <div class="row justify-content-left align-items-left px-3">
+                                    <!-- <div class="col-1 col-lg-1 pe-1">
+                                        <div class="img-cirle">
                                             <i class="bi bi-person-circle"></i>
                                         </div>
 
-                                    </div>
+                                    </div> -->
                                     <div class="col-10">
-                                        Kate Just signed in
-                                        <div class="small text-muted">2 hours ago</div>
-                                    </div>
-                                </div>
-
-                            </li>
-                            <li v-for="i in 2" class="list-group-item px-0">
-                                <div class="row justify-content-center align-items-center">
-                                    <div class="col-2 col-lg-1 pe-0">
-                                        <div class="img-cirle float-end">
-                                            <i class="bi bi-person-circle"></i>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-10">
-                                        New Company is registered by Michael
-                                        <div class="small text-muted">2 hours ago</div>
-                                    </div>
-                                </div>
-
-                            </li>
-                            <li v-for="i in 2" class="list-group-item px-0">
-                                <div class="row justify-content-center align-items-center">
-                                    <div class="col-2 col-lg-1 pe-0">
-                                        <div class="img-cirle float-end">
-                                            <i class="bi bi-person-circle"></i>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-10">
-                                        Steve made payment of 5,000 to renew ABC company
-                                        <div class="small text-muted">2 hours ago</div>
+                                       <span class="text-primary fw-bold"> {{activty.name}}</span> 
+                                        <div class="small text-muted"> <span class="text-info"> Action:</span> {{activty.action}}</div>
+                                        <div class="small text-muted"><span class="text-primary">IP:</span> {{activty.ip_address}}</div>
+                                        <div class="small text-muted"><span class="text-info">Location:</span> {{activty.location}}</div>
+                                        <div class="small text-muted">  <span class="text-primary">Date:</span>   {{ new Date(activty.updated_at).toLocaleString() }}</div>
                                     </div>
                                 </div>
 
@@ -172,7 +171,7 @@
 
                         </ul>
 
-                    </div> -->
+                    </div> 
                 </div>
             </div>
 
@@ -378,6 +377,7 @@ async function getCompanyStats() {
         }
         const resp = await api.getCompanyStats(queryObj)
         comapaniesList.value = resp.data?.data ?? []
+        console.log(comapaniesList.value)
     } catch (error) {
         // 
     }
@@ -397,7 +397,7 @@ const serverOptionsActivities = ref<ServerOptions | any>({
 async function getActivityLogs() {
     try {
         const queryString = new URLSearchParams(serverOptionsActivities.value).toString();
-        const resp = await api.activityLog(queryString)
+        const resp = await api.UserctivityLog(queryString)
         const data = resp.data.data
         totalActivities.value = data.total
         activityLogs.value = data.data

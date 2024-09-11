@@ -9,11 +9,43 @@
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header p-3  border-0">
-                        <h5 class="modal-title fw-bold text-center">Register of Allotments</h5>
+                        <h5 class="modal-title fw-bold text-center">Register of Transfer </h5>
                         <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                     </div>
                     <div class="modal-body">
                         <div class="row g-3">
+
+                            <div class="col-12 col-md-6">
+                                <div class="form-floating-custom">
+                                    <!-- <select @change="transferor = null" v-model="transferee" class="form-select">
+                                        <option v-for="entity in listOfShareHolders" :key="entity.id"
+                                            :value="entity.id">{{ entity.name }}</option>
+                                    </select> -->
+
+                                    <input list="transferees" v-model="transferee" type="text" class="form-control">
+                                    <datalist id="transferees">
+                                        <option v-for="entity in listOfShareHolders" :key="entity.id"
+                                            :value="entity.name"></option>
+                                    </datalist>
+                                    <label class="" for="transferee">Transferer:</label>
+                                </div>
+                                <small class=" text-danger">{{ errors.transferee }}</small>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-floating-custom">
+                                    <!-- <select v-model="transferor" class="form-select">
+                                        <option v-for="entity in listOfShareHoldersFiltered" :key="entity.id"
+                                            :value="entity.id">{{ entity.name }}</option>
+                                    </select> -->
+                                    <input list="transferees" v-model="transferor" type="text" class="form-control">
+                                    <datalist id="transferees">
+                                        <option v-for="entity in listOfShareHolders" :key="entity.id"
+                                            :value="entity.name"></option>
+                                    </datalist>
+                                    <label class="" for="transferee">Transferor:</label>
+                                </div>
+                                <small class=" text-danger">{{ errors.transferor }}</small>
+                            </div>
                             <div class="col-12 col-md-6">
                                 <div class="fixed-label-custom">
                                     <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
@@ -23,13 +55,6 @@
                                     <label class="" for="registration_date">Registration Date:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.allotment_date }}</small>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-floating-custom">
-                                    <input v-model="transferee" type="text" class="form-control" placeholder="">
-                                    <label class="" for="transferee">Transferee:</label>
-                                </div>
-                                <small class=" text-danger">{{ errors.transferee }}</small>
                             </div>
 
                             <div class="col-12 col-md-6">
@@ -52,7 +77,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="form-floating-custom">
                                     <input v-model="transfer_method" type="text" class="form-control" placeholder="">
                                     <small class=" text-danger">{{ errors.transfer_method }}</small>
@@ -84,7 +109,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { computed, ref, watch, } from 'vue';
 import { onBeforeRouteLeave } from 'vue-router';
 import api from "@/stores/Helpers/axios"
 import useFxn from '@/stores/Helpers/useFunctions';
@@ -108,21 +133,34 @@ onBeforeRouteLeave(() => {
 });
 
 
+const listOfShareHolders = computed(() => {
+    return paramsStore.currentCompanyData?.register_of_shareholders ?? []
+})
+
+// const listOfShareHoldersFiltered = computed(() => {
+//     return listOfShareHolders.value.filter((x: any) => x.id !== transferee.value)
+// })
+
+
+
+
 // form and validation
 const rules = {
     registration_date: yup.date().required('Field is required'),
     transferee: yup.string().required('Field is required'),
     no_of_shares_transfered: yup.string().required('Field is required'),
     total_consideration: yup.string().required('Field is required'),
-    transfer_method: yup.date().required('Field is required'),
+    transfer_method: yup.string().required('Field is required'),
+    transferor: yup.string().required('Field is required'),
 };
 
 const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({
-    // validationSchema: yup.object(rules),
+    validationSchema: yup.object(rules),
 });
 
 const [registration_date] = defineField('registration_date');
 const [transferee] = defineField('transferee');
+const [transferor] = defineField('transferor');
 const [no_of_shares_transfered] = defineField('no_of_shares_transfered');
 const [total_consideration] = defineField('total_consideration');
 const [transfer_method] = defineField('transfer_method');
@@ -138,9 +176,15 @@ function setValuesOnFields() {
             setFieldValue('no_of_shares_transfered', register_of_transfer.no_of_shares_transfered)
             setFieldValue('total_consideration', register_of_transfer.total_consideration)
             setFieldValue('transfer_method', register_of_transfer.transfer_method)
+            setFieldValue('transferor', register_of_transfer.transferor)
         }
     }
 }
+
+watch(() => [transferee.value, transferor.value], () => {
+    if (transferee.value == transferor.value)
+        transferor.value = ''
+})
 
 
 const save = handleSubmit(async (values) => {
@@ -154,12 +198,19 @@ const save = handleSubmit(async (values) => {
             formData.append('no_of_shares_transfered', values.no_of_shares_transfered ?? '')
             formData.append('total_consideration', values.total_consideration ?? '')
             formData.append('transfer_method', values.transfer_method ?? '')
+            formData.append('transferor', values.transferor ?? '')
             if (paramsStore.idToEdit)
                 formData.append('transfer_id', paramsStore.idToEdit)
 
 
             try {
-                await api.registerOfTransfer(formData)
+                const resp: any = await api.registerOfTransfer(formData)
+                if (resp.status !== 200) {
+                    useFxn.toast(resp?.message ?? 'Something went wrong with your Request', 'warning')
+                    isSaving.value = false
+                    return
+                }
+                useFxn.toast('Transfer successful', 'success')
                 isSaving.value = false
                 resetForm()
                 paramsStore.getCompanyDetails()
@@ -171,4 +222,6 @@ const save = handleSubmit(async (values) => {
         }
     })
 })
+
+
 </script>

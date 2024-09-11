@@ -33,7 +33,7 @@
                             <ul class="list-group list-group-flush">
                                 <li v-for="(doc, index) in JSON.parse(item.document)" :key="doc"
                                     class="list-group-item p-0 border-0">
-                                    <a :href="doc" target="_blank">Document {{ index + 1 }}</a>
+                                    <a :href="doc" target="_blank;" style="text-decoration:none"> Preview file</a>
                                 </li>
                             </ul>
                         </template>
@@ -111,12 +111,13 @@ const itemsLoading = ref(true)
 watch(serverOptions, (value) => { getDocuments(); }, { deep: true });
 
 const headers = [
-    { text: "DOCUMENT TITLE", value: "title" },
+{ text: "DOCUMENT TITLE", value: "title" },
     // { text: "ADDED BY", value: "added_by" },
     { text: "DOCUMENT", value: "document" },
-    { text: "DATE ADDED", value: "created_at" },
-    // { text: "DATE MODIFIED", value: "updated_at" },
-    // { text: "ACTION", value: "action" },
+     { text: "DOCUMENT TYPE", value: "type" },
+     { text: "YEAR", value: "year" },
+     { text: "DATE ADDED", value: "created_at" },
+    { text: "ACTION", value: "action" },
 ];
 
 async function deleteDocument(id: any) {

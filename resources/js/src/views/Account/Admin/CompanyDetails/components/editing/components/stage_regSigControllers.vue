@@ -3,6 +3,18 @@
 
         <div class="modal-body">
             <div class="row g-3">
+                <div class=" col-md-12">
+                    <div class="mb-3">
+                        <label for="" class="form-label">Select Shareholder</label>
+                        <select @change="populateFieldWithDetails" v-model="selectedEntity" class="form-select">
+                            <option value="" selected disabled>--Select Shareholder--</option>
+                            <option v-for="entity in selectOptions" :key="entity" :value="entity">{{
+                                entity.name }}</option>
+
+                        </select>
+                    </div>
+
+                </div>
 
                 <div class="col-12 col-md-6">
                     <div class="form-label">Entry Date:</div>
@@ -33,7 +45,7 @@
 
                 <div class="col-12 col-md-6">
                     <div class="form-label">Date Cease to Be a Registrable Person:</div>
-                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
+                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="true"
                         :enable-time-picker="false" auto-apply v-model="date_ceased_to_be_rep_person">
                     </VueDatePicker>
                     <small class=" text-danger">{{ errors.date_ceased_to_be_rep_person }}</small>
@@ -88,7 +100,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { onBeforeRouteLeave } from 'vue-router';
 import api from "@/stores/Helpers/axios"
 import useFxn from '@/stores/Helpers/useFunctions';
@@ -104,8 +116,31 @@ const emit = defineEmits(['done'])
 
 
 onMounted(() => {
-    setValuesOnFields()
+    // setValuesOnFields()
 })
+
+
+
+const selectOptions = computed(() => {
+    return paramsStore.currentCompanyData?.register_of_shareholders ?? []
+})
+const selectedEntity = ref<any>('')
+function populateFieldWithDetails() {
+    if (selectedEntity.value) {
+        entry_date.value = selectedEntity.value.entry_date
+        legal_entity_name.value = selectedEntity.value.legal_entity_name
+        date_becoming_rep_person.value = selectedEntity.value.date_becoming_rep_person
+        date_ceased_to_be_rep_person.value = selectedEntity.value.date_ceased_to_be_rep_person
+        corresponding_address.value = selectedEntity.value.corresponding_address
+        resdential_address.value = selectedEntity.value.resdential_address
+        identity_info.value = selectedEntity.value.identity_info
+        place_of_registration.value = selectedEntity.value.place_of_registration
+        nature_of_control_over_the_company.value = selectedEntity.value.nature_of_control_over_the_company
+    }
+
+}
+
+
 
 // form and validation
 const rules = {
@@ -113,7 +148,7 @@ const rules = {
     // name: yup.string().required('Field is required'),
     legal_entity_name: yup.string().required('Field is required'),
     date_becoming_rep_person: yup.date().required('Field is required'),
-    date_ceased_to_be_rep_person: yup.date().required('Field is required'),
+    // date_ceased_to_be_rep_person: yup.date().required('Field is required'),
     corresponding_address: yup.string().required('Field is required'),
     resdential_address: yup.string().required('Field is required'),
     identity_info: yup.string().required('Field is required'),
@@ -122,7 +157,7 @@ const rules = {
 };
 
 const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({
-    // validationSchema: yup.object(rules),
+    validationSchema: yup.object(rules),
 });
 
 const [entry_date] = defineField('entry_date');
@@ -170,7 +205,7 @@ const save = handleSubmit(async (values) => {
             formData.append('place_of_registration', values.place_of_registration ?? '')
             formData.append('nature_of_control_over_the_company', values.nature_of_control_over_the_company ?? '')
 
-            // formData.append('controllers_id', paramsStore.idToEdit)
+            formData.append('shareholders_id', selectedEntity.value.id)
 
 
             try {

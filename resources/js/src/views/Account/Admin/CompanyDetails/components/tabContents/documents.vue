@@ -33,7 +33,7 @@
                             <ul class="list-group list-group-flush">
                                 <li v-for="(doc, index) in JSON.parse(item.document)" :key="doc"
                                     class="list-group-item p-0 border-0">
-                                    <a :href="doc" target="_blank">Document {{ index + 1 }}</a>
+                                    <a :href="doc" target="_blank;" style="text-decoration:none"> Preview file</a>
                                 </li>
                             </ul>
                         </template>
@@ -115,6 +115,7 @@ const headers = [
     // { text: "ADDED BY", value: "added_by" },
     { text: "DOCUMENT", value: "document" },
      { text: "DOCUMENT TYPE", value: "type" },
+     { text: "YEAR", value: "year" },
      { text: "DATE ADDED", value: "created_at" },
     { text: "ACTION", value: "action" },
     

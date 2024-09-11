@@ -16,7 +16,7 @@
                     <template #header="header">
                         <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
                     </template>
- 
+
 
                     <template #item-date_entered_as_member="item">
                         {{ useFxn.dateDisplay(item.date_entered_as_member) }}
@@ -24,6 +24,18 @@
 
                     <template #item-date_cease_to_be_member="item">
                         {{ useFxn.dateDisplay(item.date_cease_to_be_member) }}
+                    </template>
+
+                    <template #item-created_at="item">
+                        {{ useFxn.dateDisplay(item.created_at) }}
+                    </template>
+
+                    <template #item-current_holding="item">
+                        {{ useFxn.addCommas(item.current_holding) }}
+                    </template>
+
+                    <template #item-total_consideration="item">
+                        {{ useFxn.addCommas(item.total_consideration) }}
                     </template>
 
                     <template #expand="item">

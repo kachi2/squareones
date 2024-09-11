@@ -10,6 +10,10 @@ export default {
         return $instance.post(`/process/payment`, JSON.stringify(items))
     },
 
+    makeDefaultPament(intent: any) {
+        return $instance.get(`/payment/make/default/${intent}`,)
+    },
+
     ProcessKyc() {
         return $instance.get('/kyc/load');
     }

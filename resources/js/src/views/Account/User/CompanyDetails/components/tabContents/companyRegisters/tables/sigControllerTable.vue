@@ -12,7 +12,7 @@
             <div class="card-body">
                 Significant Controllers
                 <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
-                    :items="paramsStore.currentCompanyData?.significant_controller" buttons-pagination
+                    :items="paramsStore.currentCompanyData.significant_controller" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
                         <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
@@ -21,13 +21,13 @@
                     <template #item-particulars="item">
                         <div class="card p-2 my-2 shadow-none">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item p-0">
-                                    <div class="text-secondary fw-bold">Corresponding Address:</div>
-                                    <span>
-                                        {{ item?.controllers_particulars?.corresponding_address ?? '-' }}
-                                    </span>
-                                </li>
-                                <li class="list-group-item p-0">
+                                <!-- <li class="list-group-item p-0"> -->
+                                <!-- <div class="text-secondary fw-bold">Corresponding Address:</div> -->
+                                <span>
+                                    {{ item?.controllers_particulars?.corresponding_address ?? '-' }}
+                                </span>
+                                <!-- </li> -->
+                                <!-- <li class="list-group-item p-0">
                                     <div class="text-secondary fw-bold"> Residential Address:</div>
                                     <span>
                                         {{ item?.controllers_particulars?.resdential_address ?? '-' }}
@@ -44,7 +44,7 @@
                                     <span>
                                         {{ item?.controllers_particulars?.nature_of_control_over_the_company ?? '-' }}
                                     </span>
-                                </li>
+                                </li> -->
 
                             </ul>
                         </div>
@@ -161,14 +161,15 @@
             <div class="card-body">
                 Designated Representative
                 <EasyDataTable class="easy-data-table" :headers="masterTableHeaders1"
-                    :items="paramsStore.currentCompanyData?.designated_representative" buttons-pagination
+                    :items="paramsStore.currentCompanyData.designated_representative" buttons-pagination
                     @expand-row="expandLogs1">
                     <template #header="header">
                         <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
                     </template>
 
                     <template #item-particulars="item">
-                        <div class="card p-2 my-2">
+                        {{ item?.corresponding_address ?? '-' }}
+                        <!-- <div class="card p-2 my-2">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item p-0">
                                     <div class="text-secondary fw-bold">ID/Passport/
@@ -193,7 +194,7 @@
                                     </span>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
                     </template>
 
 
@@ -268,7 +269,7 @@ import { reactive, ref, watch } from 'vue';
 const masterTableHeaders = [
     { text: "Date of Entry", value: "entry_date" },
     { text: "Name of Registrable Person / Legal Entity", value: "legal_entity_name" },
-    { text: "Particulars", value: "particulars" },
+    { text: "Address", value: "particulars" },
     { text: "Date  Becoming a Registrable Person", value: "date_becoming_rep_person" },
     { text: "Date Cease  to Be a Registrable Person", value: "date_ceased_to_be_rep_person" },
     { text: "Date Created", value: "created_at" },
@@ -279,7 +280,7 @@ const masterTableHeaders = [
 const masterTableHeaders1 = [
     { text: " Date of Entry", value: "entry_date" },
     { text: "Name (Capacity)", value: "name" },
-    { text: "Particulars", value: "particulars" },
+    { text: "Address", value: "particulars" },
     { text: "Remarks", value: "remarks" },
     { text: "Date Created", value: "created_at" },
     // { text: "ACTION", value: "action" },

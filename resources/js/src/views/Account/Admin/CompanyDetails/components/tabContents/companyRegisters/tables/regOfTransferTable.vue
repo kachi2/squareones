@@ -47,6 +47,14 @@
                                     {{ useFxn.dateDisplay(item.created_at) }}
                                 </template>
 
+                                <template #item-no_of_shares_transfered="item">
+                                    {{ useFxn.addCommas(item.no_of_shares_transfered) }}
+                                </template>
+
+                                <template #item-total_consideration="item">
+                                    {{ useFxn.addCommas(item.total_consideration) }}
+                                </template>
+
                             </EasyDataTable>
                         </div>
                     </template>
@@ -92,6 +100,7 @@ import { reactive, ref, watch } from 'vue';
 const masterTableHeaders = [
     { text: "Date of Registration", value: "registration_date" },
     { text: "Transferee", value: "transferee" },
+    { text: "Transferor", value: "transferor" },
     { text: "Number of Shares  Transferred", value: "no_of_shares_transfered" },
     { text: "Total  Consideration HKD", value: "total_consideration" },
     { text: "Transferred/Disposal  Method", value: "transfer_method" },
@@ -102,6 +111,7 @@ const masterTableHeaders = [
 const expandedHeaders = [
     { text: "Date of Registration", value: "registration_date" },
     { text: "Transferee", value: "transferee" },
+    { text: "Transferor", value: "transferor" },
     { text: "Number of Shares  Transferred", value: "no_of_shares_transfered" },
     { text: "Total  Consideration HKD", value: "total_consideration" },
     { text: "Transferred/Disposal  Method", value: "transfer_method" },

@@ -22,6 +22,10 @@
                         {{ useFxn.dateDisplay(item.charge_creation_date) }}
                     </template>
 
+                    <template #item-created_at="item">
+                        {{ useFxn.dateDisplay(item.created_at) }}
+                    </template>
+
                     <template #expand="item">
                         <div v-if="!item.expandLoading" class="my-3">
                             <div class="fw-bold text-center mb-2">LOGS</div>
@@ -31,6 +35,10 @@
 
                                 <template #item-charge_creation_date="item">
                                     {{ useFxn.dateDisplay(item.charge_creation_date) }}
+                                </template>
+
+                                <template #item-created_at="item">
+                                    {{ useFxn.dateDisplay(item.created_at) }}
                                 </template>
 
                             </EasyDataTable>
@@ -86,7 +94,7 @@ const masterTableHeaders = [
 ];
 
 const expandedHeaders = [
-{ text: "Charge Creation Date", value: "charge_creation_date" },
+    { text: "Charge Creation Date", value: "charge_creation_date" },
     { text: "Amount Secured by the Charge HKD", value: "account_secured_by_charge" },
     { text: "Type of Charge", value: "type_of_charge" },
     { text: "Description  of Charge", value: "charge_description" },

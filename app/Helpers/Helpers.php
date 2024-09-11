@@ -48,11 +48,11 @@ if(!function_exists('generateRef'))
 
 if(!function_exists('UploadFiles'))
 {
-    function UploadFiles($request, $path, $fileName)
+    function UploadFiles($request, $path, $name)
     {
-            $image_url = cloudinary()->uploadFile($request->getRealPath(), [
+        $image_url = cloudinary()->uploadFile($request->getRealPath(), [
                 'folder' => $path,
-                'public_id' => $fileName
+                'public_id' => $name
             ])->getSecurePath();
        return $image_url;
     }

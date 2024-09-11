@@ -91,7 +91,7 @@ async function getItems() {
 
                 if (obj) {
 
-                    obj.name = el.entity_type_id == 1 ? `${obj.first_name} ${obj.last_name} ${obj.chn_last_name??''} ${obj.chn_first_name??''}` : `${obj.company_name}`
+                    obj.name = el.entity_type_id == 1 ? `${obj.first_name} ${obj.last_name} ${obj.chn_last_name??''} ${obj.chn_first_name??''}` : `${obj.company_name} ${obj?.chn_company_name}`
                     obj.copOrInd = el.entity_type_id == 1 ? 'Individual' : 'Corporate'
                     obj.shareOrDir = shareOrDir
                     obj.email = el.entity_type_id == 1 ? obj.email : el?.corporate?.authorized_persons.email

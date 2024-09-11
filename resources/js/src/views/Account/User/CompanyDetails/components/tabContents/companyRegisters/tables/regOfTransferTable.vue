@@ -12,7 +12,7 @@
             </div>
             <div class="card-body">
                 <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
-                    :items="paramsStore.currentCompanyData?.register_of_transfer" buttons-pagination
+                    :items="paramsStore.currentCompanyData.register_of_transfer" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
                         <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
@@ -26,8 +26,17 @@
                         {{ useFxn.dateDisplay(item.appointment_date) }}
                     </template>
                     <template #item-created_at="item">
-                                    {{ useFxn.dateDisplay(item.created_at) }}
-                                </template>
+                        {{ useFxn.dateDisplay(item.created_at) }}
+                    </template>
+                    <template #item-no_of_shares_transfered="item">
+                        {{ useFxn.addCommas(item.no_of_shares_transfered) }}
+                    </template>
+
+                    <template #item-total_consideration="item">
+                        {{ useFxn.addCommas(item.total_consideration) }}
+                    </template>
+
+
 
                     <template #expand="item">
                         <div v-if="!item.expandLoading" class="my-3">
@@ -45,6 +54,13 @@
                                 </template>
                                 <template #item-created_at="item">
                                     {{ useFxn.dateDisplay(item.created_at) }}
+                                </template>
+                                <template #item-no_of_shares_transfered="item">
+                                    {{ useFxn.addCommas(item.no_of_shares_transfered) }}
+                                </template>
+
+                                <template #item-total_consideration="item">
+                                    {{ useFxn.addCommas(item.total_consideration) }}
                                 </template>
 
                             </EasyDataTable>
@@ -92,6 +108,7 @@ import { reactive, ref, watch } from 'vue';
 const masterTableHeaders = [
     { text: "Date of Registration", value: "registration_date" },
     { text: "Transferee", value: "transferee" },
+    { text: "Transferor", value: "transferor" },
     { text: "Number of Shares  Transferred", value: "no_of_shares_transfered" },
     { text: "Total  Consideration HKD", value: "total_consideration" },
     { text: "Transferred/Disposal  Method", value: "transfer_method" },
@@ -101,6 +118,7 @@ const masterTableHeaders = [
 const expandedHeaders = [
     { text: "Date of Registration", value: "registration_date" },
     { text: "Transferee", value: "transferee" },
+    { text: "Transferor", value: "transferor" },
     { text: "Number of Shares  Transferred", value: "no_of_shares_transfered" },
     { text: "Total  Consideration HKD", value: "total_consideration" },
     { text: "Transferred/Disposal  Method", value: "transfer_method" },
@@ -123,7 +141,7 @@ const expandedObjArray = reactive({
 
 const expandLogs = async (index: any, prop_name: string,) => {
     expandedObjArray.data = []
-    const items = paramsStore.currentCompanyData?.register_of_transfer
+    const items = paramsStore.currentCompanyData.register_of_transfer
     const expandedItem: any = items[index];
     expandedObjArray.id = expandedItem.id
 

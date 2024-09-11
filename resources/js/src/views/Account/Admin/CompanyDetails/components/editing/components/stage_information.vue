@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-12 col-md-6">
                     <div class="form-label">Incorporation Date:</div>
-                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
+                    <VueDatePicker :teleport="true" :format="useFxn.dateDisplay" hide-input-icon :clearable="true"
                         :enable-time-picker="false" auto-apply v-model="incorporated_date">
                     </VueDatePicker>
                     <small class=" text-danger">{{ errors.incorporated_date }}</small>
@@ -30,20 +30,20 @@
                     <small class=" text-danger">{{ errors.company_structure }}</small>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Company Registered In:</div>
-                    <!-- <input v-model="company_registered" type="text" class="form-control"> -->
-                    <select v-model="company_registered" class="form-select">
-                        <option v-for="country in paramsStore.countries" :value="country" :key="country">{{ country }}
-                        </option>
-                    </select>
+                    <div class="form-label">Company Registered In: </div>
 
+                    <v-select class="exemption" style="line-height: 1rem !important;" append-to-body
+                        :calculate-position="useFxn.vueSelectPositionCalc" v-model="company_registered"
+                        :clearable="true" :options="paramsStore.countries" />
                     <small class=" text-danger">{{ errors.company_registered }}</small>
                 </div>
+
                 <div class="col-12 col-md-6">
                     <div class="form-label">Business Classification:</div>
                     <input v-model="business_classification" type="text" class="form-control">
                     <small class=" text-danger">{{ errors.business_classification }}</small>
                 </div>
+
             </div>
 
         </div>
@@ -146,3 +146,9 @@ const save = handleSubmit(async (values) => {
     })
 })
 </script>
+
+<style>
+.exemption .v-select * {
+    line-height: 1.7rem !important;
+}
+</style>

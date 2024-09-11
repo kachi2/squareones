@@ -21,13 +21,13 @@
                     <template #item-particulars="item">
                         <div class="card p-2 my-2 shadow-none">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item p-0">
-                                    <div class="text-secondary fw-bold">Corresponding Address:</div>
-                                    <span>
-                                        {{ item?.controllers_particulars?.corresponding_address ?? '-' }}
-                                    </span>
-                                </li>
-                                <li class="list-group-item p-0">
+                                <!-- <li class="list-group-item p-0"> -->
+                                <!-- <div class="text-secondary fw-bold">Corresponding Address:</div> -->
+                                <span>
+                                    {{ item?.controllers_particulars?.corresponding_address ?? '-' }}
+                                </span>
+                                <!-- </li> -->
+                                <!-- <li class="list-group-item p-0">
                                     <div class="text-secondary fw-bold"> Residential Address:</div>
                                     <span>
                                         {{ item?.controllers_particulars?.resdential_address ?? '-' }}
@@ -50,7 +50,7 @@
                                     <span>
                                         {{ item?.controllers_particulars?.nature_of_control_over_the_company ?? '-' }}
                                     </span>
-                                </li>
+                                </li> -->
 
                             </ul>
                         </div>
@@ -184,7 +184,7 @@ import DesignatedRepTable from './designatedRepTable.vue';
 const masterTableHeaders = [
     { text: "Date of Entry", value: "entry_date" },
     { text: "Name of Registrable Person / Legal Entity", value: "legal_entity_name" },
-    { text: "Particulars", value: "particulars" },
+    { text: "Address", value: "particulars" },
     { text: "Date  Becoming a Registrable Person", value: "date_becoming_rep_person" },
     { text: "Date Cease  to Be a Registrable Person", value: "date_ceased_to_be_rep_person" },
     { text: "Date Created", value: "created_at" },
@@ -195,7 +195,7 @@ const masterTableHeaders = [
 const masterTableHeaders1 = [
     { text: " Date of Entry", value: "entry_date" },
     { text: "Name (Capacity)", value: "name" },
-    { text: "Particulars", value: "particulars" },
+    { text: "Address", value: "particulars" },
     { text: "Remarks", value: "remarks" },
     { text: "Date Created", value: "created_at" },
     // { text: "ACTION", value: "action" },

@@ -7,7 +7,7 @@
                 <span class="float-end">
                     <button @click="paramsStore.openModalForm('regOfNameChangeModal')" class="btn btn-primary btn-sm">
                         Add New <i class="bi bi-plus-lg"></i>
-                    </button> 
+                    </button>
                 </span>
             </div>
             <div class="card-body">
@@ -23,6 +23,14 @@
                         {{ useFxn.dateDisplay(item.allotment_date) }}
                     </template>
 
+                    <template #item-no_of_shares_allocated="item">
+                        {{ useFxn.addCommas(item.no_of_shares_allocated) }}
+                    </template>
+
+                    <template #item-total_consideration="item">
+                        {{ useFxn.addCommas(item.total_consideration) }}
+                    </template>
+
                     <template #expand="item">
                         <div v-if="!item.expandLoading" class="my-3">
                             <div class="fw-bold text-center mb-2">LOGS</div>
@@ -32,6 +40,14 @@
 
                                 <template #item-allotment_date="item">
                                     {{ useFxn.dateDisplay(item.allotment_date) }}
+                                </template>
+
+                                <template #item-no_of_shares_allocated="item">
+                                    {{ useFxn.addCommas(item.no_of_shares_allocated) }}
+                                </template>
+
+                                <template #item-total_consideration="item">
+                                    {{ useFxn.addCommas(item.total_consideration) }}
                                 </template>
 
                             </EasyDataTable>
@@ -85,7 +101,7 @@ const masterTableHeaders = [
 ];
 
 const expandedHeaders = [
-     { text: "Date of Allotment", value: "allotment_date" },
+    { text: "Date of Allotment", value: "allotment_date" },
     { text: "Name and Address", value: "name" },
     { text: "Class of Shares", value: "class_of_shares" },
     { text: "Number of Shares Allotted", value: "no_of_shares_allocated" },

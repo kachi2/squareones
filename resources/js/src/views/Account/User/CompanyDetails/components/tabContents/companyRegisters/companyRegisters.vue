@@ -1,5 +1,5 @@
 <template>
-    <div class="row g-5">
+    <div class="row g-3">
         <regOfDirectorsTable />
 
         <regOfShareholdersTable />

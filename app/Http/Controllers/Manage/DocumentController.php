@@ -21,6 +21,8 @@ class DocumentController extends Controller
     }
 
     public function ProcessDocuments( Request $request){
+
+        return $request->all();
         try{
             $data = FileUploadDto::fromRequest($request->all());
                $processDoc = $this->fileUpload->uploadDoc($data);

@@ -10,14 +10,13 @@
                             <option value="" selected disabled>--Select Director--</option>
                             <option v-for="entity in selectOptions" :key="entity" :value="entity">{{
                                 entity.name }}</option>
-
                         </select>
                     </div>
 
                 </div>
                 <div class="col-12 col-md-6">
                     <div class="form-label">Name:</div>
-                    <input v-model="name" type="text" class="form-control">
+                    <input disabled v-model="name" type="text" class="form-control">
                     <small class=" text-danger">{{ errors.name }}</small>
                 </div>
                 <div class="col-12 col-md-6">
@@ -39,8 +38,8 @@
                 </div>
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Ceasing of Act:</div>
-                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
+                    <div class="form-label">Ceasing to Act:</div>
+                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="true"
                         :enable-time-picker="false" auto-apply v-model="ceasing_of_act">
                     </VueDatePicker>
                     <small class=" text-danger">{{ errors.ceasing_of_act }}</small>
@@ -106,12 +105,12 @@ const rules = {
     name: yup.string().required('Field is required'),
     reg_no: yup.string().required('Field is required'),
     registered_office: yup.string().required('Field is required'),
-    ceasing_of_act: yup.date().required('Field is required'),
-    remarks: yup.string().required('Field is required'),
+    // ceasing_of_act: yup.date().required('Field is required'),
+    // remarks: yup.string().required('Field is required'),
 };
 
 const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({
-    // validationSchema: yup.object(rules),
+    validationSchema: yup.object(rules),
 });
 
 const [date_of_appointment] = defineField('date_of_appointment');

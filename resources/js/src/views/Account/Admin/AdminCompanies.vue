@@ -3,8 +3,60 @@
         <h5 class="fw-bold page-title mb-2"> Companies Overview</h5>
         <div class="mb-3"> Have a Glance of this company Informaiton</div>
         <div class="row g-3 mb-5">
-
+           <div class="col-md-4 pb-3">
+                <div class="card  border-0  shadow-sm h-70">
+                    <div class="card-body ">
+                        <div class="d-flex justify-content-between align-items-cente">
+                            <div class="col-12">
+                                <span class="fs-4 fw-bold text-primary">{{comapaniesList?.total}}</span>
+                                <div>
+                                    <span class="small fw-bold">Total Companies</span> &nbsp;
+                                    <small style="font-size:10px;" class=""> <span class=" text-info fw-bold">{{comapaniesList?.data?.thismonth}}</span> added this month</small>
+                                </div>
+                                <div>
+                                    <span class="small badge bg-success">{{comapaniesList?.data?.active}} active </span> &nbsp;
+                                    <span class="small badge bg-danger">{{comapaniesList?.data?.inactive}}  Inactive </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-70">
+                    <div class="card-body ">
+                        <div class="d-flex justify-content-between align-items-cente">
+                            <div class="col-12">
+                                <span class="fs-4 fw-bold text-warning">{{comapaniesList?.data?.Unincorporated}}</span>
+                                <div>
+                                    <span class="small fw-bold">Pending Incorporation</span>
+                                </div>
+                                <div>
+                                    <span class="small"> <span class="text-primary fw-bold">{{comapaniesList?.data?.thisMonthUnIncorporated}}</span> new company added this month</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-70">
+                    <div class="card-body ">
+                        <div class="d-flex justify-content-between align-items-cente">
+                            <div class="col-12">
+                                <span class="fs-4 fw-bold text-success">{{comapaniesList?.data?.incorporated??'0'}}</span>
+                                <div>
+                                    <span class="small fw-bold">Incorporated</span> 
+                                </div>
+                                <div>
+                                    <span class="small"> <span class="text-primary fw-bold">{{comapaniesList?.data?.thisMonthIncorporated??'0'}}</span> new companies added this month</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-md-4">
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-cente">
@@ -66,10 +118,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
 
-            <div class="col-12 mt-5">
+            <div class="col-12 mt-1">
                 <div class="card shadow-sm">
                     <div class="card-header bg-transparent fw-bold py-3 border-0">
                         Registered Companies ({{ companies.list.length }})<br>
@@ -162,8 +214,20 @@ const computedCoyName = (coy: any) => {
     return `${englishName} ${chineseName}`;
 }
 
+const comapaniesList = ref<any>([])
+async function getCompanyStats() {
+    try {
+        const resp = await api.getCompanyStats()
+        comapaniesList.value = resp.data?.data ?? []
+        console.log(comapaniesList.value)
+    } catch (error) {
+        // 
+    }
+}
+
 onMounted(() => {
     getCompanies()
+    getCompanyStats()
 })
 
 onBeforeRouteLeave(() => {

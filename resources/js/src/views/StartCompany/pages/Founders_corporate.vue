@@ -36,7 +36,7 @@
         <section class="row g-3 section">
             <div class="col-md-6">
                 <div class="fixed-label-custom">
-                    <VueDatePicker v-bind="form.date_incorporatedAttr" :max-date="new Date()" placeholder="Select Date"
+                    <VueDatePicker v-bind="form.date_incorporatedAttr" :max-date="new Date()"
                         :format="useFxn.dateDisplay" hide-input-icon :clearable="false" :enable-time-picker="false"
                         auto-apply v-model="form.date_incorporated" id="Incorporation-label"
                         :class="{ 'error-field': form.errors.date_incorporated }">
@@ -61,8 +61,7 @@
                     <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc" id="country_registered"
                         @search:blur="form.validateVueSelectOnBlur('country_registered')"
                         v-bind="form.country_registeredAttr" :class="{ 'error-field': form.errors.country_registered }"
-                        placeholder="select country.." v-model="form.country_registered" :clearable="false"
-                        :options="startCompanyStore.countries" />
+                        v-model="form.country_registered" :clearable="false" :options="startCompanyStore.countries" />
                     <label for="country_registered">Country Registered <small class=" text-danger">*</small></label>
 
                 </div>
@@ -74,8 +73,8 @@
                     <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc" id="business_nature_id"
                         @search:blur="form.validateVueSelectOnBlur('business_nature_id')"
                         v-bind="form.business_nature_idAttr" :class="{ 'error-field': form.errors.business_nature_id }"
-                        v-model="form.business_nature_id" :clearable="true" placeholder="select business nature"
-                        :options="startCompanyStore.businessNatures" :reduce="(item: any) => item.id" label="name" />
+                        v-model="form.business_nature_id" :clearable="true" :options="startCompanyStore.businessNatures"
+                        :reduce="(item: any) => item.id" label="name" />
 
                     <label for="business_nature_id">Business Nature <span class="text-danger"> * </span></label>
                 </div>
@@ -128,13 +127,13 @@
                 <input v-model="form.city" :value="city" class="form-control" type="text"
                     placeholder=" ">
                 <small class=" text-danger">{{ form.errors.city }}</small>
-            </div> --> 
+            </div> -->
                 <div class="col-md-12">
                     <div class="fixed-label-custom">
                         <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc" id="country"
                             @search:blur="form.validateVueSelectOnBlur('country')" v-bind="form.countryAttr"
-                            :class="{ 'error-field': form.errors.country }" placeholder="select country.."
-                            v-model="form.country" :clearable="false" :options="startCompanyStore.countries" />
+                            :class="{ 'error-field': form.errors.country }" v-model="form.country" :clearable="false"
+                            :options="startCompanyStore.countries" />
                         <label for="country">Country／Region <small class=" text-danger">*</small></label>
                     </div>
 
@@ -174,9 +173,10 @@
             <div class="col-md-12">
 
                 <div class="fixed-label-custom">
-                    <vue-tel-input :class="{ 'error-field': form.errors.phone }" id="phone" v-bind="form.phoneAttr"
-                        :inputOptions="phoneField.input" :dropdownOptions="phoneField.dropDown" :autoFormat="false"
-                        v-model="form.phone" required></vue-tel-input>
+                    <vue-tel-input @country-changed="handleCountryChanged" :class="{ 'error-field': form.errors.phone }"
+                        id="phone" v-bind="form.phoneAttr" :inputOptions="phoneField.input"
+                        :dropdownOptions="phoneField.dropDown" :autoFormat="false" v-model="form.phone"
+                        required></vue-tel-input>
                     <label for="phone">Phone Number <span class="text-danger"> * </span></label>
                 </div>
                 <small class=" text-danger">{{ form.errors.phone }}</small>
@@ -306,6 +306,13 @@ const phoneField = {
         autoFormat: false
     }
 }
+
+const dialCode = ref('')
+function handleCountryChanged(countryObject: any) {
+    dialCode.value = `+${countryObject.dialCode}`
+}
+
+
 watchEffect(() => {
     if (form.chn_company_name == '') {
         form.errors.chn_company_name = ''
@@ -383,7 +390,7 @@ const saveAndContinue = form.handleSubmit((values: any) => {
     formData.append('first_name', form.first_name)
     formData.append('last_name', form.last_name)
     formData.append('email', form.email)
-    formData.append('phone', form.phone)
+    formData.append('phone', `${dialCode.value}${form.phone}`)
     formData.append('company_name', form.company_name)
     formData.append('chn_company_name', form.chn_company_name)
     //@ts-ignore

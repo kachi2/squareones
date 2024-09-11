@@ -153,15 +153,19 @@
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item ps-0 ">
-                            Director:
+                            {{ listOfDirectors().length == 1 ? 'Director' : 'Directors' }}:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.office_contract[0]?.directors }}
+                                <div v-for="dir in listOfDirectors()" :key="dir">
+                                    {{ dir }}
+                                </div>
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
-                            Shareholder:
+                            {{ listOfShareholders().length == 1 ? 'Shareholder' : 'Shareholders' }}
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.office_contract[0]?.shareholders }}
+                                <div v-for="dir in listOfShareholders()" :key="dir">
+                                    {{ dir }}
+                                </div>
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
@@ -233,7 +237,7 @@
                             Accounting Reference Date:
                             <span class="float-end">
                                 {{
-                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting[0]?.accounting_reference_date)
+                                    dispMonthAndDay(paramsStore.currentCompanyData?.compliance_reporting[0]?.accounting_reference_date)
                                 }}
                             </span>
                         </li>
@@ -269,6 +273,7 @@ import regOfficeModal from '../modals/regOfficeModal.vue';
 import ComplianceReportingModal from '../modals/complianceReportingModal.vue';
 import { ref, onMounted, reactive, watch, computed } from 'vue';
 import api from '@/stores/Helpers/axios'
+import { useDateFormat } from '@vueuse/core';
 
 const showProgress = ref(true)
 
@@ -321,11 +326,33 @@ function updateProgress() {
 }
 
 
+const listOfDirectors = () => {
+    let array = []
+    const list = paramsStore.currentCompanyData?.office_contract[0]?.directors
+    if (list) array = JSON.parse(list)
+    return array;
+}
+
+const listOfShareholders = () => {
+    let array = []
+    const list = paramsStore.currentCompanyData?.office_contract[0]?.shareholders
+    if (list) array = JSON.parse(list)
+    return array;
+}
+
+
+function dispMonthAndDay(date: any) {
+    if (!date)
+        return '-'
+    else {
+        const dd = useDateFormat(date, 'MMM, DD')
+        return dd.value
+    }
+}
+
 </script>
 
 <style lang="css" scoped>
-
-
 /* .card{
     background-color: #212935;
     color:#fff;

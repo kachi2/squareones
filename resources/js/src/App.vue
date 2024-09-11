@@ -45,13 +45,16 @@ table tr td {
 }
 
 .v-select,
-.v-select *,
-.modal-content,
-.dropdown-menu {
-  background-color: v-bind('templateStore.bgColor') !important;
+.v-select * {
+  /* background-color: v-bind('templateStore.bgColor') !important; */
+  background-color: transparent !important;
   color: v-bind('templateStore.textColor') !important;
 }
 
+.modal-content,
+.dropdown-menu {
+  background-color: v-bind('templateStore.bgColor') !important;
+}
 
 .dropdown-menu {
   border: 1px solid v-bind('templateStore.border') !important;
@@ -82,10 +85,13 @@ table tr td {
 
 .vue3-easy-data-table__header,
 .vue3-easy-data-table__header .text-muted {
-  /* background-color: v-bind('templateStore.easyTableHeaderBG') !important; */
-  background-color: transparent !important;
+  background-color: v-bind('templateStore.easyTableHeaderBG') !important;
+  /* background-color: transparent !important; */
   /* color: v-bind('templateStore.cardTextColor') !important; */
   color: grey !important;
+  border: none !important;
+  width: 150px;
+  text-transform: uppercase;
 }
 
 .easy-data-table__rows-selector ul.select-items li {
@@ -95,7 +101,7 @@ table tr td {
 
 .vue3-easy-data-table__main.fixed-header th,
 .vue3-easy-data-table__body td {
-  /* border: none !important; */
+  border: none !important;
 }
 
 .vue3-easy-data-table__message,

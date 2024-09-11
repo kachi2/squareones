@@ -64,6 +64,7 @@ class PaymentServices implements PaymentInterface
             ]],
                 'mode' => 'payment',
                 'saved_payment_method_options' => ['payment_method_save' => 'enabled'],
+                'metadata' => ['convert_to_invoice' => 'true'],
                  'success_url' => url('/kcy/verifications'),
                 'cancel_url' => url('/start_company'),
             ]);

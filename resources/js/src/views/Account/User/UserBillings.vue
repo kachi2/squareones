@@ -107,12 +107,13 @@
                             </template>
 
                             <template #item-reg_date="item">
-                                <span v-if="item?.subscription?.status == 'active'" class="badge bg-success-subtle text-dark">
-                                 {{item?.subscription?.status}}
+                                <span v-if="item?.subscription?.status == 'active'"
+                                    class="badge bg-success-subtle text-dark">
+                                    {{ item?.subscription?.status }}
                                 </span>
 
                                 <span v-else class="badge bg-secondary-subtle text-dark">
-                                    {{item?.subscription?.status}}
+                                    {{ item?.subscription?.status }}
                                 </span>
 
                             </template>
@@ -148,14 +149,13 @@
                             </template>
 
                             <template #item-invoice_pdf="item">
-                                <span class="text-nowrap" v-if="item.invoice_pdf"> 
-                                    <a :href="item.invoice_pdf"
-                                        target="_blank">
+                                <span class="text-nowrap" v-if="item.invoice_pdf">
+                                    <a :href="item.invoice_pdf" target="_blank">
                                         <i class="bi bi-file-arrow-down-fill"></i>
-                                   
-                                   <strong> DOWNLOAD</strong> 
-                                </a>
-                            </span>
+
+                                        <strong> DOWNLOAD</strong>
+                                    </a>
+                                </span>
                                 <span v-else>-</span>
                             </template>
                         </EasyDataTable>
@@ -251,12 +251,12 @@
                                 <div v-if="clientSecretIsLoaded" class="form-check">
                                     <input class="form-check-input exemption" type="checkbox" value="" id="checker" />
                                     <label class="form-check-label" for="checker">
-                                        <div class="fw-bold">
+                                        <div class="fw-bol">
                                             Securely save my information for 1-click checkout
                                         </div>
-                                        <span>
+                                        <!-- <span>
                                             Pay faster on Stripe Atlas and everywhere Link is accepted
-                                        </span>
+                                        </span> -->
                                     </label>
                                 </div>
                                 <!-- <div v-if="clientSecretIsLoaded" class="small my-3">
@@ -270,15 +270,13 @@
                                 </div> -->
                                 <div id="payment-message" class="hidden"></div>
 
-                                <div class="col-12">
-                                    <button type="button" class="btn btn-secondary me-4" data-bs-dismiss="modal">
+                                <div class="col-12 mt-4">
+                                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">
                                         Close
                                     </button>
-                                    <!-- <button v-if="clientSecretIsLoaded" id="submit" class="btn btn-primary">Save Card
-                                        Details</button> -->
                                     <button v-if="clientSecretIsLoaded" id="submit" class="btn btn-primary">
                                         <div class="spinner hidden" id="spinner"></div>
-                                        <span id="button-text">Pay now</span>
+                                        <span id="button-text">Update Card Details</span>
                                     </button>
                                 </div>
                             </form>
@@ -294,16 +292,17 @@
 
 </template>
 <script lang="ts" setup>
-import { onMounted, reactive, ref, watch } from 'vue';
+import { onMounted, reactive, ref, watch, watchEffect } from 'vue';
 import type { Header, Item, ServerOptions } from "vue3-easy-data-table";
 import api from '@/stores/Helpers/axios'
 import { useParamsStore } from './CompanyDetails/paramsStore';
 import useFxn from '@/stores/Helpers/useFunctions';
-import { onBeforeRouteLeave } from 'vue-router';
+import { onBeforeRouteLeave, useRoute } from 'vue-router';
 import { useToast } from 'vue-toast-notification';
 
 const paramsStore = useParamsStore()
 const toast = useToast()
+const route = useRoute()
 
 onMounted(() => {
     getInvoices()
@@ -405,7 +404,7 @@ async function getInvoices() {
     try {
         const { data } = await api.userInvoices()
         const invoice = data?.invoice
-         console.log(data, 'Get User Invoice')
+        console.log(data, 'Get User Invoice')
         totalBillings.value = invoice?.total ?? 0
         billings.value = invoice?.data ?? []
         billingsLoading.value = false
@@ -562,6 +561,23 @@ function setLoading(isLoading: any) {
 }
 
 
+watchEffect(() => {
+    if (route?.query?.payment_intent) {
+        paymentConfirm(route.query.payment_intent)
+    }
+})
+
+async function paymentConfirm(intent: any) {
+    try {
+        const resp = await api.makeDefaultPament(intent)
+        getPaymentInfo()
+        toast.success('Card details updated', { position: 'top-right' })
+    } catch (error) {
+        // console.log(error);
+        toast.error('Sorry, Something went wrong', { position: 'top-right' })
+
+    }
+}
 
 
 

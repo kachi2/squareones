@@ -9,17 +9,17 @@
             <section class="row g-3 mt-1">
                 <div class="col-md-12">
                     <div class="form-floating-custom ">
-                    <select disabled class="form-select" id="corporate">
-                        <option seleted value="corporate">Corporate</option>
-                        <option value="individual">Individual</option>
-                    </select>
-                    <label class=" " for="corporate">Type <i class="bi bi-lock-fill"></i></label>
+                        <select disabled class="form-select" id="corporate">
+                            <option seleted value="corporate">Corporate</option>
+                            <option value="individual">Individual</option>
+                        </select>
+                        <label class=" " for="corporate">Type <i class="bi bi-lock-fill"></i></label>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-floating-custom ">
-                    <input disabled v-model="form.name" type="text" class="form-control" placeholder="Name in English">
-                    <label class=" ">Name in English <i class="bi bi-lock-fill"></i></label>
+                        <input disabled v-model="form.name" type="text" class="form-control" placeholder="">
+                        <label class=" ">Name in English <i class="bi bi-lock-fill"></i></label>
                     </div>
                 </div>
                 <!-- <div class="col-md-8">
@@ -28,24 +28,22 @@
                 </div> -->
                 <div class="col-md-12">
                     <div class="form-floating-custom ">
-                    <input disabled v-model="form.company_reg_no" type="text" class="form-control"
-                        placeholder="Company registration no">
-                    <label class=" ">Company Registration No <i class="bi bi-lock-fill"></i></label>
+                        <input disabled v-model="form.company_reg_no" type="text" class="form-control" placeholder="">
+                        <label class=" ">Company Registration No <i class="bi bi-lock-fill"></i></label>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-floating-custom">
-                    <input disabled v-model="form.licence_no" type="text" class="form-control"
-                        placeholder="Company registration no">
+                        <input disabled v-model="form.licence_no" type="text" class="form-control" placeholder="">
                         <label class=" ">Company License No <i class="bi bi-lock-fill"></i></label>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-floating-custom">
-                    <select disabled class="form-select" v-model="form.country_registered">
-                        <option selected value="Hong Kong">Hong Kong</option>
-                    </select>
-                    <label class=" ">Country Registered <i class="bi bi-lock-fill"></i></label>
+                        <select disabled class="form-select" v-model="form.country_registered">
+                            <option selected value="Hong Kong">Hong Kong</option>
+                        </select>
+                        <label class=" ">Country Registered <i class="bi bi-lock-fill"></i></label>
                     </div>
                 </div>
             </section>
@@ -56,33 +54,31 @@
                 <div class="row g-3 mt-1">
                     <div class="col-12">
                         <div class="form-floating-custom">
-                        <input disabled v-model="form.flat" class="form-control" type="text"
-                            placeholder="Flat／Floor／Block">
+                            <input disabled v-model="form.flat" class="form-control" type="text" placeholder="">
 
-                        <label class="form-label"> Flat／Floor／Block <i class="bi bi-lock-fill"></i></label>
+                            <label class="form-label"> Flat／Floor／Block <i class="bi bi-lock-fill"></i></label>
                         </div>
                         <!-- <small class=" text-danger">{{ form.errors.flat }}</small> -->
                     </div>
                     <div class="col-12">
                         <div class="form-floating-custom">
-                        <input disabled v-model="form.building" class="form-control" type="text"
-                            placeholder="Street number">
-                        <label class="form-label"> Building<i class="bi bi-lock-fill"></i></label>
+                            <input disabled v-model="form.building" class="form-control" type="text" placeholder="">
+                            <label class="form-label"> Building<i class="bi bi-lock-fill"></i></label>
                         </div>
                         <!-- <small class=" text-danger">{{ form.errors.building }}</small> -->
                     </div>
                     <div class="col-12">
                         <div class="form-floating-custom">
-                        <input disabled v-model="form.street" class="form-control" type="text" placeholder="City">
-                        <label class="form-label"> Street／Estate／Lot／Village<i class="bi bi-lock-fill"></i></label>
+                            <input disabled v-model="form.street" class="form-control" type="text" placeholder="">
+                            <label class="form-label"> Street／Estate／Lot／Village<i class="bi bi-lock-fill"></i></label>
                         </div>
                         <!-- <small class=" text-danger">{{ form.errors.street }}</small> -->
                     </div>
                     <div class="col-12">
                         <div class="form-floating-custom">
-                        <input disabled v-model="form.state" class="form-control" type="text" placeholder="State">
-                        <label class="form-label">District／City／ Province／State／ Postal Code <i
-                                class="bi bi-lock-fill"></i></label>
+                            <input disabled v-model="form.state" class="form-control" type="text" placeholder="">
+                            <label class="form-label">District／City／ Province／State／ Postal Code <i
+                                    class="bi bi-lock-fill"></i></label>
                         </div>
                         <!-- <small class=" text-danger">{{ form.errors.state }}</small> -->
                     </div>
@@ -96,16 +92,16 @@
                         <label class="form-label">Country／Region <i class="bi bi-lock-fill"></i></label>
                         <v-select :disabled="true" placeholder="select country.." v-model="form.country"
                             :clearable="false" :options="startCompanyStore.countries" /> -->
-                        <!-- <small class=" text-danger">{{ form.errors.country }}</small> -->
+                    <!-- <small class=" text-danger">{{ form.errors.country }}</small> -->
                     <!-- </div> -->
                     <div class="col-md-12">
-                    <div class="form-floating-custom">
-                    <select disabled class="form-select" v-model="form.country_registered">
-                        <option selected value="Hong Kong">Hong Kong</option>
-                    </select>
-                    <label class=" ">Country Registered <i class="bi bi-lock-fill"></i></label>
+                        <div class="form-floating-custom">
+                            <select disabled class="form-select" v-model="form.country_registered">
+                                <option selected value="Hong Kong">Hong Kong</option>
+                            </select>
+                            <label class=" ">Country Registered <i class="bi bi-lock-fill"></i></label>
+                        </div>
                     </div>
-                </div>
                 </div>
             </section>
 

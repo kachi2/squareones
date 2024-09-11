@@ -7,7 +7,7 @@
                     <div class="card-body ">
                         <div class="d-flex justify-content-between align-items-cente">
                             <div class="col-6">
-                                <span class="fs-4 fw-bold text-mute">2</span>
+                                <span class="fs-4 fw-bold text-mute">{{item.userCount}}</span>
                                 <div>
                                     <span class="small">Registered Users</span>
                                 </div>
@@ -26,7 +26,7 @@
                     <div class="card-body ">
                         <div class="d-flex justify-content-between align-items-cente">
                             <div class="col-6">
-                                <span class="fs-4 fw-bold text-mute">2/2</span>
+                                <span class="fs-4 fw-bold text-mute">{{item.active}}</span>
                                 <div>
                                     <span class="small">Active Users</span>
                                 </div>
@@ -45,10 +45,10 @@
                     <div class="card-body ">
                         <div class="d-flex justify-content-between align-items-cente">
                             <div class="col-7">
-                                <span class="fs-4 fw-bold text-mute">2</span>
+                                <span class="fs-4 fw-bold text-mute">{{item.newUsers}}</span>
                                 <div>
                                     <span class="small">New Users</span> <br>
-                                    <small style="color:green"> 2 this week</small>
+                                    <small style="color:green"> {{item.newThisWeek}} this week</small>
                                 </div>
                             </div>
                             <div class="col-5">
@@ -65,9 +65,9 @@
                     <div class="card-body ">
                         <div class="row justify-content-between align-items-cente">
                             <div class="col-6">
-                                <span class="fs-4 fw-bold text-mute">2</span>
+                                <span class="fs-4 fw-bold text-mute">{{item.verified}} </span>
                                 <div>
-                                    <span class="small">Total Verified Users</span> <br>
+                                    <span class="small">Verified Users</span> <br>
 
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                                 </apexchart>
                             </div>
                             <div class="col-12">
-                                <small style="color:red"> 2 pending unverified </small>
+                                <small style="color:red"> {{item.unVerified}} pending unverified </small>
                             </div>
                         </div>
                     </div>
@@ -110,7 +110,7 @@
                                     style="width: 60px;">DISABLED</span>
                             </template>
                             <template #item-kyc_status="item">
-                                <span v-if="item.status != null" class="badge bg-success-subtle text-dark"
+                                <span v-if="item.kyc_status != null" class="badge bg-success-subtle text-dark"
                                     style="width: 60px;">Completed</span>
                                 <span v-else class="badge bg-warning-subtle text-dark"
                                     style="width: 60px;">pending</span>
@@ -173,16 +173,18 @@ const router = useRouter()
 onMounted(() => {
     getUsers()
 })
+const item = <any>ref([])
 
 async function getUsers() {
     try {
         const queryString = new URLSearchParams(serverOptions.value).toString();
         const resp = await api.getUsers(queryString)
         const data = resp.data.data
-        total.value = data.total
-        items.value = data.data
+        total.value = data.users.total
+        items.value = data.users.data
+        item.value = data
         itemsLoading.value = false
-        // console.log('users:', data);
+         console.log('users:', data);
     } catch (error) {
 
     }

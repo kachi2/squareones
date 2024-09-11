@@ -27,6 +27,7 @@ export const useAdminParamsStore: any = defineStore('useAdminParamsStore', () =>
     // params
     const currentCompanyId = useStorage('squre1-coyId', '')
     const isCompaniesByUser = useStorage('squre1-coyUserId', '')
+    const currentUserId = useStorage('squre1-coyUserId-user', '')
     const currentCompanyData = ref<any>('')
     const idToEdit: any = ref<any>('')
     const countries = ref<any[]>([])
@@ -73,6 +74,7 @@ export const useAdminParamsStore: any = defineStore('useAdminParamsStore', () =>
         hasUpdatedProgress,
         isCompaniesByUser,
         countries,
+        currentUserId,
 
         getCompanyDetails,
         openModalForm,

@@ -37,7 +37,7 @@ textarea:focus,
 } */
 
 .v-select,
-.v-select * {
+.v-select:not(.exemption) * {
     line-height: 2.9rem !important;
     border-radius: var(--bs-border-radius);
 }
@@ -75,7 +75,8 @@ textarea:focus,
 
 .vs--multiple .vs__selected {
     margin-left: .50rem;
-    margin-block: 11px;
+    margin-top: 15px;
+    margin-bottom: 9px;
 }
 
 

@@ -40,8 +40,8 @@
                 </div>
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Ceasing of Act:</div>
-                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
+                    <div class="form-label">Ceasing to Act:</div>
+                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="true"
                         :enable-time-picker="false" auto-apply v-model="cease_to_act">
                     </VueDatePicker>
                     <small class=" text-danger">{{ errors.cease_to_act }}</small>
@@ -109,12 +109,12 @@ const rules = {
     name: yup.string().required('Field is required'),
     identity_info: yup.string().required('Field is required'),
     address: yup.string().required('Field is required'),
-    cease_to_act: yup.date().required('Field is required'),
-    remarks: yup.string().required('Field is required'),
+    // cease_to_act: yup.date().required('Field is required'),
+    // remarks: yup.string().required('Field is required'),
 };
 
 const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({
-    // validationSchema: yup.object(rules),
+    validationSchema: yup.object(rules),
 });
 
 const [appointment_date] = defineField('appointment_date');

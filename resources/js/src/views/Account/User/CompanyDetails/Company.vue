@@ -2,12 +2,12 @@
     <div v-if="pageIsLoading">
         <PageLoadingComponent />
     </div>
-    <div v-else class="car p-3">
+    <div v-else class=" p-3">
         <div class="card-body">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item single-list-items" role="presentation" >
+                <li class="nav-item single-list-items" role="presentation">
                     <button class="nav-link active " id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1"
-                        type="button" role="tab" aria-controls="tab1" aria-selected="true" >
+                        type="button" role="tab" aria-controls="tab1" aria-selected="true">
                         Company details
                     </button>
                 </li>
@@ -72,7 +72,7 @@
 
 </template>
 <script lang="ts" setup>
-import { onMounted, reactive, ref } from 'vue';
+import { onMounted, reactive, ref, watch } from 'vue';
 import { useParamsStore } from './paramsStore';
 
 // tabcontents
@@ -106,6 +106,10 @@ function checkForToken() {
         acceptInvitation()
     }
 }
+
+watch(() => paramsStore.currentCompanyId, () => {
+    getCompanyDetails()
+})
 
 
 async function getCompanyDetails() {
@@ -144,13 +148,18 @@ async function acceptInvitation() {
 </script>
 
 <style lang="css">
-.single-list-items:hover{
-    background:#eee;
+.single-list-items:hover {
+    background: #eee;
     padding: 1px;
-    border-radius: 6px 6px 0px 0px ;
-    color:red;
-    transition:  padding 0.5s
+    border-radius: 6px 6px 0px 0px;
+    color: red;
+    transition: padding 0.5s
 }
+
+.tab-content {
+    background-color: transparent !important;
+}
+
 /* .card{
     background-color: #212935ae;
     color:#fff;

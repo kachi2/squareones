@@ -83,6 +83,10 @@ export default {
         return $instance.get(`manage/activitylog?${queryString}`)
     },
 
+    UserctivityLog(queryString: any) {
+        return $instance.get(`manage/user/activities?${queryString}`)
+    },
+ 
     getUsers(queryString: any) {
         return $instance.get(`manage/users?${queryString}`)
     },
@@ -99,7 +103,7 @@ export default {
         return $instance.get(`manage/documents/delete/${document_id}`)
     },
 
-    getCompanyStats(queryObj: any) {
+    getCompanyStats(queryObj: any = null) {
         return $instance.post(`manage/company/stats`, queryObj)
     },
 

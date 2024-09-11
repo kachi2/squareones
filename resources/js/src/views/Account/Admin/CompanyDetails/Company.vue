@@ -67,7 +67,7 @@
             <!-- Tab panes -->
             <isLoadingComponent v-if="companyIsLoading" />
 
-            <div v-else class="tab-content py-4">
+            <div v-else class="tab-content py-4" style="background-color: transparent !important;">
                 <div class="tab-pane active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
                     <companyDetailsTabContent />
                 </div>

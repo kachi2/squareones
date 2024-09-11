@@ -42,6 +42,10 @@
                                 <template #item-ceasing_of_act="item">
                                     {{ useFxn.dateDisplay(item.ceasing_of_act) }}
                                 </template>
+
+                                <template #item-created_at="item">
+                                    {{ useFxn.dateDisplay(item.created_at) }}
+                                </template>
                             </EasyDataTable>
                         </div>
                     </template>
@@ -85,7 +89,7 @@ const paramsStore = useAdminParamsStore()
 
 // table
 const masterTableHeaders = [
-{ text: "Date of Appointment", value: "date_of_appointment" },
+    { text: "Date of Appointment", value: "date_of_appointment" },
     { text: "Name", value: "name" },
     { text: "ID/ Passport / Registration No", value: "reg_no" },
     { text: "Residential Address / Registered  Office", value: "registered_office" },
@@ -96,7 +100,7 @@ const masterTableHeaders = [
 ];
 
 const expandedHeaders = [
-{ text: "Date of Appointment", value: "date_of_appointment" },
+    { text: "Date of Appointment", value: "date_of_appointment" },
     { text: "Name", value: "name" },
     { text: "ID/ Passport / Registration No", value: "reg_no" },
     { text: "Residential Address / Registered  Office", value: "registered_office" },
@@ -104,7 +108,7 @@ const expandedHeaders = [
     { text: "Remarks", value: "remarks" },
     { text: "Date Modified", value: "created_at" },
 
-    
+
 ];
 
 

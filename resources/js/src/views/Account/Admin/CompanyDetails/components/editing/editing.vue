@@ -1,7 +1,7 @@
 <template>
     <div class="row g-3">
         <div class="col-lg-4">
-            <div class="card exemption bg-dynamic shadow-sm">
+            <div class="card exemption bg-dynamic shadow-sm h-100">
                 <ul class="list-group list-group-flush">
                     <li v-for="i in menuList" @click="goToNextStage(i.stage)" class="list-group-item border-0"
                         :class="{ 'activee': currentStage == i.stage }">
@@ -30,7 +30,6 @@
                     <stage10 v-if="currentStage == 10" @done="goToNextStage(11)" />
                     <stage11 v-if="currentStage == 11" @done="goToNextStage(12)" />
                     <stage12 v-if="currentStage == 12" @done="goToNextStage(13)" />
-                    <stage13 v-if="currentStage == 13" @done="goToNextStage(14)" />
                     <stage13 v-if="currentStage == 13" @done="goToNextStage(14)" />
                     <stage14 v-if="currentStage == 14" @done="goToNextStage(15)" />
                     <summaryStage v-if="currentStage == 15" @done="emit('done')" />
@@ -83,10 +82,10 @@ const menuList = [
     { stage: 5, name: 'Register of Directors', meta: 'register_of_director' },
     { stage: 6, name: 'Register of Shareholders', meta: 'register_of_shareholders' },
     { stage: 7, name: 'Register of Secretaries', meta: 'register_of_secretary' },
-    { stage: 8, name: 'Register of Allotments', meta: 'register_of_allotments' },
-    { stage: 9, name: 'Register of Transfers', meta: 'register_of_transfer' },
-    { stage: 10, name: 'Register of Company Name Changes', meta: 'register_of_company_name' },
-    { stage: 11, name: 'Register of Charges', meta: 'register_of_charge' },
+    // { stage: 8, name: 'Register of Allotments', meta: 'register_of_allotments' },
+    // { stage: 9, name: 'Register of Transfers', meta: 'register_of_transfer' },
+    // { stage: 10, name: 'Register of Company Name Changes', meta: 'register_of_company_name' },
+    // { stage: 11, name: 'Register of Charges', meta: 'register_of_charge' },
     { stage: 12, name: 'Register of Significant Controllers', meta: 'significant_controller' },
     { stage: 13, name: 'Designated Representative', meta: 'significant_controller' },
     { stage: 14, name: 'Documents', meta: 'documents' },

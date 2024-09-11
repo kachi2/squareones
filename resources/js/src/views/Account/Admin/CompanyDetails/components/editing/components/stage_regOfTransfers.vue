@@ -16,6 +16,11 @@
                     <input v-model="transferee" type="text" class="form-control">
                     <small class=" text-danger">{{ errors.transferee }}</small>
                 </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-label">Transferor:</div>
+                    <input v-model="transferor" type="text" class="form-control">
+                    <small class=" text-danger">{{ errors.transferor }}</small>
+                </div>
 
                 <div class="col-12 col-md-6">
                     <div class="form-label">Number of Shares Transferred:</div>
@@ -77,6 +82,7 @@ const rules = {
     no_of_shares_transfered: yup.string().required('Field is required'),
     total_consideration: yup.string().required('Field is required'),
     transfer_method: yup.string().required('Field is required'),
+    transferor: yup.string().required('Field is required'),
 };
 
 const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({
@@ -88,6 +94,7 @@ const [transferee] = defineField('transferee');
 const [no_of_shares_transfered] = defineField('no_of_shares_transfered');
 const [total_consideration] = defineField('total_consideration');
 const [transfer_method] = defineField('transfer_method');
+const [transferor] = defineField('transferor');
 const isSaving = ref<boolean>(false)
 
 function setValuesOnFields() {
@@ -98,6 +105,7 @@ function setValuesOnFields() {
         setFieldValue('no_of_shares_transfered', register_of_transfer.no_of_shares_transfered)
         setFieldValue('total_consideration', register_of_transfer.total_consideration)
         setFieldValue('transfer_method', register_of_transfer.transfer_method)
+        setFieldValue('transferor', register_of_transfer.transferor)
     }
 }
 
@@ -112,6 +120,7 @@ const save = handleSubmit(async (values) => {
             formData.append('no_of_shares_transfered', values.no_of_shares_transfered ?? '')
             formData.append('total_consideration', values.total_consideration ?? '')
             formData.append('transfer_method', values.transfer_method ?? '')
+            formData.append('transferor', values.transferor ?? '')
             if (paramsStore.idToEdit)
                 formData.append('transfer_id', paramsStore.idToEdit)
 

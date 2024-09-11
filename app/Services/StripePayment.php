@@ -3,13 +3,11 @@
 namespace App\Services;
 
 use App\Models\AdminBilling;
-use App\Models\Billing;
 use App\Models\Invoices;
 use App\Models\Plan;
 use Stripe\Stripe;
 use App\Models\UserSubscription;
 use Carbon\Carbon;
-use Stripe\Invoice;
 
 class StripePayment
 {
@@ -90,7 +88,12 @@ class StripePayment
 
     public function GetStripeInvoices($amount = 0, $count = 0, $total_open=0, $open_amount = 0, $paid_amount = 0,$overDue_amount = 0, $active = [], $inactive = [], $overdue_invoice=0)
     {
-        $invoices = \Stripe\Invoice::all([]);
+        $invoices = \Stripe\Invoice::all([
+            'created' => [
+                'gte' => strtotime('2024-09-10')
+            ]
+        ]);
+       if(count($invoices) > 0) {
         foreach ($invoices as $invoice) {
             $amount += $invoice->amount_due / 100;
             if($invoice->status == 'paid')
@@ -109,7 +112,12 @@ class StripePayment
             }
             $count++;
         }
-        $subscribers = \Stripe\Subscription::all([]);
+   
+        $subscribers = \Stripe\Subscription::all([
+            'created' => [
+                'gte' => strtotime('2024-09-10')
+            ]
+        ]);
         if (!empty($subscribers)) {
             foreach ($subscribers as $subs) {
                 if ($subs->status == "active") {
@@ -121,9 +129,9 @@ class StripePayment
         }
         $this->TapInvoice($invoices);
         $this->processBilling($count, $amount, $total_paid, $paid_amount, $total_open, $open_amount, $overdue_invoice, $overDue_amount,$active, $inactive);
-         $data = $this->generateData();
-
-            return $data;
+        }
+     $data = $this->generateData();
+      return $data;
     }
 
 

@@ -170,21 +170,21 @@ const users = ref([])
 const searchUserMail = ref('')
 const filteredUsersBySearch = computed(() => {
     let filtered: any[] = []
-    if (searchUserMail.value) {
-        filtered = users.value.filter((x: any) => x.email.includes(searchUserMail.value) || x.name.includes(searchUserMail.value))
-        if (filtered.length) {
-            filtered.forEach(x => {
-                x.isSelected = false
-            })
-        }
+    // if (searchUserMail.value) {
+    //     filtered = users.value.filter((x: any) => x.email.includes(searchUserMail.value) || x.name.includes(searchUserMail.value))
+    //     if (filtered.length) {
+    //         filtered.forEach(x => {
+    //             x.isSelected = false
+    //         })
+    //     }
 
-        // console.log(filtered);
+    //     // console.log(users.value);
 
-    }
-    else {
-        selectedRole.value = ''
-        selectedUser.value = null
-    }
+    // }
+    // else {
+    //     selectedRole.value = ''
+    //     selectedUser.value = null
+    // }
     return filtered
 })
 
@@ -282,8 +282,7 @@ async function userGetCompany() {
 async function getUsers() {
     try {
         const resp = await api.getUsers(`?page=1`)
-        users.value = resp.data.data.data
-        // console.log(users.value, 'users');
+        users.value = resp.data?.data?.users?.data ?? []
 
     } catch (error) {
         // 

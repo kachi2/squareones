@@ -11,37 +11,40 @@
                 <div class="row g-3 mt-1">
                     <div class="col-12">
                         <div class="form-floating-custom ">
-                        <!-- <label class="form-label"> </label> -->
-                        <input disabled v-model="form.flat" class="form-control" type="text"
-                            placeholder="Flat／Floor／Block" id="address">
-                        <small class=" text-danger">{{ form.errors.flat }}</small>
-                        <label for="address"> Floor／Block <i class="bi bi-lock-fill"></i> </label>
+                            <!-- <label class="form-label"> </label> -->
+                            <input disabled v-model="form.flat" class="form-control" type="text"
+                                placeholder="Flat／Floor／Block" id="address">
+                            <small class=" text-danger">{{ form.errors.flat }}</small>
+                            <label for="address"> Floor／Block <i class="bi bi-lock-fill"></i> </label>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-floating-custom ">
-                      
-                        <input disabled v-model="form.building" class="form-control" type="text"
-                            placeholder="" id="building">
-                        <small class=" text-danger">{{ form.errors.building }}</small>
-                        <label class="form-label" for="building"> Building<i class="bi bi-lock-fill"></i></label>
+
+                            <input disabled v-model="form.building" class="form-control" type="text" placeholder=""
+                                id="building">
+                            <small class=" text-danger">{{ form.errors.building }}</small>
+                            <label class="form-label" for="building"> Building<i class="bi bi-lock-fill"></i></label>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-floating-custom ">
-                      
-                        <input disabled v-model="form.street" id="street" class="form-control" type="text" placeholder="City">
-                        <small class=" text-danger">{{ form.errors.street }}</small>
-                        <label class="form-label" for="street"> Street／Estate／Lot／Village<i class="bi bi-lock-fill"></i></label>
+
+                            <input disabled v-model="form.street" id="street" class="form-control" type="text"
+                                placeholder="City">
+                            <small class=" text-danger">{{ form.errors.street }}</small>
+                            <label class="form-label" for="street"> Street／Estate／Lot／Village<i
+                                    class="bi bi-lock-fill"></i></label>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-floating-custom ">
-                      
-                        <input disabled v-model="form.state" class="form-control" type="text" id="city" placeholder="State">
-                        <small class=" text-danger">{{ form.errors.state }}</small>
-                        <label class="form-label" for="city"> District／City／ Province／State／ Postal Code <i
-                                class="bi bi-lock-fill"></i></label>
+
+                            <input disabled v-model="form.state" class="form-control" type="text" id="city"
+                                placeholder="State">
+                            <small class=" text-danger">{{ form.errors.state }}</small>
+                            <label class="form-label" for="city"> District／City／ Province／State／ Postal Code <i
+                                    class="bi bi-lock-fill"></i></label>
                         </div>
                     </div>
 
@@ -53,14 +56,14 @@
                     </div> -->
 
                     <div class="col-md-12">
-                    <div class="form-floating-custom">
-                    <select disabled class="form-select"  placeholder="select country.." v-model="form.country">
-                        <option selected value="Hong Kong">Hong Kong</option>
-                    </select>
-                    <label class=" ">Country Registered <i class="bi bi-lock-fill"></i></label>
-                    <small class=" text-danger">{{ form.errors.country }}</small>
+                        <div class="form-floating-custom">
+                            <select disabled class="form-select" v-model="form.country">
+                                <option selected value="Hong Kong">Hong Kong</option>
+                            </select>
+                            <label class=" ">Country Registered <i class="bi bi-lock-fill"></i></label>
+                            <small class=" text-danger">{{ form.errors.country }}</small>
+                        </div>
                     </div>
-                </div>
                 </div>
             </section>
 

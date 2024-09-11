@@ -154,16 +154,20 @@
                 </div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item ps-0">
-                            Director:
+                        <li class="list-group-item ps-0 ">
+                            {{ listOfDirectors().length == 1 ? 'Director' : 'Directors' }}:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.office_contract[0]?.directors }}
+                                <div v-for="dir in listOfDirectors()" :key="dir">
+                                    {{ dir }}
+                                </div>
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
-                            Shareholder:
+                            {{ listOfShareholders().length == 1 ? 'Shareholder' : 'Shareholders' }}
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.office_contract[0]?.shareholders }}
+                                <div v-for="dir in listOfShareholders()" :key="dir">
+                                    {{ dir }}
+                                </div>
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
@@ -235,7 +239,7 @@
                             Accounting Reference Date:
                             <span class="float-end">
                                 {{
-                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting[0]?.accounting_reference_date)
+                                    dispMonthAndDay(paramsStore.currentCompanyData?.compliance_reporting[0]?.accounting_reference_date)
                                 }}
                             </span>
                         </li>
@@ -243,7 +247,7 @@
                             Annual Return Date:
                             <span class="float-end">
                                 {{
-                                    dispMonthAndDay(paramsStore.currentCompanyData?.compliance_reporting[0]?.annual_return_date)
+                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting[0]?.annual_return_date)
                                 }}
                             </span>
                         </li>
@@ -320,6 +324,21 @@ function dispMonthAndDay(date: any) {
         const dd = useDateFormat(date, 'MMM, DD')
         return dd.value
     }
+}
+
+
+const listOfDirectors = () => {
+    let array = []
+    const list = paramsStore.currentCompanyData?.office_contract[0]?.directors
+    if (list) array = JSON.parse(list)
+    return array;
+}
+
+const listOfShareholders = () => {
+    let array = []
+    const list = paramsStore.currentCompanyData?.office_contract[0]?.shareholders
+    if (list) array = JSON.parse(list)
+    return array;
 }
 
 

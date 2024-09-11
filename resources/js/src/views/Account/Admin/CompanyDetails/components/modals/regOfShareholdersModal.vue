@@ -16,65 +16,68 @@
                         <div class="row g-3">
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="name" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name">Name:</label>
+                                    <input v-model="name" type="text" class="form-control" placeholder="">
+                                    <label class="" for="eng_name">Name:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.name }}</small>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="address" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name"> Address:</label>
+                                    <input v-model="address" type="text" class="form-control" placeholder="">
+                                    <label class="" for="eng_name"> Address:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.address }}</small>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <select v-model="class_of_shares" class="form-select">
-                                    <option selected value="ordinary">Ordinary</option>
-                                </select>
-                                <label class="" for="eng_name">Class of Shares:</label>
+                                    <select v-model="class_of_shares" class="form-select">
+                                        <option selected value="ordinary">Ordinary</option>
+                                    </select>
+                                    <label class="" for="eng_name">Class of Shares:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.class_of_shares }}</small>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="denomination" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name">Denomination:</label>
+                                    <input v-model="denomination" type="text" class="form-control" placeholder="">
+                                    <label class="" for="eng_name">Denomination:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.denomination }}</small>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="current_holding" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name">Current Holding:</label>
+                                    <input v-model="current_holding" type="text" class="form-control" placeholder="">
+                                    <label class="" for="eng_name">Current Holding:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.current_holding }}</small>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="total_consideration" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name">Total Consideration HKD:</label>
+                                    <input v-model="total_consideration" type="text" class="form-control"
+                                        placeholder="">
+                                    <label class="" for="eng_name">Total Consideration HKD:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.total_consideration }}</small>
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <div class="fixed-label-custom">
-                                <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
-                                    :enable-time-picker="false" auto-apply v-model="date_entered_as_member" placeholder="select date">
-                                </VueDatePicker>
-                                <label class="" for="eng_name">Date Entered as Member:</label>
+                                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
+                                        :enable-time-picker="false" auto-apply v-model="date_entered_as_member"
+                                        placeholder="select date">
+                                    </VueDatePicker>
+                                    <label class="" for="eng_name">Date Entered as Member:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.date_entered_as_member }}</small>
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <div class="fixed-label-custom">
-                                <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
-                                    :enable-time-picker="false" auto-apply v-model="date_cease_to_be_member" placeholder="select date">
-                                </VueDatePicker>
-                                <label class="" for="eng_name">Date Ceases to Be a Member:</label>
+                                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
+                                        :enable-time-picker="false" auto-apply v-model="date_cease_to_be_member"
+                                        placeholder="select date">
+                                    </VueDatePicker>
+                                    <label class="" for="eng_name">Date Ceases to Be a Member:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.date_cease_to_be_member }}</small>
                             </div>

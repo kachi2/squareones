@@ -63,9 +63,9 @@
                 <div class="fixed-label-custom">
                     <VueDatePicker id="dob" :start-date="useFxn.yearsAgo(18)" :max-date="new Date()"
                         v-bind="form.dobAttr" :format="useFxn.dateDisplay" input-class-name="dob-settings-input"
-                        :class="{ 'error-field': form.errors.dob ?? ageError }"  auto-apply hide-input-icon :clearable="false"
-                        :enable-time-picker="false" v-model="form.dob" placeholder="Date of Birth">
-                    </VueDatePicker> 
+                        :class="{ 'error-field': form.errors.dob ?? ageError }" auto-apply hide-input-icon
+                        :clearable="false" :enable-time-picker="false" v-model="form.dob">
+                    </VueDatePicker>
                     <label for="dob">Date of Birth <small class="text-danger">*</small></label>
                 </div>
 
@@ -81,8 +81,8 @@
                 <div class="fixed-label-custom">
                     <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc" id="nationality"
                         @search:blur="form.validateVueSelectOnBlur('nationality')" v-bind="form.nationalityAttr"
-                        placeholder="select country.." :class="{ 'error-field': form.errors.nationality }"
-                        v-model="form.nationality" :clearable="false" :options="startCompanyStore.countries" />
+                        :class="{ 'error-field': form.errors.nationality }" v-model="form.nationality"
+                        :clearable="false" :options="startCompanyStore.countries" />
                     <label for="nationality">Nationality <small class="text-danger">*</small></label>
                 </div>
                 <small class=" text-danger">{{ form.errors.nationality }}</small>
@@ -281,7 +281,7 @@
             </div>
             <div class="col-md-12">
                 <div class="fixed-label-custom">
-                    <vue-tel-input mode="international" v-bind="form.phoneAttr"
+                    <vue-tel-input @country-changed="handleCountryChanged" mode="international" v-bind="form.phoneAttr"
                         :class="{ 'error-field': form.errors.phone }" :inputOptions="phoneField.input"
                         :dropdownOptions="phoneField.dropDown" :autoFormat="false" v-model="form.phone"
                         data-maska-tokens="0:[0-9]:multiple" id="phone">
@@ -389,6 +389,13 @@ const phoneField = {
     }
 
 }
+
+const dialCode = ref('')
+function handleCountryChanged(countryObject: any) {
+    dialCode.value = `+${countryObject.dialCode}`
+}
+
+
 
 function resetForm() {
     form.flat = ''
@@ -529,7 +536,7 @@ const saveAndContinue = form.handleSubmit((values: any) => {
     if (form.dob)
         formData.append('dob', form.dob)
     formData.append('nationality', form.nationality)
-    formData.append('phone', form.phone)
+    formData.append('phone', `${dialCode.value}${form.phone}`)
     formData.append('email', form.email)
     formData.append('occupation', form.occupation)
     formData.append('identity_type_id', form.identity_type_id)

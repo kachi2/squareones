@@ -25,7 +25,7 @@
                     <small class=" text-danger">{{ errors.accounting_reference_date }}</small>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Accounting Reference Date:</div>
+                    <div class="form-label">Annual Return Renewal:</div>
                     <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
                         :enable-time-picker="false" auto-apply v-model="annual_return_date">
                     </VueDatePicker>
@@ -69,14 +69,14 @@ onMounted(() => {
 
 // form and validation
 const rules = {
-    auditor_name: yup.string().required('Field is required'),
-    accounting_reference_date: yup.date().required('Field is required'),
+    // auditor_name: yup.string().required('Field is required'),
+    // accounting_reference_date: yup.date().required('Field is required'),
     business_registration_renewal_date: yup.date().required('Field is required'),
     annual_return_date: yup.date().required('Field is required'),
 };
 
 const { errors, handleSubmit, defineField, setFieldValue } = useForm({
-    // validationSchema: yup.object(rules),
+    validationSchema: yup.object(rules),
 });
 
 const [auditor_name] = defineField('auditor_name');
