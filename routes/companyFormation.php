@@ -61,7 +61,8 @@ Route::get('/payment/make/default/{paymentId?}', [PaymentController::class,'Make
 Route::get('get/user/invoices', [PaymentController::class,'getUserInvoice']);
 Route::get('/pause/subscription/{subscription?}',[PaymentController::class,'pauseSubscription']);
 Route::get('/resume/subscription/{subscriptionId?}', [PaymentController::class, 'resumeSubscription']);
-// Route::get('/process/payment', [PaymentController::class, 'ProcessPayment'])->name('process.payment'); 
+// Route::get('/process/payment', [PaymentController::class, 'ProcessPayment']); 
+Route::post('process/payment', [PaymentController::class, 'ProcessPayment']);
 Route::get('kyc/load', [KycController::class, 'loadKyc']);
 
 Route::post('load/founder/kyc', [KycController::class, 'LoadFounderKyc']);

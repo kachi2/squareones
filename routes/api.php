@@ -17,7 +17,6 @@ Route::middleware('auth:sanctum')->group(function() {
 });
 });
 Route::post('register/signature', [CompanyEntityController::class, 'RegisterEntitySignature']);
-Route::post('process/payment', [PaymentController::class, 'ProcessPayment']);
 Route::get('/kyc/status/{company_entity_id?}', [KycController::class, 'UpdateKycStatus']);
 
 require __DIR__.'/auth.php';
