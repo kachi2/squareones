@@ -142,7 +142,7 @@ class PaymentServices implements PaymentInterface
             'amount_paid' => $plans->amount,
             'payment_id' => null,
         ]);
-        $this->createSubscription();
+         $this->createSubscription();
     }
 
     public function AddBillingInfo($paymentInfo, $billing)
@@ -236,8 +236,8 @@ class PaymentServices implements PaymentInterface
     $subsc->update([
         'subscription_id' => $subscription->id,
         'status' => 'active',
-        'next_billing_cycle' => Date('d-m-Y', $subscription->current_period_end),
-        'current_billing_cycle' => Date('d-m-Y', $subscription->current_period_start),
+        'next_billing_cycle' => Date('d-m-Y', $subscription->next_billing_cycle),
+        'current_period_start' => Date('d-m-Y', $subscription->current_period_start),
         'company_name' => $subsc->company->names[0]->eng_name . $subsc->company->names[0]->chn_name 
     ]);
 
