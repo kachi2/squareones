@@ -54,7 +54,7 @@
 form.addEventListener('submit', function(event) {
     event.preventDefault();
 
-    stripe.confirmCardPayment("pi_3Pv7xNRxBSKsFyqb10wsqmtF_secret_XOF0eMKHpzwBwP884SUBlqeSa", {
+    stripe.confirmCardPayment("pi_3Py28WRxBSKsFyqb0IXhSvOX_secret_ILAe3vo8VRwdyhYJvvmwLbEtp", {
         payment_method: {
             card: card,
             billing_details: {

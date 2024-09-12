@@ -48,7 +48,7 @@ Route::fallback(function () {
 
 // Route::get('/payment', [PaymentController::class, 'loadPyamentPage']);
 // Route::post('payment/intent', [PaymentController::class, 'PaymentIntent']);
- Route::get('process/payment/web', [PaymentController::class, 'UpdateCard'])->name('ProcessPayment');
+//  Route::get('process/payment/web', [PaymentController::class, 'UpdateCard'])->name('ProcessPayment');
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
