@@ -154,7 +154,6 @@ function proceedToPayment() {
     Promise.all(promises).then(() => {
         formData.append('company_id', startCompanyStore.companyInProgress.id);
         formData.append('date_signed', startCompanyStore.signatureDateSigned);
-
         sendPDFToApi();
     });
 }
@@ -173,7 +172,7 @@ async function sendPDFToApi() {
     } catch (error) {
         toast.error('Sorry, Something went wrong', { position: 'top-right' });
         startCompanyStore.pdfIsSending = false
-         console.log(error);
+        //  console.log(error);
     }
 }
 
@@ -275,7 +274,7 @@ const goToPaymentPage = async () => {
         const { data } = await api.paymentIntent()
         window.location.href = data.original
     } catch (error) {
-        console.log(error)
+        // console.log(error)
     }
 }
 </script>

@@ -64,7 +64,6 @@ class PaymentServices implements PaymentInterface
             ]],
                 'mode' => 'payment',
                 'saved_payment_method_options' => ['payment_method_save' => 'enabled'],
-                'metadata' => ['convert_to_invoice' => 'true'],
                  'success_url' => url('/kcy/verifications'),
                 'cancel_url' => url('/start_company'),
             ]);
@@ -125,7 +124,6 @@ class PaymentServices implements PaymentInterface
     {
         Billing::create([
             'company_id' => $company?->id,
-        ], [
             'user_id' => auth_user(),
             'company_id' => $company?->id,
             'amount' => $plans->amount,
