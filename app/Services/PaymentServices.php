@@ -123,7 +123,7 @@ class PaymentServices implements PaymentInterface
 
     public function AddSubscriptionInfo($company,$session, $payment_ref, $plans)
     {
-        Billing::updateOrcreate([
+        Billing::create([
             'company_id' => $company?->id,
         ], [
             'user_id' => auth_user(),
