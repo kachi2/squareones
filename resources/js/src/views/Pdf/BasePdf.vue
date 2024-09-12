@@ -162,14 +162,14 @@ function proceedToPayment() {
 
 async function sendPDFToApi() {
     try {
-    const   asas = await api.buildPDF(formData)
+        await api.buildPDF(formData)
         startCompanyStore.pdfIsSending = false
         toast.success('Data Saved Successfully', { position: 'top-right' });
         //@ts-ignore
         document.getElementById('print_item').hidden = true
         startCompanyStore.switchStage('+')
         goToPaymentPage()
-        console.log(asas);
+        // console.log(asas);
     } catch (error) {
         toast.error('Sorry, Something went wrong', { position: 'top-right' });
         startCompanyStore.pdfIsSending = false
