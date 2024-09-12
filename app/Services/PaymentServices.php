@@ -140,9 +140,9 @@ class PaymentServices implements PaymentInterface
             'expiry_date' => null,
             'contact_person' => null,
             'amount_paid' => $plans->amount,
-            'payment_id' => null,
+            'payment_id' => $session->id,
         ]);
-         $this->createSubscription();
+        //  $this->createSubscription();
     }
 
     public function AddBillingInfo($paymentInfo, $billing)
