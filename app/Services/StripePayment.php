@@ -90,7 +90,7 @@ class StripePayment
     {
         $invoices = \Stripe\Invoice::all([
             'created' => [
-                'gte' => strtotime('2024-09-21')
+                'gte' => strtotime('2024-09-22')
             ]
         ]);
        if(count($invoices) > 0) {
@@ -115,7 +115,7 @@ class StripePayment
    
         $subscribers = \Stripe\Subscription::all([
             'created' => [
-                'gte' => strtotime('2024-09-21')
+                'gte' => strtotime('2024-09-22')
             ]
         ]);
         if (!empty($subscribers)) {
