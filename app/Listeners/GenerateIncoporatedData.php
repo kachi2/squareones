@@ -110,7 +110,7 @@ class GenerateIncoporatedData implements ShouldQueue
             if(in_array('2',$data)){
                 $entities = $entity['individual']??$entity['corporate'];
             if($entities){
-                $Directo = RegisterOfDirector::Create(
+                RegisterOfDirector::Create(
                 [
                     'company_id' => $resource->id,
                     'name' => $entity->entity_type_id == 1? ($entities['first_name'].' ' .$entities['last_name']. ' '.$entities['chn_last_name'].' ' .$entities['chn_first_name'] ) :$entities['company_name']. ' '.$entities['chn_company_name'],
@@ -186,9 +186,9 @@ class GenerateIncoporatedData implements ShouldQueue
                 ]);
 
             }
-          $this->ProcessRegisterOfDesignatedParticulars($resource);
         }
     }
+    $this->ProcessRegisterOfDesignatedParticulars($resource);
     }
 
     public function ProcessRegisterOfDesignatedParticulars($resource)
