@@ -46,8 +46,8 @@ table tr td {
 
 .v-select,
 .v-select * {
-  /* background-color: v-bind('templateStore.bgColor') !important; */
-  background-color: transparent !important;
+  background-color: v-bind('templateStore.bgColor') !important;
+  /* background-color: transparent !important; */
   color: v-bind('templateStore.textColor') !important;
 }
 
@@ -99,10 +99,10 @@ table tr td {
   color: v-bind('templateStore.textColor') !important;
 }
 
-.vue3-easy-data-table__main.fixed-header th,
+/* .vue3-easy-data-table__main.fixed-header th,
 .vue3-easy-data-table__body td {
   border: none !important;
-}
+} */
 
 .vue3-easy-data-table__message,
 input::placeholder,

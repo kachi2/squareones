@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+use App\Models\userActivity;
 
 if(!function_exists('auth_user')){
 
@@ -56,5 +58,22 @@ if(!function_exists('UploadFiles'))
             ])->getSecurePath();
        return $image_url;
     }
+
+
+if(!function_exists('UserActivities'))
+{
+    function UserActivities($action, $location=null, $type=null)
+    {
+        userActivity::create([
+            'user_id' => auth_user(),
+            'action' => $action,
+            'name' => auth_name(),
+            'status' => 'success',
+            'type' => $type,
+            'ip_address' =>  request()->ip(),
+            'location' => $location,
+        ]);
+    }
+}
 }
 	

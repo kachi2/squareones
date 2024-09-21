@@ -59,11 +59,11 @@
                     <div class="textbox"
                         style="border:1.0pt solid #000000;display:block;min-height:53.9pt; min-width: 600px;">
                         <p class="s8" style="text-indent: 0pt;text-align: left; padding-left: 10px">
-                    Choice 1:<span v-if="companyInfo?.names[0]">  {{ companyInfo?.names[0]?.chn_name }}{{ companyInfo?.names[0]?.chn_prefix }} </span><span v-else> - </span><br />
-                    Choice 2:<span v-if="companyInfo?.names[1]?.chn_name"> {{ companyInfo?.names[1]?.chn_name }}{{ companyInfo?.names[1]?.chn_prefix }}</span><span v-else> - </span><br /> 
-                    Choice 3:<span v-if="companyInfo?.names[2]?.chn_name"> {{ companyInfo?.names[2]?.chn_name }}{{ companyInfo?.names[2]?.chn_prefix }} </span><span v-else> - </span><br />
-                    Choice 4:<span v-if="companyInfo?.names[3]?.chn_name"> {{ companyInfo?.names[3]?.chn_name }}{{ companyInfo?.names[3]?.chn_prefix }} </span><span v-else> - </span><br />
-                    Choice 5:<span v-if="companyInfo?.names[4]?.chn_name">  {{ companyInfo?.names[4]?.chn_name }}{{ companyInfo?.names[4]?.chn_prefix }} </span><span v-else> - </span><br />
+                    Choice 1: <span v-if="companyInfo?.names[0]">  {{ companyInfo?.names[0]?.chn_name }}{{ companyInfo?.names[0]?.chn_prefix }} </span><span v-else> - </span><br />
+                    Choice 2: <span v-if="companyInfo?.names[1]?.chn_name"> {{ companyInfo?.names[1]?.chn_name }}{{ companyInfo?.names[1]?.chn_prefix }}</span><span v-else> - </span><br /> 
+                    Choice 3: <span v-if="companyInfo?.names[2]?.chn_name"> {{ companyInfo?.names[2]?.chn_name }}{{ companyInfo?.names[2]?.chn_prefix }} </span><span v-else> - </span><br />
+                    Choice 4: <span v-if="companyInfo?.names[3]?.chn_name"> {{ companyInfo?.names[3]?.chn_name }}{{ companyInfo?.names[3]?.chn_prefix }} </span><span v-else> - </span><br />
+                    Choice 5: <span v-if="companyInfo?.names[4]?.chn_name">  {{ companyInfo?.names[4]?.chn_name }}{{ companyInfo?.names[4]?.chn_prefix }} </span><span v-else> - </span><br />
                         </p>
                     </div>
                 </div>

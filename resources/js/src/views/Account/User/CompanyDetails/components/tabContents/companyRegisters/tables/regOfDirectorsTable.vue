@@ -13,7 +13,7 @@
             <div class="card-body">
 
                 <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
-                    :items="paramsStore.currentCompanyData.register_of_director" buttons-pagination
+                    :items="paramsStore.currentCompanyData?.register_of_director??[]" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
                         <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
@@ -91,28 +91,26 @@ const paramsStore = useParamsStore()
 
 // table
 const masterTableHeaders = [
-{ text: "Date of Appointment", value: "date_of_appointment" },
-    { text: "Name", value: "name" },
+{ text: "Name", value: "name" },
     { text: "ID/ Passport / Registration No", value: "reg_no" },
     { text: "Residential Address / Registered  Office", value: "registered_office" },
+    { text: "Date of Appointment", value: "date_of_appointment" },
     { text: "Ceasing to Act", value: "ceasing_of_act" },
     { text: "Remarks", value: "remarks" },
     { text: "Date Created", value: "created_at" },
-   
-    // { text: "ACTION", value: "action" },
+    { text: "ACTION", value: "action" },
 ];
 
 const expandedHeaders = [
-{ text: "Date of Appointment", value: "date_of_appointment" },
     { text: "Name", value: "name" },
     { text: "ID/ Passport / Registration No", value: "reg_no" },
     { text: "Residential Address / Registered  Office", value: "registered_office" },
+    { text: "Date of Appointment", value: "date_of_appointment" },
     { text: "Ceasing to Act", value: "ceasing_of_act" },
     { text: "Remarks", value: "remarks" },
     { text: "Date Modified", value: "created_at" },
-
-    
 ];
+
 
 
 const expandingServerOptions = ref<ServerOptions | any>({
@@ -131,7 +129,7 @@ const expandedObjArray = reactive({
 
 const expandLogs = async (index: any, prop_name: string,) => {
     expandedObjArray.data = []
-    const items = paramsStore.currentCompanyData.register_of_director
+    const items = paramsStore.currentCompanyData?.register_of_director
     const expandedItem: any = items[index];
     expandedObjArray.id = expandedItem.id
 

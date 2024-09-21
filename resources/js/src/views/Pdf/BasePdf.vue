@@ -32,9 +32,9 @@
     <div class="off-screen" ref="PDFsection" hidden id="print_item">
         <company :companyInfo="data" />
         <company_info :companyInfo="data" />
-       <!-- <individual_shareholder v-for="shares in shareholders" :shareholder="shares" /> -->
+        <!-- <individual_shareholder v-for="shares in shareholders" :shareholder="shares" /> -->
         <!-- <corporate_shareholder v-for="coshare in CorporateShareholder" :corporateShare="coshare" /> -->
-          <!-- <company_secretary /> -->
+        <!-- <company_secretary /> -->
         <!--      <individual_directors v-for="directors in IndividualDirectors" :director="directors" />
             <corporate_directors v-for="corporates in CorporateDirectors" :corporate="corporates" />
             <founder_statement :founder="founder"/>
@@ -103,7 +103,7 @@ const founder = reactive({
     },
 });
 
-watch(()=>startCompanyStore, ()=> {startCompanyStore.companyInProgress}, {deep:true});
+watch(() => startCompanyStore, () => { startCompanyStore.companyInProgress }, { deep: true });
 
 function createPDF(canvas: any, index: any) {
     var doc = new jsPDF('p', 'mm');
@@ -154,6 +154,7 @@ function proceedToPayment() {
     Promise.all(promises).then(() => {
         formData.append('company_id', startCompanyStore.companyInProgress.id);
         formData.append('date_signed', startCompanyStore.signatureDateSigned);
+
         sendPDFToApi();
     });
 }
@@ -161,7 +162,7 @@ function proceedToPayment() {
 
 async function sendPDFToApi() {
     try {
-        await api.buildPDF(formData)
+        const asas = await api.buildPDF(formData)
         startCompanyStore.pdfIsSending = false
         toast.success('Data Saved Successfully', { position: 'top-right' });
         //@ts-ignore
@@ -172,7 +173,7 @@ async function sendPDFToApi() {
     } catch (error) {
         toast.error('Sorry, Something went wrong', { position: 'top-right' });
         startCompanyStore.pdfIsSending = false
-        //  console.log(error);
+        console.log(error);
     }
 }
 
@@ -188,7 +189,7 @@ const shareholders = computed(() => {
         const fxs = individualShareholder.filter((t: any) => t.is_founder == 1)
         if (fxs.length > 0) {
             const fx = fxs[0];
-            founder.founder_details.name = (fx.individual?.first_name ?? '' + fx.corporate?.authorized_persons?.first_name?? '' ) + ' ' + (fx.individual?.last_name ?? '' + fx.corporate?.authorized_persons?.last_name?? '') + ' ' + (fx.individual?.chn_last_name ?? '') + (fx.individual?.chn_first_name ?? '')
+            founder.founder_details.name = (fx.individual?.first_name ?? '' + fx.corporate?.authorized_persons?.first_name ?? '') + ' ' + (fx.individual?.last_name ?? '' + fx.corporate?.authorized_persons?.last_name ?? '') + ' ' + (fx.individual?.chn_last_name ?? '') + (fx.individual?.chn_first_name ?? '')
             founder.founder_details.signature = fx.signature
             founder.founder_details.date = fx.date_signed
         }
@@ -272,9 +273,13 @@ const CorporateShareholder = computed(() => {
 const goToPaymentPage = async () => {
     try {
         const { data } = await api.paymentIntent()
+        if (data.original?.error) {
+            toast.error('Sorry, Something went wrong', { position: 'top-right' });
+            return
+        }
         window.location.href = data.original
     } catch (error) {
-        // console.log(error)
+        console.log(error)
     }
 }
 </script>

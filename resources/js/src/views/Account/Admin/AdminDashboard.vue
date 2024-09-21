@@ -3,11 +3,14 @@
         <h5 class="fw-bold page-title mb-4"> Overview</h5>
         <div class="row g-3">
            <div class="col-md-4 pb-3">
+            <router-link to="/admin/companies" style="text-decoration:none">
                 <div class="card  border-0  shadow-sm h-70">
                     <div class="card-body ">
                         <div class="d-flex justify-content-between align-items-cente">
                             <div class="col-12">
+                                
                                 <span class="fs-4 fw-bold text-primary">{{comapaniesList?.total}}</span>
+                             
                                 <div>
                                     <span class="small fw-bold">Total Companies</span> &nbsp;
                                     <small style="font-size:10px;" class=""> <span class=" text-info fw-bold">{{comapaniesList?.data?.thismonth}}</span> added this month</small>
@@ -20,15 +23,19 @@
                         </div>
                     </div>
                 </div>
+            </router-link>
             </div>
             <div class="col-md-4">
+                <router-link to="/admin/companies" style="text-decoration:none">
                 <div class="card border-0 shadow-sm h-70">
                     <div class="card-body ">
                         <div class="d-flex justify-content-between align-items-cente">
                             <div class="col-12">
+                            
                                 <span class="fs-4 fw-bold text-warning">{{comapaniesList?.data?.Unincorporated}}</span>
+                               
                                 <div>
-                                    <span class="small fw-bold">Pending Incorporation</span>
+                                    <span class="small fw-bold" >Pending Incorporation</span>
                                 </div>
                                 <div>
                                     <span class="small"> <span class="text-primary fw-bold">{{comapaniesList?.data?.thisMonthUnIncorporated}}</span> new company added this month</span>
@@ -36,14 +43,18 @@
                             </div>
                         </div>
                     </div>
+        
                 </div>
+            </router-link>
             </div>
             <div class="col-md-4">
+                <router-link to="/admin/companies" style="text-decoration:none">
                 <div class="card border-0 shadow-sm h-70">
                     <div class="card-body ">
                         <div class="d-flex justify-content-between align-items-cente">
                             <div class="col-12">
                                 <span class="fs-4 fw-bold text-success">{{comapaniesList?.data?.incorporated??'0'}}</span>
+                               
                                 <div>
                                     <span class="small fw-bold">Incorporated</span> 
                                 </div>
@@ -54,6 +65,7 @@
                         </div>
                     </div>
                 </div>
+            </router-link>
             </div>
             <!-- <div class="col-md-3">
                 <div class="card border-0 shadow-sm h-70">
@@ -159,11 +171,11 @@
 
                                     </div> -->
                                     <div class="col-10">
-                                       <span class="text-primary fw-bold"> {{activty.name}}</span> 
-                                        <div class="small text-muted"> <span class="text-info"> Action:</span> {{activty.action}}</div>
-                                        <div class="small text-muted"><span class="text-primary">IP:</span> {{activty.ip_address}}</div>
-                                        <div class="small text-muted"><span class="text-info">Location:</span> {{activty.location}}</div>
-                                        <div class="small text-muted">  <span class="text-primary">Date:</span>   {{ new Date(activty.updated_at).toLocaleString() }}</div>
+                                        <div class="small ">  <span class="text-primary fw-bold">User: </span> {{activty.name}} </div>
+                                        <div class="small "> <span class="text-info"> Action:</span>  {{activty.action}}</div>
+                                        <div class="small "><span class="text-primary">IP:</span> {{activty.ip_address}}</div>
+                                        <div class="small "><span class="text-info">Location:</span> {{activty.location}}</div>
+                                        <div class="small ">  <span class="text-primary">Date:</span>   {{ new Date(activty.updated_at).toLocaleString() }}</div>
                                     </div>
                                 </div>
 

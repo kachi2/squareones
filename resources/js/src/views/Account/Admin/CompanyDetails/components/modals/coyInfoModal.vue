@@ -16,54 +16,72 @@
                         <div class="row g-3">
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="company_registered_name" type="text" class="form-control"
-                                v-maska data-maska="" data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple 0:[0-9]" placeholder="">
-                                <label class="" for="eng_name">Company Name </label>
+                                    <input v-model="company_registered_name" type="text" class="form-control" v-maska
+                                        data-maska=""
+                                        data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple 0:[0-9]"
+                                        placeholder="">
+                                    <label class="" for="eng_name">Company Name </label>
                                 </div>
                                 <small class=" text-danger">{{ errors.company_registered_name }}</small>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="business_registered_number" type="text" class="form-control" 
-                                v-maska data-maska="" data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple 0:[0-9]" placeholder="">
-                                <label class="" for="eng_name">Business Registration Number (BRN):</label>
-                            </div>
+                                    <input v-model="business_registered_number" type="text" class="form-control" v-maska
+                                        data-maska=""
+                                        data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple 0:[0-9]"
+                                        placeholder="">
+                                    <label class="" for="eng_name">Business Registration Number (BRN):</label>
+                                </div>
                                 <small class=" text-danger">{{ errors.business_registered_number }}</small>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="fixed-label-custom">
-                                <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
-                                    :enable-time-picker="false" auto-apply v-model="incorporated_date" placeholder="select date">
-                                </VueDatePicker>
-                                <label class="" for="eng_name">Incorporation Date:</label>
+                                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
+                                        :enable-time-picker="false" auto-apply v-model="incorporated_date"
+                                        placeholder="select date">
+                                    </VueDatePicker>
+                                    <label class="" for="eng_name">Incorporation Date:</label>
+                                </div>
+                                <small class=" text-danger">{{ errors.incorporated_date }}</small>
                             </div>
-                            <small class=" text-danger">{{ errors.incorporated_date }}</small>
-                        </div>
-                            <div class="col-12 col-md-6">
-                                <div class="fixed-label-custom">
-                                    <v-select placeholder="Private Limited Company" v-model="company_structure"
-                            :clearable="false"   />
-                                <label class="" for="eng_name">Company Structure:</label>
-                            </div>
-                            <small class=" text-danger">{{ errors.company_structure }}</small>
-                            </div>
-              
-                        <div class="col-md-6">
-                            <div class="fixed-label-custom">
-                        <v-select placeholder="select country.." v-model="company_registered"
-                            :clearable="false" :options="paramsStore.countries" />
-                            <label class="form-label">Country／Region <i class="bi bi-lock-fill"></i></label>
-                    </div>
-                    <small class=" text-danger">{{ errors.company_registered }}</small>
-                          </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="business_classification" type="text" class="form-control"
-                                v-maska data-maska="" data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple 0:[0-9]" placeholder="">
-                                <label class="" for="eng_name">Business Classification:</label>
+                                    <input v-model="business_classification" type="text" class="form-control" v-maska
+                                        data-maska=""
+                                        data-maska-tokens="A:[A-Za-z]:multiple|a:[A-Za-z]:multiple 0:[0-9]"
+                                        placeholder="">
+                                    <label class="" for="eng_name">Business Classification:</label>
+                                </div>
+                                <small class=" text-danger">{{ errors.business_classification }}</small>
                             </div>
-                            <small class=" text-danger">{{ errors.business_classification }}</small>
-                        </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-floating-custom">
+                                    <select v-model="company_structure" class="form-select" name="" id="">
+                                        <option selected value="Private Limited Company">Private Limited Company
+                                        </option>
+                                    </select>
+
+                                    <label class="" for="eng_name">Company Structure:</label>
+                                </div>
+                                <small class=" text-danger">{{ errors.company_structure }}</small>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="fixed-label-custom">
+                                    <v-select class="select-chooser" append-to-body
+                                        :calculate-position="useFxn.vueSelectPositionCalc" :teleport="true"
+                                        placeholder="select country.." v-model="company_registered" :clearable="true"
+                                        :options="paramsStore.countries" />
+                                    <!-- <select v-model="company_registered" class="form-select" name="" id="">
+                                        <option v-for="i in paramsStore.countries" :key=i :value="i">{{ i }}
+                                        </option>
+                                    </select> -->
+
+                                    <label class="form-label">Country／Region <i class="bi bi-lock-fill"></i></label>
+                                </div>
+                                <small class=" text-danger">{{ errors.company_registered }}</small>
+                            </div>
+
                         </div>
 
                     </div>
@@ -118,12 +136,12 @@ const rules = {
     incorporated_date: yup.date().required('Field is required'),
     company_structure: yup.string().required('Field is required'),
     company_registered: yup.string().required('Field is required'),
-    business_classification: yup.string().required('Field is required'),
+    // business_classification: yup.string().required('Field is required'),
     // registration_progress_id: yup.string()
 };
 
-const { errors, handleSubmit, defineField, setFieldValue } = useForm({
-    // validationSchema: yup.object(rules),
+const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({
+    validationSchema: yup.object(rules),
 });
 
 const [company_registered_name] = defineField('company_registered_name');
@@ -178,3 +196,15 @@ const save = handleSubmit(async (values) => {
     })
 })
 </script>
+
+<style>
+.vs__dropdown-menu {
+    z-index: 9999 !important;
+    text-transform: capitalize;
+}
+
+.select-chooser .vs__search,
+.select-chooser .vs__selected {
+    padding: 10px;
+}
+</style>

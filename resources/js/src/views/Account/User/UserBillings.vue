@@ -348,7 +348,7 @@ const SubscriptionPlan = reactive<{
 async function getPaymentInfo() {
     try {
         const resp = await api.getPaymentInfo()
-        console.log(resp, 'payment Information Data')
+        // console.log(resp, 'payment Information Data')
         const data = resp.data
         paymentData.card_name = data.card_name
         paymentData.card_no = data.card_no
@@ -357,7 +357,7 @@ async function getPaymentInfo() {
         paymentData.email = data.email
         paymentData.name = data.name
     } catch (err) {
-        console.log(err);
+        // console.log(err);
 
     }
 }
@@ -365,7 +365,7 @@ async function getPaymentInfo() {
 async function getSubscription() {
     try {
         const resp = await api.getUserSubscription()
-        console.log(resp, 'getUserSubscription')
+        // console.log(resp, 'getUserSubscription')
         const data = resp.data;
         Subscription.plan_name = data.plans.plan
         Subscription.expiry_date = data.expiry_date
@@ -384,7 +384,7 @@ async function getSubscription() {
 async function getSubscriptionPlan() {
     try {
         const resp = await api.getUserSubscriptionPlan()
-        console.log(resp, 'getUserSubscriptionPlan')
+        // console.log(resp, 'getUserSubscriptionPlan')
         const data = resp.data;
         SubscriptionPlan.active_subs = data?.active_subs ?? []
         SubscriptionPlan.cancelled_subs = data?.cancelled_subs ?? []
@@ -404,7 +404,7 @@ async function getInvoices() {
     try {
         const { data } = await api.userInvoices()
         const invoice = data?.invoice
-        console.log(data, 'Get User Invoice')
+        // console.log(data, 'Get User Invoice')
         totalBillings.value = invoice?.total ?? 0
         billings.value = invoice?.data ?? []
         billingsLoading.value = false

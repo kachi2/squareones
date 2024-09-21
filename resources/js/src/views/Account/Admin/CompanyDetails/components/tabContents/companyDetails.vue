@@ -26,13 +26,13 @@
                         <li class="list-group-item ps-0">
                             Company Name:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.registered_company[0]?.company_registered_name }}
+                                {{ paramsStore.currentCompanyData?.registered_company?.company_registered_name }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Business Registration Number (BRN):
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.registered_company[0]?.business_registered_number }}
+                                {{ paramsStore.currentCompanyData?.registered_company?.business_registered_number }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
@@ -46,21 +46,21 @@
                         <li class="list-group-item ps-0">
                             Company Structure:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.registered_company[0]?.company_structure ?
-                                    paramsStore.currentCompanyData?.registered_company[0]?.company_structure.replaceAll('_',
+                                {{ paramsStore.currentCompanyData?.registered_company?.company_structure ?
+                                    paramsStore.currentCompanyData?.registered_company?.company_structure.replaceAll('_',
                                         ' ') : '' }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Company Registered In:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.registered_company[0]?.company_registered }}
+                                {{ paramsStore.currentCompanyData?.registered_company?.company_registered }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Business Classification:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.registered_company[0]?.business_classification }}
+                                {{ paramsStore.currentCompanyData?.registered_company?.business_classification }}
                             </span>
                         </li>
                     </ul>
@@ -90,12 +90,20 @@
                 </div>
                 <div class="card-body small  rounded-3">
                     <!-- <div class="fw-bold mb-2 fs-5"></div> -->
-                    <div class="fw-bold">Tax Ready</div>
+                    <div   class="fw-bold" v-if="registered_company?.registration_progress_id == 1">Set up  company</div>
+                    <div  class="fw-bold"  v-if="registered_company?.registration_progress_id == 2">Sorting out  &nbsp;incorporation details</div>
+                    <div   class="fw-bold"  v-if="registered_company?.registration_progress_id == 3">Handling  the  paperwork</div>
+                    <div   class="fw-bold"  v-if="registered_company?.registration_progress_id == 4">Your company is incorporated</div>
+                    <div   class="fw-bold" v-if="registered_company?.registration_progress_id == 5">Certificates Ready</div>
                     <div class="text-mute my-3">
                         To pay your company’s formation fee, make sure
                         you’re not using an anonymous IP address or a VPN.
                     </div>
-                    <div class="my-3"> Tax ID (EIN) </div>
+                    <div class="my-3" v-if="registered_company?.registration_progress_id == 1">Set up  company</div>
+                    <div class="my-3" v-if="registered_company?.registration_progress_id == 2">Sorting out  &nbsp;incorporation details</div>
+                    <div class="my-3" v-if="registered_company?.registration_progress_id == 3">Handling  the  paperwork</div>
+                    <div class="my-3" v-if="registered_company?.registration_progress_id == 4">Your company is incorporated</div>
+                    <div class="my-3"  v-if="registered_company?.registration_progress_id == 5">Certificates Ready</div>
                     <hr>
 
                     <div class="container mt-5">
@@ -173,25 +181,25 @@
                         <li class="list-group-item ps-0">
                             Company Secretary:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.office_contract[0]?.company_secretary }}
+                                {{ paramsStore.currentCompanyData?.office_contract?.company_secretary }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Registered office:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.office_contract[0]?.registered_office }}
+                                {{ paramsStore.currentCompanyData?.office_contract?.registered_office }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Business address:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.office_contract[0]?.business_address }}
+                                {{ paramsStore.currentCompanyData?.office_contract?.business_address }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Designated Rep.:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.office_contract[0]?.scr_designated_representative }}
+                                {{ paramsStore.currentCompanyData?.office_contract?.scr_designated_representative }}
                             </span>
                         </li>
                     </ul>
@@ -224,14 +232,14 @@
                         <li class="list-group-item ps-0">
                             Auditor:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.compliance_reporting[0]?.auditor_name }}
+                                {{ paramsStore.currentCompanyData?.compliance_reporting?.auditor_name }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Business Registration Renewal:
                             <span class="float-end">
                                 {{
-                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting[0]?.business_registration_renewal_date)
+                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting?.business_registration_renewal_date)
                                 }}
                             </span>
                         </li>
@@ -239,7 +247,7 @@
                             Accounting Reference Date:
                             <span class="float-end">
                                 {{
-                                    dispMonthAndDay(paramsStore.currentCompanyData?.compliance_reporting[0]?.accounting_reference_date)
+                                    dispMonthAndDay(paramsStore.currentCompanyData?.compliance_reporting?.accounting_reference_date)
                                 }}
                             </span>
                         </li>
@@ -247,7 +255,7 @@
                             Annual Return Date:
                             <span class="float-end">
                                 {{
-                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting[0]?.annual_return_date)
+                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting?.annual_return_date)
                                 }}
                             </span>
                         </li>
@@ -273,7 +281,7 @@ import coyInfoModal from '../modals/coyInfoModal.vue';
 import incopModal from '../modals/incopModal.vue';
 import regOfficeModal from '../modals/regOfficeModal.vue';
 import ComplianceReportingModal from '../modals/complianceReportingModal.vue';
-import { ref, onMounted, reactive, watch } from 'vue';
+import { ref, onMounted, reactive, watch, computed } from 'vue';
 import api from '@/stores/Helpers/axios'
 import { useDateFormat } from '@vueuse/core';
 
@@ -284,6 +292,8 @@ let registered_company: any = ref('')
 const status = reactive({
     a: false, b: false, c: false, d: false, e: false,
 })
+
+
 
 onMounted(async () => {
     updateProgress()
@@ -312,7 +322,7 @@ function updateProgress() {
 
     }
 
-    console.log(status);
+    // console.log(status);
 
 }
 

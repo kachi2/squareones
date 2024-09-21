@@ -16,41 +16,42 @@
                         <div class="row g-3">
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="name" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name">Name:</label>
+                                    <input v-model="name" type="text" class="form-control" placeholder="">
+                                    <label class="" for="eng_name">Name:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.name }}</small>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="fixed-label-custom">
-                                <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
-                                    :enable-time-picker="false" auto-apply v-model="allotment_date" placeholder="select date">
-                                </VueDatePicker>
-                                <label class="" for="eng_name">Allotment Date:</label>
+                                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="true"
+                                        :enable-time-picker="false" auto-apply v-model="allotment_date"
+                                        placeholder="select date">
+                                    </VueDatePicker>
+                                    <label class="" for="eng_name">Allotment Date:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.allotment_date }}</small>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="address" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name">Address:</label>
+                                    <input v-model="address" type="text" class="form-control" placeholder="">
+                                    <label class="" for="eng_name">Address:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.address }}</small>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <select v-model="class_of_shares" class="form-select">
-                                    <option selected value="ordinary">Ordinary</option>
-                                </select>
-                                <label class="" for="eng_name">Class of Shares:</label>
+                                    <select v-model="class_of_shares" class="form-select">
+                                        <option selected value="ordinary">Ordinary</option>
+                                    </select>
+                                    <label class="" for="eng_name">Class of Shares:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.class_of_shares }}</small>
                             </div>
 
                             <div class="col-12 col-md-12">
                                 <div class="form-floating-custom">
-                                <input v-model="no_of_shares_allocated" placeholder="" class="form-control" v-maska
-                                    data-maska="9,99#" data-maska-tokens="9:[0-9]:repeated" data-maska-reversed>
+                                    <input v-model="no_of_shares_allocated" placeholder="" class="form-control" v-maska
+                                        data-maska="9,99#" data-maska-tokens="9:[0-9]:repeated" data-maska-reversed>
                                     <label class="" for="eng_name">No of shares allocated:</label>
                                 </div>
                                 <small class="text-danger">{{ errors.no_of_shares_allocated }}</small>
@@ -128,7 +129,7 @@ const [allotment_date] = defineField('allotment_date');
 const [name] = defineField('name');
 const [address] = defineField('address');
 const [no_of_shares_allocated] = defineField('no_of_shares_allocated');
- const [class_of_shares] = defineField('class_of_shares');
+const [class_of_shares] = defineField('class_of_shares');
 const isSaving = ref<boolean>(false)
 
 function setValuesOnFields() {
@@ -140,7 +141,7 @@ function setValuesOnFields() {
             setFieldValue('name', register_of_company_name.name)
             setFieldValue('address', register_of_company_name.address)
             setFieldValue('no_of_shares_allocated', register_of_company_name.no_of_shares_allocated)
-             setFieldValue('class_of_shares', register_of_company_name.class_of_shares)
+            setFieldValue('class_of_shares', register_of_company_name.class_of_shares)
         }
     }
 }
@@ -156,7 +157,7 @@ const save = handleSubmit(async (values) => {
             formData.append('name', values.name ?? '')
             formData.append('address', values.address ?? '')
             formData.append('no_of_shares_allocated', values.no_of_shares_allocated ?? '')
-             formData.append('class_of_shares', values.class_of_shares)
+            formData.append('class_of_shares', values.class_of_shares)
             if (paramsStore.idToEdit)
                 formData.append('namechange_id', paramsStore.idToEdit)
             try {

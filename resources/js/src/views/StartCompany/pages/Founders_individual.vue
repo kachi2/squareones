@@ -118,7 +118,7 @@
                     </div>
                     <small class=" text-danger">{{ form.errors.street }}</small>
                 </div>
-                <div class="col-12">
+                <div class="col-12"> 
 
                     <div class="form-floating-custom ">
                         <input v-bind="form.stateAttr" :class="{ 'error-field': form.errors.state }"
@@ -138,7 +138,7 @@
                     <div class="fixed-label-custom">
                         <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
                             @search:blur="form.validateVueSelectOnBlur('country')" v-bind="form.countryAttr"
-                            :class="{ 'error-field': form.errors.country }" placeholder="select country.."
+                            :class="{ 'error-field': form.errors.country }" 
                             v-model="form.country" :clearable="false" :options="startCompanyStore.countries" />
 
                         <label class="form-label"> Country／Region <small class=" text-danger">*</small></label>
@@ -204,8 +204,8 @@
                     <div class="fixed-label-custom">
                         <v-select for="country2" append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
                             @search:blur="form.validateVueSelectOnBlur('country2')" v-bind="form.country2Attr"
-                            :class="{ 'error-field': form.errors.country2 }" placeholder="select country.."
-                            v-model="form.country2" :clearable="false" :options="startCompanyStore.countries" />
+                            :class="{ 'error-field': form.errors.country2 }"
+                            v-model="form.country2" :clearable="true" :options="startCompanyStore.countries" />
                         <label for="country2">Country／Region <small class=" text-danger">*</small></label>
 
                     </div>
@@ -227,7 +227,7 @@
                     <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc" for="indentity_type_id"
                         @search:blur="form.validateVueSelectOnBlur('indentity_type_id')"
                         v-bind="form.identity_type_idAttr" :class="{ 'error-field': form.errors.identity_type_id }"
-                        v-model="form.identity_type_id" :clearable="false"
+                        v-model="form.identity_type_id" :clearable="true"
                         :options="[{ value: 1, label: 'Passport' }, { value: 2, label: 'ID CARD' }]"
                         :reduce="(val: any) => val.value" />
                     <label for="indentity_type_id">ID type <small class="text-danger">*</small></label>

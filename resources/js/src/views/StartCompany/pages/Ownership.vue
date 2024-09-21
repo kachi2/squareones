@@ -38,16 +38,14 @@
                             <label class="form-label  " for="paid_amount">Total amount Paid:<span class="text-danger"> *
                             </span></label>
                             </div>
-                        </div>
+                        </div> 
                     </div>
 
                     <div class="col-md-6 col-lg-3">
-                       
                         <!-- <label class="form-labe fw-bold small">Currency: <span class="text-danger"> * </span></label> -->
-                   
                         <div class="col-md-12">
                             <div class="fixed-label-custom">
-                            <v-select v-model="form.currency" :clearable="false"
+                            <v-select append-to-body v-model="form.currency" :clearable="false" 
                                 :options="startCompanyStore.currencies" id="currency" />
                         <label  class="form-label" for="currency"> Currency<small class="text-danger"> *</small></label>
                         </div>

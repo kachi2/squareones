@@ -7,7 +7,7 @@
                     <div class="card-body ">
                         <div class="d-flex justify-content-between align-items-cente">
                             <div class="col-6">
-                                <span class="fs-4 fw-bold text-mute">{{item.userCount}}</span>
+                                <span class="fs-4 fw-bold text-mute">{{ item.userCount }}</span>
                                 <div>
                                     <span class="small">Registered Users</span>
                                 </div>
@@ -26,7 +26,7 @@
                     <div class="card-body ">
                         <div class="d-flex justify-content-between align-items-cente">
                             <div class="col-6">
-                                <span class="fs-4 fw-bold text-mute">{{item.active}}</span>
+                                <span class="fs-4 fw-bold text-mute">{{ item.active }}</span>
                                 <div>
                                     <span class="small">Active Users</span>
                                 </div>
@@ -45,10 +45,10 @@
                     <div class="card-body ">
                         <div class="d-flex justify-content-between align-items-cente">
                             <div class="col-7">
-                                <span class="fs-4 fw-bold text-mute">{{item.newUsers}}</span>
+                                <span class="fs-4 fw-bold text-mute">{{ item.newUsers }}</span>
                                 <div>
                                     <span class="small">New Users</span> <br>
-                                    <small style="color:green"> {{item.newThisWeek}} this week</small>
+                                    <small style="color:green"> {{ item.newThisWeek }} this week</small>
                                 </div>
                             </div>
                             <div class="col-5">
@@ -65,7 +65,7 @@
                     <div class="card-body ">
                         <div class="row justify-content-between align-items-cente">
                             <div class="col-6">
-                                <span class="fs-4 fw-bold text-mute">{{item.verified}} </span>
+                                <span class="fs-4 fw-bold text-mute">{{ item.verified }} </span>
                                 <div>
                                     <span class="small">Verified Users</span> <br>
 
@@ -77,7 +77,7 @@
                                 </apexchart>
                             </div>
                             <div class="col-12">
-                                <small style="color:red"> {{item.unVerified}} pending unverified </small>
+                                <small style="color:red"> {{ item.unVerified }} pending unverified </small>
                             </div>
                         </div>
                     </div>
@@ -88,6 +88,13 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-lg-8"></div>
+                            <div class="col-lg-4">
+                                <input v-model="searchTerm" type="text" class="form-control" placeholder="search..">
+                            </div>
+
+                        </div>
                         <isLoadingComponent v-if="itemsLoading" />
                         <EasyDataTable v-else class="easy-data-table" show-index :headers="headers" :items="items"
                             buttons-pagination v-model:server-options="serverOptions" :server-items-length="total">
@@ -177,28 +184,29 @@ const item = <any>ref([])
 
 async function getUsers() {
     try {
-        const queryString = new URLSearchParams(serverOptions.value).toString();
+        const obj = {
+            search: searchTerm.value,
+            page: serverOptions.value.page,
+            rowsPerPage: serverOptions.value.rowsPerPage,
+        }
+        const queryString = new URLSearchParams(obj).toString();
         const resp = await api.getUsers(queryString)
         const data = resp.data.data
         total.value = data.users.total
         items.value = data.users.data
         item.value = data
         itemsLoading.value = false
-         console.log('users:', data);
+        console.log('users:', data);
     } catch (error) {
 
     }
 }
 
 
-const serverOptions = ref<ServerOptions | any>({
-    page: 1,
-    rowsPerPage: 15,
-    // sortType: 'desc',
-    // sortBy: ''
-});
+
 
 const total = ref(0)
+const searchTerm = ref<string>('')
 const items = ref([])
 const itemsLoading = ref(true)
 const headers = [
@@ -212,7 +220,24 @@ const headers = [
     { text: "Action", value: "action" },
 ];
 
+const serverOptions = ref<ServerOptions | any>({
+    page: 1,
+    rowsPerPage: 15,
+    search: searchTerm.value
+    // sortType: 'desc',
+    // sortBy: ''
+});
+
+
+
+
 watch(serverOptions, (value) => { getUsers(); }, { deep: true });
+const debounceFxn = useFxn.debounce(getUsers, 500);
+watch(searchTerm, () => {
+    serverOptions.value.page = 1
+    debounceFxn()
+}, { deep: true })
+
 
 function goToUserCompanies(id: any) {
     paramsStore.isCompaniesByUser = id

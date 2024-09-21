@@ -59,7 +59,7 @@ onMounted(async () => {
     try {
         const items = route.query
         let param = await api.paymentConfirm(items);
-        // console.log(param)
+        //  console.log(param)
     } catch (err) {
         // console.log(err)
     }

@@ -104,9 +104,8 @@
       <div v-if="!SignatureStore.founderSignature" >
    
         <div class="fixed-label-custom">
-      <v-select append-to-body :calculate-position="useFunctions.vueSelectPositionCalc" 
-                 
-       placeholder="select founder.." v-model="selected_entity_id" :clearable="false" :options="entities" />
+      <v-select append-to-body
+       v-model="selected_entity_id" :clearable="false" :options="entities" />
       <label class="fw-bold ">      I am, </label>
       </div>
       <p v-if="!signaturePadModal" style="color:darkred"> {{ msg}}</p>

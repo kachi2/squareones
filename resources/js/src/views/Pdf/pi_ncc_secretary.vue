@@ -22,7 +22,7 @@
                 <span v-if="startCompanyStore?.companyInProgress?.names[1]?.eng_name" >  {{ startCompanyStore?.companyInProgress?.names[1]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[1]?.eng_prefix }}  </span> 
                 <span v-if="startCompanyStore?.companyInProgress?.names[1]?.chn_name">  &nbsp;{{ startCompanyStore?.companyInProgress?.names[1]?.chn_name }}{{ startCompanyStore?.companyInProgress?.names[1]?.chn_prefix }}</span>
               
-            </span>  <br />
+            </span> <span v-else> - </span> <br />
        Choice 3:      <span v-if="startCompanyStore?.companyInProgress?.names[2]">
                 <span v-if="startCompanyStore?.companyInProgress?.names[2]?.eng_name">  {{ startCompanyStore?.companyInProgress?.names[2]?.eng_name }} {{ startCompanyStore?.companyInProgress?.names[2]?.eng_prefix }} </span> 
                 <span v-if="startCompanyStore?.companyInProgress?.names[2]?.chn_name">  {{ startCompanyStore?.companyInProgress?.names[2]?.chn_name }} &nbsp; {{ startCompanyStore?.companyInProgress?.names[2]?.chn_prefix }} </span>

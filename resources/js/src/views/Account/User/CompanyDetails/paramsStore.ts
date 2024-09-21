@@ -39,8 +39,9 @@ export const useParamsStore: any = defineStore('useParamsStore', () => {
     // functions
     async function getCompanyDetails() {
         try {
-            const resp = await api.getCompanyDetails(currentCompanyId.value)
+            const resp = await api.userGetCompany(currentCompanyId.value)
             const data = resp.data.data
+            // console.log(data, 'check/')
             currentCompanyData.value = data
             idToEdit.value = ''
             //  console.log(data, 'getCompanyDetails');
@@ -82,7 +83,7 @@ export const useParamsStore: any = defineStore('useParamsStore', () => {
     }
 
     return {
-        currentCompanyId,
+        currentCompanyId, 
         currentCompanyData,
         idToEdit,
         hasUpdatedProgress,

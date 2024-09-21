@@ -39,7 +39,10 @@
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                    <input v-model="denomination" type="text" class="form-control" placeholder="">
+                                    <select v-model="denomination" class="form-select">
+                                        <option v-for="curr in startCompanyStore.currencies" :value="curr">{{ curr }}
+                                        </option>
+                                    </select>
                                     <label class="" for="eng_name">Denomination:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.denomination }}</small>
@@ -62,7 +65,7 @@
 
                             <div class="col-12 col-md-6">
                                 <div class="fixed-label-custom">
-                                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
+                                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="true"
                                         :enable-time-picker="false" auto-apply v-model="date_entered_as_member"
                                         placeholder="select date">
                                     </VueDatePicker>
@@ -73,7 +76,7 @@
 
                             <div class="col-12 col-md-6">
                                 <div class="fixed-label-custom">
-                                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
+                                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="true"
                                         :enable-time-picker="false" auto-apply v-model="date_cease_to_be_member"
                                         placeholder="select date">
                                     </VueDatePicker>
@@ -114,8 +117,10 @@ import { useAdminParamsStore } from '../../adminParamsStore';
 
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
+import { useStartCompanyStore } from '@/views/StartCompany/StartCompany_store';
 
 const paramsStore = useAdminParamsStore()
+const startCompanyStore = useStartCompanyStore()
 
 // modal
 const openModal = ref<any>(null)

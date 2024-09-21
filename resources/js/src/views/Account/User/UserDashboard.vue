@@ -1,27 +1,26 @@
 <template>
   <div class="container">
-    <h5 class="fw-bold page-title mb-2">Dashboard Overview</h5>
+    <!-- <h5 class="fw-bold page-title mb-2">Dashboard Overview</h5>
     <div class="">Have a Glance of this company Information.</div>
     <p>Manage your company in a single clicks, click on the
-      navigation to view individual company details</p>
+      navigation to view individual company details</p> -->
     <div class="row g-3">
-      <!-- <div class="col-lg-12">
+      <div class="col-lg-12">
         <div class="card border-0 shadow-sm h-100">
           <div class="card-body">
             <div class="row g-3">
               <div class="col-md-9">
-                <strong>
-                 
-                  {{ authStore.profileDataName.toUpperCase() }},</strong>
+                  <h5 class="fw-bold page-title mb-2">Dashboard Overview</h5>
+                  <div class="">Have a Glance of this company Information.</div>
                 <p>
-                  Manage your company in a single clicks, click on the
-                  navigation to view individual company details
+                  <p>Manage your company in a single clicks, click on the
+                    navigation to view individual company details</p>
                 </p>
               </div>
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
 
       <!-- <div class="col-lg-5">
         <div class="card border-0 shadow-sm h-100">
@@ -296,10 +295,10 @@ async function getNotifications() {
 
 async function companyReturn() {
   const annualReturns = await api.getCompanyReturn();
-  console.log(annualReturns, 'annualReturns');
   const data = annualReturns.data.data;
-  companyDetails.incorporated_date = data?.date_incorporated
-  companyDetails.renewal_date = data?.date_incorporated
+  companyDetails.incorporated_date = data?.registered_company[0]?.incorporated_date
+  companyDetails.renewal_date = data?.registered_company[0]?.renewal_date
+    // console.log(data?.registered_company[0]?.incorporated_date, 'annualRsassasasassaseturns');
   return annualReturns
 }
 
@@ -307,7 +306,7 @@ async function companyReturn() {
 async function companyCounts() {
   const companies = await api.getCompanyCount();
   CompanyCount.value = companies.data.data
-  console.log(CompanyCount.value, 'company counts');
+  // console.log(CompanyCount.value, 'company counts');
   return companies
 }
 
@@ -336,7 +335,7 @@ onMounted(() => {
   companyReturn()
   companyCounts()
 
-  console.log(companyDetails.incorporated_date, 'dateee');
+  // console.log(companyDetails, 'damklklkllteee');
 
 });
 
@@ -354,7 +353,7 @@ onMounted(() => {
 //   }
 // }
 
-
+companyReturn()
 
 // table
 const headers = [
@@ -413,13 +412,7 @@ const chartOptions1 = {
   },
 };
 
-
-
-
-
-
-const dateOfIncop = ref(companyDetails.incorporated_date)
-
+const dateOfIncop = computed(() => { return companyDetails.incorporated_date})
 const daysLeftFrom360Days = computed(() => {
   const dateString = dateOfIncop.value;
   const today: any = new Date();
@@ -428,7 +421,7 @@ const daysLeftFrom360Days = computed(() => {
 
   const diffInMs = nextDate - today;
   const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
-  console.log(diffInDays);
+  // console.log(diffInDays);
 
   if (diffInDays < 0) {
     return 0;

@@ -5,7 +5,7 @@
             <div class="col-12 col-md-12">
                 <div class="form-label">Update Incorporation Status</div>
                 <v-select v-model="registration_progress_id" :clearable="true" :options="progressData"
-                    :reduce="(item: any) => item.id" label="description" placeholder="change status" />
+                    :reduce="(item: any) => item.id" label="description"  />
 
             </div>
         </div>

@@ -10,7 +10,7 @@ public function PaymentIntent(Request $request);
 public function ProcessPayment(Request $request);
 public function processStripeRequest($billing);
 public function SendNotification($user,$billing);
-public function AddBillingInfo($paymentInfo, $billing);
+public function AddBillingInfo($paymentInfo, $billing, $session);
 public function AddSubscriptionInfo($company,$session, $payment_ref, $plans);
 public function createSubscription();
 public function getSubcriptionStatus();

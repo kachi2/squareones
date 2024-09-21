@@ -128,12 +128,12 @@
                             <td style="width:102pt">
                                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
                                 <p class="s1" style="padding-left: 28pt;text-indent: 0pt;text-align: left;">簽署 <span
-                                        class="s13">Signed</span></p>
+                                        class="s13">Signed:</span></p>
                             </td>
                             <td style="width:350pt">
                                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
                                 <p class="s8"
-                                    style="border-bottom:1px solid #000;background:yellow; padding-left: 6pt;text-indent: 0pt;text-align: left;">:
+                                    style="border-bottom:1px solid #000;background:yellow; padding-left: 6pt;text-indent: 0pt;text-align: left;">
                                     <img width="100" :src="SignatureStore?.founderSignature" alt="">
             
             
@@ -147,12 +147,12 @@
                             <td style="width:102pt">
                                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
                                 <p class="s1" style="padding-left: 28pt;text-indent: 0pt;text-align: left;">姓 名<span
-                                        class="s13">Name</span></p>
+                                        class="s13">Name:</span></p>
                             </td>
                             <td style="width:350pt">
                                 <p style="text-indent: 0pt;text-align: left;"> <br /></p>
                                 <p class="s8"
-                                    style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;" >:
+                                    style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;" >
                                     {{SignatureStore.founderName}}
                                 </p>
                             </td>
@@ -164,12 +164,12 @@
                             <td style="width:102pt">
                                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
                                 <p class="s8" style="padding-left: 28pt;text-indent: 0pt;text-align: left;">身 分 <span
-                                        class="s13">Capacity</span></p>
+                                        class="s13">Capacity:</span></p>
                             </td>
                             <td style="width:350pt">
                                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
                                 <p class="s8"
-                                    style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;">:
+                                    style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;">
                                     創辦成員 Founder Member </p>
                             </td>
                             <td style="width:55pt">
@@ -180,7 +180,7 @@
                             <td style="width:102pt">
                                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
                                 <p class="s1" style="padding-left: 28pt;text-indent: 0pt;text-align: left;">日期 <span
-                                        class="s13">Date</span></p>
+                                        class="s13">Date:</span></p>
                             </td>
                             <td style="width:30pt">
                                 <p style="text-indent: 0pt;text-align: left;"><br /></p>

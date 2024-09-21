@@ -17,38 +17,32 @@
 
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                    <!-- <select @change="transferor = null" v-model="transferee" class="form-select">
+                                    <input list="transferors" v-model="transferor" type="text" class="form-control">
+                                    <datalist id="transferors">
                                         <option v-for="entity in listOfShareHolders" :key="entity.id"
-                                            :value="entity.id">{{ entity.name }}</option>
-                                    </select> -->
-
+                                            :value="entity.name"></option>
+                                    </datalist>
+                                    <label class="" for="transferors">Transferor:</label>
+                                </div>
+                                <small v-if="transferorCurrentHolding" class=" text-warning">
+                                    Current Holding: {{ transferorCurrentHolding }}
+                                </small>
+                                <small class=" text-danger">{{ errors.transferor }}</small>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-floating-custom">
                                     <input list="transferees" v-model="transferee" type="text" class="form-control">
                                     <datalist id="transferees">
                                         <option v-for="entity in listOfShareHolders" :key="entity.id"
                                             :value="entity.name"></option>
                                     </datalist>
-                                    <label class="" for="transferee">Transferer:</label>
+                                    <label class="" for="transferees">Transferee:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.transferee }}</small>
                             </div>
                             <div class="col-12 col-md-6">
-                                <div class="form-floating-custom">
-                                    <!-- <select v-model="transferor" class="form-select">
-                                        <option v-for="entity in listOfShareHoldersFiltered" :key="entity.id"
-                                            :value="entity.id">{{ entity.name }}</option>
-                                    </select> -->
-                                    <input list="transferees" v-model="transferor" type="text" class="form-control">
-                                    <datalist id="transferees">
-                                        <option v-for="entity in listOfShareHolders" :key="entity.id"
-                                            :value="entity.name"></option>
-                                    </datalist>
-                                    <label class="" for="transferee">Transferor:</label>
-                                </div>
-                                <small class=" text-danger">{{ errors.transferor }}</small>
-                            </div>
-                            <div class="col-12 col-md-6">
                                 <div class="fixed-label-custom">
-                                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
+                                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="true"
                                         :enable-time-picker="false" auto-apply v-model="registration_date"
                                         placeholder="select date">
                                     </VueDatePicker>
@@ -136,6 +130,7 @@ onBeforeRouteLeave(() => {
 const listOfShareHolders = computed(() => {
     return paramsStore.currentCompanyData?.register_of_shareholders ?? []
 })
+const transferorCurrentHolding = ref<any>(null)
 
 // const listOfShareHoldersFiltered = computed(() => {
 //     return listOfShareHolders.value.filter((x: any) => x.id !== transferee.value)
@@ -183,13 +178,26 @@ function setValuesOnFields() {
 
 watch(() => [transferee.value, transferor.value], () => {
     if (transferee.value == transferor.value)
-        transferor.value = ''
+        transferee.value = ''
+})
+
+
+watch(() => transferor.value, () => {
+    const shareHolder = listOfShareHolders.value.find((x: any) => x.name == transferor.value)
+    transferorCurrentHolding.value = !(transferor.value && shareHolder && shareHolder.current_holding) ? null : useFxn.addCommas(shareHolder.current_holding)
 })
 
 
 const save = handleSubmit(async (values) => {
     useFxn.confirm('Confirm submit?', 'Continue').then(async (confirmed) => {
         if (confirmed.value == true) {
+
+            if (!transferorCurrentHolding.value) {
+                useFxn.toast('No current holding for this Transferor', 'warning')
+                return;
+            }
+
+
             isSaving.value = true
             const formData = new FormData()
             formData.append('company_id', paramsStore.currentCompanyId)
@@ -203,10 +211,12 @@ const save = handleSubmit(async (values) => {
                 formData.append('transfer_id', paramsStore.idToEdit)
 
 
+
+
             try {
                 const resp: any = await api.registerOfTransfer(formData)
                 if (resp.status !== 200) {
-                    useFxn.toast(resp?.message ?? 'Something went wrong with your Request', 'warning')
+                    useFxn.toast(resp?.data?.message ?? 'Something went wrong with your Request', 'warning')
                     isSaving.value = false
                     return
                 }

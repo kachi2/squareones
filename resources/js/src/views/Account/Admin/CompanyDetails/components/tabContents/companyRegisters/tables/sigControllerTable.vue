@@ -12,7 +12,7 @@
             <div class="card-body">
                 Significant Controllers
                 <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
-                    :items="paramsStore.currentCompanyData.significant_controller" buttons-pagination
+                    :items="paramsStore.currentCompanyData?.significant_controller??[]" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
                         <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
@@ -182,9 +182,9 @@ import { reactive, ref, watch } from 'vue';
 import DesignatedRepTable from './designatedRepTable.vue';
 
 const masterTableHeaders = [
-    { text: "Date of Entry", value: "entry_date" },
     { text: "Name of Registrable Person / Legal Entity", value: "legal_entity_name" },
     { text: "Address", value: "particulars" },
+    { text: "Date of Entry", value: "entry_date" },
     { text: "Date  Becoming a Registrable Person", value: "date_becoming_rep_person" },
     { text: "Date Cease  to Be a Registrable Person", value: "date_ceased_to_be_rep_person" },
     { text: "Date Created", value: "created_at" },
@@ -193,9 +193,9 @@ const masterTableHeaders = [
 ];
 
 const masterTableHeaders1 = [
-    { text: " Date of Entry", value: "entry_date" },
     { text: "Name (Capacity)", value: "name" },
     { text: "Address", value: "particulars" },
+    { text: " Date of Entry", value: "entry_date" },
     { text: "Remarks", value: "remarks" },
     { text: "Date Created", value: "created_at" },
     // { text: "ACTION", value: "action" },

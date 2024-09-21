@@ -1,17 +1,17 @@
 <template>
     <div class="row g-3">
-        <regOfDirectorsTable />
+    <regOfDirectorsTable />
 
-        <regOfShareholdersTable />
+           <regOfShareholdersTable />
 
         <regOfSecretaryTable />
-        <regOfAllotmentsTable />
+         <regOfAllotmentsTable />
         <regOfTransferTable />
         <regOfNameChangeTable />
 
         <regOfChargeTable />
 
-        <sigControllerTable />
+        <sigControllerTable /> 
 
         <!-- <designatedRepTable /> -->
     </div>

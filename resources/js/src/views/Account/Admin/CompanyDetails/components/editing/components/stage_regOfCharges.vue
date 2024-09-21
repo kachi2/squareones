@@ -127,7 +127,7 @@ const save = handleSubmit(async (values) => {
             formData.append('charge_creation_date', values.charge_creation_date ? useFxn.formatDate(values.charge_creation_date) : '')
             formData.append('account_secured_by_charge', values.account_secured_by_charge ?? '')
             formData.append('type_of_charge', values.type_of_charge ?? '')
-            formData.append('charge_description', values.charge_description ?? '') 
+            formData.append('charge_description', values.charge_description ?? '')
             formData.append('names_of_charge', values.names_of_charge ?? '')
             formData.append('terms_of_charge', values.terms_of_charge ?? '')
             formData.append('registration_details', values.registration_details ?? '')
@@ -140,6 +140,7 @@ const save = handleSubmit(async (values) => {
                 isSaving.value = false
                 useFxn.toast('Updated', 'success')
                 paramsStore.getCompanyDetails()
+                resetForm()
                 // emit('done')
             } catch (error) {
                 console.log(error);

@@ -127,15 +127,24 @@ const selectOptions = computed(() => {
 const selectedEntity = ref<any>('')
 function populateFieldWithDetails() {
     if (selectedEntity.value) {
-        entry_date.value = selectedEntity.value.entry_date
-        legal_entity_name.value = selectedEntity.value.legal_entity_name
-        date_becoming_rep_person.value = selectedEntity.value.date_becoming_rep_person
-        date_ceased_to_be_rep_person.value = selectedEntity.value.date_ceased_to_be_rep_person
-        corresponding_address.value = selectedEntity.value.corresponding_address
-        resdential_address.value = selectedEntity.value.resdential_address
-        identity_info.value = selectedEntity.value.identity_info
-        place_of_registration.value = selectedEntity.value.place_of_registration
-        nature_of_control_over_the_company.value = selectedEntity.value.nature_of_control_over_the_company
+        if (selectedEntity.value.entry_date)
+            entry_date.value = selectedEntity.value.entry_date
+        if (selectedEntity.value.legal_entity_name)
+            legal_entity_name.value = selectedEntity.value.legal_entity_name
+        if (selectedEntity.value.date_becoming_rep_person)
+            date_becoming_rep_person.value = selectedEntity.value.date_becoming_rep_person
+        if (selectedEntity.value.date_ceased_to_be_rep_person)
+            date_ceased_to_be_rep_person.value = selectedEntity.value.date_ceased_to_be_rep_person
+        if (selectedEntity.value.corresponding_address)
+            corresponding_address.value = selectedEntity.value.corresponding_address
+        if (selectedEntity.value.resdential_address)
+            resdential_address.value = selectedEntity.value.resdential_address
+        if (selectedEntity.value.identity_info)
+            identity_info.value = selectedEntity.value.identity_info
+        if (selectedEntity.value.place_of_registration)
+            place_of_registration.value = selectedEntity.value.place_of_registration
+        if (selectedEntity.value.nature_of_control_over_the_company)
+            nature_of_control_over_the_company.value = selectedEntity.value.nature_of_control_over_the_company
     }
 
 }
@@ -213,6 +222,7 @@ const save = handleSubmit(async (values) => {
                 isSaving.value = false
                 useFxn.toast('Updated', 'success')
                 paramsStore.getCompanyDetails()
+                // resetForm()
                 // emit('done')
             } catch (error) {
                 console.log(error);

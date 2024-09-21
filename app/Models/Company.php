@@ -25,7 +25,7 @@ class Company extends Model
         'country',
         'is_complete',
         'pdf_doc',
-        'signature',
+        'signature', 
         'date_signed',
         'is_approved',
         'is_incorporated',
@@ -101,7 +101,7 @@ class Company extends Model
 
     public function RegisteredCompany()
     {
-        return $this->hasMany(RegisteredCompany::class);
+        return $this->hasOne(RegisteredCompany::class);
     }
 
     public function RegisterOfAllotments()

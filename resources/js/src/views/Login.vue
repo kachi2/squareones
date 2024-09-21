@@ -96,8 +96,8 @@ const { errors, handleSubmit, defineField, setFieldValue } = useForm({
     password: yup.string().min(6).required(),
   }),
   initialValues: {
-    email: '',
-    password: '',
+    email: 'jesmikky@gmail.com',
+    password: 'mikky123',
   },
 });
 
@@ -119,6 +119,11 @@ const submitForm = handleSubmit(async (values) => {
 
     if (error.response && error.response.status === 401) {
       toast.error('Invalid credentials, try again', { position: 'top-right' })
+      isSaving.value = false
+      return;
+    }
+    if (error.response && error.response.status === 403) {
+      toast.error(error.response.data.error, { position: 'top-right' })
       isSaving.value = false
       return;
     }

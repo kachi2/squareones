@@ -4,6 +4,7 @@
         <div class="mb-3"> Have a Glance of this company Informaiton</div>
         <div class="row g-3 mb-5">
            <div class="col-md-4 pb-3">
+            <router-link to="/admin/companies" style="text-decoration:none">
                 <div class="card  border-0  shadow-sm h-70">
                     <div class="card-body ">
                         <div class="d-flex justify-content-between align-items-cente">
@@ -21,13 +22,16 @@
                         </div>
                     </div>
                 </div>
+            </router-link>
             </div>
             <div class="col-md-4">
+                <router-link to="/admin/companies" style="text-decoration:none">
                 <div class="card border-0 shadow-sm h-70">
                     <div class="card-body ">
                         <div class="d-flex justify-content-between align-items-cente">
                             <div class="col-12">
                                 <span class="fs-4 fw-bold text-warning">{{comapaniesList?.data?.Unincorporated}}</span>
+                
                                 <div>
                                     <span class="small fw-bold">Pending Incorporation</span>
                                 </div>
@@ -38,8 +42,10 @@
                         </div>
                     </div>
                 </div>
+            </router-link>
             </div>
             <div class="col-md-4">
+                <router-link to="/admin/companies" style="text-decoration:none">
                 <div class="card border-0 shadow-sm h-70">
                     <div class="card-body ">
                         <div class="d-flex justify-content-between align-items-cente">
@@ -55,6 +61,7 @@
                         </div>
                     </div>
                 </div>
+            </router-link>
             </div>
             <!-- <div class="col-md-4">
                 <div class="card border-0 shadow-sm h-100">

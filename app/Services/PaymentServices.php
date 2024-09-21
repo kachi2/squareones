@@ -13,6 +13,7 @@ use App\Models\Invoices;
 use App\Models\Notification;
 use App\Models\Plan;
 use App\Models\User;
+use App\Models\userActivity;
 use App\Models\UserBillingInfo;
 use App\Models\UserSubscription;
 use App\Notifications\PaymentCompleted;
@@ -51,7 +52,7 @@ class PaymentServices implements PaymentInterface
             $stripe = $this->stripeClient;
             $session = $stripe->checkout->sessions->create([
             'payment_method_types' => ['card'],
-            'customer_creation' => 'always',
+            'customer_email' => auth()->user()->email,
             'line_items' => [[
                 'price_data' => [
                     'currency' => $plans->currency,
@@ -63,11 +64,16 @@ class PaymentServices implements PaymentInterface
                 'quantity' => 1,
             ]],
                 'mode' => 'payment',
-                'payment_intent_data' => [
-                    'metadata' => ['create_invoice' => 'true'], 
-                  ],
+                'billing_address_collection' => 'required',
+                'invoice_creation' => ['enabled' => true],
+                'customer_creation' => 'always',
                 'saved_payment_method_options' => ['payment_method_save' => 'enabled'],
-                 'success_url' => url('/kcy/verifications'),
+                // 'success_url' => route('process.payment'),
+                // 'success_url' => url('/kcy/verifications'),
+                'payment_intent_data' => [
+                    'setup_future_usage' => 'off_session', 
+                ],
+                'success_url' => 'http://127.0.0.1:5173/kcy/verifications',
                 'cancel_url' => url('/start_company'),
             ]);
             $company = Company::where(['user_id' => auth_user(), 'is_complete' => 0])->first();
@@ -93,8 +99,9 @@ class PaymentServices implements PaymentInterface
             if ($session->status == 'complete') {
                 if ($billing ) {
                     $billing->update(['status' => $session->status, 'date_paid' => Carbon::now()]);
-                    $this->SendNotification($user,$billing,$company, $paymentInfo, $session);
-                     $this->AddBillingInfo($paymentInfo, $billing);
+                    $this->SendNotification($user,$billing,$company, $paymentInfo);
+                    $this->AddBillingInfo($paymentInfo, $billing, $session);
+            
                     $companies = CompanyEntity::where('company_id', $billing->company_id)->get();
                     foreach ($companies as $companyEntity) {
                         $datas['company_id'] = $companyEntity->company_id;
@@ -103,7 +110,8 @@ class PaymentServices implements PaymentInterface
                     }
                     //  $user->notify(new CompanyFomationCompleted($company));
                     //  $user->notify(new PaymentCompleted($Subs));
-
+                    UserActivities('Completed Company Payment', $location=null, "Payment");
+                    $this->createSubscription();
                     return $session;
                 }
                 return 
@@ -142,10 +150,9 @@ class PaymentServices implements PaymentInterface
             'amount_paid' => $plans->amount,
             'payment_id' => $session->id,
         ]);
-        //  $this->createSubscription();
     }
 
-    public function AddBillingInfo($paymentInfo, $billing)
+    public function AddBillingInfo($paymentInfo, $billing, $session)
     {
         $biling = UserBillingInfo::whereUserId(auth_user())->get();
         if($biling) foreach($biling as $b) $b->update(['is_default' => 0]);
@@ -165,11 +172,12 @@ class PaymentServices implements PaymentInterface
         if ($sub) {
             $sub->update([
                 'contact_person' => $data['name'],
-                'customer' => $paymentInfo['customer'],
+                'customer' => $session['customer'],
                 'default_payment_method' => $paymentInfo['id'],
                 'charge_automatically' => 1
             ]);
-        }
+        }    
+        UserActivities('Updated  Billing Information', $location=null, 'Billing');
         return $sub;
     }
     public function SendNotification($user,$billing) 
@@ -219,7 +227,11 @@ class PaymentServices implements PaymentInterface
     $plan = Plan::latest()->first();
     $subsc = UserSubscription::where(['user_id' => auth_user(), 'company_id' => $user->activeCompany()?->id])->first();
     $stripe = $this->stripeClient;
-     \Stripe\Customer::update(
+    // $stripe->paymentMethods->attach(
+    //     $subsc->default_payment_method,
+    //     ['customer' =>  $subsc->customer]
+    //   );
+    \Stripe\Customer::update(
         $subsc->customer,
         [
             'invoice_settings' => [
@@ -287,6 +299,7 @@ class PaymentServices implements PaymentInterface
       $user->update(['default_payment_method' => $paymentIntent->payment_method]);
       $paymentInfo = $stripe?->paymentMethods?->retrieve($pays['invoice_settings']['default_payment_method'], []);
       $biling = UserBillingInfo::whereUserId(auth_user())->get();
+      UserActivities('Update payment Informaiton', $location=null, 'Subcription');
       if($biling) foreach($biling as $b) $b->update(['is_default' => 0]);
      $data = [
         'user_id' => auth_user(),

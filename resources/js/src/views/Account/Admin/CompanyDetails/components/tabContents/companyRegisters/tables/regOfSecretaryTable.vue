@@ -11,13 +11,16 @@
                 </span>
             </div>
             <div class="card-body">
-                <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
-                    :items="paramsStore.currentCompanyData.register_of_secretary" buttons-pagination
+                <EasyDataTable  class="easy-data-table"  :headers="masterTableHeaders"
+                    :items="paramsStore.currentCompanyData?.register_of_secretary??[]" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
                         <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
                     </template>
 
+                    <!-- <template #item-name="item">
+                        <span class="badge bg-info p-2"> {{ item.name }}</span>
+                    </template> -->
 
                     <template #item-cease_to_act="item">
                         {{ useFxn.dateDisplay(item.cease_to_act) }}
@@ -89,10 +92,10 @@ import { reactive, ref, watch } from 'vue';
 
 // table
 const masterTableHeaders = [
-    { text: "Date of Appointment ", value: "appointment_date" },
     { text: "Name", value: "name" },
     { text: "ID/ Passport / Registration No", value: "identity_info" },
     { text: "Residential Address / Registered  Office", value: "address" },
+    { text: "Date of Appointment ", value: "appointment_date" },
     { text: "Ceasing to Act", value: "cease_to_act" },
     { text: "Remarks", value: "remarks" },
     { text: "Date Created", value: "created_at" },
@@ -100,9 +103,9 @@ const masterTableHeaders = [
 ];
 
 const expandedHeaders = [
-    { text: "Date of Appointment", value: "appointment_date" },
     { text: "Name", value: "name" },
     { text: "ID/ Passport / Registration No", value: "identity_info" },
+    { text: "Date of Appointment", value: "appointment_date" },
     { text: "Residential Address / Registered  Office", value: "address" },
     { text: "Ceasing to Act", value: "cease_to_act" },
     { text: "Remarks", value: "remarks" },

@@ -16,7 +16,7 @@
                         <div class="row g-3">
                             <div class="col-12 col-md-6">
                                 <div class="fixed-label-custom">
-                                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
+                                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="true"
                                         :enable-time-picker="false" auto-apply v-model="allotment_date"
                                         placeholder="select date">
                                     </VueDatePicker>
@@ -170,7 +170,7 @@ function setValuesOnFields() {
             setFieldValue('no_of_shares_allocated', register_of_allotment.no_of_shares_allocated)
             setFieldValue('denomination', register_of_allotment.denomination)
             setFieldValue('total_consideration', register_of_allotment.total_consideration)
-            setFieldValue('remarks', register_of_allotment.remarks)
+            // setFieldValue('remarks', register_of_allotment.remarks)
         }
     }
 }

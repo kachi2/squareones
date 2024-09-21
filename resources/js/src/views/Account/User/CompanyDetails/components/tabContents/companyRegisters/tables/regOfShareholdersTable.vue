@@ -11,7 +11,7 @@
             </div>
             <div class="card-body">
                 <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
-                    :items="paramsStore.currentCompanyData.register_of_shareholders" buttons-pagination
+                    :items="paramsStore?.currentCompanyData?.register_of_shareholders??[]" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
                         <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
@@ -107,7 +107,7 @@ const masterTableHeaders = [
     { text: "Date Entered As a Member", value: "date_entered_as_member" },
     { text: "Date Ceases to Be a Member", value: "date_cease_to_be_member" },
     { text: "Date Created", value: "created_at" },
-    // { text: "ACTION", value: "action" },
+    { text: "ACTION", value: "action" },
 ];
 
 const expandedHeaders = [
@@ -121,6 +121,7 @@ const expandedHeaders = [
     { text: "Date Ceases to Be a Member", value: "date_cease_to_be_member" },
     { text: "Date Modified", value: "created_at" },
 ];
+
 
 const expandingServerOptions = ref<ServerOptions | any>({
     page: 1,

@@ -100,6 +100,7 @@ function hasNoNullsOrEmptyStrings(meta: string) {
     else {
         const data = adminParamsStore.currentCompanyData?.[meta] ?? [];
         if (data.length == 0) return false
+        return //remoe and fix
         return data.every((obj: any) => Object.values(obj).every(value => value !== null && value !== ''));
     }
 }

@@ -12,7 +12,7 @@
             </div>
             <div class="card-body">
                 <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
-                    :items="paramsStore.currentCompanyData.register_of_company_name" buttons-pagination
+                    :items="paramsStore?.currentCompanyData?.register_of_company_name??[]" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
                         <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
@@ -97,20 +97,20 @@ import { computed, reactive, ref, watch } from 'vue';
 
 // table
 const masterTableHeaders = [
-    { text: "Date of Allotment", value: "allotment_date" },
     { text: "Name and Address", value: "name" },
     { text: "Class of Shares", value: "class_of_shares" },
     { text: "Number of Shares Allotted", value: "no_of_shares_allocated" },
+    { text: "Date of Allotment", value: "allotment_date" },
     { text: "DATE CREATED", value: "created_at" },
     // { text: "REMARKS", value: "remarks" },
-    // { text: "ACTION", value: "action" },
+    { text: "ACTION", value: "action" },
 ];
 
 const expandedHeaders = [
-    { text: "Date of Allotment", value: "allotment_date" },
     { text: "Name and Address", value: "name" },
     { text: "Class of Shares", value: "class_of_shares" },
     { text: "Number of Shares Allotted", value: "no_of_shares_allocated" },
+    { text: "Date of Allotment", value: "allotment_date" },
     { text: "DATE MODIFIED", value: "created_at" },
 ];
 

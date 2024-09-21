@@ -17,49 +17,52 @@
 
                             <div class="col-12 col-md-6">
                                 <div class="fixed-label-custom">
-                                <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
-                                    :enable-time-picker="false" auto-apply v-model="charge_creation_date" placeholder="select date">
-                                </VueDatePicker>
-                                <label class="" for="eng_name">Creation Date</label>
+                                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="true"
+                                        :enable-time-picker="false" auto-apply v-model="charge_creation_date"
+                                        placeholder="select date">
+                                    </VueDatePicker>
+                                    <label class="" for="eng_name">Creation Date</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.charge_creation_date }}</small>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="account_secured_by_charge" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name">Account Secured by Charge</label>
+                                    <input v-model="account_secured_by_charge" type="text" class="form-control"
+                                        placeholder="">
+                                    <label class="" for="eng_name">Account Secured by Charge</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.account_secured_by_charge }}</small>
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="type_of_charge" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name">Type of Charge</label>
+                                    <input v-model="type_of_charge" type="text" class="form-control" placeholder="">
+                                    <label class="" for="eng_name">Type of Charge</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.type_of_charge }}</small>
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="charge_description" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name">Desciption</label>
+                                    <input v-model="charge_description" type="text" class="form-control" placeholder="">
+                                    <label class="" for="eng_name">Desciption</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.charge_description }}</small>
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="terms_of_charge" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name">Terms of Charge</label>
+                                    <input v-model="terms_of_charge" type="text" class="form-control" placeholder="">
+                                    <label class="" for="eng_name">Terms of Charge</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.terms_of_charge }}</small>
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="registration_details" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name">Registration details</label>
+                                    <input v-model="registration_details" type="text" class="form-control"
+                                        placeholder="">
+                                    <label class="" for="eng_name">Registration details</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.registration_details }}</small>
                             </div>

@@ -28,7 +28,7 @@
                                     </span>
                                 </li>
                                 <li class="list-group-item p-0">
-                                    <div class="text-secondary fw-bold">ID/Passport/
+                                    <div class="text-secondary fw-bold">
                                         Place of Registration:</div>
                                     <span>
                                         {{ item?.designated_particulars?.place_of_registration ?? '-' }}
@@ -112,19 +112,19 @@ import type { Header, Item, ServerOptions } from "vue3-easy-data-table";
 import { reactive, ref, watch } from 'vue';
 
 const masterTableHeaders = [
-    { text: "ENTRY DATE", value: "entry_date" },
     { text: "NAME", value: "name" },
+    { text: "ENTRY DATE", value: "entry_date" },
     { text: "PARTICULARS", value: "particulars" },
     { text: "REMARKS", value: "remarks" },
     { text: "DATE CREATED", value: "created_at" },
-    // { text: "ACTION", value: "action" },
+    { text: "ACTION", value: "action" },
 
-];
+]; 
 
 const expandedHeaders = [
-    { text: "ENTRY DATE", value: "entry_date" },
     { text: "NAME", value: "name" },
     { text: "ID/PASSPORT NO", value: "indentity_info" },
+    { text: "ENTRY DATE", value: "entry_date" },
     { text: "PLACE OF REGISTRATION", value: "place_of_registration" },
     { text: "NATURE OF CONTROL", value: "nature_of_control_over_the_company" },
     { text: "REMARKS", value: "remarks" },

@@ -306,15 +306,15 @@ class IncorporationService implements IncorporationInterface
         $transferor = $this->transferor($RegisterOfTransferDto->transferor, $RegisterOfTransferDto->no_of_shares_transfered, $RegisterOfTransferDto->total_consideration);
         if($transferor){
             $transfr = RegisterOfTransfer::where('transferee', $RegisterOfTransferDto->transferee)->first();
+            $transferors = RegisterOfTransfer::where('transferor', $RegisterOfTransferDto->transferor)->first();
             $this->transferee($RegisterOfTransferDto->transferee, $RegisterOfTransferDto->no_of_shares_transfered, $RegisterOfTransferDto->total_consideration, $RegisterOfTransferDto->company_id);
             if(!isset($transfr))
             {
             RegisterOfTransfer::create($data);
             }else{
-                $trns = $transfr?->toArray();
-                $trns['transfer_id'] = $transfr->id;
+                $trns = $transferors?->toArray();
+                $trns['transfer_id'] = $transferors->id;
                 RegisterOfTransferLog::create($trns);
-       
               }
             $msg = auth_name() . 'Added new entry on the Register Of Transfer  table with the following details: ' . $RegisterOfTransferDto->registration_date . ', ' . $RegisterOfTransferDto->transferee . ', ' . $RegisterOfTransferDto->no_of_shares_transfered . ', ' . $RegisterOfTransferDto->total_consideration . ', ' . $RegisterOfTransferDto->transfer_method;
             $type = "New Entry";
@@ -327,8 +327,6 @@ class IncorporationService implements IncorporationInterface
         ];
     }
 
-
-    // ==================define transfer logic==================
     public function transferor($transferor, $no_of_shares_transfered, $total_consideration)
     {
         $shareholder = RegisterOfShareholder::where('name', $transferor)->first();
@@ -337,7 +335,7 @@ class IncorporationService implements IncorporationInterface
                 'current_holding' => intval($shareholder->current_holding) - intval($no_of_shares_transfered),
                 'total_consideration' => intval($shareholder->total_consideration) - intval($total_consideration),
             ]);
-            $chkAmt = (intval($shareholder->current_holding) - intval($no_of_shares_transfered)) == 0;
+            $chkAmt = (intval($shareholder->current_holding) - intval($no_of_shares_transfered)) <= 0;
             if ($chkAmt) {
                 $shareholder->update(['date_cease_to_be_member' => Carbon::now()]);
             }

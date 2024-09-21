@@ -18,7 +18,6 @@ class TeamServices implements TeamsInterface
                 $team->user_id = $user->id;
                 $team->save();
                });
-               $company->update(['is_complete' => 1]);
                return $user->assignUser($role, $team); 
         }
         return false;

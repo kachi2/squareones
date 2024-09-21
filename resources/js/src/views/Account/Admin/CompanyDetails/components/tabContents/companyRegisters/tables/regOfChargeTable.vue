@@ -11,7 +11,7 @@
             </div>
             <div class="card-body">
                 <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
-                    :items="paramsStore.currentCompanyData.register_of_charge" buttons-pagination
+                    :items="paramsStore.currentCompanyData?.register_of_charge??[]" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
                         <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
@@ -82,24 +82,24 @@ import { reactive, ref, watch } from 'vue';
 
 
 const masterTableHeaders = [
+    { text: "Name of  Chargee", value: "names_of_charge" },
+    { text: "Terms of  Charge", value: "terms_of_charge" },
     { text: "Charge Creation Date", value: "charge_creation_date" },
     { text: "Amount Secured by the Charge HKD", value: "account_secured_by_charge" },
     { text: "Type of Charge", value: "type_of_charge" },
     { text: "Description  of Charge", value: "charge_description" },
-    { text: "Name of  Chargee", value: "names_of_charge" },
-    { text: "Terms of  Charge", value: "terms_of_charge" },
     { text: "Registration Details", value: "registration_details" },
     { text: "Date Created", value: "created_at" },
     { text: "ACTION", value: "action" },
 ];
 
 const expandedHeaders = [
+    { text: "Name of  Chargee", value: "names_of_charge" },
+    { text: "Terms of  Charge", value: "terms_of_charge" },
     { text: "Charge Creation Date", value: "charge_creation_date" },
     { text: "Amount Secured by the Charge HKD", value: "account_secured_by_charge" },
     { text: "Type of Charge", value: "type_of_charge" },
     { text: "Description  of Charge", value: "charge_description" },
-    { text: "Name of  Chargee", value: "names_of_charge" },
-    { text: "Terms of  Charge", value: "terms_of_charge" },
     { text: "Registration Details", value: "registration_details" },
     { text: "Date Modified", value: "created_at" },
 ];

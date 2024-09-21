@@ -89,7 +89,7 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <span>
-                                    Flat
+                                    Flat／Floor／Block 
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 4" class="bi bi-pencil-square"></i>
                                     </span>
@@ -110,7 +110,7 @@
                             </li>
                             <li class="list-group-item">
                                 <span>
-                                    Street
+                                    Street／Estate／Lot／Village
                                     <span @click="startCompanyStore.currentStage = 4" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
@@ -120,7 +120,7 @@
                             </li>
                             <li class="list-group-item">
                                 <span>
-                                    State
+                                    District／City／ Province／State／ Postal Code
                                     <span class="float-end" @click="startCompanyStore.currentStage = 4">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
@@ -130,7 +130,7 @@
                             </li>
                             <li class="list-group-item">
                                 <span>
-                                    Country
+                                    Country／Region
                                     <span @click="startCompanyStore.currentStage = 4" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
@@ -220,26 +220,15 @@
                                     </div>
                                 </span>
                             </li>
-
+                            <div class="fw-bold mb-2 mt">Residential Address</div>
                             <li class="list-group-item">
                                 <span>
-                                    Flat
+                                    Flat／Floor／Block
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-mut">
                                         {{ founder.res_address.flat }}
-                                    </div>
-                                </span>
-                            </li>
-                            <li class="list-group-item">
-                                <span>
-                                    Street
-                                    <span @click="startCompanyStore.currentStage = 5" class="float-end">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </span>
-                                    <div class="small text-mut">
-                                        {{ founder.res_address.street }}
                                     </div>
                                 </span>
                             </li>
@@ -254,9 +243,79 @@
                                     </div>
                                 </span>
                             </li>
+
                             <li class="list-group-item">
                                 <span>
-                                    State
+                                    Street／Estate／Lot／Village 
+                                    <span @click="startCompanyStore.currentStage = 5" class="float-end">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </span>
+                                    <div class="small text-mut">
+                                        {{ founder.res_address.street }}
+                                    </div>
+                                </span>
+                            </li>
+                            <li class="list-group-item">
+                                <span>
+                                    District／City／ Province／State／ Postal Code 
+                                    <span @click="startCompanyStore.currentStage = 5" class="float-end">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </span>
+                                    <div class="small text-mute">
+                                        {{ founder.res_address.state }}
+                                    </div>
+                                </span>
+                            </li>
+                            <li class="list-group-item">
+                                <span>
+                                    Country/Region
+                                    <span @click="startCompanyStore.currentStage = 5" class="float-end">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </span>
+                                    <div class="small text-mut">
+                                        {{ founder.res_address.country }}
+                                    </div>
+                                </span>
+                            </li>
+                            <div v-if="founder.res_address.country2"> 
+                            <div class="fw-bold mb-2 mt">Corresponding Address</div>
+                            <li class="list-group-item">
+                                <span>
+                                    Flat／Floor／Block
+                                    <span @click="startCompanyStore.currentStage = 5" class="float-end">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </span>
+                                    <div class="small text-mut">
+                                        {{ founder.res_address.flat }}
+                                    </div>
+                                </span>
+                            </li>
+                            <li class="list-group-item">
+                                <span>
+                                    Building
+                                    <span @click="startCompanyStore.currentStage = 5" class="float-end">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </span>
+                                    <div class="small text-mut">
+                                        {{ founder.res_address.building }}
+                                    </div>
+                                </span>
+                            </li>
+
+                            <li class="list-group-item">
+                                <span>
+                                    Street／Estate／Lot／Village 
+                                    <span @click="startCompanyStore.currentStage = 5" class="float-end">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </span>
+                                    <div class="small text-mut">
+                                        {{ founder.res_address.street }}
+                                    </div>
+                                </span>
+                            </li>
+                            <li class="list-group-item">
+                                <span>
+                                    District／City／ Province／State／ Postal Code 
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
@@ -267,7 +326,7 @@
                             </li>
                             <li class="list-group-item">
                                 <span>
-                                    Country
+                                    Country/Region
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
@@ -276,6 +335,7 @@
                                     </div>
                                 </span>
                             </li>
+                        </div>
                             <li class="list-group-item">
                                 <span>
                                     Passport /HKID
@@ -364,7 +424,7 @@
                             </li>
                             <li class="list-group-item">
                                 <span>
-                                    Flat
+                                    Flat／Floor／Block
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
@@ -373,17 +433,7 @@
                                     </div>
                                 </span>
                             </li>
-                            <li class="list-group-item">
-                                <span>
-                                    Street
-                                    <span @click="startCompanyStore.currentStage = 5" class="float-end">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </span>
-                                    <div class="small text-mut">
-                                        {{ founder.street }}
-                                    </div>
-                                </span>
-                            </li>
+
                             <li class="list-group-item">
                                 <span>
                                     Building
@@ -397,7 +447,18 @@
                             </li>
                             <li class="list-group-item">
                                 <span>
-                                    State
+                                    Street／Estate／Lot／Village
+                                    <span @click="startCompanyStore.currentStage = 5" class="float-end">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </span>
+                                    <div class="small text-mut">
+                                        {{ founder.street }}
+                                    </div>
+                                </span>
+                            </li>
+                            <li class="list-group-item">
+                                <span>
+                                    District／City／ Province／State／ Postal Code
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
@@ -408,7 +469,7 @@
                             </li>
                             <li class="list-group-item">
                                 <span>
-                                    Country
+                                    Country/Region
                                     <span @click="startCompanyStore.currentStage = 5" class="float-end">
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
@@ -578,7 +639,7 @@
                             </li>
                             <li class="list-group-item">
                                 <span class="">
-                                    Flat
+                                    Flat／Floor／Block
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
                                     </span>
@@ -587,7 +648,7 @@
                             </li>
                             <li class="list-group-item">
                                 <span class="">
-                                    Street
+                                    Street／Estate／Lot／Village
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
                                     </span>
@@ -596,7 +657,7 @@
                             </li>
                             <li class="list-group-item">
                                 <span class="">
-                                    City/State
+                                    District／City／ Province／State／ Postal Code
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
                                     </span>
@@ -605,7 +666,7 @@
                             </li>
                             <li class="list-group-item">
                                 <span class="">
-                                    Country
+                                    Country/Region
                                     <span class="float-end">
                                         <i @click="startCompanyStore.currentStage = 7" class="bi bi-pencil-square"></i>
                                     </span>

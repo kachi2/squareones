@@ -142,7 +142,7 @@ class AuthService  implements AuthInterface{
      {
        $acr = userActivity::create([
             'user_id' => $request->user()->id,
-            'action' => 'Login to account on' . Carbon::now(),
+            'action' => 'Logon to account',
             'name' => $request->user()->name,
             'status' => 'success',
             'type' => 'Login Request',

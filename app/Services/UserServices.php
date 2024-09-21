@@ -24,14 +24,14 @@ class UserServices
 
     public function companyInfo($company_id)
     { 
-        $company = Company::where(['id' => $company_id])->first();
+        $company = Company::where(['id' => $company_id, 'is_approved' => 1])->first();
         if($company){
             $company?->load('RegisteredCompany', 'RegisterOfAllotments', 'RegisterOfCharge', 'RegisterOfCompanyName','RegisterOfDirector','RegisterOfSecretary','RegisterOfShareholders','RegisterOfTransfer', 'SignificantController', 'ComplianceReporting', 'DesignatedRepresentative', 'OfficeContract', 'documents');
             $company->roles = $this->loadRolePermission();
             $company->teams = $this->hasTeams($company->id);
             return $company;
         }
-        return [];
+        return null ;
     }
 
     public function Listfounders($company_id)

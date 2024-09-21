@@ -13,47 +13,48 @@
                         <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                     </div>
                     <div class="modal-body">
-                        <div class="row g-3"> 
+                        <div class="row g-3">
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="directors" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name">Director:</label>
+                                    <input v-model="directors" type="text" class="form-control" placeholder="">
+                                    <label class="" for="eng_name">Director:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.directors }}</small>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="shareholders" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name">Shareholders:</label>
+                                    <input v-model="shareholders" type="text" class="form-control" placeholder="">
+                                    <label class="" for="eng_name">Shareholders:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.shareholders }}</small>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="company_secretary" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name">Company Secretary:</label>
+                                    <input v-model="company_secretary" type="text" class="form-control" placeholder="">
+                                    <label class="" for="eng_name">Company Secretary:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.company_secretary }}</small>
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="registered_office" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name">Registered Office:</label>
+                                    <input v-model="registered_office" type="text" class="form-control" placeholder="">
+                                    <label class="" for="eng_name">Registered Office:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.registered_office }}</small>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="business_address" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name">Businness Adress:</label>
+                                    <input v-model="business_address" type="text" class="form-control" placeholder="">
+                                    <label class="" for="eng_name">Businness Adress:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.business_address }}</small>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="scr_designated_representative" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name">Designated Representative:</label>
+                                    <input v-model="scr_designated_representative" type="text" class="form-control"
+                                        placeholder="">
+                                    <label class="" for="eng_name">Designated Representative:</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.scr_designated_representative }}</small>
                             </div>
@@ -134,9 +135,9 @@ function setValuesOnFields() {
     // econst office_contract = office_contracts.find((x: { id: string; }) => x.id == paramsStore.idToEdit)
     if (office_contract) {
         setFieldValue('registered_office', office_contract.registered_office)
-        setFieldValue('directors', office_contract.directors)
+        setFieldValue('directors', office_contract.directors.toString())
         setFieldValue('business_address', office_contract.business_address)
-        setFieldValue('shareholders', office_contract.shareholders)
+        setFieldValue('shareholders', office_contract.shareholders.toString())
         setFieldValue('company_secretary', office_contract.company_secretary)
         setFieldValue('scr_designated_representative', office_contract.scr_designated_representative)
     }

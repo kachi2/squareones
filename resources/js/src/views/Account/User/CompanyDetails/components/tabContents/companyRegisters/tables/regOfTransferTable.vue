@@ -12,7 +12,7 @@
             </div>
             <div class="card-body">
                 <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
-                    :items="paramsStore.currentCompanyData.register_of_transfer" buttons-pagination
+                    :items="paramsStore?.currentCompanyData?.register_of_transfer??[]" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
                         <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
@@ -106,24 +106,26 @@ import { reactive, ref, watch } from 'vue';
 
 // table
 const masterTableHeaders = [
-    { text: "Date of Registration", value: "registration_date" },
-    { text: "Transferee", value: "transferee" },
     { text: "Transferor", value: "transferor" },
+    { text: "Transferee", value: "transferee" },
     { text: "Number of Shares  Transferred", value: "no_of_shares_transfered" },
     { text: "Total  Consideration HKD", value: "total_consideration" },
     { text: "Transferred/Disposal  Method", value: "transfer_method" },
+    { text: "Date of Registration", value: "registration_date" },
     { text: "Date Created", value: "created_at" },
+    { text: "ACTION", value: "action" },
 ];
 
 const expandedHeaders = [
-    { text: "Date of Registration", value: "registration_date" },
-    { text: "Transferee", value: "transferee" },
     { text: "Transferor", value: "transferor" },
+    { text: "Transferee", value: "transferee" },
     { text: "Number of Shares  Transferred", value: "no_of_shares_transfered" },
     { text: "Total  Consideration HKD", value: "total_consideration" },
+    { text: "Date of Registration", value: "registration_date" },
     { text: "Transferred/Disposal  Method", value: "transfer_method" },
     { text: "Date Modified", value: "created_at" },
 ];
+
 
 const expandingServerOptions = ref<ServerOptions | any>({
     page: 1,

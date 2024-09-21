@@ -16,48 +16,50 @@
                         <div class="row g-3">
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="name" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name">Name</label>
+                                    <input v-model="name" type="text" class="form-control" placeholder="">
+                                    <label class="" for="eng_name">Name</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.name }}</small>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="fixed-label-custom">
-                                <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
-                                    :enable-time-picker="false" auto-apply v-model="appointment_date" placeholder="select date">
-                                </VueDatePicker>
-                                <label class="" for="eng_name">Date of Appointment</label>
+                                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="true"
+                                        :enable-time-picker="false" auto-apply v-model="appointment_date"
+                                        placeholder="select date">
+                                    </VueDatePicker>
+                                    <label class="" for="eng_name">Date of Appointment</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.appointment_date }}</small>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="identity_info" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name">D/ Passport / Registration No</label>
+                                    <input v-model="identity_info" type="text" class="form-control" placeholder="">
+                                    <label class="" for="eng_name">D/ Passport / Registration No</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.identity_info }}</small>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="address" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name">Residential Address / Registered Office</label>
+                                    <input v-model="address" type="text" class="form-control" placeholder="">
+                                    <label class="" for="eng_name">Residential Address / Registered Office</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.address }}</small>
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <div class="fixed-label-custom">
-                                <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
-                                    :enable-time-picker="false" auto-apply v-model="cease_to_act" placeholder="select date">
-                                </VueDatePicker>
-                                <label class="" for="eng_name">Ceasing of Act</label>
+                                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
+                                        :enable-time-picker="false" auto-apply v-model="cease_to_act"
+                                        placeholder="select date">
+                                    </VueDatePicker>
+                                    <label class="" for="eng_name">Ceasing of Act</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.cease_to_act }}</small>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                <input v-model="remarks" type="text" class="form-control" placeholder="">
-                                <label class="" for="eng_name">Remarks</label>
+                                    <input v-model="remarks" type="text" class="form-control" placeholder="">
+                                    <label class="" for="eng_name">Remarks</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.remarks }}</small>
                             </div>
@@ -142,7 +144,7 @@ function setValuesOnFields() {
             setFieldValue('identity_info', register_of_secretary.identity_info)
             setFieldValue('cease_to_act', register_of_secretary.cease_to_act)
             setFieldValue('address', register_of_secretary.address)
-            setFieldValue('remarks', register_of_secretary.remarks)
+            // setFieldValue('remarks', register_of_secretary.remarks)
         }
     }
 }

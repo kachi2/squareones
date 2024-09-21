@@ -21,7 +21,7 @@ class AdminStats
 
     public function UserActivities() 
     {
-        $activities = userActivity::latest()->paginate(10);
+        $activities = userActivity::latest()->paginate(4);
         return $activities;
     }
 

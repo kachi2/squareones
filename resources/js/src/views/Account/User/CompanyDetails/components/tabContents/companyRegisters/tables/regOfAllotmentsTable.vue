@@ -12,7 +12,7 @@
             </div>
             <div class="card-body">
                 <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
-                    :items="paramsStore.currentCompanyData.register_of_allotments" buttons-pagination
+                    :items="paramsStore.currentCompanyData?.register_of_allotments??[]" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
                         <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
@@ -106,27 +106,27 @@ import { reactive, ref, watch } from 'vue';
 
 // table
 const masterTableHeaders = [
-    { text: "Date of Allotment ", value: "allotment_date" },
     { text: "Name and Address", value: "address" },
     { text: "Class of Shares", value: "class_of_shares" },
     { text: "Number of Shares Allotted", value: "no_of_shares_allocated" },
+    { text: "Date of Allotment ", value: "allotment_date" },
     { text: "Denomination", value: "denomination" },
     { text: "Total Consideration HKD", value: "total_consideration" },
     { text: "Remarks", value: "remarks" },
     { text: "Date Created", value: "created_at" },
+    { text: "ACTION", value: "action" },
 ];
 
 const expandedHeaders = [
-    { text: "Date of Allotment ", value: "allotment_date" },
     { text: "Name and Address", value: "address" },
     { text: "Class of Shares", value: "class_of_shares" },
     { text: "Number of Shares Allotted", value: "no_of_shares_allocated" },
+    { text: "Date of Allotment ", value: "allotment_date" },
     { text: "Denomination", value: "denomination" },
     { text: "Total Consideration HKD", value: "total_consideration" },
     { text: "Remarks", value: "remarks" },
     { text: "Date Modified", value: "created_at" },
 ];
-
 const expandingServerOptions = ref<ServerOptions | any>({
     page: 1,
     rowsPerPage: 15,
@@ -155,7 +155,7 @@ const expandLogs = async (index: any, prop_name: string,) => {
 
     }
 }
-
+ 
 async function getLogs() {
     const formData = new FormData()
     formData.append('allotment_id', expandedObjArray.id)

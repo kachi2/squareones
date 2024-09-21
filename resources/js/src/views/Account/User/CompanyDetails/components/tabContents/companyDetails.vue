@@ -1,6 +1,6 @@
 <template>
     <div class="row g-3">
-        <div :class="ToggleProgressBar, console.log(ToggleProgressBar, 'from d class')">
+        <div :class="ToggleProgressBar">
             <div class="card  h-100 shadow-sm">
                 <div class="card-header fs-5 py-3 fw-bold bg-transparent border-0 ">Information
                     <!-- <span class="float-end">
@@ -26,39 +26,39 @@
                         <li class="list-group-item ps-0">
                             Company Name:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.registered_company[0]?.company_registered_name }}
+                                {{ paramsStore.currentCompanyData?.registered_company?.company_registered_name }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Business Registration Number (BRN):
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.registered_company[0]?.business_registered_number }}
+                                {{ paramsStore.currentCompanyData?.registered_company?.business_registered_number }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Incorporation Date:
                             <span class="float-end">
                                 {{
-                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.registered_company[0]?.incorporated_date)
+                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.registered_company?.incorporated_date)
                                 }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Company Structure:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.registered_company[0]?.company_structure }}
+                                {{ paramsStore.currentCompanyData?.registered_company?.company_structure }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Company Registered In:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.registered_company[0]?.company_registered }}
+                                {{ paramsStore.currentCompanyData?.registered_company?.company_registered }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Business Classification:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.registered_company[0]?.business_classification }}
+                                {{ paramsStore.currentCompanyData?.registered_company?.business_classification }}
                             </span>
                         </li>
                     </ul>
@@ -171,25 +171,25 @@
                         <li class="list-group-item ps-0">
                             Company Secretary:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.office_contract[0]?.company_secretary }}
+                                {{ paramsStore.currentCompanyData?.office_contract?.company_secretary }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Registered office:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.office_contract[0]?.registered_office }}
+                                {{ paramsStore.currentCompanyData?.office_contract?.registered_office }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Business address:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.office_contract[0]?.business_address }}
+                                {{ paramsStore.currentCompanyData?.office_contract?.business_address }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Designated Rep.:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.office_contract[0]?.scr_designated_representative }}
+                                {{ paramsStore.currentCompanyData?.office_contract?.scr_designated_representative }}
                             </span>
                         </li>
                     </ul>
@@ -222,14 +222,14 @@
                         <li class="list-group-item ps-0">
                             Auditor:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.compliance_reporting[0]?.auditor_name }}
+                                {{ paramsStore.currentCompanyData?.compliance_reporting?.auditor_name }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Business Registration Renewal:
                             <span class="float-end">
                                 {{
-                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting[0]?.business_registration_renewal_date)
+                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting?.business_registration_renewal_date)
                                 }}
                             </span>
                         </li>
@@ -237,7 +237,7 @@
                             Accounting Reference Date:
                             <span class="float-end">
                                 {{
-                                    dispMonthAndDay(paramsStore.currentCompanyData?.compliance_reporting[0]?.accounting_reference_date)
+                                    dispMonthAndDay(paramsStore.currentCompanyData?.compliance_reporting?.accounting_reference_date)
                                 }}
                             </span>
                         </li>
@@ -245,7 +245,7 @@
                             Annual Return Date:
                             <span class="float-end">
                                 {{
-                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting[0]?.annual_return_date)
+                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting?.annual_return_date)
                                 }}
                             </span>
                         </li>
@@ -305,7 +305,7 @@ watch(() => paramsStore.hasUpdatedProgress, () => {
 
 function updateProgress() {
     status.a = false; status.b = false; status.c = false; status.d = false; status.e = false
-    registered_company = paramsStore.currentCompanyData?.registered_company[0]
+    registered_company = paramsStore.currentCompanyData?.registered_company
     // console.log(registered_company.registration_progress_id, 'registered_company')
     if (registered_company?.registration_progress_id == 5) {
         status.a = true; status.b = true; status.c = true; status.d = true; status.e = true
@@ -328,14 +328,14 @@ function updateProgress() {
 
 const listOfDirectors = () => {
     let array = []
-    const list = paramsStore.currentCompanyData?.office_contract[0]?.directors
+    const list = paramsStore.currentCompanyData?.office_contract?.directors
     if (list) array = JSON.parse(list)
     return array;
 }
 
 const listOfShareholders = () => {
     let array = []
-    const list = paramsStore.currentCompanyData?.office_contract[0]?.shareholders
+    const list = paramsStore.currentCompanyData?.office_contract?.shareholders
     if (list) array = JSON.parse(list)
     return array;
 }

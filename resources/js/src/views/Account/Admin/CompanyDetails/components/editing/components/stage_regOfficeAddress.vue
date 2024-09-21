@@ -164,6 +164,7 @@ const save = handleSubmit(async (values) => {
                 isSaving.value = false
                 useFxn.toast('Updated', 'success')
                 paramsStore.getCompanyDetails()
+                resetForm()
                 // emit('done')
 
             } catch (error) {

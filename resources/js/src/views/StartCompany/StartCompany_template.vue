@@ -52,8 +52,8 @@
                         <i class="bi bi-justify fs-3"></i>
                     </button>
                     <router-link to="/user/dashboard">
-                     <button style="padding:0px 8px; margin:5px; border: 0px solid #eee;  color:#888; background: #fff;"> 
-                     <span style=" font-size:20px">X </span> </button>
+                     <button style="padding:0px 5px; margin: 0px 5px; border: 0px solid #eee;  color:#888; background: #fff;"> 
+                     <span style=" font-size:14px" class="fw-bold">X </span> </button>
                    </router-link> 
                    Start your Company
                     <span class="small fw-bold d-none d-md-inline" v-if="activeCompanyName">
@@ -205,9 +205,22 @@ async function logout() {
     background-color: v-bind('templateStore.bgColor');
     color: v-bind('templateStore.textColor');
     min-height: 100vh;
-    /* margin: 10px 25px 25px 75px; */
-    margin: 20px auto;
+    margin: 10px 25px 25px 75px; 
+     /* margin: 20px auto;  */
     max-width:1300px;
+}
+
+@media(min-width:1200px)
+{
+    .main-panel {
+    /* background-color: #00000000; */
+    background-color: v-bind('templateStore.bgColor');
+    color: v-bind('templateStore.textColor');
+    min-height: 100vh;
+    /* margin: 10px 25px 25px 75px;  */
+    margin: 20px auto;  
+    max-width:1300px;
+}
 }
 
 .head-panel {
