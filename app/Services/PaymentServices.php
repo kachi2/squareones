@@ -69,11 +69,12 @@ class PaymentServices implements PaymentInterface
                 'customer_creation' => 'always',
                 'saved_payment_method_options' => ['payment_method_save' => 'enabled'],
                 // 'success_url' => route('process.payment'),
-                // 'success_url' => url('/kcy/verifications'),
+               
                 'payment_intent_data' => [
                     'setup_future_usage' => 'off_session', 
                 ],
-                'success_url' => 'http://127.0.0.1:5173/kcy/verifications',
+                // 'success_url' => 'http://127.0.0.1:5173/kcy/verifications',
+                 'success_url' => url('/kcy/verifications'),
                 'cancel_url' => url('/start_company'),
             ]);
             $company = Company::where(['user_id' => auth_user(), 'is_complete' => 0])->first();
