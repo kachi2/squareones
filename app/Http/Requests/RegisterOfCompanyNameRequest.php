@@ -8,7 +8,7 @@ class RegisterOfCompanyNameRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     */
+     */ 
     public function authorize(): bool
     {
         return true;
@@ -23,11 +23,9 @@ class RegisterOfCompanyNameRequest extends FormRequest
     {
         return [
             'company_id' => 'required',
-            'allotment_date' => 'nullable',
-            'name' => 'nullable',
-            'address' => 'nullable',
-            'class_of_shares' => 'nullable',
-            'no_of_shares_allocated' => 'nullable',
+            'date_of_name_changed' => 'nullable',
+            'previous_company_name' => 'nullable',
+            'new_company_name' => 'nullable',
             'namechange_id' => 'nullable'
         ];
     }

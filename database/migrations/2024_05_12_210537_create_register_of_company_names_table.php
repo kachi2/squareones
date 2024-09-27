@@ -14,11 +14,9 @@ return new class extends Migration
         Schema::create('register_of_company_names', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained()->cascadeOnDelete();
-            $table->string('allotment_date')->nullable();
-            $table->string('name')->nullable();
-            $table->tinyText('address')->nullable();
-            $table->string('class_of_shares')->nullable();
-            $table->string('no_of_shares_allocated')->nullable();
+            $table->string('date_of_name_changed')->nullable();
+            $table->string('previous_company_name')->nullable();
+            $table->tinyText('new_company_name')->nullable();
             $table->timestamps();
         });
     }

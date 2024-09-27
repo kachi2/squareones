@@ -219,7 +219,7 @@ class IncorporationService implements IncorporationInterface
             'cease_to_act' => $RegisterOfSecretaryDto->cease_to_act,
             'remarks' => $RegisterOfSecretaryDto->remarks
         ];
-        if ($RegisterOfSecretaryDto->secretary_id) {
+        if ($RegisterOfSecretaryDto->secretary_id) { 
             $secretary = RegisterOfSecretary::whereId($RegisterOfSecretaryDto->secretary_id)->first();
             $sec = $secretary?->toArray();
             $sec['secretary_id'] = $secretary->id;
@@ -243,25 +243,24 @@ class IncorporationService implements IncorporationInterface
         $data =
             [
                 'company_id' => $RegisterOfCompanyNameDto->company_id,
-                'allotment_date' => $RegisterOfCompanyNameDto->allotment_date,
-                'name' => $RegisterOfCompanyNameDto->name,
-                'address' => $RegisterOfCompanyNameDto->address,
-                'class_of_shares' => $RegisterOfCompanyNameDto->class_of_shares,
-                'no_of_shares_allocated' => $RegisterOfCompanyNameDto->no_of_shares_allocated
+                'date_of_name_changed' => $RegisterOfCompanyNameDto->date_of_name_changed,
+                'previous_company_name' => $RegisterOfCompanyNameDto->previous_company_name,
+                'new_company_name' => $RegisterOfCompanyNameDto->new_company_name
             ];
+
         if ($RegisterOfCompanyNameDto->namechange_id) {
             $namechange = RegisterOfCompanyName::whereId($RegisterOfCompanyNameDto->namechange_id)->first();
             $name = $namechange?->toArray();
             $name['company_name_id'] = $namechange->id;
             RegisterOfCompanyNameLog::create($name);
-            $msg = auth_name() . ' Updated the Register Of Company Name  table with the following details: ' .  $RegisterOfCompanyNameDto->allotment_date . ',' . $RegisterOfCompanyNameDto->name . ',' . $RegisterOfCompanyNameDto->address . ',' . $RegisterOfCompanyNameDto->class_of_shares . ',' . $RegisterOfCompanyNameDto->no_of_shares_allocated;
+            $msg = auth_name() . ' Updated the Register Of Company Name  table with the following details: ' .  $RegisterOfCompanyNameDto->date_of_name_changed . ',' . $RegisterOfCompanyNameDto->previous_company_name . ',' . $RegisterOfCompanyNameDto->new_company_name;
             $type = "Update";
             $this->SendNotification($msg, $type);
             $namechange->update($data);
             return $namechange;
         }
         $data = RegisterOfCompanyName::create($data);
-        $msg = auth_name() . 'Added new entry on the Register Of Company Name  table with the following details: ' .  $RegisterOfCompanyNameDto->allotment_date . ',' . $RegisterOfCompanyNameDto->name . ',' . $RegisterOfCompanyNameDto->address . ',' . $RegisterOfCompanyNameDto->class_of_shares . ',' . $RegisterOfCompanyNameDto->no_of_shares_allocated;
+        $msg = auth_name() . 'Added new entry on the Register Of Company Name  table with the following details: ' .  $RegisterOfCompanyNameDto->date_of_name_changed . ',' . $RegisterOfCompanyNameDto->previous_company_name . ',' . $RegisterOfCompanyNameDto->new_company_name;
         $type = "New Entry";
         $this->SendNotification($msg, $type);
         return $data;

@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class RegisterOfCompanyNameLog extends Model
 {
     use HasFactory;
-    protected $fillable = ['company_name_id', 'allotment_date', 'name', 'address', 'class_of_shares', 'no_of_shares_allocated'];
+    protected $fillable = ['company_name_id', 'date_of_name_changed', 'previous_company_name', 'new_company_name'];
 }
