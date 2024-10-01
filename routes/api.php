@@ -9,7 +9,7 @@ use App\Http\Controllers\KycController;
 //     return $request->user();
 // });
 
-Route::domain('api.squareone.portrec.ng')->group(function() {
+
 Route::middleware('auth:sanctum')->group(function() {
     Route::middleware('2fa')->group(function() {
     require __DIR__.'/companyFormation.php';
@@ -22,5 +22,4 @@ Route::get('/kyc/status/{company_entity_id?}', [KycController::class, 'UpdateKyc
 
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';
-});
 
