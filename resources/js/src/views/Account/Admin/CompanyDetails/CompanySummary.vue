@@ -516,7 +516,7 @@ onMounted(async () => {
 const register_of_director = computed(() => { return paramsStore.currentCompanyData?.register_of_director ?? [] })
 const register_of_allotments = computed(() => { return paramsStore.currentCompanyData?.register_of_allotments ?? [] })
 const register_of_shareholders = computed(() => { return paramsStore.currentCompanyData?.register_of_shareholders ?? [] })
-const registered_company: any = computed(() => { return paramsStore.currentCompanyData?.registered_company[0] ?? [] })
+const registered_company: any = computed(() => { return paramsStore.currentCompanyData?.registered_company ?? [] })
 const office_contract: any = computed(() => { return paramsStore.currentCompanyData?.office_contract[0] ?? [] })
 const compliance_reporting: any = computed(() => { return paramsStore.currentCompanyData?.compliance_reporting[0] ?? [] })
 const significant_controller = computed(() => { return paramsStore.currentCompanyData?.significant_controller[0] ?? [] })

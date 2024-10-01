@@ -154,7 +154,7 @@ const [business_classification] = defineField('business_classification');
 const isSaving = ref<boolean>(false)
 
 function setValuesOnFields() {
-    const registered_company = paramsStore.currentCompanyData?.registered_company[0]
+    const registered_company = paramsStore.currentCompanyData?.registered_company
     if (registered_company) {
         setFieldValue('company_registered_name', registered_company.company_registered_name)
         setFieldValue('business_registered_number', registered_company.business_registered_number)

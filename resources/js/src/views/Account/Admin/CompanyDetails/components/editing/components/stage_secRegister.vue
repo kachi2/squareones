@@ -62,8 +62,8 @@
                 Saving data..
             </button>
 
-            <button :disabled="!selectedEntity" v-else @click="save" type="button" class="btn btn-primary">
-                Update Date
+            <button v-else @click="save" type="button" class="btn btn-primary">
+                Update Data
             </button>
         </div>
     </div>
@@ -154,7 +154,7 @@ const save = handleSubmit(async (values) => {
             formData.append('cease_to_act', values.cease_to_act ? useFxn.formatDate(values.cease_to_act) : '')
             formData.append('remarks', values.remarks ?? '')
 
-            formData.append('secretary_id', selectedEntity.value.id)
+            // formData.append('secretary_id', selectedEntity.value.id)
 
 
             try {

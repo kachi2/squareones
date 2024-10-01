@@ -18,18 +18,9 @@
                         <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
                     </template>
 
-
-                    <template #item-allotment_date="item">
-                        {{ useFxn.dateDisplay(item.allotment_date) }}
-                    </template>
-
-                    <template #item-no_of_shares_allocated="item">
-                        {{ useFxn.addCommas(item.no_of_shares_allocated) }}
-                    </template>
-
-                    <template #item-total_consideration="item">
+                    <!-- <template #item-total_consideration="item">
                         {{ useFxn.addCommas(item.total_consideration) }}
-                    </template>
+                    </template> -->
 
                     <template #expand="item">
                         <div v-if="!item.expandLoading" class="my-3">
@@ -38,17 +29,15 @@
                                 :items="expandedObjArray.data" buttons-pagination
                                 v-model:server-options="expandingServerOptions" :server-items-length="expandedTotal">
 
-                                <template #item-allotment_date="item">
-                                    {{ useFxn.dateDisplay(item.allotment_date) }}
-                                </template>
-
+                               
+<!-- 
                                 <template #item-no_of_shares_allocated="item">
                                     {{ useFxn.addCommas(item.no_of_shares_allocated) }}
                                 </template>
 
                                 <template #item-total_consideration="item">
                                     {{ useFxn.addCommas(item.total_consideration) }}
-                                </template>
+                                </template> -->
 
                             </EasyDataTable>
                         </div>
@@ -91,20 +80,18 @@ import { computed, reactive, ref, watch } from 'vue';
 
 // table
 const masterTableHeaders = [
-    { text: "Name and Address", value: "name" },
-    { text: "Class of Shares", value: "class_of_shares" },
-    { text: "Number of Shares Allotted", value: "no_of_shares_allocated" },
-    { text: "Date of Allotment", value: "allotment_date" },
+    { text: "Date of Name Changed", value: "date_of_name_changed" },
+    { text: "Previous Company Name", value: "previous_company_name" },
+    { text: "New Company Name", value: "new_company_name" },
     { text: "DATE CREATED", value: "created_at" },
     // { text: "REMARKS", value: "remarks" },
     { text: "ACTION", value: "action" },
 ];
 
 const expandedHeaders = [
-    { text: "Name and Address", value: "name" },
-    { text: "Class of Shares", value: "class_of_shares" },
-    { text: "Number of Shares Allotted", value: "no_of_shares_allocated" },
-    { text: "Date of Allotment", value: "allotment_date" },
+    { text: "Date of Name Changed", value: "date_of_name_changed" },
+    { text: "Previous Company Name", value: "previous_company_name" },
+    { text: "New Company Name", value: "new_company_name" },
     { text: "DATE MODIFIED", value: "created_at" },
 ];
 

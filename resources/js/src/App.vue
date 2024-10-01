@@ -150,11 +150,11 @@ input[type="text"]:disabled,
 
 .form-floating-custom label {
   position: absolute;
-  top: 1rem;
+  top: 1.2rem;
   left: 0.75rem;
   transition: all 0.1s ease-in-out;
   pointer-events: none;
-  padding: 0 0.25rem;
+  padding-inline: 0.25rem;
   background: transparent;
   border: none;
   color: #6c757d;

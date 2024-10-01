@@ -15,46 +15,29 @@
                     <div class="modal-body">
                         <div class="row g-3">
                             <div class="col-12 col-md-6">
-                                <div class="form-floating-custom">
-                                    <input v-model="name" type="text" class="form-control" placeholder="">
-                                    <label class="" for="eng_name">Name:</label>
-                                </div>
-                                <small class=" text-danger">{{ errors.name }}</small>
-                            </div>
-                            <div class="col-12 col-md-6">
                                 <div class="fixed-label-custom">
                                     <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="true"
-                                        :enable-time-picker="false" auto-apply v-model="allotment_date"
+                                        :enable-time-picker="false" auto-apply v-model="date_of_name_changed"
                                         placeholder="select date">
                                     </VueDatePicker>
-                                    <label class="" for="eng_name">Allotment Date:</label>
+                                    <label class="" for="eng_name">Date of name changed:</label>
                                 </div>
-                                <small class=" text-danger">{{ errors.allotment_date }}</small>
+                                <small class=" text-danger">{{ errors.date_of_name_changed }}</small>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                    <input v-model="address" type="text" class="form-control" placeholder="">
-                                    <label class="" for="eng_name">Address:</label>
+                                    <input v-model="previous_company_name" type="text" class="form-control" placeholder="">
+                                    <label class="" for="eng_name">Previous Company Name:</label>
                                 </div>
-                                <small class=" text-danger">{{ errors.address }}</small>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-floating-custom">
-                                    <select v-model="class_of_shares" class="form-select">
-                                        <option selected value="ordinary">Ordinary</option>
-                                    </select>
-                                    <label class="" for="eng_name">Class of Shares:</label>
-                                </div>
-                                <small class=" text-danger">{{ errors.class_of_shares }}</small>
+                                <small class=" text-danger">{{ errors.previous_company_name }}</small>
                             </div>
 
                             <div class="col-12 col-md-12">
                                 <div class="form-floating-custom">
-                                    <input v-model="no_of_shares_allocated" placeholder="" class="form-control" v-maska
-                                        data-maska="9,99#" data-maska-tokens="9:[0-9]:repeated" data-maska-reversed>
-                                    <label class="" for="eng_name">No of shares allocated:</label>
+                                    <input v-model="new_company_name" placeholder="" class="form-control">
+                                    <label class="" for="eng_name"> New Company Name:</label>
                                 </div>
-                                <small class="text-danger">{{ errors.no_of_shares_allocated }}</small>
+                                <small class="text-danger">{{ errors.new_company_name }}</small>
                             </div>
 
                             <!-- <div class="col-12 col-md-6">
@@ -114,22 +97,18 @@ onBeforeRouteLeave(() => {
 
 // form and validation
 const rules = {
-    allotment_date: yup.date().required('Field is required'),
-    name: yup.string().required('Field is required'),
-    address: yup.string().required('Field is required'),
-    no_of_shares_allocated: yup.string().required('Field is required'),
-    class_of_shares: yup.string().required('Field is required'),
+    date_of_name_changed: yup.date().required('Field is required'),
+    previous_company_name: yup.string().required('Field is required'),
+    new_company_name: yup.string().required('Field is required'),
 };
 
 const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({
     // validationSchema: yup.object(rules),
 });
 
-const [allotment_date] = defineField('allotment_date');
-const [name] = defineField('name');
-const [address] = defineField('address');
-const [no_of_shares_allocated] = defineField('no_of_shares_allocated');
-const [class_of_shares] = defineField('class_of_shares');
+const [date_of_name_changed] = defineField('date_of_name_changed');
+const [previous_company_name] = defineField('previous_company_name');
+const [new_company_name] = defineField('new_company_name');
 const isSaving = ref<boolean>(false)
 
 function setValuesOnFields() {
@@ -137,11 +116,9 @@ function setValuesOnFields() {
         const register_of_company_names = paramsStore.currentCompanyData?.register_of_company_name
         const register_of_company_name = register_of_company_names.find((x: { id: string; }) => x.id == paramsStore.idToEdit)
         if (register_of_company_name) {
-            setFieldValue('allotment_date', register_of_company_name.allotment_date)
-            setFieldValue('name', register_of_company_name.name)
-            setFieldValue('address', register_of_company_name.address)
-            setFieldValue('no_of_shares_allocated', register_of_company_name.no_of_shares_allocated)
-            setFieldValue('class_of_shares', register_of_company_name.class_of_shares)
+            setFieldValue('date_of_name_changed', register_of_company_name.date_of_name_changed)
+            setFieldValue('previous_company_name', register_of_company_name.previous_company_name)
+            setFieldValue('new_company_name', register_of_company_name.new_company_name)
         }
     }
 }
@@ -153,11 +130,9 @@ const save = handleSubmit(async (values) => {
             isSaving.value = true
             const formData = new FormData()
             formData.append('company_id', paramsStore.currentCompanyId)
-            formData.append('allotment_date', values.allotment_date ? useFxn.formatDate(values.allotment_date) : '')
-            formData.append('name', values.name ?? '')
-            formData.append('address', values.address ?? '')
-            formData.append('no_of_shares_allocated', values.no_of_shares_allocated ?? '')
-            formData.append('class_of_shares', values.class_of_shares)
+            formData.append('date_of_name_changed', values.date_of_name_changed ? useFxn.formatDate(values.date_of_name_changed) : '')
+            formData.append('previous_company_name', values.previous_company_name ?? '')
+            formData.append('new_company_name', values.new_company_name ?? '')
             if (paramsStore.idToEdit)
                 formData.append('namechange_id', paramsStore.idToEdit)
             try {

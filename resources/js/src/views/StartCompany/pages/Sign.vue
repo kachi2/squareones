@@ -105,7 +105,7 @@
    
         <div class="fixed-label-custom">
       <v-select append-to-body
-       v-model="selected_entity_id" :clearable="false" :options="entities" />
+       v-model="selected_entity_id" :clearable="true" :options="entities" />
       <label class="fw-bold ">      I am, </label>
       </div>
       <p v-if="!signaturePadModal" style="color:darkred"> {{ msg}}</p>

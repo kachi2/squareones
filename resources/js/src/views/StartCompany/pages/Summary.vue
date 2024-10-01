@@ -277,8 +277,7 @@
                                     </div>
                                 </span>
                             </li>
-                            <div v-if="founder.res_address.country2"> 
-                            <div class="fw-bold mb-2 mt">Corresponding Address</div>
+                            <div v-if="founder.cor_address" class="fw-bold mb-2 mt">Corresponding Address</div>
                             <li class="list-group-item">
                                 <span>
                                     Flat／Floor／Block
@@ -286,7 +285,7 @@
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-mut">
-                                        {{ founder.res_address.flat }}
+                                        {{ founder.cor_address.flat }}
                                     </div>
                                 </span>
                             </li>
@@ -297,7 +296,7 @@
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-mut">
-                                        {{ founder.res_address.building }}
+                                        {{ founder.cor_address.building }}
                                     </div>
                                 </span>
                             </li>
@@ -309,7 +308,7 @@
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-mut">
-                                        {{ founder.res_address.street }}
+                                        {{ founder.cor_address.street }}
                                     </div>
                                 </span>
                             </li>
@@ -320,7 +319,7 @@
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-mut">
-                                        {{ founder.res_address.state }}
+                                        {{ founder.cor_address.state }}
                                     </div>
                                 </span>
                             </li>
@@ -331,11 +330,10 @@
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-mut">
-                                        {{ founder.res_address.country }}
+                                        {{ founder.cor_address.country }}
                                     </div>
                                 </span>
                             </li>
-                        </div>
                             <li class="list-group-item">
                                 <span>
                                     Passport /HKID

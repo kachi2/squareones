@@ -43,10 +43,10 @@
         </ul>
 
     </div>
-    <div class="main-panel shadow-sm">
+    <div class="main-panel shadow-sm" >
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12 p-lg-3 p-2 shadow-sm head-panel">
+                <div class="col-12 p-lg-3 p-2 shadow-sm head-panel" style="border-radius:10px;">
                     <button class="btn btn-lg p-1 py-0 d-md-none border-0" data-bs-toggle="offcanvas"
                         data-bs-target="#startMobileOffcanvas" aria-controls="startMobileOffcanvas">
                         <i class="bi bi-justify fs-3"></i>
@@ -200,26 +200,44 @@ async function logout() {
     font-weight: 750;
 }
 
+
+
 .main-panel {
     /* background-color: #00000000; */
     background-color: v-bind('templateStore.bgColor');
     color: v-bind('templateStore.textColor');
     min-height: 100vh;
-    margin: 10px 25px 25px 75px; 
-     /* margin: 20px auto;  */
+    /* margin: 10px 25px 25px 75px;  */
+     margin: 20px auto; 
     max-width:1300px;
+    border-radius:20%;
 }
 
-@media(min-width:1200px)
+@media(min-width:750px) and (max-width:1200px)
 {
     .main-panel {
     /* background-color: #00000000; */
     background-color: v-bind('templateStore.bgColor');
     color: v-bind('templateStore.textColor');
     min-height: 100vh;
-    /* margin: 10px 25px 25px 75px;  */
-    margin: 20px auto;  
+    margin: 10px 25px 25px 75px; 
+    /* margin: 20px auto;   */
     max-width:1300px;
+    border-radius:20px;
+}
+}
+
+@media(min-width:1200px) and (max-width:1400px)
+{
+    .main-panel {
+    /* background-color: #00000000; */
+    background-color: v-bind('templateStore.bgColor');
+    color: v-bind('templateStore.textColor');
+    min-height: 100vh;
+     margin: 10px 25px 25px 75px;  
+    /* margin: 20px auto;   */
+    max-width:1300px;
+    border-radius:20px;
 }
 }
 

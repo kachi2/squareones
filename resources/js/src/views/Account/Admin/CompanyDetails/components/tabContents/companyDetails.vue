@@ -39,7 +39,7 @@
                             Incorporation Date:
                             <span class="float-end">
                                 {{
-                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.registered_company[0]?.incorporated_date)
+                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.registered_company?.incorporated_date)
                                 }}
                             </span>
                         </li>
@@ -90,20 +90,27 @@
                 </div>
                 <div class="card-body small  rounded-3">
                     <!-- <div class="fw-bold mb-2 fs-5"></div> -->
-                    <div   class="fw-bold" v-if="registered_company?.registration_progress_id == 1">Set up  company</div>
-                    <div  class="fw-bold"  v-if="registered_company?.registration_progress_id == 2">Sorting out  &nbsp;incorporation details</div>
-                    <div   class="fw-bold"  v-if="registered_company?.registration_progress_id == 3">Handling  the  paperwork</div>
-                    <div   class="fw-bold"  v-if="registered_company?.registration_progress_id == 4">Your company is incorporated</div>
-                    <div   class="fw-bold" v-if="registered_company?.registration_progress_id == 5">Certificates Ready</div>
+                    <div class="fw-bold" v-if="registered_company?.registration_progress_id == 1">Set up company</div>
+                    <div class="fw-bold" v-if="registered_company?.registration_progress_id == 2">Sorting out
+                        &nbsp;incorporation details</div>
+                    <div class="fw-bold" v-if="registered_company?.registration_progress_id == 3">Handling the paperwork
+                    </div>
+                    <div class="fw-bold" v-if="registered_company?.registration_progress_id == 4">Your company is
+                        incorporated</div>
+                    <div class="fw-bold" v-if="registered_company?.registration_progress_id == 5">Certificates Ready
+                    </div>
                     <div class="text-mute my-3">
                         To pay your company’s formation fee, make sure
                         you’re not using an anonymous IP address or a VPN.
                     </div>
-                    <div class="my-3" v-if="registered_company?.registration_progress_id == 1">Set up  company</div>
-                    <div class="my-3" v-if="registered_company?.registration_progress_id == 2">Sorting out  &nbsp;incorporation details</div>
-                    <div class="my-3" v-if="registered_company?.registration_progress_id == 3">Handling  the  paperwork</div>
-                    <div class="my-3" v-if="registered_company?.registration_progress_id == 4">Your company is incorporated</div>
-                    <div class="my-3"  v-if="registered_company?.registration_progress_id == 5">Certificates Ready</div>
+                    <div class="my-3" v-if="registered_company?.registration_progress_id == 1">Set up company</div>
+                    <div class="my-3" v-if="registered_company?.registration_progress_id == 2">Sorting out
+                        &nbsp;incorporation details</div>
+                    <div class="my-3" v-if="registered_company?.registration_progress_id == 3">Handling the paperwork
+                    </div>
+                    <div class="my-3" v-if="registered_company?.registration_progress_id == 4">Your company is
+                        incorporated</div>
+                    <div class="my-3" v-if="registered_company?.registration_progress_id == 5">Certificates Ready</div>
                     <hr>
 
                     <div class="container mt-5">
@@ -306,7 +313,7 @@ watch(() => paramsStore.hasUpdatedProgress, () => {
 
 function updateProgress() {
     status.a = false; status.b = false; status.c = false; status.d = false; status.e = false
-    registered_company = paramsStore.currentCompanyData?.registered_company[0]
+    registered_company = paramsStore.currentCompanyData?.registered_company
     // console.log(registered_company.registration_progress_id, 'registered_company')
     if (registered_company?.registration_progress_id == 5) {
         status.a = true; status.b = true; status.c = true; status.d = true; status.e = true

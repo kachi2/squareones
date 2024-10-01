@@ -5,7 +5,8 @@
                 <ul class="list-group list-group-flush">
                     <li v-for="i in menuList" @click="goToNextStage(i.stage)" class="list-group-item border-0"
                         :class="{ 'activee': currentStage == i.stage }">
-                        {{ i.name }}
+                        <span v-if="i.meta !== 'summary'">{{ i.name }}</span>
+                        <span v-else-if="i.meta == 'summary' && canShowSummary">{{ i.name }}</span>
                         <i v-if="hasNoNullsOrEmptyStrings(i.meta)" class="bi bi-check-circle-fill text-success"></i>
                     </li>
                 </ul>
@@ -40,7 +41,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import stage1 from './components/stage_information.vue';
 import stage2 from './components/stage_incorportation.vue';
 import stage3 from './components/stage_regOfficeAddress.vue';
@@ -100,10 +101,28 @@ function hasNoNullsOrEmptyStrings(meta: string) {
     else {
         const data = adminParamsStore.currentCompanyData?.[meta] ?? [];
         if (data.length == 0) return false
-        return //remoe and fix
         return data.every((obj: any) => Object.values(obj).every(value => value !== null && value !== ''));
     }
 }
+
+
+const canShowSummary = computed(() => {
+    let bool = false
+    menuList.forEach((element: any) => {
+        const excluded = ['incoporation', 'summary', 'documents']
+        if (!excluded.includes(element.data)) {
+            const storeData = adminParamsStore.currentCompanyData?.[element.meta] ?? [];
+            if (storeData.length == 0) {
+                bool = false
+            }
+            else {
+                bool = storeData.every((obj: any) => Object.values(obj).every(value => value !== null && value !== ''));
+            }
+
+        }
+    });
+    return bool;
+})
 
 </script>
 

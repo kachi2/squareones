@@ -31,10 +31,13 @@
             <div class="col-lg-12" v-if="uploadedFiles.length">
                 <div class="card h-100">
                     <div class="card-body">
-
                         <ul class="list-group list-group-flush">
                             <li v-for="(doc, index) in uploadedFiles" :key="doc" class="list-group-item p-0">
                                 <strong>{{ index + 1 }}</strong>. {{ doc.name }}
+                                <span class="float-end">
+                                    <i @click="sliceDocument(doc.name)"
+                                        class="bi bi-x-lg cursor-pointer text-danger"></i>
+                                </span>
                             </li>
                         </ul>
                     </div>
@@ -83,21 +86,29 @@ const documentType = ref('')
 
 
 const { getRootProps, getInputProps } = useDropzone({
-    onDrop: (acceptFiles: any[], rejectReasons: any) => {
+    multiple: false,
+    onDrop: (acceptFiles: any, rejectReasons: any) => {
 
-        const hasInvalidFile = acceptFiles.find(x => !useFxn.isExtension(x.name, acceptedFormats))
+        const file = acceptFiles[0]
+
+        // const hasInvalidFile = acceptFiles.find((x: any) => !useFxn.isExtension(x.name, acceptedFormats))
+        const hasInvalidFile = !useFxn.isExtension(file.name, acceptedFormats)
 
         if (hasInvalidFile) {
-            useFxn.toast('Invalid file type added', 'warning');
+            useFxn.toast('Invalid file type added, select a vaid document', 'warning');
             return;
         }
 
-        uploadedFiles.value = acceptFiles
-        console.log(rejectReasons);
+        uploadedFiles.value.push(file)
+
+        // uploadedFiles.value = acceptFiles
+        // console.log(rejectReasons);
     },
 });
 
-
+function sliceDocument(name: string) {
+    uploadedFiles.value = uploadedFiles.value.filter((x: any) => x.name !== name)
+}
 
 const isSaving = ref<boolean>(false)
 

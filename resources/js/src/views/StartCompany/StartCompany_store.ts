@@ -41,7 +41,7 @@ export const useStartCompanyStore = defineStore('startCompanyStore', () => {
         { stage: 2, name: 'Name', dataSource: "names" },
         { stage: 3, name: 'Description', dataSource: 'description' },
         { stage: 4, name: 'Address', dataSource: 'address' },
-        { stage: 5, name: 'Founders/Directors', dataSource: 'company_entity' },
+        { stage: 5, name: 'Founders / Directors', dataSource: 'company_entity' },
         { stage: 6, name: 'Ownership', dataSource: 'owner_share' },
         { stage: 7, name: 'Company Secretary', dataSource: 'secretary' },
         { stage: 8, name: 'Source', dataSource: 'fund_source' },

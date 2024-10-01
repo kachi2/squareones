@@ -10,11 +10,11 @@
           <div class="card-body">
             <div class="row g-3">
               <div class="col-md-9">
-                  <h5 class="fw-bold page-title mb-2">Dashboard Overview</h5>
-                  <div class="">Have a Glance of this company Information.</div>
+                <h5 class="fw-bold page-title mb-2">Dashboard Overview</h5>
+                <div class="">Have a Glance of this company Information.</div>
                 <p>
-                  <p>Manage your company in a single clicks, click on the
-                    navigation to view individual company details</p>
+                <p>Manage your company in a single clicks, click on the
+                  navigation to view individual company details</p>
                 </p>
               </div>
             </div>
@@ -296,9 +296,9 @@ async function getNotifications() {
 async function companyReturn() {
   const annualReturns = await api.getCompanyReturn();
   const data = annualReturns.data.data;
-  companyDetails.incorporated_date = data?.registered_company[0]?.incorporated_date
-  companyDetails.renewal_date = data?.registered_company[0]?.renewal_date
-    // console.log(data?.registered_company[0]?.incorporated_date, 'annualRsassasasassaseturns');
+  companyDetails.incorporated_date = data?.registered_company?.incorporated_date
+  companyDetails.renewal_date = data?.registered_company?.renewal_date
+  // console.log(data?.registered_company[0]?.incorporated_date, 'annualRsassasasassaseturns');
   return annualReturns
 }
 
@@ -412,7 +412,7 @@ const chartOptions1 = {
   },
 };
 
-const dateOfIncop = computed(() => { return companyDetails.incorporated_date})
+const dateOfIncop = computed(() => { return companyDetails.incorporated_date })
 const daysLeftFrom360Days = computed(() => {
   const dateString = dateOfIncop.value;
   const today: any = new Date();

@@ -41,7 +41,7 @@
                                     <input v-bind="getInputProps()" />
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="card bg-light-subtle h-100">
                                     <div class="card-body">
                                         <div class="text-muted" v-if="!uploadedFiles.length">Uploaded files will show
@@ -51,6 +51,10 @@
                                             <li v-for="(doc, index) in uploadedFiles" :key="doc"
                                                 class="list-group-item p-0">
                                                 {{ index + 1 }}. {{ doc.name }}
+                                                <span class="float-end">
+                                                    <i @click="sliceDocument(doc.name)"
+                                                        class="bi bi-x-lg cursor-pointer text-danger"></i>
+                                                </span>
                                             </li>
                                         </ul>
                                     </div>
@@ -114,20 +118,30 @@ const documentType = ref('')
 
 
 const { getRootProps, getInputProps } = useDropzone({
+    multiple: false,
     onDrop: (acceptFiles: any[], rejectReasons: any) => {
 
-        const hasInvalidFile = acceptFiles.find(x => !useFxn.isExtension(x.name, acceptedFormats))
+
+        const file = acceptFiles[0]
+
+        // const hasInvalidFile = acceptFiles.find((x: any) => !useFxn.isExtension(x.name, acceptedFormats))
+        const hasInvalidFile = !useFxn.isExtension(file.name, acceptedFormats)
 
         if (hasInvalidFile) {
-            useFxn.toast('Invalid file type added', 'warning');
+            useFxn.toast('Invalid file type added, select a vaid document', 'warning');
             return;
         }
 
+        uploadedFiles.value.push(file)
 
-        uploadedFiles.value = acceptFiles
-        console.log(rejectReasons);
+        // uploadedFiles.value = acceptFiles
+        // console.log(rejectReasons);
     },
 });
+
+function sliceDocument(name: string) {
+    uploadedFiles.value = uploadedFiles.value.filter((x: any) => x.name !== name)
+}
 
 watch(() => paramsStore.documentUploadModal, () => {
     uploadedFiles.value.length = 0
