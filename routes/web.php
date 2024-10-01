@@ -39,9 +39,9 @@ use App\Http\Controllers\PaymentController;
 // })->where('path', '^(.+)?$');
 
 
-// Route::fallback(function () {
-//     return view('index');
-// });
+Route::fallback(function () {
+    return view('index');
+});
 
 // Route::get('payment/intent', [PaymentController::class, 'PaymentIntent']);
 // Route::get('/process/payment', [PaymentController::class, 'ProcessPayment'])->name('process.payment'); 
