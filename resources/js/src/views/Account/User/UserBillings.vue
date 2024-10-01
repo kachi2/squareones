@@ -148,9 +148,9 @@
                                 {{ useFxn.dateDisplay(item.created_at) }}
                             </template>
 
-                            <template #item-invoice_pdf="item">
-                                <span class="text-nowrap" v-if="item.invoice_pdf">
-                                    <a :href="item.invoice_pdf" target="_blank">
+                            <template #item-hosted_invoice_url="item">
+                                <span class="text-nowrap" v-if="item.hosted_invoice_url">
+                                    <a :href="item.hosted_invoice_url" target="_blank">
                                         <i class="bi bi-file-arrow-down-fill"></i>
 
                                         <strong> DOWNLOAD</strong>
