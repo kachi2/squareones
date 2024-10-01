@@ -99,8 +99,14 @@ class PaymentServices implements PaymentInterface
             [$session, $stripe, $paymentInfo] =  $this->processStripeRequest($billing);
             if ($session->status == 'complete') {
                 if ($billing ) {
+                    $data = [
+                        'title' => 'Payment Completed Successfully',
+                        'content' => `Hi,  $user?->name   Your payment  $billing?->amount for compamy registration is completed`,
+                        'user_id' => $user->id,
+                        'link' => $billing
+                    ];
                     $billing->update(['status' => $session->status, 'date_paid' => Carbon::now()]);
-                    $this->SendNotification($user,$billing,$company, $paymentInfo);
+                    UserNotification($data);
                     $this->AddBillingInfo($paymentInfo, $billing, $session);
             
                     $companies = CompanyEntity::where('company_id', $billing->company_id)->get();
@@ -109,9 +115,9 @@ class PaymentServices implements PaymentInterface
                         $datas['company_entity_id'] = $companyEntity->id;
                         ProcessFounderKyc::dispatch($datas);
                     }
-                    //  $user->notify(new CompanyFomationCompleted($company));
-                    //  $user->notify(new PaymentCompleted($Subs));
-                    UserActivities('Completed Company Payment', $location=null, "Payment");
+                     $user->notify(new CompanyFomationCompleted($company));
+                     $user->notify(new PaymentCompleted($billing));
+                     UserActivities('Completed Company Payment', $location=null, "Payment");
                     $this->createSubscription();
                     return $session;
                 }
@@ -183,16 +189,11 @@ class PaymentServices implements PaymentInterface
     }
     public function SendNotification($user,$billing) 
     {
-        Notification::create([
-            'title' => 'Payment Completed Successfully',
-            'content' => `Hi,  $user?->name   Your payment  $billing?->amount for compamy registration is completed`,
-            'user_id' => $user->id
-        ]);
-        // AdminNotification::create([
-        //     'title' => 'New Incoming Payment',
-        //     'content' => `The payment of  $billing->amount  was received from $user?->name  for their company registration`,
-        //     'admin_id' => 1
-        // ]);  
+        AdminNotification::create([
+            'title' => 'New Incoming Payment',
+            'content' => `The payment of  $billing->amount  was received from $user?->name  for their company registration`,
+            'admin_id' => 1
+        ]);  
     }
 
     public function processStripeRequest($billing) 
@@ -240,7 +241,7 @@ class PaymentServices implements PaymentInterface
             ]
         ]
       );
-    $subscription = $stripe->subscriptions->create([
+        $subscription = $stripe->subscriptions->create([
         'customer' => $subsc->customer,
         'items' => [['price' => $plan->default_price_id]],
         ]);

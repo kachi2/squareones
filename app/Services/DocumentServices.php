@@ -39,7 +39,6 @@ class DocumentServices  implements DocumentInterface{
     {
         $docs = [];
         foreach($request->document as $files){
-          
             if($files['docs'] instanceof UploadedFile){
                 // $base64Image = base64_encode(file_get_contents($files->getRealPath()));
                 $name = \pathinfo($$files['docs']->getClientOriginalName(), PATHINFO_FILENAME);
@@ -49,8 +48,8 @@ class DocumentServices  implements DocumentInterface{
                 // $files->move('documents',  $fileName);
                 $file =  UploadFiles($files,'/documents', $name);
                 $docs[] =  $file;
-        }
-    }
+               }
+         }
               $documents =  Document::create([
                 'company_id' => $request->company_id,
                 'document' => json_encode($docs),
@@ -82,7 +81,7 @@ class DocumentServices  implements DocumentInterface{
             'company_id' => $company->id,
             'user_id' => auth_user(),
             'document' => json_encode($fileNames),
-            'title' => 'IRBR1',
+            'title' => $request->title??$fileName,
             'year' => $request->year,
             'document_type_id' => 1
         ]);

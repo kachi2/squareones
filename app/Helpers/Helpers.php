@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\AdminActivityLog;
+use App\Models\Notification;
 use App\Models\userActivity;
 
 if(!function_exists('auth_user')){
@@ -58,7 +60,7 @@ if(!function_exists('UploadFiles'))
             ])->getSecurePath();
        return $image_url;
     }
-
+}
 
 if(!function_exists('UserActivities'))
 {
@@ -74,6 +76,29 @@ if(!function_exists('UserActivities'))
             'location' => $location,
         ]);
     }
+}
+
+
+if(!function_exists('UserNotification')){
+ function UserNotification($request){
+     Notification::create(
+        [
+        'title' => $request['title'], 
+        'content' => $request['content'], 
+        'user_id' => auth_user(), 
+        'link' => isset($request['link'])?$request['link']:''
+        ]
+    );}
+}
+
+if(!function_exists('AdminActivityLog')){
+ function AdminActivityLog($message, $type)
+{
+    AdminActivityLog::create([
+        'type' => $type,
+        'activity' => $message,
+        'action_status' => "COMPLETED",
+    ]);
 }
 }
 	
