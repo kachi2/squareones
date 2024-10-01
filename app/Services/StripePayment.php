@@ -187,7 +187,6 @@ class StripePayment
         ]);
     }
 
-    
     protected function generateData()
     {
         $data['subscription_summary'] = AdminBilling::latest()->first();
