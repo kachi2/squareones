@@ -115,8 +115,8 @@ class PaymentServices implements PaymentInterface
                         $datas['company_entity_id'] = $companyEntity->id;
                         ProcessFounderKyc::dispatch($datas);
                     }
-                     $user->notify(new CompanyFomationCompleted($company));
-                     $user->notify(new PaymentCompleted($billing));
+                    //  $user->notify(new CompanyFomationCompleted($company));
+                    //  $user->notify(new PaymentCompleted($billing));
                      UserActivities('Completed Company Payment', $location=null, "Payment");
                     $this->createSubscription();
                     return $session;
