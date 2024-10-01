@@ -71,10 +71,19 @@ class AdminStats
         return $data;
     }
 
-    public function getUsers()
+    public function getUsers($request)
     {
-        $users = User::latest()->paginate(20);
-        $users->load('company', 'getUserDocuments', 'billing');
+        $query = User::get();
+        if($request->search)
+        {
+            $query->where('name', 'LIKE', "%$request->search%");
+            $query->orWhere('email', 'LIKE', "$request->search%");
+            $query->paginate(10);
+        }else{
+            $query = User::latest()->paginate(20);
+        }
+
+        $query->load('company', 'getUserDocuments', 'billing');
         $data['active'] = User::where('status', 1)->count();
         $data['inactive'] = User::where('status', 0)->count();
         $data['newUsers'] = User::whereBetween('created_at', [Carbon::now()->subDays(30)->startOfDay(),  Carbon::now()])->count();
@@ -82,7 +91,7 @@ class AdminStats
         $data['unVerified'] =  User::where('email_verified_at', null)->count();
         $data['verified'] =  User::where('email_verified_at','!=' ,null)->count();
         $data['userCount'] =  User::count();
-        $data['users'] = $users;
+        $data['users'] = $query;
         return $data;
     }
 

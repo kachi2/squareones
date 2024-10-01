@@ -99,9 +99,14 @@ function hasNoNullsOrEmptyStrings(meta: string) {
     if (meta == 'incoporation') return true
     else if (meta == 'summary' || meta == 'documents') return false
     else {
-        const data = adminParamsStore.currentCompanyData?.[meta] ?? [];
-        if (data.length == 0) return false
-        return data.every((obj: any) => Object.values(obj).every(value => value !== null && value !== ''));
+        try {
+            const data = adminParamsStore.currentCompanyData?.[meta] ?? [];
+            if (data.length == 0) return false
+            return data.every((obj: any) => Object.values(obj).every(value => value !== null && value !== ''));
+        } catch (error) {
+            console.log('caught error hasNoNullsOrEmptyStrings: ', error);
+            return false
+        }
     }
 }
 
@@ -116,7 +121,12 @@ const canShowSummary = computed(() => {
                 bool = false
             }
             else {
-                bool = storeData.every((obj: any) => Object.values(obj).every(value => value !== null && value !== ''));
+                try {
+                    bool = storeData.every((obj: any) => Object.values(obj).every(value => value !== null && value !== ''));
+                } catch (error) {
+                    console.log('caught error canShowSummary: ', error);
+
+                }
             }
 
         }

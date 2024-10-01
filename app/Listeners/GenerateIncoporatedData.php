@@ -243,7 +243,7 @@ class GenerateIncoporatedData implements ShouldQueue
     {
         if($entity_type->entity_type_id == 1)
         {
-        $address = $address['corAddress']??$address['resAddress'];
+        $address = $address['resAddress']??$address['corAddress'];
           return   $address['flat'].', '.$address['street'].', '.$address['building'].', '.$address['state'].', '.$address['country'];
     }else{
       return $address['flat'].', '.$address['street'].', '.$address['building'].', '.$address['state'].', '.$address['country'];

@@ -19,9 +19,9 @@ public function __construct(
 {
     
 }
-    public function getUsers(){
+    public function getUsers(Request $request){
         try{
-           $users = $this->adminstates->getUsers();
+           $users = $this->adminstates->getUsers($request);
             return response()->json(['data' => $users], HttpStatusCode::OK);
         }catch(\Exception $e){
             return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
