@@ -107,6 +107,9 @@ class CompanyEntityService implements CompanyEnityInterface
                     // 'postal_code'=>  $addressCor['postal_code']??null,
                     'country'=>  $addressCor['country']??null,
                 ]);
+            }else{
+                $cor = IndividualCorAddress::where('individual_id', $individual->id)->first();
+                if($cor) $cor->delete();
             }
             return [
                 'residential_address' => $datas??null,
