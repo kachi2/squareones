@@ -87,14 +87,29 @@
                         </span>
                     </span>
                 </div>
-                <div class="card-body small rounded-3">
+                <div class="card-body small  rounded-3">
                     <!-- <div class="fw-bold mb-2 fs-5"></div> -->
-                    <div class="fw-bold">Tax Ready</div>
+                    <div class="fw-bold" v-if="registered_company?.registration_progress_id == 1">Set up company</div>
+                    <div class="fw-bold" v-if="registered_company?.registration_progress_id == 2">Sorting out
+                        &nbsp;incorporation details</div>
+                    <div class="fw-bold" v-if="registered_company?.registration_progress_id == 3">Handling the paperwork
+                    </div>
+                    <div class="fw-bold" v-if="registered_company?.registration_progress_id == 4">Your company is
+                        incorporated</div>
+                    <div class="fw-bold" v-if="registered_company?.registration_progress_id == 5">Certificates Ready
+                    </div>
                     <div class="text-mute my-3">
                         To pay your company’s formation fee, make sure
                         you’re not using an anonymous IP address or a VPN.
                     </div>
-                    <div class="my-3"> Tax ID (EIN) </div>
+                    <div class="my-3" v-if="registered_company?.registration_progress_id == 1">Set up company</div>
+                    <div class="my-3" v-if="registered_company?.registration_progress_id == 2">Sorting out
+                        &nbsp;incorporation details</div>
+                    <div class="my-3" v-if="registered_company?.registration_progress_id == 3">Handling the paperwork
+                    </div>
+                    <div class="my-3" v-if="registered_company?.registration_progress_id == 4">Your company is
+                        incorporated</div>
+                    <div class="my-3" v-if="registered_company?.registration_progress_id == 5">Certificates Ready</div>
                     <hr>
 
                     <div class="container mt-5">
@@ -104,7 +119,7 @@
                                     <div class="progress-line"></div>
 
                                     <i
-                                        :class="status.a ? 'bi  bi-check-circle-fill text-success phase phase-1' : 'bi  bi-circle text-warning phase phase-1'"></i>
+                                        :class="!status.a ? 'bi  bi-check-circle-fill text-success phase phase-1' : 'bi  bi-circle text-warning phase phase-1'"></i>
                                     <i
                                         :class="status.b ? 'bi  bi-check-circle-fill text-success phase phase-2' : 'bi  bi-circle text-warning phase phase-2'"></i>
                                     <i
@@ -115,11 +130,12 @@
                                         :class="status.e ? 'bi  bi-check-circle-fill text-success phase phase-5' : 'bi  bi-circle text-warning phase phase-5'"></i>
 
                                     <div class="phase-label phase-1">Set up <br> company</div>
-                                    <div class="phase-label phase-2">Preparing <br> Incorporation
+                                    <div class="phase-label phase-2"> Sorting out <br> &nbsp;incorporation <br> details
+                                        &nbsp;
                                     </div>
-                                    <div class="phase-label phase-3">Filling<br>Documents</div>
-                                    <div class="phase-label phase-4">Company<br>Incorporated</div>
-                                    <div class="phase-label phase-5">Tax ID<br>Ready</div>
+                                    <div class="phase-label phase-3">Handling <br> the <br> paperwork</div>
+                                    <div class="phase-label phase-4">Your company<br> is incorporated</div>
+                                    <div class="phase-label phase-5">Certificates <br>Ready</div>
                                 </div>
                             </div>
 
