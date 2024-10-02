@@ -95,9 +95,10 @@
                             </div>
 
                         </div>
-                        <isLoadingComponent v-if="itemsLoading" />
-                        <EasyDataTable v-else class="easy-data-table" show-index :headers="headers" :items="items"
-                            buttons-pagination v-model:server-options="serverOptions" :server-items-length="total">
+                        <!-- <isLoadingComponent v-if="itemsLoading" /> -->
+                        <EasyDataTable :loading="itemsLoading" class="easy-data-table" show-index :headers="headers"
+                            :items="items" buttons-pagination v-model:server-options="serverOptions"
+                            :server-items-length="total">
 
                             <template #header="header">
                                 <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
@@ -183,6 +184,7 @@ onMounted(() => {
 const item = <any>ref([])
 
 async function getUsers() {
+    itemsLoading.value = true
     try {
         const obj = {
             search: searchTerm.value,
@@ -208,7 +210,7 @@ async function getUsers() {
 const total = ref(0)
 const searchTerm = ref<string>('')
 const items = ref([])
-const itemsLoading = ref(true)
+const itemsLoading = ref(false)
 const headers = [
     { text: "Name", value: "name" },
     { text: "Email", value: "email" },

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 import { useParamsStore } from '@/views/Account/User/CompanyDetails/paramsStore';
 import { useTemplateStore } from '@/stores/templateStore';
@@ -10,9 +10,16 @@ const templateStore = useTemplateStore()
 const paramsStore = useParamsStore()
 onMounted(async () => {
     await paramsStore.getCompanies()
-
-
 })
+
+
+const companiesDropdownClicker = ref<any>(null)
+function openCompaniesDropdown() {
+    templateStore.sidebarIsCollapsed = !templateStore.sidebarIsCollapsed
+    companiesDropdownClicker.value.click()
+}
+
+
 </script>
 
 <template>
@@ -25,7 +32,7 @@ onMounted(async () => {
             </router-link>
         </li>
         <li class="list-group-item" v-if="!templateStore.sidebarIsCollapsed">
-            <div class="accordion" id="accordionMenuCaompany">
+            <div ref="companiesDropdownClicker" class="accordion" id="accordionMenuCaompany">
                 <div class="accordion-item ">
                     <span class="accordion-header_" id="menu1Heading">
                         <a class="accordion-button collapsed " type="button" style="padding:0px"
@@ -33,7 +40,7 @@ onMounted(async () => {
                             aria-expanded="true" aria-controls="accordionMenuCompanyCollapse">
                             <!-- <img class="side-icon" src="/icons/sidebar/main-component.png" alt=""> -->
                             <i class="bi bi-building me-2"></i>
-                            <span v-if="!templateStore.sidebarIsCollapsed" class="single-list-item">Company</span>
+                            <span class="single-list-item">Company</span>
                             &nbsp;
                             <!-- <i data-v-35aba22b="" class="bi bi-chevron-down"></i> -->
                         </a>
@@ -54,6 +61,24 @@ onMounted(async () => {
                     </div>
                 </div>
             </div>
+        </li>
+
+        <!-- <li @click="openCompaniesDropdown" v-else class="list-group-item">
+            <i class="bi bi-building me-2"></i>
+        </li> -->
+        <li v-else class="list-group-item">
+            <div class="dropdown">
+                <i class="bi bi-building me-2 dropdown-toggle" id="triggerId" data-bs-toggle="dropdown"></i>
+                <div class="dropdown-menu" style="z-index: 99999 !important;" aria-labelledby="triggerId">
+                    <!-- <a class="dropdown-item" href="#">Action</a> -->
+                    <router-link class="dropdown-item" v-for="item in paramsStore.companies.list" :key="item"
+                        @click="paramsStore.currentCompanyId = item.id" to="/user/company">
+                        {{ paramsStore.computedCoyName(item) }}
+                    </router-link>
+                </div>
+            </div>
+
+
         </li>
 
         <li class="list-group-item">
@@ -183,5 +208,9 @@ onMounted(async () => {
     color: #000000;
     color: v-bind('templateStore.textColor');
     font-weight: 450;
+}
+
+.dropdown-toggle::after {
+    content: none !important;
 }
 </style>

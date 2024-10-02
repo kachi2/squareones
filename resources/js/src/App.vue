@@ -20,6 +20,10 @@ watchEffect(() => {
   border: none !important;
 }
 
+.card {
+  position: inherit;
+}
+
 
 
 .bg-dynamic {

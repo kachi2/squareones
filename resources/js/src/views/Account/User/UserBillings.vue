@@ -148,9 +148,9 @@
                                 {{ useFxn.dateDisplay(item.created_at) }}
                             </template>
 
-                            <template #item-hosted_invoice_url="item">
-                                <span class="text-nowrap" v-if="item.hosted_invoice_url">
-                                    <a :href="item.hosted_invoice_url" target="_blank">
+                            <template #item-invoice_pdf="item">
+                                <span class="text-nowrap" v-if="item.invoice_pdf">
+                                    <a :href="item.invoice_pdf" target="_blank">
                                         <i class="bi bi-file-arrow-down-fill"></i>
 
                                         <strong> DOWNLOAD</strong>
@@ -428,12 +428,12 @@ const billingsLoading = ref(true)
 const headers = [
     { text: "COMPANY NAME", value: "company_name" },
     { text: "SUBSCRIPTION STATUS", value: "reg_date" },
-    // { text: "BILLING CYCLE", value: "next_billing_cycle" },
-    { text: "PAYMENT DATE", value: "last_payment_date" },
-    { text: "NEXT BILLING DATE", value: "next_billing_cycle" },
+    { text: "BILLING CYCLE", value: "next_billing_cycle" },
+    { text: "LAST PAYMENT DATE", value: "last_payment_date" },
+    { text: "NEXT BILLING DATE", value: "due_date" },
     { text: "AMOUNT DUE", value: "amount_due" },
     { text: "PAYMENT STATUS", value: "status" },
-    { text: "INVOICE", value: "hosted_invoice_url" },
+    { text: "INVOICE", value: "invoice_pdf" },
 ];
 
 watch(serverOptions, (value) => { getInvoices(); }, { deep: true });

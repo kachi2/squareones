@@ -170,7 +170,9 @@
                 <div class="col-4">
                     <div class="textbox"
                         style="border:1.0pt solid #000000;display:block;min-height:24.0pt;width:155.4pt;">
-                        <p class="s17" style="text-indent: 0pt;line-height: 17pt;text-align: center;">陳大文</p>
+                        <p class="s17" style="text-indent: 0pt;line-height: 17pt;text-align: center;">
+                            {{ corporate?.registeration_no}}
+                        </p>
                     </div>
 
                 </div>
@@ -243,7 +245,7 @@
                             <p class="s33"style="border-bottom:1px solid #000; background-color: yellow; padding-left: 6pt; padding-top: 10px;text-indent: 0pt;text-align: left;">
                                 <!-- INSERT SIGNATURE HERE -->
                                 <!-- <img width="100" :src="startCompanyStore?.signatureImage" alt=""> -->
-                                <img width="100" :src="corporate?.signature" alt="">
+                                <!-- <img width="100" :src="corporate?.signature" alt=""> -->
                             </p>
                         </td>
                         <td style="width:55pt">
@@ -260,7 +262,8 @@
                         <p style="text-indent: 0pt;text-align: left;"><br /></p>
                         <p class="s16"
                             style="border-bottom:1px solid #000; padding-left: 6pt;text-indent: 0pt;text-align: left;">
-                            {{ corporate?.authorized_persons.first_name }} {{ corporate?.authorized_persons.last_name }} FOR AND ON BEHALF OF {{ corporate?.company_name }} {{ corporate?.chn_company_name }}
+                            {{ corporate?.authorized_persons.first_name }} {{ corporate?.authorized_persons.last_name }} 
+                            <!-- FOR AND ON BEHALF OF {{ corporate?.company_name }} {{ corporate?.chn_company_name }} -->
                         </p>
                     </td>
                     <td style="width:55pt">

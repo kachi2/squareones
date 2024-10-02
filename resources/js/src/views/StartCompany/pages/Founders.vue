@@ -23,27 +23,27 @@
                   <tr v-for="(item, index) in foundersAdded" :key="item" class="px-3">
                     <!-- <i class="bi bi-person-circle" style="font-size:20px; padding-left:20px"></i> -->
                     <!-- <td>{{ (index + 1) }}</td> -->
-                   
-                    <td class="text-capitalize " >
+
+                    <td class="text-capitalize ">
                       <span class="p-1"></span>
-                       <i class="bi bi-person-circle" style="font-size: 25px;" v-if="item.entity_type_id == 1" ></i>
-                       <i class="bi bi-people-fill" style="font-size: 25px;"  v-else></i>
-                      </td>
-                  <td v-if="item.entity_type_id == 1">
+                      <i class="bi bi-person-circle" style="font-size: 25px;" v-if="item.entity_type_id == 1"></i>
+                      <i class="bi bi-people-fill" style="font-size: 25px;" v-else></i>
+                    </td>
+                    <td v-if="item.entity_type_id == 1">
                       {{ item.first_name ? item.first_name : '' }} {{ item.last_name ? item.last_name : '' }}
                       {{ item.chn_last_name ? item.chn_last_name : '' }}{{ item.chn_last_name ? item.chn_first_name : ''
                       }} <br>
                       <small> {{ item.capacity.includes('1') ? 'Shareholder' : '' }}</small>
-                      {{ item.capacity.includes('2') &&  item.capacity.includes('1') ? '|' : ' ' }}
+                      {{ item.capacity.includes('2') && item.capacity.includes('1') ? '|' : ' ' }}
                       <small> {{ item.capacity.includes('2') ? 'Director' : ' ' }}</small>
 
                     </td>
-                    
+
                     <td v-else class="text-capitalize">
                       {{ item.company_name }}
                       {{ item.chn_company_name }} <br>
                       <small> {{ item.capacity.includes('1') ? 'Shareholder' : ' ' }}</small>
-                      {{ item.capacity.includes('2') &&  item.capacity.includes('1') ? '|' : ' ' }}
+                      {{ item.capacity.includes('2') && item.capacity.includes('1') ? '|' : ' ' }}
                       <small> {{ item.capacity.includes('2') ? ' Director' : ' ' }} </small>
                     </td>
                     <td class="text">
@@ -301,6 +301,9 @@ function editFounder(entity: any) {
   individual_form.clearLocalStorage()
   founderRadio.value = true;
 
+  // console.log('editing', entity);
+
+
   populateForms(entity)
 }
 
@@ -315,7 +318,9 @@ function populateForms(entity: any) {
     // individual_form.postal_code = postal_code
     individual_form.country = res_address.country
 
+
     const cor_address = entity.cor_address;
+    individual_form.correspondingAddressIsSame = (res_address?.is_corAddress == 1) ? true : false;
     if (cor_address?.flat) individual_form.flat2 = cor_address.flat
     if (cor_address?.building) individual_form.building2 = cor_address.building
     if (cor_address?.street) individual_form.street2 = cor_address.street

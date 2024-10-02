@@ -61,7 +61,7 @@ const router = useRouter()
     width: v-bind('templateStore.sidebarWidth') !important;
     /* border-right: 1px solid v-bind('templateStore.borderInDark') !important; */
     background-color: v-bind('templateStore.bgColor');
-    overflow-y: auto;
+    /* overflow-y: auto; */
     padding-right: 0px;
 }
 
