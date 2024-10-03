@@ -10,7 +10,7 @@
   <!-- <script src="https://sdk.complycube.com/latest/complycube.js"></script> -->
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;700&display=swap" rel="stylesheet" />
   <title>Squareone</title>
-  <script type="module" crossorigin src="/assets/index-C45QP7u5.js"></script>
+  <script type="module" crossorigin src="/assets/index-C_Om0tdE.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/index-BC73gfnz.css">
 </head>
 

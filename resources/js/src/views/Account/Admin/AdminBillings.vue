@@ -190,8 +190,8 @@
                             </template>
 
                             <template #item-invoice_pdf="item">
-                                <span class="text-nowrap" v-if="item.invoice_pdf">
-                                    <a :href="item.invoice_pdf" target="_blank">
+                                <span class="text-nowrap" v-if="item.hosted_invoice_url">
+                                    <a :href="item.hosted_invoice_url" target="_blank">
                                         <i class="bi bi-file-arrow-down-fill"></i>
 
                                         <strong> DOWNLOAD</strong>
@@ -577,7 +577,7 @@ const paymentHistoryHeader = [
     { text: "NEXT BILLING DATE", value: "due_date" },
     { text: "AMOUNT DUE", value: "amount_due" },
     { text: "PAYMENT STATUS", value: "status" },
-    { text: "INVOICE", value: "invoice_pdf" },
+    { text: "INVOICE", value: "hosted_invoice_url" },
 ];
 
 
