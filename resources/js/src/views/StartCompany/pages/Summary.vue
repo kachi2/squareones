@@ -288,7 +288,7 @@
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-mut">
-                                        {{ founder.cor_address.flat??founder.res_address.flat }}
+                                        {{ founder.cor_address?.flat??founder.res_address?.flat }}
                                     </div>
                                 </span>
                             </li>
@@ -299,7 +299,7 @@
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-mut">
-                                        {{ founder.cor_address.building??founder.res_address.building }}
+                                        {{ founder.cor_address?.building??founder.res_address?.building }}
                                     </div>
                                 </span>
                             </li>
@@ -311,7 +311,7 @@
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-mut">
-                                        {{ founder.cor_address.street??founder.res_address.street }}
+                                        {{ founder.cor_address?.street??founder.res_address?.street }}
                                     </div>
                                 </span>
                             </li>
@@ -322,7 +322,7 @@
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-mut">
-                                        {{ founder.cor_address.state??founder.res_address.state }}
+                                        {{ founder.cor_address?.state??founder.res_address?.state }}
                                     </div>
                                 </span>
                             </li>
@@ -333,7 +333,7 @@
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-mut">
-                                        {{ founder.cor_address.country??founder.res_address.country }}
+                                        {{ founder.cor_address?.country??founder.res_address?.country }}
                                     </div>
                                 </span>
                             </li>
@@ -357,7 +357,7 @@
                                         <i class="bi bi-pencil-square"></i>
                                     </span>
                                     <div class="small text-mut">
-                                        {{ founder.get_identity.issueing_country??''}}
+                                        {{ founder.get_identity?.issueing_country??''}}
                                     </div>
                                 </span>
                             </li>
