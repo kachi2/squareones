@@ -5,15 +5,17 @@ use App\Http\Controllers\CompanyEntityController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\FounderController;
 use App\Http\Controllers\CompanySharesController;
+use App\Http\Controllers\ComplycubWebhookController;
 use App\Http\Controllers\DocumentSignController;
 use App\Http\Controllers\FundSourceController;
 use App\Http\Controllers\HomeController;
+use Spatie\WebhookClient\Http\Controllers\WebhookController;
 use App\Http\Controllers\SecretaryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KycController;
 use App\Http\Controllers\PaymentController;
-
+use Cloudinary\Api\HttpStatusCode;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +27,24 @@ use App\Http\Controllers\PaymentController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::webhooks('webhook/complycube', 'Complycub_webhooks');
+Route::webhooks('webhook/stripe', 'Stripe_webhooks');
+
+
+
+Route::fallback(function () {
+    return view('index');
+});
+
+
+
+
+
+
+
+
+
 
 
 // Route::get('load/founder/kyc/{company_id}/{company_entity_id}', [KycController::class, 'loadFounderView'])->name('load-founder-kycpage');
@@ -39,9 +59,6 @@ use App\Http\Controllers\PaymentController;
 // })->where('path', '^(.+)?$');
 
 
-Route::fallback(function () {
-    return view('index');
-});
 
 // Route::get('payment/intent', [PaymentController::class, 'PaymentIntent']);
 // Route::get('/process/payment', [PaymentController::class, 'ProcessPayment'])->name('process.payment'); 
@@ -50,19 +67,6 @@ Route::fallback(function () {
 // Route::post('payment/intent', [PaymentController::class, 'PaymentIntent']);
 //  Route::get('process/payment/web', [PaymentController::class, 'UpdateCard'])->name('ProcessPayment');
 
-// Route::get('/', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
-
-
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
 
 // Route::controller(CompanyController::class)->group(function(){
 //     Route::post('company/create',  'InitiateCompanyCreation');

@@ -16,7 +16,7 @@ class UserServices
             $company = Company::where('user_id', auth_user())->get();
         }
         //  $company = Company::where('user_id', auth_user())->get();
-        $data['companies'] =  $company?->load('Names', 'Billing');
+        $data['companies'] =  $company?->load('Names', 'Billing', 'mainContact');
         $data['form_completed'] = Company::where(['user_id' => auth_user(), 'is_complete' => 1])->get();
         $data['is_incorporated'] = Company::where(['user_id' => auth_user(), 'is_incorporated' => 1])->get();
         return $data;
@@ -26,7 +26,7 @@ class UserServices
     { 
         $company = Company::where(['id' => $company_id, 'is_approved' => 1])->first();
         if($company){
-            $company?->load('RegisteredCompany', 'RegisterOfAllotments', 'RegisterOfCharge', 'RegisterOfCompanyName','RegisterOfDirector','RegisterOfSecretary','RegisterOfShareholders','RegisterOfTransfer', 'SignificantController', 'ComplianceReporting', 'DesignatedRepresentative', 'OfficeContract', 'documents');
+            $company?->load('RegisteredCompany', 'RegisterOfAllotments', 'RegisterOfCharge', 'RegisterOfCompanyName','RegisterOfDirector','RegisterOfSecretary','RegisterOfShareholders','RegisterOfTransfer', 'SignificantController', 'ComplianceReporting', 'DesignatedRepresentative', 'OfficeContract', 'documents', 'mainContact');
             $company->roles = $this->loadRolePermission();
             $company->teams = $this->hasTeams($company->id);
             return $company;
@@ -40,6 +40,16 @@ class UserServices
             if($company_entities){
                 $company_entities->load('Individual', 'Corporate');
             return $company_entities;
+            }
+            return false;
+    }
+
+    public function ActiveCompany()
+    {
+        $company = Company::where(['user_id' => auth_user(), 'is_complete' => 0])->first();
+            if($company){
+                $company->load('Names', 'Billing');
+            return $company;
             }
             return false;
     }

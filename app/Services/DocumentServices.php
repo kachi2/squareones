@@ -68,9 +68,6 @@ class DocumentServices  implements DocumentInterface{
     $fileNames = [];
     foreach($request->documents as $document){
     if($document instanceof UploadedFile){ 
-        // $name = \pathinfo($document->getClientOriginalName(), PATHINFO_FILENAME);
-        // $fileName = str_replace("['/', '(', ')', ' ']","", $name).'.'.'pdf';
-        // $document->move('documents', $fileName );
         $fileName = $company->names[0]->eng_name?$company->names[0]->eng_name:'documents';
          $file =  UploadFiles($document,'/documents', $fileName);
         $fileNames[] = $file;
@@ -87,7 +84,9 @@ class DocumentServices  implements DocumentInterface{
         ]);
         $company->update([
             'pdf_doc' => json_encode($fileNames),
-            'date_signed' => $request->date_signed
+            'date_signed' => $request->date_signed,
+            'main_contact' => auth_user(),
+            'services' => 'Incorporation'
         ]);
         return $fileNames;
     }

@@ -36,6 +36,10 @@ return new class extends Migration
             $table->string('country_registered')->nullable();
             $table->string('business_classification')->nullable();
             $table->integer('is_published')->default(0);
+            $table->integer('is_paid')->nullable();
+            $table->integer('is_kyc_completed')->nullable();
+            $table->integer('services')->nullable();
+            $table->integer('main_contact')->nullable();
             $table->timestamps();
             $table->index('user_id');
         });

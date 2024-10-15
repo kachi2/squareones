@@ -13,7 +13,6 @@ class DocumentSignController extends Controller
         public readonly DocumentInterface $documentInterface
     )
     {
-        
     }
 
     public function BuildPDF(Request $request){

@@ -46,6 +46,17 @@ class DashboardController extends Controller
            }
     }
 
+    public function getActiveCompany()
+    {
+        try{
+            $data = $this->UserServices->ActiveCompany();
+             return response()->json(['data' => $data], HttpStatusCode::OK);
+         }catch(\Exception $e){
+             return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+            }
+
+    }
+
     public function CompanyInfo($company_id){
         try{
              $company = $this->UserServices->companyInfo($company_id);

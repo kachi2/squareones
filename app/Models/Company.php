@@ -34,7 +34,11 @@ class Company extends Model
         'date_incorporated',
         'country_registered',
         'business_classification',
-        'is_published'
+        'is_published',
+        'is_paid',
+        'is_kyc_completed',
+        'services',
+        'main_contact',
     ];
 
 
@@ -167,4 +171,10 @@ class Company extends Model
     {
         return Team::where('company_id', $this->id)->first();
     }
+
+    public function mainContact()
+    {
+        return $this->belongsTo(User::class, 'main_contact', 'id');
+    }
+
 }

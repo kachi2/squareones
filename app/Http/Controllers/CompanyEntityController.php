@@ -65,6 +65,8 @@ class CompanyEntityController extends Controller
     public function removeEntity($entity_id){
         return $this->EntityInterface->RemoveEntity($entity_id);
     }
+
+    
     public function RegisterEntitySignature(Request $request){
         $valid = Validator::make($request->all(),[
             'signature' => 'nullable',
@@ -93,7 +95,6 @@ class CompanyEntityController extends Controller
 
     public function DeleteSignature(Request $request)
     {
-
         $valid = Validator::make($request->all(),[
             'company_id' => 'required',
             'company_entity_id' => 'required'
@@ -103,7 +104,6 @@ class CompanyEntityController extends Controller
             'error' => $valid->errors()->first()
             ], HttpStatusCode::BAD_REQUEST);
         }
-
         try
         {
         $data = $this->EntityInterface->deleteSignatures($request);

@@ -21,6 +21,7 @@ Route::controller(DashboardController::class)->group(function(){
     Route::post('/update/password', 'UpdatePassword');
     Route::post('update/user/details', 'UpdateUserDetails');
     Route::post('update/user/activities', 'GetUserActivities');
+    Route::get('/active/company', 'getActiveCompany');
 });
 Route::controller(NotificationController::class)->group(function(){
     Route::post('/toggle/notifications/setting', 'ToggleNofication');

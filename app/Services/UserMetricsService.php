@@ -15,6 +15,7 @@ class UserMetricsService
         {
             return $company->load('RegisteredCompany');
         }
+        return [];
     }
 
 
