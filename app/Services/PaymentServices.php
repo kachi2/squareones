@@ -87,6 +87,7 @@ class PaymentServices implements PaymentInterface
             DB::rollBack();
             return $e->getMessage();
         }
+        ActivityLogs('Initiated Payment for '.$company->names['0']->name,  'Billing');
     }
 
     public function ProcessPayment($request)
@@ -103,7 +104,8 @@ class PaymentServices implements PaymentInterface
                         'title' => 'Payment Completed Successfully',
                         'content' => `Hi,  $user?->name   Your payment  $billing?->amount for compamy registration is completed`,
                         'user_id' => $user->id,
-                        'link' => $billing
+                        'link' => $billing,
+                        'type' => 'Billing'
                     ];
                     $billing->update(['status' => 'paid', 'date_paid' => Carbon::now()]);
                     $company->update(['is_paid' => 1]);
@@ -118,7 +120,8 @@ class PaymentServices implements PaymentInterface
                     }
                     //  $user->notify(new CompanyFomationCompleted($company));
                     //  $user->notify(new PaymentCompleted($billing));
-                     UserActivities('Completed Company Payment', $location=null, "Payment");
+                    //  UserActivities('Completed Company Payment', $location=null, "Payment");
+                     ActivityLogs('Completed Company Payment '.$company->names['0']->name,  'Billing');
                     $this->createSubscription();
                     return $session;
                 }

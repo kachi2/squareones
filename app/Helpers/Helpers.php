@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ActivityLog;
 use App\Models\AdminActivityLog;
 use App\Models\Notification;
 use App\Models\userActivity;
@@ -86,7 +87,8 @@ if(!function_exists('UserNotification')){
         'title' => $request['title'], 
         'content' => $request['content'], 
         'user_id' => auth_user(), 
-        'link' => isset($request['link'])?$request['link']:''
+        'link' => isset($request['link'])?$request['link']:null,
+        'type' => $request->type
         ]
     );}
 }
@@ -100,5 +102,17 @@ if(!function_exists('AdminActivityLog')){
         'action_status' => "COMPLETED",
     ]);
 }
+}
+
+if(!function_exists('ActivityLogs'))
+{
+    function ActivityLogs($activity, $type)
+    {
+        ActivityLog::create([
+            'user_id' => auth_user(),
+            'activity' => $activity,
+            'type' => $type
+        ]);
+    }
 }
 	

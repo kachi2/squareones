@@ -77,7 +77,7 @@ class IncorporationService implements IncorporationInterface
             ]);
             Notification::create([
                 'title' => 'Company Incorporated',
-                'content' => 'Hi, ' . $companyUser->Users->name . ' Your company [' . $RegisteredCompanyDto->company_registered_name . '] is fully incorporated',
+                'content' => 'Hi, ' . $companyUser->Users->name . ' Your company ' . $RegisteredCompanyDto->company_registered_name . ' is fully incorporated',
                 'user_id' => $companyUser->Users->id
             ]);
              Company::whereId($RegisteredCompanyDto->company_id)->update(['is_published' => 1]);

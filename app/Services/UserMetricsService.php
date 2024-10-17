@@ -1,5 +1,7 @@
 <?php
 namespace App\Services;
+
+use App\Models\ActivityLog;
 use App\Models\Company;
 use App\Models\userActivity;
 use App\Models\UserBillingInfo;
@@ -35,5 +37,15 @@ class UserMetricsService
         $data = UserSubscription::where('user_id', auth_user())->latest()->first();
         if($data)return $data->load('plans');
         return [];
+    }
+
+    public function UserActivityLog()
+    {
+        $activity = ActivityLog::where('user_id', auth_user())->get();
+        if(!empty($activity))
+        {
+            return $activity;
+        }
+        return null;
     }
 }

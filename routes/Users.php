@@ -28,6 +28,7 @@ Route::controller(NotificationController::class)->group(function(){
     Route::post('notifications/status', 'getNoficationStatus');
     Route::get('/notifications', 'UserNotification');
     Route::get('notification/delete/{notify_id}', 'DeleteNotification');
+    Route::get('notifications/read', 'UpdateUserNotifications');
     });
 Route::controller(TwofactorController::class)->group(function() {
     Route::get('activate/2fa', 'generateSecretKey');
@@ -42,5 +43,6 @@ Route::get('get/company/returns', 'getCompanyAnnualReturn');
 Route::get('get/company/counts', 'getCompanyCount');
 Route::get('get/payment/info', 'BillingInformation');
 Route::get('get/user/subscription', 'UserSubscription');
+Route::get('get/userlogs', 'UserActivityLog');
 });
 });

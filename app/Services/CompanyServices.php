@@ -65,6 +65,7 @@ class CompanyServices  implements CompanyFormationInterface
                     $names[] = $store;     
             }
                 DB::commit();
+                ActivityLogs('Iniated a new company formation',  'Company Formation');
                 return [
                     'company' => $initiateCompany,
                     'name' => $names

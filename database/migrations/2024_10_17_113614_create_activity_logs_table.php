@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notifications', function (Blueprint $table) {
+        Schema::create('activity_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->string('title')->nullable();
-            $table->text('content')->nullable();
-            $table->string('type')->nullable()->comment('use the model name as type of notificaiton');
-            $table->text('link')->nullable();
-            $table->integer('is_read')->nullable();
+            $table->string('type')->nullable();
+            $table->text('activity')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notifications');
+        Schema::dropIfExists('activity_logs');
     }
 };

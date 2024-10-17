@@ -3,6 +3,7 @@ namespace App\Services;
 
 use App\Models\Company;
 use App\Models\CompanyEntity;
+use App\Models\Notification;
 use App\Traits\Teams;
 class UserServices
 {
@@ -53,4 +54,6 @@ class UserServices
             }
             return false;
     }
+
+   
 }

@@ -43,6 +43,21 @@ class NotificationController extends Controller
        } 
     }
 
+    
+    public function UpdateUserNotifications()
+    {
+        $notify = Notification::where('user_id', auth_user())->get();
+        $status = 1;
+        if($notify){ 
+            $notify->map(function($notify) use ($status)
+            {
+                $notify->update(['is_read' => $status]);
+            });
+
+           return $notify;
+        }
+    }
+
     public function DeleteNotification($notify_id){
         try{
             $notify = Notification::whereId($notify_id)->first();

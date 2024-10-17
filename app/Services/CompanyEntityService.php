@@ -38,6 +38,7 @@ class CompanyEntityService implements CompanyEnityInterface
                 'is_founder' => $request->is_founder,
             ]);
         }
+
            return $entity??$CompanyEntity;
     }
 
@@ -68,6 +69,7 @@ class CompanyEntityService implements CompanyEnityInterface
             'identity_no_suffix' => filter_vars($IndividualDto->identity_no_suffix),
         ]);
 
+        ActivityLogs('Added '.$IndividualDto->first_name.' '.$IndividualDto->last_name.' as Director/Shareholder',  'Company Formation');
       $res =  $this->processResidentialAddress($IndividualDto, $individualData);
       return [
         'company_entity' => $company_entity,
@@ -149,6 +151,7 @@ class CompanyEntityService implements CompanyEnityInterface
                  'email' => $request->email
             ]);
         }
+        ActivityLogs('Added '.$request->company_name.' '.$request->chn_company_name.' as Director/Shareholder',  'Company Formation');
 
         return ['company_entity' => $entity, 'entity_corporate' => $corporate, 'authorized_person' => $authorized_person];
     }
@@ -161,7 +164,7 @@ class CompanyEntityService implements CompanyEnityInterface
             $data = [
                 'company_entity' =>$entity->load('Individual')
             ];
-         
+            ActivityLogs('Removed '.$entity->Individual->first_name.' '.$entity->Individual->last_name.' as Director/Shareholder',  'Company Formation');
             $entity->Individual?->corAddress?->delete();
             $entity->Individual?->resAddress?->delete();
             $entity->Individual?->getIdentity?->delete();
@@ -174,6 +177,7 @@ class CompanyEntityService implements CompanyEnityInterface
             $data = [
                 'company_entity' =>$entity->load('Corporate')
             ];
+            ActivityLogs('Removed '.$entity->Corporate->company_name.' as Director/Shareholder',  'Company Formation');
             $entity->Corporate?->authorizedPersons?->delete();
             $entity->Corporate?->delete();
             $entity->share?->delete();
@@ -181,7 +185,6 @@ class CompanyEntityService implements CompanyEnityInterface
             return response()->json(['data' => $data]);
         }
     }
-
     return response()->json(['error' => 'The requested resources does not exist']);
 }
 
@@ -199,6 +202,7 @@ class CompanyEntityService implements CompanyEnityInterface
         ]);
     }
     $entity['success'] = true;
+    ActivityLogs('Director/Founder added signature',  'Company Formation');
     return $entity;
 }catch(\Exception $e){
     return $e->getMessage();
@@ -215,6 +219,7 @@ class CompanyEntityService implements CompanyEnityInterface
             'date_signed'=> null,
             'is_founder' => 0
         ]);
+        ActivityLogs('Director/Founder removed signature',  'Company Formation');
         return $entity;
     }
     return false;

@@ -64,6 +64,7 @@ class KycProcessService implements KycInterface{
             'user_token' => $res['token']
         ]);
         return $res;
+        ActivityLogs('Initiated KYC Verification Services',  'KYC Verification');
     }
 
     public function ProcessKYCVerification($request){
