@@ -31,7 +31,7 @@ class CompanyServiceController extends Controller
         if($company->exists())
         {
             $company->update(['services' => json_encode($req->service)]);
-            $$regsCo->update(['services' => json_encode($req->service)]);
+            // $regsCo->update(['services' => json_encode($req->service)]);
         }
         return response()->json(['data' => $company->load('mainContact')], 200);
         }catch(\Exception $e)

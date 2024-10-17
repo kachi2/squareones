@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('tax_id')->nullable();
             $table->string('registration_progress_id')->nullable();
             $table->string('renewal_date')->nullable();
-            $table->integer('services')->nullable();
+            $table->string('services')->nullable();
             $table->string('main_contact')->nullable();
             $table->text('pdf_doc')->nullable();
             $table->integer('is_published')->nullable();
