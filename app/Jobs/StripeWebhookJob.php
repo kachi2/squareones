@@ -32,6 +32,6 @@ class StripeWebhookJob  extends ProcessWebhookJob implements ShouldQueue
     public function handle(): void
     {
         $event = $this->webhookCall->payload;
-       log::info($event);
+       log::info(['event payload' => $event]);
     }
 }

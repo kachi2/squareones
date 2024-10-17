@@ -49,7 +49,7 @@ class UserServices
     {
         $company = Company::where(['user_id' => auth_user(), 'is_complete' => 0])->first();
             if($company){
-                $company->load('Names', 'Billing');
+                $company->load('Names', 'Billing', 'mainContact');
             return $company;
             }
             return false;

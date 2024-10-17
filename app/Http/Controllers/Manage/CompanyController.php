@@ -60,7 +60,7 @@ class CompanyController extends Controller
 
         try{
             $company = Company::latest()->paginate(20);
-            $data['companies'] =  $company->load('Names', 'Billing');
+            $data['companies'] =  $company->load('Names', 'Billing', 'mainContact');
             $data['form_completed'] = Company::where('is_complete', 1)->get();
             $data['is_incorporated'] = Company::where('is_incorporated', 1)->get();
             return response()->json(['data' => $data], HttpStatusCode::OK);
