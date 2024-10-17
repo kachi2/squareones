@@ -38,7 +38,7 @@ return new class extends Migration
             $table->integer('is_published')->default(0);
             $table->integer('is_paid')->nullable();
             $table->integer('is_kyc_completed')->nullable();
-            $table->integer('services')->nullable();
+            $table->string('services')->nullable();
             $table->integer('main_contact')->nullable();
             $table->timestamps();
             $table->index('user_id');
