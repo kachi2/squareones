@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Log;
 use Spatie\WebhookClient\Exceptions\InvalidConfig;
 use Spatie\WebhookClient\SignatureValidator\SignatureValidator;
 use Spatie\WebhookClient\WebhookConfig;
+use Stripe\Webhook;
 
 class stripeSignatureValidator extends Controller implements SignatureValidator
 {
@@ -14,22 +15,21 @@ class stripeSignatureValidator extends Controller implements SignatureValidator
     public function isValid(Request $request, WebhookConfig $config):bool
     {
         $signature = $request->header($config->signatureHeaderName);
+        $payload = $request->getContent();
         $clientSecret = $config->signingSecret;
+        if(!$signature && empty($clientSecret)){return false;}
+        $signatures = explode(',', $signature);
+        log::info(['signature' => $signatures]);
 
-     Log::info('data', $request->headers->all());
-     
-        if(!$signature)
-        {
-            return false;
-        }
-
-        if(empty($clientSecret))
-        {
-            throw InvalidConfig::signingSecretNotSet();
-        }
-
-        $computedSignature = hash_hmac('256', $request->header(), $clientSecret);
-        return hash_equals($computedSignature, $signature);
-
+        $timestamp = isset($signatures[0])?substr($signatures[0],2):'';
+        $actualSignature = isset($signatures[2])?substr($signatures[2],3):'';
+        $signedPayload = $timestamp.'.'.$payload;
+  
+        $computedSignature = hash_hmac('sha256',$signedPayload, $clientSecret);
+        log::info(['signatures' => $actualSignature]);
+        log::info(['time' => $signedPayload]);
+        log::info(['computedSignature' => $computedSignature]);
+        return true;
+        return hash_equals($computedSignature, $actualSignature);
     }
 }

@@ -19,8 +19,8 @@ return [
         ], 
         [
             'name' => 'Stripe_webhooks',
-            'signing_secret' => 'dadc778c0f766b4ade9b285f0839ec8d',
-            'signature_header_name' => 'complycube-signature',
+            'signing_secret' => 'whsec_FtO288MoQbmqOXaI98R2QdgLEsYMp76U',
+            'signature_header_name' => 'Stripe-Signature',
             'signature_validator' => stripeSignatureValidator::class,
             'webhook_profile' => stripeWebhookProfile::class,
             'webhook_response' => \Spatie\WebhookClient\WebhookResponse\DefaultRespondsTo::class,

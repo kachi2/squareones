@@ -16,7 +16,7 @@ class HandleComplycubJob  extends ProcessWebhookJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
+    /** 
      * Create a new job instance.
      */
     public function __construct(WebhookCall $webhookCall)
@@ -31,7 +31,7 @@ class HandleComplycubJob  extends ProcessWebhookJob implements ShouldQueue
     {
         $payload = $this->webhookCall->payload;
         // $event = $payload['event'] ?? null;
-         Log::info('Received ComplyCube webhdsdsdook: ', $payload);
+        //  Log::info('Received ComplyCube webhdsdsdook: ', $payload);
         switch ($payload['type']) {
             case 'check.completed':
                 $this->updateStatus($payload['payload']['clientId'], 'pending');
