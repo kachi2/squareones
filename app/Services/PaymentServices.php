@@ -111,7 +111,6 @@ class PaymentServices implements PaymentInterface
                     $company->update(['is_paid' => 1]);
                     UserNotification($data);
                     $this->AddBillingInfo($paymentInfo, $billing, $session);
-            
                     $companies = CompanyEntity::where('company_id', $billing->company_id)->get();
                     foreach ($companies as $companyEntity) {
                         $datas['company_id'] = $companyEntity->company_id;
@@ -122,7 +121,7 @@ class PaymentServices implements PaymentInterface
                     //  $user->notify(new PaymentCompleted($billing));
                     //  UserActivities('Completed Company Payment', $location=null, "Payment");
                      ActivityLogs('Completed Company Payment '.$company->names['0']->name,  'Billing');
-                    $this->createSubscription();
+                    $this->createSubscription($session['customer']);
                     return $session;
                 }
                 return 
@@ -159,7 +158,7 @@ class PaymentServices implements PaymentInterface
             'expiry_date' => null,
             'contact_person' => null,
             'amount_paid' => $plans->amount,
-            'payment_id' => $session->id,
+            'payment_id' => $session->id, 
         ]);
     }
 
@@ -178,7 +177,11 @@ class PaymentServices implements PaymentInterface
             'expiry' => $paymentInfo['card']['exp_month'].'/'.$paymentInfo['card']['exp_year'],
             'payment_id' => $billing->payment_intent
         ];
-                UserBillingInfo::create($data);
+                UserBillingInfo::updateOrcreate([
+                    'payment_id' => $billing->payment_intent
+                ],
+                    $data
+                );
         $sub   = UserSubscription::where('payment_id', $data['payment_id'])->first();
         if ($sub) {
             $sub->update([
@@ -188,6 +191,7 @@ class PaymentServices implements PaymentInterface
                 'charge_automatically' => 1
             ]);
         }    
+
         UserActivities('Updated  Billing Information', $location=null, 'Billing');
         return $sub;
     }
@@ -227,11 +231,11 @@ class PaymentServices implements PaymentInterface
   return $data;
   } 
 
-  public function createSubscription()
+  public function createSubscription($customer)
   {
     $user = User::where('id', auth_user())->first();
     $plan = Plan::latest()->first();
-    $subsc = UserSubscription::where(['user_id' => auth_user(), 'company_id' => $user->activeCompany()?->id])->first();
+    $subsc = UserSubscription::where(['user_id' => auth_user(), 'customer' => $customer])->first();
     $stripe = $this->stripeClient;
     // $stripe->paymentMethods->attach(
     //     $subsc->default_payment_method,

@@ -143,30 +143,30 @@ class StripePayment
 
     protected function TapInvoice($invoices)
     {
-    //     foreach ($invoices as $invoice) {
-    //         $bill = UserSubscription::where('customer', $invoice->customer)->first();
-    //         Invoices::updateOrcreate([
-    //             'invoice_id'=> $invoice->id,
-    //         ],
-    //       [
-    //         'user_id' => $bill?->user_id,
-    //         'customer' => $invoice->customer,
-    //         'customer_email'=> $invoice->customer_email,
-    //         'invoice_id'=> $invoice->id,
-    //         'amount_due'=> $invoice->amount_due/100,
-    //         'amount_paid'=> $invoice->amount_paid/100 ,
-    //         'amount_remaining'=> $invoice->amount_remaining/100,
-    //         'currency'=> $invoice->currency,
-    //         'customer_name'=> $invoice->customer_name,
-    //         'hosted_invoice_url'=> $invoice->hosted_invoice_url,
-    //         'invoice_pdf'=> $invoice->invoice_pdf,
-    //         'description'=> $invoice->description,
-    //         'invoice_date'=> date('d-m-Y', $invoice->created),
-    //         'due_date'=> date('d-m-Y',$invoice->due_date),
-    //         'total' => $invoice->total/100,
-    //         'status' => $invoice->status
-    //     ]);
-    // }
+        foreach ($invoices as $invoice) {
+            $bill = UserSubscription::where('customer', $invoice->customer)->first();
+            Invoices::updateOrcreate([
+                'invoice_id'=> $invoice->id,
+            ],
+          [
+            'user_id' => $bill?->user_id,
+            'customer' => $invoice->customer,
+            'customer_email'=> $invoice->customer_email,
+            'invoice_id'=> $invoice->id,
+            'amount_due'=> $invoice->amount_due/100,
+            'amount_paid'=> $invoice->amount_paid/100 ,
+            'amount_remaining'=> $invoice->amount_remaining/100,
+            'currency'=> $invoice->currency,
+            'customer_name'=> $invoice->customer_name,
+            'hosted_invoice_url'=> $invoice->hosted_invoice_url,
+            'invoice_pdf'=> $invoice->invoice_pdf,
+            'description'=> $invoice->description,
+            'invoice_date'=> date('d-m-Y', $invoice->created),
+            'due_date'=> date('d-m-Y',$invoice->due_date),
+            'total' => $invoice->total/100,
+            'status' => $invoice->status
+        ]);
+    }
     }
 
 

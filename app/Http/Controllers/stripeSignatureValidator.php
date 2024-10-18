@@ -19,16 +19,14 @@ class stripeSignatureValidator extends Controller implements SignatureValidator
         $clientSecret = $config->signingSecret;
         if(!$signature && empty($clientSecret)){return false;}
         $signatures = explode(',', $signature);
-        log::info(['signature' => $signatures]);
+        // log::info(['signature' => $signatures]);
 
         $timestamp = isset($signatures[0])?substr($signatures[0],2):'';
         $actualSignature = isset($signatures[2])?substr($signatures[2],3):'';
         $signedPayload = $timestamp.'.'.$payload;
   
         $computedSignature = hash_hmac('sha256',$signedPayload, $clientSecret);
-        log::info(['signatures' => $actualSignature]);
-        log::info(['time' => $signedPayload]);
-        log::info(['computedSignature' => $computedSignature]);
+
         return true;
         return hash_equals($computedSignature, $actualSignature);
     }

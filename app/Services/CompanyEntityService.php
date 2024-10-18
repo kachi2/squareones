@@ -191,7 +191,8 @@ class CompanyEntityService implements CompanyEnityInterface
   public function UpdateEntitySignature($request){
     try {
     $entity = CompanyEntity::where(['company_id' => $request->company_id, 'id' =>$request->company_entity_id])->first();
-    if($entity){
+   
+    if(!empty($entity)){
         $entity->update([
             'signature' => $request->signature??$entity->signature,
             'date_signed'=> Carbon::now(),
@@ -202,7 +203,7 @@ class CompanyEntityService implements CompanyEnityInterface
         ]);
     }
     $entity['success'] = true;
-    ActivityLogs('Director/Founder added signature',  'Company Formation');
+    // ActivityLogs('Director/Founder added signature',  'Company Formation');
     return $entity;
 }catch(\Exception $e){
     return $e->getMessage();

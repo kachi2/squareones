@@ -88,7 +88,7 @@ if(!function_exists('UserNotification')){
         'content' => $request['content'], 
         'user_id' => auth_user(), 
         'link' => isset($request['link'])?$request['link']:null,
-        'type' => $request->type
+        'type' => $request['type']
         ]
     );}
 }

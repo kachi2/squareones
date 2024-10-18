@@ -12,7 +12,7 @@ public function processStripeRequest($billing);
 public function SendNotification($user,$billing);
 public function AddBillingInfo($paymentInfo, $billing, $session);
 public function AddSubscriptionInfo($company,$session, $payment_ref, $plans);
-public function createSubscription();
+public function createSubscription($customer);
 public function getSubcriptionStatus();
 public function cancelSubscription($subscription);
 public function updatePaymentDetails($request);
