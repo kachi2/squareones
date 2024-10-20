@@ -86,7 +86,7 @@ export default {
     UserctivityLog(queryString: any) {
         return $instance.get(`manage/user/activities?${queryString}`)
     },
- 
+
     getUsers(queryString: any) {
         return $instance.get(`manage/users?${queryString}`)
     },
@@ -153,6 +153,14 @@ export default {
 
     generateInvoiceTable() {
         return $instance.get(`manage/sync/invoices`);
+    },
+
+    adminServices() {
+        return $instance.get(`manage/services/company`);
+    },
+
+    adminServicesStore(formData: FormData, company_id: any) {
+        return $instanceForm.post(`/manage/services/company/store/${company_id}`, formData);
     },
 
 

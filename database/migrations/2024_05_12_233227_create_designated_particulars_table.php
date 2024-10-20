@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('designated_representative_id')->constrained()->cascadeOnDelete();
             $table->tinyText('identity_info')->nullable();
             $table->tinyText('place_of_registration')->nullable();
+            $table->string('corresponding_address')->nullable();
             $table->tinyText('nature_of_control_over_the_company')->nullable();
             $table->timestamps();
         });

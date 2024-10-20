@@ -28,7 +28,7 @@ class SignificantControllerRequest extends FormRequest
             'date_ceased_to_be_rep_person' => 'nullable',
             'corresponding_address' => 'nullable',
             'resdential_address' => 'nullable',
-            'identiy_info' => 'nullable',
+            'identity_info' => 'nullable',
             'place_of_registration' => 'nullable',
             'nature_of_control_over_the_company' => 'nullable',
             'controllers_id'=> 'nullable',

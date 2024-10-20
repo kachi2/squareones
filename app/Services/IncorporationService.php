@@ -466,7 +466,6 @@ class IncorporationService implements IncorporationInterface
                     'significant_controller_id' => $controllers->id,
                 ],
                 [
-                    'significant_controller_id' =>  $controllers->id,
                     'corresponding_address' => $SignificantControllersDto->corresponding_address,
                     'resdential_address' => $SignificantControllersDto->resdential_address,
                     'identity_info' => $SignificantControllersDto->identity_info,

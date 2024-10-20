@@ -126,7 +126,6 @@ class AuthService  implements AuthInterface{
                 'date' => Carbon::now()
             ];
              $data = Mail::to($user->email)->send( new LoginNotificationMail($data));
-             return $data;
     }
 
 

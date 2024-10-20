@@ -11,7 +11,7 @@
             </div>
             <div class="card-body">
                 Significant Controllers
-                <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
+                <EasyDataTable class="easy-data-table" show-index :headers="masterTableHeaders"
                     :items="paramsStore.currentCompanyData?.significant_controller??[]" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
@@ -26,6 +26,13 @@
                                 <span>
                                     {{ item?.controllers_particulars?.corresponding_address ?? '-' }}
                                 </span>
+                                
+                                <!-- <li class="list-group-item p-0">
+                                    <div class="text-secondary fw-bold"> ID/ Passport / Registration No:</div>
+                                    <span>
+                                        {{ item?.controllers_particulars?.identity_info ?? '-' }}
+                                    </span>
+                                </li> -->
                                 <!-- </li> -->
                                 <!-- <li class="list-group-item p-0">
                                     <div class="text-secondary fw-bold"> Residential Address:</div>
@@ -33,12 +40,7 @@
                                         {{ item?.controllers_particulars?.resdential_address ?? '-' }}
                                     </span>
                                 </li>
-                                <li class="list-group-item p-0">
-                                    <div class="text-secondary fw-bold"> ID/ Passport / Registration No:</div>
-                                    <span>
-                                        {{ item?.controllers_particulars?.identity_info ?? '-' }}
-                                    </span>
-                                </li>
+                               
                                 <li class="list-group-item p-0">
                                     <div class="text-secondary fw-bold">Place of Registration:</div>
                                     <span>
@@ -140,6 +142,8 @@
                         </div>
                     </template>
 
+               
+
                     <template #item-action="item">
                         <span class="dropdown">
                             <span class=" cursor-pointer bell dropdown-toggle" data-bs-toggle="dropdown"
@@ -185,6 +189,7 @@ const masterTableHeaders = [
     { text: "Name of Registrable Person / Legal Entity", value: "legal_entity_name" },
     { text: "Address", value: "particulars" },
     { text: "Date of Entry", value: "entry_date" },
+    { text: "ID/Passport/Registration No", value: "identity_info" },
     { text: "Date  Becoming a Registrable Person", value: "date_becoming_rep_person" },
     { text: "Date Cease  to Be a Registrable Person", value: "date_ceased_to_be_rep_person" },
     { text: "Date Created", value: "created_at" },

@@ -17,16 +17,16 @@
                 <!-- <appModeToggler /> -->
 
                 <span class="mx-4 dropdown">
-                    <span @click="notificationsBellClicked = true"
+                    <span @click="updateReadNotifications"
                         class="position-relative  cursor-pointer bell dropdown-toggle" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         <i class="bi bi-bell " style="font-size:16px; font-weight:700; color:blue"></i>
-                        <span v-if="!notificationsBellClicked"
+                        <span v-if="notificationsUnRead"
                             class="position-absolute top-0 start-100 translate-middle p-1 mt-2 bg-danger border border-light rounded-circle">
                             <span class="visually-hidden"></span>
                         </span>
 
-                        <div class="dropdown-menu dropdown-menu-end">
+                        <div class="dropdown-menu dropdown-menu-end notification-dropdown">
                             <div v-if="!notifications.length" class="dropdown-item"> No Notificatons</div>
                             <div v-else>
                                 <!-- <div class="noti-header">
@@ -34,14 +34,15 @@
                                         notifications.length }}</span>
 
                                 </div> -->
-                                <ul class="list-group list-group-flush " >
+                                <ul class="list-group list-group-flush ">
                                     <li v-for="noti in notifications" :key="noti"
-                                        class="dropdown-item list-group-ite small text-wrap" style="border-bottom:1px solid #eee" >
-                                        <!-- <strong>{{ noti.title }}
-                                            <i class="bi bi-x-lg text-danger cursor-pointer float-end"></i>
-                                        </strong> -->
+                                        class="dropdown-item list-group-ite small text-wrap"
+                                        style="border-bottom:1px solid #eee">
+                                        <strong>{{ noti.title }}
+                                            <!-- <i class="bi bi-x-lg text-danger cursor-pointer float-end"></i> -->
+                                        </strong>
                                         <div class="small text-mut">
-                                            {{ noti.content }}
+                                            {{ noti?.content }}
                                             <p class="text-danger-emphasis fst-italic">{{
                                                 useFunctions.timeAgo(noti.created_at) }}
                                             </p>
@@ -80,7 +81,7 @@ import sideBarMobile from './sideBarMobile.vue';
 import { useAuthStore } from '@/stores/authStore';
 import { useTemplateStore } from '@/stores/templateStore';
 import { useRouter } from 'vue-router';
-import { onMounted, reactive, ref, watch } from "vue";
+import { computed, onMounted, reactive, ref, watch } from "vue";
 import api from "@/stores/Helpers/axios";
 import useFunctions from '@/stores/Helpers/useFunctions';
 
@@ -88,18 +89,27 @@ onMounted(() => {
     getNotifications()
 })
 
-
-const notifications = ref<any[]>([])
-const authStore = useAuthStore()
 const router = useRouter()
 const templateStore = useTemplateStore()
 
+const authStore = useAuthStore()
 
-const notificationsBellClicked = ref(false)
+const notifications = ref<any[]>([])
+const notificationsUnRead = computed(() => {
+    return notifications.value.find((x: any) => x.is_read == 1)
+})
+
+
+async function updateReadNotifications() {
+    try { await api.userNotificationsMarkAsRead() } catch (error) { }
+    getNotifications()
+}
+
 async function getNotifications() {
     try {
         const resp = await api.userNotifications()
         notifications.value = resp.data?.data ?? []
+
     } catch (error) {
 
     }
@@ -144,7 +154,7 @@ async function logout() {
 .dropdown-menu {
     border-radius: 10px;
     width: 350px;
-    padding-top: 0px;
+    padding-block: 5px;
 }
 
 .noti-header {
@@ -154,5 +164,9 @@ async function logout() {
     font-weight: bold;
     text-align: center;
     color: #000;
+}
+
+.notification-dropdown .dropdown-item:hover {
+    background-color: #cccccc27 !important;
 }
 </style>

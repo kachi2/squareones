@@ -14,12 +14,12 @@
                     </div>
                     <div class="modal-body">
                         <div class="fixed-label-custom">
-                        <div class="col-12 col-md-12">
-                            <v-select   v-model="registration_progress_id" :clearable="true" :options="progressData"
-                                :reduce="(item: any) => item.id" label="description"  />
+                            <div class="col-12 col-md-12">
+                                <v-select v-model="registration_progress_id" :clearable="true" :options="progressData"
+                                    :reduce="(item: any) => item.id" label="description" />
                                 <label class="" for="eng_name">Update Incorporation Status:</label>
+                            </div>
                         </div>
-                       </div>
                     </div>
                     <div class="modal-footer border-0">
                         <button ref="closeModal" type="button" class="btn btn-secondary" data-bs-dismiss="modal">

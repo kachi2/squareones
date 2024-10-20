@@ -106,7 +106,7 @@ const rules = {
     reg_no: yup.string().required('Field is required'),
     registered_office: yup.string().required('Field is required'),
     // ceasing_of_act: yup.date().required('Field is required'),
-    // remarks: yup.string().required('Field is required'),
+    remarks: yup.string().required('Field is required'),
 };
 
 const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({

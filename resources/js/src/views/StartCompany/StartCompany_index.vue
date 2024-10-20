@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
+import { onBeforeMount, onMounted, ref } from 'vue'
 import { useStartCompanyStore } from './StartCompany_store';
 import pageLoadingComponent from '@/components/pageLoadingComponent.vue'
 
@@ -46,18 +46,20 @@ import { nameForm } from './pages/formsStore/Name';
 import { sourceForm } from './pages/formsStore/Source';
 import { activitiesForm } from './pages/formsStore/Activities';
 
-
 const description_form = descriptionForm()
 const name_form = nameForm()
 const source_form = sourceForm()
 const activities_form = activitiesForm()
 
+
 const startCompanyStore = useStartCompanyStore()
 
 const isLoading = ref(true)
 
+
 onMounted(async () => {
     await startCompanyStore.getCompanyInProgress()
+
     isLoading.value = false
     startCompanyStore.getBusinessNatures()
     startCompanyStore.getCountries()

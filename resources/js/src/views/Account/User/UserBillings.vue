@@ -150,10 +150,10 @@
 
                             <template #item-hosted_invoice_url="item">
                                 <span class="text-nowrap" v-if="item.hosted_invoice_url">
-                                    <a :href="item.hosted_invoice_url" target="_blank">
-                                        <i class="bi bi-file-arrow-down-fill"></i>
+                                    <a :href="item.hosted_invoice_url" target="_blank" style="text-decoration:none">
+                                        <!-- <i class="bi bi-file-arrow-down-fill"></i> -->
 
-                                        <strong> DOWNLOAD</strong>
+                                        <strong> View Details</strong>
                                     </a>
                                 </span>
                                 <span v-else>-</span>

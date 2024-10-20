@@ -10,6 +10,10 @@ export default {
         return $instance.get(`user/account/company`)
     },
 
+
+    userCompany() {
+        return $instance.get(`user/active/company`)
+    },
     userGetDocuments() {
         return $instance.get(`user/account/documents`)
     },
@@ -31,7 +35,7 @@ export default {
     },
 
     userToggleNotifications(formData: FormData) {
-        return $instanceForm.post(`user/toggle/notifications/setting`, formData)
+        return $instanceForm.post(`user/toggle/notifications/setting`, FormData)
     },
 
     userGetNotificationStatus(formData: FormData) {
@@ -52,6 +56,10 @@ export default {
 
     userNotifications() {
         return $instance.get(`user/notifications`)
+    },
+
+    userNotificationsMarkAsRead() {
+        return $instance.get(`user/notifications/read`)
     },
 
     userGetCompany(company_id: any) {

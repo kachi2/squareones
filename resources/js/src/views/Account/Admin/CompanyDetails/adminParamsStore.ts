@@ -2,6 +2,7 @@ import { reactive, ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
 import api from '@/stores/Helpers/axios'
+import { Country } from 'country-state-city';
 
 
 export const useAdminParamsStore: any = defineStore('useAdminParamsStore', () => {
@@ -47,14 +48,20 @@ export const useAdminParamsStore: any = defineStore('useAdminParamsStore', () =>
     }
 
     const getCountries = async () => {
-        const response = await fetch('https://restcountries.com/v3.1/all');
-        if (response.ok) {
-            const data = await response.json();
-            let names = data.map((country: { name: any; }) => country.name.common)
-            countries.value = names.sort()
-        } else {
-            console.error('', response.statusText);
-        }
+        try {
+            const countriesArray = Country.getAllCountries()
+            countries.value = countriesArray.map((country:any) => country.name)
+           } catch (error) {
+            // 
+           }
+        // const response = await fetch('https://restcountries.com/v3.1/all');
+        // if (response.ok) {
+        //     const data = await response.json();
+        //     let names = data.map((country: { name: any; }) => country.name.common)
+        //     countries.value = names.sort()
+        // } else {
+        //     console.error('', response.statusText);
+        // }
     }
 
 

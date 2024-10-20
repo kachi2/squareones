@@ -3,65 +3,76 @@
         <h5 class="fw-bold page-title mb-2"> Companies Overview</h5>
         <div class="mb-3"> Have a Glance of this company Informaiton</div>
         <div class="row g-3 mb-5">
-           <div class="col-md-4 pb-3">
-            <router-link to="/admin/companies" style="text-decoration:none">
-                <div class="card  border-0  shadow-sm h-70">
-                    <div class="card-body ">
-                        <div class="d-flex justify-content-between align-items-cente">
-                            <div class="col-12">
-                                <span class="fs-4 fw-bold text-primary">{{comapaniesList?.total}}</span>
-                                <div>
-                                    <span class="small fw-bold">Total Companies</span> &nbsp;
-                                    <small style="font-size:10px;" class=""> <span class=" text-info fw-bold">{{comapaniesList?.data?.thismonth}}</span> added this month</small>
-                                </div>
-                                <div>
-                                    <span class="small badge bg-success">{{comapaniesList?.data?.active}} active </span> &nbsp;
-                                    <span class="small badge bg-danger">{{comapaniesList?.data?.inactive}}  Inactive </span>
+            <div class="col-md-4 pb-3">
+                <router-link to="/admin/companies" style="text-decoration:none">
+                    <div class="card  border-0  shadow-sm h-70">
+                        <div class="card-body ">
+                            <div class="d-flex justify-content-between align-items-cente">
+                                <div class="col-12">
+                                    <span class="fs-4 fw-bold text-primary">{{ comapaniesList?.length }}</span>
+                                    <div>
+                                        <span class="small fw-bold">Total Companies</span> &nbsp;
+                                        <small style="font-size:10px;" class=""> <span class=" text-info fw-bold">{{
+                                            comapaniesData?.thismonth }}</span>
+                                            added this month</small>
+                                    </div>
+                                    <div>
+                                        <span class="small badge bg-success">{{ comapaniesData?.active }} active
+                                        </span> &nbsp;
+                                        <span class="small badge bg-danger">{{ comapaniesData?.inactive }}
+                                            Inactive
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </router-link>
+                </router-link>
             </div>
             <div class="col-md-4">
                 <router-link to="/admin/companies" style="text-decoration:none">
-                <div class="card border-0 shadow-sm h-70">
-                    <div class="card-body ">
-                        <div class="d-flex justify-content-between align-items-cente">
-                            <div class="col-12">
-                                <span class="fs-4 fw-bold text-warning">{{comapaniesList?.data?.Unincorporated}}</span>
-                
-                                <div>
-                                    <span class="small fw-bold">Pending Incorporation</span>
-                                </div>
-                                <div>
-                                    <span class="small"> <span class="text-primary fw-bold">{{comapaniesList?.data?.thisMonthUnIncorporated}}</span> new company added this month</span>
+                    <div class="card border-0 shadow-sm h-70">
+                        <div class="card-body ">
+                            <div class="d-flex justify-content-between align-items-cente">
+                                <div class="col-12">
+                                    <span class="fs-4 fw-bold text-warning">{{ comapaniesData?.Unincorporated
+                                        }}</span>
+
+                                    <div>
+                                        <span class="small fw-bold">Pending Incorporation</span>
+                                    </div>
+                                    <div>
+                                        <span class="small"> <span class="text-primary fw-bold">{{
+                                            comapaniesData?.thisMonthUnIncorporated }}</span>
+                                            new company added this month</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </router-link>
+                </router-link>
             </div>
             <div class="col-md-4">
                 <router-link to="/admin/companies" style="text-decoration:none">
-                <div class="card border-0 shadow-sm h-70">
-                    <div class="card-body ">
-                        <div class="d-flex justify-content-between align-items-cente">
-                            <div class="col-12">
-                                <span class="fs-4 fw-bold text-success">{{comapaniesList?.data?.incorporated??'0'}}</span>
-                                <div>
-                                    <span class="small fw-bold">Incorporated</span> 
-                                </div>
-                                <div>
-                                    <span class="small"> <span class="text-primary fw-bold">{{comapaniesList?.data?.thisMonthIncorporated??'0'}}</span> new companies added this month</span>
+                    <div class="card border-0 shadow-sm h-70">
+                        <div class="card-body ">
+                            <div class="d-flex justify-content-between align-items-cente">
+                                <div class="col-12">
+                                    <span class="fs-4 fw-bold text-success">{{ comapaniesData?.incorporated ?? '0'
+                                        }}</span>
+                                    <div>
+                                        <span class="small fw-bold">Incorporated</span>
+                                    </div>
+                                    <div>
+                                        <span class="small"> <span class="text-primary fw-bold">{{
+                                            comapaniesData?.thisMonthIncorporated ?? '0' }}</span>
+                                            new companies added this month</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </router-link>
+                </router-link>
             </div>
             <!-- <div class="col-md-4">
                 <div class="card border-0 shadow-sm h-100">
@@ -179,24 +190,110 @@
 
                             </template>
 
-                            <template #item-action="item">
-                                <router-link @click="paramsStore.currentCompanyId = item.id"
-                                    class="text-decoration-none" to="/admin/company">
-                                    <i class="bi bi-exclamation-circle"></i> Details
-                                </router-link>
+                            <template #item-contact="item">
+                                <!-- Some borders are removed -->
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <span>Name:</span>
+                                        <span>{{ item?.main_contact?.name }}</span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span>Email:</span>
+                                        <span>{{ item?.main_contact?.email }}</span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span>Status:</span>
+                                        <span v-if="item?.main_contact?.email_verified_at">
+                                            <span class="badge bg-success-subtle text-dark ms-2">Verified</span>
+                                        </span>
+                                        <span v-else>
+                                            <span class="badge bg-warning-subtle text-dark ms-2">Not Verified</span>
+                                        </span>
+                                    </li>
+
+                                </ul>
+
                             </template>
+                            <template #item-is_paid="item">
+                                <span v-if="item.is_paid === 1"
+                                            class="badge bg-success-subtle text-dark">Paid</span>
+                                        <span v-else class="badge bg-warning-subtle text-dark">Pending</span>
+                            </template>
+
+
+                            <template #item-services="item">
+                                <div>{{ displayServices(item.services) }}</div>
+                                <button @click="openServicesModal(item.services, item.id)"
+                                    class="btn btn-secondary py-0 p-1 btn-sm xsmall mt-1">
+                                    Update services<i class="bi bi-plus-lg"></i>
+                                </button>
+                            </template>
+
+                            <template #item-action="item">
+                                <!-- Some borders are removed -->
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <router-link @click="paramsStore.currentCompanyId = item.id"
+                                            class="text-decoration-none" to="/admin/company">
+                                            <i class="bi bi-exclamation-circle"></i> Details
+                                        </router-link>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <router-link @click="paramsStore.currentCompanyId = item.id"
+                                            class="text-decoration-none" to="/admin/company-edit">
+                                            <i class="bi bi-eye-fill"></i> View form
+                                        </router-link>
+                                    </li>
+                                </ul>
+                            </template>
+
                         </EasyDataTable>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
     </div>
+
+
+
+
+
+    <!-- modal for  services start -->
+    <button ref="servicesModalToggle" type="button" class="btn d-none" data-bs-toggle="modal" data-bs-target="#modalId">
+    </button>
+
+    <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+        aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">
+                        Services
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="fixed-label-custom">
+                        <v-select :multiple="true" v-model="servicesOnModal" :clearable="true"
+                            :options="servicesOnDropDown" />
+                        <label class="" for="nameeee">Services:</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button :disabled="isSavingServices" @click="servicesStore" type="button" class="btn btn-primary">
+                        Update Services
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal for  services end -->
 </template>
 <script lang="ts" setup>
-import { onMounted, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import api from '@/stores/Helpers/axios'
 import { useAdminParamsStore } from './CompanyDetails/adminParamsStore';
 import { onBeforeRouteLeave } from 'vue-router';
@@ -222,22 +319,39 @@ const computedCoyName = (coy: any) => {
 }
 
 const comapaniesList = ref<any>([])
+
+const comapaniesData = ref<any>([])
 async function getCompanyStats() {
     try {
         const resp = await api.getCompanyStats()
-        comapaniesList.value = resp.data?.data ?? []
-        console.log(comapaniesList.value)
+        comapaniesList.value = resp.data?.data.company ?? []
+        comapaniesData.value = resp.data?.data ?? []
+        // console.log(comapaniesList.value)
     } catch (error) {
         // 
     }
 }
 
-onMounted(() => {
+
+const servicesList = ref<any>([])
+async function getServices() {
+    try {
+        const resp = await api.adminServices()
+        servicesList.value = resp.data?.data ?? []
+        // console.log(servicesList.value)
+    } catch (error) {
+        // 
+    }
+}
+
+onMounted(async () => {
+    await getServices()
     getCompanies()
     getCompanyStats()
 })
 
 onBeforeRouteLeave(() => {
+    // servicesModalToggle.value.click()
     paramsStore.isCompaniesByUser = ''
 })
 
@@ -266,11 +380,19 @@ const headers = [
     { text: "REGISTRATION NUMBER", value: "business_reg_no" },
     { text: "INCORPORATION STATUSES", value: "incorporation_statuses" },
     { text: "MAIN CONTACT", value: "contact" },
-    { text: "SERVICE", value: "company_services" },
-    { text: "PAYMENT STATUS", value: "payment_status" },
+    { text: "SERVICE", value: "services" },
+    { text: "PAYMENT STATUS", value: "is_paid" },
     // { text: "INCOPRATION STATUS", value: "is_incorporated" },
     { text: "ACTION", value: "action" },
 ];
+
+const displayServices = (services: any) => {
+    try {
+        return !services ? '' : JSON.parse(JSON.parse(services)).toString()
+    } catch (error) {
+        return ''
+    }
+}
 
 
 const pieChartSeriesActiveCoys = ref<any>([1, 1])
@@ -315,13 +437,6 @@ const pieChartOptionsActiveCoys = {
     ],
 }
 
-
-
-
-
-
-
-
 // Pending incop chart
 const pieChartOptionsPendingIncop = {
     colors: ["#16497c", "#46320633"],
@@ -352,11 +467,6 @@ const pieChartOptionsPendingIncop = {
     ],
 }
 
-
-
-
-
-
 //  incop chart
 const pieChartOptionsIncomporated = {
     colors: ["#463206", "#46320633"],
@@ -385,6 +495,47 @@ const pieChartOptionsIncomporated = {
             },
         },
     ],
+}
+
+
+
+
+// services Edit
+const servicesModalToggle = ref<any>(null)
+const isSavingServices = ref<boolean>(false)
+const servicesOnModal = ref<any>([])
+const companyIdOnServicesModal = ref<number | string>('')
+const servicesOnDropDown = computed(() => {
+    let $array: any[] = []
+    if (servicesList.value.length) {
+        $array = servicesList.value.map((x: any) => x.name)
+    }
+
+    return $array;
+})
+
+function openServicesModal(services: string, company_id: number) {
+    try {
+        servicesOnModal.value = services ? JSON.parse(JSON.parse(services)) : [];
+    } catch (error) { }
+    companyIdOnServicesModal.value = company_id
+    servicesModalToggle.value.click()
+
+}
+
+async function servicesStore() {
+    try {
+        isSavingServices.value = true
+        const form = new FormData();
+        form.append('service', JSON.stringify(servicesOnModal.value))
+        const resp = await api.adminServicesStore(form, companyIdOnServicesModal.value)
+        servicesModalToggle.value.click()
+        isSavingServices.value = false
+        getCompanies()
+    } catch (error) {
+        isSavingServices.value = false
+        // 
+    }
 }
 
 

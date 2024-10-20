@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 5174",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
@@ -20,6 +20,7 @@
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "country-state-city": "^3.2.1",
     "html2canvas": "^1.4.1",
     "js-cookie": "^3.0.5",
     "jspdf": "^2.5.1",

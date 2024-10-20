@@ -191,10 +191,10 @@
 
                             <template #item-hosted_invoice_url="item">
                                 <span class="text-nowrap" v-if="item.hosted_invoice_url">
-                                    <a :href="item.hosted_invoice_url" target="_blank">
-                                        <i class="bi bi-file-arrow-down-fill"></i>
+                                    <a :href="item.hosted_invoice_url" target="_blank" style="text-decoration:none">
+                                        <!-- <i class="bi bi-file-arrow-down-fill"></i> -->
 
-                                        <strong> DOWNLOAD</strong>
+                                        <strong> View Details</strong>
                                     </a>
                                 </span>
                                 <span v-else>-</span>
@@ -204,7 +204,7 @@
                 </div>
             </div>
 
-            <div class="col-12 mt-4 ">
+            <!-- <div class="col-12 mt-4 ">
                 <div class="card shadow-sm  min-vh-100">
                     <div class="card-body">
                         <div class="card-header fw-bold bg-transparent border-0 px-0 py-3">
@@ -244,7 +244,7 @@
                         </EasyDataTable>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 

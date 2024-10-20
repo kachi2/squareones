@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
                 IdentityTypeSeeder::class,
                 // PlanSeeder::class,
                 DocumentTypeSeeder::class,
-                CompanyServiceSeeder::class
+                CompanyServiceSeeder::class,
+                AdminBillingSeeder::class
             ]);
 
         }catch(\Exception $e){

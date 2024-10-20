@@ -102,6 +102,7 @@ function hasNoNullsOrEmptyStrings(meta: string) {
         try {
             const data = adminParamsStore.currentCompanyData?.[meta] ?? [];
             if (data.length == 0) return false
+    
             return data.every((obj: any) => Object.values(obj).every(value => value !== null && value !== ''));
         } catch (error) {
             console.log('caught error hasNoNullsOrEmptyStrings: ', error);

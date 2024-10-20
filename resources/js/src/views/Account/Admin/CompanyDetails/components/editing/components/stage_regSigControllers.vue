@@ -51,11 +51,11 @@
                     <small class=" text-danger">{{ errors.date_ceased_to_be_rep_person }}</small>
                 </div>
 
-                <div class="col-12 col-md-6">
+                <!-- <div class="col-12 col-md-6">
                     <div class="form-label">Residential Address:</div>
                     <input v-model="resdential_address" type="text" class="form-control">
                     <small class=" text-danger">{{ errors.resdential_address }}</small>
-                </div>
+                </div> -->
 
                 <div class="col-12 col-md-6">
                     <div class="form-label">Corresponding Address/Residential Address::</div>
@@ -127,16 +127,17 @@ const selectOptions = computed(() => {
 const selectedEntity = ref<any>('')
 function populateFieldWithDetails() {
     if (selectedEntity.value) {
+        // console.log(selectedEntity.value, 'selectedEntity.value')
         if (selectedEntity.value.entry_date)
             entry_date.value = selectedEntity.value.entry_date
-        if (selectedEntity.value.legal_entity_name)
-            legal_entity_name.value = selectedEntity.value.legal_entity_name
-        if (selectedEntity.value.date_becoming_rep_person)
-            date_becoming_rep_person.value = selectedEntity.value.date_becoming_rep_person
-        if (selectedEntity.value.date_ceased_to_be_rep_person)
-            date_ceased_to_be_rep_person.value = selectedEntity.value.date_ceased_to_be_rep_person
-        if (selectedEntity.value.corresponding_address)
-            corresponding_address.value = selectedEntity.value.corresponding_address
+        if (selectedEntity.value.name)
+            legal_entity_name.value = selectedEntity.value.name
+        if (selectedEntity.value.date_entered_as_member)
+            date_becoming_rep_person.value = selectedEntity.value.date_entered_as_member
+        if (selectedEntity.value.date_cease_to_be_member)
+            date_ceased_to_be_rep_person.value = selectedEntity.value.date_cease_to_be_member
+        if (selectedEntity.value.address)
+            corresponding_address.value = selectedEntity.value.address
         if (selectedEntity.value.resdential_address)
             resdential_address.value = selectedEntity.value.resdential_address
         if (selectedEntity.value.identity_info)
@@ -150,19 +151,27 @@ function populateFieldWithDetails() {
 }
 
 
+const checkIndividual = () => {
+    if(selectedEntity.value.type === 'individual') return true;
+}
+
+const checkCorporate = () => {
+    if(selectedEntity.value.type === 'corporate') return true
+} 
+
 
 // form and validation
 const rules = {
     entry_date: yup.date().required('Field is required'),
-    // name: yup.string().required('Field is required'),
+    name: yup.string().required('Field is required'),
     legal_entity_name: yup.string().required('Field is required'),
     date_becoming_rep_person: yup.date().required('Field is required'),
     // date_ceased_to_be_rep_person: yup.date().required('Field is required'),
-    corresponding_address: yup.string().required('Field is required'),
-    resdential_address: yup.string().required('Field is required'),
+    corresponding_address: yup.string().test('checkCorporate', 'Field is required',checkCorporate),
+    resdential_address: yup.string().test('checkIndividual', 'Field is required',checkIndividual),
     identity_info: yup.string().required('Field is required'),
-    place_of_registration: yup.string().required('Field is required'),
-    nature_of_control_over_the_company: yup.string().required('Field is required'),
+    place_of_registration: yup.string().test('checkCorporate', 'Field is required',checkCorporate),
+    nature_of_control_over_the_company: yup.string().test('checkCorporate', 'Field is required',checkCorporate),
 };
 
 const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({
@@ -196,7 +205,7 @@ function setValuesOnFields() {
         setFieldValue('nature_of_control_over_the_company', significant_controller?.controllers_particulars?.nature_of_control_over_the_company)
     }
 }
-
+ 
 const save = handleSubmit(async (values) => {
     useFxn.confirm('Update Data?', 'Continue').then(async (confirmed) => {
         if (confirmed.value == true) {
@@ -213,7 +222,6 @@ const save = handleSubmit(async (values) => {
             formData.append('identity_info', values.identity_info ?? '')
             formData.append('place_of_registration', values.place_of_registration ?? '')
             formData.append('nature_of_control_over_the_company', values.nature_of_control_over_the_company ?? '')
-
             formData.append('shareholders_id', selectedEntity.value.id)
 
 

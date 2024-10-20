@@ -121,7 +121,7 @@ class PaymentServices implements PaymentInterface
                     //  $user->notify(new PaymentCompleted($billing));
                     //  UserActivities('Completed Company Payment', $location=null, "Payment");
                      ActivityLogs('Completed Company Payment '.$company->names['0']->name,  'Billing');
-                    $this->createSubscription($session['customer']);
+                    // $this->createSubscription($session['customer']);
                     return $session;
                 }
                 return 
@@ -258,7 +258,7 @@ class PaymentServices implements PaymentInterface
     $subsc->update([
         'subscription_id' => $subscription->id,
         'status' => 'active',
-        'next_billing_cycle' => Carbon::now()->addDays(365),
+        'next_billing_cycle' => Carbon::now()->addDays(365)->format('d-m-Y'),
         'current_period_start' => Date('d-m-Y', $subscription->current_period_start),
         'company_name' => $subsc->company->names[0]->eng_name . $subsc->company->names[0]->chn_name 
     ]);

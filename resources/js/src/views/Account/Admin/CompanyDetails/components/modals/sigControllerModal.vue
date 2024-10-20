@@ -34,7 +34,7 @@
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
                                     <input v-model="legal_entity_name" type="text" class="form-control" placeholder="">
-                                    <label class="" for="eng_name">Legal Entity</label>
+                                    <label class="" for="eng_name">Name of Registrable Person / Legal Entity</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.legal_entity_name }}</small>
                             </div>
@@ -81,7 +81,7 @@
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
                                     <input v-model="identity_info" type="text" class="form-control" placeholder="">
-                                    <label class="" for="eng_name">Identity Infomation</label>
+                                    <label class="" for="eng_name">ID/Passport/Registration No.</label>
                                 </div>
                                 <small class=" text-danger">{{ errors.identity_info }}</small>
                             </div>

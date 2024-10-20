@@ -38,6 +38,9 @@ import 'vue-tel-input/vue-tel-input.css';
 import Vue3EasyDataTable from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
 
+// https://www.npmjs.com/package/country-state-city
+// npm i country-state-city
+
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 

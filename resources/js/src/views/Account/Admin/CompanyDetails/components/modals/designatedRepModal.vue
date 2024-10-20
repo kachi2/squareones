@@ -37,6 +37,11 @@
                             <div class="col-12 col-md-6">
                                 <div class="form-label">Place of Registration:</div>
                                 <input v-model="place_of_registration" type="text" class="form-control">
+                                <small class=" text-danger">{{ errors.corresponding_address }}</small>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-label">Corresponding Address:</div>
+                                <input v-model="corresponding_address" type="text" class="form-control">
                                 <small class=" text-danger">{{ errors.place_of_registration }}</small>
                             </div>
 
@@ -109,6 +114,7 @@ const rules = {
     identity_info: yup.string().required('Field is required'),
     nature_of_control_over_the_company: yup.string().required('Field is required'),
     place_of_registration: yup.string().required('Field is required'),
+    corresponding_address: yup.string()
 };
 
 const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({
@@ -121,6 +127,7 @@ const [remarks] = defineField('remarks');
 const [identity_info] = defineField('identity_info');
 const [place_of_registration] = defineField('place_of_registration');
 const [nature_of_control_over_the_company] = defineField('nature_of_control_over_the_company');
+const [corresponding_address] = defineField('corresponding_address')
 const isSaving = ref<boolean>(false)
 
 function setValuesOnFields() {
@@ -130,7 +137,8 @@ function setValuesOnFields() {
         if (designated_representative) {
             setFieldValue('entry_date', designated_representative.entry_date)
             setFieldValue('name', designated_representative.name)
-            setFieldValue('remarks', designated_representative.remarks)
+            setFieldValue('remarks', '')
+            setFieldValue('corresponding_address', designated_representative.designated_particulars.corresponding_address)
             setFieldValue('identity_info', designated_representative.designated_particulars.identity_info)
             setFieldValue('place_of_registration', designated_representative.designated_particulars.place_of_registration)
             setFieldValue('nature_of_control_over_the_company', designated_representative.designated_particulars.nature_of_control_over_the_company)
@@ -146,6 +154,7 @@ const save = handleSubmit(async (values) => {
             formData.append('company_id', paramsStore.currentCompanyId)
             formData.append('entry_date', values.entry_date ? useFxn.formatDate(values.entry_date) : '')
             formData.append('name', values.name ?? '')
+            formData.append('corresponding_address', values.corresponding_address ?? '')
             formData.append('remarks', values.remarks ?? '')
             formData.append('identity_info', values.identity_info ?? '')
             formData.append('place_of_registration', values.place_of_registration ?? '')

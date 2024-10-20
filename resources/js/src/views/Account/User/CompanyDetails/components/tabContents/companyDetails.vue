@@ -89,20 +89,41 @@
                 </div>
                 <div class="card-body small  rounded-3">
                     <!-- <div class="fw-bold mb-2 fs-5"></div> -->
-                    <div class="fw-bold" v-if="registered_company?.registration_progress_id == 1">Set up company</div>
-                    <div class="fw-bold" v-if="registered_company?.registration_progress_id == 2">Sorting out
-                        &nbsp;incorporation details</div>
-                    <div class="fw-bold" v-if="registered_company?.registration_progress_id == 3">Handling the paperwork
-                    </div>
-                    <div class="fw-bold" v-if="registered_company?.registration_progress_id == 4">Your company is
-                        incorporated</div>
-                    <div class="fw-bold" v-if="registered_company?.registration_progress_id == 5">Certificates Ready
-                    </div>
+                     <div v-if="registered_company?.registration_progress_id == null">
+                    <div class="fw-bold" >Set up company</div>
                     <div class="text-mute my-3">
-                        To pay your company’s formation fee, make sure
-                        you’re not using an anonymous IP address or a VPN.
+                        Just getting started! We're putting together all your company details.
                     </div>
-                    <div class="my-3" v-if="registered_company?.registration_progress_id == 1">Set up company</div>
+                   </div>
+                   <div v-if="registered_company?.registration_progress_id == 2"> 
+                    <div class="fw-bold" >Sorting out
+                        &nbsp;incorporation details</div>
+                        <div class="text-mute my-3">
+                            We're now working on the nitty-gritty of your incorporation papers.
+                    </div>
+                    </div>
+
+                    <div v-if="registered_company?.registration_progress_id == 3"> 
+                    <div class="fw-bold" >Handling the paperwork </div>
+                        <div class="text-mute my-3">
+                            Your documents are being compiled and double-checked for submission.
+                    </div>
+                </div>
+                <div v-if="registered_company?.registration_progress_id == 4"> 
+                    <div class="fw-bold" >Your company is
+                        incorporated</div>
+                        <div class="text-mute my-3">
+                            Congratulations! Your company is now legally registered.
+                    </div>
+                    </div>
+                    <div v-if="registered_company?.registration_progress_id == 5">
+                    <div class="fw-bold" >Certificates Ready </div>
+                    <div class="text-mute my-3">
+                        Your official incorporation and business registration certificates are now ready.
+                    </div>
+                </div>
+                  
+                    <div class="my-3" v-if="registered_company?.registration_progress_id == null">Set up company</div>
                     <div class="my-3" v-if="registered_company?.registration_progress_id == 2">Sorting out
                         &nbsp;incorporation details</div>
                     <div class="my-3" v-if="registered_company?.registration_progress_id == 3">Handling the paperwork
@@ -119,7 +140,7 @@
                                     <div class="progress-line"></div>
 
                                     <i
-                                        :class="!status.a ? 'bi  bi-check-circle-fill text-success phase phase-1' : 'bi  bi-circle text-warning phase phase-1'"></i>
+                                        :class="'bi  bi-check-circle-fill text-success phase phase-1'"></i>
                                     <i
                                         :class="status.b ? 'bi  bi-check-circle-fill text-success phase phase-2' : 'bi  bi-circle text-warning phase phase-2'"></i>
                                     <i

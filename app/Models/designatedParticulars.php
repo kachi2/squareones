@@ -10,6 +10,6 @@ class DesignatedParticulars extends Model
     use HasFactory;
 
     protected $fillable = [
-        'designated_representative_id','identity_info','place_of_registration','nature_of_control_over_the_company'
+        'designated_representative_id','identity_info','place_of_registration','nature_of_control_over_the_company', 'corresponding_address'
     ];
 }

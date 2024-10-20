@@ -3,13 +3,20 @@ import { onMounted, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 import { useParamsStore } from '@/views/Account/User/CompanyDetails/paramsStore';
 import { useTemplateStore } from '@/stores/templateStore';
+import api from '@/stores/Helpers/axios';
+
 
 const templateStore = useTemplateStore()
 
 
+const Activecompany = ref<any>('')
+
 const paramsStore = useParamsStore()
 onMounted(async () => {
     await paramsStore.getCompanies()
+    const data = await api.userCompany();
+    Activecompany.value = data.data.data
+    console.log(Activecompany.value, 'Activecompany')
 })
 
 
@@ -47,7 +54,7 @@ function openCompaniesDropdown() {
                     </span>
 
                     <div id="accordionMenuCompanyCollapse" class="accordion-collapse collapse "
-                        aria-labelledby="menu1Heading" data-bs-parent="#accordionMenuCaompany">
+                        aria-labelledby="menu1Heading" data-bs-parent="#accordionMenuCaompany ">
                         <div class="accordion-body">
                             <ul class="nav flex-column mt-2" v-if="paramsStore.companies.list.length">
                                 <li v-for="item in paramsStore.companies.list" :key="item"
@@ -56,9 +63,15 @@ function openCompaniesDropdown() {
                                         {{ paramsStore.computedCoyName(item) }}
                                     </router-link>
                                 </li>
+                                <li class="nav-item single-list-items pt-2" v-if="Activecompany?.is_completed">
+                                    <router-link @click="" to="/user/company">
+                                        Start New Company
+                                    </router-link>
+                                </li>
                             </ul>
                         </div>
                     </div>
+
                 </div>
             </div>
         </li>
@@ -132,11 +145,12 @@ function openCompaniesDropdown() {
 } */
 
 .single-list-items:hover {
-    background: #eee;
+    /* background: #699ef5; */
     padding: 5px 5px 5px 5px;
     border-radius: 5px;
-    transition: padding 0.5s;
-    color: #000;
+    /* transition: padding 0.2s; */
+    color: v-bind('templateStore.textColor');
+    /* color: v-bind('templateStore.textColor'); */
 }
 
 .list-group-item {
@@ -144,6 +158,11 @@ function openCompaniesDropdown() {
     border: none;
     padding-bottom: 5px;
 
+
+}
+
+.list-group-item:hover {
+    background-color: #cccccc67 !important;
 }
 
 .list-group-item a {
@@ -187,7 +206,7 @@ function openCompaniesDropdown() {
 }
 
 .accordion-item .nav-item a:hover {
-    color: #000000;
+    /* color: #fff; */
     /* color: v-bind('templateStore.textColor'); */
     margin-block: 0px;
     font-size: 14px;
@@ -195,7 +214,9 @@ function openCompaniesDropdown() {
 
 .accordion-body {
     padding-bottom: 0px !important;
+    padding-left: 0px !important;
     padding-top: 3px !important;
+    text-transform: capitalize;
 }
 
 

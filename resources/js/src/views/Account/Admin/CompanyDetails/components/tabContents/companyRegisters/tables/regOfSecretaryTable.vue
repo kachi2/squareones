@@ -11,7 +11,7 @@
                 </span>
             </div>
             <div class="card-body">
-                <EasyDataTable  class="easy-data-table"  :headers="masterTableHeaders"
+                <EasyDataTable  class="easy-data-table" show-index  :headers="masterTableHeaders"
                     :items="paramsStore.currentCompanyData?.register_of_secretary??[]" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">

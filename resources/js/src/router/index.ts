@@ -88,6 +88,7 @@ const router = createRouter({
         { path: 'dashboard', name: 'Admin-Dashboard', alias: '/admin', component: () => import('../views/Account/Admin/AdminDashboard.vue') },
         { path: 'companies', name: 'Admin-Companies', component: () => import('../views/Account/Admin/AdminCompanies.vue') },
         { path: 'company', name: 'Admin-Company', component: () => import('../views/Account/Admin/CompanyDetails/Company.vue') },
+        { path: 'company-edit', name: 'Admin-Company-Edit', component: () => import('../views/Account/Admin/CompanyDetails/StartCompany_edit/StartCompany_index.vue') },
         { path: 'users', name: 'Users-Admin', component: () => import('../views/Account/Admin/AdminUsers.vue') },
         { path: 'account', name: 'Admin-Settings', component: () => import('../views/Account/Admin/AdminAccount.vue') },
         { path: 'billings', name: 'Admin-Billings', component: () => import('../views/Account/Admin/AdminBillings.vue') },

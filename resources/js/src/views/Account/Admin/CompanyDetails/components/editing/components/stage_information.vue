@@ -25,7 +25,7 @@
                 <div class="col-12 col-md-6">
                     <div class="form-label">Company Structure:</div>
                     <select v-model="company_structure" class="form-select">
-                        <option value="Private_Limited_Company">Private Limited Company</option>
+                        <option value="Private_Limited_Company" selected>Private Limited Company</option>
                     </select>
                     <small class=" text-danger">{{ errors.company_structure }}</small>
                 </div>
@@ -85,12 +85,20 @@ const rules = {
     incorporated_date: yup.date().required('Field is required'),
     company_structure: yup.string().required('Field is required'),
     company_registered: yup.string().required('Field is required'),
-    business_classification: yup.string().required('Field is required'),
+    business_classification: yup.string(),
     // registration_progress_id: yup.string()
 };
 
 const { errors, handleSubmit, defineField, setFieldValue } = useForm({
-    // validationSchema: yup.object(rules),
+     validationSchema: yup.object(rules),
+    // initialValues : {
+    //     company_structure: 'Private_Limited_Company',
+    //     company_registered_name: '',
+    //     business_registered_number: '',
+    //     incorporated_date: new Date(),
+    //     company_registered: '',
+    //     business_classification: ''
+    // },
 });
 
 const [company_registered_name] = defineField('company_registered_name');
@@ -110,7 +118,7 @@ function setValuesOnFields() {
         setFieldValue('incorporated_date', registered_company.incorporated_date)
         setFieldValue('company_structure', registered_company.company_structure)
         setFieldValue('company_registered', registered_company.company_registered)
-        setFieldValue('business_classification', registered_company.business_classification)
+        setFieldValue('business_classification', registered_company.business_classification??'')
         // setFieldValue('registration_progress_id', registered_company.registration_progress_id)
     }
 }
@@ -130,7 +138,6 @@ const save = handleSubmit(async (values) => {
             formData.append('company_registered', values.company_registered ?? '')
             formData.append('business_classification', values.business_classification ?? '')
             // formData.append('registration_progress_id', values.registration_progress_id)
-
 
             try {
                 await api.registeredCompany(formData)

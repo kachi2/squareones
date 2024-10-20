@@ -20,9 +20,10 @@ return new class extends Migration
             $table->string('date_ceased_to_be_rep_person')->nullable();
             $table->tinyText('corresponding_address')->nullable();
             $table->tinyText('resdential_address')->nullable();
-            $table->tinyText('identiy_info')->nullable();
+            $table->tinyText('identity_info')->nullable();
             $table->tinyText('place_of_registration')->nullable();
             $table->tinyText('nature_of_control_over_the_company')->nullable();
+            $table->string('type')->nullable();
             $table->timestamps();
         });
     }

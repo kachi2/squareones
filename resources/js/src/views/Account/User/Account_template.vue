@@ -4,7 +4,7 @@
     <div class="main-content">
         <div class="container">
             <div class="col-12">
-    <div v-if="!companyDetails.renewal_date">
+    <div v-if="!companyDetails.is_paid && !companyDetails.is_kyc_completed" >
         <div class="col-12">
             <div class="alert alert-dark bg-primary-subtle" role="alert">
                 <div class="row gy-1">
@@ -24,9 +24,26 @@
 
         </div>
     </div>
-        <div v-else>
-
+        <div v-else-if ="!companyDetails.is_kyc_completed">
             <div class="col-12">
+            <div class="alert alert-dark bg-primary-subtle" role="alert">
+                <div class="row gy-1">
+                    <div class="col-lg-10">
+                        <div class="fw-bold">
+                          You have not completed KYC verifications
+                        </div>
+                        <small>Continue your KYC verification to get your company Incorporated</small>
+                    </div>
+                    <div class="col-lg-2 d-flex justify-content-lg-end align-items-lg-center">
+                        <router-link class="btn btn-primary" to="/start_company">
+                            Verify Now <i class="bi bi-arrow-right"></i>
+                        </router-link>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            <div class="col-12" v-else>
             <div class="alert alert-dark bg-primary-subtle" role="alert">
                 <div class="row gy-1">
                     <div class="col-lg-10">
@@ -42,8 +59,6 @@
                     </div>
                 </div>
             </div>
-
-        </div>
         </div>
    
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -70,21 +85,21 @@ import { useTemplateStore } from '@/stores/templateStore';
 const templateStore = useTemplateStore()
 
 const companyDetails = reactive<any>({
-  incorporated_date: '',
-  renewal_date: '',
+  is_paid: '',
+  is_kyc: '',
 });
 
 async function companyReturn() {
-  const annualReturns = await api.getCompanyReturn();
-  const data = annualReturns.data.data;
-  companyDetails.incorporated_date = data?.registered_company?.incorporated_date
-  companyDetails.renewal_date = data?.registered_company?.renewal_date
-  // console.log(data?.registered_company[0]?.incorporated_date, 'annualRsassasasassaseturns');
-  return annualReturns
+  const companies = await api.userCompany();
+  const data = companies.data.data;
+  companyDetails.is_paid = data.is_paid
+  companyDetails.is_kyc = data.is_kyc_completed
+//    console.log(data.is_kyc_completed, 'annualRsassasasassaseturns');
+  return data
 }
 
 onMounted(() =>{
-    companyReturn
+    companyReturn()
 })
 
 </script>

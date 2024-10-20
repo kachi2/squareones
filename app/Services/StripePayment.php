@@ -130,8 +130,8 @@ class StripePayment
             }
         }
         // dd('asas');
-        $this->TapInvoice($invoices);
-        $this->processBilling($count, $amount, $total_paid, $paid_amount, $total_open, $open_amount, $overdue_invoice, $overDue_amount,$active, $inactive);
+        // $this->TapInvoice($invoices);
+        // $this->processBilling($count, $amount, $total_paid, $paid_amount, $total_open, $open_amount, $overdue_invoice, $overDue_amount,$active, $inactive);
         }
      $data = $this->generateData();
     

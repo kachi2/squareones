@@ -144,7 +144,7 @@ function setValuesOnFields() {
             setFieldValue('reg_no', register_of_director.reg_no)
             setFieldValue('registered_office', register_of_director.registered_office)
             setFieldValue('ceasing_of_act', register_of_director.ceasing_of_act)
-            // setFieldValue('remarks', register_of_director.remarks)
+            setFieldValue('remarks', '')
         }
     }
 }

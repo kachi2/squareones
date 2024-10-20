@@ -61,10 +61,13 @@
 
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
-                                    <input v-model="denomination" type="text" class="form-control" placeholder="">
-                                    <small class=" text-danger">{{ errors.denomination }}</small>
+                                    <select v-model="denomination" class="form-select">
+                                        <option v-for="curr in startCompanyStore.currencies" :value="curr">{{ curr }}
+                                        </option>
+                                    </select>
                                     <label class="" for="eng_name">Denomination:</label>
                                 </div>
+                                <small class=" text-danger">{{ errors.denomination }}</small>
                             </div>
 
                             <div class="col-12 col-md-6">
@@ -113,12 +116,13 @@ import { onBeforeRouteLeave } from 'vue-router';
 import api from "@/stores/Helpers/axios"
 import useFxn from '@/stores/Helpers/useFunctions';
 import { useAdminParamsStore } from '../../adminParamsStore';
+import { useStartCompanyStore } from '@/views/StartCompany/StartCompany_store';
 
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
 
 const paramsStore = useAdminParamsStore()
-
+const startCompanyStore = useStartCompanyStore()
 // modal
 const openModal = ref<any>(null)
 const closeModal = ref<any>(null)
@@ -170,7 +174,7 @@ function setValuesOnFields() {
             setFieldValue('no_of_shares_allocated', register_of_allotment.no_of_shares_allocated)
             setFieldValue('denomination', register_of_allotment.denomination)
             setFieldValue('total_consideration', register_of_allotment.total_consideration)
-            // setFieldValue('remarks', register_of_allotment.remarks)
+            setFieldValue('remarks', '')
         }
     }
 }

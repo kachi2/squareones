@@ -125,17 +125,23 @@ class Company extends Model
 
     public function RegisterOfDirector()
     {
-        return $this->hasMany(RegisterOfDirector::class)->latest();
+        return $this->hasMany(RegisterOfDirector::class)
+        ->orderByRaw('ceasing_of_act IS NOT NULL')
+        ->orderBy('created_at', 'DESC');
     }
 
     public function RegisterOfSecretary()
     {
-        return $this->hasMany(RegisterOfSecretary::class)->latest();
+        return $this->hasMany(RegisterOfSecretary::class)
+        ->orderByRaw('cease_to_act IS NOT NULL')
+        ->orderBy('created_at', 'DESC');
     }
 
     public function RegisterOfShareholders()
     {
-        return $this->hasMany(RegisterOfShareholder::class)->latest();
+        return $this->hasMany(RegisterOfShareholder::class)
+        ->orderByRaw('date_cease_to_be_member IS NOT NULL')
+        ->orderBy('created_at', 'DESC');
     }
 
     public function RegisterOfTransfer()

@@ -32,7 +32,7 @@ class AdminStats
         $dates = $request->only(['start_date', 'end_date']);
         $start_date = Carbon::createFromFormat('Y-m-d', $dates['start_date']);
         $end_date = carbon::createFromFormat('Y-m-d',$dates['end_date']);
-        $data = Company::whereBetween('created_at', [$start_date,  $end_date])->paginate(10);
+        $data['company'] = Company::whereBetween('created_at', [$start_date,  $end_date])->get();
         $month = Carbon::now()->subDays(30);
         $data['thismonth'] = Company::whereBetween('created_at', [Carbon::now()->subDays(30)->startOfDay(), Carbon::now()])->count();
         $data['active'] = RegisteredCompany::where('renewal_date', '>', Carbon::now())->count();
@@ -43,7 +43,7 @@ class AdminStats
         $data['thisMonthUnIncorporated'] = RegisteredCompany::whereBetween('created_at', [Carbon::now()->subDays(30)->startOfDay(),  Carbon::now()])->where('incorporated_date', null)->count();
         return $data;
         }
-        $data = Company::paginate(10);
+        $data['company'] = Company::get();
         $data['thismonth'] = Company::whereBetween('created_at', [Carbon::now()->subDays(30)->startOfDay(), Carbon::now()])->count();
         $data['active'] = RegisteredCompany::where('renewal_date', '>', Carbon::now())->count();
         $data['inactive'] = RegisteredCompany::where('renewal_date', '<', Carbon::now())->count();

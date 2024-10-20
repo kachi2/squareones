@@ -47,7 +47,8 @@ class GenerateIncoporatedData implements ShouldQueue
         ],[
             'company_id' => $resource->id,
             'company_structure' =>  $resource->businessNature->name,
-            'registration_progress_id' => 1
+            'registration_progress_id' => 1,
+            'company_registered_name' => $resource?->names['0']->eng_name.' '.$resource?->names['0']->chn_name
         ]);
         $this->ProcessRegisterOfDirectors($resource);
     }
@@ -140,7 +141,8 @@ class GenerateIncoporatedData implements ShouldQueue
                     'class_of_shares' => $entities?->ownerShares?->companyShares?->shareType?->name,
                     'current_holding' => $entities['ownerShares']['total_amount'],
                     'denomination' => $entities?->ownerShares?->companyShares['currency'],
-                    'total_consideration'  => $entities?->ownerShares?->companyShares['total_amount_paid']
+                     'total_consideration'  => $entities['ownerShares']['total_amount']
+                    // 'total_consideration'  => $entities?->ownerShares?->companyShares['total_amount_paid']
                     
                 ]);
             }
@@ -177,6 +179,7 @@ class GenerateIncoporatedData implements ShouldQueue
                 [
                     'company_id' => $resource->id,
                     'legal_entity_name' => $entity->entity_type_id == 1? ($entities['first_name'].' ' .$entities['last_name']. ' '.$entities['chn_last_name'].' ' .$entities['chn_first_name'] ) :$entities['company_name']. ' '.$entities['chn_company_name'],
+                    'type' => $entity['individual']?'individual' : 'corporate'
                 ]);
                   ControllersParticulars::create([
                     'significant_controller_id' => $Controller->id,

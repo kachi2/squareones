@@ -10,8 +10,8 @@
                 </span>
             </div>
             <div class="card-body">
-                <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
-                    :items="paramsStore.currentCompanyData?.register_of_shareholders??[]" buttons-pagination
+                <EasyDataTable class="easy-data-table" show-index :headers="masterTableHeaders"
+                    :items="paramsStore.currentCompanyData?.register_of_shareholders ?? []" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
                         <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>

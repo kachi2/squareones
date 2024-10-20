@@ -144,7 +144,7 @@ function setValuesOnFields() {
             setFieldValue('identity_info', register_of_secretary.identity_info)
             setFieldValue('cease_to_act', register_of_secretary.cease_to_act)
             setFieldValue('address', register_of_secretary.address)
-            // setFieldValue('remarks', register_of_secretary.remarks)
+            setFieldValue('remarks', '')
         }
     }
 }
@@ -161,6 +161,7 @@ const save = handleSubmit(async (values) => {
             formData.append('identity_info', values.identity_info ?? '')
             formData.append('cease_to_act', values.cease_to_act ? useFxn.formatDate(values.cease_to_act) : '')
             formData.append('remarks', values.remarks ?? '')
+            formData.append('address', values.address ?? '')
             if (paramsStore.idToEdit)
                 formData.append('secretary_id', paramsStore.idToEdit)
 

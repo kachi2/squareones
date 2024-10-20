@@ -83,15 +83,15 @@ onMounted(() => {
 })
 
 // form and validation
+
 const rules = {
     entry_date: yup.date().required('Field is required'),
     name: yup.string().required('Field is required'),
     address: yup.string().required('Field is required'),
-    // remarks: yup.string().required('Field is required'),
-    // identity_info: yup.string().required('Field is required'),
-    // nature_of_control_over_the_company: yup.string().required('Field is required'),
-    // place_of_registration: yup.string().required('Field is required'),
 };
+
+
+
 
 const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({
     validationSchema: yup.object(rules),
@@ -108,11 +108,12 @@ const isSaving = ref<boolean>(false)
 
 function setValuesOnFields() {
     const designated_representative = paramsStore.currentCompanyData?.designated_representative[0]
+    console.log(designated_representative, 'designated_representative')
     if (designated_representative) {
         setFieldValue('entry_date', designated_representative.entry_date)
         setFieldValue('name', designated_representative.name)
         setFieldValue('remarks', designated_representative.remarks)
-        setFieldValue('address', designated_representative.address)
+        setFieldValue('address', designated_representative.designated_particulars.corresponding_address)
         // setFieldValue('identity_info', designated_representative.designated_particulars.identity_info)
         // setFieldValue('place_of_registration', designated_representative.designated_particulars.place_of_registration)
         // setFieldValue('nature_of_control_over_the_company', designated_representative.designated_particulars.nature_of_control_over_the_company)

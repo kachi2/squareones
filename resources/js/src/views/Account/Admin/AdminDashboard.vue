@@ -9,15 +9,15 @@
                         <div class="d-flex justify-content-between align-items-cente">
                             <div class="col-12">
                                 
-                                <span class="fs-4 fw-bold text-primary">{{comapaniesList?.total}}</span>
+                                <span class="fs-4 fw-bold text-primary">{{comapaniesList?.length}}</span>
                              
                                 <div>
                                     <span class="small fw-bold">Total Companies</span> &nbsp;
-                                    <small style="font-size:10px;" class=""> <span class=" text-info fw-bold">{{comapaniesList?.data?.thismonth}}</span> added this month</small>
+                                    <small style="font-size:10px;" class=""> <span class=" text-info fw-bold">{{comapaniesData?.thismonth}}</span> added this month</small>
                                 </div>
                                 <div>
-                                    <span class="small badge bg-success">{{comapaniesList?.data?.active}} active </span> &nbsp;
-                                    <span class="small badge bg-danger">{{comapaniesList?.data?.inactive}}  Inactive </span>
+                                    <span class="small badge bg-success">{{comapaniesData?.active}} active </span> &nbsp;
+                                    <span class="small badge bg-danger">{{comapaniesData?.inactive}}  Inactive </span>
                                 </div>
                             </div>
                         </div>
@@ -32,13 +32,13 @@
                         <div class="d-flex justify-content-between align-items-cente">
                             <div class="col-12">
                             
-                                <span class="fs-4 fw-bold text-warning">{{comapaniesList?.data?.Unincorporated}}</span>
+                                <span class="fs-4 fw-bold text-warning">{{comapaniesData?.Unincorporated}}</span>
                                
                                 <div>
                                     <span class="small fw-bold" >Pending Incorporation</span>
                                 </div>
                                 <div>
-                                    <span class="small"> <span class="text-primary fw-bold">{{comapaniesList?.data?.thisMonthUnIncorporated}}</span> new company added this month</span>
+                                    <span class="small"> <span class="text-primary fw-bold">{{comapaniesData?.thisMonthUnIncorporated}}</span> new company added this month</span>
                                 </div>
                             </div>
                         </div>
@@ -53,13 +53,13 @@
                     <div class="card-body ">
                         <div class="d-flex justify-content-between align-items-cente">
                             <div class="col-12">
-                                <span class="fs-4 fw-bold text-success">{{comapaniesList?.data?.incorporated??'0'}}</span>
+                                <span class="fs-4 fw-bold text-success">{{comapaniesData?.incorporated??'0'}}</span>
                                
                                 <div>
                                     <span class="small fw-bold">Incorporated</span> 
                                 </div>
                                 <div>
-                                    <span class="small"> <span class="text-primary fw-bold">{{comapaniesList?.data?.thisMonthIncorporated??'0'}}</span> new companies added this month</span>
+                                    <span class="small"> <span class="text-primary fw-bold">{{comapaniesData?.thisMonthIncorporated??'0'}}</span> new companies added this month</span>
                                 </div>
                             </div>
                         </div>
@@ -380,7 +380,7 @@ function setChartOptions() {
 
 }
 
-
+const comapaniesData = ref<any>([]);
 async function getCompanyStats() {
     try {
         const queryObj = {
@@ -388,7 +388,8 @@ async function getCompanyStats() {
             end_date: useFxn.formatDate(companyStatsDates.value[1])
         }
         const resp = await api.getCompanyStats(queryObj)
-        comapaniesList.value = resp.data?.data ?? []
+        comapaniesList.value = resp.data?.data.company ?? []
+        comapaniesData.value = resp.data?.data ?? []
         console.log(comapaniesList.value)
     } catch (error) {
         // 
@@ -449,9 +450,11 @@ async function getRevenueStats() {
             end_date: useFxn.formatDate(revenueDates.value[1])
         }
         const resp = await api.getRevenueStats(queryObj)
-        // const data = resp.data.data
-        // totalRevenues.value = data.total
-        // revenueLogs.value = data.data
+        const data = resp.data.data
+
+        console.log(data, 'transactions logs')
+        totalRevenues.value = data.total
+        revenueLogs.value = data
     } catch (error) {
         // 
     }
@@ -461,7 +464,7 @@ watch(serverOptionsRevenues, (value) => { getRevenueStats(); }, { deep: true });
 watch(revenueDates, (value) => { getRevenueStats(); }, { deep: true });
 
 const revenueHeader = [
-    { text: "ORDER NO.", value: "payment_ref" },
+    { text: "PAYMENT REF", value: "payment_ref" },
     { text: "CUSTOMER", value: "user.name" },
     { text: "DATE", value: "date_paid" },
     { text: "AMOUNT", value: "amount" },

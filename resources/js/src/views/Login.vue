@@ -77,6 +77,7 @@ import { useRouter } from 'vue-router';
 import { useForm } from 'vee-validate';
 // @ts-ignore
 import * as yup from 'yup';
+import { useStartCompanyStore } from './StartCompany/StartCompany_store';
 
 const toast = useToast()
 const authStore = useAuthStore()
@@ -96,8 +97,8 @@ const { errors, handleSubmit, defineField, setFieldValue } = useForm({
     password: yup.string().min(6).required(),
   }),
   initialValues: {
-    email: '',
-    password: '',
+    email: 'jesmikky@gmail.com',
+    password: 'mikky123',
   },
 });
 
@@ -134,6 +135,8 @@ const submitForm = handleSubmit(async (values) => {
 
 });
 
+const startCompanyStore = useStartCompanyStore()
+
 async function getTwoFactorStatus() {
   try {
     const resp = await api.checkAccountStatus()
@@ -146,7 +149,13 @@ async function getTwoFactorStatus() {
     }
     else {
       authStore.twofactorEnabled = null
-      router.push({ name: 'Start' })
+
+      await startCompanyStore.getCompanyInProgress()
+
+      if (startCompanyStore.companyInProgress?.names)
+        router.push({ path: '/user/dashboard' })
+      else
+        router.push({ name: 'Start' })
     }
 
     window.location.reload()

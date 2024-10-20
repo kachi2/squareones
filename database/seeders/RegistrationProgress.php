@@ -17,10 +17,10 @@ class RegistrationProgress extends Seeder
 
         $data = [
             ['name' => 'set_up_company', 'description' => 'Set up Company'],
-            ['name' => 'preparation_incorporation', 'description' => 'Preparation Incorporation'],
-            ['name' => 'filling_documents', 'description' => 'Filling Documents'],
-            ['name' => 'company_incorporated', 'description' => 'Company Incorporated'],
-            ['name' => 'tax_id_ready', 'description' => 'Tax ID Ready'],
+            ['name' => 'preparation_incorporation', 'description' => 'Sorting out incorporation details'],
+            ['name' => 'filling_documents', 'description' => 'Handling the paperwork'],
+            ['name' => 'company_incorporated', 'description' => 'Your company is incorporated'],
+            ['name' => 'tax_id_ready', 'description' => 'Certificates Ready'],
         ];
 
         foreach($data as $dd){

@@ -110,7 +110,7 @@ const rules = {
     identity_info: yup.string().required('Field is required'),
     address: yup.string().required('Field is required'),
     // cease_to_act: yup.date().required('Field is required'),
-    // remarks: yup.string().required('Field is required'),
+    remarks: yup.string().required('Field is required'),
 };
 
 const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({
