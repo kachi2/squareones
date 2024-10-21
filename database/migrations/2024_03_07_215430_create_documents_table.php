@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('document_type_id')->unsigned();
             $table->longText('document')->nullable();
             $table->string('status')->nullable();
-            $table->integer('user_id')->nullable();
             $table->string('title')->nullable();
             $table->string('year')->nullable();
             $table->integer('user_id')->nullable();
