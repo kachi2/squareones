@@ -51,9 +51,9 @@ class StripeWebhookJob  extends ProcessWebhookJob implements ShouldQueue
                     'user_id' => $subscription?->user_id,
                     'customer' => $data['object']['customer'],
                     'customer_email'  => $data['object']['customer_email'],
-                    'amount_due' => $data['object']['amount_due']/100,
-                    'amount_paid' => $data['object']['amount_paid']/100,
-                    'amount_remaining' => $data['object']['amount_remaining']/100,
+                    'amount_due' => $data['object']['amount_due'],
+                    'amount_paid' => $data['object']['amount_paid'],
+                    'amount_remaining' => $data['object']['amount_remaining'],
                     'currency' => $data['object']['currency'],
                     'customer_name' => $data['object']['customer_name'],
                     'hosted_invoice_url' => $data['object']['hosted_invoice_url'],
@@ -61,7 +61,7 @@ class StripeWebhookJob  extends ProcessWebhookJob implements ShouldQueue
                     'description' => $data['object']['billing_reason'],
                     'invoice_date' => date('d-m-Y', $data['object']['created']),
                     'due_date' => date('d-m-Y', $data['object']['due_date']),
-                    'total' => $data['object']['amount_due']/100,
+                    'total' => $data['object']['amount_due'],
                     'status' => $data['object']['status'],
                 ]
             );
