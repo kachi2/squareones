@@ -258,7 +258,7 @@ class PaymentServices implements PaymentInterface
     $subsc->update([
         'subscription_id' => $subscription->id,
         'status' => 'active',
-        'next_billing_cycle' => Carbon::now()->addDays(365)->format('d-m-Y'),
+        'next_billing_cycle' => date('d-m-Y', Carbon::now()->addDays(365)->timestamp),
         'current_period_start' => Date('d-m-Y', $subscription->current_period_start),
         'company_name' => $subsc->company->names[0]->eng_name . $subsc->company->names[0]->chn_name 
     ]);
