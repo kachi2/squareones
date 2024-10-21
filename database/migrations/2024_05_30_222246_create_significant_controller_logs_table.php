@@ -23,7 +23,6 @@ return new class extends Migration
             $table->tinyText('identity_info')->nullable();
             $table->tinyText('place_of_registration')->nullable();
             $table->tinyText('nature_of_control_over_the_company')->nullable();
-            $table->string('type')->nullable();
             $table->timestamps();
         });
     }
