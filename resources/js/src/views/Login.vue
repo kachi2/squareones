@@ -68,7 +68,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref,onMounted } from 'vue';
 import api from '@/stores/Helpers/axios'
 import { useToast } from 'vue-toast-notification';
 import { useAuthStore } from '@/stores/authStore';
@@ -105,6 +105,7 @@ const { errors, handleSubmit, defineField, setFieldValue } = useForm({
 const [email, emailAttrs] = defineField('email');
 const [password, passwordAttrs] = defineField('password');
 
+
 const submitForm = handleSubmit(async (values) => {
   isSaving.value = true
   try {
@@ -112,8 +113,8 @@ const submitForm = handleSubmit(async (values) => {
     const data = resp.data.data
 
     authStore.login(data)
-
     getTwoFactorStatus()
+ 
 
   } catch (error: any) {
     console.log(error, 'error');
@@ -134,10 +135,11 @@ const submitForm = handleSubmit(async (values) => {
   }
 
 });
-
-const startCompanyStore = useStartCompanyStore()
+ 
 
 async function getTwoFactorStatus() {
+const res = await api.companyProgress()
+
   try {
     const resp = await api.checkAccountStatus()
     const data = resp.data.data
@@ -146,19 +148,18 @@ async function getTwoFactorStatus() {
       authStore.twofactorEnabled = '1'
       authStore.twofactorAttendedTo = null
       router.push({ name: 'TwoFactorAuthentication' })
-    }
-    else {
+    }else {
       authStore.twofactorEnabled = null
-
-      await startCompanyStore.getCompanyInProgress()
-
-      if (startCompanyStore.companyInProgress?.names)
-        router.push({ path: '/user/dashboard' })
-      else
+      if (res.data?.company?.names){
+        console.log(res.data?.company?.names, 'res.data?.company?.names')
+        router.push({ name: 'User-Dashboard' })
+      }else{
+        // router.push({ name: 'User-Dashboard' })
         router.push({ name: 'Start' })
+      }
     }
 
-    window.location.reload()
+    // window.location.reload()
     // console.log(resp.data);
   } catch (error: any) {
     console.log(error);

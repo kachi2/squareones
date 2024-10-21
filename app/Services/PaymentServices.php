@@ -121,7 +121,7 @@ class PaymentServices implements PaymentInterface
                     //  $user->notify(new PaymentCompleted($billing));
                     //  UserActivities('Completed Company Payment', $location=null, "Payment");
                      ActivityLogs('Completed Company Payment '.$company->names['0']->name,  'Billing');
-                    // $this->createSubscription($session['customer']);
+                    $this->createSubscription($session['customer']);
                     return $session;
                 }
                 return 
