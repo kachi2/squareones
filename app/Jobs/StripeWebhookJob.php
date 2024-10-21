@@ -69,7 +69,7 @@ class StripeWebhookJob  extends ProcessWebhookJob implements ShouldQueue
             if ($data['object']['status'] == 'paid') {
                 if ($subscription) {
                     $subscription?->update([
-                        'expiry_date' => date('d-m-Y', Carbon::now()->addDays(365)->timestamp),
+                        'expiry_date' =>  Carbon::now()->addDays(365),
                         'latest_invoice' => date('d-m-Y', $data['object']['created']),
                         'current_period_start' => date('d-m-Y', $data['object']['due_date']),
                     ]);
