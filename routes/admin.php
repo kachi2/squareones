@@ -14,6 +14,7 @@ Route::prefix('manage')->group(function() {
         Route::post('company/stats/', 'GetCompanyStats');
         Route::post('/revenue/stats', 'getRevenueStats');
         Route::get('document/types', 'getDocType');
+        Route::get('/company/{id}', 'getCompanyById');
     });
 
     Route::controller(DocumentController::class)->group(function (){

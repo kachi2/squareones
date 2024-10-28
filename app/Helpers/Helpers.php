@@ -2,6 +2,7 @@
 
 use App\Models\ActivityLog;
 use App\Models\AdminActivityLog;
+use App\Models\Company;
 use App\Models\Notification;
 use App\Models\userActivity;
 
@@ -113,6 +114,16 @@ if(!function_exists('ActivityLogs'))
             'activity' => $activity,
             'type' => $type
         ]);
+    }
+}
+
+if(!function_exists('checkCompanyPublished'))
+{
+    function checkCompanyPublished($company_id)
+    {
+        $compan = Company::where('id', $company_id)->first();
+        if($compan->is_published) return true;
+        return false;
     }
 }
 	

@@ -152,6 +152,18 @@ class DashboardController extends Controller
         GenerateCompanyData::dispatch($request->all());
     }
 
+    public function getActiveUser(){
+        try{
+            $data = User::where('id', auth_user())->get();
+            if($data){
+            return response()->json(['data' => $data], HttpStatusCode::OK);
+            }
+        }catch(\Exception $e){
+            return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+           } 
+
+    }
+
 
     
   

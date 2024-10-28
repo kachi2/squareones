@@ -260,7 +260,7 @@ class PaymentServices implements PaymentInterface
         'status' => 'active',
         'next_billing_cycle' =>  Carbon::now()->addDays(365),
         'current_period_start' => Date('Y-m-d', $subscription->current_period_start),
-        'company_name' => $subsc->company->names[0]->eng_name . $subsc->company->names[0]->chn_name 
+        'company_name' => $subsc->company->names[0]->eng_name. ' ' .$subsc->company->names[0]->eng_prefix. ' '.$subsc->company->names[0]->chn_name.' '.$subsc->company->names[0]->chn_prefix
     ]);
 
     return $subsc;

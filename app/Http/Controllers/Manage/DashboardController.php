@@ -68,4 +68,15 @@ class DashboardController extends Controller
         $type = DocumentType::get();
         return response()->json(['data' => $type], HttpStatusCode::OK);
     }
+
+    public function getCompanyById($company_id)
+    {
+        try{
+            $data = Company::where('id', $company_id)->first();
+            if($data) $data->load('Names', 'Billing');
+         return response()->json(['data' => $data], HttpStatusCode::OK);
+        }catch(\Exception $e){
+            return response()->json(['error' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
+           }  
+    }
 }

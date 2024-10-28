@@ -26,6 +26,13 @@ class CompanyServiceController extends Controller
     public function StoreService($company_id, Request $req)
     {
         try{
+            $items = json_decode($req->service);
+            $services = CompanyService::get();
+            foreach($items as $servi){
+            $check = $services->where('name', 'LIKE', $servi)->first();
+            if(!$check)CompanyService::create(['name' => $servi]);    
+            } 
+        
         $company = Company::where('id', $company_id)->first();
          $regsCo = RegisteredCompany::where('company_id', $company_id)->first();
         if($company->exists())

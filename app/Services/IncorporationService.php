@@ -161,7 +161,8 @@ class IncorporationService implements IncorporationInterface
             $director = RegisterOfDirector::whereId($RegisterOfDirectorsDto->directors_id)->first();
             $dir = $director?->toArray();
             $dir['director_id'] = $director->id;
-            RegisterOfDirectorLog::create($dir);
+            
+            if(checkCompanyPublished($RegisterOfDirectorsDto->company_id)) RegisterOfDirectorLog::create($dir);
             $msg =  auth_name() . ' Updated the Register Of Director table with the following details: ' . $RegisterOfDirectorsDto->date_of_appointment . ',' . $RegisterOfDirectorsDto->name . ',' . $RegisterOfDirectorsDto->reg_no . ',' . $RegisterOfDirectorsDto->registered_office . ',' . $RegisterOfDirectorsDto->ceasing_of_act . ',' . $RegisterOfDirectorsDto->remarks;
             $type = "Update";
             AdminActivityLog($msg, $type);
@@ -192,7 +193,7 @@ class IncorporationService implements IncorporationInterface
             $shareholders = RegisterOfShareholder::whereId($RegisterOfShareholdersDto->shareholders_id)->first();
             $shard = $shareholders?->toArray();
             $shard['shareholder_id'] = $shareholders->id;
-            RegisterOfShareholderLog::create($shard);
+            if(checkCompanyPublished($RegisterOfShareholdersDto->company_id))   RegisterOfShareholderLog::create($shard);
             $msg = auth_name() . ' Updated the Register Of Shareholder table with the following details:  ' . $RegisterOfShareholdersDto->name . ',' . $RegisterOfShareholdersDto->address . ',' . $RegisterOfShareholdersDto->denomination . ',' . $RegisterOfShareholdersDto->denomination . ',' . $RegisterOfShareholdersDto->current_holding . ',' . $RegisterOfShareholdersDto->total_consideration . ', ' . $RegisterOfShareholdersDto->date_entered_as_member . ', ' . $RegisterOfShareholdersDto->date_cease_to_be_member;
             $type = "Update";
             AdminActivityLog($msg, $type);
@@ -221,7 +222,7 @@ class IncorporationService implements IncorporationInterface
             $secretary = RegisterOfSecretary::whereId($RegisterOfSecretaryDto->secretary_id)->first();
             $sec = $secretary?->toArray();
             $sec['secretary_id'] = $secretary->id;
-            RegisterOfSecretaryLog::create($sec);
+            if(checkCompanyPublished($RegisterOfSecretaryDto->company_id)) RegisterOfSecretaryLog::create($sec);
             $msg = auth_name() . ' Added New entry on the Register Of Secretary table with the following details: ' . $RegisterOfSecretaryDto->appointment_date . ',' . $RegisterOfSecretaryDto->name . ',' . $RegisterOfSecretaryDto->identity_info . ',' . $RegisterOfSecretaryDto->address . ',' . $RegisterOfSecretaryDto->cease_to_act . ',' . $RegisterOfSecretaryDto->remarks;
             $type = "Update";
             AdminActivityLog($msg, $type);
@@ -250,7 +251,7 @@ class IncorporationService implements IncorporationInterface
             $namechange = RegisterOfCompanyName::whereId($RegisterOfCompanyNameDto->namechange_id)->first();
             $name = $namechange?->toArray();
             $name['company_name_id'] = $namechange->id;
-            RegisterOfCompanyNameLog::create($name);
+            if(checkCompanyPublished($RegisterOfCompanyNameDto->company_id)) RegisterOfCompanyNameLog::create($name);
             $msg = auth_name() . ' Updated the Register Of Company Name  table with the following details: ' .  $RegisterOfCompanyNameDto->date_of_name_changed . ',' . $RegisterOfCompanyNameDto->previous_company_name . ',' . $RegisterOfCompanyNameDto->new_company_name;
             $type = "Update";
             AdminActivityLog($msg, $type);
@@ -289,7 +290,7 @@ class IncorporationService implements IncorporationInterface
                         'transfer_method' => $RegisterOfTransferDto->transfer_method,
                         'transferor' => $RegisterOfTransferDto->transferor,
                     ]);
-                RegisterOfTransferLog::create($reg);
+                    if(checkCompanyPublished($RegisterOfTransferDto->company_id)) RegisterOfTransferLog::create($reg);
                 $msg = auth_name() . 'updated the Register Of Transfer  table with the following details: ' . $RegisterOfTransferDto->registration_date . ', ' . $RegisterOfTransferDto->transferee . ', ' . $RegisterOfTransferDto->no_of_shares_transfered . ', ' . $RegisterOfTransferDto->total_consideration . ', ' . $RegisterOfTransferDto->transfer_method;
                 $type = "Update";
                 AdminActivityLog($msg, $type);
@@ -311,7 +312,7 @@ class IncorporationService implements IncorporationInterface
             }else{
                 $trns = $transferors?->toArray();
                 $trns['transfer_id'] = $transferors->id;
-                RegisterOfTransferLog::create($trns);
+                if(checkCompanyPublished($RegisterOfTransferDto->company_id)) RegisterOfTransferLog::create($trns);
               }
             $msg = auth_name() . 'Added new entry on the Register Of Transfer  table with the following details: ' . $RegisterOfTransferDto->registration_date . ', ' . $RegisterOfTransferDto->transferee . ', ' . $RegisterOfTransferDto->no_of_shares_transfered . ', ' . $RegisterOfTransferDto->total_consideration . ', ' . $RegisterOfTransferDto->transfer_method;
             $type = "New Entry";
@@ -436,12 +437,14 @@ class IncorporationService implements IncorporationInterface
             'entry_date' => $SignificantControllersDto->entry_date,
             'date_becoming_rep_person' => $SignificantControllersDto->date_becoming_rep_person,
             'date_ceased_to_be_rep_person' => $SignificantControllersDto->date_ceased_to_be_rep_person,
-            'legal_entity_name' => $SignificantControllersDto->legal_entity_name
+            'legal_entity_name' => $SignificantControllersDto->legal_entity_name,
+            'remarks' => $SignificantControllersDto->remarks
         ];
+
         if ($SignificantControllersDto->controllers_id) {
             $controllers = SignificantController::where('id', $SignificantControllersDto->controllers_id)->first();
             $contrl = $controllers->toArray();
-            $particulars = ControllersParticulars::where('significant_controller_id', $controllers->id)->first();
+            $particulars = ControllersParticulars::where('significant_controller_id', $controllers->id)->latest()->first();
             $contrl['controller_id'] = $controllers->id;
             $contrl['corresponding_address'] = $particulars->corresponding_address;
             $contrl['resdential_address'] = $particulars->resdential_address;
@@ -459,26 +462,26 @@ class IncorporationService implements IncorporationInterface
             AdminActivityLog($msg, $type);
             $controllers = SignificantController::Create($data);
         }
-
-        if ($controllers) {
-            $particulars = ControllersParticulars::updateOrCreate(
-                [
-                    'significant_controller_id' => $controllers->id,
-                ],
-                [
-                    'corresponding_address' => $SignificantControllersDto->corresponding_address,
-                    'resdential_address' => $SignificantControllersDto->resdential_address,
-                    'identity_info' => $SignificantControllersDto->identity_info,
-                    'place_of_registration' => $SignificantControllersDto->place_of_registration,
-                    'nature_of_control_over_the_company' => $SignificantControllersDto->nature_of_control_over_the_company,
-                ]
-            );
-        }
+       $particulars = $this->ControllersParticular($SignificantControllersDto, $controllers);
 
         $controllers->particulars =  $particulars;
         return $controllers;
     }
 
+    public function ControllersParticular($SignificantControllersDto, $controllers){
+         return ControllersParticulars::updateOrCreate(
+            [
+                'significant_controller_id' => $controllers->id,
+            ],
+            [
+                'corresponding_address' => $SignificantControllersDto->corresponding_address,
+                'resdential_address' => $SignificantControllersDto->resdential_address,
+                'identity_info' => $SignificantControllersDto->identity_info,
+                'place_of_registration' => $SignificantControllersDto->place_of_registration,
+                'nature_of_control_over_the_company' => $SignificantControllersDto->nature_of_control_over_the_company,
+            ]
+        );
+    }
     public function DesignatedRepresentative($DesignatedRepresentative)
     {
         $data =  [
@@ -492,7 +495,7 @@ class IncorporationService implements IncorporationInterface
             if (!$representatives) return [
                 'error' => 'Data cannot be found',
             ];
-            $particulars = DesignatedParticulars::where('designated_representative_id', $representatives->id)->first();
+            $particulars = DesignatedParticulars::where('designated_representative_id', $representatives->id)->latest()->first();
             $reps = $representatives->toArray();
             $reps['representative_id'] = $representatives->id;
             $reps['identity_info'] = $particulars->identity_info;
@@ -509,21 +512,23 @@ class IncorporationService implements IncorporationInterface
             AdminActivityLog($msg, $type);
             $representatives = DesignatedRepresentative::Create($data);
         }
-
-        if ($data) {
-            $particulars = DesignatedParticulars::updateOrCreate(
-                [
-                    'designated_representative_id' => $representatives->id,
-                ],
-                [
-                    'identity_info' => $DesignatedRepresentative->identity_info,
-                    'place_of_registration' => $DesignatedRepresentative->place_of_registration,
-                    'nature_of_control_over_the_company' => $DesignatedRepresentative->nature_of_control_over_the_company
-                ]
-            );
-        }
+       $particulars =  $this->DesignatedParticulars($DesignatedRepresentative, $representatives);
         $representatives->particulars =  $particulars;
         return $representatives;
+    }
+
+    public function DesignatedParticulars($DesignatedRepresentative, $representatives)
+    {
+        return DesignatedParticulars::updateOrCreate(
+            [
+                'designated_representative_id' => $representatives->id,
+            ],
+            [
+                'identity_info' => $DesignatedRepresentative->identity_info,
+                'place_of_registration' => $DesignatedRepresentative->place_of_registration,
+                'nature_of_control_over_the_company' => $DesignatedRepresentative->nature_of_control_over_the_company
+            ]
+        );
     }
 
 

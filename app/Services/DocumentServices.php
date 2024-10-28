@@ -19,48 +19,22 @@ class DocumentServices  implements DocumentInterface{
     {
         $docs = [];
         foreach($request->document as $files){
-            if($files['docs'] instanceof UploadedFile){
-             $name = \pathinfo($files['docs']->getClientOriginalName(), PATHINFO_FILENAME);
-                $file =  UploadFiles($files['docs'], 'documents', $name);
+            // if($files instanceof UploadedFile){
+             $name = \pathinfo($files->getClientOriginalName(), PATHINFO_FILENAME);
+                $file =  UploadFiles($files, 'documents', $name);
             }
             $docs[] =  $file;
-        }
+        // }
         $documents =  Document::create([
             'company_id' => $request->company_id,
             'document' => json_encode($docs),
             'title' => $request?->title,
             'year' => $request->year,
-            // 'document_type_id' => $files['document_type_id']
+            'document_type_id' => $request->document_type_id
         ]);
         return  $documents;
     }
 
-    public function uploadDoc($request)
-    {
-        $docs = [];
-        foreach($request->document as $files){
-            if($files['docs'] instanceof UploadedFile){
-                // $base64Image = base64_encode(file_get_contents($files->getRealPath()));
-                $name = \pathinfo($$files['docs']->getClientOriginalName(), PATHINFO_FILENAME);
-                // $ext = $files->getClientOriginalExtension();
-                // $fileName = str_replace("['/', '(', ')', ' ']","", $name).'.'.'pdf';
-                // $fileName = $name.'.'.$ext;
-                // $files->move('documents',  $fileName);
-                $file =  UploadFiles($files,'/documents', $name);
-                $docs[] =  $file;
-               }
-         }
-              $documents =  Document::create([
-                'company_id' => $request->company_id,
-                'document' => json_encode($docs),
-                'title' => $request?->title,
-                'year' => $request?->year,
-                'document_type_id' => $request->document_type_id
-            ]);
-           
-    
-        return  $documents;
-    }
 
 
     public function DocumentToPDF($request){
@@ -162,6 +136,28 @@ class DocumentServices  implements DocumentInterface{
             return true;
         }
         return false;
+    }
+
+    public function uploadDoc($request)
+    {
+        $docs = [];
+        foreach($request->document as $files){
+            if($files['docs'] instanceof UploadedFile){;
+                $name = \pathinfo($$files['docs']->getClientOriginalName(), PATHINFO_FILENAME);
+                $file =  UploadFiles($files,'/documents', $name);
+                $docs[] =  $file;
+               }
+         }
+              $documents =  Document::create([
+                'company_id' => $request->company_id,
+                'document' => json_encode($docs),
+                'title' => $request?->title,
+                'year' => $request?->year,
+                'document_type_id' => $request->document_type_id
+            ]);
+           
+    
+        return  $documents;
     }
 
 }

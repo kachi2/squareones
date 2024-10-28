@@ -110,17 +110,17 @@ class Company extends Model
 
     public function RegisterOfAllotments()
     {
-        return $this->hasMany(RegisterOfAllotment::class)->latest();
+        return $this->hasMany(RegisterOfAllotment::class);
     }
 
     public function RegisterOfCharge()
     {
-        return $this->hasMany(RegisterOfCharge::class)->latest();
+        return $this->hasMany(RegisterOfCharge::class);
     }
 
     public function RegisterOfCompanyName()
     {
-        return $this->hasMany(RegisterOfCompanyName::class)->latest();
+        return $this->hasMany(RegisterOfCompanyName::class);
     }
 
     public function RegisterOfDirector()
@@ -146,27 +146,27 @@ class Company extends Model
 
     public function RegisterOfTransfer()
     {
-        return $this->hasMany(RegisterOfTransfer::class)->latest();
+        return $this->hasMany(RegisterOfTransfer::class);
     }
 
     public function SignificantController()
     {
-        return $this->hasMany(SignificantController::class)->with('ControllersParticulars')->latest();
+        return $this->hasMany(SignificantController::class)->with('ControllersParticulars');
     }
 
     public function ComplianceReporting()
     {
-        return $this->hasMany(ComplianceAndReporting::class)->latest();
+        return $this->hasMany(ComplianceAndReporting::class);
     }
 
     public function DesignatedRepresentative()
     {
-        return $this->hasMany(DesignatedRepresentative::class)->with('DesignatedParticulars')->latest();
+        return $this->hasMany(DesignatedRepresentative::class)->with('DesignatedParticulars');
     }
 
     public function OfficeContract()
     {
-        return $this->hasMany(RegisteredOfficeContract::class)->latest();
+        return $this->hasMany(RegisteredOfficeContract::class);
     }
 
     public function teams()

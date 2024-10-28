@@ -63,6 +63,7 @@ class CompanyController extends Controller
             $data['companies'] =  $company->load('Names', 'Billing', 'mainContact');
             $data['form_completed'] = Company::where('is_complete', 1)->get();
             $data['is_incorporated'] = Company::where('is_incorporated', 1)->get();
+            $company->load('RegisteredCompany');
             return response()->json(['data' => $data], HttpStatusCode::OK);
         }catch(\Exception $e){
             DB::rollback();

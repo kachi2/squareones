@@ -64,6 +64,7 @@ class CompanyServices  implements CompanyFormationInterface
                     ]);
                     $names[] = $store;     
             }
+            $company->update(['services' => json_encode("Incorporated")]);
                 DB::commit();
                 ActivityLogs('Iniated a new company formation',  'Company Formation');
                 return [
