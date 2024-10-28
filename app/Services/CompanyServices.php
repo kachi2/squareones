@@ -64,7 +64,6 @@ class CompanyServices  implements CompanyFormationInterface
                     ]);
                     $names[] = $store;     
             }
-            $company->update(['services' => json_encode("Incorporated")]);
                 DB::commit();
                 ActivityLogs('Iniated a new company formation',  'Company Formation');
                 return [
@@ -119,6 +118,7 @@ class CompanyServices  implements CompanyFormationInterface
             'description' => $companyDto->description,
             'website' => $companyDto->website=='undefined'?'':$companyDto->website,
         ]);
+        $company->update(['services' => json_encode("Incorporated")]);
         return $company;
     }
     public function StoreCompanyAddress($addressDto)
