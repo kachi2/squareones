@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Manage\{AuthController, CompanyServiceController, DashboardController, DocumentController, PaymentController, UserController};
+use App\Http\Controllers\Manage\{AuthController, CompanyServiceController, DashboardController, DocumentController, PaymentController, TaskController, UserController};
 
 Route::prefix('manage')->group(function() {
     Route::post('/login', [AuthController::class, 'LoginAdmin']);
@@ -42,8 +42,14 @@ Route::prefix('manage')->group(function() {
         Route::get('sync/invoices', 'updateInvoices');
         Route::get('retrieve/invoices', 'InvoiceMatrics');
         });
-    
     Route::get('/services/company', [CompanyServiceController::class, 'getServices']);
     Route::post('/services/company/store/{company_id}', [CompanyServiceController::class, 'StoreService']);
+
+    Route::controller(TaskController::class)->group(function() {
+        Route::get('get/user/task/{user_id}', 'getUserTask');
+        Route::post('create/task/', 'createTask');
+        Route::post('update/tasks/', 'EditTask');
+        Route::get('get/all/task', 'getAllTask');
+        });
     });
 });

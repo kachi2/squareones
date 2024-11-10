@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TwofactorController;
 use App\Http\Controllers\UserMetricsController;
 use Illuminate\Support\Facades\Route;
@@ -45,5 +46,11 @@ Route::get('get/company/counts', 'getCompanyCount');
 Route::get('get/payment/info', 'BillingInformation');
 Route::get('get/user/subscription', 'UserSubscription');
 Route::get('get/userlogs', 'UserActivityLog');
+});
+
+Route::controller(TaskController::class)->group(function() {
+
+Route::get('get/user/task', 'getUserTask');
+Route::post('update/task/status/', 'UpdateTaskStatus');
 });
 });
