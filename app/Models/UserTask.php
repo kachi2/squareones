@@ -16,6 +16,8 @@ class UserTask extends Model
             'priority',
             'status',
             'assigned_by',
+            'due_date',
+            'is_new'
         ];
 
 

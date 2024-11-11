@@ -24,11 +24,12 @@ class UserTaskRequest extends FormRequest
         return [
             'title' => 'nullable',
             'content' => 'nullable',
-            'user_id' => 'required',
-            'priority' => 'required',
+            'user_id' => 'nullable',
+            'priority' => 'nullable',
             'assigned_by' => 'nullable',
             'status' => 'nullable',
-            'task_id' => 'nullable'
+            'task_id' => 'nullable',
+            'due_date' => 'nullable'
         ];
     }
 }

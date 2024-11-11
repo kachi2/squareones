@@ -47,7 +47,7 @@ Route::prefix('manage')->group(function() {
 
     Route::controller(TaskController::class)->group(function() {
         Route::get('get/user/task/{user_id}', 'getUserTask');
-        Route::post('create/task/', 'createTask');
+        Route::post('create/task', 'createTask');
         Route::post('update/tasks/', 'EditTask');
         Route::get('get/all/task', 'getAllTask');
         });

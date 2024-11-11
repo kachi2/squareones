@@ -18,7 +18,9 @@ return new class extends Migration
             $table->text('content')->nullable();
             $table->string('priority')->nullable();
             $table->string('status')->nullable();
+            $table->string('due_date')->nullable();
             $table->string('assigned_by')->nullable();
+            $table->string('is_new')->default(1);
             $table->timestamps();
         });
     }

@@ -52,5 +52,7 @@ Route::controller(TaskController::class)->group(function() {
 
 Route::get('get/user/task', 'getUserTask');
 Route::post('update/task/status/', 'UpdateTaskStatus');
+Route::get('/update/all/tast', 'updateAllTask');
+Route::get('/get/user/new/task', 'getUserNewtask');
 });
 });

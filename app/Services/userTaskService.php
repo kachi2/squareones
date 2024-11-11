@@ -9,15 +9,19 @@ class userTaskService implements UserTaskInterface
 {
     public function createTask($request)
     {
+
         $data = 
         [
             'user_id' => $request->user_id,
             'title' => $request->title,
             'content' => $request->content,
             'priority' => $request->priority,
-            'status' => $request->status??'pending',
-            'assigned_by' => auth_user()
+            'status' => $request->status??'TO-DO',
+            'assigned_by' => auth_user(),
+            'due_date' => $request->due_date
         ];
+
+        // dd($request);
 
        $task =  UserTask::create($data);
        if($task) {
@@ -27,7 +31,6 @@ class userTaskService implements UserTaskInterface
     }
     public function updateTask($request)
     {
-       return $request;
         $task = UserTask::where('id', $request->task_id)->first();
         if($task)
         {
@@ -36,10 +39,12 @@ class userTaskService implements UserTaskInterface
                 'title' => $request->title,
                 'content' => $request->content,
                 'priority' => $request->priority,
-                'status' => $request->status,
-                'assigned_by' => auth_user()
+                'assigned_by' => auth_user(),
+                'due_date' => $request->due_date
             ]);  
+            return $task;
         }
+        return false;
     }
     public function updateTaskStatus($request)
     {
@@ -53,12 +58,12 @@ class userTaskService implements UserTaskInterface
     }
     public function getUserTask($user_id)
     {
-        $task = UserTask::where('user_id', $user_id)->paginate(10);
+        $task = UserTask::where('user_id', $user_id)->latest()->paginate(10);
         return $task;
     }
     public function getAllTask()
     {
-       $task = UserTask::paginate(10);
+       $task = UserTask::latest()->paginate(10);
        return $task->load('UserTask');
     }
 
