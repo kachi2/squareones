@@ -28,7 +28,7 @@ class TaskController extends Controller
                 return response()->json(['data' => $createTask], HttpStatusCode::BAD_REQUEST);
         }catch(\Exception $e)
         {
-            return response()->json(['data' => null], HttpStatusCode::BAD_REQUEST);
+            return response()->json(['data' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
         }
     }
 
