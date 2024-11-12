@@ -4,6 +4,7 @@ use App\Models\ActivityLog;
 use App\Models\AdminActivityLog;
 use App\Models\Company;
 use App\Models\Notification;
+use App\Models\User;
 use App\Models\userActivity;
 
 if(!function_exists('auth_user')){
@@ -126,4 +127,11 @@ if(!function_exists('checkCompanyPublished'))
         return false;
     }
 }
+
+function getUserName($user_id)
+{
+    $user = User::where('id', $user_id)->first();
+    return $user->name;
+}
+
 	

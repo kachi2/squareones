@@ -70,4 +70,42 @@ class TaskController extends Controller
         } 
     }
 
+    public function AddComments(Request $request)
+    {
+        try
+        {
+            $task = $this->userTask->addComments($request);
+            return response()->json(['data' => $task], HttpStatusCode::OK);
+        }catch(\Exception $e)
+        {
+            return response()->json(['data' => $e->getMessage()], HttpStatusCode::OK);
+
+        }
+    }
+
+    public function getComments($task_id)
+    {
+        try
+        {
+            $comments = $this->userTask->getComments($task_id);
+            return response()->json(['data' => $comments], HttpStatusCode::OK);
+        }catch(\Exception $e)
+        {
+            return response()->json(['data' => $e->getMessage()], HttpStatusCode::OK);
+        }
+    }
+
+    public function getTaskActivity($task_id)
+    {
+        try
+        {
+            $activity = $this->userTask->getTaskActivity($task_id);
+            return response()->json(['data' => $activity], HttpStatusCode::OK);
+        }catch(\Exception $e)
+        {
+            return response()->json(['data' => $e->getMessage()], HttpStatusCode::OK);
+        }
+
+    }
+
 }

@@ -54,5 +54,8 @@ Route::get('get/user/task', 'getUserTask');
 Route::post('update/task/status/', 'UpdateTaskStatus');
 Route::get('/update/all/tast', 'updateAllTask');
 Route::get('/get/user/new/task', 'getUserNewtask');
+Route::get('get/task/activities/{task_id}', 'getTaskActivity');
+Route::get('get/comments/{task_id}', 'getComments');
+Route::post('/add/comments/', 'AddComments');
 });
 });

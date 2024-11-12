@@ -50,6 +50,9 @@ Route::prefix('manage')->group(function() {
         Route::post('create/task', 'createTask');
         Route::post('update/tasks/', 'EditTask');
         Route::get('get/all/task', 'getAllTask');
+        Route::get('get/task/activities/{task_id}', 'getTaskActivity');
+        Route::get('get/comments/{task_id}', 'getComments');
+        Route::post('/add/comments', 'AddComments');
         });
     });
 });

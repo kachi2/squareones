@@ -13,8 +13,7 @@ class TaskController extends Controller
 {
     public function __construct(
         public readonly UserTaskInterface $userTask
-    )
-    {}
+    ){}
    
     public function UpdateTaskStatus(UserTaskRequest $userTaskRequest)
     {
@@ -22,11 +21,10 @@ class TaskController extends Controller
         {
             $userTaskDto = UserTaskDto::fromRequest($userTaskRequest->validated());
             $task = $this->userTask->updateTaskStatus($userTaskDto);
-            if($task)return response()->json(['data' => $task], HttpStatusCode::OK);
-            return response()->json(['data' => $task], HttpStatusCode::BAD_REQUEST);
+            return response()->json(['data' => $task], HttpStatusCode::OK);
         }catch(\Exception $e)
         {
-
+            return response()->json(['data' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
         }
     }
 
@@ -35,7 +33,6 @@ class TaskController extends Controller
         try{
             $task = $this->userTask->getUserTask(auth_user());
             return response()->json(['data' => $task], HttpStatusCode::OK);
-
         }catch(\Exception $e)
         {
             return response()->json(['data' => $e->getMessage()], HttpStatusCode::BAD_REQUEST);
@@ -54,5 +51,44 @@ class TaskController extends Controller
         $task = UserTask::where(['user_id' => auth_user(), 'is_new' =>  0])->latest()->get();
         if($task) return $task;
         return false;
+    }
+
+
+    public function AddComments(Request $request)
+    {
+        try
+        {
+            $task = $this->userTask->addComments($request);
+            return response()->json(['data' => $task], HttpStatusCode::OK);
+        }catch(\Exception $e)
+        {
+            return response()->json(['data' => $e->getMessage()], HttpStatusCode::OK);
+
+        }
+    }
+
+    public function getComments($task_id)
+    {
+        try
+        {
+            $comments = $this->userTask->getComments($task_id);
+            return response()->json(['data' => $comments], HttpStatusCode::OK);
+        }catch(\Exception $e)
+        {
+            return response()->json(['data' => $e->getMessage()], HttpStatusCode::OK);
+        }
+    }
+
+    public function getTaskActivity($task_id)
+    {
+        try
+        {
+            $activity = $this->userTask->getTaskActivity($task_id);
+            return response()->json(['data' => $activity], HttpStatusCode::OK);
+        }catch(\Exception $e)
+        {
+            return response()->json(['data' => $e->getMessage()], HttpStatusCode::OK);
+        }
+
     }
 }
