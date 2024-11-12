@@ -67,11 +67,17 @@
                         <span class="me-3">
                             <!-- <appModeToggler /> -->
                         </span>
-                        <span class="badge bg-success-subtle text-success small" v-if="KycStatus">
-                            <i class="bi bi-check-circle"></i> Verified
+                        <span class="badge bg-warning-subtle text-warning small" v-if="KycStatus != 'Verified' && KycStatus != null">
+                            <i class="bi bi-x-square"></i> {{KycStatus}}
+                        </span>
+                        <span class="badge bg-success-subtle text-success small" v-else-if="KycStatus != 'Verified' && KycStatus != null">
+                            <i class="bi bi-check-circle"></i> {{KycStatus}}
                         </span>
                         <span class="badge bg-success-subtle text-danger small" v-else>
-                            <i class="bi bi-check-circle"></i> Not-Verified
+                            <i class="bi bi-x-square"></i> Not-verified
+                        </span>
+                        <span class="badge bg-success-subtle text-success small" v-else>
+                            <i class="bi bi-check-circle"></i> Not-verified
                         </span>
                         <!-- KYC Status -->
                         <span class=" mx-2 me-5 dropdown">

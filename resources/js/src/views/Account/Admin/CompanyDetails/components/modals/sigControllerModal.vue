@@ -95,7 +95,7 @@
                                 <small class=" text-danger">{{ errors.place_of_registration }}</small>
                             </div>
 
-                            <div class="col-12 col-md-12">
+                            <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
                                     <input v-model="nature_of_control_over_the_company" type="text" class="form-control"
                                         placeholder="">
@@ -104,11 +104,20 @@
                                 <small class=" text-danger">{{ errors.nature_of_control_over_the_company }}</small>
                             </div>
 
+                            <div class="col-12 col-md-6"> 
+                                <div class="form-floating-custom">
+                                    <input v-model="remarks" type="text" class="form-control"
+                                        placeholder="">
+                                    <label class="" for="eng_name">Remarks</label>
+                                </div>
+                                <small class=" text-danger">{{ errors.remarks }}</small>
+                            </div>
+
                         </div>
 
                     </div>
                     <div class="modal-footer border-0">
-                        <button ref="closeModal" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <button ref="closeModal" type="button" @click="Cancel()" class="btn btn-secondary" data-bs-dismiss="modal">
                             Cancel
                         </button>
 
@@ -153,6 +162,10 @@ onBeforeRouteLeave(() => {
 });
 
 
+function Cancel()
+{
+  return  isSaving.value = false 
+}
 // form and validation
 const rules = {
     entry_date: yup.date().required('Field is required'),
@@ -181,6 +194,7 @@ const [resdential_address] = defineField('resdential_address');
 const [identity_info] = defineField('identity_info');
 const [place_of_registration] = defineField('place_of_registration');
 const [nature_of_control_over_the_company] = defineField('nature_of_control_over_the_company');
+const [remarks] = defineField('remarks');
 const isSaving = ref<boolean>(false)
 
 function setValuesOnFields() {
@@ -198,6 +212,7 @@ function setValuesOnFields() {
             setFieldValue('identity_info', significant_controller.controllers_particulars.identity_info)
             setFieldValue('place_of_registration', significant_controller.controllers_particulars.place_of_registration)
             setFieldValue('nature_of_control_over_the_company', significant_controller.controllers_particulars.nature_of_control_over_the_company)
+            // setFieldValue('remarks', significant_controller.remarks)
         }
     }
 }
@@ -216,6 +231,7 @@ const save = handleSubmit(async (values) => {
             formData.append('corresponding_address', values.corresponding_address ?? '')
             formData.append('resdential_address', values.resdential_address ?? '')
             formData.append('identity_info', values.identity_info ?? '')
+            formData.append('remarks', values.remarks ?? '')
             formData.append('place_of_registration', values.place_of_registration ?? '')
             formData.append('nature_of_control_over_the_company', values.nature_of_control_over_the_company ?? '')
             if (paramsStore.idToEdit)

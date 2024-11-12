@@ -39,9 +39,10 @@ class StripeWebhookJob  extends ProcessWebhookJob implements ShouldQueue
     {
         $event = json_decode($this->webhookCall, true)['payload'];
         $data = $event['data'];
-        logger($data);
+        // logger($data);
         if ($data['object']['status'] == 'paid') {
             $subscription = UserSubscription::where('customer', $data['object']['customer'])->first();
+            if($subscription){
             Invoices::updateOrcreate(
                 [
                     'invoice_id' => $data['object']['id']
@@ -90,6 +91,7 @@ class StripeWebhookJob  extends ProcessWebhookJob implements ShouldQueue
                         'overdue_invoices' =>  $billing->total_invoice_amount + 1,
                     ]);
             }
+        }
         }
     }
 }

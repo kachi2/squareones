@@ -5,48 +5,65 @@
                 <!-- <div class=" col-md-6"> </div> -->
                 <div class=" col-md-12">
                     <div class="mb-3">
-                        <label for="" class="form-label">Select Director</label>
+                        <div class="form-floating-custom">
                         <select @change="populateFieldWithDetails" v-model="selectedEntity" class="form-select">
                             <option value="" selected disabled>--Select Director--</option>
                             <option v-for="entity in selectOptions" :key="entity" :value="entity">{{
                                 entity.name }}</option>
                         </select>
+                        <label  for="selectedEntity">Select Director:</label>
                     </div>
-
+                </div>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Name:</div>
-                    <input disabled v-model="name" type="text" class="form-control">
+                    <div class="form-floating-custom">
+                    <input disabled v-model="name" type="text" class="form-control" id="Name">
+                    <label  for="Name"> Name:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.name }}</small>
                 </div>
+
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Date of Appointment:</div>
+                    <div class="fixed-label-custom">
                     <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
-                        :enable-time-picker="false" auto-apply v-model="date_of_appointment">
+                        :enable-time-picker="false" auto-apply v-model="date_of_appointment" id="date_of_appointment">
                     </VueDatePicker>
+                    <label  for="Name"> Date of Appointment:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.date_of_appointment }}</small>
                 </div>
+
                 <div class="col-12 col-md-6">
-                    <div class="form-label">ID/ Passport / Registration No:</div>
-                    <input v-model="reg_no" type="text" class="form-control">
+                    <div class="form-floating-custom">
+                    <input v-model="reg_no" type="text" class="form-control" id="reg_no">
+                    <label  for="reg_no"> ID/ Passport / Registration No</label>
+                    </div>
                     <small class=" text-danger">{{ errors.reg_no }}</small>
                 </div>
+
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Residential Address / Registered Office:</div>
+                    <div class="form-floating-custom">
                     <input v-model="registered_office" type="text" class="form-control">
+                    <label  for="registered_office"> Residential Address / Registered Office</label>
+                    </div>
                     <small class=" text-danger">{{ errors.registered_office }}</small>
                 </div>
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Ceasing to Act:</div>
+                    <div class="fixed-label-custom">
                     <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="true"
-                        :enable-time-picker="false" auto-apply v-model="ceasing_of_act">
+                        :enable-time-picker="false" auto-apply v-model="ceasing_of_act" id="ceasing_of_act">
                     </VueDatePicker>
+                    <label  for="ceasing_of_act"> Ceasing to Act: </label>
+                    </div>
                     <small class=" text-danger">{{ errors.ceasing_of_act }}</small>
                 </div>
+
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Remarks:</div>
+                    <div class="form-floating-custom">
                     <input v-model="remarks" type="text" class="form-control">
+                    <label  for="ceasing_of_act"> Remarks: </label>
+                    </div>
                     <small class=" text-danger">{{ errors.remarks }}</small>
                 </div>
 
@@ -106,7 +123,7 @@ const rules = {
     reg_no: yup.string().required('Field is required'),
     registered_office: yup.string().required('Field is required'),
     // ceasing_of_act: yup.date().required('Field is required'),
-    remarks: yup.string().required('Field is required'),
+    // remarks: yup.string(),
 };
 
 const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({

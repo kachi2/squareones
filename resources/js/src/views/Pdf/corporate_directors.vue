@@ -152,7 +152,7 @@
                 </div>
                 <div class="col-8">
                     <div class="textbox" style="border:1.0pt solid #000000;display:block;min-height:34.0pt; ">
-                        <p class="s8" style="text-indent: 0pt;line-height: 17pt;">{{ corporate?.country }}</p>
+                        <p class="s8" style="text-indent: 0pt;line-height: 17pt;">{{ corporate?.country_registered }}</p>
                     </div>
 
                 </div>
@@ -171,7 +171,7 @@
                     <div class="textbox"
                         style="border:1.0pt solid #000000;display:block;min-height:24.0pt;width:155.4pt;">
                         <p class="s17" style="text-indent: 0pt;line-height: 17pt;text-align: center;">
-                            {{ corporate?.registeration_no}}
+                            <span v-if="corporate?.country_registered.startsWith('Hong Kong')">  {{ corporate?.registeration_no}} </span> 
                         </p>
                     </div>
 

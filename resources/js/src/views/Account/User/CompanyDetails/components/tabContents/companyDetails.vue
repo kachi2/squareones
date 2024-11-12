@@ -123,14 +123,14 @@
                     </div>
                 </div>
                   
-                    <div class="my-3" v-if="registered_company?.registration_progress_id == null">Set up company</div>
+                    <!-- <div class="my-3" v-if="registered_company?.registration_progress_id == null">Set up company</div>
                     <div class="my-3" v-if="registered_company?.registration_progress_id == 2">Sorting out
                         &nbsp;incorporation details</div>
                     <div class="my-3" v-if="registered_company?.registration_progress_id == 3">Handling the paperwork
                     </div>
                     <div class="my-3" v-if="registered_company?.registration_progress_id == 4">Your company is
                         incorporated</div>
-                    <div class="my-3" v-if="registered_company?.registration_progress_id == 5">Certificates Ready</div>
+                    <div class="my-3" v-if="registered_company?.registration_progress_id == 5">Certificates Ready</div> -->
                     <hr>
 
                     <div class="container mt-5">

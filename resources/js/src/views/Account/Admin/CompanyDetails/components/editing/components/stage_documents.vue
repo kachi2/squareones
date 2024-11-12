@@ -5,18 +5,28 @@
         <div class="row g-3">
             <div class="col-lg-12">
                 <div class="col-12">
-                    <div class="form-label">Document title</div>
+                    <div class="form-floating-custom">
                     <input v-model="documentTitle" type="text" class="form-control w-100">
+                    <label  for="Name">document Title:</label>
+
+                    </div>
+                    <small class=" text-danger">{{ errors.documentTitle }}</small>
                 </div>
-            </div>
+            </div> 
             <div class="col-12 col-lg-6">
-                <div class="form-label">Year</div>
+                <div class="form-floating-custom">
                 <input v-maska data-maska="####" v-model="documentYear" type="text" class="form-control w-100">
-            </div>
+                <label  for="Name">Year:</label>
+                    </div>
+                    <small class=" text-danger">{{ errors.documentYear }}</small>
+                </div>
             <div class="col-12 col-lg-6">
-                <div class="form-label">Document Type</div>
+                <div class="form-floating-custom">
                 <input v-model="documentType" type="text" class="form-control w-100">
-            </div>
+                <label  for="Name">Document Type</label>
+                    </div>
+                    <small class=" text-danger">{{ errors.documentType }}</small>
+                </div>
             <div class="col-12 mt-4">
                 <div v-bind="getRootProps()">
                     <div class="dropzone text-center small py-2">
@@ -70,18 +80,34 @@ import api from "@/stores/Helpers/axios"
 import useFxn from '@/stores/Helpers/useFunctions';
 import { vMaska } from "maska"
 import { useAdminParamsStore } from '../../../adminParamsStore';
+import {useForm} from 'vee-validate'
+import * as yup from 'yup';
 
 //@ts-ignore
 import { useDropzone } from "vue3-dropzone";
 
+const rules = {
+    documentTitle: yup.string().required('Field is required'),
+    documentYear: yup.date().required('Field is required'),
+    documentType: yup.string().required('Field is required')
+}
+
+const {  errors, handleSubmit, defineField, setFieldValue, resetForm  } = useForm({
+    validationSchema: yup.object(rules)
+})
 const paramsStore = useAdminParamsStore()
 const emit = defineEmits(['done'])
 
 const acceptedFormats = ['doc', 'docx', 'pdf', 'jpg', 'png', 'jpeg']
 const uploadedFiles = ref<any[]>([])
-const documentTitle = ref('')
-const documentYear = ref('')
-const documentType = ref('')
+// const documentTitle = ref('')
+// const documentYear = ref('')
+// const documentType = ref('')
+
+const [documentTitle] = defineField('documentTitle')
+const [documentYear] = defineField('documentYear')
+const [documentType] = defineField('documentType')
+
 
 
 
@@ -90,6 +116,7 @@ const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptFiles: any, rejectReasons: any) => {
 
         const file = acceptFiles[0]
+
 
         // const hasInvalidFile = acceptFiles.find((x: any) => !useFxn.isExtension(x.name, acceptedFormats))
         const hasInvalidFile = !useFxn.isExtension(file.name, acceptedFormats)
@@ -112,20 +139,20 @@ function sliceDocument(name: string) {
 
 const isSaving = ref<boolean>(false)
 
-const save = (async () => {
+const save = handleSubmit(async (values) => {
     useFxn.confirm("Continue submit?", "Continue").then(async (confirmed) => {
         if (confirmed.value == true) {
-            if (!documentTitle.value) {
+            if (!documentTitle) {
                 useFxn.toast('Please enter Document(s) title', 'warning');
                 return;
             }
 
-            if (!documentYear.value) {
+            if (!documentYear) {
                 useFxn.toast('Please enter Year', 'warning');
                 return;
             }
 
-            if (!documentYear.value) {
+            if (!documentYear) {
                 useFxn.toast('Please enter Type', 'warning');
                 return;
             }
@@ -137,6 +164,7 @@ const save = (async () => {
             formData.append('type', documentType.value)
             formData.append('document_type_id', '1')
             uploadedFiles.value.forEach((file, index) => {
+                // console.log(file)
                 formData.append(`document[${index}]`, file)
             });
 

@@ -151,7 +151,7 @@ const res = await api.companyProgress()
     }else {
       authStore.twofactorEnabled = null
       if (res.data?.company?.names){
-        console.log(res.data?.company?.names, 'res.data?.company?.names')
+       // console.log(res.data?.company?.names, 'res.data?.company?.names')
         router.push({ name: 'User-Dashboard' })
       }else{
         // router.push({ name: 'User-Dashboard' })

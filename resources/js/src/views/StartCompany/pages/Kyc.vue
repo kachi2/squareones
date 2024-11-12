@@ -96,7 +96,7 @@ function saveAndContinue() {
 
 function goToDash() {
     router.push({ path: '/user/dashboard' })
-    // startCompanyStore.currentStage = 2
+     startCompanyStore.currentStage = 2
 }
 
 function startVerification() {

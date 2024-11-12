@@ -4,32 +4,41 @@
         <div class="modal-body">
             <div class="row g-3">
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Auditor Name:</div>
-                    <input v-model="auditor_name" type="text" class="form-control">
+                    <div class="form-floating-custom">
+                    <input v-model="auditor_name" type="text" class="form-control" id="auditor_name">
+                   <label  for="auditor_name">Auditor Name:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.auditor_name }}</small>
                 </div>
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Business Registration Renewal:</div>
+                    <div class="fixed-label-custom">
                     <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
                         :enable-time-picker="false" auto-apply v-model="business_registration_renewal_date">
                     </VueDatePicker>
-                    <small class=" text-danger">{{ errors.business_registration_renewal_date }}</small>
+                    <label  for="auditor_name">Business Registration Renewal:</label>
+                    </div>
+                    <small class="text-danger">{{ errors.business_registration_renewal_date }}</small>
                 </div>
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Accounting Reference Date:</div>
+                    <div class="fixed-label-custom">
                     <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
-                        :enable-time-picker="false" auto-apply v-model="accounting_reference_date">
+                        :enable-time-picker="false" auto-apply v-model="accounting_reference_date" id="accounting_reference_date">
                     </VueDatePicker>
-                    <small class=" text-danger">{{ errors.accounting_reference_date }}</small>
+                    <label  for="accounting_reference_date">Accounting Reference Date:</label>
+                    </div>
+                    <small class="text-danger">{{ errors.accounting_reference_date }}</small>
                 </div>
+
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Annual Return Renewal:</div>
+                    <div class="fixed-label-custom">
                     <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
                         :enable-time-picker="false" auto-apply v-model="annual_return_date">
                     </VueDatePicker>
-                    <small class=" text-danger">{{ errors.annual_return_date }}</small>
+                    <label  for="annual_return_date">Annual Return Renewal:</label>
+                    </div>
+                    <small class="text-danger">{{ errors.annual_return_date }}</small>
                 </div>
 
 
@@ -117,7 +126,7 @@ const save = handleSubmit(async (values) => {
                 // emit('done')
 
             } catch (error) {
-                console.log(error);
+             //   console.log(error);
             }
         }
     })

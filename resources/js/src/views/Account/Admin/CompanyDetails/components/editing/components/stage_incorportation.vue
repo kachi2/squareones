@@ -1,12 +1,13 @@
 <template>
     <div>
         <div class="modal-body">
-
-            <div class="col-12 col-md-12">
-                <div class="form-label">Update Incorporation Status</div>
+        <div class="col-12 col-md-12">
+                <div class="fixed-label-custom">
                 <v-select v-model="registration_progress_id" :clearable="true" :options="progressData"
                     :reduce="(item: any) => item.id" label="description" />
 
+                    <label  for="registration_progress_id"> Update Incorporation Status:</label>
+                </div>
             </div>
         </div>
         <div class="modal-footer mt-4 border-0">
@@ -73,6 +74,6 @@ async function save() {
 async function getProgressData() {
     const { data } = await api.GetCompanyProgressStatus();
     progressData.value = data.data
-    console.log(progressData.value, 'progress_data');
+   // console.log(progressData.value, 'progress_data');
 }
 </script>

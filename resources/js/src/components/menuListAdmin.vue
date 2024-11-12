@@ -34,6 +34,14 @@ const templateStore = useTemplateStore()
             </router-link>
         </li>
 
+        <li class="list-group-item">
+            <router-link to="/admin/tasks">
+                <i class="bi bi-card-checklist me-2"></i>
+                <span v-if="!templateStore.sidebarIsCollapsed">Assign Tasks</span>
+
+            </router-link>
+        </li>
+
     </ul>
 
     <div class="mt-5">

@@ -78,6 +78,7 @@ const router = createRouter({
         { path: 'company', name: 'User-Company', component: () => import('../views/Account/User/CompanyDetails/Company.vue') },
         { path: 'account', name: 'User-Settings', component: () => import('../views/Account/User/UserAccount.vue') },
         { path: 'billings', name: 'User-Billings', component: () => import('../views/Account/User/UserBillings.vue') },
+        { path: 'tasks', name: 'User-Tasks', component: () => import('../views/Account/User/UserTasks.vue') },
 
       ],
     }, {
@@ -92,6 +93,8 @@ const router = createRouter({
         { path: 'users', name: 'Users-Admin', component: () => import('../views/Account/Admin/AdminUsers.vue') },
         { path: 'account', name: 'Admin-Settings', component: () => import('../views/Account/Admin/AdminAccount.vue') },
         { path: 'billings', name: 'Admin-Billings', component: () => import('../views/Account/Admin/AdminBillings.vue') },
+        { path: 'tasks', name: 'Admin-Tasks', component: () => import('../views/Account/Admin/AdminTasks.vue') },
+        { path: 'tasks-assign', name: 'Admin-Tasks-Assign', component: () => import('../views/Account/Admin/AdminTasks_assign.vue') },
       ],
     },
 

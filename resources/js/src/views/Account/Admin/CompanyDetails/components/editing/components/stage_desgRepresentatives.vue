@@ -4,21 +4,27 @@
             <div class="row g-3">
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Entry Date:</div>
+                    <div class="fixed-label-custom">
                     <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
                         :enable-time-picker="false" auto-apply v-model="entry_date">
                     </VueDatePicker>
+                    <label  for="Name">Entry Date:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.entry_date }}</small>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Name:</div>
+                    <div class="form-floating-custom">
                     <input v-model="name" type="text" class="form-control">
+                    <label  for="Name">Name:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.name }}</small>
                 </div>
 
                 <div class="col-12">
-                    <div class="form-label">Address:</div>
+                    <div class="form-floating-custom">
                     <textarea class="form-control" rows="2" v-model="address"></textarea>
+                    <label  for="Name">Corresponding Address/Residential Address:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.address }}</small>
                 </div>
 
@@ -41,8 +47,10 @@
                 </div> -->
 
                 <div class="col-12">
-                    <div class="form-label">Remarks:</div>
+                    <div class="form-floating-custom">
                     <input v-model="remarks" type="text" class="form-control">
+                    <label  for="Name">Remarks:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.remarks }}</small>
                 </div>
 

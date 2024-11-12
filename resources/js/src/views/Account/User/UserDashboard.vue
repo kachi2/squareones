@@ -1,4 +1,16 @@
 <template>
+       <div  v-if="(TaskItems.length > 1)" class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <strong>You Have a new Task<span v-if="(TaskItems.length > 1)">s </span> !</strong> 
+                    <ul>
+                      <li v-for="task in TaskItems" :key="task.id"> {{task.title}}</li>
+                    </ul>
+
+                    <router-link to="/user/tasks" class="single-list-items">
+                <!-- <i class="bi bi-list-task me-2"></i> -->
+                <span>Go to Task</span>
+            </router-link>
+                </div>
   <div class="container">
     <!-- <h5 class="fw-bold page-title mb-2">Dashboard Overview</h5>
     <div class="">Have a Glance of this company Information.</div>
@@ -146,7 +158,7 @@
           </div>
           <div class="card-body">
             <isLoadingComponent v-if="itemsLoading" />
-            <EasyDataTable v-else class="easy-data-table" show-index :headers="headersActivities" :items="items"
+            <EasyDataTable v-else class="easy-data-table" show-index :headers="headersActivities" :items="userLogs"
               buttons-pagination v-model:server-options="serverOptions" :server-items-length="total">
 
               <template #header="header">
@@ -310,6 +322,22 @@ async function companyCounts() {
   return companies
 }
 
+const TaskItems = ref<any>([]);
+
+async function getUserNewtask() {
+    try {
+        // const queryString = new URLSearchParams(serverOptions.value).toString();
+        const resp = await api.getUserNewTask()
+        const data = resp.data
+        TaskItems.value = data
+        console.log(TaskItems.value);
+      
+    
+    } catch (error) {
+        console.log(error);
+
+    }
+}
 
 
 
@@ -334,6 +362,8 @@ onMounted(() => {
   loadPieChartOptions()
   companyReturn()
   companyCounts()
+  getUserLogs()
+  getUserNewtask()
 
   // console.log(companyDetails, 'damklklkllteee');
 
@@ -352,6 +382,21 @@ onMounted(() => {
 //     console.log(error, 'errors')
 //   }
 // }
+
+const userLogs = ref<any>([])
+
+async  function getUserLogs () {
+  try{
+    const logs = await api.UserActivityLogs();
+    userLogs.value = logs.data.data;
+  //  console.log(userLogs.value,'userLogs.value');
+    return userLogs.value
+  }catch(error)
+  {
+    console.log(error, 'errors')
+
+  }
+}
 
 companyReturn()
 
@@ -497,9 +542,8 @@ const itemsLoading = ref(true)
 watch(serverOptions, (value) => { getUserActivities(); }, { deep: true });
 
 const headersActivities = [
-  { text: "NAME", value: "name" },
   { text: "TYPE", value: "type" },
-  { text: "ACTION", value: "action" },
+  { text: "ACTION", value: "activity" },
   { text: "DATE", value: "created_at" },
 ];
 

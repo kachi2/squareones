@@ -193,6 +193,7 @@ const masterTableHeaders = [
     { text: "Date  Becoming a Registrable Person", value: "date_becoming_rep_person" },
     { text: "Date Cease  to Be a Registrable Person", value: "date_ceased_to_be_rep_person" },
     { text: "Date Created", value: "created_at" },
+    { text: "Remarks", value: "remarks" },
     { text: "ACTION", value: "action" },
 
 ];

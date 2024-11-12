@@ -5,22 +5,24 @@
             <div class="row g-3">
                 <div class=" col-md-12">
                     <div class="mb-3">
-                        <label for="" class="form-label">Select Shareholder</label>
-                        <select @change="populateFieldWithDetails" v-model="selectedEntity" class="form-select">
-                            <option value="" selected disabled>--Select Shareholder--</option>
-                            <option v-for="entity in selectOptions" :key="entity" :value="entity">{{
-                                entity.name }}</option>
-
-                        </select>
+                        <div class="form-floating-custom">
+                            <select @change="populateFieldWithDetails" v-model="selectedEntity" class="form-select">
+                                <option value="" selected disabled>--Select Shareholder--</option>
+                                <option v-for="entity in selectOptions" :key="entity" :value="entity">{{
+                                    entity.name }}</option>
+                            </select>
+                            <label for="selectedEntity">Select Shareholder:</label>
+                        </div>
                     </div>
-
                 </div>
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Entry Date:</div>
-                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
-                        :enable-time-picker="false" auto-apply v-model="entry_date">
-                    </VueDatePicker>
+                    <div class="fixed-label-custom">
+                        <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
+                            :enable-time-picker="false" auto-apply v-model="entry_date">
+                        </VueDatePicker>
+                        <label for="Name">Entry Date:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.entry_date }}</small>
                 </div>
                 <!-- <div class="col-12 col-md-6">
@@ -30,57 +32,78 @@
                             </div> -->
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Name of Registrable Person / Legal Entity:</div>
-                    <input v-model="legal_entity_name" type="text" class="form-control">
+                    <div class="form-floating-custom">
+                        <input v-model="legal_entity_name" type="text" class="form-control">
+                        <small class=" text-danger">{{ errors.legal_entity_name }}</small>
+                        <label for="Name">Name of Registrable Person / Legal Entity:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.legal_entity_name }}</small>
                 </div>
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Date Becoming a Registrable Person:</div>
-                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
-                        :enable-time-picker="false" auto-apply v-model="date_becoming_rep_person">
-                    </VueDatePicker>
+                    <div class="fixed-label-custom">
+                        <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
+                            :enable-time-picker="false" auto-apply v-model="date_becoming_rep_person">
+                        </VueDatePicker>
+                        <label for="Name">Date Becoming a Registrable Person:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.date_becoming_rep_person }}</small>
                 </div>
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Date Cease to Be a Registrable Person:</div>
-                    <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="true"
-                        :enable-time-picker="false" auto-apply v-model="date_ceased_to_be_rep_person">
-                    </VueDatePicker>
+                    <div class="fixed-label-custom">
+                        <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="true"
+                            :enable-time-picker="false" auto-apply v-model="date_ceased_to_be_rep_person">
+                        </VueDatePicker>
+                        <label for="Name">Date Cease to Be a Registrable Person:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.date_ceased_to_be_rep_person }}</small>
                 </div>
-
-                <!-- <div class="col-12 col-md-6">
-                    <div class="form-label">Residential Address:</div>
-                    <input v-model="resdential_address" type="text" class="form-control">
-                    <small class=" text-danger">{{ errors.resdential_address }}</small>
-                </div> -->
-
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Corresponding Address/Residential Address::</div>
-                    <input v-model="corresponding_address" type="text" class="form-control">
+                    <div class="form-floating-custom">
+                        <input v-model="resdential_address" type="text" class="form-control">
+                        <label for="Name">Residential Address</label>
+                    </div>
+                    <small class=" text-danger">{{ errors.resdential_address }}</small>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-floating-custom">
+                        <input v-bind="corresponding_addressAttr" v-model="corresponding_address" type="text"
+                            class="form-control">
+                        <label for="Name">Corresponding Address:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.corresponding_address }}</small>
                 </div>
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">ID/ Passport / Registration No:</div>
-                    <input v-model="identity_info" type="text" class="form-control">
+                    <div class="form-floating-custom">
+                        <input v-model="identity_info" type="text" class="form-control">
+                        <label for="Name">ID/ Passport / Registration No</label>
+                    </div>
                     <small class=" text-danger">{{ errors.identity_info }}</small>
                 </div>
-
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Place of Registration:</div>
-                    <input v-model="place_of_registration" type="text" class="form-control">
+                    <div class="form-floating-custom">
+                        <input v-model="place_of_registration" type="text" class="form-control">
+                        <label for="Name">Place of Registration</label>
+                    </div>
                     <small class=" text-danger">{{ errors.place_of_registration }}</small>
                 </div>
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Nature of control over company::</div>
-                    <input v-model="nature_of_control_over_the_company" type="text" class="form-control">
+                    <div class="form-floating-custom">
+                        <input v-model="nature_of_control_over_the_company" type="text" class="form-control">
+                        <label for="Name">Nature of control over company</label>
+                    </div>
                     <small class=" text-danger">{{ errors.nature_of_control_over_the_company }}</small>
                 </div>
-
+                <div class="col-12 col-md-6">
+                    <div class="form-floating-custom">
+                        <input v-model="remarks" type="text" class="form-control">
+                        <label for="Name">Remarks</label>
+                    </div>
+                    <small class=" text-danger">{{ errors.remarks }}</small>
+                </div>
             </div>
 
         </div>
@@ -151,27 +174,29 @@ function populateFieldWithDetails() {
 }
 
 
-const checkIndividual = () => {
-    if(selectedEntity.value.type === 'individual') return true;
+
+const checkIndividual = (value: any) => {
+    return selectedEntity.value?.type == 'individual' ? (value !== undefined && value != '') : true;
 }
 
-const checkCorporate = () => {
-    if(selectedEntity.value.type === 'corporate') return true
-} 
+const checkCorporate = (value: any) => {
+    return selectedEntity.value?.type == 'corporate' ? (value !== undefined && value != '') : true;
+}
 
 
 // form and validation
 const rules = {
     entry_date: yup.date().required('Field is required'),
-    name: yup.string().required('Field is required'),
-    legal_entity_name: yup.string().required('Field is required'),
+    // name: yup.string().required('Field is required'),
+    // legal_entity_name: yup.string().required('Field is required'),
     date_becoming_rep_person: yup.date().required('Field is required'),
     // date_ceased_to_be_rep_person: yup.date().required('Field is required'),
-    corresponding_address: yup.string().test('checkCorporate', 'Field is required',checkCorporate),
-    resdential_address: yup.string().test('checkIndividual', 'Field is required',checkIndividual),
+    corresponding_address: yup.string().test('checkCorporate', 'Field is required', checkCorporate),
+    resdential_address: yup.string().test('checkIndividual', 'Field is required', checkIndividual),
     identity_info: yup.string().required('Field is required'),
-    place_of_registration: yup.string().test('checkCorporate', 'Field is required',checkCorporate),
-    nature_of_control_over_the_company: yup.string().test('checkCorporate', 'Field is required',checkCorporate),
+    place_of_registration: yup.string().test('checkCorporate', 'Field is required', checkCorporate),
+    nature_of_control_over_the_company: yup.string().test('checkCorporate', 'Field is required', checkCorporate),
+
 };
 
 const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({
@@ -180,14 +205,15 @@ const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm(
 
 const [entry_date] = defineField('entry_date');
 // const [name] = defineField('name');
-const [legal_entity_name] = defineField('legal_entity_name');
-const [date_becoming_rep_person] = defineField('date_becoming_rep_person');
-const [date_ceased_to_be_rep_person] = defineField('date_ceased_to_be_rep_person');
-const [corresponding_address] = defineField('corresponding_address');
-const [resdential_address] = defineField('resdential_address');
-const [identity_info] = defineField('identity_info');
-const [place_of_registration] = defineField('place_of_registration');
-const [nature_of_control_over_the_company] = defineField('nature_of_control_over_the_company');
+const [legal_entity_name, legal_entity_nameAttr] = defineField('legal_entity_name');
+const [date_becoming_rep_person, date_becoming_rep_personAttr] = defineField('date_becoming_rep_person');
+const [date_ceased_to_be_rep_person, date_ceased_to_be_rep_personAttr] = defineField('date_ceased_to_be_rep_person');
+const [corresponding_address, corresponding_addressAttr] = defineField('corresponding_address');
+const [resdential_address, resdential_addressAttr] = defineField('resdential_address');
+const [identity_info, identity_infoAttr] = defineField('identity_info');
+const [place_of_registration, place_of_registrationAttr] = defineField('place_of_registration');
+const [nature_of_control_over_the_company, nature_of_control_over_the_companyAttr] = defineField('nature_of_control_over_the_company');
+const [remarks] = defineField('remarks')
 const isSaving = ref<boolean>(false)
 
 function setValuesOnFields() {
@@ -203,9 +229,10 @@ function setValuesOnFields() {
         setFieldValue('identity_info', significant_controller?.controllers_particulars?.identity_info)
         setFieldValue('place_of_registration', significant_controller?.controllers_particulars?.place_of_registration)
         setFieldValue('nature_of_control_over_the_company', significant_controller?.controllers_particulars?.nature_of_control_over_the_company)
+        setFieldValue('remarks', significant_controller?.remarks)
     }
 }
- 
+
 const save = handleSubmit(async (values) => {
     useFxn.confirm('Update Data?', 'Continue').then(async (confirmed) => {
         if (confirmed.value == true) {
@@ -223,6 +250,7 @@ const save = handleSubmit(async (values) => {
             formData.append('place_of_registration', values.place_of_registration ?? '')
             formData.append('nature_of_control_over_the_company', values.nature_of_control_over_the_company ?? '')
             formData.append('shareholders_id', selectedEntity.value.id)
+            formData.append('remarks', values.remarks)
 
 
             try {

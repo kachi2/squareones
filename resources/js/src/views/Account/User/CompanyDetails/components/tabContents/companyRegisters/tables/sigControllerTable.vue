@@ -11,7 +11,7 @@
             </div>
             <div class="card-body">
                 Significant Controllers
-                <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
+                <EasyDataTable class="easy-data-table"  show-index :headers="masterTableHeaders"
                     :items="paramsStore?.currentCompanyData?.significant_controller??[]" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
@@ -160,7 +160,7 @@
             </div>
             <div class="card-body">
                 Designated Representative
-                <EasyDataTable class="easy-data-table" :headers="masterTableHeaders1"
+                <EasyDataTable class="easy-data-table"  show-index :headers="masterTableHeaders1"
                     :items="paramsStore.currentCompanyData?.designated_representative??[]" buttons-pagination
                     @expand-row="expandLogs1">
                     <template #header="header">

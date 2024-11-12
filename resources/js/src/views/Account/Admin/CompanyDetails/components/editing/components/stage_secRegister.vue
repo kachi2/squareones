@@ -14,41 +14,53 @@
 
                         </select>
                     </div>
-
                 </div> -->
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Name:</div>
-                    <input v-model="name" type="text" class="form-control">
+                    <div class="form-floating-custom">
+                    <input  v-model="name" type="text" class="form-control" id="Name">
+                    <label  for="Name"> Name:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.name }}</small>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Date of Appointment:</div>
+                    <div class="fixed-label-custom">
                     <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
                         :enable-time-picker="false" auto-apply v-model="appointment_date">
                     </VueDatePicker>
+                    <label  for="Name">Date of Appointment:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.appointment_date }}</small>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="form-label">ID/ Passport / Registration No:</div>
+                    <div class="form-floating-custom">
                     <input v-model="identity_info" type="text" class="form-control">
+                    <label  for="Name">ID/ Passport / Registration No:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.identity_info }}</small>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="form-label"> Residential Address / Registered Office:</div>
+                    <div class="form-floating-custom">
                     <input v-model="address" type="text" class="form-control">
+                    <label  for="Name">Residential Address / Registered Office:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.address }}</small>
                 </div>
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Ceasing to Act:</div>
+                    <div class="fixed-label-custom">
                     <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="true"
                         :enable-time-picker="false" auto-apply v-model="cease_to_act">
                     </VueDatePicker>
+                    <label  for="Name">Ceasing to Act:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.cease_to_act }}</small>
                 </div>
+
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Remarks:</div>
+                    <div class="form-floating-custom">
                     <input v-model="remarks" type="text" class="form-control">
+                    <label  for="Name">Remarks:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.remarks }}</small>
                 </div>
 
@@ -110,7 +122,7 @@ const rules = {
     identity_info: yup.string().required('Field is required'),
     address: yup.string().required('Field is required'),
     // cease_to_act: yup.date().required('Field is required'),
-    remarks: yup.string().required('Field is required'),
+    // remarks: yup.string().required('Field is required'),
 };
 
 const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({

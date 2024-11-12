@@ -16,7 +16,7 @@ onMounted(async () => {
     await paramsStore.getCompanies()
     const data = await api.userCompany();
     Activecompany.value = data.data.data
-    console.log(Activecompany.value, 'Activecompany')
+    // console.log(Activecompany.value, 'Activecompany')
 })
 
 
@@ -31,14 +31,14 @@ function openCompaniesDropdown() {
 
 <template>
     <ul class="list-group list-group-flush">
-        <li class="list-group-item">
+        <li class="list-group-item " :class="{'active-list': $route.path == '/user/dashboard'}">
             <router-link to="/user/dashboard" class="single-list-items">
                 <!-- <img class="side-icon" src="/icons/sidebar/grid-four.png" alt=""> -->
                 <i class="bi bi-grid me-2"></i>
                 <span v-if="!templateStore.sidebarIsCollapsed">Dashboard</span>
             </router-link>
         </li>
-        <li class="list-group-item" v-if="!templateStore.sidebarIsCollapsed">
+        <li class="list-group-item hover-exemption" v-if="!templateStore.sidebarIsCollapsed">
             <div ref="companiesDropdownClicker" class="accordion" id="accordionMenuCaompany">
                 <div class="accordion-item ">
                     <span class="accordion-header_" id="menu1Heading">
@@ -59,7 +59,7 @@ function openCompaniesDropdown() {
                             <ul class="nav flex-column mt-2" v-if="paramsStore.companies.list.length">
                                 <li v-for="item in paramsStore.companies.list" :key="item"
                                     class="nav-item single-list-items">
-                                    <router-link @click="paramsStore.currentCompanyId = item.id" to="/user/company">
+                                    <router-link @click="paramsStore.loadCompany(item.id) " to="/user/company">
                                         {{ paramsStore.computedCoyName(item) }}
                                     </router-link>
                                 </li>
@@ -79,7 +79,7 @@ function openCompaniesDropdown() {
         <!-- <li @click="openCompaniesDropdown" v-else class="list-group-item">
             <i class="bi bi-building me-2"></i>
         </li> -->
-        <li v-else class="list-group-item">
+        <li v-else class="list-group-item" :class="{'active-list': $route.path == '/user/company'}">
             <div class="dropdown">
                 <i class="bi bi-building me-2 dropdown-toggle" id="triggerId" data-bs-toggle="dropdown"></i>
                 <div class="dropdown-menu" style="z-index: 99999 !important;" aria-labelledby="triggerId">
@@ -94,10 +94,19 @@ function openCompaniesDropdown() {
 
         </li>
 
-        <li class="list-group-item">
+        <li class="list-group-item" :class="{'active-list': $route.path == '/user/users'}">
             <router-link to="/user/users" class="single-list-items">
                 <i class="bi bi-people me-2"></i>
                 <span v-if="!templateStore.sidebarIsCollapsed">My Team</span>
+
+            </router-link>
+
+        </li>
+
+        <li class="list-group-item" :class="{'active-list': $route.path == '/user/tasks'}">
+            <router-link to="/user/tasks" class="single-list-items">
+                <i class="bi bi-list-task me-2"></i>
+                <span v-if="!templateStore.sidebarIsCollapsed">Tasks</span>
 
             </router-link>
 
@@ -107,9 +116,9 @@ function openCompaniesDropdown() {
 
     <div class="mt-5">
         <ul class="list-group list-group-flush">
-            <li v-if="!templateStore.sidebarIsCollapsed" class="list-group-item text-secondary ">Preferences</li>
+            <li v-if="!templateStore.sidebarIsCollapsed" class="list-group-item hover-exemption text-secondary ">Preferences</li>
 
-            <li class="list-group-item">
+            <li class="list-group-item" :class="{'active-list': $route.path == '/user/account'}">
                 <router-link to="/user/account" class="single-list-items">
                     <!-- <img class="side-icon" src="/icons/sidebar/profile.png" alt=""> -->
                     <i class="bi bi-gear"></i>
@@ -118,7 +127,7 @@ function openCompaniesDropdown() {
             </li>
 
 
-            <li class="list-group-item">
+            <li class="list-group-item" :class="{'active-list': $route.path == '/user/billings'}">
                 <router-link to="/user/billings" class="single-list-items">
                     <!-- <img class="side-icon" src="/icons/sidebar/money.png" alt=""> -->
                     <i class="bi bi-cash-stack"></i>
@@ -144,24 +153,22 @@ function openCompaniesDropdown() {
     transition:  padding 0.5s
 } */
 
-.single-list-items:hover {
-    /* background: #699ef5; */
-    padding: 5px 5px 5px 5px;
-    border-radius: 5px;
-    /* transition: padding 0.2s; */
-    color: v-bind('templateStore.textColor');
-    /* color: v-bind('templateStore.textColor'); */
+.single-list-items {
+    padding: 5px 5px 5px 5px !important;
+    border-radius: 0px !important;
 }
 
 .list-group-item {
     background: transparent;
     border: none;
     padding-bottom: 5px;
-
-
 }
 
-.list-group-item:hover {
+.active-list{
+    border-right: 2px solid blue;
+}
+
+.list-group-item:not(.hover-exemption):hover {
     background-color: #cccccc67 !important;
 }
 
@@ -170,6 +177,7 @@ function openCompaniesDropdown() {
     color: v-bind('templateStore.textColor');
     text-decoration: none;
     font-weight: 450;
+    background: transparent;
 }
 
 
@@ -205,11 +213,8 @@ function openCompaniesDropdown() {
     font-size: 14px;
 }
 
-.accordion-item .nav-item a:hover {
-    /* color: #fff; */
-    /* color: v-bind('templateStore.textColor'); */
-    margin-block: 0px;
-    font-size: 14px;
+.accordion-item .nav-item:hover {
+    background-color: #cccccc67 !important;
 }
 
 .accordion-body {

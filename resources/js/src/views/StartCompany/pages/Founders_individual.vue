@@ -428,6 +428,7 @@ function resetForm() {
     form.identity_type_id = '1'
     form.identity_no = ''
     form.passport_no = ''
+    form.hasChineseName = false
     form.issuing_country = 'Hong Kong'
     startCompanyStore.checkedEntityCapacity = []
 }

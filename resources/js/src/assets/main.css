@@ -140,6 +140,10 @@ textarea {
     --easy-table-body-row-hover-background-color: transparent;
 }
 
+.vue3-easy-data-table__main {
+    min-height: 60vh !important;
+}
+
 
 /* .vue3-easy-data-table__body td.expand[data-v-32683533] {
     background-color: #eee !important;

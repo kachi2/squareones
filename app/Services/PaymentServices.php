@@ -74,8 +74,8 @@ class PaymentServices implements PaymentInterface
                     'setup_future_usage' => 'off_session', 
                 ],
                 // 'success_url' => 'http://127.0.0.1:5173/kcy/verifications',
-                 'success_url' => 'https://squareone.portrec.ng/kcy/verifications',
-                'cancel_url' => 'https://squareone.portrec.ng/start_company',
+                 'success_url' => url('/kcy/verifications'),
+                'cancel_url' => url('/start_company'),
             ]);
             $company = Company::where(['user_id' => auth_user(), 'is_complete' => 0])->first();
             if ($company) {

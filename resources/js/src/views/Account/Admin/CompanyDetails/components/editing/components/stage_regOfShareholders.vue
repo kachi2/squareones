@@ -6,62 +6,84 @@
                 <!-- <div class=" col-md-6"> </div> -->
                 <div class=" col-md-12">
                     <div class="mb-3">
-                        <label for="" class="form-label">Select Shareholder</label>
+                        <div class="form-floating-custom">
                         <select @change="populateFieldWithDetails" v-model="selectedEntity" class="form-select">
                             <option value="" selected disabled>--Select Shareholder--</option>
                             <option v-for="entity in selectOptions" :key="entity" :value="entity">{{
                                 entity.name }}</option>
-
                         </select>
+                        <label  for="selectedEntity">Select Shareholder:</label>
                     </div>
-
+                </div>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Name:</div>
-                    <input disabled v-model="name" type="text" class="form-control">
+                    <div class="form-floating-custom">
+                    <input disabled v-model="name" type="text" class="form-control" id="Name">
+                    <label  for="Name"> Name:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.name }}</small>
                 </div>
+
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Address:</div>
+                 <div class="form-floating-custom">
                     <input v-model="address" type="text" class="form-control">
+                    <label  for="Name">Residential Address / Registered Office:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.address }}</small>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Class of Shares:</div>
+                    <div class="form-floating-custom">
                     <select v-model="class_of_shares" class="form-select">
                         <option selected value="ordinary">Ordinary</option>
                     </select>
+                    <label  for="Name">Class of Shares:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.class_of_shares }}</small>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Denomination:</div>
-                    <input v-model="denomination" type="text" class="form-control">
+                    <div class="form-floating-custom">
+                        <select v-model="denomination"  class="form-control"> 
+                        <option> HKD </option>
+                    </select>
+                    <label  for="Name">Denomination:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.denomination }}</small>
                 </div>
+
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Current Holding:</div>
+                    <div class="form-floating-custom">
                     <input v-model="current_holding" type="text" class="form-control">
+                    <label  for="Name">Current Holding:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.current_holding }}</small>
                 </div>
+
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Total Consideration HKD:</div>
+                    <div class="form-floating-custom">
                     <input v-model="total_consideration" type="text" class="form-control">
+                    <label  for="Name">Total Consideration HKD:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.total_consideration }}</small>
                 </div>
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Date Entered As a Member:</div>
+                    <div class="fixed-label-custom">
                     <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
                         :enable-time-picker="false" auto-apply v-model="date_entered_as_member">
                     </VueDatePicker>
+                    <label  for="Name">Date Entered As a Member:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.date_entered_as_member }}</small>
                 </div>
 
+
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Date Ceases to Be a Member:</div>
+                    <div class="fixed-label-custom">
                     <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="true"
                         :enable-time-picker="false" auto-apply v-model="date_cease_to_be_member">
                     </VueDatePicker>
+                    <label  for="Name">Date Ceases to Be a Member:</label>
+                    </div>
                     <small class=" text-danger">{{ errors.date_cease_to_be_member }}</small>
                 </div>
 

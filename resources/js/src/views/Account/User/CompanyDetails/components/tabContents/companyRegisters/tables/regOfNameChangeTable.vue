@@ -1,86 +1,68 @@
 <template>
     <div class="col-12">
 
-        <div class="card shadow-sm">
-            <div class="card-header fw-bold border-0 bg-transparent">
-                Register of Company Name Changes
-                <!-- <span class="float-end">
-                    <button @click="paramsStore.openModalForm('regOfNameChangeModal')" class="btn btn-primary btn-sm">
-                        Add New <i class="bi bi-plus-lg"></i>
-                    </button>
-                </span> -->
-            </div>
-            <div class="card-body">
-                <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
-                    :items="paramsStore?.currentCompanyData?.register_of_company_name??[]" buttons-pagination
-                    @expand-row="expandLogs">
-                    <template #header="header">
-                        <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
-                    </template>
-
-
-                    <template #item-allotment_date="item">
-                        {{ useFxn.dateDisplay(item.allotment_date) }}
-                    </template>
-                    <template #item-created_at="item">
-                        {{ useFxn.dateDisplay(item.created_at) }}
-                    </template>
-
-                    <template #item-no_of_shares_allocated="item">
-                        {{ useFxn.addCommas(item.no_of_shares_allocated) }}
-                    </template>
-
-                    <template #item-total_consideration="item">
-                        {{ useFxn.addCommas(item.total_consideration) }}
-                    </template>
-
-                    <template #expand="item">
-                        <div v-if="!item.expandLoading" class="my-3">
-                            <div class="fw-bold text-center mb-2">LOGS</div>
-                            <EasyDataTable class="easy-data-table" show-index :headers="expandedHeaders"
-                                :items="expandedObjArray.data" buttons-pagination
-                                v-model:server-options="expandingServerOptions" :server-items-length="expandedTotal">
-
-                                <template #item-allotment_date="item">
-                                    {{ useFxn.dateDisplay(item.allotment_date) }}
-                                </template>
-                                <template #item-created_at="item">
-                                    {{ useFxn.dateDisplay(item.created_at) }}
-                                </template>
-
-                                <template #item-no_of_shares_allocated="item">
-                                    {{ useFxn.addCommas(item.no_of_shares_allocated) }}
-                                </template>
-
-                                <template #item-total_consideration="item">
-                                    {{ useFxn.addCommas(item.total_consideration) }}
-                                </template>
-
-                            </EasyDataTable>
-                        </div>
-                    </template>
-
-                    <!-- <template #item-action="item">
-                        <span class="dropdown">
-                            <span class=" cursor-pointer bell dropdown-toggle" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <i class="bi bi-three-dots text-primary"></i>
-                                <div class="dropdown-menu dropdown-menu-start">
-                                    <ul class="list-group list-group-flush  ">
-                                        <li @click="paramsStore.openModalForm('regOfNameChangeModal', item.id)"
-                                            class="dropdown-item" style="background-color: transparent !important;">
-                                            <i class="bi bi-pencil"></i> update
-                                        </li>
-                                    </ul>
-                                </div>
-                            </span>
-                        </span>
-                    </template> -->
-                </EasyDataTable>
-            </div>
-        </div>
+<div class="card shadow-sm">
+    <div class="card-header fw-bold border-0 bg-transparent">
+        Register of Company Name Changes
+        <span class="float-end">
+            <button @click="paramsStore.openModalForm('regOfNameChangeModal')" class="btn btn-primary btn-sm">
+                Add New <i class="bi bi-plus-lg"></i>
+            </button>
+        </span>
     </div>
-    <!-- <regOfNameChangeModal /> -->
+    <div class="card-body">
+        <EasyDataTable class="easy-data-table" show-index :headers="masterTableHeaders"
+            :items="paramsStore.currentCompanyData?.register_of_company_name??[]" buttons-pagination
+            @expand-row="expandLogs">
+            <template #header="header">
+                <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
+            </template>
+
+            <!-- <template #item-total_consideration="item">
+                {{ useFxn.addCommas(item.total_consideration) }}
+            </template> -->
+
+            <template #expand="item">
+                <div v-if="!item.expandLoading" class="my-3">
+                    <div class="fw-bold text-center mb-2">LOGS</div>
+                    <EasyDataTable class="easy-data-table" show-index :headers="expandedHeaders"
+                        :items="expandedObjArray.data" buttons-pagination
+                        v-model:server-options="expandingServerOptions" :server-items-length="expandedTotal">
+
+                       
+<!-- 
+                        <template #item-no_of_shares_allocated="item">
+                            {{ useFxn.addCommas(item.no_of_shares_allocated) }}
+                        </template>
+
+                        <template #item-total_consideration="item">
+                            {{ useFxn.addCommas(item.total_consideration) }}
+                        </template> -->
+
+                    </EasyDataTable>
+                </div>
+            </template>
+
+            <template #item-action="item">
+                <span class="dropdown">
+                    <span class=" cursor-pointer bell dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <i class="bi bi-three-dots text-primary"></i>
+                        <div class="dropdown-menu dropdown-menu-start">
+                            <ul class="list-group list-group-flush  ">
+                                <li @click="paramsStore.openModalForm('regOfNameChangeModal', item.id)"
+                                    class="dropdown-item" style="background-color: transparent !important;">
+                                    <i class="bi bi-pencil"></i> update
+                                </li>
+                            </ul>
+                        </div>
+                    </span>
+                </span>
+            </template>
+        </EasyDataTable>
+    </div>
+</div>
+</div>
 
 </template>
 
@@ -97,22 +79,21 @@ import { computed, reactive, ref, watch } from 'vue';
 
 // table
 const masterTableHeaders = [
-    { text: "Name and Address", value: "name" },
-    { text: "Class of Shares", value: "class_of_shares" },
-    { text: "Number of Shares Allotted", value: "no_of_shares_allocated" },
-    { text: "Date of Allotment", value: "allotment_date" },
+    { text: "Date of Name Changed", value: "date_of_name_changed" },
+    { text: "Previous Company Name", value: "previous_company_name" },
+    { text: "New Company Name", value: "new_company_name" },
     { text: "DATE CREATED", value: "created_at" },
     // { text: "REMARKS", value: "remarks" },
     { text: "ACTION", value: "action" },
 ];
 
 const expandedHeaders = [
-    { text: "Name and Address", value: "name" },
-    { text: "Class of Shares", value: "class_of_shares" },
-    { text: "Number of Shares Allotted", value: "no_of_shares_allocated" },
-    { text: "Date of Allotment", value: "allotment_date" },
+    { text: "Date of Name Changed", value: "date_of_name_changed" },
+    { text: "Previous Company Name", value: "previous_company_name" },
+    { text: "New Company Name", value: "new_company_name" },
     { text: "DATE MODIFIED", value: "created_at" },
 ];
+
 
 
 const expandingServerOptions = ref<ServerOptions | any>({

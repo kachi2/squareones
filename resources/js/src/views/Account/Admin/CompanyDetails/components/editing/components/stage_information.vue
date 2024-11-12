@@ -1,49 +1,61 @@
 <template>
     <div>
-
-
-
         <div class="modal-body">
             <div class="row g-3">
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Company Name:</div>
-                    <input v-model="company_registered_name" type="text" class="form-control">
-                    <small class=" text-danger">{{ errors.company_registered_name }}</small>
+                    <div class="fixed-label-custom">
+                    <v-select  id="company_name"  v-model="company_registered_name"
+                     :options="FormattedNames"  /> 
+                    <label  for="company_name">Company Name:</label>
                 </div>
+                <small class=" text-danger">{{ errors.company_registered_name }}</small>
+            </div>
+
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Business Registration Number (BRN):</div>
+                    <div class="form-floating-custom">
                     <input v-model="business_registered_number" type="text" class="form-control">
+                    <label  for="company_name">Business Registration Number (BRN):</label>
+                    </div>
                     <small class=" text-danger">{{ errors.business_registered_number }}</small>
                 </div>
+
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Incorporation Date:</div>
+                    <div class="fixed-label-custom">
                     <VueDatePicker :teleport="true" :format="useFxn.dateDisplay" hide-input-icon :clearable="true"
-                        :enable-time-picker="false" auto-apply v-model="incorporated_date">
+                        :enable-time-picker="false" auto-apply v-model="incorporated_date" id="incorporated_date">
                     </VueDatePicker>
-                    <small class=" text-danger">{{ errors.incorporated_date }}</small>
+                    <label  for="incorporated_date">Incorporation Date:</label>
                 </div>
+                <small class=" text-danger">{{ errors.incorporated_date }}</small>
+            </div>
+
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Company Structure:</div>
-                    <select v-model="company_structure" class="form-select">
+                    <div class="form-floating-custom">
+                    <select v-model="company_structure" class="form-select" id="company_structure">
                         <option value="Private_Limited_Company" selected>Private Limited Company</option>
                     </select>
+                    <label  for="company_structure">Company Structure:</label>
+                </div>
                     <small class=" text-danger">{{ errors.company_structure }}</small>
                 </div>
-                <div class="col-12 col-md-6">
-                    <div class="form-label">Company Registered In: </div>
 
+                <div class="col-12 col-md-6">
+                    <div class="fixed-label-custom"> 
                     <v-select class="exemption" style="line-height: 1rem !important;" append-to-body
                         :calculate-position="useFxn.vueSelectPositionCalc" v-model="company_registered"
                         :clearable="true" :options="paramsStore.countries" />
-                    <small class=" text-danger">{{ errors.company_registered }}</small>
+                    <label  for="country_registered">Country Registered:</label>
                 </div>
+                <small class=" text-danger">{{ errors.company_registered }}</small>
+            </div>
 
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Business Classification:</div>
-                    <input v-model="business_classification" type="text" class="form-control">
-                    <small class=" text-danger">{{ errors.business_classification }}</small>
+                    <div class="form-floating-custom"> 
+                    <input v-model="business_classification" type="text" class="form-control" id="business_classification">
+                    <label  for="business_classification">Business Classification:</label>
                 </div>
-
+                <small class=" text-danger">{{ errors.business_classification }}</small>
+                </div>
             </div>
 
         </div>
@@ -63,7 +75,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import api from "@/stores/Helpers/axios"
 import useFxn from '@/stores/Helpers/useFunctions';
 
@@ -76,7 +88,10 @@ const paramsStore = useAdminParamsStore()
 const emit = defineEmits(['done'])
 onMounted(() => {
     setValuesOnFields()
+    companyName()
 })
+
+
 
 // form and validation
 const rules = {
@@ -100,6 +115,25 @@ const { errors, handleSubmit, defineField, setFieldValue } = useForm({
     //     business_classification: ''
     // },
 });
+
+const names = ref<any>([]);
+
+
+
+async function companyName(){
+    const resp = await api.companyDetails(paramsStore.currentCompanyId)
+    names.value = resp.data.data.names
+    // console.log(names.value)
+    return names.value;
+}
+
+const FormattedNames = computed( ()=> {
+    const formatName: any = []
+   names.value.forEach((name:any) => {
+    formatName.push(`${name.eng_name} ${name.eng_prefix} ${name.chn_name}${name.chn_prefix}`)
+   })
+   return formatName;
+})  
 
 const [company_registered_name] = defineField('company_registered_name');
 const [business_registered_number] = defineField('business_registered_number');
@@ -156,6 +190,6 @@ const save = handleSubmit(async (values) => {
 
 <style>
 .exemption .v-select * {
-    line-height: 1.7rem !important;
+    line-height: 3.1rem !important;
 }
 </style>

@@ -17,8 +17,7 @@
                 <!-- <appModeToggler /> -->
 
                 <span class="mx-4 dropdown">
-                    <span @click="updateReadNotifications"
-                        class="position-relative  cursor-pointer bell dropdown-toggle" data-bs-toggle="dropdown"
+                    <span class="position-relative  cursor-pointer bell dropdown-toggle" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         <i class="bi bi-bell " style="font-size:16px; font-weight:700; color:blue"></i>
                         <span v-if="notificationsUnRead"
@@ -35,8 +34,8 @@
 
                                 </div> -->
                                 <ul class="list-group list-group-flush ">
-                                    <li v-for="noti in notifications" :key="noti"
-                                        class="dropdown-item list-group-ite small text-wrap"
+                                    <li @click="updateReadNotifications(noti.type)" v-for="noti in notifications"
+                                        :key="noti" class="dropdown-item list-group-ite small text-wrap"
                                         style="border-bottom:1px solid #eee">
                                         <strong>{{ noti.title }}
                                             <!-- <i class="bi bi-x-lg text-danger cursor-pointer float-end"></i> -->
@@ -100,9 +99,11 @@ const notificationsUnRead = computed(() => {
 })
 
 
-async function updateReadNotifications() {
+async function updateReadNotifications(notificationType: NotificationType) {
     try { await api.userNotificationsMarkAsRead() } catch (error) { }
     getNotifications()
+    goToNotificationLink(notificationType)
+
 }
 
 async function getNotifications() {
@@ -113,6 +114,15 @@ async function getNotifications() {
     } catch (error) {
 
     }
+
+}
+type NotificationType = 'Billing' | 'Formation' | 'Kyc'
+
+function goToNotificationLink(notificationType: NotificationType) {
+    if (notificationType == 'Billing') router.push({ path: '/user/billings' })
+    else if (notificationType == 'Formation') router.push({ path: '/user/company' })
+    else if (notificationType == 'Kyc') router.push({ path: '/user/account' })
+    else { }
 
 }
 

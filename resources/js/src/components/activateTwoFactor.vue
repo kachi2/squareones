@@ -50,7 +50,7 @@ async function getTwoFactorStatus() {
         twoFactorObj.isEnabled = data.enable_2fa_at ? false : true
 
     } catch (error: any) {
-        console.log(error);
+        //console.log(error);
     }
 }
 

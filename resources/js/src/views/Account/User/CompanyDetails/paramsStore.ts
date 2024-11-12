@@ -28,6 +28,7 @@ export const useParamsStore: any = defineStore('useParamsStore', () => {
     const currentCompanyData = ref<any>('')
     const idToEdit: any = ref<any>('')
     const hasUpdatedProgress = ref<boolean>(false)
+    const userClickedCompany = ref<boolean>(false)
 
     const companies = reactive<any>({
         list: [],
@@ -82,8 +83,14 @@ export const useParamsStore: any = defineStore('useParamsStore', () => {
         modals[modalName].value = !modals[modalName].value
     }
 
+    function loadCompany(id: any) {
+        userClickedCompany.value = !userClickedCompany.value
+        currentCompanyId.value = id
+    }
+
     return {
-        currentCompanyId, 
+        currentCompanyId,
+        userClickedCompany,
         currentCompanyData,
         idToEdit,
         hasUpdatedProgress,
@@ -94,6 +101,7 @@ export const useParamsStore: any = defineStore('useParamsStore', () => {
         getCompanyDetails,
         getCompanies,
         openModalForm,
+        loadCompany,
 
         ...modals,
     }

@@ -107,7 +107,8 @@ function checkForToken() {
     }
 }
 
-watch(() => paramsStore.currentCompanyId, () => {
+watch(() => paramsStore.userClickedCompany, () => {
+    companyIsLoading.value = true
     getCompanyDetails()
 })
 
@@ -126,7 +127,7 @@ async function acceptInvitation() {
         const formData = new FormData();
         formData.append('token', token);
         const resp = await api.userTeamsInvitationAccept(formData)
-        console.log(resp);
+       // console.log(resp);
 
         if (resp.status == 200) {
             toast.info('Invitation Accepted, you have been added to this team', { position: 'top-right' });

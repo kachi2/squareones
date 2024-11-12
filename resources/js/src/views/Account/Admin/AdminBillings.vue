@@ -157,6 +157,18 @@
                                 <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
                             </template>
 
+                            <template #item-reg_date="item">
+                                <span v-if="item?.subscription?.status == 'active'"
+                                    class="badge bg-success-subtle text-dark">
+                                    {{ item?.subscription?.status }}
+                                </span>
+
+                                <span v-else class="badge bg-secondary-subtle text-dark">
+                                    {{ item?.subscription?.status }}
+                                </span>
+
+                            </template>
+
                             <template #item-status="item">
                                 <span v-if="item.status == 'paid'" class="badge bg-success-subtle text-dark">
                                     {{ item.status }}
@@ -532,7 +544,7 @@ async function saveUpdatePlan() {
             toast.success('Plan Created', { position: 'top-right' })
             modalClose.value.click()
             plans.isLoading = false
-            console.log(resp);
+            //console.log(resp);
             getPlans()
 
         } catch (error) {
@@ -552,7 +564,7 @@ async function saveUpdatePlan() {
             toast.success('Plan Updated', { position: 'top-right' })
             modalClose.value.click()
             plans.isLoading = false
-            console.log(resp);
+           // console.log(resp);
             getPlans()
 
 

@@ -298,8 +298,9 @@ function editFounder(entity: any) {
   // corporate_form.resetForm()
   // individual_form.resetForm()
   individual_form.clearLocalStorage()
-  individual_form.clearLocalStorage()
+  corporate_form.clearLocalStorage()
   founderRadio.value = true;
+
 
   // console.log('editing', entity);
 

@@ -305,6 +305,7 @@ const toast = useToast()
 const route = useRoute()
 
 onMounted(() => {
+    initilizeStripe()
     getInvoices()
     getPaymentInfo()
     getSubscription()
@@ -454,7 +455,7 @@ async function updateSubscription(action: 'resume' | 'pause') {
         const resp = action == 'pause' ?
             await api.pauseSubscriptionPlan(SubscriptionPlan.seletedSubPlan.subscription_id)
             : await api.resumeSubscriptionPlan(SubscriptionPlan.seletedSubPlan.subscription_id)
-        console.log(resp, 'ssssssss');
+        // console.log(resp, 'ssssssss');
         toast.success('Subcription Plan updated', { position: 'top-right' })
         getSubscriptionPlan()
         subscriptionPlanModalClose.value.click()
@@ -478,8 +479,17 @@ async function openCardDetailsModal() {
 
 
 const STRIPE_PUBLISHABLE_KEY = "pk_test_51P7LhqRxBSKsFyqbPdmjZpG4tFsnyLZEV6Tn38aic7H4oeWOSub5gTRnjF4vgdRbBJutMM0G3d2x3c9VFz2g1dkX00bPRK5pYT"; // Replace with your actual key
-// @ts-ignore
-const stripePromise = Stripe(STRIPE_PUBLISHABLE_KEY);
+let stripePromise: any = null;
+function initilizeStripe() {
+    try {
+        // @ts-ignore
+        stripePromise = Stripe(STRIPE_PUBLISHABLE_KEY);
+    } catch (error) {  
+        console.log('could not load stripe');
+        
+      }
+}
+
 let clientSecret = ''
 let elements: any = ''
 const clientSecretIsLoaded = ref(false)

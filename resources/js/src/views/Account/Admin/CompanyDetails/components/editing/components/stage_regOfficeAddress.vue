@@ -4,44 +4,63 @@
         <div class="modal-body">
             <div class="row g-3">
                 <div class="col-12">
-                    <div class="form-label">Directors:</div>
+                    <!-- <div class="form-label">Directors:</div> -->
+                    <div class="fixed-label-custom">
                     <v-select v-bind="directorsAttr" append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
-                        :multiple="true" v-model="directors" :clearable="true" :options="directorsDropDown" />
+                        :multiple="true" v-model="directors" :clearable="true" :options="directorsDropDown" id="directors" />
                     <!-- <input v-model="directors" type="text" class="form-control"> -->
-                    <small class=" text-danger">{{ errors.directors }}</small>
+                    <label  for="directors">Directors:</label>
                 </div>
+                <small class=" text-danger">{{ errors.directors }}</small>
+            </div>
                 <div class="col-12">
-                    <div class="form-label">Shareholders:</div>
+                    <!-- <div class="form-label">Shareholders:</div> -->
+                    <div class="fixed-label-custom">
                     <!-- <input v-model="shareholders" type="text" class="form-control"> -->
                     <v-select v-bind="shareholdersAttr" append-to-body
                         :calculate-position="useFxn.vueSelectPositionCalc" :multiple="true" v-model="shareholders"
-                        :clearable="true" :options="shareholdersDropDown" />
-                    <small class=" text-danger">{{ errors.shareholders }}</small>
+                        :clearable="true" :options="shareholdersDropDown"  id="Shareholders"/>
+                    <label  for="Shareholders">Shareholders:</label>
                 </div>
+                <small class=" text-danger">{{ errors.shareholders }}</small>
+            </div>
 
 
                 <div class="col-12">
-                    <div class="form-label">Registered Office:</div>
-                    <textarea v-model="registered_office" class="form-control" rows="2"></textarea>
+                    <div class="form-floating-custom">
+                    <textarea v-model="registered_office" class="form-control" rows="2" id="Office"></textarea>
                     <small class=" text-danger">{{ errors.registered_office }}</small>
+                 <label  for="Office">Registered Office:</label>
+                 </div>
+                 <small class=" text-danger">{{ errors.shareholders }}</small>
                 </div>
+
                 <div class="col-12">
-                    <div class="form-label">Businness Adress:</div>
-                    <textarea v-model="business_address" class="form-control" rows="2"></textarea>
-                    <small class=" text-danger">{{ errors.business_address }}</small>
+                    <div class="form-floating-custom">
+                    <textarea v-model="business_address" class="form-control" rows="2" id="business_address"></textarea>
+                <label  for="business_address">Business Address:</label>
+                 </div>
+                 <small class=" text-danger">{{ errors.business_address }}</small>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Company Secretary:</div>
-                    <select v-model="company_secretary" class="form-select">
+                    <div class="form-floating-custom">
+                    <select v-model="company_secretary" class="form-select" id="company_secretary">
                         <option selected :value="company_secretary">{{ company_secretary }}
                         </option>
                     </select>
-                    <small class=" text-danger">{{ errors.company_secretary }}</small>
+                    <label  for="company_secretary">Company Secretary:</label>
+                 </div>
+                 <small class=" text-danger">{{ errors.company_secretary }}</small>
                 </div>
+
+
                 <div class="col-12 col-md-6">
-                    <div class="form-label">Designated Representative:</div>
+                    <div class="form-floating-custom">
                     <input v-model="scr_designated_representative" type="text" class="form-control">
-                    <small class=" text-danger">{{ errors.scr_designated_representative }}</small>
+                    <small class=" text-danger"></small>
+                    <label  for="company_secretary">Designated Representative:</label>
+                 </div>
+                 <small class=" text-danger">{{ errors.scr_designated_representative }}</small>
                 </div>
             </div>
 

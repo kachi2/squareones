@@ -270,6 +270,7 @@ export const foundersIdividualForm = defineStore("foundersIdividual", () => {
     occupation_storage.value = "";
     identity_no_storage.value = "";
     passport_no_storage.value = "";
+    
   }
 
   return {

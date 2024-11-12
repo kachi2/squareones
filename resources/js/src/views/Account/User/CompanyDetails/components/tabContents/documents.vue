@@ -90,7 +90,7 @@ async function getDocuments() {
         total.value = data.total
         items.value = data.data
         itemsLoading.value = false
-        console.log(data);
+       // console.log(data);
     } catch (error) {
         // 
     }

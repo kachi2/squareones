@@ -32,7 +32,7 @@
                                         <div class="tab-pane active" id="Search" role="tabpanel"
                                             aria-labelledby="Search-tab"> -->
                                     <input v-model="searchUserMail" type="text" class="form-control"
-                                        placeholder="search by name or email">
+                                        placeholder="enter user email ">
 
                                     <ul class="list-group list-group-flush mt-3">
                                         <li class="list-group-item px-0" v-for="x in filteredUsersBySearch">
@@ -205,7 +205,7 @@ async function removeFromTeam(user_id: any) {
     const resp = await api.removeUserfromTeam(formData)
     items.value = resp.data.data
     userTeamMembers()
-    console.log(items)
+    // console.log(items)
 }
 
 
@@ -304,7 +304,7 @@ async function userTeamMembers() {
 
         const data = resp.data.data
         total.value = data.total
-        items.value = data
+        items.value = data ?? []
         itemsLoading.value = false
     } catch (error) {
         // 

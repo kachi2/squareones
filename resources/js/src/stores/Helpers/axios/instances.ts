@@ -2,9 +2,9 @@ import axios from 'axios'
 
 // @ts-ignore
 import Cookies from 'js-cookie';
-
-// const hostURL = 'https://api.squareone.portrec.ng';
 const hostURL = '';
+// const hostURL = 'http://127.0.0.1:8000';
+// const hostURL = 'https://api.squareone.portrec.ng';
 
 const apiURL = `${hostURL}/api/`;
 

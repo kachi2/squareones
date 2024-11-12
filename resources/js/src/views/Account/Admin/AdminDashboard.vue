@@ -390,7 +390,7 @@ async function getCompanyStats() {
         const resp = await api.getCompanyStats(queryObj)
         comapaniesList.value = resp.data?.data.company ?? []
         comapaniesData.value = resp.data?.data ?? []
-        console.log(comapaniesList.value)
+       // console.log(comapaniesList.value)
     } catch (error) {
         // 
     }
@@ -452,7 +452,7 @@ async function getRevenueStats() {
         const resp = await api.getRevenueStats(queryObj)
         const data = resp.data.data
 
-        console.log(data, 'transactions logs')
+     //   console.log(data, 'transactions logs')
         totalRevenues.value = data.total
         revenueLogs.value = data
     } catch (error) {

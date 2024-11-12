@@ -163,7 +163,8 @@
                             </template>
 
                             <template #item-name="item">
-                                {{ computedCoyName(item) }}
+                                <!-- {{ computedCoyName(item) }} -->
+                                  <span> {{item?.registered_company?.company_registered_name}}</span>
                             </template>
 
                             <template #item-incorporation_statuses="item">
@@ -244,6 +245,11 @@
                                             <i class="bi bi-eye-fill"></i> View form
                                         </router-link>
                                     </li>
+                                    <li class="list-group-item">
+                                       <span v-for="doc in JSON.parse(item?.pdf_doc)">
+                                          <a class="text-decoration-none" :href="doc" target="_blank"> <i class="bi bi-eye-fill"></i> View PDF</a>  
+                                        </span>
+                                    </li>
                                 </ul>
                             </template>
 
@@ -274,8 +280,13 @@
                 </div>
                 <div class="modal-body">
                     <div class="fixed-label-custom">
+                        <!-- {{servicesList}} -->
+                        <!-- <input list="Services" v-model="servicesOnModal" class="form-control" multiple="true">  
+                        <datalist id="Services"> 
+                            <option v-for="item in servicesList" :key="item.id" :value="item.name" :multiple="true"> {{item.name}} </option>
+                        </datalist> -->
                         <v-select :multiple="true" v-model="servicesOnModal" :clearable="true"
-                            :options="servicesOnDropDown" />
+                            :options="servicesOnDropDown" taggable />
                         <label class="" for="nameeee">Services:</label>
                     </div>
                 </div>
@@ -311,6 +322,7 @@ const companies = reactive<any>({
 
 const computedCoyName = (coy: any) => {
     const id = coy.id
+    console.log(companies.list)
     const names = companies.list.find((x: any) => x.id == id).names
     const company = names.find((x: any) => x.choice_level == 1);
     const englishName = company?.eng_name ? company?.eng_name + ' ' + company?.eng_prefix : '';
@@ -364,6 +376,7 @@ async function getCompanies() {
 
         const data = resp.data.data
         companies.list = data.companies
+        // console.log(companies, 'companiescompanies')
         companies.form_completed = data.form_completed
         companies.is_incorporated = data.is_incorporated
         companies.isLoading = false
@@ -532,6 +545,7 @@ async function servicesStore() {
         servicesModalToggle.value.click()
         isSavingServices.value = false
         getCompanies()
+        getServices()
     } catch (error) {
         isSavingServices.value = false
         // 

@@ -112,6 +112,28 @@ export default {
 
     upateCardInfo() {
         return $instance.get(`/update/payment/info`);
-    }
+    },
+
+    UserActivityLogs() {
+        return $instance.get('user/get/userlogs');
+    },
+    getActiveUser() {
+        return $instance.get('user/active/user');
+    },
+
+    userGetTasks() {
+        return $instance.get(`user/get/user/task`);
+    },
+
+    userUpdateTask(formData: FormData) {
+        return $instanceForm.post('user/update/task/status/', formData);
+    },
+
+    updateAllUserTask()
+    {
+        return $instance.get('/user/update/all/tast');
+    },
+
+    getUserNewTask(){ return $instance.get('/user/get/user/new/task')}
 
 }

@@ -16,7 +16,7 @@ export default {
     },
 
     companyDetails(id: any) {
-        return $instance.get(`manage/company${id}`)
+        return $instance.get(`manage/company/${id}`)
     },
 
     registeredCompany(formData: FormData) {
@@ -170,7 +170,23 @@ export default {
 
     updateStripeProduct(formData: FormData) {
         return $instanceForm.post('manage/update/stripe/product', formData);
-    }
+    },
+
+    adminGetAllTasks() {
+        return $instance.get(`manage/get/all/task`);
+    },
+    adminGetUserTask(queryString: string) {
+        return $instance.get(`manage/get/all/task${queryString}`);
+    },
+
+
+    adminPostTask(formData: FormData) {
+        return $instanceForm.post('manage/create/task', formData);
+    },
+
+    adminUpdateTask(formData: FormData) {
+        return $instanceForm.post('/manage/update/tasks', formData);
+    },
 
     // populateData(formData: FormData) {
     //     return $instanceForm.post(`/generate/incorporated/data`, formData);

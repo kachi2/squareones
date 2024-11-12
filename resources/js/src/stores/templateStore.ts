@@ -1,6 +1,7 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
+import type { tasksPriorityTypes } from '@/stores/interfaces'
 
 export const useTemplateStore = defineStore('templateStore', () => {
   // const sidebarWidth = ref('220px')
@@ -19,6 +20,45 @@ export const useTemplateStore = defineStore('templateStore', () => {
   const cardTextColor = computed(() => appMode.value == 'light' ? '#111' : '#94a3b8')
   const disabledBg = computed(() => appMode.value == 'light' ? '#e9ecef' : '#212935f2')
   const easyTableHeaderBG = computed(() => appMode.value == 'light' ? '#f5f6f8' : '')
+  const taskPriorityColor = (priority: tasksPriorityTypes) => {
+    let color: string = 'black'
+    switch (priority) {
+      case 'high':
+        color = 'red';
+        break;
+      case 'medium':
+        color = '#f8ce09';
+        break;
+      case 'low':
+        color = 'black';
+        break;
+
+      default:
+        break;
+    }
+
+    return color
+  }
+
+  const taskStatusColor = (priority: any) => {
+    let color: string = 'black'
+    switch (priority) {
+      case 'TO-DO':
+        color = 'secondary';
+        break;
+      case 'DOING':
+        color = 'info';
+        break;
+      case 'COMPLETE':
+        color = 'success';
+        break;
+
+      default:
+        break;
+    }
+
+    return color
+  }
 
   const sideBarToggleCollapse = () => {
     sidebarIsCollapsed.value = !sidebarIsCollapsed.value
@@ -33,6 +73,8 @@ export const useTemplateStore = defineStore('templateStore', () => {
     sidebarIsCollapsed,
     disabledBg,
     easyTableHeaderBG,
-    sideBarToggleCollapse
+    sideBarToggleCollapse,
+    taskPriorityColor,
+    taskStatusColor
   }
 })

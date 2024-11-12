@@ -11,8 +11,8 @@
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button"
-                            role="tab" aria-controls="tab2" aria-selected="false">
+                        <button ref="verifyTabBtn" class="nav-link" id="tab2-tab" data-bs-toggle="tab"
+                            data-bs-target="#tab2" type="button" role="tab" aria-controls="tab2" aria-selected="false">
                             Verify
                             <!-- <i class="bi bi-check-circle-fill"></i> -->
                         </button>
@@ -103,21 +103,31 @@
                                         class="btn btn-primary btn-sm">
                                         Add Documents <i class="bi bi-plus-lg"></i>
                                     </button> -->
+                                    <div id="complycube-mount"></div>
                                 </span>
                             </div>
                             <div class="card-body">
                                 <isLoadingComponent v-if="itemsLoading" />
-                                <EasyDataTable v-else class="easy-data-table"  :headers="headers"
-                                    :items="items" buttons-pagination v-model:server-options="serverOptions"
+                                <EasyDataTable v-else class="easy-data-table verify-table" :headers="headers"
+                                    :items="currentUser" buttons-pagination v-model:server-options="serverOptions"
                                     :server-items-length="total">
                                     <template #header="header">
                                         <span class="fw-bold text-muted">{{
                                             header.text == '#' ? 'S/N' : header.text
-                                            }}</span>
+                                        }}</span>
                                     </template>
 
-                                    <template #item-updated_at="item">
-                                        {{ useFxn.dateDisplay(item.updated_at) }}
+                                    <template #item-kyc_status="item">
+                                        <span class="badge bg-warning" v-if="item.kyc_status != 'success'">
+                                            {{ item.kyc_status }} </span>
+                                        <span class="badge bg-success" v-else="item.kyc_status == 'pending'">
+                                            {{ item.kyc_status }} </span>
+                                    </template>
+                                    <template #item-email_verified_at="item">
+                                        <span v-if="item.email_verified_at != null" class="badge bg-info"> Verified
+                                        </span>
+                                        <span v-else class="badge bg-warning"> Not Verified</span>
+
                                     </template>
 
                                     <template #item-created_at="item">
@@ -267,7 +277,7 @@
                                         <template #header="header">
                                             <span class="fw-bold text-muted">{{
                                                 header.text == '#' ? 'S/N' : header.text
-                                                }}</span>
+                                            }}</span>
                                         </template>
 
                                         <template #item-updated_at="item">
@@ -313,7 +323,7 @@
                                 <input v-model="passwordForm.oldPassword" type="password" class="form-control" />
                                 <span class="small text-danger">{{
                                     passwordForm.invalidPassword
-                                    }}</span>
+                                }}</span>
                             </div>
                             <div class="col-12">
                                 <div class="form-label">New Password:</div>
@@ -324,7 +334,7 @@
                                 <input v-model="passwordForm.newPasswordRepeat" type="password" class="form-control" />
                                 <span class="small text-danger">{{
                                     passwordForm.passwordsMatching
-                                    }}</span>
+                                }}</span>
                             </div>
                         </div>
                     </div>
@@ -383,7 +393,7 @@ import api from '@/stores/Helpers/axios'
 import { useParamsStore } from './CompanyDetails/paramsStore'
 import useFxn from '@/stores/Helpers/useFunctions'
 import documentUploadModal from './CompanyDetails/components/modals/documentUploadModal.vue'
-import { onBeforeRouteLeave } from 'vue-router'
+import { onBeforeRouteLeave, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
 
 import activeTwoFactor from '@/components/activateTwoFactor.vue'
@@ -394,14 +404,59 @@ const templateStore = useTemplateStore()
 const paramsStore = useParamsStore()
 const authStore = useAuthStore()
 
+const route = useRoute()
+
 onMounted(() => {
+    checkForVerification()
+
     getDocuments()
     // getNotificationsStatusesEmail()
     // getNotificationsStatusesApp()
     setUserDataAutomatic()
     getTwoFactorStatus()
     getUserActivities()
+    getUser()
 })
+
+
+// verification #####################################################
+const verifyTabBtn = ref<any>(null)
+const isVerifying = ref<boolean>(false)
+function checkForVerification() {
+    if (route.query?.verify) {
+        isVerifying.value = true
+        verifyTabBtn.value.click();
+        startVerification()
+    }
+}
+
+
+function startVerification() {
+    const token =  authStore.profileData?.user_token?? ''
+    // @ts-ignore
+    const complycube = ComplyCube.mount({
+        containerId: 'complycube-mount',
+        token: token,
+        onComplete: function (data: any) {
+            setTimeout(() => {
+                complycube.unmount()
+            }, 3000)
+
+            // console.log("Capture complete", data)
+        },
+        onModalClose: function () {
+            complycube.unmount()
+        },
+        onError: function (error: any) {
+            if (error.type === 'token_expired') {
+                // Request a new SDK token
+            } else {
+                // Handle other errors
+                // console.log(error.message);
+            }
+        }
+    });
+}
 
 // DOCUMENTS START #################################################################
 const serverOptions = ref<ServerOptions | any>({
@@ -424,12 +479,12 @@ watch(
 )
 
 const headers = [
-    { text: 'DOCUMENT TITLE', value: 'title' },
-    { text: 'DOCUMENT', value: 'document' },
-    { text: "STATUS", value: "status" },
-    { text: 'DATE ADDED', value: 'created_at' },
+    { text: 'FULL NAME', value: 'name' },
+    { text: 'KYC VERIFICATION', value: 'kyc_status' },
+    { text: "EMAIL VERIFICATION", value: "email_verified_at" },
+    { text: 'DATE REGISTERED', value: 'created_at' },
     // { text: "DATE MODIFIED", value: "updated_at" },
-    { text: 'ACTION', value: 'action' }
+    // { text: 'ACTION', value: 'action' }
 ]
 
 async function getDocuments() {
@@ -468,13 +523,14 @@ function toggleNotityStatus(type: 'app' | 'email') {
     // setNotificationStatus(type)
 }
 
+
+
 async function getNotificationsStatusesEmail() {
     try {
         const formData = new FormData()
         formData.append('user_id', paramsStore.currentUserId)
         formData.append('type', 'email')
         const resp = await api.userGetNotificationStatus(formData)
-        // console.log('email', resp);
         emailNotifyStatus.value = resp.data ? true : false
     } catch (error) {
         //
@@ -545,8 +601,8 @@ const headersActivities = [
     { text: 'NAME', value: 'name' },
     { text: 'TYPE', value: 'type' },
     { text: 'ACTION', value: 'action' },
-    { text: 'IP ADDRESS', value: 'ip_address'},
-    { text: 'LOCATION', value: 'location'},
+    { text: 'IP ADDRESS', value: 'ip_address' },
+    { text: 'LOCATION', value: 'location' },
     { text: 'DATE', value: 'created_at' }
 ]
 
@@ -557,13 +613,21 @@ const detailsForm = reactive({
     email: '',
     isSaving: false
 })
+const currentUser = ref<any>([])
+
+async function getUser() {
+    const user = await api.getActiveUser();
+    currentUser.value = user.data.data
+    return currentUser.value
+}
+
 
 function setUserDataAutomatic() {
     const user = JSON.parse(authStore.profileData)
     detailsForm.email = user?.email ?? ''
     detailsForm.name = user?.name ?? ''
     detailsForm.phone = user?.phone ?? ''
-    // console.log(user, 'user');
+    console.log(user, 'user');
 }
 
 function updateUserDataOnStore() {
@@ -724,6 +788,8 @@ function activationDone() {
 }
 
 // 2FA END #################################################################
+
+
 </script>
 <style lang="css" scoped>
 .dropdown-toggle::after {
@@ -732,5 +798,14 @@ function activationDone() {
 
 .dropdown-menu {
     border-radius: 0px;
+}
+</style>
+
+<style lang="css">
+/* @import 'https://assets.complycube.com/web-sdk/v1/style.css'; */
+@import '@/assets/complycube.css';
+
+.verify-table .vue3-easy-data-table__header {
+    z-index: 0 !important;
 }
 </style>

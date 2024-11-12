@@ -66,7 +66,7 @@ const adminParamsStore = useAdminParamsStore()
 
 onMounted(async () => {
     await adminParamsStore.getCompanyDetails()
-    console.log(adminParamsStore.currentCompanyData, 'current');
+   // console.log(adminParamsStore.currentCompanyData, 'current');
 })
 
 const currentStage = ref<string | number>(1)
@@ -88,7 +88,7 @@ const menuList = [
     // { stage: 10, name: 'Register of Company Name Changes', meta: 'register_of_company_name' },
     // { stage: 11, name: 'Register of Charges', meta: 'register_of_charge' },
     { stage: 12, name: 'Register of Significant Controllers', meta: 'significant_controller' },
-    { stage: 13, name: 'Designated Representative', meta: 'significant_controller' },
+    { stage: 13, name: 'Designated Representative', meta: 'designated_controller' },
     { stage: 14, name: 'Documents', meta: 'documents' },
     { stage: 15, name: 'Summary', meta: 'summary' },
 ]
@@ -98,6 +98,18 @@ const menuList = [
 function hasNoNullsOrEmptyStrings(meta: string) {
     if (meta == 'incoporation') return true
     else if (meta == 'summary' || meta == 'documents') return false
+    else if(meta == 'register_of_director'){
+        return checkMarks('register_of_director')
+    }
+    else if(meta == 'register_of_secretary'){
+       return checkMarks('register_of_secretary')
+    }
+    else if(meta == 'register_of_shareholders'){
+       return checkMarks('register_of_shareholders')
+    }
+    else if(meta == 'significant_controller'){
+       return checkMarks('significant_controller')
+    }
     else {
         try {
             const data = adminParamsStore.currentCompanyData?.[meta] ?? [];
@@ -105,10 +117,16 @@ function hasNoNullsOrEmptyStrings(meta: string) {
     
             return data.every((obj: any) => Object.values(obj).every(value => value !== null && value !== ''));
         } catch (error) {
-            console.log('caught error hasNoNullsOrEmptyStrings: ', error);
+          //  console.log('caught error hasNoNullsOrEmptyStrings: ', error);
             return false
         }
     }
+}
+
+function checkMarks(metaType:any)
+{
+    const data = adminParamsStore.currentCompanyData?.[metaType] ?? []
+   return data.every((obj:any) => Object.entries(obj).every(([key,value]) => (key =='ceasing_of_act' || key=='remarks'|| key =='cease_to_act' || key == 'date_cease_to_be_member' || key == 'date_ceased_to_be_rep_person') || (value != null && value != '')));
 }
 
 
@@ -125,7 +143,7 @@ const canShowSummary = computed(() => {
                 try {
                     bool = storeData.every((obj: any) => Object.values(obj).every(value => value !== null && value !== ''));
                 } catch (error) {
-                    console.log('caught error canShowSummary: ', error);
+                    //console.log('caught error canShowSummary: ', error);
 
                 }
             }
