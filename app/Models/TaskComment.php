@@ -20,4 +20,9 @@ class TaskComment extends Model
     {
         return $this->belongsTo(UserTask::class);
     }
+
+    public function Users()
+    {
+        return $this->belongsTo(User::class, 'sender_id', 'id');
+    }
 }

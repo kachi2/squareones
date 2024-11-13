@@ -70,6 +70,7 @@ class userTaskService implements UserTaskInterface
     public function getUserTask($user_id)
     {
         $task = UserTask::where('user_id', $user_id)->latest()->paginate(10);
+        $task->load('UserTask');
         return $task;
     }
     public function getAllTask()
@@ -95,6 +96,7 @@ class userTaskService implements UserTaskInterface
     public function getComments($task_id)
     {
         $comment = TaskComment::where('task_id', $task_id)->paginate(10);
+        $comment->load('Users');
         if($comment) return $comment;
         return false;
     }
