@@ -118,10 +118,12 @@
                                     </template>
 
                                     <template #item-kyc_status="item">
-                                        <span class="badge bg-warning" v-if="item.kyc_status != 'success'">
+                                        <span class="badge bg-info" v-if="item.kyc_status != 'success'">
                                             {{ item.kyc_status }} </span>
-                                        <span class="badge bg-success" v-else="item.kyc_status == 'pending'">
-                                            {{ item.kyc_status }} </span>
+                                        <span class="badge bg-danger" v-else-if="item.kyc_status == null">
+                                            KYC not Started </span>
+                                         <span class="badge bg-success" v-else>
+                                            {{ item.kyc_status }}  </span>
                                     </template>
                                     <template #item-email_verified_at="item">
                                         <span v-if="item.email_verified_at != null" class="badge bg-info"> Verified

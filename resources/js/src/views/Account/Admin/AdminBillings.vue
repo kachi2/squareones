@@ -586,7 +586,7 @@ const paymentHistoryHeader = [
     { text: "SUBSCRIPTION STATUS", value: "reg_date" },
     { text: "BILLING CYCLE", value: "next_billing_cycle" },
     { text: "LAST PAYMENT DATE", value: "last_payment_date" },
-    { text: "NEXT BILLING DATE", value: "due_date" },
+    { text: "NEXT BILLING DATE", value: "next_billing_cycle" },
     { text: "AMOUNT DUE", value: "amount_due" },
     { text: "PAYMENT STATUS", value: "status" },
     { text: "INVOICE", value: "hosted_invoice_url" },

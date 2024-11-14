@@ -1,10 +1,11 @@
 <template>
     <sideBar />
     <headBar />
+
     <div class="main-content">
         <div class="container">
             <div class="col-12" v-if="$route.path == '/user/dashboard'">
-                <div v-if="!companyDetails?.is_completed && companyDetails != false">
+                <div v-if="!companyDetails?.is_completed && companyDetails != false && companyDetails?.main_contact?.kyc_status != null">
                     <div class="col-12">
                         <div class="alert alert-dark bg-primary-subtle" role="alert">
                             <div class="row gy-1">
@@ -23,7 +24,8 @@
                         </div>
                     </div>
                 </div> 
-                <div v-else-if="companyDetails?.main_contact?.kyc_status == null && companyDetails != false">
+               
+                <div v-else-if="companyDetails?.main_contact?.kyc_status == null">
                     <div class="col-12"> 
                         <div class="alert alert-dark bg-primary-subtle" role="alert">
                             <div class="row gy-1">
@@ -84,7 +86,7 @@ async function companyReturn() {
     const companies = await api.userCompany();
     const data = companies.data.data;
     companyDetails.value = data
-       console.log(data, 'annualRsassasasassaseturns');
+    //    console.log(data, 'annualRsassasasassaseturns');
     return data
 }
 
