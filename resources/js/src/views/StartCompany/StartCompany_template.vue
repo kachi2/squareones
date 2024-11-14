@@ -76,9 +76,9 @@
                         <span class="badge bg-success-subtle text-danger small" v-else>
                             <i class="bi bi-x-square"></i> Not-verified
                         </span>
-                        <span class="badge bg-success-subtle text-success small" v-else>
+                        <!-- <span class="badge bg-success-subtle text-success small" v-else>
                             <i class="bi bi-check-circle"></i> Not-verified
-                        </span>
+                        </span> -->
                         <!-- KYC Status -->
                         <span class=" mx-2 me-5 dropdown">
                             <span data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
