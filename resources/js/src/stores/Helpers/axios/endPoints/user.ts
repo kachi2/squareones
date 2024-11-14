@@ -129,11 +129,16 @@ export default {
         return $instanceForm.post('user/update/task/status/', formData);
     },
 
-    updateAllUserTask()
-    {
+    updateAllUserTask() {
         return $instance.get('/user/update/all/tast');
     },
 
-    getUserNewTask(){ return $instance.get('/user/get/user/new/task')}
+    getUserNewTask() { return $instance.get('/user/get/user/new/task') },
+
+    userGetTaskActivities(task_id: string) { return $instance.get(`user/get/task/activities/${task_id}`) },
+    userGetTaskComments(task_id: string) { return $instance.get(`user/get/comments/${task_id}`) },
+    userSendTaskComment(formData: FormData) {
+        return $instanceForm.post('user/add/comments', formData);
+    },
 
 }

@@ -10,24 +10,31 @@
                 <div class="card shadow-sm  min-vh-100">
                     <div class="card-body">
 
-                        <EasyDataTable class="easy-data-table" :headers="itemsHeader" :items="items"
-                            buttons-pagination v-model:server-options="serverOptionsInvoices"
+                        <EasyDataTable :loading="itemsLoading" class="easy-data-table" :headers="itemsHeader"
+                            :items="items" buttons-pagination v-model:server-options="serverOptionsInvoices"
                             :server-items-length="itemsTotal">
 
+                            <template #item-user_task.name="item">
+                                <span> <span class="badge bg-info-subtle text-dark">{{getName(item.user_task.name).toUpperCase()}} </span> {{ item.user_task.name }}</span>
+                            </template>
                             <template #header="header">
                                 <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
                             </template>
 
+                         
+
                             <template #item-status="item">
-                                <button :class="['btn', 'btn-sm', 'btn-'+templateStore.taskStatusColor(item.status)]" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <span class="status-indicator-inside bg-white me-2"></span>    {{item.status}}
-                                        </button>
+                                <span :class="['badge', 'bg-' + templateStore.taskStatusColor(item.status) + '-subtle']"
+                                      class="bgText py-2 text-dark">{{ item.status }}
+                                    <span class="status-indicator-inside text-dark me-2"> </span>
+                            </span>
 
                             </template>
 
                             <template #item-priority="item">
-                                <span class=" fst-italic" :style="{color: templateStore.taskPriorityColor(item.priority)}">
-                                    <i class="bi bi-flag-fill"> </i>   {{ item.priority }}
+                                <span class=" fst-italic"
+                                    :style="{ color: templateStore.taskPriorityColor(item.priority) }">
+                                    <i class="bi bi-flag-fill"> </i> {{ item.priority }}
                                 </span>
 
                             </template>
@@ -40,9 +47,16 @@
                                 {{ useFxn.dateDisplay(item.created_at) }}
                             </template>
 
-                            <template #item-action="item">
+                            <!-- <template #item-action="item">
                                 <button @click="openUpdateTaskModal(item)" class="btn btn-sm btn-primary p-1">
-                                    View Details
+                                    Update Task
+                                </button>
+                            </template> -->
+
+                            <template #item-comment="item">
+                                <button @click="templateStore.openTaskCommentModal(item, 'admin')"
+                                    class="btn btn-warning">
+                                    View Task
                                 </button>
                             </template>
                         </EasyDataTable>
@@ -54,20 +68,20 @@
         </div>
     </div>
 
+
+
+
     <button ref="modalOpen" class="d-none" type="button" data-bs-toggle="modal" data-bs-target="#updateTaskModal">
-
     </button>
-
     <div class="modal fade" id="updateTaskModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered " role="document">
             <div class="modal-content">
                 <div class="modal-header text-capitalize border-0">
                     <h5 class="modal-title" id="modalTitleId">
                         Update Task
                     </h5>
-                    <button ref="modalClose" type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <modalCloseBtn />
                 </div>
                 <div class="modal-body">
                     <div class="row g-3">
@@ -97,7 +111,7 @@
                     </div>
                 </div>
                 <div class="modal-footer border-0">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <button ref="modalCloser" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Close
                     </button>
                     <button v-if="taskForm.isSaving" class="btn btn-primary" type="button" disabled>
@@ -113,11 +127,12 @@
         </div>
     </div>
 
-
+    <!-- taskCommentsModal -->
+    <adminTasksCommentsModal @done="getAllTasks"/>
 
 </template>
 <script lang="ts" setup>
-import { onMounted, reactive, ref, watch } from 'vue';
+import { onMounted, reactive, ref, watch, computed} from 'vue';
 import type { Header, Item, ServerOptions } from "vue3-easy-data-table";
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
@@ -125,6 +140,7 @@ import { useToast } from 'vue-toast-notification';
 import { onBeforeRouteLeave } from 'vue-router';
 import type { tasksPriorityTypes, taskFormInterface } from '@/stores/interfaces'
 import { useTemplateStore } from '@/stores/templateStore';
+import adminTasksCommentsModal from '@/components/adminTasksCommentsModal.vue';
 
 const toast = useToast()
 
@@ -138,9 +154,16 @@ onMounted(() => {
 })
 
 
+function getName(name:any) { 
+ const initials = name.split(" ")
+  const names = initials.map((initial: any)=> initial.charAt(0)).join("")
+//  console.log(names)
+  return names
+}
 
 async function getAllTasks() {
     try {
+        itemsLoading.value = true
         const queryString = new URLSearchParams(serverOptions.value).toString();
         const resp = await api.adminGetAllTasks()
         // return;
@@ -173,7 +196,7 @@ const serverOptionsInvoices = ref<ServerOptions | any>({
 
 const items = ref([])
 const itemsTotal = ref(0)
-const itemsLoading = ref(true)
+const itemsLoading = ref<boolean>(true)
 const itemsHeader = [
     { text: "User", value: "user_task.name" },
     { text: "Task Name", value: "title" },
@@ -181,17 +204,17 @@ const itemsHeader = [
     { text: "Created", value: "created_at" },
     { text: "Due Date", value: "due_date" },
     { text: "Status", value: "status" },
-    { text: "", value: "action" },
+    { text: "", value: "comment" },
 ];
 
 watch(serverOptions, (value) => { getAllTasks(); }, { deep: true });
 
-
+// watch(templateStore, () =>  {getAllTasks(); }, { deep: true });
 
 // editing ######################
 
 const modalOpen = ref<any>(null)
-const modalClose = ref<any>(null)
+const modalCloser = ref<any>(null)
 
 
 function openUpdateTaskModal(item: any) {
@@ -241,7 +264,7 @@ async function updateTask() {
         const resp = await api.adminUpdateTask(form)
 
         taskForm.isSaving = false
-        modalClose.value.click()
+        modalCloser.value.click()
         toast.success('Task Updated', { position: 'top-right' })
         getAllTasks()
 
@@ -249,14 +272,14 @@ async function updateTask() {
         toast.error('Something went wrong', { position: 'top-right' })
         console.log(error);
         taskForm.isSaving = false
-        modalClose.value.click()
+        modalCloser.value.click()
 
     }
 }
 
 
 onBeforeRouteLeave(() => {
-    modalClose.value.click()
+    modalCloser.value.click()
 })
 
 
@@ -265,7 +288,25 @@ onBeforeRouteLeave(() => {
 .border-grey {
     border: 1px #8080802f solid !important;
 }
-.btn{
-    font-size:12px;
+
+.btn {
+    font-size: 12px;
 }
+.modal-xl {
+  max-width: 80%; 
+}
+.bgText{
+    width:100px;
+}
+.rounded-card{
+    width:100%;
+    border-radius:100%;
+    background:#076ab6;
+    color:#fff;
+    padding:5px;
+    position:relative;
+}
+
+
+
 </style>

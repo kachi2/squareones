@@ -75,7 +75,7 @@
 
     <div class="modal fade" id="postTaskModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg p-5" role="document">
             <div class="modal-content">
                 <div class="modal-header text-capitalize border-0">
                     <h5 class="modal-title" id="modalTitleId">

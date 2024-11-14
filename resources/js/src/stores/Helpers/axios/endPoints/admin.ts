@@ -187,6 +187,13 @@ export default {
     adminUpdateTask(formData: FormData) {
         return $instanceForm.post('/manage/update/tasks', formData);
     },
+    adminGetTaskActivities(task_id: string) { return $instance.get(`manage/get/task/activities/${task_id}`) },
+    adminGetTaskComments(task_id: string) { return $instance.get(`manage/get/comments/${task_id}`) },
+    adminSendTaskComment(formData: FormData) {
+        return $instanceForm.post('manage/add/comments', formData);
+    },
+
+
 
     // populateData(formData: FormData) {
     //     return $instanceForm.post(`/generate/incorporated/data`, formData);

@@ -94,7 +94,7 @@ table tr td {
   /* color: v-bind('templateStore.cardTextColor') !important; */
   color: grey !important;
   border: none !important;
-  width: 150px;
+  width: 100px;
   text-transform: uppercase;
 }
 

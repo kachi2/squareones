@@ -1,11 +1,10 @@
-import { ref, computed } from 'vue'
+import { ref, computed, reactive, toRefs } from 'vue'
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
 import type { tasksPriorityTypes } from '@/stores/interfaces'
 
 export const useTemplateStore = defineStore('templateStore', () => {
   // const sidebarWidth = ref('220px')
-  const sidebarIsCollapsed = ref<boolean>(false)
   const darkColor = '#0f172a'
   const lightColor = '#fff'
   const border = '#ccc'
@@ -20,49 +19,51 @@ export const useTemplateStore = defineStore('templateStore', () => {
   const cardTextColor = computed(() => appMode.value == 'light' ? '#111' : '#94a3b8')
   const disabledBg = computed(() => appMode.value == 'light' ? '#e9ecef' : '#212935f2')
   const easyTableHeaderBG = computed(() => appMode.value == 'light' ? '#f5f6f8' : '')
-  const taskPriorityColor = (priority: tasksPriorityTypes) => {
-    let color: string = 'black'
-    switch (priority) {
-      case 'high':
-        color = 'red';
-        break;
-      case 'medium':
-        color = '#f8ce09';
-        break;
-      case 'low':
-        color = 'black';
-        break;
 
-      default:
-        break;
-    }
-
-    return color
-  }
-
-  const taskStatusColor = (priority: any) => {
-    let color: string = 'black'
-    switch (priority) {
-      case 'TO-DO':
-        color = 'secondary';
-        break;
-      case 'DOING':
-        color = 'info';
-        break;
-      case 'COMPLETE':
-        color = 'success';
-        break;
-
-      default:
-        break;
-    }
-
-    return color
-  }
-
+  const sidebarIsCollapsed = ref<boolean>(false)
   const sideBarToggleCollapse = () => {
     sidebarIsCollapsed.value = !sidebarIsCollapsed.value
   }
+
+  const tasks = reactive<{
+    taskPriorityColor: any,
+    taskStatusColor: any,
+    commentsModalIsClicked: boolean,
+    currentTaskObj: any,
+    currentTaskComments: any[],
+    currentUserType: string,
+  }>({
+    taskPriorityColor: (priority: tasksPriorityTypes) => {
+      let color: string;
+      if (priority == 'high') color = 'red';
+      else if (priority == 'medium') color = '#f8ce09';
+      else color = 'black';
+      return color
+    },
+
+    taskStatusColor: (status: any) => {
+      let color: string
+      if (status == 'TO-DO') color = 'secondary';
+      else if (status == 'DOING') color = 'info';
+      else if (status == 'COMPLETE') color = 'success';
+      else color = 'dark';
+      return color
+    },
+
+    commentsModalIsClicked: false,
+    currentTaskObj: {},
+    currentTaskComments: [],
+    currentUserType: ''
+  }
+  )
+
+  function openTaskCommentModal(task: any, usertype: string) {
+    tasks.commentsModalIsClicked = !tasks.commentsModalIsClicked
+    tasks.currentTaskObj = task;
+    tasks.currentUserType = usertype;
+  }
+
+
   return {
     sidebarWidth,
     appMode, bgColor,
@@ -74,7 +75,7 @@ export const useTemplateStore = defineStore('templateStore', () => {
     disabledBg,
     easyTableHeaderBG,
     sideBarToggleCollapse,
-    taskPriorityColor,
-    taskStatusColor
+    ...toRefs(tasks),
+    openTaskCommentModal
   }
 })

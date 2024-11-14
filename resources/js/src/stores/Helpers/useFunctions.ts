@@ -151,7 +151,7 @@ export default {
                     return dd.value
                 }
                 if (options == 'm,y,t') {
-                    const dd = useDateFormat(date, 'MMM D, YYYY. mm:ss')
+                    const dd = useDateFormat(date, 'MMM D, YYYY. hh:mm a')
                     return dd.value
                 }
             }

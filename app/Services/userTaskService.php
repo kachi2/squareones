@@ -37,18 +37,24 @@ class userTaskService implements UserTaskInterface
         $task = UserTask::where('id', $request->task_id)->first();
         if($task)
         {
+            $data = $this->checkifEdited($request, $task);
+            // 
+            if($data){
+              TaskActivity::create([
+                'task_id' => $task->id,
+                'activity' => ucfirst(auth_name()).' changed '.$data['title'].' to: '.$data['data']
+            ]);
+         }
+  
+           
             $task->update([ 
-                'user_id' => $request->user_id,
                 'title' => $request->title,
                 'content' => $request->content,
                 'priority' => $request->priority,
                 'assigned_by' => auth_user(),
                 'due_date' => $request->due_date
             ]);  
-            TaskActivity::create([
-                'task_id' => $task->id,
-                'activity' => ucfirst(auth_name()).'Updated this task'
-            ]);
+          
             return $task;
         }
         return false;
@@ -95,7 +101,7 @@ class userTaskService implements UserTaskInterface
 
     public function getComments($task_id)
     {
-        $comment = TaskComment::where('task_id', $task_id)->paginate(10);
+        $comment = TaskComment::where('task_id', $task_id)->latest()->paginate(10);
         $comment->load('Users');
         if($comment) return $comment;
         return false;
@@ -103,9 +109,49 @@ class userTaskService implements UserTaskInterface
 
     public function getTaskActivity($task_id)
     {
-        $activities = TaskActivity::where('task_id', $task_id)->paginate(10);
+        $activities = TaskActivity::where('task_id', $task_id)->latest()->paginate(10);
         if($activities) return $activities;
         return false;
     }
 
+    public function checkifEdited($request, $new)
+    {
+        
+            if(isset($request->title)){
+            if(strtolower($request->title) != strtolower(($new->title))){
+           return [
+              'title' => 'Title',
+              'data'=>$request->title
+              ];
+            }
+        }
+           if(isset($request->content)){
+            if(strtolower($request->content) != strtolower(($new->content)))
+            {
+                return [
+                    'title' => 'Content',
+                    'data'=>$request->content
+                    ];
+            }
+           }
+            if(isset($request->priority)){
+            if(strtolower($request->priority) != strtolower(($new->priority)))
+            {
+                return [
+                    'title' => 'Priority',
+                    'data'=>$request->priority
+                    ];
+            }
+            }
+            if(isset( $request->due_date)){
+            if(strtolower($request->due_date) != strtolower(($new->due_date))) 
+            {
+                return [
+                    'title' => 'Due Date',
+                    'data'=>$request->due_date
+                    ];
+            }
+            }
+
+}
 }
