@@ -42,7 +42,7 @@ class StripeWebhookJob  extends ProcessWebhookJob implements ShouldQueue
         // logger($data);
         if ($data['object']['status'] == 'paid') {
             $subscription = UserSubscription::where('customer', $data['object']['customer'])->first();
-            if($subscription){
+            if($subscription && $data['object']['amount_due'] == $subscription->amount_paid){
             Invoices::updateOrcreate(
                 [
                     'invoice_id' => $data['object']['id']
