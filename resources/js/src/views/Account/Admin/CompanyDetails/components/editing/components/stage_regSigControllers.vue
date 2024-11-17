@@ -232,7 +232,7 @@ function setValuesOnFields() {
         setFieldValue('identity_info', significant_controller?.controllers_particulars?.identity_info)
         setFieldValue('place_of_registration', significant_controller?.controllers_particulars?.place_of_registration)
         setFieldValue('nature_of_control_over_the_company', significant_controller?.controllers_particulars?.nature_of_control_over_the_company)
-        setFieldValue('remarks', significant_controller?.remarks)
+        setFieldValue('remarks', significant_controller?.remarks??'')
     }
 }
 
@@ -253,7 +253,7 @@ const save = handleSubmit(async (values) => {
             formData.append('place_of_registration', values.place_of_registration ?? '')
             formData.append('nature_of_control_over_the_company', values.nature_of_control_over_the_company ?? '')
             formData.append('controllers_id', selectedEntity.value.id)
-            formData.append('remarks', values.remarks)
+            formData.append('remarks', values.remarks??'')
 
 
             try {
