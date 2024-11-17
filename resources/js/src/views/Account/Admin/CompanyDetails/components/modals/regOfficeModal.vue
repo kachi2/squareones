@@ -15,19 +15,24 @@
                     <div class="modal-body">
                         <div class="row g-3">
                             <div class="col-12 col-md-6">
-                                <div class="form-floating-custom">
-                                    <input v-model="directors" type="text" class="form-control" placeholder="">
-                                    <label class="" for="eng_name">Director:</label>
-                                </div>
-                                <small class=" text-danger">{{ errors.directors }}</small>
+                    <div class="fixed-label-custom">
+                            <v-select v-bind="directorsAttr" append-to-body
+                                :calculate-position="useFxn.vueSelectPositionCalc" :multiple="true" v-model="directors"
+                                :clearable="true" :options="directors"  id="directors"/>
+                            <label  for="directors">Directors:</label>
+                        </div>
+                        <small class=" text-danger">{{ errors.directors }}</small>
+                    </div>
+                        <div class="col-12 col-md-6">
+                                <div class="fixed-label-custom">
+                                <v-select v-bind="shareholdersAttr" append-to-body
+                                    :calculate-position="useFxn.vueSelectPositionCalc" :multiple="true" v-model="shareholders"
+                                    :clearable="true" :options="shareholders"  id="Shareholders"/>
+                                <label  for="Shareholders">Shareholders:</label>
                             </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-floating-custom">
-                                    <input v-model="shareholders" type="text" class="form-control" placeholder="">
-                                    <label class="" for="eng_name">Shareholders:</label>
-                                </div>
-                                <small class=" text-danger">{{ errors.shareholders }}</small>
-                            </div>
+                            <small class=" text-danger">{{ errors.shareholders }}</small>
+                        </div>
+
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
                                     <input v-model="company_secretary" type="text" class="form-control" placeholder="">
@@ -62,7 +67,7 @@
 
                     </div>
                     <div class="modal-footer border-0">
-                        <button ref="closeModal" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <button ref="closeModal" @click="cancel()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Cancel
                         </button>
 
@@ -106,6 +111,11 @@ onBeforeRouteLeave(() => {
     closeModal.value.click()
 });
 
+function cancel()
+{
+    isSaving.value = false
+}
+
 
 // form and validation
 const rules = {
@@ -122,9 +132,9 @@ const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm(
 });
 
 const [registered_office] = defineField('registered_office');
-const [directors] = defineField('directors');
+const [directors, directorsAttr] = defineField('directors');
 const [business_address] = defineField('business_address');
-const [shareholders] = defineField('shareholders');
+const [shareholders, shareholdersAttr] = defineField('shareholders');
 const [company_secretary] = defineField('company_secretary');
 const [scr_designated_representative] = defineField('scr_designated_representative');
 const isSaving = ref<boolean>(false)
@@ -133,11 +143,12 @@ function setValuesOnFields() {
     // if (paramsStore.idToEdit) {
     const office_contract = paramsStore.currentCompanyData?.office_contract[0]
     // econst office_contract = office_contracts.find((x: { id: string; }) => x.id == paramsStore.idToEdit)
+    
     if (office_contract) {
         setFieldValue('registered_office', office_contract.registered_office)
-        setFieldValue('directors', office_contract.directors.toString())
+        setFieldValue('directors', JSON.parse(office_contract.directors))
+        setFieldValue('shareholders', JSON.parse(office_contract.shareholders))
         setFieldValue('business_address', office_contract.business_address)
-        setFieldValue('shareholders', office_contract.shareholders.toString())
         setFieldValue('company_secretary', office_contract.company_secretary)
         setFieldValue('scr_designated_representative', office_contract.scr_designated_representative)
     }
@@ -149,12 +160,13 @@ const save = handleSubmit(async (values) => {
     useFxn.confirm("Continue submit?", "Continue").then(async (confirmed) => {
         if (confirmed.value == true) {
             isSaving.value = true
+            console.log(typeof(values.directors) , values.directors)
             const formData = new FormData()
             formData.append('company_id', paramsStore.currentCompanyId)
             formData.append('registered_office', values.registered_office ?? '')
-            formData.append('directors', values.directors ?? '')
+            formData.append('directors', JSON.stringify(values.directors) ?? '')
             formData.append('business_address', values.business_address ?? '')
-            formData.append('shareholders', values.shareholders ?? '')
+            formData.append('shareholders', JSON.stringify(values.shareholders) ?? '')
             formData.append('company_secretary', values.company_secretary ?? '')
             formData.append('scr_designated_representative', values.scr_designated_representative ?? '')
             // if (paramsStore.idToEdit)

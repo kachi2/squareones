@@ -92,14 +92,32 @@ class IncorporationService implements IncorporationInterface
 
     public function RegisterOfficeContract($RegisteredOfficeContractDto)
     {
+
+        if($RegisteredOfficeContractDto->directors){
+            $dir = json_decode($RegisteredOfficeContractDto->directors);
+            foreach($dir as $directos)
+            {
+                $directors[] = $directos;
+            }
+        }
+        //   return $directors;
+        if($RegisteredOfficeContractDto->shareholders){
+            $shared = json_decode($RegisteredOfficeContractDto->shareholders);
+            foreach($shared as $shareholders)
+            {
+                $sharehold[] = $shareholders;
+            }
+        }
+
+        // return $sharehold;
         $contract = RegisteredOfficeContract::updateOrcreate(
             [
                 'company_id' => $RegisteredOfficeContractDto->company_id
             ],
             [
                 'company_id' => $RegisteredOfficeContractDto->company_id,
-                'directors' => $RegisteredOfficeContractDto->directors,
-                'shareholders' => $RegisteredOfficeContractDto->shareholders,
+                'directors' => json_encode($directors),
+                'shareholders' => json_encode($sharehold),
                 'company_secretary' => $RegisteredOfficeContractDto->company_secretary,
                 'registered_office' => $RegisteredOfficeContractDto->registered_office,
                 'business_address' => $RegisteredOfficeContractDto->business_address,
@@ -107,7 +125,7 @@ class IncorporationService implements IncorporationInterface
             ]
         );
         if ($contract) {
-            $msg =  auth_name() . ' Updated the  Registered Office Contract table with the following details: ' . $RegisteredOfficeContractDto->directors . ', ' . $RegisteredOfficeContractDto->shareholders . ', ' . $RegisteredOfficeContractDto->company_secretary . ', ' . $RegisteredOfficeContractDto->business_address . ', ' . $RegisteredOfficeContractDto->scr_designated_representative;
+            $msg =  auth_name() . ' Updated the  Registered Office Contract table with the following details: ' . json_encode($directors) . ', ' . json_encode($sharehold) . ', ' . $RegisteredOfficeContractDto->company_secretary . ', ' . $RegisteredOfficeContractDto->business_address . ', ' . $RegisteredOfficeContractDto->scr_designated_representative;
             $type = "Update";
             AdminActivityLog($msg, $type);
         }
@@ -227,7 +245,9 @@ class IncorporationService implements IncorporationInterface
             $secretary->update($data);
             return $secretary;
         }
-        $secretary = RegisterOfSecretary::create($data);
+        $secretary = RegisterOfSecretary::UpdateOrcreate(['company_id' => $RegisterOfSecretaryDto->company_id],
+            $data
+        );
         $msg = auth_name() . ' Added New entry on the Register Of Secretary table with the following details: ' . $RegisterOfSecretaryDto->appointment_date . ',' . $RegisterOfSecretaryDto->name . ',' . $RegisterOfSecretaryDto->identity_info . ',' . $RegisterOfSecretaryDto->address . ',' . $RegisterOfSecretaryDto->cease_to_act . ',' . $RegisterOfSecretaryDto->remarks;
         $type = "New Entry";
         AdminActivityLog($msg, $type);
@@ -438,7 +458,6 @@ class IncorporationService implements IncorporationInterface
             'legal_entity_name' => $SignificantControllersDto->legal_entity_name,
             'remarks' => $SignificantControllersDto->remarks
         ];
-
         if ($SignificantControllersDto->controllers_id) {
             $controllers = SignificantController::where('id', $SignificantControllersDto->controllers_id)->first();
             $contrl = $controllers->toArray();
@@ -449,7 +468,7 @@ class IncorporationService implements IncorporationInterface
             $contrl['identity_info'] = $particulars->identity_info;
             $contrl['place_of_registration'] = $particulars->place_of_registration;
             $contrl['nature_of_control_over_the_company'] = $particulars->nature_of_control_over_the_company;
-            SignificantControllerLog::create($contrl);
+            if(checkCompanyPublished($SignificantControllersDto->company_id))  SignificantControllerLog::create($contrl);
             $msg = auth_name() . 'Updated the  Significant Controller  table with the following details: ' . $SignificantControllersDto->name . ', ' . $SignificantControllersDto->entry_date . ', ' . $SignificantControllersDto->date_becoming_rep_person . ', ' . $SignificantControllersDto->date_ceased_to_be_rep_person;
             $type = "Update";
             AdminActivityLog($msg, $type);
@@ -490,16 +509,13 @@ class IncorporationService implements IncorporationInterface
         ];
         if ($DesignatedRepresentative->representatives_id) {
             $representatives = DesignatedRepresentative::where('id', $DesignatedRepresentative->representatives_id)->first();
-            if (!$representatives) return [
-                'error' => 'Data cannot be found',
-            ];
             $particulars = DesignatedParticulars::where('designated_representative_id', $representatives->id)->latest()->first();
             $reps = $representatives->toArray();
             $reps['representative_id'] = $representatives->id;
             $reps['identity_info'] = $particulars->identity_info;
             $reps['place_of_registration'] = $particulars->place_of_registration;
             $reps['nature_of_control_over_the_company'] = $particulars->nature_of_control_over_the_company;
-            DesignatedRepresentativeLog::create($reps);
+            if(checkCompanyPublished($DesignatedRepresentative->company_id))DesignatedRepresentativeLog::create($reps);
             $representatives->update($data);
             $msg = auth_name() . 'updated the  Designated Representative table with the following details: ' . $DesignatedRepresentative->name . ', ' .  $DesignatedRepresentative->entry_date . ', ' . $DesignatedRepresentative->remarks;
             $type = "Update";
@@ -524,7 +540,8 @@ class IncorporationService implements IncorporationInterface
             [
                 'identity_info' => $DesignatedRepresentative->identity_info,
                 'place_of_registration' => $DesignatedRepresentative->place_of_registration,
-                'nature_of_control_over_the_company' => $DesignatedRepresentative->nature_of_control_over_the_company
+                'nature_of_control_over_the_company' => $DesignatedRepresentative->nature_of_control_over_the_company,
+                'corresponding_address' => $DesignatedRepresentative->corresponding_address
             ]
         );
     }

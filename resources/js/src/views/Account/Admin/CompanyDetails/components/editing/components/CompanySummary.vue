@@ -431,7 +431,7 @@
             </div>
         </div>
 
-        <div class="col-lg-12 ">
+        <!-- <div class="col-lg-12 ">
             <div class="card exemption-none bg-dynamic shadow-sm border-0 h-100">
                 <h5 class="card-header bg-transparent border-0">Register Of Allotments
                     ({{ register_of_allotments.length }}):
@@ -480,7 +480,7 @@
 
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <div class="col-12 my-5">
             <div class="float-end col-lg-3 col-md-4">

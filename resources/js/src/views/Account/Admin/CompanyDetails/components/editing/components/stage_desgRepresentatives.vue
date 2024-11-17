@@ -19,13 +19,12 @@
                     </div>
                     <small class=" text-danger">{{ errors.name }}</small>
                 </div>
-
                 <div class="col-12">
                     <div class="form-floating-custom">
-                    <textarea class="form-control" rows="2" v-model="address"></textarea>
+                    <textarea class="form-control" rows="2" v-model="corresponding_address"></textarea>
                     <label  for="Name">Corresponding Address/Residential Address:</label>
                     </div>
-                    <small class=" text-danger">{{ errors.address }}</small>
+                    <small class=" text-danger">{{ errors.corresponding_address }}</small>
                 </div>
 
                 <!-- <div class="col-12 col-md-6">
@@ -95,7 +94,7 @@ onMounted(() => {
 const rules = {
     entry_date: yup.date().required('Field is required'),
     name: yup.string().required('Field is required'),
-    address: yup.string().required('Field is required'),
+    corresponding_address: yup.string().required('Field is required'),
 };
 
 
@@ -108,20 +107,21 @@ const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm(
 const [entry_date] = defineField('entry_date');
 const [name] = defineField('name');
 const [remarks] = defineField('remarks');
-const [address] = defineField('address');
-// const [identity_info] = defineField('identity_info');
+const [corresponding_address] = defineField('corresponding_address');
+const [representatives_id] = defineField('representatives_id');
 // const [place_of_registration] = defineField('place_of_registration');
 // const [nature_of_control_over_the_company] = defineField('nature_of_control_over_the_company');
 const isSaving = ref<boolean>(false)
 
 function setValuesOnFields() {
     const designated_representative = paramsStore.currentCompanyData?.designated_representative[0]
-    console.log(designated_representative, 'designated_representative')
+    // console.log(designated_representative, 'designated_representative')
     if (designated_representative) {
         setFieldValue('entry_date', designated_representative.entry_date)
         setFieldValue('name', designated_representative.name)
         setFieldValue('remarks', designated_representative.remarks)
-        setFieldValue('address', designated_representative.designated_particulars.corresponding_address)
+        setFieldValue('corresponding_address', designated_representative.designated_particulars.corresponding_address)
+        setFieldValue('representatives_id', designated_representative.id)
         // setFieldValue('identity_info', designated_representative.designated_particulars.identity_info)
         // setFieldValue('place_of_registration', designated_representative.designated_particulars.place_of_registration)
         // setFieldValue('nature_of_control_over_the_company', designated_representative.designated_particulars.nature_of_control_over_the_company)
@@ -129,6 +129,7 @@ function setValuesOnFields() {
 }
 
 const save = handleSubmit(async (values) => {
+    console.log(values, 'valeus go edit')
     useFxn.confirm('Update Data?', 'Continue').then(async (confirmed) => {
         if (confirmed.value == true) {
             isSaving.value = true
@@ -137,14 +138,11 @@ const save = handleSubmit(async (values) => {
             formData.append('entry_date', values.entry_date ? useFxn.formatDate(values.entry_date) : '')
             formData.append('name', values.name ?? '')
             formData.append('remarks', values.remarks ?? '')
-            formData.append('address', values.address ?? '')
+            formData.append('corresponding_address', values.corresponding_address ?? '')
             // formData.append('identity_info', values.identity_info ?? '')
             // formData.append('place_of_registration', values.place_of_registration ?? '')
             // formData.append('nature_of_control_over_the_company', values.nature_of_control_over_the_company ?? '')
-
-            // formData.append('representatives_id', paramsStore.idToEdit)
-
-
+            formData.append('representatives_id', values.representatives_id)
             try {
                 await api.designatedRepresentatives(formData)
                 isSaving.value = false

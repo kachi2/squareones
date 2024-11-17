@@ -10,21 +10,13 @@ use App\Models\Company;
 use App\Models\Billing;
 use App\Models\CompanyEntity;
 use App\Models\Invoices;
-use App\Models\Notification;
 use App\Models\Plan;
 use App\Models\User;
-use App\Models\userActivity;
 use App\Models\UserBillingInfo;
 use App\Models\UserSubscription;
-use App\Notifications\PaymentCompleted;
 use Stripe\Stripe;
-use App\Notifications\CompanyFomationCompleted;
 use Carbon\Carbon;
-use App\Services\BaseClient;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
-use Stripe\Invoice;
 
 class PaymentServices implements PaymentInterface
 {
@@ -233,7 +225,6 @@ class PaymentServices implements PaymentInterface
 
   public function createSubscription($customer)
   {
-    $user = User::where('id', auth_user())->first();
     $plan = Plan::latest()->first();
     $subsc = UserSubscription::where(['user_id' => auth_user(), 'customer' => $customer])->first();
     $stripe = $this->stripeClient;
@@ -253,7 +244,6 @@ class PaymentServices implements PaymentInterface
         'customer' => $subsc->customer,
         'items' => [['price' => $plan->default_price_id]],
         ]);
-    
         // return $subsc->company->names[0]->eng_name . $subsc->company->names[0]->chn_name ;
     $subsc->update([
         'subscription_id' => $subscription->id,
@@ -363,10 +353,6 @@ public function resumeSubscription($subscription)
   $userSub->update(['status' => 'active']);
   return $userSub;
 }
-  //add company on invoices
-
-
-
 
 
 }

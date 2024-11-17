@@ -169,9 +169,9 @@ const save = handleSubmit(async (values) => {
             const formData = new FormData()
             formData.append('company_id', paramsStore.currentCompanyId)
             formData.append('registered_office', values.registered_office ?? '')
-            formData.append('directors', values.directors ?? '')
+            formData.append('directors', JSON.stringify(values.directors) ?? '')
             formData.append('business_address', values.business_address ?? '')
-            formData.append('shareholders', values.shareholders ?? '')
+            formData.append('shareholders', JSON.stringify(values.shareholders) ?? '')
             formData.append('company_secretary', values.company_secretary ?? '')
             formData.append('scr_designated_representative', values.scr_designated_representative ?? '')
 

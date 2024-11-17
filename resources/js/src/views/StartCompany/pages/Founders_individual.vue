@@ -386,7 +386,8 @@ const phoneField = {
         showDialCode: true,
         placeholder: 'Enter phone',
         styleClasses: 'phone-input-profile',
-        autoFormat: false
+        autoFormat: false,
+        required: true
     }
 
 }

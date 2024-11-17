@@ -88,7 +88,7 @@ const menuList = [
     // { stage: 10, name: 'Register of Company Name Changes', meta: 'register_of_company_name' },
     // { stage: 11, name: 'Register of Charges', meta: 'register_of_charge' },
     { stage: 12, name: 'Register of Significant Controllers', meta: 'significant_controller' },
-    { stage: 13, name: 'Designated Representative', meta: 'designated_controller' },
+    { stage: 13, name: 'Designated Representative', meta: 'designated_representative' },
     { stage: 14, name: 'Documents', meta: 'documents' },
     { stage: 15, name: 'Summary', meta: 'summary' },
 ]
@@ -97,6 +97,7 @@ const menuList = [
 
 function hasNoNullsOrEmptyStrings(meta: string) {
     if (meta == 'incoporation') return true
+    else if(meta == 'registered_company') return registeredCompany('registered_company')
     else if (meta == 'summary' || meta == 'documents') return false
     else if(meta == 'register_of_director'){
         return checkMarks('register_of_director')
@@ -126,7 +127,15 @@ function hasNoNullsOrEmptyStrings(meta: string) {
 function checkMarks(metaType:any)
 {
     const data = adminParamsStore.currentCompanyData?.[metaType] ?? []
-   return data.every((obj:any) => Object.entries(obj).every(([key,value]) => (key =='ceasing_of_act' || key=='remarks'|| key =='cease_to_act' || key == 'date_cease_to_be_member' || key == 'date_ceased_to_be_rep_person') || (value != null && value != '')));
+    if(data.length === 0) return false
+   return data.every((obj:any) => Object.entries(obj).every(([key,value]) => (key =='ceasing_of_act' || key=='remarks'|| key =='cease_to_act' || key == 'date_cease_to_be_member' || key == 'date_ceased_to_be_rep_person' || key == 'type') || (value != null && value != '')));
+}
+
+function registeredCompany(meta: any)
+{
+    const data = adminParamsStore.currentCompanyData?.[meta] ?? []
+    if(data.length === 0) return false
+   return  Object.entries(data).every(([key,value]) => (key =='business_classification' || key=='tax_id'|| key =='registration_progress_id' || key == 'renewal_date' || key == 'main_contact'|| key == 'pdf_doc'|| key == 'is_published'|| key == 'is_incorporated') || (value != null && value != ''));
 }
 
 
@@ -134,8 +143,10 @@ const canShowSummary = computed(() => {
     let bool = false
     menuList.forEach((element: any) => {
         const excluded = ['incoporation', 'summary', 'documents']
-        if (!excluded.includes(element.data)) {
+        console.log(element, 'element.data')
+        if (!excluded.includes(element.meta)) {
             const storeData = adminParamsStore.currentCompanyData?.[element.meta] ?? [];
+            
             if (storeData.length == 0) {
                 bool = false
             }

@@ -6,12 +6,9 @@ use App\Events\GenerateCompanyData;
 use App\Interfaces\PaymentInterface;
 
 use App\Interfaces\KycInterface;
-use App\Jobs\ProcessFounderKyc;
-use App\Models\CompanyEntity;
 use App\Models\User;
 use App\Services\TeamServices;
 use Illuminate\Http\Request;
-use Cartalyst\Stripe\Laravel\Facades\Stripe;
 
 class PaymentController extends Controller
 {
@@ -31,6 +28,7 @@ class PaymentController extends Controller
 
     public function ProcessPayment(Request $request){
         $user = User::where('id', auth_user())->first();
+        GenerateCompanyData::dispatch(['company_id' => $user->activeCompany()?->id]);
        $procespayment = $this->paymentInterface->ProcessPayment($request);
        GenerateCompanyData::dispatch(['company_id' => $user->activeCompany()?->id]);
        $this->teamServices->create($user->activeCompany(),$user, $request->role);
@@ -43,9 +41,9 @@ public function getSubcription()
 {
     return $this->paymentInterface->getSubcriptionStatus();
 }
-public function createSubscription()
+public function createSubscription($customer)
 {
-    return $this->paymentInterface->createSubscription();
+    return $this->paymentInterface->createSubscription($customer);
 }
 
 public function cancelSubscription($subcription_id)

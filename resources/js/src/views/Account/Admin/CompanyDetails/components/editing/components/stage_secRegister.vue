@@ -94,7 +94,6 @@ const paramsStore = useAdminParamsStore()
 
 const emit = defineEmits(['done'])
 
-
 onMounted(() => {
     selectedEntity.value = selectOptions.value[0]
     populateFieldWithDetails()
@@ -121,8 +120,8 @@ const rules = {
     name: yup.string().required('Field is required'),
     identity_info: yup.string().required('Field is required'),
     address: yup.string().required('Field is required'),
-    // cease_to_act: yup.date().required('Field is required'),
-    // remarks: yup.string().required('Field is required'),
+    // cease_to_act: yup.date(),
+    // remarks: yup.string(),
 };
 
 const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({

@@ -13,6 +13,7 @@ class DesignatedRepresentativeDto extends BaseDto
         public readonly ?string   $place_of_registration= null,
         public readonly ?string   $nature_of_control_over_the_company= null,
         public readonly ?string   $representatives_id= null,
+        public readonly ?string   $corresponding_address = null,
     )
     {
     }

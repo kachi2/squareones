@@ -184,8 +184,10 @@ class GenerateIncoporatedData implements ShouldQueue
                   ControllersParticulars::create([
                     'significant_controller_id' => $Controller->id,
                     'corresponding_address' => $this->prepareAddress($entities, $entity),
+                    'resdential_address' => $entities['flat'].', '.$entities['street'].', '.$entities['building'].', '.$entities['state'].', '.$entities['country'],
                     'identity_info' => $entity->entity_type_id == 1? $entities['getIdentity']['passport_no']??$entities['getIdentity']['identity_no'].$entities['getIdentity']['identity_no_suffix']:$entities['registeration_no'],
                     'place_of_registration' => $entity->entity_type_id == 1? $entities['country_registered']:'',
+                    
                 ]);
 
             }
@@ -218,7 +220,7 @@ class GenerateIncoporatedData implements ShouldQueue
     {
         $secretary = $resource['secretary'];
         foreach($resource['CompanyEntity'] as $entity)
-        {
+        { 
             $data = json_decode($entity['entity_capacity_id']);
             $entities = $entity['individual']??$entity['corporate'];
             if(in_array('2',$data)){

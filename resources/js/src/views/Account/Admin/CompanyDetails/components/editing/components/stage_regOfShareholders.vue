@@ -133,7 +133,7 @@ function populateFieldWithDetails() {
     if (selectedEntity.value) {
         name.value = selectedEntity.value.name
         address.value = selectedEntity.value.address
-        // class_of_shares.value = selectedEntity.value.class_of_shares
+        class_of_shares.value = selectedEntity.value.class_of_shares
         denomination.value = selectedEntity.value.denomination
         current_holding.value = selectedEntity.value.current_holding
         total_consideration.value = selectedEntity.value.total_consideration

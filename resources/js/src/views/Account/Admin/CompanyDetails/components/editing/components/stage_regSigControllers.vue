@@ -9,7 +9,7 @@
                             <select @change="populateFieldWithDetails" v-model="selectedEntity" class="form-select">
                                 <option value="" selected disabled>--Select Shareholder--</option>
                                 <option v-for="entity in selectOptions" :key="entity" :value="entity">{{
-                                    entity.name }}</option>
+                                    entity.legal_entity_name }}</option>
                             </select>
                             <label for="selectedEntity">Select Shareholder:</label>
                         </div>
@@ -33,7 +33,7 @@
 
                 <div class="col-12 col-md-6">
                     <div class="form-floating-custom">
-                        <input v-model="legal_entity_name" type="text" class="form-control">
+                        <input v-model="legal_entity_name" type="text" class="form-control" readonly>
                         <small class=" text-danger">{{ errors.legal_entity_name }}</small>
                         <label for="Name">Name of Registrable Person / Legal Entity:</label>
                     </div>
@@ -142,33 +142,36 @@ onMounted(() => {
     // setValuesOnFields()
 })
 
+// console.log(paramsStore.currentCompanyData, 'paramsStore.currentCompanyData')
 
 
 const selectOptions = computed(() => {
-    return paramsStore.currentCompanyData?.register_of_shareholders ?? []
+    return paramsStore.currentCompanyData?.significant_controller?? []
 })
 const selectedEntity = ref<any>('')
 function populateFieldWithDetails() {
     if (selectedEntity.value) {
-        // console.log(selectedEntity.value, 'selectedEntity.value')
+        console.log(selectedEntity.value, 'selectedEntity.value')
         if (selectedEntity.value.entry_date)
             entry_date.value = selectedEntity.value.entry_date
-        if (selectedEntity.value.name)
-            legal_entity_name.value = selectedEntity.value.name
-        if (selectedEntity.value.date_entered_as_member)
-            date_becoming_rep_person.value = selectedEntity.value.date_entered_as_member
-        if (selectedEntity.value.date_cease_to_be_member)
-            date_ceased_to_be_rep_person.value = selectedEntity.value.date_cease_to_be_member
-        if (selectedEntity.value.address)
-            corresponding_address.value = selectedEntity.value.address
-        if (selectedEntity.value.resdential_address)
-            resdential_address.value = selectedEntity.value.resdential_address
-        if (selectedEntity.value.identity_info)
-            identity_info.value = selectedEntity.value.identity_info
-        if (selectedEntity.value.place_of_registration)
-            place_of_registration.value = selectedEntity.value.place_of_registration
-        if (selectedEntity.value.nature_of_control_over_the_company)
-            nature_of_control_over_the_company.value = selectedEntity.value.nature_of_control_over_the_company
+        if (selectedEntity.value.legal_entity_name)
+            legal_entity_name.value = selectedEntity.value.legal_entity_name
+        if (selectedEntity.value.date_becoming_rep_person)
+            date_becoming_rep_person.value = selectedEntity.value.date_becoming_rep_person
+        if (selectedEntity.value.date_ceased_to_be_rep_person)
+            date_ceased_to_be_rep_person.value = selectedEntity.value.date_ceased_to_be_rep_person
+        if (selectedEntity.value.remarks)
+            remarks.value = selectedEntity.value.remarks
+        if (selectedEntity.value.controllers_particulars.resdential_address)
+            resdential_address.value = selectedEntity.value.controllers_particulars.resdential_address
+        if (selectedEntity.value.controllers_particulars.corresponding_address)
+            corresponding_address.value = selectedEntity.value.controllers_particulars.corresponding_address
+        if (selectedEntity.value.controllers_particulars.identity_info)
+            identity_info.value = selectedEntity.value.controllers_particulars.identity_info
+        if (selectedEntity.value.controllers_particulars.place_of_registration)
+            place_of_registration.value = selectedEntity.value.controllers_particulars.place_of_registration
+        if (selectedEntity.value.controllers_particulars.nature_of_control_over_the_company)
+            nature_of_control_over_the_company.value = selectedEntity.value.controllers_particulars.nature_of_control_over_the_company
     }
 
 }
@@ -249,7 +252,7 @@ const save = handleSubmit(async (values) => {
             formData.append('identity_info', values.identity_info ?? '')
             formData.append('place_of_registration', values.place_of_registration ?? '')
             formData.append('nature_of_control_over_the_company', values.nature_of_control_over_the_company ?? '')
-            formData.append('shareholders_id', selectedEntity.value.id)
+            formData.append('controllers_id', selectedEntity.value.id)
             formData.append('remarks', values.remarks)
 
 
