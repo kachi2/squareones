@@ -143,7 +143,7 @@ const canShowSummary = computed(() => {
     let bool = false
     menuList.forEach((element: any) => {
         const excluded = ['incoporation', 'summary', 'documents']
-        console.log(element, 'element.data')
+        // console.log(element, 'element.data')
         if (!excluded.includes(element.meta)) {
             const storeData = adminParamsStore.currentCompanyData?.[element.meta] ?? [];
             
