@@ -48,7 +48,8 @@ class GenerateIncoporatedData implements ShouldQueue
             'company_id' => $resource->id,
             'company_structure' =>  $resource->businessNature->name,
             'registration_progress_id' => 1,
-            'company_registered_name' => $resource?->names['0']->eng_name. ' '.$resource?->names['0']->eng_prefix.' '.$resource?->names['0']->chn_name .$resource?->names['0']->chn_prefix
+            'company_registered_name' => $resource?->names['0']->eng_name. ' '.$resource?->names['0']->eng_prefix.' '.$resource?->names['0']->chn_name .$resource?->names['0']->chn_prefix,
+            'services' => 'Incorporation'
         ]);
         $this->ProcessRegisterOfDirectors($resource);
     }
