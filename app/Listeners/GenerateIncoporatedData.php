@@ -175,6 +175,7 @@ class GenerateIncoporatedData implements ShouldQueue
             $data = json_decode($entity['entity_capacity_id']);
             if(in_array('1',$data)){
             $entities = $entity['individual']??$entity['corporate'];
+        //    dd($entities['resAddress']['flat']);
             if($entities){
                 $Controller = SignificantController::Create(
                 [
@@ -185,7 +186,7 @@ class GenerateIncoporatedData implements ShouldQueue
                   ControllersParticulars::create([
                     'significant_controller_id' => $Controller->id,
                     'corresponding_address' => $this->prepareAddress($entities, $entity),
-                    'resdential_address' => $entities['resAddress']['flat'].', '.$entities['resAddress']['street'].', '.$entities['resAddress']['building'].', '.$entities['resAddress']['state'].', '.$entities['resAddress']['country'],
+                    'resdential_address' => $this->prepareAddress($entities, $entity),
                     'identity_info' => $entity->entity_type_id == 1? $entities['getIdentity']['passport_no']??$entities['getIdentity']['identity_no'].$entities['getIdentity']['identity_no_suffix']:$entities['registeration_no'],
                     'place_of_registration' => $entity->entity_type_id == 1? $entities['country_registered']:'',
                     
@@ -245,10 +246,20 @@ class GenerateIncoporatedData implements ShouldQueue
 
     }
 
-    public function prepareAddress($address)
+    public function prepareAddress($address, $entity_type)
     {
-        $address = $address['corAddress']??$address['resAddress'];
+        if($entity_type->entity_type_id == 1)
+        {
+            if($address['resAddress']){
+                $address =  $address['resAddress'];
+            }else{
+                $address = $address['resAddress']['is_corAddress'] == 1?$address['resAddress']:$address['corAddress'];
+            }
           return   $address['flat'].', '.$address['street'].', '.$address['building'].', '.$address['state'].', '.$address['country'];
+    }else{
+      return $address['flat'].', '.$address['street'].', '.$address['building'].', '.$address['state'].', '.$address['country'];
+    }
+        return $data;
     }
 
 }
