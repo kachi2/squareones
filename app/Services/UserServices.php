@@ -47,7 +47,7 @@ class UserServices
 
     public function ActiveCompany()
     {
-        $company = Company::where(['user_id' => auth_user(), 'is_complete' => 1])->first();
+        $company = Company::where(['user_id' => auth_user(), 'is_complete' => 0])->first();
             if($company){
                 $company->load('Names', 'Billing', 'mainContact');
             return $company;

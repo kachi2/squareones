@@ -145,12 +145,12 @@ const authStore = useAuthStore()
 const router = useRouter()
 const route = useRoute()
 
-onMounted( ()=> {
-    if(returnToDash() == null)
-{
-    router.push({path: 'user/dashboard'})
-}
-})
+// onMounted( ()=> {
+//     if(returnToDash() == null)
+// {
+//     router.push({path: 'user/dashboard'})
+// }
+// })
 const startCompanyStore = useStartCompanyStore()
 
 const paymentStatus = computed(() => {
@@ -160,9 +160,9 @@ const paymentStatus = computed(() => {
 
 
 
-const returnToDash = function(){
-   return startCompanyStore.companyInProgress??null
-}
+// const returnToDash = function(){
+//    return startCompanyStore.companyInProgress??null
+// }
 
 const KycStatus = computed(() => {
     const status = startCompanyStore.companyInProgress?.users?.kyc_status

@@ -5,7 +5,8 @@
     <div class="main-content">
         <div class="container">
             <div class="col-12" v-if="$route.path == '/user/dashboard'">
-                <div v-if="!companyDetails?.is_completed && companyDetails != false && companyDetails?.main_contact?.kyc_status != null">
+                <div v-if="companyDetails != false">
+                <div v-if="companyDetails?.is_completed != 1 && companyDetails != false">
                     <div class="col-12">
                         <div class="alert alert-dark bg-primary-subtle" role="alert">
                             <div class="row gy-1">
@@ -25,7 +26,7 @@
                     </div>
                 </div> 
                
-                <div v-else-if="companyDetails?.main_contact?.kyc_status == null">
+                <div v-else-if="companyDetails != false && companyDetails?.main_contact?.kyc_status == null">
                     <div class="col-12"> 
                         <div class="alert alert-dark bg-primary-subtle" role="alert">
                             <div class="row gy-1">
@@ -44,6 +45,27 @@
                         </div>
                     </div>
                 </div>
+                <div v-else-if="companyDetails != false && companyDetails?.main_contact?.kyc_status == 'failed' || companyDetails?.main_contact?.kyc_status  =='rejected'">
+                    <div class="col-12"> 
+                        <div class="alert alert-dark bg-warning-subtle" role="alert">
+                            <div class="row gy-1">
+                                <div class="col-lg-10">
+                                    <div class="fw-bold">
+                                        Your KYC verification failed
+                                    </div>
+                                    <small>Continue your KYC verification to get your company Incorporated</small>
+                                </div>
+                                <div class="col-lg-2 d-flex justify-content-lg-end align-items-lg-center">
+                                    <router-link class="btn btn-primary" to="/user/account?verify=true">
+                                        Verify Now <i class="bi bi-arrow-right"></i>
+                                    </router-link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
                 <div class="col-12" v-else>
                     <div class="alert alert-dark bg-primary-subtle" role="alert">
                         <div class="row gy-1">
@@ -86,7 +108,7 @@ async function companyReturn() {
     const companies = await api.userCompany();
     const data = companies.data.data;
     companyDetails.value = data
-    //    console.log(data, 'annualRsassasasassaseturns');
+       console.log(data, 'annualRsassasasassaseturns');
     return data
 }
 
