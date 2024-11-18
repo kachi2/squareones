@@ -86,9 +86,9 @@ class CompanyController extends Controller
     {
         $check = Company::where('id', $company_id)->first();
         if($check) 
-        {$check->update(['is_published' => 1]);
+        {$check->update(['is_published' => 1, 'is_incorporated' => 1, 'is_approved' => 1, '']);
             $data = RegisteredCompany::where('company_id', $company_id)->first();
-            $data->update(['is_published' => 1]);
+            $data->update(['is_published' => 1, 'registration_progress_id' => 5]);
             $check->Users->notify(new CompanyIncorporated($data));
             return response()->json(['data' => $check], HttpStatusCode::OK);
         }
