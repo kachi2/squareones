@@ -62,14 +62,15 @@ class HandleComplycubJob  extends ProcessWebhookJob implements ShouldQueue
 
     public function updateStatus($clientId, $status)
     {
-        $CompanyEntity = CompanyEntity::where('client_id', $clientId)->first();
-        if($CompanyEntity)
+        $Entity = CompanyEntity::where('client_id', $clientId)->first();
+        if($Entity)
         {
-            $CompanyEntity->update(['kyc_status' => $status]);
+            $Entity->update(['kyc_status' => $status]);
         }else{
-            $user = User::where('client_id', $clientId)->first();
-            $user->update(['kyc_status' => $status]);
+            $Entity = User::where('client_id', $clientId)->first();
+            $Entity?->update(['kyc_status' => $status]);
         }
-        Log::info('upated from method: ', ['status' => $status]);
+        return $Entity;
+        // Log::info('upated from method: ', ['status' => $status]);
     }
 }
