@@ -101,7 +101,7 @@ const router = createRouter({
 
 
     {
-      path: '/kcy/verifications',
+      path: '/kyc/verifications',
       name: 'KYC',
       component: () => import('../views/StartCompany/pages/Kyc.vue'),
       beforeEnter: authGuard,

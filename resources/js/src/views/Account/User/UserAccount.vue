@@ -397,18 +397,22 @@ import useFxn from '@/stores/Helpers/useFunctions'
 import documentUploadModal from './CompanyDetails/components/modals/documentUploadModal.vue'
 import { onBeforeRouteLeave, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
-
 import activeTwoFactor from '@/components/activateTwoFactor.vue'
 import { useTemplateStore } from '@/stores/templateStore'
 
 const templateStore = useTemplateStore()
+
 
 const paramsStore = useParamsStore()
 const authStore = useAuthStore()
 
 const route = useRoute()
 
-onMounted(() => {
+onMounted(async() => {
+    if (route.query?.verify) {
+        await api.ProcessKyc()
+    }
+    getUser()
     checkForVerification()
 
     getDocuments()
@@ -417,15 +421,17 @@ onMounted(() => {
     setUserDataAutomatic()
     getTwoFactorStatus()
     getUserActivities()
-    getUser()
+
+
 })
 
 
 // verification #####################################################
 const verifyTabBtn = ref<any>(null)
 const isVerifying = ref<boolean>(false)
-function checkForVerification() {
+async function checkForVerification() {
     if (route.query?.verify) {
+        await api.getActiveUser();
         isVerifying.value = true
         verifyTabBtn.value.click();
         startVerification()
@@ -433,8 +439,20 @@ function checkForVerification() {
 }
 
 
+
+const currentUser = ref<any>([])
+
+async function getUser() {
+    const user = await api.getActiveUser();
+    currentUser.value = user.data.data
+    // console.log(currentUser.value, 'active users')
+    return currentUser.value
+}
+
+
 function startVerification() {
-    const token =  authStore.profileData?.user_token?? ''
+    const token =  currentUser.value[0].user_token?? ''
+
     // @ts-ignore
     const complycube = ComplyCube.mount({
         containerId: 'complycube-mount',
@@ -615,13 +633,6 @@ const detailsForm = reactive({
     email: '',
     isSaving: false
 })
-const currentUser = ref<any>([])
-
-async function getUser() {
-    const user = await api.getActiveUser();
-    currentUser.value = user.data.data
-    return currentUser.value
-}
 
 
 function setUserDataAutomatic() {
@@ -629,7 +640,7 @@ function setUserDataAutomatic() {
     detailsForm.email = user?.email ?? ''
     detailsForm.name = user?.name ?? ''
     detailsForm.phone = user?.phone ?? ''
-    console.log(user, 'user');
+    // console.log(user, 'user');
 }
 
 function updateUserDataOnStore() {

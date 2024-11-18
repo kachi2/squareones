@@ -96,7 +96,7 @@ function saveAndContinue() {
 
 function goToDash() {
     router.push({ path: '/user/dashboard' })
-     startCompanyStore.currentStage = 2
+    //  startCompanyStore.currentStage = 2
 }
 
 function startVerification() {
@@ -119,7 +119,7 @@ function startVerification() {
         },
         onError: function (error: any) {
             if (error.type === 'token_expired') {
-                // Request a new SDK token
+                api.ProcessKyc()
             } else {
                 // Handle other errors
                 // console.log(error.message);

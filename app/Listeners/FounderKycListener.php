@@ -81,7 +81,7 @@ class FounderKycListener implements ShouldQueue
            'company_entity_id' => $request->id,
            'company_name' => $request?->company?->names[0]->eng_name??$request?->company?->names[0]->chn_name
            ]; 
-         Mail::to('jesmikky@gmail.com')->send(new KycRegistrationMail($datas));
+         Mail::to($email)->send(new KycRegistrationMail($datas));
          return $user;
         }
         

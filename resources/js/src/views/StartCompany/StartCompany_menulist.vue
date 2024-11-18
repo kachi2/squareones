@@ -13,7 +13,7 @@ const startCompanyStore = useStartCompanyStore()
 
 function goToStage(stage: number) {
     const company = startCompanyStore.companyInProgress;
-    console.log(company, 'companies data')
+    // console.log(company, 'companies data')
 if((stage == 10 || stage == 11 || stage == 12)){
     toast.info('You cannot access this page <br> here from here,complete all forms', { position: 'top-right' });
     return

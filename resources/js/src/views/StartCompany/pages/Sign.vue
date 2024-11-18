@@ -146,7 +146,7 @@
 
     <div class="pt-5" v-if="SignatureStore.founderSignature">
 
-
+<span v-if="!checkIfPaid()"> 
 <button v-if="!startCompanyStore.pdfIsSending" @click="proceed" class="btn btn-primary">
     Proceed to complete Payment <i class="bi bi-arrow-right"></i>
   </button>
@@ -155,6 +155,12 @@
     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
     Processing, Please wait....
   </button>
+</span>
+<span v-else>
+  <button @click="MoveToKyc()" class="btn btn-primary w-100" type="button">
+    Proceed to KYC <i class="bi bi-arrow-right"> </i>
+   
+  </button> </span>
 </div>
       <br>
     
@@ -178,9 +184,11 @@ import api from '@/stores/Helpers/axios'
 import useFxn from "@/stores/Helpers/useFunctions";
 import useFunctions from '@/stores/Helpers/useFunctions';
 import { useFounderSignatureStore } from '../FoundersSignature_store';
+import {useRouter} from 'vue-router'
 
 const startCompanyStore = useStartCompanyStore()
 const SignatureStore = useFounderSignatureStore()
+const router = useRouter()
 
 console.log(SignatureStore.founderId, 'SignatureStore')
 const toast = useToast()
@@ -208,6 +216,11 @@ const checkBoxClick = ref(false)
   }
 }
 
+function MoveToKyc()
+{
+  router.push({path: 'kyc/verifications'})
+
+}
 
 
 function undo() {
@@ -245,9 +258,11 @@ onMounted(async () => {
   const data = await api.ProcessKyc()
   await startCompanyStore.getCompanyInProgress()
   getActiveFounder()
+  checkIfPaid()
 })
 
 
+console.log(checkIfPaid(), 'checkIfPaid()')
 
 function save() {
   const { isEmpty, data, } = signaturePad.value.saveSignature()
@@ -258,6 +273,13 @@ function save() {
    saveSignatureBySelectedFounder()
   }
 
+}
+
+
+
+function checkIfPaid()
+{
+  return startCompanyStore?.companyInProgress?.is_paid == 1
 }
 
 const founderError = ref('')

@@ -112,7 +112,7 @@ onMounted(async () => {
     }
 })
 
-const returnUrl = computed(() => { return 'https://squareone.portrec.ng/kcy/verifications' })
+const returnUrl = computed(() => { return 'https://squareone.portrec.ng/kyc/verifications' })
 
 async function handleSubmit(event: any) {
     event.preventDefault();
@@ -120,7 +120,7 @@ async function handleSubmit(event: any) {
     const { error } = await stripePromise.confirmPayment({
         elements,
         confirmParams: {
-            return_url: `https://squareone.portrec.ng/kcy/verifications` //,
+            return_url: `https://squareone.portrec.ng/kyc/verifications` //,
         },
     });
 

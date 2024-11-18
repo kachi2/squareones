@@ -116,7 +116,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, onMounted} from 'vue';
 import { useStartCompanyStore } from './StartCompany_store';
 import StartCompany_menulist from './StartCompany_menulist.vue';
 import StartCompany_mobilemenu from './StartCompany_mobilemenu.vue';
@@ -145,13 +145,24 @@ const authStore = useAuthStore()
 const router = useRouter()
 const route = useRoute()
 
-
+onMounted( ()=> {
+    if(returnToDash() == null)
+{
+    router.push({path: 'user/dashboard'})
+}
+})
 const startCompanyStore = useStartCompanyStore()
 
 const paymentStatus = computed(() => {
     const status = startCompanyStore.companyInProgress?.billing?.status
     return status;
 })
+
+
+
+const returnToDash = function(){
+   return startCompanyStore.companyInProgress??null
+}
 
 const KycStatus = computed(() => {
     const status = startCompanyStore.companyInProgress?.users?.kyc_status
