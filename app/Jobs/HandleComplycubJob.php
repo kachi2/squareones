@@ -34,7 +34,7 @@ class HandleComplycubJob  extends ProcessWebhookJob implements ShouldQueue
         //  Log::info('Received ComplyCube webhdsdsdook: ', $payload);
         switch ($payload['type']) {
             case 'check.completed':
-                $this->updateStatus($payload['payload']['clientId'], 'pending');
+                $this->updateStatus($payload['payload']['clientId'], 'completed');
                 break;
 
             case 'check.completed.clear':
@@ -48,6 +48,9 @@ class HandleComplycubJob  extends ProcessWebhookJob implements ShouldQueue
             case 'check.failed':
                 $this->updateStatus($payload['payload']['clientId'], 'failed');
                 break;
+            case 'check.pending':
+                    $this->updateStatus($payload['payload']['clientId'], 'pending');
+                    break;
 
             default:
             Log::info('Unknown Payload: ', $payload);
