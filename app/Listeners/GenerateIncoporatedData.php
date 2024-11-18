@@ -185,7 +185,7 @@ class GenerateIncoporatedData implements ShouldQueue
                   ControllersParticulars::create([
                     'significant_controller_id' => $Controller->id,
                     'corresponding_address' => $this->prepareAddress($entities, $entity),
-                    'resdential_address' => $entities['flat'].', '.$entities['street'].', '.$entities['building'].', '.$entities['state'].', '.$entities['country'],
+                    'resdential_address' => $entities['resAddress']['flat'].', '.$entities['resAddress']['street'].', '.$entities['resAddress']['building'].', '.$entities['resAddress']['state'].', '.$entities['resAddress']['country'],
                     'identity_info' => $entity->entity_type_id == 1? $entities['getIdentity']['passport_no']??$entities['getIdentity']['identity_no'].$entities['getIdentity']['identity_no_suffix']:$entities['registeration_no'],
                     'place_of_registration' => $entity->entity_type_id == 1? $entities['country_registered']:'',
                     
@@ -245,16 +245,10 @@ class GenerateIncoporatedData implements ShouldQueue
 
     }
 
-    public function prepareAddress($address, $entity_type)
+    public function prepareAddress($address)
     {
-        if($entity_type->entity_type_id == 1)
-        {
-        $address = $address['resAddress']??$address['corAddress'];
+        $address = $address['corAddress']??$address['resAddress'];
           return   $address['flat'].', '.$address['street'].', '.$address['building'].', '.$address['state'].', '.$address['country'];
-    }else{
-      return $address['flat'].', '.$address['street'].', '.$address['building'].', '.$address['state'].', '.$address['country'];
-    }
-        return $data;
     }
 
 }
