@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\CompanyEntity;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -65,6 +66,9 @@ class HandleComplycubJob  extends ProcessWebhookJob implements ShouldQueue
         if($CompanyEntity)
         {
             $CompanyEntity->update(['kyc_status' => $status]);
+        }else{
+            $user = User::where('client_id', $clientId)->first();
+            $user->update(['kyc_status' => $status]);
         }
         Log::info('upated from method: ', ['status' => $status]);
     }
