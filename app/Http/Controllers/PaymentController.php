@@ -6,6 +6,7 @@ use App\Events\GenerateCompanyData;
 use App\Interfaces\PaymentInterface;
 
 use App\Interfaces\KycInterface;
+use App\Models\Company;
 use App\Models\User;
 use App\Services\TeamServices;
 use Illuminate\Http\Request;
@@ -28,9 +29,8 @@ class PaymentController extends Controller
 
     public function ProcessPayment(Request $request){
         $user = User::where('id', auth_user())->first();
-        GenerateCompanyData::dispatch(['company_id' => $user->activeCompany()?->id]);
        $procespayment = $this->paymentInterface->ProcessPayment($request);
-       GenerateCompanyData::dispatch(['company_id' => $user->activeCompany()?->id]);
+       if(!$this->checkifCompanyPaid($user->activeCompany()))GenerateCompanyData::dispatch(['company_id' => $user->activeCompany()?->id]);
        $this->teamServices->create($user->activeCompany(),$user, $request->role);
     return response()->json([
         $procespayment
@@ -82,6 +82,13 @@ public function resumeSubscription($subcription_id)
 public function UpdateCard()
 {
     return view('payment');
+}
+
+public function checkifCompanyPaid($company_id)
+{
+    $company = Company::whereId($company_id)->first();
+    if($company->is_paid == 1)return true;
+    return false;
 }
 
 
