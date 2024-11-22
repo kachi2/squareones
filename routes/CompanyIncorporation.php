@@ -11,6 +11,7 @@ Route::get('/incorporation/{company_id}', 'CompanyIncorporation');
 Route::get('/incorporations/statuses', 'GetIncorporationStatuses');
 Route::post('/incorporations/update', 'UpdateIncorporationStatus');
 Route::get('/publish/company/{id}', 'PublishUserContent');
+Route::get('/company/progress/{id?}',  'getActiveCompany');
 });
 
 Route::post('/officecontract', [RegisterOfficeAndContract::class, 'RegisterOfficeAndContract']);

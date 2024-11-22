@@ -42,21 +42,24 @@ class GenerateIncoporatedData implements ShouldQueue
 
     public function processRegisteredCompany($resource)
     {
+        $name = $resource?->names['0']->eng_name?$resource?->names['0']->eng_name.' '.$resource?->names['0']->eng_prefix : '';
+        $chn_names = $resource?->names['0']->chn_name?$resource?->names['0']->chn_name.$resource?->names['0']->chn_prefix: '';
         RegisteredCompany::updateOrCreate([
             'company_id' => $resource->id
         ],[
             'company_id' => $resource->id,
             'company_structure' =>  $resource->businessNature->name,
             'registration_progress_id' => 1,
-            'company_registered_name' => $resource?->names['0']->eng_name. ' '.$resource?->names['0']->eng_prefix.' '.$resource?->names['0']->chn_name .$resource?->names['0']->chn_prefix,
-            'services' => 'Incorporation'
+            'company_registered_name' => $name.' '.$chn_names, 
+            'services' => json_encode(json_encode(["Incorporation"]))
         ]);
+        $resource->update(['services' => json_encode(json_encode(["Incorporation"]))]);
         $this->ProcessRegisterOfDirectors($resource);
     }
 
     // public function ProcessRegisterOfAllotments($resource)
     // {
-    //     foreach($resource['CompanyEntity'] as $entity)
+    //     foreach($resource['CompanyEntity'] as $entity) 
     //     {
     //         $data = json_decode($entity['entity_capacity_id']);
     //         if(in_array('1',$data)){

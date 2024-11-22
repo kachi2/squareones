@@ -16,7 +16,7 @@ Route::prefix('manage')->group(function() {
         Route::get('document/types', 'getDocType');
         Route::get('/company/{id}', 'getCompanyById');
     });
-
+  
     Route::controller(DocumentController::class)->group(function (){
         Route::post('/upload/document/', 'ProcessDocuments');
         Route::get('/get/documents/{company_id}', 'Getdocuments');

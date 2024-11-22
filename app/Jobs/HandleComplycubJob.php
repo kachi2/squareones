@@ -35,24 +35,26 @@ class HandleComplycubJob  extends ProcessWebhookJob implements ShouldQueue
         //  Log::info('Received ComplyCube webhdsdsdook: ', $payload);
         switch ($payload['type']) {
             case 'check.completed':
-                $this->updateStatus($payload['payload']['clientId'], 'completed');
+                $this->updateStatus($payload['payload']['clientId'], 'Completed');
                 break;
 
             case 'check.completed.clear':
-                $this->updateStatus($payload['payload']['clientId'], 'completed');
+                $this->updateStatus($payload['payload']['clientId'], 'Completed');
                 break;
             case 'check.updated':
                 break;
             case 'check.completed.rejected':
-                $this->updateStatus($payload['payload']['clientId'], 'rejected');
+                $this->updateStatus($payload['payload']['clientId'], 'Rejected');
                 break;
             case 'check.failed':
-                $this->updateStatus($payload['payload']['clientId'], 'failed');
+                $this->updateStatus($payload['payload']['clientId'], 'Rejected');
                 break;
             case 'check.pending':
-                    $this->updateStatus($payload['payload']['clientId'], 'pending');
+                    $this->updateStatus($payload['payload']['clientId'], 'Processing');
                     break;
-
+            case 'document.created':
+                $this->updateStatus($payload['payload']['clientId'], 'Processing');
+                break;
             default:
             Log::info('Unknown Payload: ', $payload);
                 break;
@@ -66,14 +68,14 @@ class HandleComplycubJob  extends ProcessWebhookJob implements ShouldQueue
         if($Entity)
         {
             $Entity->update(['kyc_status' => $status]);
-            ActivityLogs('Initiated KYC Verifications, awaiting conformation',  'KYC Verification');
+            ActivityLogs('Initiated KYC Verifications, awaiting confirmation',  'KYC Verification');
         }else{
             $Entity = User::where('client_id', $clientId)->first();
             $Entity?->update(['kyc_status' => $status]);
             ActivityLogs('Initiated KYC Verifications, awaiting conformation',  'KYC Verification');
         }
         return $Entity;
-        // Log::info('upated from method: ', ['status' => $status]);
+         Log::info('upated from method: ', ['status' => $status]);
     }
 
 
