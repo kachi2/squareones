@@ -18,32 +18,32 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::controller(CompanyController::class)->group(function(){
+    Route::get('/get/business/nature',  'getBusinessNature');
+    Route::get('/get/names/prefix',  'getNamePrefix');
+    Route::get('/company/progress/{id?}', 'getActiveCompany');
     Route::post('company/create',  'InitiateCompanyCreation');
     Route::post('/company/description/store', 'StoreCompanyDescription');
     Route::post('company/address/store', 'StoreCompanyAddress');
+    Route::get('/get/business/nature', 'getBusinessNature');
 });
 
-Route::controller(CompanyEntityController::class)->group(function(){
-Route::post('entity/store', 'StoreEntity');
+Route::controller(CompanySharesController::class)->group(function(){
+    Route::post('shares/store',  'StoreShares');
+    Route::post('/retrieve/shareholders/{company_id}', 'RetrieveShareholders');
 });
-
-Route::post('shares/store', [CompanySharesController::class, 'StoreShares']);
 
 Route::post('/secretary/store', [SecretaryController::class, 'StoreSecretary']);
 Route::post('activities/store', [CompanyActivityController::class, 'CompanyActivities']);
 Route::post('fundsource/store', [FundSourceController::class, 'FundSource']);
 Route::post('upload/docs', [FileUploadController::class, 'ProcessDocuments']);
-
 Route::post('/company/formation/{company_id}', [HomeController::class, 'CompleteCompanyFormation']);
-Route::get('/get/business/nature', [CompanyController::class, 'getBusinessNature']);
-
-Route::get('/get/names/prefix', [CompanyController::class, 'getNamePrefix']);
-Route::get('/company/progress/{id?}', [CompanyController::class, 'getActiveCompany']);
 
 Route::controller(CompanyEntityController::class)->group(function(){
     Route::get('id/types', 'getIdType');
+    Route::post('entity/store', 'StoreEntity');
     Route::post('/entities/remove/{entity_id}', 'removeEntity');
     Route::post('delete/signature', 'DeleteSignature');
+    
 });
 
 
@@ -51,21 +51,27 @@ Route::controller(DocumentSignController::class)->group( function() {
 Route::post('/build/pdf/', 'BuildPDF');
 });
 
-Route::post('/retrieve/shareholders/{company_id}', [CompanySharesController::class,'RetrieveShareholders']);
-Route::get('payment/intent', [PaymentController::class, 'PaymentIntent']);
-Route::get('/get/user/subscription', [PaymentController::class,'getSubcription']);
-Route::get('create/subscription', [PaymentController::class, 'createSubscription']);
-Route::get('subscription/cancel/{subscriptionId?}', [PaymentController::class, 'cancelSubscription']);
-Route::get('update/payment/info', [PaymentController::class,'updatePaymentDetails']);
-Route::get('/payment/make/default/{paymentId?}', [PaymentController::class,'MakeDefaultPayment']);
-Route::get('get/user/invoices', [PaymentController::class,'getUserInvoice']);
-Route::get('/pause/subscription/{subscription?}',[PaymentController::class,'pauseSubscription']);
-Route::get('/resume/subscription/{subscriptionId?}', [PaymentController::class, 'resumeSubscription']);
-// Route::get('/process/payment', [PaymentController::class, 'ProcessPayment']); 
-Route::post('process/payment', [PaymentController::class, 'ProcessPayment']);
-Route::get('kyc/load', [KycController::class, 'loadKyc']);
 
-Route::post('load/founder/kyc', [KycController::class, 'LoadFounderKyc']);
+Route::controller(PaymentController::class)->group(function(){
+    Route::get('payment/intent',  'PaymentIntent');
+    Route::get('/get/user/subscription', 'getSubcription');
+    Route::get('create/subscription', 'createSubscription');
+    Route::get('subscription/cancel/{subscriptionId?}', 'cancelSubscription');
+    Route::get('update/payment/info', 'updatePaymentDetails');
+    Route::get('/payment/make/default/{paymentId?}', 'MakeDefaultPayment');
+    Route::get('get/user/invoices', 'getUserInvoice');
+    Route::get('/pause/subscription/{subscription?}', 'pauseSubscription');
+    Route::get('/resume/subscription/{subscriptionId?}',  'resumeSubscription');
+    Route::post('process/payment', 'ProcessPayment');
+});
+
+// Route::get('/process/payment', [PaymentController::class, 'ProcessPayment']); 
+
+Route::controller(KycController::class)->group(function(){
+Route::get('kyc/load','loadKyc');
+Route::post('load/founder/kyc',  'LoadFounderKyc');
+});
+
 Route::post('generate/incorporated/data', [DashboardController::class, 'generateIncorporatedData']);
 
 

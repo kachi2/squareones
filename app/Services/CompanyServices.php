@@ -37,21 +37,17 @@ class CompanyServices  implements CompanyFormationInterface
     public function InitiateCompany(NamesDto $namesDto)
     {
          $nameChange =  CompanyName::where(['company_id' => $namesDto?->company_id])->get();
-         if(count($nameChange) > 0){
-            foreach($nameChange as $name)
-            {
-                $name->delete();
-            }
-         }
+         if(count($nameChange) > 0) foreach($nameChange as $name) $name->delete();
+        // if(is_iterable($nameChange)) $nameChange->each(fn($name) =>  $name->delete());
         try {
-            $company = Company::where(['is_complete' => 0, 'user_id' => auth_user()])->first();
+            if($namesDto->company_id)$company =  Company::where(['id' => $namesDto->company_id])->first();
+            else $company = Company::where(['is_complete' => 0, 'user_id' => auth_user()])->first();
             if(!$company){
             DB::beginTransaction();
-            $initiateCompany = Company::create([
+            $company = Company::create([
                 'user_id' => auth_user(),
             ]);
         }
-            $initiateCompany = Company::latest()->first();
                 $names = [];
                 foreach ($namesDto->names as $name) {  
                     $store =  CompanyName::create([
@@ -60,14 +56,14 @@ class CompanyServices  implements CompanyFormationInterface
                         'choice_level' => $name['choice_level'],
                         'chn_prefix'=>  $name['chn_name'] != ''?$name['chn_prefix']:null,
                         'eng_prefix' =>  $name['eng_name'] != ''?$name['prefix']:null,
-                        'company_id' => $initiateCompany->id
+                        'company_id' => $company->id
                     ]);
                     $names[] = $store;     
             }
                 DB::commit();
                 ActivityLogs('Iniated a new company formation',  'Company Formation');
                 return [
-                    'company' => $initiateCompany,
+                    'company' => $company,
                     'name' => $names
                 ];
         } catch (\Exception $e) {

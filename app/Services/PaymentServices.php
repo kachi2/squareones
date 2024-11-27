@@ -100,7 +100,7 @@ class PaymentServices implements PaymentInterface
                         'type' => 'Billing'
                     ];
                     $billing->update(['status' => 'paid', 'date_paid' => Carbon::now()]);
-                    $company->update(['is_paid' => 1, 'is_complete' => 1]);
+                    $company->update(['is_paid' => 1]);
                     UserNotification($data);
                     $this->AddBillingInfo($paymentInfo, $billing, $session);
                     $companies = CompanyEntity::where('company_id', $billing->company_id)->get();

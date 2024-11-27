@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Manage;
 
 use App\Dtos\CompanyDto;
 use App\Dtos\NamesDto;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyAddressRequest;
 use App\Http\Requests\CompanyDescriptionReq;
 use App\Http\Requests\NamesRequest;
@@ -11,12 +12,14 @@ use App\Models\BusinessNature;
 use App\Models\Company;
 use App\Models\CompanyName;
 use App\Models\NamePrefix;
-use Illuminate\Support\Facades\DB;
 use App\Services\CompanyServices;
 use Cloudinary\Api\HttpStatusCode;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class CompanyController extends Controller
+class CompanyFormController extends Controller
 {
+
     public function __construct(
         public readonly CompanyServices $companyServices
     ) {
@@ -31,55 +34,51 @@ class CompanyController extends Controller
             ],200
             );
     }
-public function getActiveCompany($company_id = null){
-    try{
-        if($company_id){
-            $company = Company::where('id', $company_id)->first();
-        }else{
-            $company = Company::where(['is_complete' => 0, 'user_id' => auth_user()])->first();
-        }
-   
-    if($company){
-       $company->Load(['names','address', 'activity','Users', 'Billing', 'Secretary', 'Shares','ownerShare','fundSource', 'businessNature']);
-       $company->CompanyEntity->load('Individual', 'Corporate');
-       $company->shares->load('Ownershares');
-    return response()->json([
-        'company' => $company
-    ], HttpStatusCode::OK);
-}else{
-    return response()->json([
-        'company' => null
-    ], HttpStatusCode::OK);
-}
-
-}catch(\Exception $e){
-    return response()->json([
-        'error' =>  $e->getMessage(),
-      ], HttpStatusCode::OK);
-}
-}
     public function getNamePrefix(){
         return response()->json([
             'data' => NamePrefix::get()
         ], HttpStatusCode::OK);
     }
 
+    public function getActiveCompany($company_id = null){
+        try{
+                $company = Company::where(['id' => $company_id])->first();
+        if($company){
+           $company->Load(['names','address', 'activity','Users', 'Billing', 'Secretary', 'Shares','ownerShare','fundSource', 'businessNature']);
+           $company->CompanyEntity->load('Individual', 'Corporate');
+           $company->shares->load('Ownershares');
+        return response()->json([
+            'company' => $company
+        ], HttpStatusCode::OK);
+    }else{
+        return response()->json([
+            'company' => null
+        ], HttpStatusCode::OK);
+    }
+    
+    }catch(\Exception $e){
+        return response()->json([
+            'error' =>  $e->getMessage(),
+          ], HttpStatusCode::OK);
+    }
+    }
+
+
     public function InitiateCompanyCreation(NamesRequest $req){
         try{ 
         //check if the company is same befor checking for names similarities
         $comp = CompanyName::where('company_id', $req?->company_id)->first();
-       
         if(!isset($comp)){
             $check = $this->companyServices->CheckNameExist($req->names);
             if ($check) {
-                return  response()->json(['error' => "Names already exist on our database"], 302);
+                return  response()->json(['error' => "Names already exist on our database, please choose another name"],302);
             }
         }
             $namesDto = NamesDto::fromRequest($req->validated());
             $initiateCompany = $this->companyServices->InitiateCompany($namesDto);
             return response()->json(['data' => $initiateCompany], HttpStatusCode::OK);
     }catch(\Exception $e){
-        return response()->json(['error' => $e->getMessage()], 302); 
+        return response()->json(['error' => $e->getMessage()], HttpStatusCode::INTERNAL_SERVER_ERROR); 
     }
 }
 

@@ -8,6 +8,7 @@ Route::prefix('manage')->group(function() {
     Route::post('/login', [AuthController::class, 'LoginAdmin']);
     Route::middleware('auth:sanctum')->group(function() { 
         require __DIR__.'/CompanyIncorporation.php';
+        require __DIR__.'/adminFormEdit.php';
     Route::controller(DashboardController::class)->group(function(){
         Route::get('/activitylog', 'AdminActivityLog');
         Route::get('/user/activities', 'UserActivities');
