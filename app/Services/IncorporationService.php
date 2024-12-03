@@ -203,7 +203,8 @@ class IncorporationService implements IncorporationInterface
             'current_holding' => $RegisterOfShareholdersDto->current_holding,
             'total_consideration' => $RegisterOfShareholdersDto->total_consideration,
             'date_entered_as_member' => $RegisterOfShareholdersDto->date_entered_as_member,
-            'date_cease_to_be_member' => $RegisterOfShareholdersDto->date_cease_to_be_member
+            'date_cease_to_be_member' => $RegisterOfShareholdersDto->date_cease_to_be_member,
+            'remarks' => $RegisterOfShareholdersDto->remarks
         ];
         if ($RegisterOfShareholdersDto->shareholders_id) {
             $shareholders = RegisterOfShareholder::whereId($RegisterOfShareholdersDto->shareholders_id)->first();
@@ -403,7 +404,7 @@ class IncorporationService implements IncorporationInterface
             $charges = RegisterOfCharge::where('id', $RegisterOfChargeDto->charges_id)->first();
             $charge = $charges?->toArray();
             $charge['charge_id'] = $charges->id;
-            RegisterOfChargeLog::create($charge);
+            if(checkCompanyPublished($RegisterOfChargeDto->company_id))  RegisterOfChargeLog::create($charge);
             $msg = auth_name() . 'updated  the Register Of Charge  table with the following details: ' . $RegisterOfChargeDto->charge_creation_date . ', ' . $RegisterOfChargeDto->account_secured_by_charge . ', ' . $RegisterOfChargeDto->type_of_charge . ', ' . $RegisterOfChargeDto->charge_description . ', ' . $RegisterOfChargeDto->names_of_charge . ', ' . $RegisterOfChargeDto->registration_details;
             $type = "Update";
             AdminActivityLog($msg, $type);
@@ -434,7 +435,7 @@ class IncorporationService implements IncorporationInterface
             $allotments = RegisterOfAllotment::where('id', $RegisterOfAllotmentDto->allotments_id)->first();
             $allot = $allotments->toArray();
             $allot['allotment_id'] = $allotments->id;
-            RegisterOfAllotmentLog::create($allot);
+            if(checkCompanyPublished($RegisterOfAllotmentDto->company_id))  RegisterOfAllotmentLog::create($allot);
             $msg = auth_name() . 'updated the  REGISTER OF CHARGE TABLE  with the following details: ' . $RegisterOfAllotmentDto->allotment_date . ', ' . $RegisterOfAllotmentDto->name . ', ' . $RegisterOfAllotmentDto->address . ', ' . $RegisterOfAllotmentDto->class_of_shares . ', ' . $RegisterOfAllotmentDto->no_of_shares_allocated . ', ' . $RegisterOfAllotmentDto->denomination . ', ' . $RegisterOfAllotmentDto->total_consideration . ', ' . $RegisterOfAllotmentDto->remarks;
             $type = "Update";
             AdminActivityLog($msg, $type);

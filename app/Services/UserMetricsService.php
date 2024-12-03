@@ -41,7 +41,7 @@ class UserMetricsService
 
     public function UserActivityLog()
     {
-        $activity = ActivityLog::where('user_id', auth_user())->get();
+        $activity = ActivityLog::where('user_id', auth_user())->latest()->paginate(10);
         if(!empty($activity))
         {
             return $activity;

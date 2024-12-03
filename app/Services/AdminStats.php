@@ -58,16 +58,18 @@ class AdminStats
 
     public function getRevenueStats($request)
     {
+       
+      
         if(isset($request->start_date) || isset($request->end_date)){
             $dates = $request->only(['start_date', 'end_date']);
-            $start_date = carbon::createFromFormat('Y-m-d',$dates['start_date']);
-            $end_date = carbon::createFromFormat('Y-m-d',$dates['end_date']);
-            $data = Billing::whereBetween('created_at', [$start_date, $end_date])->get();
+            $start_date = carbon::parse($dates['start_date'])->format('Y-m-d H:i:s');
+            $end_date = Carbon::parse($dates['end_date'])->format('Y-m-d H:i:s');
+            $data = Billing::whereBetween('created_at', [$start_date, $end_date])->paginate(10);
             $data->load('user', 'company');
             return $data;
         }
         $data = Billing::paginate(10);
-        $data->load('user', 'company');
+        $data?->load('user', 'company');
         return $data;
     }
 

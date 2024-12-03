@@ -32,7 +32,8 @@ class RegisterOfShareholdersRequest extends FormRequest
             'total_consideration'  => 'nullable',
             'date_entered_as_member'  => 'nullable',
             'date_cease_to_be_member' => 'nullable',
-            'shareholders_id' => 'nullable'
+            'shareholders_id' => 'nullable',
+            'remarks' => 'nullable'
         ];
     }
 }

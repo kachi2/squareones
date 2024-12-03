@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('date_entered_as_member')->nullable();
             $table->string('date_cease_to_be_member')->nullable();
             $table->string('type')->nullable();
+            $table->text('remarks')->nullable();
             $table->timestamps();
         });
     }

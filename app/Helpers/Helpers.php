@@ -122,8 +122,8 @@ if(!function_exists('checkCompanyPublished'))
 {
     function checkCompanyPublished($company_id)
     {
-        $compan = Company::where('id', $company_id)->first();
-        if($compan->is_published) return true;
+        $compan = Company::where(['id' => $company_id, 'is_incorporated' => 1])->first();
+        if($compan) return true;
         return false;
     }
 }
