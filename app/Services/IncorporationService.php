@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Interfaces\IncorporationInterface;
 use App\Models\{
-    AdminActivityLog,
     Company,
     ComplianceAndReporting,
     RegisteredCompany,
@@ -34,6 +33,7 @@ use App\Models\{
 };
 use App\Notifications\CompanyIncorporated;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 
 class IncorporationService implements IncorporationInterface
 {
@@ -55,35 +55,9 @@ class IncorporationService implements IncorporationInterface
                 'tax_id' => $RegisteredCompanyDto->tax_id,
             ]
         );
-        if ($RegisteredCompanyDto->company_registered || $RegisteredCompanyDto->tax_id) {
-            $subscription = UserSubscription::where('company_id', $RegisteredCompanyDto->company_id)->first();
-            if ($subscription) {
-                $subscription->update([
-                    'expiry_date' => Carbon::now()->addMonth(12),
-                ]);
-                $data->update(
-                    [
-                        'renewal_date' => Carbon::now()->addDays(365),
-                        'incorporated_date' => Carbon::now()
-                    ]
-                );
-            }
-            $companyUser = Company::where('id',  $RegisteredCompanyDto->company_id)->first();
-            $companyUser->update([
-                'is_incorporated' => 1,
-                'date_incorporated' => Carbon::now()
-            ]);
-            Notification::create([
-                'title' => 'Company Incorporated',
-                'content' => 'Hi, ' . $companyUser->Users->name . ' Your company ' . $RegisteredCompanyDto->company_registered_name . ' is fully incorporated',
-                'user_id' => $companyUser->Users->id
-            ]);
-             Company::whereId($RegisteredCompanyDto->company_id)->update(['is_published' => 1]);
-            $companyUser->Users->notify(new CompanyIncorporated($data));
             $msg =  auth_name() . ' Updated the  Registered Office Contract table with the following details: ' . $RegisteredCompanyDto->company_registered_name . ', ' . $RegisteredCompanyDto->business_registered_number . ', ' . $RegisteredCompanyDto->incorporated_date . ', ' . $RegisteredCompanyDto->company_structure . ', ' . $RegisteredCompanyDto->company_registered . ' ' . $RegisteredCompanyDto->business_classification . ' ' . $RegisteredCompanyDto->tax_id;
             $type = "Update";
             AdminActivityLog($msg, $type);
-        }
         return $data;
         // } catch (\Exception $e) {
         //     return $e->getMessage();
@@ -92,7 +66,6 @@ class IncorporationService implements IncorporationInterface
 
     public function RegisterOfficeContract($RegisteredOfficeContractDto)
     {
-
         if($RegisteredOfficeContractDto->directors){
             $dir = json_decode($RegisteredOfficeContractDto->directors);
             foreach($dir as $directos)
@@ -263,7 +236,8 @@ class IncorporationService implements IncorporationInterface
                 'company_id' => $RegisterOfCompanyNameDto->company_id,
                 'date_of_name_changed' => $RegisterOfCompanyNameDto->date_of_name_changed,
                 'previous_company_name' => $RegisterOfCompanyNameDto->previous_company_name,
-                'new_company_name' => $RegisterOfCompanyNameDto->new_company_name
+                'new_company_name' => $RegisterOfCompanyNameDto->new_company_name,
+                'remarks' => $RegisterOfCompanyNameDto->remarks
             ];
 
         if ($RegisterOfCompanyNameDto->namechange_id) {
@@ -293,6 +267,7 @@ class IncorporationService implements IncorporationInterface
             'no_of_shares_transfered' => $RegisterOfTransferDto->no_of_shares_transfered,
             'total_consideration' => $RegisterOfTransferDto->total_consideration,
             'transfer_method' => $RegisterOfTransferDto->transfer_method,
+            'remarks' => $RegisterOfTransferDto->remarks,
         ];
         if($RegisterOfTransferDto->transfer_id){
             $register = RegisterOfTransfer::where('id', $RegisterOfTransferDto->transfer_id)->first();
@@ -308,6 +283,7 @@ class IncorporationService implements IncorporationInterface
                         'total_consideration' => $register->total_consideration +  $RegisterOfTransferDto->total_consideration,
                         'transfer_method' => $RegisterOfTransferDto->transfer_method,
                         'transferor' => $RegisterOfTransferDto->transferor,
+                        'remarks' => $RegisterOfTransferDto->remarks,
                     ]);
                     if(checkCompanyPublished($RegisterOfTransferDto->company_id)) RegisterOfTransferLog::create($reg);
                 $msg = auth_name() . 'updated the Register Of Transfer  table with the following details: ' . $RegisterOfTransferDto->registration_date . ', ' . $RegisterOfTransferDto->transferee . ', ' . $RegisterOfTransferDto->no_of_shares_transfered . ', ' . $RegisterOfTransferDto->total_consideration . ', ' . $RegisterOfTransferDto->transfer_method;
@@ -399,7 +375,6 @@ class IncorporationService implements IncorporationInterface
             'terms_of_charge' => $RegisterOfChargeDto->terms_of_charge,
             'registration_details' => $RegisterOfChargeDto->registration_details
         ];
-
         if ($RegisterOfChargeDto->charges_id) {
             $charges = RegisterOfCharge::where('id', $RegisterOfChargeDto->charges_id)->first();
             $charge = $charges?->toArray();
@@ -547,5 +522,40 @@ class IncorporationService implements IncorporationInterface
         );
     }
 
+    public function UpdateIncorporatedStatus($incorporatedStatus)
+    {
+       $incorporated =  RegisteredCompany::where('company_id', $incorporatedStatus->company_id)->first();
+            if($incorporated){
+                $incorporated->update([
+                    'registration_progress_id' => $incorporatedStatus->registration_progress_id,
+                ]);
+            }
+            if($incorporatedStatus->registration_progress_id === 4 || $incorporatedStatus->registration_progress_id === 5)
+            {
+                $subscription = UserSubscription::where('company_id', $incorporated->company_id)->first();
+                if ($subscription) {
+                    $subscription->update([
+                        'expiry_date' => Carbon::now()->addDays(365),
+                    ]);  
+                    $companyUser = Company::where('id',  $incorporatedStatus->company_id)->first();
+                    $companyUser->update([
+                        'is_incorporated' => 1,
+                        'date_incorporated' => Carbon::now()
+                    ]);
+                    $incorporated->update(
+                        [
+                            'renewal_date' => Carbon::now()->addDays(365),
+                            'incorporated_date' => $incorporatedStatus->incorporated_date
+                        ]
+                    );
+                    $companyUser->Users->notify(new CompanyIncorporated($incorporated));
+                    Notification::create([
+                        'title' => 'Company Incorporated',
+                        'content' => 'Hi, ' . $companyUser->Users->name . ' Your company ' . $incorporatedStatus->company_registered_name . ' is fully incorporated',
+                        'user_id' => $companyUser->Users->id
+                    ]);
+                }
+            }
+    }
 
 }

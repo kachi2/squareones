@@ -17,5 +17,6 @@ interface IncorporationInterface {
     public function DesignatedRepresentative($DesignatedRepresentative);
     public function RegisterOfAllotment($RegisterOfAllotmentDto);
     public function RegisterOfTransfer($RegisterOfTransferDto);
+    public function UpdateIncorporatedStatus($incorporatedStatus);
 
 }

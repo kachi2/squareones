@@ -22,8 +22,9 @@ class DocumentServices  implements DocumentInterface{
             // if($files instanceof UploadedFile){
              $name = \pathinfo($files->getClientOriginalName(), PATHINFO_FILENAME);
                 $file =  UploadFiles($files, 'documents', $name);
+                $docs[] =  $file;
             }
-            $docs[] =  $file;
+      
         // }
         $documents =  Document::create([
             'company_id' => $request->company_id,

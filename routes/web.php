@@ -28,14 +28,14 @@ use Cloudinary\Api\HttpStatusCode;
 |
 */
 
-Route::webhooks('webhook/complycube', 'Complycub_webhooks');
-Route::webhooks('webhook/stripe', 'Stripe_webhooks');
-
 
 
 Route::fallback(function () {
     return view('index');
 });
+
+// Route::webhooks('webhook/complycube', 'Complycub_webhooks');
+// Route::webhooks('webhook/stripe', 'Stripe_webhooks');
 
 
 

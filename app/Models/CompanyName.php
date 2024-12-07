@@ -10,7 +10,7 @@ class CompanyName extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['company_id', 'eng_name', 'chn_name', 'choice_level', 'eng_prefix', 'chn_prefix'];
+    protected $fillable = ['company_id', 'eng_name', 'chn_name', 'choice_level', 'eng_prefix', 'chn_prefix', 'selected_name'];
 
     public function company():BelongsTo
     {

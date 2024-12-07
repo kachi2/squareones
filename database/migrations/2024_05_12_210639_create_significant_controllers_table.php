@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('date_becoming_rep_person')->nullable();
             $table->string('date_ceased_to_be_rep_person')->nullable();
             $table->string('type')->nullable();
-            $table->string('remarks')->nullable();
+            $table->text('remarks')->nullable();
             $table->timestamps();
         });
     }

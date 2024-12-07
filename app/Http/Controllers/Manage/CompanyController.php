@@ -43,12 +43,7 @@ class CompanyController extends Controller
 
     public function UpdateIncorporationStatus(Request $request){
         try{
-            $progress = RegisteredCompany::where('id', $request->company_id)->first();
-            if($progress){
-                $progress->update([
-                    'registration_progress_id' => $request->registration_progress_id,
-                ]);
-            }
+            $progress = $this->IncorporationInterface->UpdateIncorporatedStatus($request);
             return response()->json(['data' => $progress], HttpStatusCode::OK);
         }catch(\Exception $e){
             DB::rollback();
@@ -57,7 +52,6 @@ class CompanyController extends Controller
     }
 
     public function getAllCompanies(){
-
         try{
             $company = Company::latest()->paginate(20);
             $data['companies'] =  $company->load('Names', 'Billing', 'mainContact');
@@ -86,10 +80,9 @@ class CompanyController extends Controller
     {
         $check = Company::where('id', $company_id)->first();
         if($check) 
-        {$check->update(['is_published' => 1, 'is_incorporated' => 1, 'is_approved' => 1, '']);
+        {$check->update(['is_published' => 1, 'is_approved' => 1]);
             $data = RegisteredCompany::where('company_id', $company_id)->first();
-            $data->update(['is_published' => 1, 'registration_progress_id' => 5]);
-            $check->Users->notify(new CompanyIncorporated($data));
+            $data->update(['is_published' => 1]);
             return response()->json(['data' => $check], HttpStatusCode::OK);
         }
         return response()->json(['error' =>'company not found'],203);

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('eng_prefix')->nullable();
             $table->string('chn_prefix')->nullable();
             $table->integer('choice_level')->nullable()->comment('number from 1 - 5');
+            $table->integer('selected_name')->nullable();
             $table->timestamps();
 
             $table->index('company_id');

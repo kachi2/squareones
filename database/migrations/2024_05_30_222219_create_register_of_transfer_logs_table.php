@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('no_of_shares_transfered')->nullable();
             $table->string('total_consideration')->nullable();
             $table->string('transfer_method')->nullable();
+            $table->text('remarks')->nullable();
             $table->timestamps();
         });
     }

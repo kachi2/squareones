@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('date_of_name_changed')->nullable();
             $table->string('previous_company_name')->nullable();
             $table->tinyText('new_company_name')->nullable();
+            $table->tinyText('remarks')->nullable();
             $table->timestamps();
         });
     }

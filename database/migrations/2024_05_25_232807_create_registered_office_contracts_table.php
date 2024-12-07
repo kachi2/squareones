@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('registered_office_contracts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained()->cascadeOnDelete();
-            $table->string('directors')->nullable();
-            $table->string('shareholders')->nullable();
+            $table->text('directors')->nullable();
+            $table->text('shareholders')->nullable();
             $table->string('company_secretary')->nullable();
             $table->string('registered_office')->nullable();
             $table->string('business_address')->nullable();
-            $table->string('scr_designated_representative')->nullable();
+            $table->text('scr_designated_representative')->nullable();
             $table->timestamps();
         });
     }

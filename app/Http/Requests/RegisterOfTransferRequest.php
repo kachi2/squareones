@@ -29,7 +29,8 @@ class RegisterOfTransferRequest extends FormRequest
             'total_consideration' => 'nullable',
             'transfer_method' => 'nullable',
             'transfer_id'   => 'nullable',
-            'transferor' => 'nullable'
+            'transferor' => 'nullable',
+            'remarks' => 'nullable'
         ];
     }
 }

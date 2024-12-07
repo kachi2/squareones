@@ -20,6 +20,10 @@ Route::middleware('auth:sanctum')->group(function() {
 });
 Route::post('register/signature', [CompanyEntityController::class, 'RegisterEntitySignature']);
 Route::get('/kyc/status/{company_entity_id?}', [KycController::class, 'UpdateKycStatus']);
+Route::webhooks('webhook/complycube', 'Complycub_webhooks');
+Route::webhooks('webhook/stripe', 'Stripe_webhooks');
+
+
 
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';

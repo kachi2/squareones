@@ -9,6 +9,6 @@ class RegisterOfTransferLog extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'transfer_id', 'registration_date', 'transferee', 'transferor','no_of_shares_transfered', 'total_consideration', 'transfer_method'
+        'transfer_id', 'registration_date', 'transferee', 'transferor','no_of_shares_transfered', 'total_consideration', 'transfer_method','remarks'
     ];
 }

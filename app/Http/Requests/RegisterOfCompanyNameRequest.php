@@ -26,7 +26,8 @@ class RegisterOfCompanyNameRequest extends FormRequest
             'date_of_name_changed' => 'nullable',
             'previous_company_name' => 'nullable',
             'new_company_name' => 'nullable',
-            'namechange_id' => 'nullable'
+            'namechange_id' => 'nullable',
+            'remarks' => 'nullable'
         ];
     }
 }
