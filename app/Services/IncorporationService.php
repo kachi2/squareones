@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Interfaces\IncorporationInterface;
 use App\Models\{
     Company,
+    CompanyName,
     ComplianceAndReporting,
     RegisteredCompany,
     RegisterOfAllotment,
@@ -55,6 +56,15 @@ class IncorporationService implements IncorporationInterface
                 'tax_id' => $RegisteredCompanyDto->tax_id,
             ]
         );
+        if($RegisteredCompanyDto->company_registered_id)
+        {
+            $selectedName = CompanyName::where(['company_id' => $RegisteredCompanyDto->company_id, 'id' => $RegisteredCompanyDto->company_registered_id])->first();
+            if($selectedName)
+            {
+               CompanyName::where('selected_name', 1)->update(['selected_name' => null]);
+               $selectedName->update(['selected_name' => 1]);
+            } 
+        }
             $msg =  auth_name() . ' Updated the  Registered Office Contract table with the following details: ' . $RegisteredCompanyDto->company_registered_name . ', ' . $RegisteredCompanyDto->business_registered_number . ', ' . $RegisteredCompanyDto->incorporated_date . ', ' . $RegisteredCompanyDto->company_structure . ', ' . $RegisteredCompanyDto->company_registered . ' ' . $RegisteredCompanyDto->business_classification . ' ' . $RegisteredCompanyDto->tax_id;
             $type = "Update";
             AdminActivityLog($msg, $type);

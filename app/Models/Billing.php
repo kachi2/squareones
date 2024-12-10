@@ -20,4 +20,5 @@ class Billing extends Model
     {
         return $this->belongsTo(Company::class)->with('names');
     }
+
 }

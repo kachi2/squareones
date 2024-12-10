@@ -18,6 +18,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'STRIPE_WEBHOOK_SECRET' => 'whsec_S88O4eCFDRsq8EF4VbPzGJqezbS7FKbD',
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

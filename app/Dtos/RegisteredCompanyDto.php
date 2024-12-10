@@ -14,6 +14,8 @@ class RegisteredCompanyDto extends BaseDto
         public readonly ?string $business_classification = null,
         public readonly ?string $registration_progress_id = null,
         public readonly ?string $tax_id = null,
+        public readonly ?string $selected_name = null,
+        public readonly ?string $company_registered_id = null
 
     ) {
     }

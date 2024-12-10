@@ -126,12 +126,11 @@ class AdminStats
         if($user){
             switch($request->status)
             {
-                case 1: $user->update(['status' => user::ACTIVE]);
+                case 1: $user->update(['status' => User::ACTIVE]);
                 break;
                 case 2: $user->update(['status' => User::BLOCKED]);
             }
         }
         return $user;
     }
-
 }

@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('next_billing_cycle')->nullable();
             $table->string('current_period_start')->nullable();
             $table->string('status')->nullable();
+            $table->string('currency')->nullable();
             $table->timestamps();
         });
     }

@@ -79,7 +79,7 @@ class PaymentServices implements PaymentInterface
             DB::rollBack();
             return $e->getMessage();
         }
-        ActivityLogs('Initiated Payment for '.$company->names['0']->name,  'Billing');
+        ActivityLogs('Initiated Payment for company name registration',  'Billing');
     }
 
     public function ProcessPayment($request)
@@ -112,7 +112,7 @@ class PaymentServices implements PaymentInterface
                     //  $user->notify(new CompanyFomationCompleted($company));
                     //  $user->notify(new PaymentCompleted($billing));
                     //  UserActivities('Completed Company Payment', $location=null, "Payment");
-                     ActivityLogs('Completed Company Payment '.$company->names['0']->name,  'Billing');
+                     ActivityLogs('Completed Company Payment for company name registration ', 'Billing');
                     $this->createSubscription($session['customer']);
                     return $session;
                 }
@@ -151,6 +151,7 @@ class PaymentServices implements PaymentInterface
             'contact_person' => null,
             'amount_paid' => $plans->amount,
             'payment_id' => $session->id, 
+            'currency' =>  $plans->currency
         ]);
     }
 

@@ -14,6 +14,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Request;
 use \Spatie\WebhookClient\Jobs\ProcessWebhookJob;
 use Spatie\WebhookClient\Models\WebhookCall;
 use Stripe\Invoice;
@@ -35,8 +36,16 @@ class StripeWebhookJob  extends ProcessWebhookJob implements ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle(): void
+    public function handle()
     {
+        $endpoint_secret = config('app.STRIPE_WEBHOOK_SECRET'); 
+        $payload = request()->getContent();
+        $sig_header = request()->header('Stripe-Signature');
+            $event = \Stripe\Webhook::constructEvent(
+                $payload, $sig_header, $endpoint_secret
+            );
+            // logger(['$endpoint_secret' => $event]);
+   
         $event = json_decode($this->webhookCall, true)['payload'];
         $data = $event['data'];
         // logger($data);
@@ -49,7 +58,7 @@ class StripeWebhookJob  extends ProcessWebhookJob implements ShouldQueue
                 ],
                 [
                     'invoice_id' => $data['object']['id'],
-                    'user_id' => $subscription?->user_id,
+                    'user_id' => $subscription->user_id,
                     'customer' => $data['object']['customer'],
                     'customer_email'  => $data['object']['customer_email'],
                     'amount_due' => $data['object']['amount_due'],
@@ -64,6 +73,7 @@ class StripeWebhookJob  extends ProcessWebhookJob implements ShouldQueue
                     'due_date' => date('d-m-Y', $data['object']['due_date']),
                     'total' => $data['object']['amount_due'],
                     'status' => $data['object']['status'],
+                    'company_id' => $subscription->company_id
                 ]
             );
             $billing = AdminBilling::latest()->first();
