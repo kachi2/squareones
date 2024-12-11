@@ -55,6 +55,13 @@ class HandleComplycubJob  extends ProcessWebhookJob implements ShouldQueue
             case 'document.created':
                 $this->updateStatus($payload['payload']['clientId'], 'Processing');
                 break;
+            case 'client.created':
+                $this->updateStatus($payload['payload']['clientId'], 'Processing');
+                break;
+            case 'client.updated':
+                $this->updateStatus($payload['payload']['clientId'], 'Processing');
+                break;
+                
             default:
             Log::info('Unknown Payload: ', $payload);
                 break;
