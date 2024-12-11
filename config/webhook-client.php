@@ -19,7 +19,7 @@ return [
         ], 
         [
             'name' => 'Stripe_webhooks',
-            'signing_secret' => 'whsec_S88O4eCFDRsq8EF4VbPzGJqezbS7FKbD',
+            'signing_secret' => 'whsec_FtO288MoQbmqOXaI98R2QdgLEsYMp76U',
             'signature_header_name' => 'Stripe-Signature',
             'signature_validator' => stripeSignatureValidator::class,
             'webhook_profile' => stripeWebhookProfile::class,
