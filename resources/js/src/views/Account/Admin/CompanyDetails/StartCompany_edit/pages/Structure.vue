@@ -9,7 +9,7 @@
 </template>
 <script lang="ts" setup>
 import StartCompany_template from '../StartCompany_template.vue';
-import { useStartCompanyStore } from '../StartCompany_store';
+import { useStartCompanyStore } from '../AdminStartCompany_store';
 
 const startCompanyStore = useStartCompanyStore()
 

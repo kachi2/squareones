@@ -19,7 +19,7 @@
 
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
-import { useStartCompanyStore } from './StartCompany_store';
+import { useStartCompanyStore } from './AdminStartCompany_store';
 import pageLoadingComponent from '@/components/pageLoadingComponent.vue'
 
 import Name from './pages/Name.vue';
@@ -42,6 +42,7 @@ import { sourceForm } from './pages/formsStore/Source';
 import { activitiesForm } from './pages/formsStore/Activities';
 import { useAdminParamsStore } from '../adminParamsStore';
 import IsLoadingComponent from '@/components/isLoadingComponent.vue';
+import { useRoute } from 'vue-router';
 
 const paramStore = useAdminParamsStore()
 
@@ -54,9 +55,11 @@ const activities_form = activitiesForm()
 const startCompanyStore = useStartCompanyStore()
 
 const isLoading = ref(true)
+const route = useRoute()
 
 onMounted(async () => {
-    await startCompanyStore.getCompanyInProgress(paramStore.currentCompanyId)
+    startCompanyStore.currentCompanyId = route.query.company
+    await startCompanyStore.getCompanyInProgress()
     isLoading.value = false
     startCompanyStore.getBusinessNatures()
     startCompanyStore.getCountries()

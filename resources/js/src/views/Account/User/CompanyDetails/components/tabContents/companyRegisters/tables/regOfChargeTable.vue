@@ -80,7 +80,8 @@ import { reactive, ref, watch } from 'vue';
 
 
 const masterTableHeaders = [
-    { text: "Name of  Chargee", value: "names_of_charge" },
+{ text: "ID No", value: "id" },
+    { text: "Name of  Charge", value: "names_of_charge" },
     { text: "Terms of  Charge", value: "terms_of_charge" },
     { text: "Charge Creation Date", value: "charge_creation_date" },
     { text: "Amount Secured by the Charge HKD", value: "account_secured_by_charge" },
@@ -88,10 +89,11 @@ const masterTableHeaders = [
     { text: "Description  of Charge", value: "charge_description" },
     { text: "Registration Details", value: "registration_details" },
     { text: "Date Created", value: "created_at" },
-    { text: "ACTION", value: "action" },
+    // { text: "ACTION", value: "action" },
 ];
 
 const expandedHeaders = [
+{ text: "ID No", value: "id" },
     { text: "Name of  Chargee", value: "names_of_charge" },
     { text: "Terms of  Charge", value: "terms_of_charge" },
     { text: "Charge Creation Date", value: "charge_creation_date" },

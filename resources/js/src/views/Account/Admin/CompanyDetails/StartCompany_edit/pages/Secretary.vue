@@ -125,7 +125,7 @@
 <script lang="ts" setup>
 import { reactive } from 'vue';
 import StartCompany_template from '../StartCompany_template.vue';
-import { useStartCompanyStore } from '../StartCompany_store';
+import { useStartCompanyStore } from '../AdminStartCompany_store';
 import api from '@/stores/Helpers/axios'
 
 const startCompanyStore = useStartCompanyStore()
@@ -153,7 +153,7 @@ async function saveAndContinue() {
     const formData = new FormData();
     formData.append('company_id', startCompanyStore.companyInProgress?.id)
     await api.companySecretary(formData)
-    startCompanyStore.getCompanyInProgress()
+    startCompanyStore.getCompanyInProgress(startCompanyStore.companyInProgress?.id)
     startCompanyStore.switchStage('+')
 }
 

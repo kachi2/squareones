@@ -87,6 +87,14 @@
                     <small class=" text-danger">{{ errors.date_cease_to_be_member }}</small>
                 </div>
 
+                <div class="col-12 col-md-12">
+                    <div class="form-floating-custom">
+                    <input v-model="remarks" type="text" class="form-control">
+                    <label  for="Name">Remarks:</label>
+                    </div>
+                    <small class=" text-danger">{{ errors.remarks }}</small>
+                </div>
+
             </div>
 
         </div>
@@ -139,6 +147,8 @@ function populateFieldWithDetails() {
         total_consideration.value = selectedEntity.value.total_consideration
         date_entered_as_member.value = selectedEntity.value.date_entered_as_member
         date_cease_to_be_member.value = selectedEntity.value.date_cease_to_be_member
+        remarks.value = selectedEntity.value.remarks
+        
     }
 
 }
@@ -170,6 +180,7 @@ const [current_holding] = defineField('current_holding');
 const [total_consideration] = defineField('total_consideration');
 const [date_entered_as_member] = defineField('date_entered_as_member');
 const [date_cease_to_be_member] = defineField('date_cease_to_be_member');
+const [remarks] = defineField('remarks');
 const isSaving = ref<boolean>(false)
 
 function setValuesOnFields() {
@@ -185,6 +196,7 @@ function setValuesOnFields() {
             setFieldValue('total_consideration', register_of_shareholder.total_consideration)
             setFieldValue('date_entered_as_member', register_of_shareholder.date_entered_as_member)
             setFieldValue('date_cease_to_be_member', register_of_shareholder.date_cease_to_be_member)
+            setFieldValue('remarks', register_of_shareholder.remarks)
         }
     }
 }
@@ -204,7 +216,7 @@ const save = handleSubmit(async (values) => {
             formData.append('total_consideration', values.total_consideration ?? '')
             formData.append('date_entered_as_member', values.date_entered_as_member ? useFxn.formatDate(values.date_entered_as_member) : '')
             formData.append('date_cease_to_be_member', values.date_cease_to_be_member ? useFxn.formatDate(values.date_cease_to_be_member) : '')
-
+            formData.append('remarks', values.remarks)
             formData.append('shareholders_id', selectedEntity.value.id)
 
 

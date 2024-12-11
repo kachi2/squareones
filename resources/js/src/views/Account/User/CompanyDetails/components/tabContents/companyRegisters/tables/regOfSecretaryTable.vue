@@ -11,7 +11,7 @@
                 </span> -->
             </div>
             <div class="card-body">
-                <EasyDataTable class="easy-data-table"  show-index :headers="masterTableHeaders"
+                <EasyDataTable class="easy-data-table"   :headers="masterTableHeaders"
                     :items="paramsStore.currentCompanyData?.register_of_secretary??[]" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
@@ -33,7 +33,7 @@
                     <template #expand="item">
                         <div v-if="!item.expandLoading" class="my-3">
                             <div class="fw-bold text-center mb-2">LOGS</div>
-                            <EasyDataTable class="easy-data-table" show-index :headers="expandedHeaders"
+                            <EasyDataTable class="easy-data-table"  :headers="expandedHeaders"
                                 :items="expandedObjArray.data" buttons-pagination
                                 v-model:server-options="expandingServerOptions" :server-items-length="expandedTotal">
 
@@ -91,6 +91,7 @@ import { reactive, ref, watch } from 'vue';
 
 // table
 const masterTableHeaders = [
+{ text: "ID No", value: "id" },
     { text: "Name", value: "name" },
     { text: "ID/ Passport / Registration No", value: "identity_info" },
     { text: "Residential Address / Registered  Office", value: "address" },
@@ -98,10 +99,11 @@ const masterTableHeaders = [
     { text: "Ceasing to Act", value: "cease_to_act" },
     { text: "Remarks", value: "remarks" },
     { text: "Date Created", value: "created_at" },
-    { text: "ACTION", value: "action" },
+    // { text: "ACTION", value: "action" },
 ];
 
 const expandedHeaders = [
+{ text: "ID No", value: "id" },
     { text: "Name", value: "name" },
     { text: "ID/ Passport / Registration No", value: "identity_info" },
     { text: "Date of Appointment", value: "appointment_date" },
@@ -110,6 +112,7 @@ const expandedHeaders = [
     { text: "Remarks", value: "remarks" },
     { text: "Date Modified", value: "created_at" },
 ];
+
 
 const expandingServerOptions = ref<ServerOptions | any>({
     page: 1,

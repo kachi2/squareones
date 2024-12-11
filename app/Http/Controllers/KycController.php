@@ -60,7 +60,7 @@ class KycController extends Controller
        
         if($founder){
             $founder->update([
-                'kyc_status' => 'pending'
+                'kyc_status' => 'processing'
             ]);
         }
     }

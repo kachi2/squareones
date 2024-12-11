@@ -111,6 +111,12 @@ function hasNoNullsOrEmptyStrings(meta: string) {
     else if(meta == 'significant_controller'){
        return checkMarks('significant_controller')
     }
+    else if(meta == 'designated_representative'){
+       return checkMarks('designated_representative')
+    }
+    else if(meta == 'compliance_reporting'){
+       return checkMarks('compliance_reporting')
+    }
     else {
         try {
             const data = adminParamsStore.currentCompanyData?.[meta] ?? [];
@@ -128,14 +134,14 @@ function checkMarks(metaType:any)
 {
     const data = adminParamsStore.currentCompanyData?.[metaType] ?? []
     if(data.length === 0) return false
-   return data.every((obj:any) => Object.entries(obj).every(([key,value]) => (key =='ceasing_of_act' || key=='remarks'|| key =='cease_to_act' || key == 'date_cease_to_be_member' || key == 'date_ceased_to_be_rep_person' || key == 'type') || (value != null && value != '')));
+   return data.every((obj:any) => Object.entries(obj).every(([key,value]) => (key =='ceasing_of_act' || key=='remarks'|| key =='cease_to_act' || key == 'date_cease_to_be_member' || key == 'date_ceased_to_be_rep_person' || key == 'type' || key == 'auditor_name' || key == 'accounting_reference_date') || (value != null && value != '')));
 }
 
 function registeredCompany(meta: any)
 {
     const data = adminParamsStore.currentCompanyData?.[meta] ?? []
     if(data.length === 0) return false
-   return  Object.entries(data).every(([key,value]) => (key =='business_classification' || key=='tax_id'|| key =='registration_progress_id' || key == 'renewal_date' || key == 'main_contact'|| key == 'pdf_doc'|| key == 'is_published'|| key == 'is_incorporated') || (value != null && value != ''));
+   return  Object.entries(data).every(([key,value]) => (key =='business_classification' || key =='registration_progress_id' || key == 'renewal_date' || key == 'main_contact'|| key == 'pdf_doc'|| key == 'is_published'|| key == 'is_incorporated' || key == 'tax_id') || (value != null && value != ''));
 }
 
 
@@ -143,16 +149,15 @@ const canShowSummary = computed(() => {
     let bool = false
     menuList.forEach((element: any) => {
         const excluded = ['incoporation', 'summary', 'documents']
-        console.log(element, 'element.data')
         if (!excluded.includes(element.meta)) {
             const storeData = adminParamsStore.currentCompanyData?.[element.meta] ?? [];
-            
+            console.log(storeData, 'element.data')
             if (storeData.length == 0) {
                 bool = false
             }
             else {
                 try {
-                    bool = storeData.every((obj: any) => Object.values(obj).every(value => value !== null && value !== ''));
+                    bool = storeData.every((obj:any) => Object.entries(obj).every(([key,value]) => (key =='ceasing_of_act' || key=='remarks'|| key =='cease_to_act' || key == 'date_cease_to_be_member' || key == 'date_ceased_to_be_rep_person' || key == 'type') || (value != null && value != '')));
                 } catch (error) {
                     //console.log('caught error canShowSummary: ', error);
 

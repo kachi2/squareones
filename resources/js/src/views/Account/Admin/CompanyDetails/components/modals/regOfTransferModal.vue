@@ -14,7 +14,6 @@
                     </div>
                     <div class="modal-body">
                         <div class="row g-3">
-
                             <div class="col-12 col-md-6">
                                 <div class="form-floating-custom">
                                     <input list="transferors" v-model="transferor" type="text" class="form-control">
@@ -76,6 +75,14 @@
                                     <input v-model="transfer_method" type="text" class="form-control" placeholder="">
                                     <small class=" text-danger">{{ errors.transfer_method }}</small>
                                     <label class="" for="transfer_method">Transfer Method:</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-floating-custom">
+                                    <input v-model="remarks" type="text" class="form-control" placeholder="">
+                                    <small class=" text-danger">{{ errors.remarks }}</small>
+                                    <label class="" for="transfer_method">Remarks:</label>
                                 </div>
                             </div>
 
@@ -147,6 +154,7 @@ const rules = {
     total_consideration: yup.string().required('Field is required'),
     transfer_method: yup.string().required('Field is required'),
     transferor: yup.string().required('Field is required'),
+    remarks: yup.string()
 };
 
 const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm({
@@ -159,6 +167,7 @@ const [transferor] = defineField('transferor');
 const [no_of_shares_transfered] = defineField('no_of_shares_transfered');
 const [total_consideration] = defineField('total_consideration');
 const [transfer_method] = defineField('transfer_method');
+const [remarks] = defineField('remarks');
 const isSaving = ref<boolean>(false)
 
 function setValuesOnFields() {
@@ -172,6 +181,7 @@ function setValuesOnFields() {
             setFieldValue('total_consideration', register_of_transfer.total_consideration)
             setFieldValue('transfer_method', register_of_transfer.transfer_method)
             setFieldValue('transferor', register_of_transfer.transferor)
+            setFieldValue('remarks', '')
         }
     }
 }
@@ -207,12 +217,9 @@ const save = handleSubmit(async (values) => {
             formData.append('total_consideration', values.total_consideration ?? '')
             formData.append('transfer_method', values.transfer_method ?? '')
             formData.append('transferor', values.transferor ?? '')
+            formData.append('remarks', values.remarks ?? '')
             if (paramsStore.idToEdit)
                 formData.append('transfer_id', paramsStore.idToEdit)
-
-
-
-
             try {
                 const resp: any = await api.registerOfTransfer(formData)
                 if (resp.status !== 200) {

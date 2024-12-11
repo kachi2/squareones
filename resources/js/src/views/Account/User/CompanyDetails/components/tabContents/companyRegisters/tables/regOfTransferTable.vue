@@ -106,26 +106,29 @@ import { reactive, ref, watch } from 'vue';
 
 // table
 const masterTableHeaders = [
+{ text: "ID No", value: "id" },
     { text: "Transferor", value: "transferor" },
     { text: "Transferee", value: "transferee" },
     { text: "Number of Shares  Transferred", value: "no_of_shares_transfered" },
     { text: "Total  Consideration HKD", value: "total_consideration" },
     { text: "Transferred/Disposal  Method", value: "transfer_method" },
     { text: "Date of Registration", value: "registration_date" },
+    { text: "Remarks", value: "remarks" },
     { text: "Date Created", value: "created_at" },
-    { text: "ACTION", value: "action" },
+    // { text: "ACTION", value: "action" },
 ];
 
 const expandedHeaders = [
+{ text: "ID No", value: "id" },
     { text: "Transferor", value: "transferor" },
     { text: "Transferee", value: "transferee" },
     { text: "Number of Shares  Transferred", value: "no_of_shares_transfered" },
     { text: "Total  Consideration HKD", value: "total_consideration" },
     { text: "Date of Registration", value: "registration_date" },
     { text: "Transferred/Disposal  Method", value: "transfer_method" },
+    { text: "Remarks", value: "remarks" },
     { text: "Date Modified", value: "created_at" },
 ];
-
 
 const expandingServerOptions = ref<ServerOptions | any>({
     page: 1,

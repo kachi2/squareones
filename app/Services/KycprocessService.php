@@ -67,9 +67,6 @@ class KycProcessService implements KycInterface{
         ActivityLogs('Initiated KYC Verification Services',  'KYC Verification');
     }
 
-    public function ProcessKYCVerification($request){
-
-        
-    }
+    public function ProcessKYCVerification($request){}
 
 }

@@ -10,7 +10,7 @@
                 </span>
             </div>
             <div class="card-body">
-                <EasyDataTable class="easy-data-table" show-index :headers="masterTableHeaders"
+                <EasyDataTable class="easy-data-table"  :headers="masterTableHeaders"
                     :items="paramsStore.currentCompanyData?.register_of_charge??[]" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
@@ -29,7 +29,7 @@
                     <template #expand="item">
                         <div v-if="!item.expandLoading" class="my-3">
                             <div class="fw-bold text-center mb-2">LOGS</div>
-                            <EasyDataTable class="easy-data-table" show-index :headers="expandedHeaders"
+                            <EasyDataTable class="easy-data-table" :headers="expandedHeaders"
                                 :items="expandedObjArray.data" buttons-pagination
                                 v-model:server-options="expandingServerOptions" :server-items-length="expandedTotal">
 
@@ -82,7 +82,8 @@ import { reactive, ref, watch } from 'vue';
 
 
 const masterTableHeaders = [
-    { text: "Name of  Chargee", value: "names_of_charge" },
+{ text: "ID No", value: "id" },
+    { text: "Name of  Charge", value: "names_of_charge" },
     { text: "Terms of  Charge", value: "terms_of_charge" },
     { text: "Charge Creation Date", value: "charge_creation_date" },
     { text: "Amount Secured by the Charge HKD", value: "account_secured_by_charge" },
@@ -94,6 +95,7 @@ const masterTableHeaders = [
 ];
 
 const expandedHeaders = [
+{ text: "ID No", value: "id" },
     { text: "Name of  Chargee", value: "names_of_charge" },
     { text: "Terms of  Charge", value: "terms_of_charge" },
     { text: "Charge Creation Date", value: "charge_creation_date" },

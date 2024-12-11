@@ -89,7 +89,7 @@
 </template>
 <script lang="ts" setup>
 import StartCompany_template from '../StartCompany_template.vue';
-import { useStartCompanyStore } from '../StartCompany_store';
+import { useStartCompanyStore } from '../AdminStartCompany_store';
 import api from '@/stores/Helpers/axios'
 import { useToast } from 'vue-toast-notification';
 import { descriptionForm } from './formsStore/Description'
@@ -143,7 +143,7 @@ async function saveFromToApi(formData: FormData) {
         toast.success('Data Saved Successfully', { position: 'top-right' });
         form.isSaving = false
         startCompanyStore.switchStage('+')
-        startCompanyStore.getCompanyInProgress()
+        startCompanyStore.getCompanyInProgress(startCompanyStore.companyInProgress.id)
 
     } catch (error) {
         toast.error('Sorry, Something went wrong', { position: 'top-right' });
@@ -170,3 +170,4 @@ const wordCount = computed(() => {
     border: none;
 }
 </style>
+../AdminStartCompany_store

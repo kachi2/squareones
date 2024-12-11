@@ -130,7 +130,9 @@ async function companyName(){
 const FormattedNames = computed( ()=> {
     const formatName: any = []
    names.value.forEach((name:any) => {
-    formatName.push(`${name.eng_name} ${name.eng_prefix} ${name.chn_name}${name.chn_prefix}`)
+    let eng_names = name.eng_name?name.eng_name+' ' + name.eng_prefix: ''
+    let chn_name = name.chn_name?name.chn_name+ ' '+ name.chn_prefix:''
+    formatName.push(eng_names +' '+  chn_name)
    })
    return formatName;
 })  

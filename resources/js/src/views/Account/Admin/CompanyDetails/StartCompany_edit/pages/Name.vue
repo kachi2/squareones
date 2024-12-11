@@ -339,7 +339,7 @@
 </template>
 <script lang="ts" setup>
 import StartCompany_template from '../StartCompany_template.vue';
-import { useStartCompanyStore } from '../StartCompany_store';
+import { useStartCompanyStore } from '../AdminStartCompany_store';
 import { useToast } from 'vue-toast-notification';
 import api from '@/stores/Helpers/axios'
 import { nameForm } from './formsStore/Name';
@@ -352,7 +352,10 @@ const startCompanyStore = useStartCompanyStore()
 const form: any = nameForm()
 let formId = <any>ref('')
 
+
 onMounted(() => {
+
+    console.log(startCompanyStore.companyInProgress, 'inside onmounted')
     form.updateFields(startCompanyStore.companyInProgress)
 })
 
@@ -484,6 +487,7 @@ function saveAndContinue() {
 
     const formData = new FormData()
 
+
     formData.append('company_id', startCompanyStore.companyInProgress?.id ?? '')
 
     formData.append('names[0][eng_name]', form.choice_level1_eng_name)
@@ -540,12 +544,12 @@ function checkFields(level: any, msg?: string) {
 
 async function saveFromToApi(formData: FormData) {
     try {
-        await api.registerCompany(formData)
+        await api.adminRegisterCompany(formData)
         // console.log(formData)
         toast.success('Data Saved Successfully', { position: 'top-right' });
         form.isSaving = false
         startCompanyStore.switchStage('+')
-        startCompanyStore.getCompanyInProgress()
+        startCompanyStore.getCompanyInProgress(startCompanyStore.companyInProgress?.id)
 
     } catch (error) {
         toast.error('Sorry, Something went wrong', { position: 'top-right' });

@@ -151,7 +151,7 @@ class CompanyEntityService implements CompanyEnityInterface
                  'email' => $request->email
             ]);
         }
-        ActivityLogs('Added '.$request->company_name.' '.$request->chn_company_name.' as Director/Shareholder',  'Company Formation');
+        // ActivityLogs('Added '.$request->company_name.' '.$request->chn_company_name.' as Director/Shareholder',  'Company Formation');
 
         return ['company_entity' => $entity, 'entity_corporate' => $corporate, 'authorized_person' => $authorized_person];
     }
@@ -177,7 +177,7 @@ class CompanyEntityService implements CompanyEnityInterface
             $data = [
                 'company_entity' =>$entity->load('Corporate')
             ];
-            ActivityLogs('Removed '.$entity->Corporate->company_name.' as Director/Shareholder',  'Company Formation');
+            // ActivityLogs('Removed '.$entity->Corporate->company_name.' as Director/Shareholder',  'Company Formation');
             $entity->Corporate?->authorizedPersons?->delete();
             $entity->Corporate?->delete();
             $entity->share?->delete();
@@ -220,7 +220,7 @@ class CompanyEntityService implements CompanyEnityInterface
             'date_signed'=> null,
             'is_founder' => 0
         ]);
-        ActivityLogs('Director/Founder removed signature',  'Company Formation');
+        // ActivityLogs('Director/Founder removed signature',  'Company Formation');
         return $entity;
     }
     return false;

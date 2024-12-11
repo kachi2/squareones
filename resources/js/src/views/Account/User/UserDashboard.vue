@@ -89,17 +89,23 @@
           </div>
           <div v-else class="card-body">
             <div class="d-flex justify-content-between align-items-cente" v-if="daysLeftFrom360Days != 0">
-              <div class="col-8">
+              <div class="col-12">
+                ANNUAL RETURN <br>   {{companyDetails.company_name}} <br>
                 <span class="fs-4 fw-bold text-mute">{{ daysLeftFrom360Days }} Days</span><small> remaining</small>
+                <small style="float:right"> <i class="bi bi-info-circle" v-tooltip title="This box display only latest company to be  renewed!"></i> </small>
                 <div>
-                  <span class="small">Annual Return</span>
+                 
+                
                 </div>
-                <p> Next Renewal is {{ companyDetails.renewal_date }}</p>
+                <p> Next Renewal date {{ companyDetails.renewal_date }}</p>
+               
+        
               </div>
-              <div class="col-5">
+              <!-- <div class="col-5">
                 <apexchart type="pie" :options="pieChartOptions" :series="pieChartSeries">
                 </apexchart>
-              </div>
+              </div> -->
+            
             </div>
             <div v-else>
               No Active company found
@@ -115,18 +121,20 @@
           </div>
           <div v-else class="card-body">
             <div class="d-flex justify-content-between align-items-cente" v-if="daysLeftFrom360Days != 0">
-              <div class="col-8">
-                <span class="fs-4 fw-bold text-mute">{{ daysLeftFrom360Days }} Days</span> <small> remaining</small>
-
+              <div class="col-12">
+               <span style="text-transform:uppercase;">Business Registration Renewal </span> 
+               <br>   {{companyDetails.company_name}} <br>
+                <span class="fs-4 fw-bold text-mute" >{{ daysLeftFrom360Days }} Days</span> <small> remaining</small>
+                <small style="float:right"> <i class="bi bi-info-circle" v-tooltip title="This box display only latest company to be  renewed!"></i> </small>
                 <div>
                   <span class="small">Next Payment in {{ companyDetails.renewal_date }}</span>
                 </div>
-                <p>Business Registration Renewal</p>
+              <!-- <small> This box display only latest company to be  renewed</small> -->
               </div>
-              <div class="col-5">
+              <!-- <div class="col-5">
                 <apexchart type="pie" :options="pieChartOptions" :series="pieChartSeries">
                 </apexchart>
-              </div>
+              </div> -->
             </div>
             <div v-else>
               No Active company found
@@ -156,7 +164,7 @@
             Recent Activities
             <!-- <span style="float:right">Filter</span> -->
           </div>
-          <div class="card-body">
+          <div class="card-body"> 
             <isLoadingComponent v-if="itemsLoading" />
             <EasyDataTable v-else class="easy-data-table" show-index :headers="headersActivities" :items="userLogs"
               buttons-pagination v-model:server-options="serverOptions" :server-items-length="total">
@@ -291,8 +299,11 @@ const companies = reactive<any>({
 const companyDetails = reactive<any>({
   incorporated_date: '',
   renewal_date: '',
+  company_name: ''
 });
 const CompanyCount = ref(0);
+
+
 
 
 async function getNotifications() {
@@ -310,7 +321,8 @@ async function companyReturn() {
   const data = annualReturns.data.data;
   companyDetails.incorporated_date = data?.registered_company?.incorporated_date
   companyDetails.renewal_date = data?.registered_company?.renewal_date
-  // console.log(data?.registered_company[0]?.incorporated_date, 'annualRsassasasassaseturns');
+  companyDetails.company_name = data?.registered_company?.company_registered_name
+
   return annualReturns
 }
 
@@ -318,7 +330,6 @@ async function companyReturn() {
 async function companyCounts() {
   const companies = await api.getCompanyCount();
   CompanyCount.value = companies.data.data
-  // console.log(CompanyCount.value, 'company counts');
   return companies
 }
 
@@ -365,8 +376,6 @@ onMounted(() => {
   getUserLogs()
   getUserNewtask()
 
-  // console.log(companyDetails, 'damklklkllteee');
-
 });
 
 // async function getCompanies() {
@@ -388,7 +397,7 @@ const userLogs = ref<any>([])
 async  function getUserLogs () {
   try{
     const logs = await api.UserActivityLogs();
-    userLogs.value = logs.data.data;
+    userLogs.value = logs.data.data.data;
   //  console.log(userLogs.value,'userLogs.value');
     return userLogs.value
   }catch(error)
@@ -457,12 +466,17 @@ const chartOptions1 = {
   },
 };
 
+
+
+
+
 const dateOfIncop = computed(() => { return companyDetails.incorporated_date })
 const daysLeftFrom360Days = computed(() => {
   const dateString = dateOfIncop.value;
   const today: any = new Date();
   const nextDate: any = new Date(dateString);
-  nextDate.setTime(nextDate.getTime() + (360 * 24 * 60 * 60 * 1000));
+  // nextDate.setTime(nextDate.getTime() + (360 * 24 * 60 * 60 * 1000));
+  nextDate.setFullYear(today.getFullYear() + 1);
 
   const diffInMs = nextDate - today;
   const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));

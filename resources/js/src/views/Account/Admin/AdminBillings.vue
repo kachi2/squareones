@@ -181,7 +181,10 @@
                             </template>
 
                             <template #item-amount_due="item">
-                                {{ useFxn.addCommas(item.amount_due) }}
+                                {{ useFxn.addCommas(item.amount_due) }}  {{ item?.subscription?.currency }} 
+                            </template>
+                            <template #item-amount_paid="item">
+                                {{ useFxn.addCommas(item.amount_paid) }} {{ item?.subscription?.currency }}
                             </template>
 
                             <template #item-next_billing_cycle="item">
@@ -189,9 +192,9 @@
                             </template>
 
                             <template #item-company_name="item">
-                                {{ item?.subscription?.company_name }}
+                                {{     companyName(item.company.names) }}
+                                <!-- {{ item?.subscription?.company_name }} -->
                             </template>
-
 
                             <template #item-due_date="item">
                                 {{ useFxn.dateDisplay(item.due_date) }}
@@ -332,7 +335,7 @@
 
 </template>
 <script lang="ts" setup>
-import { onMounted, reactive, ref, watch } from 'vue';
+import { onMounted, reactive, ref, watch, computed} from 'vue';
 import type { Header, Item, ServerOptions } from "vue3-easy-data-table";
 import api from '@/stores/Helpers/axios'
 import { useAdminParamsStore } from './CompanyDetails/adminParamsStore';
@@ -353,18 +356,15 @@ onMounted(() => {
     getInvoices()
     getPlans()
 })
-const computedCoyName = (coy: any) => {
-    const id = coy.id
-    let englishName = '';
-    let chineseName = '';
-    const coms = companies.list;
-    coms.forEach((com: any) => {
-        const company = com.company.names.find((x: any) => x.choice_level == 1);
-        englishName = company?.eng_name ? company?.eng_name + ' ' + company?.eng_prefix : '';
-        chineseName = company?.chn_name ? company?.chn_name + ' ' + company?.chn_prefix : ''
-    })
+
+const companyName = ((names: any)=> {
+    console.log(names, 'compay anme')
+    let company = names.find((x: any) => x.selected_name ==1)
+    if(!company)company = names.find((x: any) => x.choice_level == 1)
+  let  englishName = company?.eng_name ? company?.eng_name + ' ' + company?.eng_prefix : '';
+   let    chineseName = company?.chn_name ? company?.chn_name + ' ' + company?.chn_prefix : ''
     return `${englishName} ${chineseName}`;
-}
+})
 
 const computedUserName = (coy: any) => {
     const id = coy.id
@@ -451,6 +451,7 @@ async function getInvoices() {
 
         const invoiceObj = data.data?.subscription_summary;
         const invoices = data?.data?.invoices;
+        // console.log(data, 'invoiceObj invoiceObj')
         invoice.billingsTable = invoices?.data ?? [];
         invoice.totalInvoices = invoices?.total ?? 0;
 
@@ -477,11 +478,12 @@ const refresh = reactive<any>({
     subscribers: false
 })
 
+const invoives = ref([]);
 
 async function getInvoicesRefresh(card: 'subscribers' | 'paid' | 'unpaid') {
     refresh[card] = true
     try {
-        await getInvoices()
+       const res = await getInvoices()
         toast.success('Invoice Updated', { position: 'top-right' })
         refresh[card] = false
     } catch (error) {
@@ -588,6 +590,7 @@ const paymentHistoryHeader = [
     { text: "LAST PAYMENT DATE", value: "last_payment_date" },
     { text: "NEXT BILLING DATE", value: "next_billing_cycle" },
     { text: "AMOUNT DUE", value: "amount_due" },
+    { text: "AMOUNT PAID", value: "amount_paid" },
     { text: "PAYMENT STATUS", value: "status" },
     { text: "INVOICE", value: "hosted_invoice_url" },
 ];

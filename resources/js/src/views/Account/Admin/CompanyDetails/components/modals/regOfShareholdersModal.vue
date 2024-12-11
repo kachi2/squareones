@@ -84,6 +84,14 @@
                                 </div>
                                 <small class=" text-danger">{{ errors.date_cease_to_be_member }}</small>
                             </div>
+                            <div class="col-12 col-md-12">
+                                <div class="form-floating-custom">
+                                    <input v-model="remarks" type="text" class="form-control"
+                                    placeholder="">
+                                    <label class="" for="eng_name">Remarks:</label>
+                                </div>
+                                <small class=" text-danger">{{ errors.remarks }}</small>
+                            </div>
 
                         </div>
 
@@ -159,6 +167,7 @@ const [current_holding] = defineField('current_holding');
 const [total_consideration] = defineField('total_consideration');
 const [date_entered_as_member] = defineField('date_entered_as_member');
 const [date_cease_to_be_member] = defineField('date_cease_to_be_member');
+const [remarks] = defineField('remarks');
 const isSaving = ref<boolean>(false)
 
 function setValuesOnFields() {
@@ -174,6 +183,7 @@ function setValuesOnFields() {
             setFieldValue('total_consideration', register_of_shareholder.total_consideration)
             setFieldValue('date_entered_as_member', register_of_shareholder.date_entered_as_member)
             setFieldValue('date_cease_to_be_member', register_of_shareholder.date_cease_to_be_member)
+            setFieldValue('remarks', '')
         }
     }
 }
@@ -188,6 +198,7 @@ const save = handleSubmit(async (values) => {
             formData.append('name', values.name ?? '')
             formData.append('address', values.address ?? '')
             formData.append('class_of_shares', values.class_of_shares ?? '')
+            formData.append('remarks', values.remarks ?? '')
             formData.append('denomination', values.denomination ?? '')
             formData.append('current_holding', values.current_holding ?? '')
             formData.append('total_consideration', values.total_consideration ?? '')

@@ -193,6 +193,9 @@ export default {
         return $instanceForm.post('manage/add/comments', formData);
     },
 
+    adminCompanyProgress(company_id = null) {
+        return $instance.get(`manage/company/progress/${company_id??''}`);
+    },
 
 
     // populateData(formData: FormData) {

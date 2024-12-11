@@ -59,13 +59,18 @@
                         <li class="list-group-item ps-0">
                             Director:
                             <span class="float-end">
-                                {{ office_contract?.directors }}
+                                <span v-if="listOfDirectors().length > 0" v-for="directors in listOfDirectors() " :key="directors" >
+                                    {{ directors }} <br>
+                                </span>
+                               
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Shareholder:
                             <span class="float-end">
-                                {{ office_contract?.shareholders }}
+                                <span v-if="listOfShareholders().length > 0" v-for="shareholders in listOfShareholders() " :key="shareholders" >
+                                    {{ shareholders }} <br>
+                                </span>
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
@@ -121,8 +126,9 @@
                             Accounting Reference Date:
                             <span class="float-end">
                                 {{
-                                    useFxn.dateDisplay(compliance_reporting?.accounting_reference_date) ?? '-'
+                                    dispMonthAndDay(compliance_reporting?.accounting_reference_date)
                                 }}
+                               
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
@@ -142,9 +148,10 @@
             <div class="card exemption-none bg-dynamic shadow-sm border-0 h-100">
                 <h5 class="card-header bg-transparent border-0">Significant Controllers
                 </h5>
+                <section v-for="significant_controller in significant_controllers" class="card bg-light border-0 section">
                 <div class="card-body registers-body">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item ps-0">
+                        <li class="list-group-item ps-0 ">
                             Legal Entity Name:
                             <span class="float-end">
                                 {{ significant_controller?.legal_entity_name }}
@@ -178,7 +185,7 @@
                             Residential Address:
                             <span class="float-end">
                                 {{
-                                    significant_controller?.controllers_particulars?.residential_address ?? '-'
+                                    significant_controller?.controllers_particulars?.resdential_address ?? '-'
                                 }}
                             </span>
                         </li>
@@ -199,11 +206,13 @@
                                 }}
                             </span>
                         </li>
+                    
                     </ul>
                 </div>
+            </section>
             </div>
         </div>
-        <div class="col-lg-12 ">
+        <!-- <div class="col-lg-12 ">
             <div class="card exemption-none bg-dynamic shadow-sm border-0 h-100">
                 <h5 class="card-header bg-transparent border-0">Register of Charge
                 </h5>
@@ -250,7 +259,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <div class="col-lg-12 ">
             <div class="card exemption-none bg-dynamic shadow-sm border-0 h-100">
@@ -258,7 +267,7 @@
                 </h5>
                 <div class="card-body registers-body">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item ps-0">
+                        <li  class="list-group-item ps-0">
                             Name:
                             <span class="float-end">
                                 {{ designated_representative?.name ?? '-' }}
@@ -273,25 +282,23 @@
                             </span>
                         </li>
 
-                        <li class="list-group-item ps-0">
+                        <!-- <li class="list-group-item ps-0">
                             Place of Registration:
                             <span class="float-end">
                                 {{ designated_representative?.designated_particulars?.place_of_registration ?? '-' }}
                             </span>
-                        </li>
-
+                        </li> -->
                         <li class="list-group-item ps-0">
-                            Control Over Company:
+                            Corresponding Address:
                             <span class="float-end">
-                                {{ designated_representative?.designated_particulars?.nature_of_control_over_the_company
+                                {{ designated_representative?.designated_particulars?.corresponding_address
                                     ?? '-' }}
                             </span>
                         </li>
-
                         <li class="list-group-item ps-0">
-                            Identity Infomation:
+                            Remarks:
                             <span class="float-end">
-                                {{ designated_representative?.designated_particulars?.identity_info
+                                {{ designated_representative?.remarks
                                     ?? '-' }}
                             </span>
                         </li>
@@ -353,36 +360,43 @@
             <div class="card exemption-none bg-dynamic shadow-sm border-0 h-100">
                 <h5 class="card-header bg-transparent border-0">Register Of Directors ({{
                     register_of_director.length }}):</h5>
-                <div class="card-body registers-body">
 
+                    <section v-for="item in register_of_director" :key="item"  class="card bg-light border-0 section">
+                  <div class="card-body registers-body">
                     <ul class="list-group list-group-flush">
-                        <li v-for="item in register_of_director" :key="item" class="list-group-item ps-0">
-                            <div class="row g-3">
-                                <div class="col-lg-12">
-                                    <strong>Name</strong>
-                                    <div>{{ item.name ?? '-' }}</div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <strong>Date of Appointment</strong>
-                                    <div>{{ item.date_of_appointment ?? '-' }}</div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <strong>Registration Number</strong>
-                                    <div>{{ item.reg_no ?? '-' }}</div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <strong>Registered Office</strong>
-                                    <div>{{ item.registered_office ?? '-' }}</div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <strong>Remarks</strong>
-                                    <div>{{ item.remarks ?? '-' }}</div>
-                                </div>
-                            </div>
+                        <li class="list-group-item ps-0">
+                            Name:
+                            <span class="float-end">
+                                {{ item.name ?? '-' }}
+                            </span>
+                        </li>
+                        <li class="list-group-item ps-0">
+                            Date of Appointment:
+                            <span class="float-end">
+                                {{ item.date_of_appointment ?? '-' }}
+                            </span>
+                        </li>
+                        <li class="list-group-item ps-0">
+                            Registration Number:
+                            <span class="float-end">
+                                {{ item.date_of_appointment ?? '-' }}
+                            </span>
+                        </li>
+                        <li class="list-group-item ps-0">
+                            Registered Office: 
+                            <span class="float-end">
+                                {{ item.registered_office ?? '-' }}
+                            </span>
+                        </li>
+                        <li class="list-group-item ps-0">
+                            Remarks:
+                            <span class="float-end">
+                                {{ item.remarks ?? '-' }}
+                            </span>
                         </li>
                     </ul>
-
                 </div>
+            </section>
             </div>
         </div>
 
@@ -391,43 +405,54 @@
                 <h5 class="card-header bg-transparent border-0">Register Of Shareholders ({{
                     register_of_shareholders.length }}):
                 </h5>
-                <div class="card-body registers-body">
+                <section v-for="item in register_of_shareholders" :key="item"  class="card bg-light border-0 section">
+                  <div class="card-body registers-body">
                     <ul class="list-group list-group-flush">
-                        <li v-for="item in register_of_shareholders" :key="item" class="list-group-item ps-0">
-                            <div class="row g-3">
-                                <div class="col-lg-12">
-                                    <strong>Name</strong>
-                                    <div>{{ item.name ?? '-' }}</div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <strong>address</strong>
-                                    <div>{{ item.address ?? '-' }}</div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <strong>class_of_shares</strong>
-                                    <div>{{ item.class_of_shares ?? '-' }}</div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <strong>denomination</strong>
-                                    <div>{{ item.denomination ?? '-' }}</div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <strong>Current holding</strong>
-                                    <div>{{ item.current_holding ?? '-' }}</div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <strong>Date entered_as_member</strong>
-                                    <div>{{ item.date_entered_as_member ?? '-' }}</div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <strong>Date cease_to_be_member</strong>
-                                    <div>{{ item.date_cease_to_be_member ?? '-' }}</div>
-                                </div>
-                            </div>
+                        <li class="list-group-item ps-0">
+                            Name:
+                            <span class="float-end">
+                                {{ item.name ?? '-' }}
+                            </span>
+                        </li>
+                        <li class="list-group-item ps-0">
+                            Address: 
+                            <span class="float-end">
+                                {{ item.address ?? '-' }}
+                            </span>
+                        </li>
+                        <li class="list-group-item ps-0">
+                            Class of Shares: 
+                            <span class="float-end">
+                                {{ item.class_of_shares ?? '-' }}
+                            </span>
+                        </li>
+                        <li class="list-group-item ps-0">
+                            Denomination: 
+                            <span class="float-end">
+                                {{ item.denomination ?? '-' }}
+                            </span>
+                        </li>
+                        <li class="list-group-item ps-0">
+                            Current Holding:
+                            <span class="float-end">
+                                {{ item.current_holding ?? '-' }}
+                            </span>
+                        </li>
+                        <li class="list-group-item ps-0">
+                            Date entered_as_member:
+                            <span class="float-end">
+                                {{ item.date_entered_as_member ?? '-' }}
+                            </span>
+                        </li>
+                        <li class="list-group-item ps-0">
+                            Date cease_to_be_member:
+                            <span class="float-end">
+                                {{ item.date_cease_to_be_member ?? '-' }}
+                            </span>
                         </li>
                     </ul>
-
                 </div>
+            </section>
             </div>
         </div>
 
@@ -503,8 +528,10 @@ import useFxn from '@/stores/Helpers/useFunctions';
 const paramsStore = useAdminParamsStore()
 const companyIsLoading = ref<boolean>(true)
 import api from '@/stores/Helpers/axios'
+import { useDateFormat } from '@vueuse/core';
 
 const emits = defineEmits(['done'])
+
 
 
 onMounted(async () => {
@@ -518,12 +545,33 @@ const register_of_shareholders = computed(() => { return paramsStore.currentComp
 const registered_company: any = computed(() => { return paramsStore.currentCompanyData?.registered_company ?? [] })
 const office_contract: any = computed(() => { return paramsStore.currentCompanyData?.office_contract[0] ?? [] })
 const compliance_reporting: any = computed(() => { return paramsStore.currentCompanyData?.compliance_reporting[0] ?? [] })
-const significant_controller = computed(() => { return paramsStore.currentCompanyData?.significant_controller[0] ?? [] })
+const significant_controllers = computed(() => { return paramsStore.currentCompanyData?.significant_controller ?? [] })
 const register_of_secretary = computed(() => { return paramsStore.currentCompanyData?.register_of_secretary[0] ?? [] })
 const register_of_charge = computed(() => { return paramsStore.currentCompanyData?.register_of_charge[0] ?? [] })
 const designated_representative = computed(() => { return paramsStore.currentCompanyData?.designated_representative[0] ?? [] })
 
+const listOfDirectors = () => {
+    let array = []
+    const list = paramsStore.currentCompanyData?.office_contract[0]?.directors
+    if (list) array = JSON.parse(list)
+    return array;
+}
 
+const listOfShareholders = () => {
+    let array = []
+    const list = paramsStore.currentCompanyData?.office_contract[0]?.shareholders
+    if (list) array = JSON.parse(list)
+    return array;
+}
+
+function dispMonthAndDay(date: any) {
+    if (!date)
+        return '-'
+    else {
+        const dd = useDateFormat(date, 'MMM, DD')
+        return dd.value
+    }
+}
 
 
 const isPublising = ref(false)

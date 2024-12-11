@@ -11,7 +11,7 @@
                 </span>
             </div>
             <div class="card-body">
-                <EasyDataTable class="easy-data-table"  show-index :headers="masterTableHeaders"
+                <EasyDataTable class="easy-data-table"   :headers="masterTableHeaders"
                     :items="paramsStore.currentCompanyData?.register_of_allotments??[]" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
@@ -32,7 +32,7 @@
                     <template #expand="item">
                         <div v-if="!item.expandLoading" class="my-3">
                             <div class="fw-bold text-center mb-2">LOGS</div>
-                            <EasyDataTable class="easy-data-table" show-index :headers="expandedHeaders"
+                            <EasyDataTable class="easy-data-table" :headers="expandedHeaders"
                                 :items="expandedObjArray.data" buttons-pagination
                                 v-model:server-options="expandingServerOptions" :server-items-length="expandedTotal">
 
@@ -98,7 +98,9 @@ import { reactive, ref, watch } from 'vue';
 
 // table
 const masterTableHeaders = [
-    { text: "Name and Address", value: "address" },
+{ text: "ID No", value: "id" },
+    { text: "Name", value: "name" },
+    { text: "Address", value: "address" },
     { text: "Class of Shares", value: "class_of_shares" },
     { text: "Number of Shares Allotted", value: "no_of_shares_allocated" },
     { text: "Date of Allotment ", value: "allotment_date" },

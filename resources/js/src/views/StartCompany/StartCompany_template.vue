@@ -145,12 +145,19 @@ const authStore = useAuthStore()
 const router = useRouter()
 const route = useRoute()
 
-// onMounted( ()=> {
-//     if(returnToDash() == null)
-// {
-//     router.push({path: 'user/dashboard'})
-// }
-// })
+onMounted( ()=> {
+if(route.query.company == 'new')
+{
+     startCompanyStore.clearLocalStorage()
+     description_form.clearLocalStorage()
+     name_form.clearLocalStorage()
+     source_form.clearLocalStorage()
+     activities_form.clearLocalStorage()
+     fCoporate_form.clearLocalStorage()
+     fIndividual_form.clearLocalStorage() 
+}
+    
+})
 const startCompanyStore = useStartCompanyStore()
 
 const paymentStatus = computed(() => {

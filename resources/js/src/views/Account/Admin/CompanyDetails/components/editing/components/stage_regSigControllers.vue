@@ -18,7 +18,7 @@
 
                 <div class="col-12 col-md-6">
                     <div class="fixed-label-custom">
-                        <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
+                        <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="true"
                             :enable-time-picker="false" auto-apply v-model="entry_date">
                         </VueDatePicker>
                         <label for="Name">Entry Date:</label>
@@ -42,7 +42,7 @@
 
                 <div class="col-12 col-md-6">
                     <div class="fixed-label-custom">
-                        <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="false"
+                        <VueDatePicker :format="useFxn.dateDisplay" hide-input-icon :clearable="true"
                             :enable-time-picker="false" auto-apply v-model="date_becoming_rep_person">
                         </VueDatePicker>
                         <label for="Name">Date Becoming a Registrable Person:</label>
@@ -151,7 +151,8 @@ const selectOptions = computed(() => {
 const selectedEntity = ref<any>('')
 function populateFieldWithDetails() {
     if (selectedEntity.value) {
-        console.log(selectedEntity.value, 'selectedEntity.value')
+        resetForm()
+        // console.log(selectedEntity.value, 'selectedEntity.value')
         if (selectedEntity.value.entry_date)
             entry_date.value = selectedEntity.value.entry_date
         if (selectedEntity.value.legal_entity_name)
@@ -219,25 +220,25 @@ const [nature_of_control_over_the_company, nature_of_control_over_the_companyAtt
 const [remarks] = defineField('remarks')
 const isSaving = ref<boolean>(false)
 
-function setValuesOnFields() {
-    const significant_controller = paramsStore.currentCompanyData?.significant_controller[0]
-    if (significant_controller) {
-        setFieldValue('entry_date', significant_controller.entry_date)
-        // setFieldValue('name', significant_controller.name)
-        setFieldValue('legal_entity_name', significant_controller?.legal_entity_name)
-        setFieldValue('date_becoming_rep_person', significant_controller?.date_becoming_rep_person)
-        setFieldValue('date_ceased_to_be_rep_person', significant_controller?.date_ceased_to_be_rep_person)
-        setFieldValue('corresponding_address', significant_controller?.controllers_particulars?.corresponding_address)
-        setFieldValue('resdential_address', significant_controller?.controllers_particulars?.resdential_address)
-        setFieldValue('identity_info', significant_controller?.controllers_particulars?.identity_info)
-        setFieldValue('place_of_registration', significant_controller?.controllers_particulars?.place_of_registration)
-        setFieldValue('nature_of_control_over_the_company', significant_controller?.controllers_particulars?.nature_of_control_over_the_company)
-        setFieldValue('remarks', significant_controller?.remarks??'')
-    }
-}
+// function setValuesOnFields() {
+//     const significant_controller = paramsStore.currentCompanyData?.significant_controller[0]
+//     if (significant_controller) {
+//         setFieldValue('entry_date', significant_controller.entry_date)
+//         // setFieldValue('name', significant_controller.name)
+//         setFieldValue('legal_entity_name', significant_controller?.legal_entity_name)
+//         setFieldValue('date_becoming_rep_person', significant_controller?.date_becoming_rep_person)
+//         setFieldValue('date_ceased_to_be_rep_person', significant_controller?.date_ceased_to_be_rep_person)
+//         setFieldValue('corresponding_address', significant_controller?.controllers_particulars?.corresponding_address)
+//         setFieldValue('resdential_address', significant_controller?.controllers_particulars?.resdential_address)
+//         setFieldValue('identity_info', significant_controller?.controllers_particulars?.identity_info)
+//         setFieldValue('place_of_registration', significant_controller?.controllers_particulars?.place_of_registration)
+//         setFieldValue('nature_of_control_over_the_company', significant_controller?.controllers_particulars?.nature_of_control_over_the_company)
+//         setFieldValue('remarks', significant_controller?.remarks??'')
+//     }
+// }
 
 const save = handleSubmit(async (values) => {
-    useFxn.confirm('Update Data?', 'Continue').then(async (confirmed) => {
+    useFxn.confirm('Update Significant Controllers?', 'Continue').then(async (confirmed) => {
         if (confirmed.value == true) {
             isSaving.value = true
             const formData = new FormData()
@@ -261,7 +262,8 @@ const save = handleSubmit(async (values) => {
                 isSaving.value = false
                 useFxn.toast('Updated', 'success')
                 paramsStore.getCompanyDetails()
-                // resetForm()
+                resetForm()
+                selectedEntity.value = ''
                 // emit('done')
             } catch (error) {
                 console.log(error);

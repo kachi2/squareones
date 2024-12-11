@@ -79,7 +79,7 @@ onMounted(() => {
 // form and validation
 const rules = {
     // auditor_name: yup.string().required('Field is required'),
-    accounting_reference_date: yup.date().required('Field is required'),
+    // accounting_reference_date: yup.date().required('Field is required'),
     business_registration_renewal_date: yup.date().required('Field is required'),
     annual_return_date: yup.date().required('Field is required'),
 };

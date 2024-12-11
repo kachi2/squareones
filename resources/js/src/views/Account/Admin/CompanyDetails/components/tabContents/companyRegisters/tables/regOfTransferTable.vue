@@ -11,7 +11,7 @@
                 </span>
             </div>
             <div class="card-body">
-                <EasyDataTable class="easy-data-table" show-index :headers="masterTableHeaders"
+                <EasyDataTable class="easy-data-table"  :headers="masterTableHeaders"
                     :items="paramsStore.currentCompanyData?.register_of_transfer??[]" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
@@ -32,7 +32,7 @@
                     <template #expand="item">
                         <div v-if="!item.expandLoading" class="my-3">
                             <div class="fw-bold text-center mb-2">LOGS</div>
-                            <EasyDataTable class="easy-data-table" show-index :headers="expandedHeaders"
+                            <EasyDataTable class="easy-data-table"  :headers="expandedHeaders"
                                 :items="expandedObjArray.data" buttons-pagination
                                 v-model:server-options="expandingServerOptions" :server-items-length="expandedTotal">
 
@@ -98,23 +98,27 @@ import { reactive, ref, watch } from 'vue';
 
 // table
 const masterTableHeaders = [
+{ text: "ID No", value: "id" },
     { text: "Transferor", value: "transferor" },
     { text: "Transferee", value: "transferee" },
     { text: "Number of Shares  Transferred", value: "no_of_shares_transfered" },
     { text: "Total  Consideration HKD", value: "total_consideration" },
     { text: "Transferred/Disposal  Method", value: "transfer_method" },
     { text: "Date of Registration", value: "registration_date" },
+    { text: "Remarks", value: "remarks" },
     { text: "Date Created", value: "created_at" },
     { text: "ACTION", value: "action" },
 ];
 
 const expandedHeaders = [
+{ text: "ID No", value: "id" },
     { text: "Transferor", value: "transferor" },
     { text: "Transferee", value: "transferee" },
     { text: "Number of Shares  Transferred", value: "no_of_shares_transfered" },
     { text: "Total  Consideration HKD", value: "total_consideration" },
     { text: "Date of Registration", value: "registration_date" },
     { text: "Transferred/Disposal  Method", value: "transfer_method" },
+    { text: "Remarks", value: "remarks" },
     { text: "Date Modified", value: "created_at" },
 ];
 

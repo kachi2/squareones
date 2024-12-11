@@ -38,7 +38,7 @@
                             </ul>
                         </template>
 
-                        <template #item-action="item">
+                        <!-- <template #item-action="item">
                             <span class="dropdown">
                                 <span class=" cursor-pointer bell dropdown-toggle" data-bs-toggle="dropdown"
                                     aria-expanded="false">
@@ -54,16 +54,13 @@
                                     </div>
                                 </span>
                             </span>
-                        </template>
+                        </template>  -->
 
                     </EasyDataTable>
                 </div>
             </div>
         </div>
-
-
     </div>
-
     <!-- <documentUploadModal @done="getDocuments" /> -->
 </template>
 
@@ -117,7 +114,7 @@ const headers = [
      { text: "DOCUMENT TYPE", value: "type" },
      { text: "YEAR", value: "year" },
      { text: "DATE ADDED", value: "created_at" },
-    { text: "ACTION", value: "action" },
+    // { text: "ACTION", value: "action" },
 ];
 
 async function deleteDocument(id: any) {

@@ -11,7 +11,7 @@
                 </span>
             </div>
             <div class="card-body">
-                <EasyDataTable class="easy-data-table" show-index :headers="masterTableHeaders"
+                <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
                     :items="paramsStore.currentCompanyData?.register_of_company_name??[]" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
@@ -25,7 +25,7 @@
                     <template #expand="item">
                         <div v-if="!item.expandLoading" class="my-3">
                             <div class="fw-bold text-center mb-2">LOGS</div>
-                            <EasyDataTable class="easy-data-table" show-index :headers="expandedHeaders"
+                            <EasyDataTable class="easy-data-table"  :headers="expandedHeaders"
                                 :items="expandedObjArray.data" buttons-pagination
                                 v-model:server-options="expandingServerOptions" :server-items-length="expandedTotal">
 
@@ -80,18 +80,21 @@ import { computed, reactive, ref, watch } from 'vue';
 
 // table
 const masterTableHeaders = [
+{ text: "ID No", value: "id" },
     { text: "Date of Name Changed", value: "date_of_name_changed" },
     { text: "Previous Company Name", value: "previous_company_name" },
     { text: "New Company Name", value: "new_company_name" },
     { text: "DATE CREATED", value: "created_at" },
-    // { text: "REMARKS", value: "remarks" },
+    { text: "REMARKS", value: "remarks" },
     { text: "ACTION", value: "action" },
 ];
 
 const expandedHeaders = [
+{ text: "ID No", value: "id" },
     { text: "Date of Name Changed", value: "date_of_name_changed" },
     { text: "Previous Company Name", value: "previous_company_name" },
     { text: "New Company Name", value: "new_company_name" },
+    { text: "REMARKS", value: "remarks" },
     { text: "DATE MODIFIED", value: "created_at" },
 ];
 

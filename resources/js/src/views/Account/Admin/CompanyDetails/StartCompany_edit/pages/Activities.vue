@@ -167,7 +167,7 @@
 <script lang="ts" setup>
 import { computed, onMounted, watch, watchEffect } from 'vue';
 import StartCompany_template from '../StartCompany_template.vue';
-import { useStartCompanyStore } from '../StartCompany_store';
+import { useStartCompanyStore } from '../AdminStartCompany_store';
 import useFxn from '@/stores/Helpers/useFunctions';
 import api from '@/stores/Helpers/axios'
 import { useToast } from 'vue-toast-notification';

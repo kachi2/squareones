@@ -15,6 +15,15 @@
 
             <div class="d-none d-md-block">
                 <!-- <appModeToggler /> -->
+                <span class="badge bg-secondary-subtle text-info small" v-if="kycStatus != 'Verified' && kycStatus != null">
+                            <i class="bi bi-x-square"></i> {{kycStatus}}
+                        </span>
+                        <span class="badge bg-success-subtle text-success small" v-else-if="kycStatus != 'Verified' && kycStatus != null">
+                            <i class="bi bi-check-circle"></i> {{kycStatus}}
+                        </span>
+                        <span class="badge bg-success-subtle text-danger small" v-else>
+                            <i class="bi bi-x-square"></i> Not-verified
+                        </span>
 
                 <span class="mx-4 dropdown">
                     <span class="position-relative  cursor-pointer bell dropdown-toggle" data-bs-toggle="dropdown"
@@ -86,6 +95,7 @@ import useFunctions from '@/stores/Helpers/useFunctions';
 
 onMounted(() => {
     getNotifications()
+    KycStatus()
 })
 
 const router = useRouter()
@@ -105,6 +115,11 @@ async function updateReadNotifications(notificationType: NotificationType) {
     goToNotificationLink(notificationType)
 
 }
+const kycStatus = ref('')
+const KycStatus = async function() {
+        const res = await api.getActiveUser()
+        kycStatus.value  = res.data?.data?.[0].kyc_status
+};
 
 async function getNotifications() {
     try {
@@ -131,6 +146,7 @@ async function logout() {
     router.replace({ name: 'Login' })
 }
 </script>
+
 
 
 <style lang="css" scoped>

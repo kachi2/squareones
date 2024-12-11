@@ -146,17 +146,14 @@ const save = handleSubmit(async (values) => {
                 useFxn.toast('Please enter Document(s) title', 'warning');
                 return;
             }
-
             if (!documentYear) {
                 useFxn.toast('Please enter Year', 'warning');
                 return;
             }
-
             if (!documentYear) {
                 useFxn.toast('Please enter Type', 'warning');
                 return;
             }
-
             const formData = new FormData()
             formData.append('company_id', paramsStore.currentCompanyId)
             formData.append('title', documentTitle.value)
@@ -164,21 +161,17 @@ const save = handleSubmit(async (values) => {
             formData.append('type', documentType.value)
             formData.append('document_type_id', '1')
             uploadedFiles.value.forEach((file, index) => {
-                // console.log(file)
                 formData.append(`document[${index}]`, file)
             });
-
             isSaving.value = true
-
             try {
                 await api.uploadCompanyDocuments(formData)
                 isSaving.value = false
                 useFxn.toast('Updated', 'success')
                 paramsStore.getCompanyDetails()
-                // emit('done')
-
             } catch (error) {
                 console.log(error);
+                isSaving.value = false
             }
         }
     })

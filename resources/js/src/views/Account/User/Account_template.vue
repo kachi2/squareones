@@ -25,10 +25,28 @@
                         </div>
                     </div>
                 </div> 
-               
-                <div v-else-if="companyDetails != false && companyDetails?.main_contact?.kyc_status == null">
+            </div>
+                <div class="col-12" v-else>
+                    <div class="alert alert-dark bg-primary-subtle" role="alert">
+                        <div class="row gy-1">
+                            <div class="col-lg-9">
+                                <div class="fw-bold">
+                                    Start a new company
+                                </div>
+                                <small>Return to the form page to start a new company registration</small>
+                            </div>
+                            <div class="col-lg-3 d-flex justify-content-lg-end align-items-lg-center">
+                                <router-link class="btn btn-primary" to="/start_company?company=new" >
+                                    Start New <i class="bi bi-arrow-right"></i>
+                                </router-link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="col-12" v-if="userData == null">
                     <div class="col-12"> 
-                        <div class="alert alert-dark bg-primary-subtle" role="alert">
+                        <div class="alert alert-dark bg-warning-subtle" role="alert">
                             <div class="row gy-1">
                                 <div class="col-lg-10">
                                     <div class="fw-bold">
@@ -45,9 +63,9 @@
                         </div>
                     </div>
                 </div>
-                <div v-else-if="companyDetails != false && companyDetails?.main_contact?.kyc_status == 'failed' || companyDetails?.main_contact?.kyc_status  =='rejected'">
+                <div v-else-if="userData === 'rejected'">
                     <div class="col-12"> 
-                        <div class="alert alert-dark bg-warning-subtle" role="alert">
+                        <div class="alert alert-dark bg-danger-subtle" role="alert">
                             <div class="row gy-1">
                                 <div class="col-lg-10">
                                     <div class="fw-bold">
@@ -64,26 +82,8 @@
                         </div>
                     </div>
                 </div>
-                
-            </div>
-                <div class="col-12" v-else>
-                    <div class="alert alert-dark bg-primary-subtle" role="alert">
-                        <div class="row gy-1">
-                            <div class="col-lg-9">
-                                <div class="fw-bold">
-                                    Start a new company
-                                </div>
-                                <small>Return to the form page to start a new company registration</small>
-                            </div>
-                            <div class="col-lg-3 d-flex justify-content-lg-end align-items-lg-center">
-                                <router-link class="btn btn-primary" to="/start_company">
-                                    Start New Company <i class="bi bi-arrow-right"></i>
-                                </router-link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        
+
             <!-- <div class="card border-0 exemption"> -->
             <!-- <div class="card-body"> -->
             <RouterView />
@@ -108,13 +108,24 @@ async function companyReturn() {
     const companies = await api.userCompany();
     const data = companies.data.data;
     companyDetails.value = data
-       console.log(data, 'annualRsassasasassaseturns');
+    //    console.log(data, 'annualRsassasasassaseturns');
     return data
+}
+
+const userData = ref('')
+async function getActiveUser()
+{
+    const res = await api.getActiveUser()
+    userData.value = res?.data?.data[0]?.kyc_status;
+    return  userData.value
 }
 
 onMounted(() => {
     companyReturn()
+    getActiveUser()
 })
+
+
 
 </script>
 

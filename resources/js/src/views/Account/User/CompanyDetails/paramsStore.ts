@@ -69,7 +69,8 @@ export const useParamsStore: any = defineStore('useParamsStore', () => {
     const computedCoyName = (coy: any) => {
         const id = coy.id
         const names = companies.list.find((x: any) => x.id == id).names
-        const company = names.find((x: any) => x.choice_level == 1);
+        let company = names.find((x: any) =>  x.selected_name == 1 );
+        if(!company)company = names.find((x: any) =>  x.choice_level == 1 );
         const englishName = company?.eng_name ? company?.eng_name + ' ' + company?.eng_prefix : '';
         const chineseName = company?.chn_name ? company?.chn_name + ' ' + company?.chn_prefix : ''
 

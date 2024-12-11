@@ -346,7 +346,7 @@
 
 </template>
 <script lang="ts" setup>
-import { useStartCompanyStore } from '../StartCompany_store';
+import { useStartCompanyStore } from '../AdminStartCompany_store';
 import api from '@/stores/Helpers/axios'
 import { useToast } from 'vue-toast-notification';
 import useFxn from '@/stores/Helpers/useFunctions';
@@ -578,7 +578,7 @@ async function saveFromToApi(formData: FormData) {
                 // console.log(response, 'Data from foundes')
                 toast.success('Data Saved Successfully', { position: 'top-right' });
                 form.isSaving = false
-                startCompanyStore.getCompanyInProgress('founder')
+                startCompanyStore.getCompanyInProgress(startCompanyStore.companyInProgress?.id)
                 startCompanyStore.isShowingFoundersForm = false
                 form.clearLocalStorage()
                 startCompanyStore.checkedEntityCapacity = []
@@ -598,3 +598,4 @@ async function saveFromToApi(formData: FormData) {
     cursor: pointer;
 }
 </style>
+../AdminStartCompany_store

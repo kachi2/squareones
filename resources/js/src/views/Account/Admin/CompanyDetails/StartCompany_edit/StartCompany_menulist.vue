@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useStartCompanyStore } from './StartCompany_store';
+import { useStartCompanyStore } from './AdminStartCompany_store';
 import { useToast } from 'vue-toast-notification';
 import { useRouter } from 'vue-router';
 import { computed, onMounted, ref } from 'vue'
@@ -102,3 +102,4 @@ const CheckNulleShares: any = computed(() => {
     border-color: var(--primary-color);
 }
 </style>
+./AdminStartCompany_store

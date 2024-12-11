@@ -16,7 +16,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </span>
+                            </span> 
 
                         </span>
                     </span>
@@ -210,25 +210,25 @@
                         <li class="list-group-item ps-0">
                             Company Secretary:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.office_contract?.company_secretary }}
+                                {{ paramsStore.currentCompanyData?.office_contract[0]?.company_secretary }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Registered office:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.office_contract?.registered_office }}
+                                {{ paramsStore.currentCompanyData?.office_contract[0]?.registered_office }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Business address:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.office_contract?.business_address }}
+                                {{ paramsStore.currentCompanyData?.office_contract[0]?.business_address }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Designated Rep.:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.office_contract?.scr_designated_representative }}
+                                {{ paramsStore.currentCompanyData?.office_contract[0]?.scr_designated_representative }}
                             </span>
                         </li>
                     </ul>
@@ -261,14 +261,14 @@
                         <li class="list-group-item ps-0">
                             Auditor:
                             <span class="float-end">
-                                {{ paramsStore.currentCompanyData?.compliance_reporting?.auditor_name }}
+                                {{ paramsStore.currentCompanyData?.compliance_reporting[0]?.auditor_name }}
                             </span>
                         </li>
                         <li class="list-group-item ps-0">
                             Business Registration Renewal:
                             <span class="float-end">
                                 {{
-                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting?.business_registration_renewal_date)
+                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting[0]?.business_registration_renewal_date)
                                 }}
                             </span>
                         </li>
@@ -276,7 +276,7 @@
                             Accounting Reference Date:
                             <span class="float-end">
                                 {{
-                                    dispMonthAndDay(paramsStore.currentCompanyData?.compliance_reporting?.accounting_reference_date)
+                                    dispMonthAndDay(paramsStore.currentCompanyData?.compliance_reporting[0]?.accounting_reference_date)
                                 }}
                             </span>
                         </li>
@@ -284,7 +284,7 @@
                             Annual Return Date:
                             <span class="float-end">
                                 {{
-                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting?.annual_return_date)
+                                    useFxn.dateDisplay(paramsStore.currentCompanyData?.compliance_reporting[0]?.annual_return_date)
                                 }}
                             </span>
                         </li>

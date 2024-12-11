@@ -11,7 +11,7 @@
                 </span>
             </div>
             <div class="card-body">
-                <EasyDataTable  class="easy-data-table" show-index  :headers="masterTableHeaders"
+                <EasyDataTable  class="easy-data-table"  :headers="masterTableHeaders"
                     :items="paramsStore.currentCompanyData?.register_of_secretary??[]" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
@@ -92,6 +92,7 @@ import { reactive, ref, watch } from 'vue';
 
 // table
 const masterTableHeaders = [
+{ text: "ID No", value: "id" },
     { text: "Name", value: "name" },
     { text: "ID/ Passport / Registration No", value: "identity_info" },
     { text: "Residential Address / Registered  Office", value: "address" },
@@ -103,6 +104,7 @@ const masterTableHeaders = [
 ];
 
 const expandedHeaders = [
+{ text: "ID No", value: "id" },
     { text: "Name", value: "name" },
     { text: "ID/ Passport / Registration No", value: "identity_info" },
     { text: "Date of Appointment", value: "appointment_date" },

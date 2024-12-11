@@ -58,8 +58,8 @@
                         <div class="card-body ">
                             <div class="d-flex justify-content-between align-items-cente">
                                 <div class="col-12">
-                                    <span class="fs-4 fw-bold text-success">{{ comapaniesData?.incorporated ?? '0'
-                                        }}</span>
+                                    <span class="fs-4 fw-bold text-success">{{ comapaniesData?.incorporated ??
+                                        '0' }}</span>
                                     <div>
                                         <span class="small fw-bold">Incorporated</span>
                                     </div>
@@ -146,7 +146,7 @@
                         <small> List of all registered company using the company formation</small>
 
                         <span style="float:right">
-                            <input v-model="searchCompany" placeholder="Search Item" style="border:1px solid #eee"
+                            <input v-model="searchCompany" placeholder="Search company" style="border:1px solid #eee"
                                 class="form-control">
                         </span>
                     </div>
@@ -161,10 +161,13 @@
                             <template #header="header">
                                 <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
                             </template>
-
                             <template #item-name="item">
                                 <!-- {{ computedCoyName(item) }} -->
-                                  <span> {{item?.registered_company?.company_registered_name}}</span>
+                                <span> {{ item?.registered_company?.company_registered_name }}</span>
+                            </template>
+
+                            <template #item-business_reg_no="item">
+                                <span> {{ item?.registered_company?.business_registered_number }}</span>
                             </template>
 
                             <template #item-incorporation_statuses="item">
@@ -216,17 +219,16 @@
 
                             </template>
                             <template #item-is_paid="item">
-                                <span v-if="item.is_paid === 1"
-                                            class="badge bg-success-subtle text-dark">Paid</span>
-                                        <span v-else class="badge bg-warning-subtle text-dark">Pending</span>
+                                <span v-if="item.is_paid === 1" class="badge bg-success-subtle text-dark">Paid</span>
+                                <span v-else class="badge bg-warning-subtle text-dark">Pending</span>
                             </template>
 
 
                             <template #item-services="item">
                                 <div>{{ displayServices(item.services) }}</div>
                                 <button @click="openServicesModal(item.services, item.id)"
-                                    class="btn btn-secondary py-0 p-1 btn-sm xsmall mt-1">
-                                    Update services<i class="bi bi-plus-lg"></i>
+                                    class="btn btn-secondary py-0 p-1 btn-sm xsmall mt-1 text-nowrap">
+                                    Update <i class="bi bi-plus-lg"></i>
                                 </button>
                             </template>
 
@@ -240,14 +242,16 @@
                                         </router-link>
                                     </li>
                                     <li class="list-group-item">
-                                        <router-link @click="paramsStore.currentCompanyId = item.id"
-                                            class="text-decoration-none" to="/admin/company-edit">
+
+                                        <router-link @click="startCompany.currentCompanyId = item.id"
+                                            class="text-decoration-none" :to="`/admin/company-edit?company=${item.id}`">
                                             <i class="bi bi-eye-fill"></i> View form
                                         </router-link>
                                     </li>
                                     <li class="list-group-item">
-                                       <span v-for="doc in JSON.parse(item?.pdf_doc)">
-                                          <a class="text-decoration-none" :href="doc" target="_blank"> <i class="bi bi-eye-fill"></i> View PDF</a>  
+                                        <span v-for="doc in JSON.parse(item?.pdf_doc)">
+                                            <a class="text-decoration-none" :href="doc" target="_blank"> <i
+                                                    class="bi bi-eye-fill"></i> View PDF</a>
                                         </span>
                                     </li>
                                 </ul>
@@ -259,10 +263,6 @@
             </div>
         </div>
     </div>
-
-
-
-
 
     <!-- modal for  services start -->
     <button ref="servicesModalToggle" type="button" class="btn d-none" data-bs-toggle="modal" data-bs-target="#modalId">
@@ -308,8 +308,15 @@ import { computed, onMounted, reactive, ref } from 'vue';
 import api from '@/stores/Helpers/axios'
 import { useAdminParamsStore } from './CompanyDetails/adminParamsStore';
 import { onBeforeRouteLeave } from 'vue-router';
+import { useStartCompanyStore } from './CompanyDetails/StartCompany_edit/AdminStartCompany_store'
+
 
 const paramsStore = useAdminParamsStore()
+const startCompany = useStartCompanyStore()
+
+
+
+
 
 const searchCompany = ref('')
 const companies = reactive<any>({

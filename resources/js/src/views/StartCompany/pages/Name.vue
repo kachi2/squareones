@@ -344,16 +344,20 @@ import { useToast } from 'vue-toast-notification';
 import api from '@/stores/Helpers/axios'
 import { nameForm } from './formsStore/Name';
 import { vMaska } from "maska"
+import {useRoute, useRouter} from 'vue-router';
 import { ref, onMounted, watch, reactive, watchEffect } from 'vue'
 
 const toast = useToast()
 const startCompanyStore = useStartCompanyStore()
+const route = useRoute()
+const router = useRouter()
 
 const form: any = nameForm()
 let formId = <any>ref('')
 
 onMounted(() => {
     form.updateFields(startCompanyStore.companyInProgress)
+    refreshPage()
 })
 
 watch(() => form, () => { form.saveToLocalStorage() }, { deep: true })
@@ -437,6 +441,11 @@ watch(() => [form.choice_level1_chn_name, form.choice_level2_chn_name, form.choi
 })
 
 
+function refreshPage(){
+    if(route.query.company){
+        router.push('/start_company')
+    }
+}
 
 function moveBack() {
     startCompanyStore.switchStage('-')
@@ -548,7 +557,8 @@ async function saveFromToApi(formData: FormData) {
         startCompanyStore.getCompanyInProgress()
 
     } catch (error) {
-        toast.error('Sorry, Something went wrong', { position: 'top-right' });
+        // @ts-ignore
+        toast.error(error?.response?.data?.error, { position: 'top-right' });
         form.isSaving = false
     }
 }

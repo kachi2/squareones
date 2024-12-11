@@ -9,7 +9,7 @@
     </template>
 
     <template #info>
-
+     
 
       <div v-if="signaturePadModal" class="modal show d-block modal-bg-transparent" tabindex="-1" role="dialog"
         aria-hidden="true">
@@ -185,6 +185,7 @@ import useFxn from "@/stores/Helpers/useFunctions";
 import useFunctions from '@/stores/Helpers/useFunctions';
 import { useFounderSignatureStore } from '../FoundersSignature_store';
 import {useRouter} from 'vue-router'
+import PageLoadingComponent from '@/components/pageLoadingComponent.vue'; 
 
 const startCompanyStore = useStartCompanyStore()
 const SignatureStore = useFounderSignatureStore()
@@ -215,6 +216,7 @@ const checkBoxClick = ref(false)
    return  signaturePadModal.value = false
   }
 }
+
 
 function MoveToKyc()
 {
@@ -262,7 +264,7 @@ onMounted(async () => {
 })
 
 
-console.log(checkIfPaid(), 'checkIfPaid()')
+// console.log(checkIfPaid(), 'checkIfPaid()')
 
 function save() {
   const { isEmpty, data, } = signaturePad.value.saveSignature()

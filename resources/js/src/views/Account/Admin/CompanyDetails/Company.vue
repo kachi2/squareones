@@ -1,9 +1,11 @@
 <template>
     <div class="card exemption border-0">
         <div class="card-header bg-transparent border-0">
+            <div   v-if="currentCompanyData?.is_incorporated != 1 "> 
             <div class="float-end">
-                <button @click="changeDataShowingStatus('populate')" v-if="dataShowingStatus == 'details'"
+                <button @click="changeDataShowingStatus('populate')" v-if="dataShowingStatus == 'details' "
                     class="btn btn-primary btn-sm">
+                   
                     Populate Data <i class="bi bi-pencil"></i>
                 </button>
                 <div v-else>
@@ -17,6 +19,7 @@
                 </div>
             </div>
         </div>
+    </div>
         <div v-if="dataShowingStatus == 'populate'" class="card-body">
             <Editing @done="changeDataShowingStatus('details')" />
         </div>
@@ -121,9 +124,12 @@ function togglePopulateData() {
 function changeDataShowingStatus(string: DataShowingStatusTypes) {
     dataShowingStatus.value = string
 }
+const currentCompanyData = ref<any>()
 
 onMounted(async () => {
     await paramsStore.getCompanyDetails()
+     currentCompanyData.value = paramsStore.currentCompanyData;
+    // console.log(currentCompanyData.value, 'currentCompanyDatacurrentCompanyData')
     companyIsLoading.value = false
 })
 

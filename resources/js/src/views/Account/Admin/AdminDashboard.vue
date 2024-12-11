@@ -212,15 +212,22 @@
                                 <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
                             </template>
 
-                            <template #item-action_status="item">
-                                <span v-if="item.action_status == 'COMPLETED'">
-                                    <span class="badge rounded-pill text-bg-success">{{ item.action_status }}</span>
+                            <template #item-created_at="item">
+                            <span> {{useFxn.dateDisplay(item.created_at)}}</span>   
+                            </template>
+
+                            <template #item-status="item">
+                                <span v-if="item.status == 'paid'">
+                                    <span class="badge rounded-pill text-bg-success">{{ item.status }}</span>
                                 </span>
                                 <span v-else>
-                                    <span class="badge rounded-pill text-bg-warning">{{ item.action_status }}</span>
+                                    <span class="badge rounded-pill text-bg-warning">{{ item.status??'pending' }}</span>
                                 </span>
                             </template>
 
+                            <template #item-amount="item">
+                             <span> {{useFxn.addCommas(item.amount)}}</span>
+                            </template>
                             <template #item-updated_at="item">
                                 {{ new Date(item.updated_at).toLocaleString() }}
                             </template>
@@ -263,7 +270,7 @@ const date_display = (date: Date[]) => {
 
 function autoSetDateRanges() {
     const endDate = new Date();
-    const startDate = new Date(new Date().setDate(endDate.getDate() - 7));
+    const startDate = new Date(new Date().setDate(endDate.getDate() - 30));
     companyStatsDates.value = revenueDates.value = [startDate, endDate];
 }
 
@@ -451,10 +458,10 @@ async function getRevenueStats() {
         }
         const resp = await api.getRevenueStats(queryObj)
         const data = resp.data.data
-
-     //   console.log(data, 'transactions logs')
+        revenueLogs.value = data.data
+    //    console.log(revenueLogs.value, 'transactions logs')
         totalRevenues.value = data.total
-        revenueLogs.value = data
+      
     } catch (error) {
         // 
     }
@@ -466,7 +473,7 @@ watch(revenueDates, (value) => { getRevenueStats(); }, { deep: true });
 const revenueHeader = [
     { text: "PAYMENT REF", value: "payment_ref" },
     { text: "CUSTOMER", value: "user.name" },
-    { text: "DATE", value: "date_paid" },
+    { text: "DATE", value: "created_at" },
     { text: "AMOUNT", value: "amount" },
     { text: "SATUS", value: "status" },
 ];

@@ -2,7 +2,7 @@
 
 //bootstrap@5.3.2
 import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap/dist/js/bootstrap.min.js'
+// import 'bootstrap/dist/js/bootstrap.min.js'
 
 //bootstrap-icons
 import 'bootstrap-icons/font/bootstrap-icons.css'
@@ -19,6 +19,8 @@ import './assets/main.css'
 
 // npm install -S vue-sweetalert2
 import 'sweetalert2/dist/sweetalert2.min.css';
+
+import tooltipDirective from './bsTooltipDirective.js';
 
 // https://www.npmjs.com/package/vue-toast-notification
 import 'vue-toast-notification/dist/theme-sugar.css';
@@ -60,6 +62,8 @@ app.component("isLoadingComponent", isLoadingComponent);
 app.component("appModeToggler", appModeToggler);
 app.component('EasyDataTable', Vue3EasyDataTable);
 app.component('modalCloseBtn', modalCloseBtn);
+
+app.directive('tooltip', tooltipDirective);
 
 app.use(createPinia())
 app.use(VueApexCharts);

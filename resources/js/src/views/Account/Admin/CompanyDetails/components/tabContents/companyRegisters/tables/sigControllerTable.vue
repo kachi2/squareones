@@ -11,7 +11,7 @@
             </div>
             <div class="card-body">
                 Significant Controllers
-                <EasyDataTable class="easy-data-table" show-index :headers="masterTableHeaders"
+                <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
                     :items="paramsStore.currentCompanyData?.significant_controller??[]" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
@@ -118,7 +118,7 @@
                     <template #expand="item">
                         <div v-if="!item.expandLoading" class="my-3">
                             <div class="fw-bold text-center mb-2">LOGS</div>
-                            <EasyDataTable class="easy-data-table" show-index :headers="expandedHeaders"
+                            <EasyDataTable class="easy-data-table":headers="expandedHeaders"
                                 :items="expandedObjArray.data" buttons-pagination
                                 v-model:server-options="expandingServerOptions" :server-items-length="expandedTotal">
 
@@ -186,6 +186,7 @@ import { reactive, ref, watch } from 'vue';
 import DesignatedRepTable from './designatedRepTable.vue';
 
 const masterTableHeaders = [
+    { text: "ID No", value: "id" },
     { text: "Name of Registrable Person / Legal Entity", value: "legal_entity_name" },
     { text: "Address", value: "particulars" },
     { text: "Date of Entry", value: "entry_date" },

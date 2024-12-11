@@ -176,8 +176,8 @@ export const nameForm = defineStore('name', () => {
 
         if (choice_level1_chn_name_storage.value.length > 1)
             choice_level1_chn_name.value = choice_level1_chn_name_storage.value
-        else if (companyInProgress?.names[0]?.chn_eng_name)
-            choice_level1_chn_name.value = companyInProgress?.names[0]?.chn_eng_name
+        else if (companyInProgress?.names[0]?.chn_name)
+            choice_level1_chn_name.value = companyInProgress?.names[0]?.chn_name
 
         if (choice_level1_prefix_storage.value.length > 1)
             choice_level1_prefix.value = choice_level1_prefix_storage.value
@@ -197,7 +197,7 @@ export const nameForm = defineStore('name', () => {
             choice_level2_eng_name.value = companyInProgress?.names[1]?.eng_name
         if (choice_level2_chn_name_storage.value.length > 1)
             choice_level2_chn_name.value = choice_level2_chn_name_storage.value
-        else if (companyInProgress?.names[1]?.hn_name)
+        else if (companyInProgress?.names[1]?.chn_name)
             choice_level2_chn_name.value = companyInProgress?.names[1]?.chn_name
         if (choice_level2_prefix_storage.value.length > 1)
             choice_level2_prefix.value = choice_level2_prefix_storage.value
@@ -251,20 +251,20 @@ export const nameForm = defineStore('name', () => {
         // fifth names
         if (choice_level5_eng_name_storage.value.length > 1)
             choice_level5_eng_name.value = choice_level5_eng_name_storage.value
-        else if (companyInProgress?.names[3]?.eng_name)
-            choice_level5_eng_name.value = companyInProgress?.names[3]?.eng_name
+        else if (companyInProgress?.names[4]?.eng_name)
+            choice_level5_eng_name.value = companyInProgress?.names[4]?.eng_name
         if (choice_level5_chn_name_storage.value.length > 1)
             choice_level5_chn_name.value = choice_level5_chn_name_storage.value
-        else if (companyInProgress?.names[3]?.chn_name)
-            choice_level5_chn_name.value = companyInProgress?.names[3]?.chn_name
+        else if (companyInProgress?.names[4]?.chn_name)
+            choice_level5_chn_name.value = companyInProgress?.names[4]?.chn_name
         if (choice_level5_prefix_storage.value.length > 1)
             choice_level5_prefix.value = choice_level5_prefix_storage.value
-        else if (companyInProgress?.names[3]?.eng_prefix)
-            choice_level5_prefix.value = companyInProgress?.names[3]?.eng_prefix
+        else if (companyInProgress?.names[4]?.eng_prefix)
+            choice_level5_prefix.value = companyInProgress?.names[4]?.eng_prefix
         if (choice_level5_chn_prefix_storage.value.length > 1)
             choice_level5_chn_prefix.value = choice_level5_chn_prefix_storage.value
-        else if (companyInProgress?.names[3]?.chn_prefix)
-            choice_level5_chn_prefix.value = companyInProgress?.names[3]?.chn_prefix
+        else if (companyInProgress?.names[4]?.chn_prefix)
+            choice_level5_chn_prefix.value = companyInProgress?.names[4]?.chn_prefix
     }
 
 

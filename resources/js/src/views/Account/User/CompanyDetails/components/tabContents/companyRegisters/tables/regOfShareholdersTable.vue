@@ -10,7 +10,7 @@
                 </span> -->
             </div>
             <div class="card-body">
-                <EasyDataTable class="easy-data-table"  show-index :headers="masterTableHeaders"
+                <EasyDataTable class="easy-data-table"  :headers="masterTableHeaders"
                     :items="paramsStore?.currentCompanyData?.register_of_shareholders??[]" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
@@ -32,7 +32,7 @@
                     <template #expand="item">
                         <div v-if="!item.expandLoading" class="my-3">
                             <div class="fw-bold text-center mb-2">LOGS</div>
-                            <EasyDataTable class="easy-data-table" show-index :headers="expandedHeaders"
+                            <EasyDataTable class="easy-data-table" :headers="expandedHeaders"
                                 :items="expandedItems(item.id)" buttons-pagination
                                 v-model:server-options="expandingServerOptions" :server-items-length="expandedTotal">
 
@@ -98,29 +98,35 @@ import { reactive, ref, watch } from 'vue';
 
 
 const masterTableHeaders = [
-    { text: "Name and Address", value: "name" },
-    // { text: "DATE OF APPOINTMENT", value: "address" },
+    { text: "ID No", value: "id" },
+    { text: "Name", value: "name" },
+    { text: "Address", value: "address" },
     { text: "Class of Shares", value: "class_of_shares" },
     { text: "Denomination", value: "denomination" },
     { text: "Current Holding", value: "current_holding" },
     { text: "Total Consideration HKD", value: "total_consideration" },
     { text: "Date Entered As a Member", value: "date_entered_as_member" },
     { text: "Date Ceases to Be a Member", value: "date_cease_to_be_member" },
+    { text: "Remarks", value: "remarks" },
     { text: "Date Created", value: "created_at" },
-    { text: "ACTION", value: "action" },
+    // { text: "ACTION", value: "action" },
 ];
 
 const expandedHeaders = [
-    { text: "Name and Address", value: "name" },
+    { text: "ID No", value: "id" },
+    { text: "Name", value: "name" },
+    { text: "Address", value: "address" },
     // { text: "DATE OF APPOINTMENT", value: "address" },
     { text: "Class of Shares", value: "class_of_shares" },
     { text: "Denomination", value: "denomination" },
     { text: "Current Holding", value: "current_holding" },
     { text: "Total Consideration HKD", value: "total_consideration" },
     { text: "Date Entered As a Member", value: "date_entered_as_member" },
+    { text: "Remarks", value: "remarks" },
     { text: "Date Ceases to Be a Member", value: "date_cease_to_be_member" },
     { text: "Date Modified", value: "created_at" },
 ];
+
 
 
 const expandingServerOptions = ref<ServerOptions | any>({

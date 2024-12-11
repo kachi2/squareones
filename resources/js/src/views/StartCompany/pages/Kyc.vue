@@ -2,7 +2,7 @@
     <StartCompany_template>
         <template #main>
 
-            <div v-if="isKycCompleted" class="row justify-content-center">
+            <div v-if="isKycCompleted != null" class="row justify-content-center">
                 <div id="complycube-mount"></div>
                 <div class="alert alert-success text-center" role="alert">
                     <i style="font-size: 2.56rem;" class="bi bi-check-circle"></i>
@@ -47,14 +47,17 @@ const startCompanyStore = useStartCompanyStore()
 const route = useRoute()
 const router = useRouter();
 
-const isKycCompleted = ref(false)
+const isKycCompleted = ref<any>('')
 const UserToken = ref('');
 
 onMounted(async () => {
     await startCompanyStore.getCompanyInProgress()
-
-    if (startCompanyStore.companyInProgress.users.kyc_status != null) {
-        isKycCompleted.value = true
+    UserToken.value = startCompanyStore.companyInProgress.users.user_token
+    if (startCompanyStore.companyInProgress.users.kyc_status != null)
+    {
+        goToDash()
+    }else{
+        isKycCompleted.value = null
     }
     try {
         const items = route.query
@@ -63,9 +66,7 @@ onMounted(async () => {
     } catch (err) {
         // console.log(err)
     }
-
-    UserToken.value = startCompanyStore.companyInProgress.users.user_token
-
+  
 
 })
 
@@ -101,7 +102,6 @@ function goToDash() {
 
 function startVerification() {
     // console.log('comply');
-
     // @ts-ignore
     const complycube = ComplyCube.mount({
         containerId: 'complycube-mount',
@@ -112,7 +112,7 @@ function startVerification() {
                 isKycCompleted.value = true
             }, 3000)
 
-            // console.log("Capture complete", data)
+             console.log("Capture complete", data)
         },
         onModalClose: function () {
             complycube.unmount()

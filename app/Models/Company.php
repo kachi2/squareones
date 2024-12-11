@@ -70,7 +70,7 @@ class Company extends Model
 
     public function documents()
     {
-        return $this->hasMany(Document::class);
+        return $this->hasMany(Document::class)->orderBy('created_at', 'DESC');
     }
 
     public function fundSource()

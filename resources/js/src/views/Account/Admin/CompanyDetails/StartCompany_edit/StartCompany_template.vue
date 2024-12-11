@@ -23,19 +23,19 @@
 
                     </span>
                 </div>
-                <div class=" d-none d-md-block min-vh-100 sub-menu-panel" style="width:230px">
+                <div class=" d-none d-md-block sub-menu-panel" style="width:230px">
                     <StartCompany_menulist />
                 </div>
-                <div class="col-md-7  min-vh-100 sub-form-panel pt-2  d-flex justify-content-center">
+                <div class="col-lg-7  min-vh-100 sub-form-panel pt-2  d-flex justify-content-center">
                     <div class="car border- middle-panel-fixed-size ">
                         <div class="card-bod pt-0 p-0 px-md-3">
                             <slot name="main"></slot>
                         </div>
                     </div>
                 </div>
-                <div class="col-2 d-none d-md-block min-vh-100 sub-info-panel p-3 pt-4 small ">
+                <!-- <div class="col-2 d-none d-md-block min-vh-100 sub-info-panel p-3 pt-4 small ">
                     <slot name="info"></slot>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -44,12 +44,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
-import { useStartCompanyStore } from './StartCompany_store';
+import { computed, onMounted } from 'vue';
+import { useStartCompanyStore } from './AdminStartCompany_store';
 import StartCompany_menulist from './StartCompany_menulist.vue';
 import StartCompany_mobilemenu from './StartCompany_mobilemenu.vue';
 import { useAuthStore } from '@/stores/authStore';
-import { useRouter, useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 
 import { descriptionForm } from './pages/formsStore/Description';
 import { nameForm } from './pages/formsStore/Name';
@@ -71,10 +71,14 @@ const fIndividual_form = foundersIdividualForm()
 
 const authStore = useAuthStore()
 const router = useRouter()
-const route = useRoute()
 
 
 const startCompanyStore = useStartCompanyStore()
+
+onMounted(() => {
+    // clearStorage()
+})
+
 
 const paymentStatus = computed(() => {
     const status = startCompanyStore.companyInProgress?.billing?.status
@@ -114,6 +118,16 @@ async function logout() {
     router.replace({ name: 'Login' })
 }
 
+
+function clearStorage() {
+    description_form.clearLocalStorage()
+    name_form.clearLocalStorage()
+    source_form.clearLocalStorage()
+    activities_form.clearLocalStorage()
+    fCoporate_form.clearLocalStorage()
+    fIndividual_form.clearLocalStorage()
+    startCompanyStore.clearLocalStorage()
+}
 </script>
 
 <style lang="css" scoped>

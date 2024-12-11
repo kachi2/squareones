@@ -12,7 +12,7 @@
             </div>
             <div class="card-body">
 
-                <EasyDataTable class="easy-data-table" show-index :headers="masterTableHeaders"
+                <EasyDataTable class="easy-data-table" :headers="masterTableHeaders"
                     :items="paramsStore.currentCompanyData?.register_of_director ?? []" buttons-pagination
                     @expand-row="expandLogs">
                     <template #header="header">
@@ -89,6 +89,7 @@ const paramsStore = useAdminParamsStore()
 
 // table
 const masterTableHeaders = [
+    { text: "ID No", value: "id" },
     { text: "Name", value: "name" },
     { text: "ID/ Passport / Registration No", value: "reg_no" },
     { text: "Residential Address / Registered  Office", value: "registered_office" },
@@ -100,6 +101,7 @@ const masterTableHeaders = [
 ];
 
 const expandedHeaders = [
+    { text: "ID No", value: "id" },
     { text: "Name", value: "name" },
     { text: "ID/ Passport / Registration No", value: "reg_no" },
     { text: "Residential Address / Registered  Office", value: "registered_office" },

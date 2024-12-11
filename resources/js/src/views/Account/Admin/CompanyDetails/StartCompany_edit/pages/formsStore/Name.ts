@@ -31,13 +31,11 @@ export const nameForm = defineStore('name', () => {
         choice_level4_eng_name: yup.string().test('chineseChecks', 'Please input only English characters', chineseChecks),
         choice_level5_eng_name: yup.string().test('chineseChecks', 'Please input only English characters', chineseChecks),
 
-
         choice_level1_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
         choice_level2_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
         choice_level3_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
         choice_level4_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
         choice_level5_chn_name: yup.string().test('chineseCheck', 'Please input only Chinese characters', chineseCheck),
-
 
     };
 
@@ -168,103 +166,81 @@ export const nameForm = defineStore('name', () => {
     }
 
     function updateFields(companyInProgress: any) {
-        // console.log(companyInProgress)
-        if (choice_level1_eng_name_storage.value.length > 1)
-            choice_level1_eng_name.value = choice_level1_eng_name_storage.value
-        else if (companyInProgress?.names[0]?.eng_name)
-            choice_level1_eng_name.value = companyInProgress?.names[0]?.eng_name
+        // console.log(companyInProgress, 'from updatfields')
+        const names = companyInProgress?.names ?? []
 
-        if (choice_level1_chn_name_storage.value.length > 1)
-            choice_level1_chn_name.value = choice_level1_chn_name_storage.value
-        else if (companyInProgress?.names[0]?.chn_eng_name)
-            choice_level1_chn_name.value = companyInProgress?.names[0]?.chn_eng_name
+        const choice1 = names[0] ?? {}
+        if (choice1?.eng_name)
+            choice_level1_eng_name.value = choice1.eng_name
 
-        if (choice_level1_prefix_storage.value.length > 1)
-            choice_level1_prefix.value = choice_level1_prefix_storage.value
-        else if (companyInProgress?.names[0]?.eng_prefix)
-            choice_level1_prefix.value = companyInProgress?.names[0]?.eng_prefix
+        if (choice1?.chn_name)
+            choice_level1_chn_name.value = choice1.chn_name
 
-        if (choice_level1_chn_prefix_storage.value.length > 1)
-            choice_level1_chn_prefix.value = choice_level1_chn_prefix_storage.value
-        else if (companyInProgress?.names[0]?.chn_prefix)
-            choice_level1_chn_prefix.value = companyInProgress?.names[0]?.chn_prefix
+        if (choice1?.eng_prefix)
+            choice_level1_prefix.value = choice1.eng_prefix
+
+        if (choice1?.chn_prefix)
+            choice_level1_chn_prefix.value = choice1.chn_prefix
 
 
-        // second choice names
-        if (choice_level2_eng_name_storage.value.length > 1)
-            choice_level2_eng_name.value = choice_level2_eng_name_storage.value
-        else if (companyInProgress?.names[1]?.eng_name)
-            choice_level2_eng_name.value = companyInProgress?.names[1]?.eng_name
-        if (choice_level2_chn_name_storage.value.length > 1)
-            choice_level2_chn_name.value = choice_level2_chn_name_storage.value
-        else if (companyInProgress?.names[1]?.hn_name)
-            choice_level2_chn_name.value = companyInProgress?.names[1]?.chn_name
-        if (choice_level2_prefix_storage.value.length > 1)
-            choice_level2_prefix.value = choice_level2_prefix_storage.value
-        else if (companyInProgress?.names[1]?.eng_prefix)
-            choice_level2_prefix.value = companyInProgress?.names[1]?.eng_prefix
-        if (choice_level2_chn_prefix_storage.value.length > 1)
-            choice_level2_chn_prefix.value = choice_level2_chn_prefix_storage.value
-        else if (companyInProgress?.names[1]?.chn_prefix)
-            choice_level2_chn_prefix.value = companyInProgress?.names[1]?.chn_prefix
+
+        const choice2 = names[1] ?? {}
+        if (choice2?.eng_name)
+            choice_level2_eng_name.value = choice2.eng_name
+
+        if (choice2?.chn_name)
+            choice_level2_chn_name.value = choice2.chn_name
+
+        if (choice2?.eng_prefix)
+            choice_level2_prefix.value = choice2.eng_prefix
+
+        if (choice2?.chn_prefix)
+            choice_level2_chn_prefix.value = choice2.chn_prefix
 
 
-        //third choice names 
-        if (choice_level3_eng_name_storage.value.length > 1)
-            choice_level3_eng_name.value = choice_level3_eng_name_storage.value
-        else if (companyInProgress?.names[2]?.eng_name)
-            choice_level3_eng_name.value = companyInProgress?.names[2]?.eng_name
 
-        if (choice_level3_chn_name_storage.value.length > 1)
-            choice_level3_chn_name.value = choice_level3_chn_name_storage.value
-        else if (companyInProgress?.names[2]?.chn_name)
-            choice_level3_chn_name.value = companyInProgress?.names[2]?.chn_name
-        if (choice_level3_prefix_storage.value.length > 1)
-            choice_level3_prefix.value = choice_level3_prefix_storage.value
-        else if (companyInProgress?.names[2]?.eng_prefix)
-            choice_level3_prefix.value = companyInProgress?.names[2]?.eng_prefix
-        if (choice_level3_chn_prefix_storage.value.length > 1)
-            choice_level3_chn_prefix.value = choice_level3_chn_prefix_storage.value
-        else if (companyInProgress?.names[2]?.chn_prefix)
-            choice_level3_chn_prefix.value = companyInProgress?.names[2]?.chn_prefix
+        const choice3 = names[2] ?? {}
+        if (choice3?.eng_name)
+            choice_level3_eng_name.value = choice3.eng_name
+
+        if (choice3?.chn_name)
+            choice_level3_chn_name.value = choice3.chn_name
+
+        if (choice3?.eng_prefix)
+            choice_level3_prefix.value = choice3.eng_prefix
+
+        if (choice3?.chn_prefix)
+            choice_level3_chn_prefix.value = choice3.chn_prefix
 
 
-        // forth names 
-        if (choice_level4_eng_name_storage.value.length > 1)
-            choice_level4_eng_name.value = choice_level4_eng_name_storage.value
-        else if (companyInProgress?.names[3]?.eng_name)
-            choice_level4_eng_name.value = companyInProgress?.names[3]?.eng_name
-        if (choice_level4_chn_name_storage.value.length > 1)
-            choice_level4_chn_name.value = choice_level4_chn_name_storage.value
-        else if (companyInProgress?.names[3]?.chn_name)
-            choice_level4_chn_name.value = companyInProgress?.names[3]?.chn_name
-        if (choice_level4_prefix_storage.value.length > 1)
-            choice_level4_prefix.value = choice_level4_prefix_storage.value
-        else if (companyInProgress?.names[3]?.eng_prefix)
-            choice_level4_prefix.value = companyInProgress?.names[3]?.eng_prefix
-        if (choice_level4_chn_prefix_storage.value.length > 1)
-            choice_level4_chn_prefix.value = choice_level4_chn_prefix_storage.value
-        else if (companyInProgress?.names[3]?.chn_prefix)
-            choice_level4_chn_prefix.value = companyInProgress?.names[3]?.chn_prefix
+
+        const choice4 = names[3] ?? {}
+        if (choice4?.eng_name)
+            choice_level4_eng_name.value = choice4.eng_name
+
+        if (choice4?.chn_name)
+            choice_level4_chn_name.value = choice4.chn_name
+
+        if (choice4?.eng_prefix)
+            choice_level4_prefix.value = choice4.eng_prefix
+
+        if (choice4?.chn_prefix)
+            choice_level4_chn_prefix.value = choice4.chn_prefix
 
 
-        // fifth names
-        if (choice_level5_eng_name_storage.value.length > 1)
-            choice_level5_eng_name.value = choice_level5_eng_name_storage.value
-        else if (companyInProgress?.names[3]?.eng_name)
-            choice_level5_eng_name.value = companyInProgress?.names[3]?.eng_name
-        if (choice_level5_chn_name_storage.value.length > 1)
-            choice_level5_chn_name.value = choice_level5_chn_name_storage.value
-        else if (companyInProgress?.names[3]?.chn_name)
-            choice_level5_chn_name.value = companyInProgress?.names[3]?.chn_name
-        if (choice_level5_prefix_storage.value.length > 1)
-            choice_level5_prefix.value = choice_level5_prefix_storage.value
-        else if (companyInProgress?.names[3]?.eng_prefix)
-            choice_level5_prefix.value = companyInProgress?.names[3]?.eng_prefix
-        if (choice_level5_chn_prefix_storage.value.length > 1)
-            choice_level5_chn_prefix.value = choice_level5_chn_prefix_storage.value
-        else if (companyInProgress?.names[3]?.chn_prefix)
-            choice_level5_chn_prefix.value = companyInProgress?.names[3]?.chn_prefix
+
+        const choice5 = names[4] ?? {}
+        if (choice5?.eng_name)
+            choice_level5_eng_name.value = choice5.eng_name
+
+        if (choice5?.chn_name)
+            choice_level5_chn_name.value = choice5.chn_name
+
+        if (choice5?.eng_prefix)
+            choice_level5_prefix.value = choice5.eng_prefix
+
+        if (choice5?.chn_prefix)
+            choice_level5_chn_prefix.value = choice5.chn_prefix
     }
 
 

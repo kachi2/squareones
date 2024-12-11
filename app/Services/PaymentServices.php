@@ -102,7 +102,9 @@ class PaymentServices implements PaymentInterface
                     $billing->update(['status' => 'paid', 'date_paid' => Carbon::now()]);
                     $company->update(['is_paid' => 1]);
                     UserNotification($data);
+                    $this->completeCompanyReg($user->id, $company->id);
                     $this->AddBillingInfo($paymentInfo, $billing, $session);
+                    
                     $companies = CompanyEntity::where('company_id', $billing->company_id)->get();
                     foreach ($companies as $companyEntity) {
                         $datas['company_id'] = $companyEntity->company_id;
@@ -354,6 +356,10 @@ public function resumeSubscription($subscription)
   $userSub->update(['status' => 'active']);
   return $userSub;
 }
-
+public function completeCompanyReg($user_id, $company_id)
+    {
+        $company = Company::where(['user_id' => $user_id, 'id' => $company_id])->first();
+        if($company->Users->kyc_status != null) $company->update(['is_complete' => 1]);
+    }
 
 }

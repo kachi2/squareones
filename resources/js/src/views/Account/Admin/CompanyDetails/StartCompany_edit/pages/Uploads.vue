@@ -61,7 +61,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import StartCompany_template from '../StartCompany_template.vue';
-import { useStartCompanyStore } from '../StartCompany_store';
+import { useStartCompanyStore } from '../AdminStartCompany_store';
 
 
 function switchStage(command: string) {

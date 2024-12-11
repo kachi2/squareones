@@ -40,12 +40,13 @@
                                 <small class="text-danger">{{ errors.new_company_name }}</small>
                             </div>
 
-                            <!-- <div class="col-12 col-md-6">
-                                <div class="form-label">Remarks:</div>
+                            <div class="col-12 col-md-12">
+                                <div class="form-floating-custom">
                                 <input v-model="remarks" type="text" class="form-control">
+                                <label class="" for="eng_name"> Remarks:</label>
+                            </div>
                                 <small class=" text-danger">{{ errors.remarks }}</small>
-                            </div> -->
-
+                            </div>
                         </div>
 
                     </div>
@@ -109,6 +110,7 @@ const { errors, handleSubmit, defineField, setFieldValue, resetForm } = useForm(
 const [date_of_name_changed] = defineField('date_of_name_changed');
 const [previous_company_name] = defineField('previous_company_name');
 const [new_company_name] = defineField('new_company_name');
+const [remarks] = defineField('remarks');
 const isSaving = ref<boolean>(false)
 
 function setValuesOnFields() {
@@ -119,6 +121,7 @@ function setValuesOnFields() {
             setFieldValue('date_of_name_changed', register_of_company_name.date_of_name_changed)
             setFieldValue('previous_company_name', register_of_company_name.previous_company_name)
             setFieldValue('new_company_name', register_of_company_name.new_company_name)
+            setFieldValue('remarks', '')
         }
     }
 }
@@ -133,6 +136,7 @@ const save = handleSubmit(async (values) => {
             formData.append('date_of_name_changed', values.date_of_name_changed ? useFxn.formatDate(values.date_of_name_changed) : '')
             formData.append('previous_company_name', values.previous_company_name ?? '')
             formData.append('new_company_name', values.new_company_name ?? '')
+            formData.append('remarks', values.remarks ?? '')
             if (paramsStore.idToEdit)
                 formData.append('namechange_id', paramsStore.idToEdit)
             try {

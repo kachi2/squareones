@@ -68,11 +68,13 @@ class HandleComplycubJob  extends ProcessWebhookJob implements ShouldQueue
         if($Entity)
         {
             $Entity->update(['kyc_status' => $status]);
-            ActivityLogs('Initiated KYC Verifications, awaiting confirmation',  'KYC Verification');
+            $Entity?->company->update(['is_complete' => 1]);
+            // ActivityLogs('Initiated KYC Verifications, awaiting confirmation',  'KYC Verification');
         }else{
             $Entity = User::where('client_id', $clientId)->first();
             $Entity?->update(['kyc_status' => $status]);
-            ActivityLogs('Initiated KYC Verifications, awaiting conformation',  'KYC Verification');
+            $Entity?->company[0]->update(['is_complete' => 1]);
+            // ActivityLogs('Initiated KYC Verifications, awaiting conformation',  'KYC Verification');
         }
         return $Entity;
          Log::info('upated from method: ', ['status' => $status]);

@@ -224,7 +224,7 @@
 <script lang="ts" setup>
 import { ref, computed } from "vue";
 import StartCompany_template from "../StartCompany_template.vue";
-import { useStartCompanyStore } from "../StartCompany_store";
+import { useStartCompanyStore } from "../AdminStartCompany_store";
 import useFxn from "@/stores/Helpers/useFunctions";
 import api from "@/stores/Helpers/axios";
 import { useToast } from "vue-toast-notification";
@@ -420,3 +420,4 @@ function saveAndContinue() {
   pointer-events: none;
 }
 </style>
+../AdminStartCompany_store

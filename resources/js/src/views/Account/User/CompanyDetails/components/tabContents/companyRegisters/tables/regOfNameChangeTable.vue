@@ -79,21 +79,23 @@ import { computed, reactive, ref, watch } from 'vue';
 
 // table
 const masterTableHeaders = [
+{ text: "ID No", value: "id" },
     { text: "Date of Name Changed", value: "date_of_name_changed" },
     { text: "Previous Company Name", value: "previous_company_name" },
     { text: "New Company Name", value: "new_company_name" },
     { text: "DATE CREATED", value: "created_at" },
-    // { text: "REMARKS", value: "remarks" },
-    { text: "ACTION", value: "action" },
+    { text: "REMARKS", value: "remarks" },
+    // { text: "ACTION", value: "action" },
 ];
 
 const expandedHeaders = [
+{ text: "ID No", value: "id" },
     { text: "Date of Name Changed", value: "date_of_name_changed" },
     { text: "Previous Company Name", value: "previous_company_name" },
     { text: "New Company Name", value: "new_company_name" },
+    { text: "REMARKS", value: "remarks" },
     { text: "DATE MODIFIED", value: "created_at" },
 ];
-
 
 
 const expandingServerOptions = ref<ServerOptions | any>({
