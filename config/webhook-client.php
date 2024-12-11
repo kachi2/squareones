@@ -7,7 +7,7 @@ return [
     'configs' => [
         [
             'name' => 'Complycub_webhooks',
-            'signing_secret' => 'dadc778c0f766b4ade9b285f0839ec8d',
+            'signing_secret' => '19b2cc1badb45034129161d86ab8b297',
             'signature_header_name' => 'complycube-signature',
             'signature_validator' => \Spatie\WebhookClient\SignatureValidator\DefaultSignatureValidator::class,
             'webhook_profile' => \Spatie\WebhookClient\WebhookProfile\ProcessEverythingWebhookProfile::class,
